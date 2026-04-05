@@ -1,0 +1,427 @@
+{
+  "subject": "الرياضيات",
+  "subjectCode": "ma",
+  "gradeLevel": 1,
+  "semester": 2,
+  "lessons": [
+    {
+      "title": "الجمع ضمن ٢٠",
+      "orderIndex": 1,
+      "content": "نجمع أعداداً نتيجتها ٢٠ أو أقل: ١٠ + ٥ = ١٥، ٨ + ٧ = ١٥",
+      "objectives": "إجراء عمليات جمع ضمن العدد 20",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "١٠ + ٥ = ؟",
+          "correctAnswer": "١٥",
+          "options": [
+            "١٣",
+            "١٤",
+            "١٥",
+            "١٦"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٨ + ٧ = ١٥",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "٩ + ٦ = ؟",
+          "correctAnswer": "١٥",
+          "options": null,
+          "difficultyLevel": 2
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "٢ + ___ = ٥",
+          "correctAnswer": "٣",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "الطرح ضمن ٢٠",
+      "orderIndex": 2,
+      "content": "نطرح من أعداد حتى ٢٠: ١٥ - ٥ = ١٠، ٢٠ - ٨ = ١٢",
+      "objectives": "إجراء عمليات طرح ضمن العدد 20",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "١٥ - ٥ = ؟",
+          "correctAnswer": "١٠",
+          "options": [
+            "٨",
+            "٩",
+            "١٠",
+            "١١"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٢٠ - ١٠ = ١٠",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "١٨ - ٩ = ؟",
+          "correctAnswer": "٩",
+          "options": null,
+          "difficultyLevel": 2
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "___ - ٢ = ٣",
+          "correctAnswer": "٥",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "حقائق الجمع والطرح",
+      "orderIndex": 3,
+      "content": "العلاقة بين الجمع والطرح: إذا كان ٣ + ٤ = ٧ فإن ٧ - ٣ = ٤",
+      "objectives": "فهم العلاقة بين الجمع والطرح",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "إذا كان ٥ + ٣ = ٨، فكم ٨ - ٣ = ؟",
+          "correctAnswer": "٥",
+          "options": [
+            "٣",
+            "٤",
+            "٥",
+            "٦"
+          ],
+          "difficultyLevel": 2
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "إذا كان ٦ + ٢ = ٨ فإن ٨ - ٢ = ٦",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "٧ + ٣ = ١٠، إذاً ١٠ - ٧ = ؟",
+          "correctAnswer": "٣",
+          "options": null,
+          "difficultyLevel": 2
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "٢ + ___ = ٥",
+          "correctAnswer": "٣",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "الأشكال الهندسية",
+      "orderIndex": 4,
+      "content": "نتعرف على الأشكال: المربع (٤ أضلاع متساوية)، المستطيل (٤ أضلاع)، المثلث (٣ أضلاع)، الدائرة.",
+      "objectives": "التعرف على الأشكال الهندسية الأساسية",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كم ضلع للمثلث؟",
+          "correctAnswer": "٣",
+          "options": [
+            "٢",
+            "٣",
+            "٤",
+            "٥"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "المربع له ٤ أضلاع متساوية",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما اسم الشكل الذي ليس له أضلاع؟",
+          "correctAnswer": "الدائرة",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أي شكل له ٤ أضلاع متساوية؟",
+          "correctAnswer": "المربع",
+          "options": [
+            "المثلث",
+            "المربع",
+            "الدائرة",
+            "الخط"
+          ],
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "الأنماط",
+      "orderIndex": 5,
+      "content": "نتعلم الأنماط المتكررة: أحمر أزرق أحمر أزرق... ١ ٢ ١ ٢...",
+      "objectives": "التعرف على الأنماط وإكمالها",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أكمل النمط: ١، ٢، ١، ٢، ١، ؟",
+          "correctAnswer": "٢",
+          "options": [
+            "١",
+            "٢",
+            "٣",
+            "٤"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "النمط ○ □ ○ □ يتكرر كل شكلين",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أكمل: ٣، ٦، ٩، ؟",
+          "correctAnswer": "١٢",
+          "options": null,
+          "difficultyLevel": 2
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "القياس والطول",
+      "orderIndex": 6,
+      "content": "نقيس الأطوال: طويل وقصير. نستخدم وحدات غير رسمية (مشابك، مكعبات) للقياس.",
+      "objectives": "مقارنة الأطوال واستخدام القياس غير الرسمي",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أيهما أطول: القلم أم الممحاة؟",
+          "correctAnswer": "القلم",
+          "options": [
+            "القلم",
+            "الممحاة",
+            "متساويان",
+            "لا أعرف"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يمكننا قياس الأشياء بالمشابك",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما عكس كلمة طويل؟",
+          "correctAnswer": "قصير",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "الوزن والسعة",
+      "orderIndex": 7,
+      "content": "نتعلم المقارنة: ثقيل وخفيف. السعة: ممتلئ وفارغ.",
+      "objectives": "مقارنة الأوزان والسعات",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أيهما أثقل: الكتاب أم الريشة؟",
+          "correctAnswer": "الكتاب",
+          "options": [
+            "الكتاب",
+            "الريشة",
+            "متساويان",
+            "لا أعرف"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "البطيخة أثقل من التفاحة",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما عكس كلمة ثقيل؟",
+          "correctAnswer": "خفيف",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "الوقت والساعة",
+      "orderIndex": 8,
+      "content": "نتعلم قراءة الساعة: الساعة الكاملة. عقرب الساعات وعقرب الدقائق.",
+      "objectives": "قراءة الساعة عند الساعات الكاملة",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "عندما يشير العقرب الصغير إلى ٣ والكبير إلى ١٢، كم الساعة؟",
+          "correctAnswer": "الثالثة",
+          "options": [
+            "الثالثة",
+            "الثانية عشرة",
+            "السادسة",
+            "التاسعة"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العقرب الصغير يشير إلى الساعات",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "في أي ساعة تذهب إلى المدرسة؟",
+          "correctAnswer": "السابعة",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "النقود",
+      "orderIndex": 9,
+      "content": "نتعلم النقود: نصف شيكل، شيكل، ٥ شواكل، ١٠ شواكل.",
+      "objectives": "التعرف على فئات النقود واستخدامها",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كم شيكل = ١٠ قطع نصف شيكل؟",
+          "correctAnswer": "٥",
+          "options": [
+            "٣",
+            "٥",
+            "١٠",
+            "٢٠"
+          ],
+          "difficultyLevel": 2
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "١٠ شواكل أكثر من ٥ شواكل",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "شيكل واحد = كم نصف شيكل؟",
+          "correctAnswer": "٢",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "مسائل كلامية",
+      "orderIndex": 10,
+      "content": "نحل مسائل حسابية من الحياة اليومية: أحمد معه ٥ تفاحات أكل ٢، كم بقي؟",
+      "objectives": "حل مسائل كلامية في الجمع والطرح",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "سارة لديها ٧ أقلام، أعطت ٣ لصديقتها. كم بقي؟",
+          "correctAnswer": "٤",
+          "options": [
+            "٢",
+            "٣",
+            "٤",
+            "٥"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "أحمد لديه ٨ كرات، أخذ ٢ = بقي ٦",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "في الصف ٩ بنات و ٦ أولاد. كم طالباً في الصف؟",
+          "correctAnswer": "١٥",
+          "options": null,
+          "difficultyLevel": 2
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "مراجعة نهائية",
+      "orderIndex": 11,
+      "content": "مراجعة شاملة لجميع المواضيع: الجمع والطرح ضمن ٢٠، الأشكال، القياس، الوقت، النقود.",
+      "objectives": "مراجعة نهائية شاملة",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "١٢ + ٧ = ؟",
+          "correctAnswer": "١٩",
+          "options": [
+            "١٧",
+            "١٨",
+            "١٩",
+            "٢٠"
+          ],
+          "difficultyLevel": 2
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "المثلث له ٣ أضلاع والمربع له ٤",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "٢٠ - ١١ = ؟",
+          "correctAnswer": "٩",
+          "options": null,
+          "difficultyLevel": 2
+        }
+      ],
+      "imageUrls": []
+    }
+  ],
+  "totalLessons": 11
+}

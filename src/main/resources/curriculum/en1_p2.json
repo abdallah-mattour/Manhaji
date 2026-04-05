@@ -1,0 +1,380 @@
+{
+  "subject": "English",
+  "subjectCode": "en",
+  "gradeLevel": 1,
+  "semester": 2,
+  "lessons": [
+    {
+      "title": "My House (Unit 10)",
+      "orderIndex": 1,
+      "content": "House rooms: bedroom, kitchen, bathroom, living room, garden. I sleep in the bedroom.",
+      "objectives": "Learn house and room vocabulary",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "Where do you sleep?",
+          "correctAnswer": "Bedroom",
+          "options": [
+            "Kitchen",
+            "Bedroom",
+            "Bathroom",
+            "Garden"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Kitchen' is where we cook",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What is 'حديقة' in English?",
+          "correctAnswer": "Garden",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I go to ___ every morning.",
+          "correctAnswer": "school",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "Clothes (Unit 11)",
+      "orderIndex": 2,
+      "content": "Clothes: shirt, pants, dress, shoes, hat, socks. I wear a shirt. She wears a dress.",
+      "objectives": "Learn clothing vocabulary",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What is 'قميص' in English?",
+          "correctAnswer": "Shirt",
+          "options": [
+            "Shirt",
+            "Pants",
+            "Dress",
+            "Shoes"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Shoes' means 'أحذية'",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What do you wear on your feet?",
+          "correctAnswer": "Shoes",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I go to ___ every morning.",
+          "correctAnswer": "school",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "Numbers 6-10 (Unit 12)",
+      "orderIndex": 3,
+      "content": "Numbers: six, seven, eight, nine, ten. How many books? There are ten books.",
+      "objectives": "Learn numbers 6-10 in English",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What number is 'eight'?",
+          "correctAnswer": "8",
+          "options": [
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Ten' means '١٠'",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Write the English word for ٧",
+          "correctAnswer": "Seven",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I go to ___ every morning.",
+          "correctAnswer": "school",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "Toys (Unit 13)",
+      "orderIndex": 4,
+      "content": "Toys: ball, doll, car, teddy bear, kite. I have a ball. This is my toy car.",
+      "objectives": "Learn toy vocabulary",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What is 'كرة' in English?",
+          "correctAnswer": "Ball",
+          "options": [
+            "Ball",
+            "Doll",
+            "Car",
+            "Kite"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Doll' means 'دمية'",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What flies in the sky?",
+          "correctAnswer": "Kite",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I go to ___ every morning.",
+          "correctAnswer": "school",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "Weather (Unit 14)",
+      "orderIndex": 5,
+      "content": "Weather: sunny, rainy, cloudy, windy, hot, cold. It is sunny today. It is cold.",
+      "objectives": "Learn weather vocabulary",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "When the sun shines, it is:",
+          "correctAnswer": "Sunny",
+          "options": [
+            "Rainy",
+            "Sunny",
+            "Cloudy",
+            "Windy"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Rainy' means 'ممطر'",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What is the weather like when it snows?",
+          "correctAnswer": "Cold",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I go to ___ every morning.",
+          "correctAnswer": "school",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "Fruits & Vegetables (Unit 15)",
+      "orderIndex": 6,
+      "content": "Fruits: orange, grape, strawberry. Vegetables: tomato, cucumber, carrot. I like oranges.",
+      "objectives": "Learn fruit and vegetable vocabulary",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What is 'برتقالة' in English?",
+          "correctAnswer": "Orange",
+          "options": [
+            "Orange",
+            "Apple",
+            "Grape",
+            "Banana"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Carrot' is a vegetable",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What is 'خيار' in English?",
+          "correctAnswer": "Cucumber",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I go to ___ every morning.",
+          "correctAnswer": "school",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "Actions (Unit 16)",
+      "orderIndex": 7,
+      "content": "Actions: run, jump, walk, sit, stand, read, write. I can run. She can jump.",
+      "objectives": "Learn action verbs",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What is 'اركض' in English?",
+          "correctAnswer": "Run",
+          "options": [
+            "Run",
+            "Walk",
+            "Sit",
+            "Jump"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Jump' means 'اقفز'",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What is 'اكتب' in English?",
+          "correctAnswer": "Write",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I go to ___ every morning.",
+          "correctAnswer": "school",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "My Day (Unit 17)",
+      "orderIndex": 8,
+      "content": "Daily routine: wake up, eat breakfast, go to school, play, sleep. In the morning, I wake up.",
+      "objectives": "Learn daily routine vocabulary",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What do you do first in the morning?",
+          "correctAnswer": "Wake up",
+          "options": [
+            "Wake up",
+            "Sleep",
+            "Play",
+            "Eat lunch"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "We eat breakfast in the morning",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Where do you go in the morning?",
+          "correctAnswer": "School",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I go to ___ every morning.",
+          "correctAnswer": "school",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "Review (Unit 18)",
+      "orderIndex": 9,
+      "content": "Review all vocabulary from Units 10-17: house, clothes, numbers, toys, weather, food, actions, daily routine.",
+      "objectives": "Review all learned vocabulary from semester 2",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "Where do we cook?",
+          "correctAnswer": "Kitchen",
+          "options": [
+            "Bedroom",
+            "Kitchen",
+            "Garden",
+            "Bathroom"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Cold' is the opposite of 'hot'",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Say three numbers in English",
+          "correctAnswer": "One two three",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    }
+  ],
+  "totalLessons": 9
+}

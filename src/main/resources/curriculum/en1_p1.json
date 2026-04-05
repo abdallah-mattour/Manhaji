@@ -1,0 +1,404 @@
+{
+  "subject": "English",
+  "subjectCode": "en",
+  "gradeLevel": 1,
+  "semester": 1,
+  "lessons": [
+    {
+      "title": "Hello! (Unit 1)",
+      "orderIndex": 1,
+      "content": "Greetings: Hello, Hi, Good morning, Good bye. My name is ___. What is your name?",
+      "objectives": "Learn basic greetings and introductions in English",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What do you say when you meet someone?",
+          "correctAnswer": "Hello",
+          "options": [
+            "Hello",
+            "Goodbye",
+            "Sorry",
+            "Thank you"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Hello' means 'مرحباً'",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What is the English word for 'مرحباً'?",
+          "correctAnswer": "Hello",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I go to ___ every morning.",
+          "correctAnswer": "school",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "My School (Unit 2)",
+      "orderIndex": 2,
+      "content": "School words: book, pen, pencil, bag, ruler, eraser. This is a book. That is a pen.",
+      "objectives": "Learn school supplies vocabulary",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What is 'كتاب' in English?",
+          "correctAnswer": "Book",
+          "options": [
+            "Book",
+            "Pen",
+            "Bag",
+            "Ruler"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Pen' means 'قلم'",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What is 'حقيبة' in English?",
+          "correctAnswer": "Bag",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "MCQ",
+          "questionText": "What do you write with?",
+          "correctAnswer": "Pencil",
+          "options": [
+            "Book",
+            "Pencil",
+            "Bag",
+            "Ruler"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I go to ___ every morning.",
+          "correctAnswer": "school",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "My Family (Unit 3)",
+      "orderIndex": 3,
+      "content": "Family: father, mother, brother, sister, baby. This is my father. She is my mother.",
+      "objectives": "Learn family members vocabulary",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What is 'أب' in English?",
+          "correctAnswer": "Father",
+          "options": [
+            "Father",
+            "Mother",
+            "Brother",
+            "Sister"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Mother' means 'أم'",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What is 'أخت' in English?",
+          "correctAnswer": "Sister",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I go to ___ every morning.",
+          "correctAnswer": "school",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "Numbers 1-5 (Unit 4)",
+      "orderIndex": 4,
+      "content": "Numbers: one, two, three, four, five. Count: 1, 2, 3, 4, 5. How many?",
+      "objectives": "Learn numbers 1-5 in English",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What number is 'three'?",
+          "correctAnswer": "3",
+          "options": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Five' means '٥'",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Write the English word for ٢",
+          "correctAnswer": "Two",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "MCQ",
+          "questionText": "How many fingers on one hand?",
+          "correctAnswer": "Five",
+          "options": [
+            "Three",
+            "Four",
+            "Five",
+            "Six"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I go to ___ every morning.",
+          "correctAnswer": "school",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "Colors (Unit 5)",
+      "orderIndex": 5,
+      "content": "Colors: red, blue, green, yellow, black, white. What color is it? It is red.",
+      "objectives": "Learn basic colors in English",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What color is the sky?",
+          "correctAnswer": "Blue",
+          "options": [
+            "Red",
+            "Blue",
+            "Green",
+            "Yellow"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Red' means 'أحمر'",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What is 'أخضر' in English?",
+          "correctAnswer": "Green",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I go to ___ every morning.",
+          "correctAnswer": "school",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "My Body (Unit 6)",
+      "orderIndex": 6,
+      "content": "Body parts: head, eyes, nose, mouth, ears, hands, feet. I have two eyes.",
+      "objectives": "Learn body parts vocabulary",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What is 'رأس' in English?",
+          "correctAnswer": "Head",
+          "options": [
+            "Head",
+            "Hand",
+            "Foot",
+            "Eye"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "We have two eyes",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What is 'يد' in English?",
+          "correctAnswer": "Hand",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I go to ___ every morning.",
+          "correctAnswer": "school",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "Animals (Unit 7)",
+      "orderIndex": 7,
+      "content": "Animals: cat, dog, bird, fish, rabbit. I like cats. It is a dog.",
+      "objectives": "Learn animal names in English",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What is 'قطة' in English?",
+          "correctAnswer": "Cat",
+          "options": [
+            "Cat",
+            "Dog",
+            "Bird",
+            "Fish"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Dog' means 'كلب'",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What is 'سمكة' in English?",
+          "correctAnswer": "Fish",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I go to ___ every morning.",
+          "correctAnswer": "school",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "Food (Unit 8)",
+      "orderIndex": 8,
+      "content": "Food: apple, banana, bread, milk, water, juice. I like apples. I want milk.",
+      "objectives": "Learn food vocabulary",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What is 'تفاحة' in English?",
+          "correctAnswer": "Apple",
+          "options": [
+            "Apple",
+            "Banana",
+            "Bread",
+            "Milk"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Milk' means 'حليب'",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What is 'خبز' in English?",
+          "correctAnswer": "Bread",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I go to ___ every morning.",
+          "correctAnswer": "school",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "Review (Unit 9)",
+      "orderIndex": 9,
+      "content": "Review all vocabulary: greetings, school, family, numbers, colors, body, animals, food.",
+      "objectives": "Review all learned vocabulary from Units 1-8",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What color is a banana?",
+          "correctAnswer": "Yellow",
+          "options": [
+            "Red",
+            "Blue",
+            "Green",
+            "Yellow"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Brother' means 'أخ'",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Count from 1 to 3 in English",
+          "correctAnswer": "One two three",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    }
+  ],
+  "totalLessons": 9
+}

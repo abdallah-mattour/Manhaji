@@ -1,0 +1,604 @@
+{
+  "subject": "اللغة العربية",
+  "subjectCode": "ar",
+  "gradeLevel": 1,
+  "semester": 2,
+  "lessons": [
+    {
+      "title": "حرف الذال",
+      "orderIndex": 1,
+      "content": "حرف الذال شكله مثل الدال وفوقه نقطة. كلمات: ذئب، ذرة، ذهب، ذيل.",
+      "objectives": "التعرف إلى حرف الذال اسماً وشكلاً وصوتاً",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي كلمة تبدأ بحرف الذال؟",
+          "correctAnswer": "ذئب",
+          "options": [
+            "ذئب",
+            "دب",
+            "زهرة",
+            "ظرف"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "حرف الذال فوقه نقطة واحدة",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب حرف الذال",
+          "correctAnswer": "ذ",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ___ هو الحرف الذي نتعلمه في هذا الدرس",
+          "correctAnswer": "ذ",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "حرف الغين",
+      "orderIndex": 2,
+      "content": "حرف الغين شكله مثل العين وفوقه نقطة. كلمات: غزال، غيمة، غابة، غراب.",
+      "objectives": "التعرف إلى حرف الغين",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي كلمة تبدأ بحرف الغين؟",
+          "correctAnswer": "غزال",
+          "options": [
+            "غزال",
+            "عصفور",
+            "فيل",
+            "قطة"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "حرف الغين فوقه نقطة واحدة",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب حرف الغين",
+          "correctAnswer": "غ",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ___ هو الحرف الذي نتعلمه في هذا الدرس",
+          "correctAnswer": "غين",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "حرف الطاء",
+      "orderIndex": 3,
+      "content": "حرف الطاء شكله مستدير وطويل. كلمات: طائر، طبل، طفل، طماطم.",
+      "objectives": "التعرف إلى حرف الطاء",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي كلمة تبدأ بحرف الطاء؟",
+          "correctAnswer": "طائر",
+          "options": [
+            "طائر",
+            "ظرف",
+            "صقر",
+            "ضفدع"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "حرف الطاء ليس له نقاط",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب حرف الطاء",
+          "correctAnswer": "ط",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ___ هو الحرف الذي نتعلمه في هذا الدرس",
+          "correctAnswer": "طاء",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "حرف الكاف",
+      "orderIndex": 4,
+      "content": "حرف الكاف شكله مثل اليد المفتوحة. كلمات: كتاب، كرة، كلب، كرسي.",
+      "objectives": "التعرف إلى حرف الكاف",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي كلمة تبدأ بحرف الكاف؟",
+          "correctAnswer": "كتاب",
+          "options": [
+            "كتاب",
+            "قلم",
+            "لعبة",
+            "نجمة"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كلمة \"كرة\" تبدأ بحرف الكاف",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب حرف الكاف",
+          "correctAnswer": "ك",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ___ هو الحرف الذي نتعلمه في هذا الدرس",
+          "correctAnswer": "كاف",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "حرف الضاد",
+      "orderIndex": 5,
+      "content": "حرف الضاد شكله مثل الصاد وفوقه نقطة. كلمات: ضفدع، ضوء، ضحك، ضيف.",
+      "objectives": "التعرف إلى حرف الضاد",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي كلمة تبدأ بحرف الضاد؟",
+          "correctAnswer": "ضفدع",
+          "options": [
+            "ضفدع",
+            "صقر",
+            "طائر",
+            "ظرف"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "حرف الضاد فوقه نقطة واحدة",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب حرف الضاد",
+          "correctAnswer": "ض",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ___ هو الحرف الذي نتعلمه في هذا الدرس",
+          "correctAnswer": "ضاد",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "مراجعة (١)",
+      "orderIndex": 6,
+      "content": "مراجعة حروف الذال والغين والطاء والكاف والضاد.",
+      "objectives": "مراجعة شاملة لحروف ذ، غ، ط، ك، ض",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي حرف شكله مثل الصاد مع نقطة؟",
+          "correctAnswer": "الضاد",
+          "options": [
+            "الصاد",
+            "الضاد",
+            "الطاء",
+            "الظاء"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "حرف الطاء والكاف ليس لهما نقاط",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب حرف الكاف",
+          "correctAnswer": "ك",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "حرف الهاء",
+      "orderIndex": 7,
+      "content": "حرف الهاء شكله دائري. كلمات: هلال، هدهد، هاتف، هواء.",
+      "objectives": "التعرف إلى حرف الهاء",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي كلمة تبدأ بحرف الهاء؟",
+          "correctAnswer": "هلال",
+          "options": [
+            "هلال",
+            "ولد",
+            "يد",
+            "أسد"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "حرف الهاء ليس له نقاط",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب حرف الهاء",
+          "correctAnswer": "ه",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ___ هو الحرف الذي نتعلمه في هذا الدرس",
+          "correctAnswer": "هاء",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "حرف الواو",
+      "orderIndex": 8,
+      "content": "حرف الواو شكله مثل الرقم ٩. كلمات: وردة، ولد، وطن، وجه.",
+      "objectives": "التعرف إلى حرف الواو",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي كلمة تبدأ بحرف الواو؟",
+          "correctAnswer": "وردة",
+          "options": [
+            "وردة",
+            "هلال",
+            "يد",
+            "أسد"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كلمة \"وطن\" تبدأ بحرف الواو",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب حرف الواو",
+          "correctAnswer": "و",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ___ هو الحرف الذي نتعلمه في هذا الدرس",
+          "correctAnswer": "واو",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "حرف الهمزة (الألف)",
+      "orderIndex": 9,
+      "content": "حرف الهمزة (الألف) أول حرف في الأبجدية. كلمات: أسد، أرنب، أم، أب.",
+      "objectives": "التعرف إلى حرف الهمزة",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي كلمة تبدأ بالهمزة؟",
+          "correctAnswer": "أسد",
+          "options": [
+            "أسد",
+            "بيت",
+            "تاج",
+            "ثلج"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الألف هو أول حرف في الأبجدية العربية",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر كلمة تبدأ بحرف الألف",
+          "correctAnswer": "أسد",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ___ هو الحرف الذي نتعلمه في هذا الدرس",
+          "correctAnswer": "همزة (ألف)",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "حرف الظاء",
+      "orderIndex": 10,
+      "content": "حرف الظاء شكله مثل الطاء وفوقه نقطة. كلمات: ظرف، ظل، ظبي، ظهر.",
+      "objectives": "التعرف إلى حرف الظاء",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي كلمة تبدأ بحرف الظاء؟",
+          "correctAnswer": "ظرف",
+          "options": [
+            "ظرف",
+            "طائر",
+            "ضفدع",
+            "صقر"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "حرف الظاء فوقه نقطة واحدة",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب حرف الظاء",
+          "correctAnswer": "ظ",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ___ هو الحرف الذي نتعلمه في هذا الدرس",
+          "correctAnswer": "ظاء",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "حرف الياء",
+      "orderIndex": 11,
+      "content": "حرف الياء شكله مثل الباء لكن تحته نقطتان. كلمات: يد، يمامة، ياسمين، يوم.",
+      "objectives": "التعرف إلى حرف الياء",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كم نقطة تحت حرف الياء؟",
+          "correctAnswer": "نقطتان",
+          "options": [
+            "بدون نقاط",
+            "نقطة واحدة",
+            "نقطتان",
+            "ثلاث نقاط"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كلمة \"يد\" تبدأ بحرف الياء",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب حرف الياء",
+          "correctAnswer": "ي",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ___ هو الحرف الذي نتعلمه في هذا الدرس",
+          "correctAnswer": "ياء",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "مراجعة (٢)",
+      "orderIndex": 12,
+      "content": "مراجعة حروف الهاء والواو والهمزة والظاء والياء.",
+      "objectives": "مراجعة شاملة لحروف ه، و، أ، ظ، ي",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي حرف تحته نقطتان؟",
+          "correctAnswer": "الياء",
+          "options": [
+            "الهاء",
+            "الواو",
+            "الظاء",
+            "الياء"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "تعلمنا الآن جميع حروف اللغة العربية",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كم عدد حروف اللغة العربية؟",
+          "correctAnswer": "٢٨",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "نساعد الكبير",
+      "orderIndex": 13,
+      "content": "درس قراءة: نساعد الكبير. نتعلم قراءة نص قصير وفهم معناه.",
+      "objectives": "قراءة نص قصير وفهم المعنى",
+      "questions": [
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يجب أن نساعد كبار السن",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من يجب أن نساعد؟",
+          "correctAnswer": "الكبير",
+          "options": [
+            "الكبير",
+            "لا أحد",
+            "الحيوانات فقط",
+            "الأطفال فقط"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "لماذا نساعد الكبير؟",
+          "correctAnswer": "لأنه يحتاج مساعدتنا",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "وطني أجمل",
+      "orderIndex": 14,
+      "content": "درس قراءة: وطني أجمل. نتعلم عن حب الوطن فلسطين.",
+      "objectives": "قراءة نص عن حب الوطن",
+      "questions": [
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "وطننا هو فلسطين",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا نحب؟",
+          "correctAnswer": "وطننا",
+          "options": [
+            "وطننا",
+            "اللعب فقط",
+            "النوم",
+            "الحلوى"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما اسم وطنك؟",
+          "correctAnswer": "فلسطين",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "الماء",
+      "orderIndex": 15,
+      "content": "درس قراءة: الماء. نتعلم عن أهمية الماء في حياتنا.",
+      "objectives": "قراءة نص عن أهمية الماء",
+      "questions": [
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الماء مهم للحياة",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "MCQ",
+          "questionText": "لماذا الماء مهم؟",
+          "correctAnswer": "لأننا نحتاجه للحياة",
+          "options": [
+            "لأننا نحتاجه للحياة",
+            "لأنه أزرق",
+            "لأنه بارد",
+            "لا نحتاجه"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر استخداماً واحداً للماء",
+          "correctAnswer": "الشرب",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    }
+  ],
+  "totalLessons": 15
+}

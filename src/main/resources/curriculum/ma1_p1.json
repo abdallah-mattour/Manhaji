@@ -1,0 +1,754 @@
+{
+  "subject": "الرياضيات",
+  "subjectCode": "ma",
+  "gradeLevel": 1,
+  "semester": 1,
+  "lessons": [
+    {
+      "title": "الأعداد ١-٥",
+      "orderIndex": 1,
+      "content": "نتعلم الأعداد من واحد إلى خمسة. نعد الأشياء ونكتب أعدادها: ١ ٢ ٣ ٤ ٥",
+      "objectives": "التعرف على الأعداد 1-5 وكتابتها وعدها",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كم تفاحة في الصورة؟ 🍎🍎🍎",
+          "correctAnswer": "٣",
+          "options": [
+            "١",
+            "٢",
+            "٣",
+            "٤"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ٥ أكبر من العدد ٣",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب العدد الذي يأتي بعد ٢",
+          "correctAnswer": "٣",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "MCQ",
+          "questionText": "رتّب: أي عدد يأتي بعد ٤؟",
+          "correctAnswer": "٥",
+          "options": [
+            "٣",
+            "٥",
+            "٦",
+            "٢"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأعداد من الأصغر إلى الأكبر: ٣، ١، ٢",
+          "correctAnswer": "١، ٢، ٣",
+          "options": [
+            "٣",
+            "١",
+            "٢"
+          ],
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "الأعداد ٦-٩",
+      "orderIndex": 2,
+      "content": "نتعلم الأعداد من ستة إلى تسعة: ٦ ٧ ٨ ٩. نعد ونكتب.",
+      "objectives": "التعرف على الأعداد 6-9 وكتابتها",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي عدد يأتي بعد ٧؟",
+          "correctAnswer": "٨",
+          "options": [
+            "٦",
+            "٧",
+            "٨",
+            "٩"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ٩ هو أكبر عدد من رقم واحد",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب العدد الذي يأتي قبل ٨",
+          "correctAnswer": "٧",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كم نجمة؟ ⭐⭐⭐⭐⭐⭐",
+          "correctAnswer": "٦",
+          "options": [
+            "٥",
+            "٦",
+            "٧",
+            "٨"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأعداد من الأصغر إلى الأكبر: ٣، ١، ٢",
+          "correctAnswer": "١، ٢، ٣",
+          "options": [
+            "٣",
+            "١",
+            "٢"
+          ],
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "العدد صفر",
+      "orderIndex": 3,
+      "content": "العدد صفر يعني لا شيء. إذا أكلنا كل التفاح لا يبقى شيء = ٠",
+      "objectives": "التعرف على مفهوم الصفر وكتابته",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "إذا كان عندك ٣ تفاحات وأكلتها كلها، كم بقي؟",
+          "correctAnswer": "٠",
+          "options": [
+            "١",
+            "٢",
+            "٣",
+            "٠"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الصفر يعني لا شيء",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب العدد صفر",
+          "correctAnswer": "٠",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "مقارنة الأعداد",
+      "orderIndex": 4,
+      "content": "نقارن بين الأعداد: أكبر من > وأصغر من < ويساوي =",
+      "objectives": "مقارنة الأعداد باستخدام أكبر وأصغر ويساوي",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي عدد أكبر: ٥ أم ٣؟",
+          "correctAnswer": "٥",
+          "options": [
+            "٣",
+            "٥",
+            "متساويان",
+            "لا أعرف"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ٧ أكبر من العدد ٤",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ضع إشارة > أو < : ٦ __ ٢",
+          "correctAnswer": ">",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أي عدد أصغر: ١ أم ٨؟",
+          "correctAnswer": "١",
+          "options": [
+            "١",
+            "٨",
+            "متساويان",
+            "٠"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأعداد من الأصغر إلى الأكبر: ٣، ١، ٢",
+          "correctAnswer": "١، ٢، ٣",
+          "options": [
+            "٣",
+            "١",
+            "٢"
+          ],
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "ترتيب الأعداد",
+      "orderIndex": 5,
+      "content": "نرتب الأعداد من الأصغر إلى الأكبر ومن الأكبر إلى الأصغر: ٠ ١ ٢ ٣ ٤ ٥ ٦ ٧ ٨ ٩",
+      "objectives": "ترتيب الأعداد تصاعدياً وتنازلياً",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "رتّب تصاعدياً: ٥، ٢، ٨",
+          "correctAnswer": "٢، ٥، ٨",
+          "options": [
+            "٨، ٥، ٢",
+            "٢، ٥، ٨",
+            "٥، ٢، ٨",
+            "٢، ٨، ٥"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الترتيب ١ ٢ ٣ ٤ هو ترتيب تصاعدي",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما العدد الذي يأتي بين ٣ و ٥؟",
+          "correctAnswer": "٤",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأعداد من الأصغر إلى الأكبر: ٣، ١، ٢",
+          "correctAnswer": "١، ٢، ٣",
+          "options": [
+            "٣",
+            "١",
+            "٢"
+          ],
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "مكونات الأعداد",
+      "orderIndex": 6,
+      "content": "كل عدد يتكون من أعداد أصغر. مثلاً: ٥ = ٢ + ٣ أو ٥ = ١ + ٤",
+      "objectives": "تحليل الأعداد إلى مكوناتها",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "العدد ٤ يتكون من ١ و ...؟",
+          "correctAnswer": "٣",
+          "options": [
+            "١",
+            "٢",
+            "٣",
+            "٤"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ٥ يتكون من ٢ و ٣",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "٦ = ٣ + ؟",
+          "correctAnswer": "٣",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٧ = ٤ + ؟",
+          "correctAnswer": "٣",
+          "options": [
+            "١",
+            "٢",
+            "٣",
+            "٤"
+          ],
+          "difficultyLevel": 2
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأعداد من الأصغر إلى الأكبر: ٣، ١، ٢",
+          "correctAnswer": "١، ٢، ٣",
+          "options": [
+            "٣",
+            "١",
+            "٢"
+          ],
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "الجمع ضمن ٥",
+      "orderIndex": 7,
+      "content": "نتعلم عملية الجمع. الجمع يعني نضيف: ٢ + ١ = ٣. نجمع أعداداً نتيجتها ٥ أو أقل.",
+      "objectives": "إجراء عمليات جمع بسيطة ضمن العدد 5",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "٢ + ١ = ؟",
+          "correctAnswer": "٣",
+          "options": [
+            "١",
+            "٢",
+            "٣",
+            "٤"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٣ + ٢ = ٥",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "٤ + ١ = ؟",
+          "correctAnswer": "٥",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "MCQ",
+          "questionText": "١ + ١ = ؟",
+          "correctAnswer": "٢",
+          "options": [
+            "١",
+            "٢",
+            "٣",
+            "٠"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "٢ + ___ = ٥",
+          "correctAnswer": "٣",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "الجمع ضمن ٩",
+      "orderIndex": 8,
+      "content": "نجمع أعداداً أكبر نتيجتها ٩ أو أقل: ٤ + ٣ = ٧، ٥ + ٤ = ٩",
+      "objectives": "إجراء عمليات جمع ضمن العدد 9",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "٤ + ٣ = ؟",
+          "correctAnswer": "٧",
+          "options": [
+            "٥",
+            "٦",
+            "٧",
+            "٨"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٥ + ٤ = ٩",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "٣ + ٦ = ؟",
+          "correctAnswer": "٩",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٢ + ٥ = ؟",
+          "correctAnswer": "٧",
+          "options": [
+            "٥",
+            "٦",
+            "٧",
+            "٨"
+          ],
+          "difficultyLevel": 2
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "٢ + ___ = ٥",
+          "correctAnswer": "٣",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "الطرح ضمن ٥",
+      "orderIndex": 9,
+      "content": "نتعلم عملية الطرح. الطرح يعني نأخذ: ٥ - ٢ = ٣. نطرح أعداداً من ٥ أو أقل.",
+      "objectives": "إجراء عمليات طرح بسيطة ضمن العدد 5",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "٥ - ٢ = ؟",
+          "correctAnswer": "٣",
+          "options": [
+            "١",
+            "٢",
+            "٣",
+            "٤"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٤ - ١ = ٣",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "٣ - ١ = ؟",
+          "correctAnswer": "٢",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٥ - ٥ = ؟",
+          "correctAnswer": "٠",
+          "options": [
+            "٠",
+            "١",
+            "٥",
+            "١٠"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "___ - ٢ = ٣",
+          "correctAnswer": "٥",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "الطرح ضمن ٩",
+      "orderIndex": 10,
+      "content": "نطرح أعداداً أكبر: ٩ - ٣ = ٦، ٨ - ٥ = ٣",
+      "objectives": "إجراء عمليات طرح ضمن العدد 9",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "٩ - ٣ = ؟",
+          "correctAnswer": "٦",
+          "options": [
+            "٤",
+            "٥",
+            "٦",
+            "٧"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٨ - ٥ = ٣",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "٧ - ٤ = ؟",
+          "correctAnswer": "٣",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٦ - ٢ = ؟",
+          "correctAnswer": "٤",
+          "options": [
+            "٢",
+            "٣",
+            "٤",
+            "٥"
+          ],
+          "difficultyLevel": 2
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "___ - ٢ = ٣",
+          "correctAnswer": "٥",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "مراجعة الجمع والطرح",
+      "orderIndex": 11,
+      "content": "مراجعة شاملة لعمليات الجمع والطرح ضمن ٩.",
+      "objectives": "مراجعة الجمع والطرح",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "٣ + ٤ = ؟",
+          "correctAnswer": "٧",
+          "options": [
+            "٥",
+            "٦",
+            "٧",
+            "٨"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٩ - ٩ = ٠",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "٨ - ٣ = ؟",
+          "correctAnswer": "٥",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "٢ + ___ = ٥",
+          "correctAnswer": "٣",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "العدد ١٠",
+      "orderIndex": 12,
+      "content": "العدد ١٠ يتكون من رقمين: ١ و ٠. هو أول عدد من خانتين.",
+      "objectives": "التعرف على العدد 10 ومكوناته",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "١٠ = ٥ + ؟",
+          "correctAnswer": "٥",
+          "options": [
+            "٣",
+            "٤",
+            "٥",
+            "٦"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ١٠ يتكون من رقمين",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب العدد عشرة بالأرقام",
+          "correctAnswer": "١٠",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "الأعداد ١١-١٥",
+      "orderIndex": 13,
+      "content": "نتعلم الأعداد: ١١ أحد عشر، ١٢ اثنا عشر، ١٣ ثلاثة عشر، ١٤ أربعة عشر، ١٥ خمسة عشر.",
+      "objectives": "التعرف على الأعداد 11-15",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي عدد يأتي بعد ١٢؟",
+          "correctAnswer": "١٣",
+          "options": [
+            "١١",
+            "١٣",
+            "١٤",
+            "١٥"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ١٤ يأتي بعد ١٣",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب العدد الذي يأتي بعد ١١",
+          "correctAnswer": "١٢",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأعداد من الأصغر إلى الأكبر: ٣، ١، ٢",
+          "correctAnswer": "١، ٢، ٣",
+          "options": [
+            "٣",
+            "١",
+            "٢"
+          ],
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "الأعداد ١٦-٢٠",
+      "orderIndex": 14,
+      "content": "نتعلم الأعداد: ١٦ ستة عشر، ١٧ سبعة عشر، ١٨ ثمانية عشر، ١٩ تسعة عشر، ٢٠ عشرون.",
+      "objectives": "التعرف على الأعداد 16-20",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي عدد يأتي بعد ١٩؟",
+          "correctAnswer": "٢٠",
+          "options": [
+            "١٨",
+            "٢٠",
+            "٢١",
+            "١٧"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ٢٠ يُكتب: عشرون",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب أكبر عدد تعلمناه",
+          "correctAnswer": "٢٠",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كم عدداً من ١ إلى ٢٠؟",
+          "correctAnswer": "٢٠",
+          "options": [
+            "١٠",
+            "١٥",
+            "٢٠",
+            "٩"
+          ],
+          "difficultyLevel": 2
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأعداد من الأصغر إلى الأكبر: ٣، ١، ٢",
+          "correctAnswer": "١، ٢، ٣",
+          "options": [
+            "٣",
+            "١",
+            "٢"
+          ],
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "مراجعة شاملة",
+      "orderIndex": 15,
+      "content": "مراجعة نهائية: الأعداد ٠-٢٠، الجمع والطرح ضمن ٩، المقارنة والترتيب.",
+      "objectives": "مراجعة شاملة لمحتوى الفصل الأول",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "٥ + ٣ = ؟",
+          "correctAnswer": "٨",
+          "options": [
+            "٦",
+            "٧",
+            "٨",
+            "٩"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "١٥ أكبر من ١٢",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "٩ - ٤ = ؟",
+          "correctAnswer": "٥",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    }
+  ],
+  "totalLessons": 15
+}

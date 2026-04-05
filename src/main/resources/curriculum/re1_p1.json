@@ -1,0 +1,572 @@
+{
+  "subject": "التربية الإسلامية",
+  "subjectCode": "re",
+  "gradeLevel": 1,
+  "semester": 1,
+  "lessons": [
+    {
+      "title": "الله ربي",
+      "orderIndex": 1,
+      "content": "الله تعالى هو ربنا الذي خلقنا وخلق كل شيء. نحبه ونشكره على نعمه.",
+      "objectives": "التعرف على أن الله هو الخالق والرب",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "من خلقنا؟",
+          "correctAnswer": "الله تعالى",
+          "options": [
+            "الله تعالى",
+            "الإنسان",
+            "الطبيعة",
+            "لا أحد"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الله تعالى خلق كل شيء",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "من ربك؟",
+          "correctAnswer": "الله",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "أركان الإسلام",
+      "orderIndex": 2,
+      "content": "أركان الإسلام خمسة: الشهادتان، الصلاة، الزكاة، صوم رمضان، حج البيت.",
+      "objectives": "حفظ أركان الإسلام الخمسة",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كم عدد أركان الإسلام؟",
+          "correctAnswer": "خمسة",
+          "options": [
+            "ثلاثة",
+            "أربعة",
+            "خمسة",
+            "ستة"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الصلاة ركن من أركان الإسلام",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر الركن الأول من أركان الإسلام",
+          "correctAnswer": "الشهادتان",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أي مما يلي ركن من أركان الإسلام؟",
+          "correctAnswer": "الزكاة",
+          "options": [
+            "القراءة",
+            "الزكاة",
+            "اللعب",
+            "النوم"
+          ],
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "سورة الفاتحة",
+      "orderIndex": 3,
+      "content": "سورة الفاتحة هي أول سورة في القرآن الكريم. نقرأها في كل صلاة. بسم الله الرحمن الرحيم.",
+      "objectives": "قراءة سورة الفاتحة وحفظها",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما أول سورة في القرآن الكريم؟",
+          "correctAnswer": "الفاتحة",
+          "options": [
+            "الناس",
+            "الفاتحة",
+            "الإخلاص",
+            "البقرة"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "نقرأ سورة الفاتحة في كل صلاة",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أكمل: بسم الله الرحمن ...",
+          "correctAnswer": "الرحيم",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "اسم السورة التي ندرسها هي سورة ___",
+          "correctAnswer": "الفاتحة",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "سورة الإخلاص",
+      "orderIndex": 4,
+      "content": "قل هو الله أحد، الله الصمد، لم يلد ولم يولد، ولم يكن له كفواً أحد.",
+      "objectives": "حفظ سورة الإخلاص وفهم معناها",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "قل هو الله ...؟",
+          "correctAnswer": "أحد",
+          "options": [
+            "أحد",
+            "واحد",
+            "كبير",
+            "عظيم"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "سورة الإخلاص تتحدث عن وحدانية الله",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أكمل: الله الصمد لم يلد ولم ...",
+          "correctAnswer": "يولد",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "اسم السورة التي ندرسها هي سورة ___",
+          "correctAnswer": "الإخلاص",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "نعم الله تعالى",
+      "orderIndex": 5,
+      "content": "الله أنعم علينا بنعم كثيرة: السمع، البصر، الطعام، الماء، الأهل. نشكر الله على نعمه.",
+      "objectives": "التعرف على نعم الله وشكره عليها",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي من التالي نعمة من الله؟",
+          "correctAnswer": "كلها نعم",
+          "options": [
+            "السمع",
+            "البصر",
+            "الماء",
+            "كلها نعم"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يجب أن نشكر الله على نعمه",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كيف نشكر الله على نعمه؟",
+          "correctAnswer": "نقول الحمد لله",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "رسولنا محمد ﷺ",
+      "orderIndex": 6,
+      "content": "محمد ﷺ هو رسول الله وخاتم الأنبياء. ولد في مكة المكرمة. نحبه ونتبع سنته.",
+      "objectives": "التعرف على نبينا محمد ﷺ",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أين ولد النبي محمد ﷺ؟",
+          "correctAnswer": "مكة المكرمة",
+          "options": [
+            "مكة المكرمة",
+            "المدينة المنورة",
+            "القدس",
+            "بيت لحم"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "محمد ﷺ هو خاتم الأنبياء",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "من هو رسولنا؟",
+          "correctAnswer": "محمد",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "صفات الرسول ﷺ",
+      "orderIndex": 7,
+      "content": "كان النبي ﷺ صادقاً أميناً رحيماً. كان يحب الأطفال ويعطف على الفقراء.",
+      "objectives": "التعرف على صفات الرسول ﷺ",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا كان يُلقّب النبي ﷺ قبل النبوة؟",
+          "correctAnswer": "الصادق الأمين",
+          "options": [
+            "الصادق الأمين",
+            "الشجاع",
+            "الحكيم",
+            "القوي"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كان النبي ﷺ يحب الأطفال",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر صفة من صفات النبي ﷺ",
+          "correctAnswer": "الصدق",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "أحب رسولي ﷺ",
+      "orderIndex": 8,
+      "content": "نحب رسولنا محمد ﷺ ونتبع سنته. نصلي عليه ونقتدي بأخلاقه الحسنة.",
+      "objectives": "التعبير عن حب الرسول ﷺ",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كيف نعبر عن حبنا للنبي ﷺ؟",
+          "correctAnswer": "نصلي عليه ونتبع سنته",
+          "options": [
+            "نصلي عليه ونتبع سنته",
+            "لا نفعل شيئاً",
+            "نحتفل فقط",
+            "ننسى سنته"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الصلاة على النبي من علامات حبه",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا نقول عند ذكر النبي محمد؟",
+          "correctAnswer": "صلى الله عليه وسلم",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "الصدق",
+      "orderIndex": 9,
+      "content": "الصدق خلق جميل يحبه الله. الصادق يقول الحقيقة دائماً. رسولنا كان صادقاً.",
+      "objectives": "التعرف على أهمية الصدق",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "الصدق يعني:",
+          "correctAnswer": "قول الحقيقة",
+          "options": [
+            "قول الحقيقة",
+            "الكذب",
+            "السكوت",
+            "الصراخ"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الصدق خلق يحبه الله تعالى",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما عكس الصدق؟",
+          "correctAnswer": "الكذب",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "الأمانة",
+      "orderIndex": 10,
+      "content": "الأمانة أن نحفظ ما يعطينا الآخرون ونعيده لهم. الأمين محبوب عند الله والناس.",
+      "objectives": "التعرف على أهمية الأمانة",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "الأمانة تعني:",
+          "correctAnswer": "حفظ حقوق الآخرين",
+          "options": [
+            "حفظ حقوق الآخرين",
+            "أخذ ما ليس لنا",
+            "الكذب",
+            "الغش"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الأمين محبوب عند الله والناس",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا يُلقّب النبي بسبب أمانته؟",
+          "correctAnswer": "الأمين",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "احترام الكبير",
+      "orderIndex": 11,
+      "content": "نحترم الكبار ونساعدهم. نتكلم معهم بأدب ونستمع لنصائحهم.",
+      "objectives": "التعرف على أهمية احترام الكبار",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كيف نتعامل مع كبار السن؟",
+          "correctAnswer": "باحترام ومساعدة",
+          "options": [
+            "باحترام ومساعدة",
+            "بعدم اهتمام",
+            "بصوت عالٍ",
+            "نتجاهلهم"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يجب أن نحترم المعلم والوالدين",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر طريقة لاحترام الكبير",
+          "correctAnswer": "نستمع لنصائحهم",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "الوضوء",
+      "orderIndex": 12,
+      "content": "الوضوء طهارة للصلاة. خطواته: النية، غسل اليدين، المضمضة، الاستنشاق، غسل الوجه، غسل اليدين للمرفقين، مسح الرأس، غسل القدمين.",
+      "objectives": "التعرف على خطوات الوضوء",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا نفعل قبل الصلاة؟",
+          "correctAnswer": "الوضوء",
+          "options": [
+            "الوضوء",
+            "النوم",
+            "الأكل",
+            "اللعب"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "غسل الوجه من خطوات الوضوء",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "بماذا نبدأ الوضوء؟",
+          "correctAnswer": "النية",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "الصلاة",
+      "orderIndex": 13,
+      "content": "الصلاة عبادة مهمة. نصلي ٥ مرات في اليوم: الفجر، الظهر، العصر، المغرب، العشاء.",
+      "objectives": "التعرف على أوقات الصلوات الخمس",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كم صلاة نصلي في اليوم؟",
+          "correctAnswer": "٥",
+          "options": [
+            "٣",
+            "٤",
+            "٥",
+            "٦"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "صلاة الفجر هي أول صلاة في اليوم",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر اسم صلاة واحدة",
+          "correctAnswer": "الفجر",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أي صلاة بعد الظهر؟",
+          "correctAnswer": "العصر",
+          "options": [
+            "الفجر",
+            "العصر",
+            "المغرب",
+            "العشاء"
+          ],
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "آداب المسجد",
+      "orderIndex": 14,
+      "content": "المسجد بيت الله. ندخله بالقدم اليمنى ونقول دعاء الدخول. نحافظ على نظافته وهدوئه.",
+      "objectives": "التعرف على آداب المسجد",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بأي قدم ندخل المسجد؟",
+          "correctAnswer": "اليمنى",
+          "options": [
+            "اليمنى",
+            "اليسرى",
+            "أي قدم",
+            "بالحذاء"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يجب المحافظة على نظافة المسجد",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما هو المسجد؟",
+          "correctAnswer": "بيت الله",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "مراجعة عامة",
+      "orderIndex": 15,
+      "content": "مراجعة شاملة: أركان الإسلام، سورة الفاتحة والإخلاص، صفات الرسول، الأخلاق، الوضوء والصلاة.",
+      "objectives": "مراجعة شاملة لمحتوى الفصل",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "الركن الثاني من أركان الإسلام هو:",
+          "correctAnswer": "الصلاة",
+          "options": [
+            "الشهادتان",
+            "الصلاة",
+            "الزكاة",
+            "الصوم"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "سورة الفاتحة نقرأها في كل صلاة",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كم عدد أركان الإسلام؟",
+          "correctAnswer": "خمسة",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    }
+  ],
+  "totalLessons": 15
+}

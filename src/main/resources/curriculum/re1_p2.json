@@ -1,0 +1,415 @@
+{
+  "subject": "التربية الإسلامية",
+  "subjectCode": "re",
+  "gradeLevel": 1,
+  "semester": 2,
+  "lessons": [
+    {
+      "title": "سورة الناس",
+      "orderIndex": 1,
+      "content": "قل أعوذ برب الناس، ملك الناس، إله الناس، من شر الوسواس الخناس.",
+      "objectives": "حفظ سورة الناس وفهم معناها",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بمن نستعيذ في سورة الناس؟",
+          "correctAnswer": "برب الناس",
+          "options": [
+            "برب الناس",
+            "بالناس",
+            "بالملائكة",
+            "بالكتب"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "سورة الناس آخر سورة في القرآن",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أكمل: قل أعوذ برب ...",
+          "correctAnswer": "الناس",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "اسم السورة التي ندرسها هي سورة ___",
+          "correctAnswer": "الناس",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "سورة الفلق",
+      "orderIndex": 2,
+      "content": "قل أعوذ برب الفلق، من شر ما خلق. الفلق هو الصبح.",
+      "objectives": "حفظ سورة الفلق وفهم معناها",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما معنى الفلق؟",
+          "correctAnswer": "الصبح",
+          "options": [
+            "الصبح",
+            "الليل",
+            "القمر",
+            "النجوم"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "سورة الفلق قبل سورة الناس في القرآن",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أكمل: قل أعوذ برب ...",
+          "correctAnswer": "الفلق",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "اسم السورة التي ندرسها هي سورة ___",
+          "correctAnswer": "الفلق",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "سورة المسد",
+      "orderIndex": 3,
+      "content": "تبت يدا أبي لهب وتب. نتعلم تلاوة السورة.",
+      "objectives": "قراءة سورة المسد",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "من ذُكر في سورة المسد؟",
+          "correctAnswer": "أبو لهب",
+          "options": [
+            "أبو لهب",
+            "أبو بكر",
+            "أبو طالب",
+            "أبو سفيان"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "سورة المسد من السور القصيرة",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أكمل: تبت يدا أبي لهب و...",
+          "correctAnswer": "تب",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "اسم السورة التي ندرسها هي سورة ___",
+          "correctAnswer": "المسد",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "خلق الله تعالى",
+      "orderIndex": 4,
+      "content": "الله خلق السماوات والأرض والجبال والبحار والحيوانات والنبات. كل شيء بديع وجميل.",
+      "objectives": "التأمل في خلق الله تعالى",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "من خلق السماء والأرض؟",
+          "correctAnswer": "الله تعالى",
+          "options": [
+            "الله تعالى",
+            "الإنسان",
+            "الطبيعة",
+            "لا أحد"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الله خلق كل شيء جميل",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر شيئاً خلقه الله",
+          "correctAnswer": "السماء",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "آداب الطعام",
+      "orderIndex": 5,
+      "content": "نسمّي الله قبل الأكل (بسم الله)، ونأكل باليد اليمنى، ونحمد الله بعد الأكل.",
+      "objectives": "التعرف على آداب الطعام في الإسلام",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا نقول قبل الأكل؟",
+          "correctAnswer": "بسم الله",
+          "options": [
+            "بسم الله",
+            "الحمد لله",
+            "سبحان الله",
+            "الله أكبر"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "نأكل باليد اليمنى",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا نقول بعد الأكل؟",
+          "correctAnswer": "الحمد لله",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "آداب النظافة",
+      "orderIndex": 6,
+      "content": "النظافة من الإيمان. نغسل أيدينا، ننظف أسناننا، نحافظ على نظافة ملابسنا وبيتنا.",
+      "objectives": "التعرف على أهمية النظافة في الإسلام",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "النظافة من ...؟",
+          "correctAnswer": "الإيمان",
+          "options": [
+            "الإيمان",
+            "اللعب",
+            "النوم",
+            "الطعام"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يجب أن ننظف أسناننا كل يوم",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "لماذا نهتم بالنظافة؟",
+          "correctAnswer": "لأن النظافة من الإيمان",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "الرفق بالحيوان",
+      "orderIndex": 7,
+      "content": "الإسلام يأمرنا بالرفق بالحيوان. نطعمها ونسقيها ولا نؤذيها.",
+      "objectives": "التعرف على أهمية الرفق بالحيوان",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كيف نتعامل مع الحيوانات؟",
+          "correctAnswer": "بالرفق واللطف",
+          "options": [
+            "بالرفق واللطف",
+            "بالضرب",
+            "نتجاهلها",
+            "نخيفها"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الإسلام يأمرنا بالرفق بالحيوان",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا نعطي الحيوان الجائع؟",
+          "correctAnswer": "الطعام",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "بر الوالدين",
+      "orderIndex": 8,
+      "content": "بر الوالدين واجب في الإسلام. نطيعهما ونحترمهما ونساعدهما ونتكلم معهما بأدب.",
+      "objectives": "التعرف على أهمية بر الوالدين",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بر الوالدين يعني:",
+          "correctAnswer": "طاعتهما واحترامهما",
+          "options": [
+            "طاعتهما واحترامهما",
+            "تجاهلهما",
+            "عدم السماع لهما",
+            "رفع الصوت عليهما"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "بر الوالدين واجب في الإسلام",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كيف تبر والديك؟",
+          "correctAnswer": "أطيعهما وأحترمهما",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "حب الوطن",
+      "orderIndex": 9,
+      "content": "حب الوطن من الإيمان. وطننا فلسطين نحبه وندافع عنه ونحافظ عليه.",
+      "objectives": "تعزيز قيمة حب الوطن",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما اسم وطننا؟",
+          "correctAnswer": "فلسطين",
+          "options": [
+            "فلسطين",
+            "مصر",
+            "الأردن",
+            "سوريا"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "حب الوطن من الإيمان",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "لماذا نحب وطننا؟",
+          "correctAnswer": "لأنه أرضنا وبلادنا",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "التعاون",
+      "orderIndex": 10,
+      "content": "التعاون خلق إسلامي جميل. نساعد بعضنا البعض في البيت والمدرسة.",
+      "objectives": "التعرف على أهمية التعاون",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "التعاون يعني:",
+          "correctAnswer": "مساعدة بعضنا البعض",
+          "options": [
+            "مساعدة بعضنا البعض",
+            "العمل وحدنا",
+            "عدم مساعدة أحد",
+            "الأنانية"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "التعاون مهم في المدرسة والبيت",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كيف نتعاون في البيت؟",
+          "correctAnswer": "نساعد في ترتيب البيت",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "مراجعة عامة",
+      "orderIndex": 11,
+      "content": "مراجعة شاملة: السور القرآنية، خلق الله، الآداب الإسلامية، الأخلاق.",
+      "objectives": "مراجعة شاملة لمحتوى الفصل الثاني",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا نقول قبل الأكل؟",
+          "correctAnswer": "بسم الله",
+          "options": [
+            "بسم الله",
+            "الحمد لله",
+            "سبحان الله",
+            "لا إله إلا الله"
+          ],
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الرفق بالحيوان من تعاليم الإسلام",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كم صلاة نصلي في اليوم؟",
+          "correctAnswer": "خمس صلوات",
+          "options": null,
+          "difficultyLevel": 1
+        }
+      ],
+      "imageUrls": []
+    }
+  ],
+  "totalLessons": 11
+}

@@ -1,4 +1,6 @@
-# Miscellaneous
+# =========================
+# Shared / IDE
+# =========================
 *.class
 *.log
 *.pyc
@@ -10,28 +12,36 @@
 .history
 .svn/
 .swiftpm/
-migrate_working_dir/
-
-# IntelliJ related
+.idea/
 *.iml
 *.ipr
 *.iws
-.idea/
-
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
 #.vscode/
 
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
-.dart_tool/
-.flutter-plugins-dependencies
-.pub-cache/
-.pub/
-/build/
-/coverage/
+# =========================
+# Backend (Spring Boot)
+# =========================
+backend/.gradle/
+backend/build/
+backend/local.properties
+backend/out/
+backend/bin/
+
+# =========================
+# Flutter (manhaji_app)
+# =========================
+manhaji_app/.dart_tool/
+manhaji_app/.flutter-plugins
+manhaji_app/.flutter-plugins-dependencies
+manhaji_app/.pub-cache/
+manhaji_app/.pub/
+manhaji_app/build/
+manhaji_app/coverage/
+manhaji_app/**/doc/api/
+manhaji_app/**/ios/Flutter/.last_build_id
+manhaji_app/android/app/debug
+manhaji_app/android/app/profile
+manhaji_app/android/app/release
 
 # Symbolication related
 app.*.symbols
@@ -39,7 +49,5 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
+# Misc
+migrate_working_dir/

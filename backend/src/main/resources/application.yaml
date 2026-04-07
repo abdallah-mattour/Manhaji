@@ -42,7 +42,7 @@ app:
       api-key: ${GEMINI_API_KEY:not-set}
       model: gemini-2.5-flash
     whisper:
-      api-key: ${WHISPER_API_KEY:not-set}
+      api-key: unused  # Transcription now uses Gemini instead of OpenAI Whisper
     google-tts:
       api-key: ${GOOGLE_TTS_API_KEY:not-set}
 

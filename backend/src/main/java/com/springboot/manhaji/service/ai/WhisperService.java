@@ -3,13 +3,12 @@ package com.springboot.manhaji.service.ai;
 import com.springboot.manhaji.config.AiConfigProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
-import org.springframework.http.client.MultipartBodyBuilder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.Base64;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -20,14 +19,14 @@ public class WhisperService {
     private final AiConfigProperties aiConfig;
     private final WebClient.Builder webClientBuilder;
 
-    private static final String WHISPER_URL = "https://api.openai.com/v1/audio/transcriptions";
+    private static final String GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta";
 
     public boolean isAvailable() {
-        return aiConfig.getWhisper().isConfigured();
+        return aiConfig.getGemini().isConfigured();
     }
 
     /**
-     * Transcribe audio bytes to text using OpenAI Whisper.
+     * Transcribe audio bytes to text using Gemini (free alternative to Whisper).
      *
      * @param audioData the audio file bytes
      * @param language  language code ("ar" for Arabic, "en" for English)
@@ -39,41 +38,56 @@ public class WhisperService {
         }
 
         try {
-            MultipartBodyBuilder builder = new MultipartBodyBuilder();
-            builder.part("file", new ByteArrayResource(audioData) {
-                @Override
-                public String getFilename() {
-                    return "audio.webm";
-                }
-            }).contentType(MediaType.APPLICATION_OCTET_STREAM);
-            builder.part("model", "whisper-1");
-            builder.part("language", language);
+            String base64Audio = Base64.getEncoder().encodeToString(audioData);
+            String langName = "ar".equals(language) ? "Arabic" : "English";
+
+            String model = aiConfig.getGemini().getModel();
+            String apiKey = aiConfig.getGemini().getApiKey();
+            String url = String.format("%s/models/%s:generateContent?key=%s", GEMINI_BASE_URL, model, apiKey);
+
+            Map<String, Object> requestBody = Map.of(
+                    "contents", List.of(
+                            Map.of("parts", List.of(
+                                    Map.of(
+                                            "inlineData", Map.of(
+                                                    "mimeType", "audio/webm",
+                                                    "data", base64Audio
+                                            )
+                                    ),
+                                    Map.of("text", "Transcribe this audio to " + langName + " text. Return ONLY the transcribed text, nothing else.")
+                            ))
+                    ),
+                    "generationConfig", Map.of(
+                            "temperature", 0.1,
+                            "maxOutputTokens", 512
+                    )
+            );
 
             String responseJson = webClientBuilder.build()
                     .post()
-                    .uri(WHISPER_URL)
-                    .header("Authorization", "Bearer " + aiConfig.getWhisper().getApiKey())
-                    .contentType(MediaType.MULTIPART_FORM_DATA)
-                    .body(BodyInserters.fromMultipartData(builder.build()))
+                    .uri(url)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .bodyValue(requestBody)
                     .retrieve()
                     .bodyToMono(String.class)
                     .block(java.time.Duration.ofSeconds(30));
 
-            return extractTranscription(responseJson);
+            return extractTextFromGeminiResponse(responseJson);
         } catch (Exception e) {
-            log.error("Whisper transcription failed: {}", e.getMessage());
+            log.error("Audio transcription failed: {}", e.getMessage());
             return "حدث خطأ في التعرف على الصوت. حاول مرة أخرى.";
         }
     }
 
-    @SuppressWarnings("unchecked")
-    private String extractTranscription(String json) {
+    private String extractTextFromGeminiResponse(String json) {
         try {
             var mapper = new com.fasterxml.jackson.databind.ObjectMapper();
-            Map<String, Object> response = mapper.readValue(json, Map.class);
-            return (String) response.get("text");
+            var root = mapper.readTree(json);
+            return root.path("candidates").path(0)
+                    .path("content").path("parts").path(0)
+                    .path("text").asText();
         } catch (Exception e) {
-            log.error("Failed to parse Whisper response: {}", e.getMessage());
+            log.error("Failed to parse transcription response: {}", e.getMessage());
             return "حدث خطأ في معالجة الصوت";
         }
     }

@@ -5,12 +5,13 @@ import 'app/theme.dart';
 import 'providers/auth_provider.dart';
 import 'providers/lesson_provider.dart';
 import 'providers/progress_provider.dart';
-import 'providers/quiz_provider.dart';
+import 'providers/learning_provider.dart';
 import 'services/api_service.dart';
 import 'services/auth_service.dart';
 import 'services/lesson_service.dart';
 import 'services/progress_service.dart';
 import 'services/quiz_service.dart';
+import 'services/audio_service.dart';
 import 'services/local_storage_service.dart';
 
 void main() async {
@@ -24,6 +25,7 @@ void main() async {
   final lessonService = LessonApiService(apiService);
   final quizService = QuizApiService(apiService);
   final progressService = ProgressApiService(apiService);
+  final audioService = AudioApiService(apiService);
 
   runApp(ManhajiApp(
     localStorage: localStorage,
@@ -31,6 +33,7 @@ void main() async {
     lessonService: lessonService,
     quizService: quizService,
     progressService: progressService,
+    audioService: audioService,
   ));
 }
 
@@ -40,6 +43,7 @@ class ManhajiApp extends StatelessWidget {
   final LessonApiService lessonService;
   final QuizApiService quizService;
   final ProgressApiService progressService;
+  final AudioApiService audioService;
 
   const ManhajiApp({
     super.key,
@@ -48,6 +52,7 @@ class ManhajiApp extends StatelessWidget {
     required this.lessonService,
     required this.quizService,
     required this.progressService,
+    required this.audioService,
   });
 
   @override
@@ -62,11 +67,12 @@ class ManhajiApp extends StatelessWidget {
           create: (_) => LessonProvider(lessonService),
         ),
         ChangeNotifierProvider(
-          create: (_) => QuizProvider(quizService),
+          create: (_) => LearningProvider(quizService),
         ),
         ChangeNotifierProvider(
           create: (_) => ProgressProvider(progressService),
         ),
+        Provider<AudioApiService>.value(value: audioService),
       ],
       child: MaterialApp(
         title: 'منهجي',

@@ -4,6 +4,8 @@ class Quiz {
   final bool gamified;
   final int totalQuestions;
   final List<Question> questions;
+  final String? lessonContent;
+  final String? lessonObjectives;
 
   Quiz({
     required this.id,
@@ -11,6 +13,8 @@ class Quiz {
     required this.gamified,
     required this.totalQuestions,
     required this.questions,
+    this.lessonContent,
+    this.lessonObjectives,
   });
 
   factory Quiz.fromJson(Map<String, dynamic> json) {
@@ -23,6 +27,8 @@ class Quiz {
               ?.map((q) => Question.fromJson(q))
               .toList() ??
           [],
+      lessonContent: json['lessonContent'],
+      lessonObjectives: json['lessonObjectives'],
     );
   }
 }
@@ -47,8 +53,9 @@ class Question {
       id: json['id'] ?? 0,
       type: json['type'] ?? 'MCQ',
       questionText: json['questionText'] ?? '',
-      options:
-          json['options'] != null ? List<String>.from(json['options']) : null,
+      options: json['options'] is List
+          ? (json['options'] as List).map((e) => e.toString()).toList()
+          : null,
       difficultyLevel: json['difficultyLevel'] ?? 1,
     );
   }
@@ -56,6 +63,8 @@ class Question {
   bool get isMCQ => type == 'MCQ';
   bool get isTrueFalse => type == 'TRUE_FALSE';
   bool get isShortAnswer => type == 'SHORT_ANSWER';
+  bool get isFillBlank => type == 'FILL_BLANK';
+  bool get isOrdering => type == 'ORDERING';
 }
 
 class AttemptResult {

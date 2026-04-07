@@ -28,6 +28,8 @@ class ProgressProvider extends ChangeNotifier {
       _summary = await _progressService.getProgressSummary();
     } on DioException catch (e) {
       _errorMessage = _extractError(e);
+    } catch (_) {
+      _errorMessage = 'حدث خطأ غير متوقع';
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -43,6 +45,8 @@ class ProgressProvider extends ChangeNotifier {
       _leaderboard = await _progressService.getLeaderboard(gradeLevel: gradeLevel);
     } on DioException catch (e) {
       _errorMessage = _extractError(e);
+    } catch (_) {
+      _errorMessage = 'حدث خطأ غير متوقع';
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -52,6 +56,13 @@ class ProgressProvider extends ChangeNotifier {
   String _extractError(DioException e) {
     if (e.response?.data != null && e.response!.data is Map) {
       return e.response!.data['message'] ?? 'حدث خطأ';
+    }
+    if (e.type == DioExceptionType.connectionTimeout ||
+        e.type == DioExceptionType.receiveTimeout) {
+      return 'انتهت مهلة الاتصال';
+    }
+    if (e.type == DioExceptionType.connectionError) {
+      return 'لا يمكن الاتصال بالخادم';
     }
     return 'حدث خطأ في الاتصال';
   }

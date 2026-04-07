@@ -22,7 +22,7 @@ class AuthService {
       'role': 'STUDENT',
       'gradeLevel': gradeLevel,
     });
-    return AuthResponse.fromJson(response['data']);
+    return AuthResponse.fromJson(response['data'] ?? {});
   }
 
   Future<AuthResponse> loginWithEmail({
@@ -33,7 +33,7 @@ class AuthService {
       'email': email,
       'password': password,
     });
-    return AuthResponse.fromJson(response['data']);
+    return AuthResponse.fromJson(response['data'] ?? {});
   }
 
   Future<AuthResponse> loginWithPhone({
@@ -44,11 +44,11 @@ class AuthService {
       'phone': phone,
       'password': password,
     });
-    return AuthResponse.fromJson(response['data']);
+    return AuthResponse.fromJson(response['data'] ?? {});
   }
 
   Future<Map<String, dynamic>> getCurrentUser() async {
     final response = await _api.get(ApiConfig.me);
-    return response['data'];
+    return (response['data'] as Map<String, dynamic>?) ?? {};
   }
 }

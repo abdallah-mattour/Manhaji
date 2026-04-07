@@ -14,23 +14,25 @@ class LessonApiService {
       ApiConfig.subjects,
       queryParams: {'gradeLevel': gradeLevel},
     );
-    final list = response['data'] as List;
-    return list.map((s) => Subject.fromJson(s)).toList();
+    final data = response['data'];
+    if (data is! List) return [];
+    return data.map((s) => Subject.fromJson(s)).toList();
   }
 
   Future<List<LessonSummary>> getLessonsBySubject(int subjectId) async {
     final response = await _api.get('${ApiConfig.lessonsBySubject}/$subjectId');
-    final list = response['data'] as List;
-    return list.map((l) => LessonSummary.fromJson(l)).toList();
+    final data = response['data'];
+    if (data is! List) return [];
+    return data.map((l) => LessonSummary.fromJson(l)).toList();
   }
 
   Future<Lesson> getLessonDetail(int lessonId) async {
     final response = await _api.get('${ApiConfig.lessonDetail}/$lessonId');
-    return Lesson.fromJson(response['data']);
+    return Lesson.fromJson(response['data'] ?? {});
   }
 
   Future<Dashboard> getDashboard() async {
     final response = await _api.get(ApiConfig.dashboard);
-    return Dashboard.fromJson(response['data']);
+    return Dashboard.fromJson(response['data'] ?? {});
   }
 }

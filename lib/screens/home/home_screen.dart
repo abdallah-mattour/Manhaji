@@ -5,6 +5,7 @@ import '../../app/theme.dart';
 import '../../models/subject.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/lesson_provider.dart';
+import '../../services/local_storage_service.dart';
 import '../subject/subject_lessons_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,8 +20,23 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<LessonProvider>().loadDashboard();
+      _loadData();
     });
+  }
+
+  Future<void> _loadData() async {
+    final lessonProvider = context.read<LessonProvider>();
+    await lessonProvider.loadDashboard();
+    if (!mounted) return;
+    // If dashboard failed and user is no longer logged in, redirect to login
+    if (lessonProvider.dashboard == null && lessonProvider.errorMessage != null) {
+      final storage = context.read<LocalStorageService>();
+      if (!storage.isLoggedIn) {
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          AppRoutes.login, (_) => false,
+        );
+      }
+    }
   }
 
   @override

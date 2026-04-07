@@ -22,4 +22,11 @@ class ApiConfig {
   static const String startAttempt = '/quiz/attempt/start';
   static const String submitAnswer = '/quiz/attempt/answer';
   static const String completeAttempt = '/quiz/attempt/complete';
+
+  // Audio & AI
+  static const String narrateLesson = '/audio/lesson';
+  static const String readQuestion = '/audio/question';
+  static const String ttsStatus = '/audio/tts/status';
+  static const String voiceAnswer = '/quiz/attempt';
+  static const String questionHint = '/quiz/question';
 }

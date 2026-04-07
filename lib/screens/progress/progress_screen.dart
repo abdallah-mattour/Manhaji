@@ -301,7 +301,9 @@ class _ProgressScreenState extends State<ProgressScreen> {
                   ),
                   child: Center(
                     child: Text(
-                      subject.subjectName.substring(0, 1),
+                      subject.subjectName.isNotEmpty
+                          ? subject.subjectName.substring(0, 1)
+                          : '?',
                       style: TextStyle(
                         fontFamily: 'Cairo',
                         fontSize: 20,

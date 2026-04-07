@@ -8,7 +8,7 @@ class ProgressApiService {
 
   Future<ProgressSummary> getProgressSummary() async {
     final response = await _api.get('/progress/summary');
-    return ProgressSummary.fromJson(response['data']);
+    return ProgressSummary.fromJson(response['data'] ?? {});
   }
 
   Future<List<LeaderboardEntry>> getLeaderboard({int? gradeLevel}) async {
@@ -18,7 +18,8 @@ class ProgressApiService {
         if (gradeLevel != null) 'gradeLevel': gradeLevel, // ignore: use_null_aware_elements
       },
     );
-    final list = response['data'] as List;
-    return list.map((e) => LeaderboardEntry.fromJson(e)).toList();
+    final data = response['data'];
+    if (data is! List) return [];
+    return data.map((e) => LeaderboardEntry.fromJson(e)).toList();
   }
 }

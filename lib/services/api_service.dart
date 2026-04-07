@@ -29,6 +29,9 @@ class ApiService {
           if (refreshed) {
             final retryResponse = await _retry(error.requestOptions);
             return handler.resolve(retryResponse);
+          } else {
+            // Token refresh failed — clear stale auth data
+            await _storage.clearAll();
           }
         }
         return handler.next(error);
@@ -48,11 +51,15 @@ class ApiService {
 
       if (response.data['success'] == true) {
         final data = response.data['data'];
-        await _storage.saveTokens(
-          data['accessToken'],
-          data['refreshToken'],
-        );
-        return true;
+        if (data is Map &&
+            data['accessToken'] != null &&
+            data['refreshToken'] != null) {
+          await _storage.saveTokens(
+            data['accessToken'],
+            data['refreshToken'],
+          );
+          return true;
+        }
       }
       return false;
     } catch (e) {

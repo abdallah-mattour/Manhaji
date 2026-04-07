@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '../../app/theme.dart';
 import '../../models/lesson.dart';
 import '../../providers/lesson_provider.dart';
-import '../lesson/lesson_screen.dart';
+import '../learning/learning_screen.dart';
 
 class SubjectLessonsScreen extends StatefulWidget {
   final int subjectId;
@@ -89,7 +89,10 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => LessonScreen(lessonId: lesson.id),
+                  builder: (_) => LearningScreen(
+                    lessonId: lesson.id,
+                    lessonTitle: lesson.title,
+                  ),
                 ),
               );
             },
@@ -190,6 +193,7 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen> {
   bool _isPreviousCompleted(int index) {
     if (index == 0) return true;
     final lessons = context.read<LessonProvider>().currentLessons;
+    if (index - 1 >= lessons.length) return false;
     return lessons[index - 1].isCompleted;
   }
 

@@ -9,12 +9,12 @@ class QuizApiService {
 
   Future<Quiz> getQuizByLesson(int lessonId) async {
     final response = await _api.get('${ApiConfig.quizByLesson}/$lessonId');
-    return Quiz.fromJson(response['data']);
+    return Quiz.fromJson(response['data'] ?? {});
   }
 
   Future<AttemptResult> startAttempt(int quizId) async {
     final response = await _api.post('${ApiConfig.startAttempt}/$quizId');
-    return AttemptResult.fromJson(response['data']);
+    return AttemptResult.fromJson(response['data'] ?? {});
   }
 
   Future<SubmitAnswerResult> submitAnswer(int attemptId, {
@@ -32,11 +32,11 @@ class QuizApiService {
         if (audioRef != null) 'audioRef': audioRef, // ignore: use_null_aware_elements
       },
     );
-    return SubmitAnswerResult.fromJson(response['data']);
+    return SubmitAnswerResult.fromJson(response['data'] ?? {});
   }
 
   Future<AttemptResult> completeAttempt(int attemptId) async {
     final response = await _api.post('/quiz/attempt/$attemptId/complete');
-    return AttemptResult.fromJson(response['data']);
+    return AttemptResult.fromJson(response['data'] ?? {});
   }
 }

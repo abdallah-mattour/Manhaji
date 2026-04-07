@@ -60,8 +60,8 @@ class Lesson {
       title: json['title'] ?? '',
       content: json['content'] ?? '',
       audioUrl: json['audioUrl'],
-      imageUrls: json['imageUrls'] != null
-          ? List<String>.from(json['imageUrls'])
+      imageUrls: json['imageUrls'] is List
+          ? (json['imageUrls'] as List).map((e) => e.toString()).toList()
           : [],
       objectives: json['objectives'],
       orderIndex: json['orderIndex'] ?? 0,

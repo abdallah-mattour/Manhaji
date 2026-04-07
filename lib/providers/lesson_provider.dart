@@ -35,6 +35,8 @@ class LessonProvider extends ChangeNotifier {
       _subjects = _dashboard!.subjects;
     } on DioException catch (e) {
       _errorMessage = _extractError(e);
+    } catch (_) {
+      _errorMessage = 'حدث خطأ غير متوقع';
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -50,6 +52,8 @@ class LessonProvider extends ChangeNotifier {
       _subjects = await _lessonService.getSubjectsByGrade(gradeLevel);
     } on DioException catch (e) {
       _errorMessage = _extractError(e);
+    } catch (_) {
+      _errorMessage = 'حدث خطأ غير متوقع';
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -65,6 +69,8 @@ class LessonProvider extends ChangeNotifier {
       _currentLessons = await _lessonService.getLessonsBySubject(subjectId);
     } on DioException catch (e) {
       _errorMessage = _extractError(e);
+    } catch (_) {
+      _errorMessage = 'حدث خطأ غير متوقع';
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -80,6 +86,8 @@ class LessonProvider extends ChangeNotifier {
       _currentLesson = await _lessonService.getLessonDetail(lessonId);
     } on DioException catch (e) {
       _errorMessage = _extractError(e);
+    } catch (_) {
+      _errorMessage = 'حدث خطأ غير متوقع';
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -89,6 +97,13 @@ class LessonProvider extends ChangeNotifier {
   String _extractError(DioException e) {
     if (e.response?.data != null && e.response!.data is Map) {
       return e.response!.data['message'] ?? 'حدث خطأ';
+    }
+    if (e.type == DioExceptionType.connectionTimeout ||
+        e.type == DioExceptionType.receiveTimeout) {
+      return 'انتهت مهلة الاتصال';
+    }
+    if (e.type == DioExceptionType.connectionError) {
+      return 'لا يمكن الاتصال بالخادم';
     }
     return 'حدث خطأ في الاتصال';
   }

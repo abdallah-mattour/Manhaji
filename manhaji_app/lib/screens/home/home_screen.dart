@@ -100,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SliverToBoxAdapter(
                       child: Padding(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                         child: Text(
                           'المواد الدراسية',
                           style: TextStyle(
@@ -121,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisCount: 2,
                           crossAxisSpacing: 12,
                           mainAxisSpacing: 12,
-                          childAspectRatio: 0.85,
+                          childAspectRatio: 1.05,
                         ),
                         delegate: SliverChildBuilderDelegate(
                           (context, index) {
@@ -146,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildHeader(String name, int points, int streak) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
+      padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [AppTheme.primaryGreen, Color(0xFF388E3C)],
@@ -220,7 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildStatCard(String emoji, String value, String label, Color color) {
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
         decoration: BoxDecoration(
           color: color.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(16),
@@ -293,33 +293,33 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 64,
-              height: 64,
+              width: 48,
+              height: 48,
               decoration: BoxDecoration(
                 color: lightColor,
-                borderRadius: BorderRadius.circular(18),
+                borderRadius: BorderRadius.circular(14),
               ),
               child: Icon(
                 icons[index % icons.length],
-                size: 36,
+                size: 28,
                 color: color,
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 8),
             Text(
               subject.name,
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontFamily: 'Cairo',
-                fontSize: 15,
+                fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: AppTheme.textDark,
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 4),
             // Progress bar
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: [
                   ClipRRect(

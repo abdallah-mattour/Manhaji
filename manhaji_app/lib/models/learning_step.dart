@@ -8,12 +8,14 @@ class TeachingCardData {
   final String content;
   final String emoji;
   final Color accentColor;
+  final String? imageUrl;
 
   const TeachingCardData({
     required this.title,
     required this.content,
     required this.emoji,
     required this.accentColor,
+    this.imageUrl,
   });
 }
 

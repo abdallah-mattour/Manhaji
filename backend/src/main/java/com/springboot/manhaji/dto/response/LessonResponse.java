@@ -19,6 +19,7 @@ public class LessonResponse {
     private List<String> imageUrls;
     private String objectives;
     private Integer orderIndex;
+    private Integer semesterNumber;
     private Long subjectId;
     private String subjectName;
     private Integer gradeLevel;

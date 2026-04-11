@@ -14,6 +14,7 @@ public class LessonSummaryResponse {
     private Long id;
     private String title;
     private Integer orderIndex;
+    private Integer semesterNumber;
     private CompletionStatus completionStatus;
     private Double masteryLevel;
 }

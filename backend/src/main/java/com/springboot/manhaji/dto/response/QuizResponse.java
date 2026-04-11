@@ -14,4 +14,5 @@ public class QuizResponse {
     private List<QuestionResponse> questions;
     private String lessonContent;
     private String lessonObjectives;
+    private List<String> lessonImageUrls;
 }

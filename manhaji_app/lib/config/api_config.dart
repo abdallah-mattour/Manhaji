@@ -1,5 +1,15 @@
 class ApiConfig {
   static const String baseUrl = 'http://10.0.2.2:8080/api';
+  static const String serverUrl = 'http://10.0.2.2:8080';
+
+  /// Resolves a backend-relative path like `/uploads/images/...` into a full URL.
+  /// Returns the input unchanged if it already starts with `http`.
+  static String resolveMediaUrl(String path) {
+    if (path.isEmpty) return path;
+    if (path.startsWith('http://') || path.startsWith('https://')) return path;
+    if (path.startsWith('/')) return '$serverUrl$path';
+    return '$serverUrl/$path';
+  }
 
   // Auth
   static const String register = '/auth/register';

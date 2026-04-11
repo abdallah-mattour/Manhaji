@@ -42,6 +42,9 @@ public class Lesson {
     @Column(nullable = false)
     private Integer orderIndex = 0;
 
+    @Column(nullable = false)
+    private Integer semesterNumber = 1;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subject_id", nullable = false)
     private Subject subject;

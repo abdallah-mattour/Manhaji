@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import '../config/api_config.dart';
 import '../models/learning_step.dart';
 
 class TeachingCardWidget extends StatelessWidget {
@@ -15,14 +17,50 @@ class TeachingCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    final hasImage = data.imageUrl != null && data.imageUrl!.isNotEmpty;
+
+    return SingleChildScrollView(
       padding: const EdgeInsets.all(20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Emoji header
-          Text(data.emoji, style: const TextStyle(fontSize: 56)),
-          const SizedBox(height: 16),
+          if (hasImage) ...[
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: CachedNetworkImage(
+                imageUrl: ApiConfig.resolveMediaUrl(data.imageUrl!),
+                height: 200,
+                width: double.infinity,
+                fit: BoxFit.contain,
+                placeholder: (ctx, _) => Container(
+                  height: 200,
+                  decoration: BoxDecoration(
+                    color: data.accentColor.withValues(alpha: 0.05),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: data.accentColor,
+                      strokeWidth: 2,
+                    ),
+                  ),
+                ),
+                errorWidget: (ctx, _, __) => Container(
+                  height: 120,
+                  decoration: BoxDecoration(
+                    color: data.accentColor.withValues(alpha: 0.05),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Center(
+                    child: Text(data.emoji, style: const TextStyle(fontSize: 56)),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+          ] else
+            Text(data.emoji, style: const TextStyle(fontSize: 56)),
+          if (!hasImage) const SizedBox(height: 16),
           // Title
           Text(
             data.title,

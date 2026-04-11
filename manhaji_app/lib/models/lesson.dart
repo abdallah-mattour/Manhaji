@@ -2,6 +2,7 @@ class LessonSummary {
   final int id;
   final String title;
   final int orderIndex;
+  final int semesterNumber;
   final String completionStatus;
   final double masteryLevel;
 
@@ -9,6 +10,7 @@ class LessonSummary {
     required this.id,
     required this.title,
     required this.orderIndex,
+    required this.semesterNumber,
     required this.completionStatus,
     required this.masteryLevel,
   });
@@ -18,6 +20,7 @@ class LessonSummary {
       id: json['id'] ?? 0,
       title: json['title'] ?? '',
       orderIndex: json['orderIndex'] ?? 0,
+      semesterNumber: json['semesterNumber'] ?? 1,
       completionStatus: json['completionStatus'] ?? 'NOT_STARTED',
       masteryLevel: (json['masteryLevel'] ?? 0.0).toDouble(),
     );
@@ -35,6 +38,7 @@ class Lesson {
   final List<String> imageUrls;
   final String? objectives;
   final int orderIndex;
+  final int semesterNumber;
   final int subjectId;
   final String subjectName;
   final int gradeLevel;
@@ -48,6 +52,7 @@ class Lesson {
     required this.imageUrls,
     this.objectives,
     required this.orderIndex,
+    required this.semesterNumber,
     required this.subjectId,
     required this.subjectName,
     required this.gradeLevel,
@@ -65,6 +70,7 @@ class Lesson {
           : [],
       objectives: json['objectives'],
       orderIndex: json['orderIndex'] ?? 0,
+      semesterNumber: json['semesterNumber'] ?? 1,
       subjectId: json['subjectId'] ?? 0,
       subjectName: json['subjectName'] ?? '',
       gradeLevel: json['gradeLevel'] ?? 1,

@@ -61,6 +61,7 @@ public class LessonService {
                     .id(lesson.getId())
                     .title(lesson.getTitle())
                     .orderIndex(lesson.getOrderIndex())
+                    .semesterNumber(lesson.getSemesterNumber() != null ? lesson.getSemesterNumber() : 1)
                     .completionStatus(progress.map(Progress::getCompletionStatus).orElse(CompletionStatus.NOT_STARTED))
                     .masteryLevel(progress.map(Progress::getMasteryLevel).orElse(0.0))
                     .build();
@@ -97,6 +98,7 @@ public class LessonService {
                 .imageUrls(imageUrlList)
                 .objectives(lesson.getObjectives())
                 .orderIndex(lesson.getOrderIndex())
+                .semesterNumber(lesson.getSemesterNumber() != null ? lesson.getSemesterNumber() : 1)
                 .subjectId(lesson.getSubject().getId())
                 .subjectName(lesson.getSubject().getName())
                 .gradeLevel(lesson.getGradeLevel())

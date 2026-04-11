@@ -6,6 +6,7 @@ class Quiz {
   final List<Question> questions;
   final String? lessonContent;
   final String? lessonObjectives;
+  final List<String> lessonImageUrls;
 
   Quiz({
     required this.id,
@@ -15,6 +16,7 @@ class Quiz {
     required this.questions,
     this.lessonContent,
     this.lessonObjectives,
+    this.lessonImageUrls = const [],
   });
 
   factory Quiz.fromJson(Map<String, dynamic> json) {
@@ -29,6 +31,9 @@ class Quiz {
           [],
       lessonContent: json['lessonContent'],
       lessonObjectives: json['lessonObjectives'],
+      lessonImageUrls: json['lessonImageUrls'] is List
+          ? (json['lessonImageUrls'] as List).map((e) => e.toString()).toList()
+          : const [],
     );
   }
 }

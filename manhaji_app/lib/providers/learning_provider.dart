@@ -284,6 +284,14 @@ class LearningProvider extends ChangeNotifier {
     final content = _currentQuiz?.lessonContent ?? '';
     final objectives = _currentQuiz?.lessonObjectives ?? '';
     final title = _currentQuiz?.title ?? '';
+    final lessonImages = _currentQuiz?.lessonImageUrls ?? const <String>[];
+    int imgCursor = 0;
+    String? nextImage() {
+      if (lessonImages.isEmpty) return null;
+      final url = lessonImages[imgCursor % lessonImages.length];
+      imgCursor++;
+      return url;
+    }
 
     // Step 0: Teaching intro
     final introContent = objectives.isNotEmpty ? objectives : content;
@@ -294,6 +302,7 @@ class LearningProvider extends ChangeNotifier {
         content: introContent,
         emoji: '📚',
         accentColor: AppTheme.primaryBlue,
+        imageUrl: nextImage(),
       ),
       stepIndex: stepIdx++,
     ));
@@ -332,6 +341,7 @@ class LearningProvider extends ChangeNotifier {
               content: sentences[matchIdx],
               emoji: cardEmojis[ci],
               accentColor: cardColors[ci],
+              imageUrl: nextImage(),
             ),
             stepIndex: stepIdx++,
           ));

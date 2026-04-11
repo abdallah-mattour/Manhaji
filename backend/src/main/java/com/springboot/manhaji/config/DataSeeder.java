@@ -11,9 +11,13 @@ import com.springboot.manhaji.repository.LessonRepository;
 import com.springboot.manhaji.repository.QuestionRepository;
 import com.springboot.manhaji.repository.QuizRepository;
 import com.springboot.manhaji.repository.SubjectRepository;
+import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -137,7 +141,9 @@ public class DataSeeder implements CommandLineRunner {
                     Map<String, Object> curriculum = objectMapper.readValue(is, new TypeReference<>() {});
 
                     String subjectName = (String) curriculum.get("subject");
+                    String subjectCode = (String) curriculum.get("subjectCode");
                     int gradeLevel = (Integer) curriculum.get("gradeLevel");
+                    Integer semester = (Integer) curriculum.getOrDefault("semester", 1);
 
                     // Create or find subject
                     Subject subject = subjectRepository
@@ -149,22 +155,30 @@ public class DataSeeder implements CommandLineRunner {
                                 return subjectRepository.save(s);
                             });
 
-                    // Get existing lesson titles for this subject to avoid duplicates
+                    // Get existing lesson titles for this subject+semester to avoid duplicates
                     List<Lesson> existingLessons = lessonRepository
                             .findBySubjectIdOrderByOrderIndexAsc(subject.getId());
                     java.util.Set<String> existingTitles = existingLessons.stream()
+                            .filter(l -> semester.equals(l.getSemesterNumber()))
                             .map(Lesson::getTitle)
                             .collect(java.util.stream.Collectors.toSet());
 
                     List<Map<String, Object>> lessons = (List<Map<String, Object>>) curriculum.get("lessons");
                     if (lessons == null) continue;
 
+                    // Build per-lesson image mapping once per file
+                    Map<String, List<String>> lessonImageMap = buildLessonImageMap(
+                            subjectCode, gradeLevel, semester, lessons);
+
                     int importedFromFile = 0;
+                    List<Lesson> importedLessons = new ArrayList<>();
                     for (Map<String, Object> lessonData : lessons) {
                         String title = (String) lessonData.get("title");
                         if (existingTitles.contains(title)) continue;
 
-                        Lesson lesson = importLesson(subject, lessonData);
+                        List<String> mappedImages = lessonImageMap.getOrDefault(title, List.of());
+                        Lesson lesson = importLesson(subject, lessonData, semester, mappedImages);
+                        importedLessons.add(lesson);
                         newLessons++;
                         importedFromFile++;
 
@@ -179,9 +193,12 @@ public class DataSeeder implements CommandLineRunner {
                     }
 
                     if (importedFromFile > 0) {
-                        log.info("Imported {} new lessons for {} from {}",
-                                importedFromFile, subjectName, resource.getFilename());
+                        log.info("Imported {} new lessons for {} (semester {}) from {}",
+                                importedFromFile, subjectName, semester, resource.getFilename());
                     }
+
+                    // Backfill semesterNumber and imageUrls for existing lessons that are missing them
+                    backfillLessonMetadata(existingLessons, semester, lessons, lessonImageMap);
                 }
             }
 
@@ -199,17 +216,22 @@ public class DataSeeder implements CommandLineRunner {
     }
 
     @SuppressWarnings("unchecked")
-    private Lesson importLesson(Subject subject, Map<String, Object> data) {
+    private Lesson importLesson(Subject subject, Map<String, Object> data,
+                                 Integer semester, List<String> mappedImages) {
         Lesson lesson = new Lesson();
         lesson.setSubject(subject);
         lesson.setTitle((String) data.get("title"));
         lesson.setGradeLevel(subject.getGradeLevel());
         lesson.setOrderIndex((Integer) data.get("orderIndex"));
+        lesson.setSemesterNumber(semester != null ? semester : 1);
         lesson.setContent((String) data.get("content"));
         lesson.setObjectives((String) data.get("objectives"));
 
-        // Handle imageUrls as JSON array
+        // Prefer JSON-provided imageUrls if present, else use auto-mapped images
         List<String> imageUrls = (List<String>) data.get("imageUrls");
+        if (imageUrls == null || imageUrls.isEmpty()) {
+            imageUrls = mappedImages;
+        }
         if (imageUrls != null && !imageUrls.isEmpty()) {
             try {
                 lesson.setImageUrls(objectMapper.writeValueAsString(imageUrls));
@@ -219,6 +241,125 @@ public class DataSeeder implements CommandLineRunner {
         }
 
         return lessonRepository.save(lesson);
+    }
+
+    /**
+     * Build a mapping of lesson title -> list of image URLs by distributing
+     * the page-numbered images in the subject/semester folder evenly across
+     * the lessons in order. Returns an empty map if the folder doesn't exist.
+     */
+    private Map<String, List<String>> buildLessonImageMap(
+            String subjectCode, int gradeLevel, Integer semester,
+            List<Map<String, Object>> lessons) {
+        Map<String, List<String>> result = new java.util.HashMap<>();
+        if (subjectCode == null || lessons == null || lessons.isEmpty()) {
+            return result;
+        }
+
+        String folderName = subjectCode + gradeLevel + "-p" + semester; // e.g. "ar1-p1"
+        File folder = new File("./uploads/images/" + folderName);
+        if (!folder.exists() || !folder.isDirectory()) {
+            return result;
+        }
+
+        String[] fileNames = folder.list((dir, name) ->
+                name.toLowerCase().matches("page\\d+_img\\d+\\.(png|jpe?g|webp)"));
+        if (fileNames == null || fileNames.length == 0) {
+            return result;
+        }
+
+        // Group files by page number, preserve natural order
+        TreeMap<Integer, List<String>> pageGroups = new TreeMap<>();
+        for (String name : fileNames) {
+            try {
+                int pageNum = Integer.parseInt(name.substring(4, name.indexOf('_')));
+                pageGroups.computeIfAbsent(pageNum, k -> new ArrayList<>()).add(name);
+            } catch (Exception ignored) {
+            }
+        }
+        for (List<String> group : pageGroups.values()) {
+            Collections.sort(group);
+        }
+
+        List<Integer> pageNumbers = new ArrayList<>(pageGroups.keySet());
+        int totalPages = pageNumbers.size();
+        int lessonCount = lessons.size();
+        if (totalPages == 0 || lessonCount == 0) return result;
+
+        // Distribute pages across lessons evenly
+        double pagesPerLesson = (double) totalPages / lessonCount;
+        for (int i = 0; i < lessonCount; i++) {
+            Map<String, Object> lessonData = lessons.get(i);
+            String title = (String) lessonData.get("title");
+            if (title == null) continue;
+
+            int startIdx = (int) Math.floor(i * pagesPerLesson);
+            int endIdx = (i == lessonCount - 1)
+                    ? totalPages
+                    : (int) Math.floor((i + 1) * pagesPerLesson);
+            if (endIdx <= startIdx) endIdx = Math.min(startIdx + 1, totalPages);
+
+            List<String> urls = new ArrayList<>();
+            for (int p = startIdx; p < endIdx; p++) {
+                int pageNum = pageNumbers.get(p);
+                for (String fileName : pageGroups.get(pageNum)) {
+                    urls.add("/uploads/images/" + folderName + "/" + fileName);
+                }
+            }
+            result.put(title, urls);
+        }
+        return result;
+    }
+
+    /**
+     * Update existing lessons that may be missing semesterNumber or imageUrls
+     * (e.g. from an earlier import before these fields were populated).
+     */
+    private void backfillLessonMetadata(List<Lesson> existingLessons, Integer semester,
+                                         List<Map<String, Object>> jsonLessons,
+                                         Map<String, List<String>> lessonImageMap) {
+        if (existingLessons == null || existingLessons.isEmpty() || jsonLessons == null) return;
+        java.util.Set<String> jsonTitles = new java.util.HashSet<>();
+        for (Map<String, Object> ld : jsonLessons) {
+            Object t = ld.get("title");
+            if (t != null) jsonTitles.add(t.toString());
+        }
+
+        int backfilled = 0;
+        for (Lesson lesson : existingLessons) {
+            // Skip lessons whose semester is already set to a different value —
+            // a shared title (e.g. "مراجعة عامة") may legitimately exist in both files,
+            // and we must not overwrite the semester of the other file's row.
+            if (lesson.getSemesterNumber() != null
+                    && !semester.equals(lesson.getSemesterNumber())) {
+                continue;
+            }
+            if (!jsonTitles.contains(lesson.getTitle())) continue;
+
+            boolean changed = false;
+            if (lesson.getSemesterNumber() == null) {
+                lesson.setSemesterNumber(semester);
+                changed = true;
+            }
+            if ((lesson.getImageUrls() == null || lesson.getImageUrls().isBlank()
+                    || lesson.getImageUrls().equals("[]"))) {
+                List<String> imgs = lessonImageMap.get(lesson.getTitle());
+                if (imgs != null && !imgs.isEmpty()) {
+                    try {
+                        lesson.setImageUrls(objectMapper.writeValueAsString(imgs));
+                        changed = true;
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
+            if (changed) {
+                lessonRepository.save(lesson);
+                backfilled++;
+            }
+        }
+        if (backfilled > 0) {
+            log.info("Backfilled metadata for {} existing lessons (semester {})", backfilled, semester);
+        }
     }
 
     @SuppressWarnings("unchecked")

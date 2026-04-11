@@ -330,6 +330,8 @@ public class QuizService {
                 .map(this::buildQuestionResponse)
                 .toList();
 
+        List<String> lessonImageUrls = parseImageUrls(quiz.getLesson().getImageUrls());
+
         return QuizResponse.builder()
                 .id(quiz.getId())
                 .title(quiz.getTitle())
@@ -338,7 +340,19 @@ public class QuizService {
                 .questions(questionResponses)
                 .lessonContent(quiz.getLesson().getContent())
                 .lessonObjectives(quiz.getLesson().getObjectives())
+                .lessonImageUrls(lessonImageUrls)
                 .build();
+    }
+
+    private List<String> parseImageUrls(String imageUrlsJson) {
+        if (imageUrlsJson == null || imageUrlsJson.isBlank()) {
+            return Collections.emptyList();
+        }
+        try {
+            return objectMapper.readValue(imageUrlsJson, new TypeReference<List<String>>() {});
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
     }
 
     private QuestionResponse buildQuestionResponse(Question question) {

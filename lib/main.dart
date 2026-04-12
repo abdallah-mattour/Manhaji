@@ -40,6 +40,7 @@ void main() async {
   final audioService = AudioApiService(apiService);
 
   final authProvider = AuthProvider(authService, localStorage);
+  apiService.setUnauthorizedHandler(authProvider.handleUnauthorized);
   final appRouter = AppRouter(authProvider);
 
   runApp(

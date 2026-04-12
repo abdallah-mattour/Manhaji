@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../providers/auth_provider.dart';
+import 'app_routes.dart';
 import '../screens/splash/splash_screen.dart';
 import '../screens/auth/login_screen.dart';
 import '../screens/auth/register_screen.dart';
@@ -19,8 +20,24 @@ class AppRouter {
 
   AppRouter(this.authProvider);
 
+  int? _resolveSubjectId(GoRouterState state) {
+    final fromPathParam = int.tryParse(
+      state.pathParameters[AppRoutes.subjectIdParam] ?? '',
+    );
+    if (fromPathParam != null) {
+      return fromPathParam;
+    }
+
+    final segments = state.uri.pathSegments;
+    if (segments.length >= 2 && segments.first == 'subject-lessons') {
+      return int.tryParse(segments[1]);
+    }
+
+    return null;
+  }
+
   late final GoRouter router = GoRouter(
-    initialLocation: '/splash',
+    initialLocation: AppRoutes.splash,
     debugLogDiagnostics: true,
     refreshListenable: authProvider,
 
@@ -28,10 +45,10 @@ class AppRouter {
       final isLoggedIn = authProvider.isLoggedIn;
       final location = state.matchedLocation;
 
-      final isSplashRoute = location == '/splash';
-      final isRootRoute = location == '/';
+      final isSplashRoute = location == AppRoutes.splash;
+      final isRootRoute = location == AppRoutes.authGate;
       final bool isAuthRoute =
-          location == '/login' || location == '/register';
+          location == AppRoutes.login || location == AppRoutes.register;
 
       // Always allow splash presentation first.
       if (isSplashRoute) {
@@ -40,36 +57,55 @@ class AppRouter {
 
       // Root route is the auth gate: decide explicitly.
       if (isRootRoute) {
-        return isLoggedIn ? '/home' : '/login';
+        return isLoggedIn ? AppRoutes.home : AppRoutes.login;
       }
 
       if (!isLoggedIn && !isAuthRoute) {
-        return '/login';
+        return AppRoutes.login;
       }
 
       if (isLoggedIn && isAuthRoute) {
-        return '/home';
+        return AppRoutes.home;
       }
 
       return null;
     },
 
     routes: [
-      GoRoute(path: '/splash', builder: (context, state) => const SplashScreen()),
-      GoRoute(path: '/', builder: (context, state) => const SizedBox.shrink()),
-      GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
       GoRoute(
-        path: '/register',
-        builder: (context, state) => const RegisterScreen(),
+        path: AppRoutes.splash,
+        builder: (context, state) => SplashScreen(key: state.pageKey),
       ),
-      GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
+      GoRoute(
+        path: AppRoutes.authGate,
+        builder: (context, state) => SizedBox.shrink(key: state.pageKey),
+      ),
+      GoRoute(
+        path: AppRoutes.login,
+        builder: (context, state) => LoginScreen(key: state.pageKey),
+      ),
+      GoRoute(
+        path: AppRoutes.register,
+        builder: (context, state) => RegisterScreen(key: state.pageKey),
+      ),
+      GoRoute(
+        path: AppRoutes.home,
+        builder: (context, state) => HomeScreen(key: state.pageKey),
+      ),
 
       GoRoute(
-        path: '/subject-lessons/:subjectId',
+        path: AppRoutes.subjectLessonsPattern,
         builder: (context, state) {
-          final subjectId = int.parse(state.pathParameters['subjectId']!);
+          final subjectId = _resolveSubjectId(state);
           final extra = state.extra as Map<String, dynamic>? ?? {};
+          if (subjectId == null) {
+            return Scaffold(
+              key: state.pageKey,
+              body: Center(child: Text('تعذر فتح المادة: معرف غير صالح')),
+            );
+          }
           return SubjectLessonsScreen(
+            key: state.pageKey,
             subjectId: subjectId,
             subjectName: extra['subjectName'] as String? ?? 'المادة',
             subjectColor: extra['subjectColor'] as Color? ?? Colors.blue,
@@ -78,11 +114,17 @@ class AppRouter {
       ),
 
       GoRoute(
-        path: '/lesson/:lessonId',
+        path: AppRoutes.lessonPattern,
         builder: (context, state) {
-          final lessonId = int.parse(state.pathParameters['lessonId']!);
+          final lessonId = int.tryParse(
+            state.pathParameters[AppRoutes.lessonIdParam] ?? '',
+          );
           final extra = state.extra as Map<String, dynamic>? ?? {};
+          if (lessonId == null) {
+            return HomeScreen(key: state.pageKey);
+          }
           return LearningScreen(
+            key: state.pageKey,
             lessonId: lessonId,
             lessonTitle: extra['lessonTitle'] as String? ?? 'الدرس',
           );
@@ -90,11 +132,17 @@ class AppRouter {
       ),
 
       GoRoute(
-        path: '/lesson-complete/:lessonId',
+        path: AppRoutes.lessonCompletePattern,
         builder: (context, state) {
-          final lessonId = int.parse(state.pathParameters['lessonId']!);
+          final lessonId = int.tryParse(
+            state.pathParameters[AppRoutes.lessonIdParam] ?? '',
+          );
           final extra = state.extra as Map<String, dynamic>? ?? {};
+          if (lessonId == null) {
+            return HomeScreen(key: state.pageKey);
+          }
           return LearningCompletionScreen(
+            key: state.pageKey,
             lessonId: lessonId,
             lessonTitle: extra['lessonTitle'] as String? ?? 'الدرس',
           );
@@ -102,16 +150,16 @@ class AppRouter {
       ),
 
       GoRoute(
-        path: '/progress',
-        builder: (context, state) => const ProgressScreen(),
+        path: AppRoutes.progress,
+        builder: (context, state) => ProgressScreen(key: state.pageKey),
       ),
       GoRoute(
-        path: '/leaderboard',
-        builder: (context, state) => const LeaderboardScreen(),
+        path: AppRoutes.leaderboard,
+        builder: (context, state) => LeaderboardScreen(key: state.pageKey),
       ),
       GoRoute(
-        path: '/settings',
-        builder: (context, state) => const SettingsScreen(),
+        path: AppRoutes.settings,
+        builder: (context, state) => SettingsScreen(key: state.pageKey),
       ),
     ],
   );

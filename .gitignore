@@ -1,0 +1,7 @@
+.dart_tool/
+build/
+ios/Pods/
+android/.gradle/
+.env
+*.log
+

@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/theme/app_colors.dart';
 import '../../models/lesson.dart';
 import '../../providers/lesson_provider.dart';
+import '../../routing/app_routes.dart';
 
 class SubjectLessonsScreen extends StatefulWidget {
   final int subjectId;
@@ -92,7 +93,7 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen> {
           : () {
               // الحل الصحيح في GoRouter
               context.push(
-                '/lesson/${lesson.id}',
+                AppRoutes.lesson(lesson.id),
                 extra: {'lessonTitle': lesson.title},
               );
             },
@@ -106,7 +107,7 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen> {
               ? []
               : [
                   BoxShadow(
-                    color: widget.subjectColor.withOpacity(0.1),
+                    color: widget.subjectColor.withValues(alpha: 0.1),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   ),
@@ -123,7 +124,7 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen> {
                     ? Colors.grey.shade300
                     : lesson.isCompleted
                     ? AppColors.primary
-                    : widget.subjectColor.withOpacity(0.15),
+                    : widget.subjectColor.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(14),
               ),
               child: Center(

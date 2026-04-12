@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../../core/theme/app_colors.dart';
 import '../../providers/auth_provider.dart';
-import '../../routing/app_router.dart';
+import '../../routing/app_routes.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -89,7 +89,7 @@ class SettingsScreen extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: () {
                 context.read<AuthProvider>().logout();
-                context.go('/login');
+                context.go(AppRoutes.login);
               },
               icon: const Icon(Icons.logout),
               label: const Text(

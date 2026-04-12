@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import '../../core/theme/app_colors.dart';
 import '../../models/progress.dart';
 import '../../providers/progress_provider.dart';
+import '../../routing/app_routes.dart';
+import 'widgets/progress_sections.dart';
 
 class ProgressScreen extends StatefulWidget {
   const ProgressScreen({super.key});
@@ -30,7 +32,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
           title: const Text('تقدمي'),
           actions: [
             IconButton(
-              onPressed: () => context.push('/leaderboard'),
+              onPressed: () => context.push(AppRoutes.leaderboard),
               icon: const Icon(Icons.leaderboard_rounded),
               tooltip: 'لوحة المتصدرين',
             ),
@@ -224,37 +226,11 @@ class _ProgressScreenState extends State<ProgressScreen> {
   }
 
   Widget _buildStatCard(String emoji, String value, String label, Color color) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 8),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: color.withValues(alpha: 0.2)),
-      ),
-      child: Column(
-        children: [
-          Text(emoji, style: const TextStyle(fontSize: 20)),
-          const SizedBox(height: 4),
-          Text(
-            value,
-            style: TextStyle(
-              fontFamily: 'Cairo',
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
-          Text(
-            label,
-            style: const TextStyle(
-              fontFamily: 'Cairo',
-              fontSize: 10,
-              color: AppColors.textSecondary,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
+    return ProgressStatCard(
+      emoji: emoji,
+      value: value,
+      label: label,
+      color: color,
     );
   }
 

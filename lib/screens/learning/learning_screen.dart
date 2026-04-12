@@ -8,20 +8,19 @@ import '../../core/theme/app_colors.dart';
 import '../../models/learning_step.dart';
 import '../../models/quiz.dart';
 import '../../providers/learning_provider.dart';
+import '../../routing/app_routes.dart';
 import '../../services/audio_service.dart';
 import '../../services/tts_service.dart';
 
 import '../../widgets/progress_dots_bar.dart';
 import '../../widgets/teaching_card_widget.dart';
-import '../../widgets/star_display_widget.dart';
 
 import '../../widgets/question_widgets/mcq_widget.dart';
 import '../../widgets/question_widgets/true_false_widget.dart';
 import '../../widgets/question_widgets/short_answer_widget.dart';
 import '../../widgets/question_widgets/fill_blank_widget.dart';
 import '../../widgets/question_widgets/ordering_widget.dart';
-
-import 'learning_completion_screen.dart';
+import 'widgets/learning_sections.dart';
 
 class LearningScreen extends StatefulWidget {
   final int lessonId;
@@ -41,6 +40,7 @@ class _LearningScreenState extends State<LearningScreen>
     with TickerProviderStateMixin {
   String? _selectedAnswer;
   final _textController = TextEditingController();
+  bool _didNavigateToCompletion = false;
 
   late AnimationController _feedbackController;
   late Animation<double> _feedbackAnimation;
@@ -145,14 +145,17 @@ class _LearningScreenState extends State<LearningScreen>
                 }
 
                 if (provider.phase == LearningPhase.completed) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    if (mounted) {
-                      context.push(
-                        '/lesson-complete/${widget.lessonId}',
-                        extra: {'lessonTitle': widget.lessonTitle},
-                      );
-                    }
-                  });
+                  if (!_didNavigateToCompletion) {
+                    _didNavigateToCompletion = true;
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      if (mounted) {
+                        context.push(
+                          AppRoutes.lessonComplete(widget.lessonId),
+                          extra: {'lessonTitle': widget.lessonTitle},
+                        );
+                      }
+                    });
+                  }
                   return _buildLoading(message: 'ممتاز! 🎉');
                 }
 
@@ -210,84 +213,23 @@ class _LearningScreenState extends State<LearningScreen>
   }
 
   Widget _buildLoading({String message = 'جاري تحضير الدرس...'}) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const CircularProgressIndicator(color: AppColors.primary),
-          const SizedBox(height: 16),
-          Text(
-            message,
-            style: const TextStyle(
-              fontSize: 16,
-              color: AppColors.textSecondary,
-            ),
-          ),
-        ],
-      ),
+    return LearningLoadingSection(
+      message: message,
     );
   }
 
   Widget _buildError(String message) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.error_outline,
-              size: 64,
-              color: AppColors.textLight,
-            ),
-            const SizedBox(height: 16),
-            Text(message, textAlign: TextAlign.center),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () => context.pop(),
-              child: const Text('العودة'),
-            ),
-          ],
-        ),
-      ),
+    return LearningErrorSection(
+      message: message,
+      onBack: () => context.pop(),
     );
   }
 
   Widget _buildTopBar(LearningProvider provider) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          IconButton(
-            onPressed: _showExitDialog,
-            icon: const Icon(Icons.close, color: AppColors.textSecondary),
-          ),
-          Expanded(
-            child: Text(
-              widget.lessonTitle,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                fontFamily: 'Cairo',
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: AppColors.textPrimary,
-              ),
-            ),
-          ),
-          StarDisplayWidget(totalStars: provider.totalStars),
-        ],
-      ),
+    return LearningTopBarSection(
+      lessonTitle: widget.lessonTitle,
+      totalStars: provider.totalStars,
+      onClose: _showExitDialog,
     );
   }
 
@@ -387,127 +329,17 @@ class _LearningScreenState extends State<LearningScreen>
           child: child,
         );
       },
-      child: Container(
-        padding: const EdgeInsets.all(24),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: _getQuestionBorderColor(provider),
-            width: _shouldShowFeedback(provider) ? 2 : 0,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.secondary.withOpacity(0.08),
-              blurRadius: 12,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-              decoration: BoxDecoration(
-                color: _getTypeColor(question.type).withOpacity(0.1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                _getTypeLabel(question.type),
-                style: TextStyle(
-                  fontFamily: 'Cairo',
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: _getTypeColor(question.type),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              question.questionText,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontFamily: 'Cairo',
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: AppColors.textPrimary,
-                height: 1.6,
-              ),
-            ),
-            if (isRetry)
-              Container(
-                margin: const EdgeInsets.only(top: 12),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
-                decoration: BoxDecoration(
-                  color: AppColors.accent.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Text(
-                  'لا بأس! حاول مرة أخرى 💪',
-                  style: TextStyle(
-                    fontFamily: 'Cairo',
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.accent,
-                  ),
-                ),
-              ),
-            if (!_isAnswered(provider) && !isRetry) ...[
-              const SizedBox(height: 12),
-              TextButton.icon(
-                onPressed: _isLoadingHint
-                    ? null
-                    : () => _requestHint(question.id),
-                icon: _isLoadingHint
-                    ? const SizedBox(
-                        width: 16,
-                        height: 16,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                    : const Text('💡', style: TextStyle(fontSize: 18)),
-                label: Text(
-                  _hintLevel >= 3 ? 'لا مزيد من التلميحات' : 'مساعدة',
-                  style: TextStyle(
-                    fontFamily: 'Cairo',
-                    fontSize: 14,
-                    color: _hintLevel >= 3
-                        ? AppColors.textLight
-                        : AppColors.accent,
-                  ),
-                ),
-              ),
-            ],
-            if (_currentHint != null)
-              Container(
-                margin: const EdgeInsets.only(top: 8),
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: AppColors.warning.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: AppColors.warning.withOpacity(0.3)),
-                ),
-                child: Row(
-                  children: [
-                    const Text('💡', style: TextStyle(fontSize: 20)),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        _currentHint!,
-                        style: const TextStyle(
-                          fontFamily: 'Cairo',
-                          fontSize: 14,
-                          color: AppColors.textPrimary,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-          ],
-        ),
+      child: LearningQuestionCardSection(
+        question: question,
+        isRetry: isRetry,
+        showFeedback: _shouldShowFeedback(provider),
+        borderColor: _getQuestionBorderColor(provider),
+        currentHint: _currentHint,
+        hintLevel: _hintLevel,
+        isLoadingHint: _isLoadingHint,
+        getTypeColor: _getTypeColor,
+        getTypeLabel: _getTypeLabel,
+        onRequestHint: _isLoadingHint ? null : () => _requestHint(question.id),
       ),
     );
   }
@@ -601,98 +433,11 @@ class _LearningScreenState extends State<LearningScreen>
     if (result == null) return const SizedBox();
 
     final isRetryPrompt = provider.phase == LearningPhase.stepRetry;
-
-    if (isRetryPrompt) {
-      return ScaleTransition(
-        scale: _feedbackAnimation,
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: AppColors.accent.withOpacity(0.08),
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: AppColors.accent, width: 1.5),
-          ),
-          child: const Row(
-            children: [
-              Text('💪', style: TextStyle(fontSize: 28)),
-              SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  'لا بأس! حاول مرة أخرى',
-                  style: TextStyle(
-                    fontFamily: 'Cairo',
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.accent,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    return ScaleTransition(
-      scale: _feedbackAnimation,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: result.isCorrect ? Colors.green.shade50 : Colors.red.shade50,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: result.isCorrect ? Colors.green : Colors.red,
-            width: 1.5,
-          ),
-        ),
-        child: Row(
-          children: [
-            Text(
-              result.isCorrect ? '🎉' : '😔',
-              style: const TextStyle(fontSize: 28),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    result.isCorrect ? 'أحسنت! ممتاز!' : 'الإجابة الصحيحة:',
-                    style: TextStyle(
-                      fontFamily: 'Cairo',
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: result.isCorrect
-                          ? Colors.green.shade700
-                          : Colors.red.shade700,
-                    ),
-                  ),
-                  if (!result.isCorrect)
-                    Text(
-                      result.correctAnswer,
-                      style: TextStyle(
-                        fontFamily: 'Cairo',
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green.shade700,
-                      ),
-                    ),
-                  if (result.isCorrect)
-                    Text(
-                      '+${tracker!.starsEarned} ⭐',
-                      style: const TextStyle(
-                        fontFamily: 'Cairo',
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.accent,
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+    return LearningFeedbackSection(
+      result: result,
+      isRetryPrompt: isRetryPrompt,
+      starsEarned: tracker?.starsEarned ?? 0,
+      animation: _feedbackAnimation,
     );
   }
 
@@ -708,7 +453,7 @@ class _LearningScreenState extends State<LearningScreen>
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 8,
             offset: const Offset(0, -2),
           ),
@@ -719,71 +464,20 @@ class _LearningScreenState extends State<LearningScreen>
   }
 
   Widget _buildActionButton(LearningProvider provider, LearningPhase phase) {
-    if (phase == LearningPhase.stepRetry) {
-      return ElevatedButton(
-        onPressed: () {
-          setState(() {
-            _selectedAnswer = null;
-            _textController.clear();
-          });
-          provider.retryCurrentQuestion();
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.accent,
-          minimumSize: const Size(double.infinity, 56),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-        ),
-        child: const Text(
-          'حاول مرة أخرى 💪',
-          style: TextStyle(
-            fontFamily: 'Cairo',
-            fontSize: 18,
-            color: Colors.white,
-          ),
-        ),
-      );
-    }
-
-    if (phase == LearningPhase.stepFeedback) {
-      final isLast = provider.isInRetryRound ? false : provider.isLastMainStep;
-
-      return ElevatedButton(
-        onPressed: () => _goNext(provider),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: isLast ? AppColors.primary : AppColors.secondary,
-          minimumSize: const Size(double.infinity, 56),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-        ),
-        child: Text(
-          'التالي ←',
-          style: const TextStyle(
-            fontFamily: 'Cairo',
-            fontSize: 18,
-            color: Colors.white,
-          ),
-        ),
-      );
-    }
-
-    return ElevatedButton(
-      onPressed: _selectedAnswer != null ? () => _submitAnswer(provider) : null,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.accent,
-        minimumSize: const Size(double.infinity, 56),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      ),
-      child: const Text(
-        'تأكيد الإجابة',
-        style: TextStyle(
-          fontFamily: 'Cairo',
-          fontSize: 18,
-          color: Colors.white,
-        ),
-      ),
+    return LearningActionButtonSection(
+      phase: phase,
+      canSubmit: _selectedAnswer != null,
+      isLastMainStep: provider.isLastMainStep,
+      isInRetryRound: provider.isInRetryRound,
+      onRetry: () {
+        setState(() {
+          _selectedAnswer = null;
+          _textController.clear();
+        });
+        provider.retryCurrentQuestion();
+      },
+      onNext: () => _goNext(provider),
+      onSubmit: () => _submitAnswer(provider),
     );
   }
 

@@ -109,10 +109,14 @@ class AuthProvider extends ChangeNotifier {
 
   Future<void> logout() async {
     await _storage.clearAll();
-    _isLoggedIn = false;
-    _userName = null;
-    _userRole = null;
-    _userId = null;
+    _resetAuthState();
+    notifyListeners();
+  }
+
+  /// Called when token refresh fails or the session becomes unauthorized.
+  Future<void> handleUnauthorized() async {
+    await _storage.clearAll();
+    _resetAuthState();
     notifyListeners();
   }
 
@@ -128,6 +132,15 @@ class AuthProvider extends ChangeNotifier {
     _userName = response.fullName;
     _userRole = response.role;
     _userId = response.userId;
+  }
+
+  void _resetAuthState() {
+    _isLoading = false;
+    _isLoggedIn = false;
+    _errorMessage = null;
+    _userName = null;
+    _userRole = null;
+    _userId = null;
   }
 
   String _extractError(DioException e) {

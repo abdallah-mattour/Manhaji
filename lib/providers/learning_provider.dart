@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../core/theme/app_colors.dart';
@@ -17,7 +19,36 @@ enum LearningPhase {
   error,
 }
 
-class QuestionTracker {
+class QuestionTrackerSnapshot {
+  final int questionId;
+  final int attemptCount;
+  final bool everCorrect;
+  final int starsEarned;
+  final bool inRetryRound;
+  final SubmitAnswerResult? lastResult;
+
+  QuestionTrackerSnapshot({
+    required this.questionId,
+    required this.attemptCount,
+    required this.everCorrect,
+    required this.starsEarned,
+    required this.inRetryRound,
+    required this.lastResult,
+  });
+
+  factory QuestionTrackerSnapshot._fromMutable(_MutableQuestionTracker tracker) {
+    return QuestionTrackerSnapshot(
+      questionId: tracker.questionId,
+      attemptCount: tracker.attemptCount,
+      everCorrect: tracker.everCorrect,
+      starsEarned: tracker.starsEarned,
+      inRetryRound: tracker.inRetryRound,
+      lastResult: tracker.lastResult,
+    );
+  }
+}
+
+class _MutableQuestionTracker {
   final int questionId;
   int attemptCount;
   bool everCorrect;
@@ -25,7 +56,7 @@ class QuestionTracker {
   bool inRetryRound;
   SubmitAnswerResult? lastResult;
 
-  QuestionTracker({required this.questionId})
+  _MutableQuestionTracker({required this.questionId})
     : attemptCount = 0,
       everCorrect = false,
       starsEarned = 0,
@@ -44,7 +75,7 @@ class LearningProvider extends ChangeNotifier {
   int _currentStepIndex = 0;
 
   // Question tracking
-  final Map<int, QuestionTracker> _trackers = {};
+  final Map<int, _MutableQuestionTracker> _trackers = {};
   final List<int> _retryQueue = [];
   int _retryIndex = 0;
 
@@ -60,13 +91,17 @@ class LearningProvider extends ChangeNotifier {
   String? get errorMessage => _errorMessage;
   Quiz? get currentQuiz => _currentQuiz;
   int? get currentAttemptId => _currentAttemptId;
-  List<LearningStep> get steps => _steps;
+  List<LearningStep> get steps => UnmodifiableListView(_steps);
   int get currentStepIndex => _currentStepIndex;
   int get totalSteps => _steps.length;
   AttemptResult? get attemptResult => _attemptResult;
   int get totalStars => _totalStars;
   int get maxPossibleStars => _maxPossibleStars;
-  Map<int, QuestionTracker> get trackers => _trackers;
+  Map<int, QuestionTrackerSnapshot> get trackers => UnmodifiableMapView(
+    _trackers.map(
+      (id, tracker) => MapEntry(id, QuestionTrackerSnapshot._fromMutable(tracker)),
+    ),
+  );
   bool get isInRetryRound => _phase == LearningPhase.retryRound;
   int get retryQueueLength => _retryQueue.length;
 
@@ -101,10 +136,12 @@ class LearningProvider extends ChangeNotifier {
   int get answeredQuestionCount =>
       _trackers.values.where((t) => t.attemptCount > 0).length;
 
-  QuestionTracker? get currentTracker {
+  QuestionTrackerSnapshot? get currentTracker {
     final step = currentStep;
     if (step?.question != null) {
-      return _trackers[step!.question!.id];
+      final tracker = _trackers[step!.question!.id];
+      if (tracker == null) return null;
+      return QuestionTrackerSnapshot._fromMutable(tracker);
     }
     return null;
   }
@@ -126,7 +163,7 @@ class LearningProvider extends ChangeNotifier {
 
       // Init trackers for every question
       for (final q in _currentQuiz!.questions) {
-        _trackers[q.id] = QuestionTracker(questionId: q.id);
+        _trackers[q.id] = _MutableQuestionTracker(questionId: q.id);
       }
 
       _phase = LearningPhase.teachingIntro;

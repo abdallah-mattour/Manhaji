@@ -5,9 +5,12 @@ import '../config/api_config.dart';
 import '../config/constants.dart';
 import 'local_storage_service.dart';
 
+typedef UnauthorizedHandler = Future<void> Function();
+
 class ApiService {
   late final Dio _dio;
   final LocalStorageService _storage;
+  UnauthorizedHandler? _onUnauthorized;
 
   ApiService(this._storage) {
     _dio = Dio(
@@ -33,18 +36,35 @@ class ApiService {
         },
         onError: (error, handler) async {
           if (error.response?.statusCode == 401) {
-            final refreshed = await _tryRefreshToken();
-            if (refreshed) {
-              final retryResponse = await _retry(error.requestOptions);
-              return handler.resolve(retryResponse);
-            } else {
-              await _storage.clearAll();
+            final alreadyRetried =
+                error.requestOptions.extra['auth_retry'] == true;
+
+            if (!alreadyRetried) {
+              final refreshed = await _tryRefreshToken();
+              if (refreshed) {
+                final retryResponse = await _retry(error.requestOptions);
+                return handler.resolve(retryResponse);
+              }
             }
+
+            await _handleUnauthorized();
           }
           return handler.next(error);
         },
       ),
     );
+  }
+
+  void setUnauthorizedHandler(UnauthorizedHandler handler) {
+    _onUnauthorized = handler;
+  }
+
+  Future<void> _handleUnauthorized() async {
+    if (_onUnauthorized != null) {
+      await _onUnauthorized!.call();
+      return;
+    }
+    await _storage.clearAll();
   }
 
   Future<bool> _tryRefreshToken() async {
@@ -78,6 +98,7 @@ class ApiService {
     final options = Options(
       method: requestOptions.method,
       headers: {...requestOptions.headers, 'Authorization': 'Bearer $token'},
+      extra: {...requestOptions.extra, 'auth_retry': true},
     );
 
     return _dio.request(

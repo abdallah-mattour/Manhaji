@@ -8,6 +8,8 @@ import '../../core/utils/size_config.dart';
 import '../../models/subject.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/lesson_provider.dart';
+import '../../routing/app_routes.dart';
+import 'widgets/home_sections.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -49,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Icon(
                       Icons.error_outline,
                       size: 80,
-                      color: AppColors.error.withOpacity(0.7),
+                      color: AppColors.error.withValues(alpha: 0.7),
                     ),
                     const SizedBox(height: 24),
                     Text(
@@ -81,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Container(
                       padding: EdgeInsets.fromLTRB(
                         AppDimensions.paddingL,
-                        55.h,
+                        7.h,
                         AppDimensions.paddingL,
                         AppDimensions.paddingXXL,
                       ),
@@ -109,7 +111,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       'مرحباً 👋',
                                       style: TextStyle(
                                         fontSize: 18,
-                                        color: Colors.white.withOpacity(0.9),
+                                        color: Colors.white.withValues(
+                                          alpha: 0.9,
+                                        ),
                                       ),
                                     ),
                                     const SizedBox(height: 8),
@@ -128,8 +132,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 onTap: () => _showLogoutDialog(context),
                                 child: CircleAvatar(
                                   radius: 30,
-                                  backgroundColor: Colors.white.withOpacity(
-                                    0.25,
+                                  backgroundColor: Colors.white.withValues(
+                                    alpha: 0.25,
                                   ),
                                   child: const Icon(
                                     Icons.person,
@@ -201,7 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisCount: SizeConfig.isTablet ? 3 : 2,
                         crossAxisSpacing: AppDimensions.paddingM,
                         mainAxisSpacing: AppDimensions.paddingM,
-                        childAspectRatio: 0.88,
+                        childAspectRatio: 0.68,
                       ),
                       delegate: SliverChildBuilderDelegate((context, index) {
                         final subject = dashboard.subjects[index];
@@ -216,42 +220,18 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           },
         ),
-        bottomNavigationBar: _buildBottomNav(),
+        bottomNavigationBar: HomeBottomNavigation(
+          onTap: (index) {
+            if (index == 1) context.go(AppRoutes.progress);
+            if (index == 2) context.go(AppRoutes.settings);
+          },
+        ),
       ),
     );
   }
 
   Widget _buildStatCard(String emoji, String value, String label) {
-    return Expanded(
-      child: Container(
-        padding: EdgeInsets.all(AppDimensions.paddingM),
-        decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.circular(AppDimensions.radiusL),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.06),
-              blurRadius: 12,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Column(
-          children: [
-            Text(emoji, style: const TextStyle(fontSize: 30)),
-            const SizedBox(height: 10),
-            Text(
-              value,
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              label,
-              style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
-            ),
-          ],
-        ),
-      ),
-    );
+    return HomeStatCard(emoji: emoji, value: value, label: label);
   }
 
   Widget _buildSubjectCard(Subject subject, int index) {
@@ -261,7 +241,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return GestureDetector(
       onTap: () {
         context.push(
-          '/subject-lessons/${subject.id}',
+          AppRoutes.subjectLessons(subject.id),
           extra: {'subjectName': subject.name, 'subjectColor': color},
         );
       },
@@ -271,9 +251,9 @@ class _HomeScreenState extends State<HomeScreen> {
           borderRadius: BorderRadius.circular(AppDimensions.radiusL),
           boxShadow: [
             BoxShadow(
-              color: color.withOpacity(0.15),
-              blurRadius: 15,
-              offset: const Offset(0, 8),
+              color: color.withValues(alpha: 0.15),
+              blurRadius: 5,
+              offset: const Offset(0, 2),
             ),
           ],
         ),
@@ -286,10 +266,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 78,
                 height: 78,
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.12),
+                  color: color.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(22),
                 ),
-                child: Icon(_getSubjectIcon(index), size: 42, color: color),
+                child: Icon(_getSubjectIcon(index), size: 59, color: color),
               ),
               const SizedBox(height: 18),
               Text(
@@ -314,7 +294,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Text(
                 '${subject.completedLessons}/${subject.totalLessons}',
                 style: TextStyle(
-                  fontSize: 13.5,
+                  fontSize: 17.5,
                   color: AppColors.textSecondary,
                 ),
               ),
@@ -328,39 +308,11 @@ class _HomeScreenState extends State<HomeScreen> {
   IconData _getSubjectIcon(int index) {
     const icons = [
       Icons.menu_book_rounded,
+      Icons.abc_outlined,
       Icons.calculate_rounded,
       Icons.mosque_rounded,
-      Icons.science_rounded,
     ];
     return icons[index % icons.length];
-  }
-
-  Widget _buildBottomNav() {
-    return BottomNavigationBar(
-      currentIndex: 0,
-      type: BottomNavigationBarType.fixed,
-      selectedItemColor: AppColors.primary,
-      unselectedItemColor: AppColors.textSecondary,
-      selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home_rounded, size: 28),
-          label: 'الرئيسية',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.bar_chart_rounded, size: 28),
-          label: 'تقدمي',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.settings_rounded, size: 28),
-          label: 'الإعدادات',
-        ),
-      ],
-      onTap: (index) {
-        if (index == 1) context.go('/progress');
-        if (index == 2) context.go('/settings');
-      },
-    );
   }
 
   void _showLogoutDialog(BuildContext context) {
@@ -383,7 +335,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 context.pop();
                 context.read<AuthProvider>().logout();
-                context.go('/login');
+                context.go(AppRoutes.login);
               },
               style: ElevatedButton.styleFrom(backgroundColor: AppColors.error),
               child: const Text('تسجيل الخروج'),

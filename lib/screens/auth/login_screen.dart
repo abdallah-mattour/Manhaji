@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
-import '../../routing/app_router.dart';
+import '../../routing/app_routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/widgets/app_text_form_field.dart';
 
@@ -14,11 +14,19 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _formKey = GlobalKey<FormState>();
+  late final GlobalKey<FormState> _formKey;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isPhoneLogin = false;
   bool _obscurePassword = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _formKey = GlobalKey<FormState>(
+      debugLabel: 'login_form_${identityHashCode(this)}',
+    );
+  }
 
   @override
   void dispose() {
@@ -46,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     if (success && mounted) {
-      context.go('/home');
+      context.go(AppRoutes.home);
     }
   }
 
@@ -294,7 +302,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       TextButton(
-                        onPressed: () => context.push('/register'),
+                        onPressed: () => context.push(AppRoutes.register),
                         child: const Text(
                           'سجّل الآن',
                           style: TextStyle(

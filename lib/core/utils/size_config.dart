@@ -1,6 +1,8 @@
 // lib/core/utils/size_config.dart
 import 'package:flutter/material.dart';
 
+/// Legacy static sizing utility kept for backward compatibility.
+/// Prefer using `ResponsiveContext` from `responsive.dart` in new code.
 class SizeConfig {
   static late MediaQueryData mediaQueryData;
   static late double screenWidth;

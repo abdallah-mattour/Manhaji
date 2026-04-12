@@ -3,8 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:confetti/confetti.dart';
 
-import '../../core//theme/app_colors.dart';
+import '../../core/theme/app_colors.dart';
 import '../../providers/learning_provider.dart';
+import '../../routing/app_routes.dart';
 
 class LearningCompletionScreen extends StatefulWidget {
   final String lessonTitle;
@@ -196,7 +197,7 @@ class _LearningCompletionScreenState extends State<LearningCompletionScreen>
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: () => context.go('/home'),
+                            onPressed: () => context.go(AppRoutes.home),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primary,
                               minimumSize: const Size(double.infinity, 56),

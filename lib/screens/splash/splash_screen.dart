@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/constants/app_dimensions.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/size_config.dart';
+import '../../routing/app_routes.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -52,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen>
     await Future.delayed(const Duration(milliseconds: 1500));
     if (!mounted) return;
     // GoRouter redirect decides whether user goes to /login or /home.
-    context.go('/');
+    context.go(AppRoutes.authGate);
   }
 
   @override
@@ -100,7 +101,7 @@ class _SplashScreenState extends State<SplashScreen>
                               ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.25),
+                                  color: Colors.black.withValues(alpha: 0.25),
                                   blurRadius: 35,
                                   offset: const Offset(0, 15),
                                 ),
@@ -123,7 +124,7 @@ class _SplashScreenState extends State<SplashScreen>
                               letterSpacing: 1.5,
                               shadows: [
                                 Shadow(
-                                  color: Colors.black.withOpacity(0.3),
+                                  color: Colors.black.withValues(alpha: 0.3),
                                   blurRadius: 12,
                                   offset: const Offset(0, 6),
                                 ),
@@ -137,7 +138,7 @@ class _SplashScreenState extends State<SplashScreen>
                               fontFamily: 'Cairo',
                               fontSize: 19,
                               fontWeight: FontWeight.w500,
-                              color: Colors.white.withOpacity(0.93),
+                              color: Colors.white.withValues(alpha: 0.93),
                             ),
                           ),
                         ],

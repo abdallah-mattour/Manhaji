@@ -8,6 +8,7 @@
 
 import 'package:audio_session/audio_session_web.dart';
 import 'package:connectivity_plus/src/connectivity_plus_web.dart';
+import 'package:flutter_secure_storage_web/flutter_secure_storage_web.dart';
 import 'package:flutter_tts/flutter_tts_web.dart';
 import 'package:google_sign_in_web/google_sign_in_web.dart';
 import 'package:just_audio_web/just_audio_web.dart';
@@ -20,6 +21,7 @@ void registerPlugins([final Registrar? pluginRegistrar]) {
   final Registrar registrar = pluginRegistrar ?? webPluginRegistrar;
   AudioSessionWeb.registerWith(registrar);
   ConnectivityPlusWebPlugin.registerWith(registrar);
+  FlutterSecureStorageWeb.registerWith(registrar);
   FlutterTtsPlugin.registerWith(registrar);
   GoogleSignInPlugin.registerWith(registrar);
   JustAudioPlugin.registerWith(registrar);

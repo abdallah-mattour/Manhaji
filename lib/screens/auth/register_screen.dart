@@ -6,6 +6,7 @@ import '../../core/widgets/app_text_form_field.dart';
 import '../../core/constants/app_dimensions.dart';
 import '../../core/theme/app_colors.dart';
 import '../../providers/auth_provider.dart';
+import '../../routing/app_routes.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -15,13 +16,21 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final _formKey = GlobalKey<FormState>();
+  late final GlobalKey<FormState> _formKey;
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
   int _selectedGrade = 1;
   bool _obscurePassword = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _formKey = GlobalKey<FormState>(
+      debugLabel: 'register_form_${identityHashCode(this)}',
+    );
+  }
 
   @override
   void dispose() {
@@ -45,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
 
     if (success && mounted) {
-      context.go('/home');
+      context.go(AppRoutes.home);
     }
   }
 
@@ -116,10 +125,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       color: AppColors.primary,
                     ),
                     validator: (value) {
-                      if (value == null || value.isEmpty)
+                      if (value == null || value.isEmpty) {
                         return 'أدخل البريد الإلكتروني';
-                      if (!value.contains('@'))
+                      }
+                      if (!value.contains('@')) {
                         return 'أدخل بريد إلكتروني صحيح';
+                      }
                       return null;
                     },
                   ),
@@ -162,10 +173,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           setState(() => _obscurePassword = !_obscurePassword),
                     ),
                     validator: (value) {
-                      if (value == null || value.isEmpty)
+                      if (value == null || value.isEmpty) {
                         return 'أدخل كلمة المرور';
-                      if (value.length < 6)
+                      }
+                      if (value.length < 6) {
                         return 'كلمة المرور يجب أن تكون ٦ أحرف على الأقل';
+                      }
                       return null;
                     },
                   ),
@@ -215,8 +228,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             );
                           }).toList(),
                           onChanged: (value) {
-                            if (value != null)
+                            if (value != null) {
                               setState(() => _selectedGrade = value);
+                            }
                           },
                         ),
                       ],

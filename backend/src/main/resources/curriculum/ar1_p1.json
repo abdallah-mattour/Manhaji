@@ -59,6 +59,41 @@
           "correctAnswer": "راء",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "رمان",
+          "correctAnswer": "رمان",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "ريشة",
+          "correctAnswer": "ريشة",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "رامي",
+          "correctAnswer": "رامي",
+          "options": null,
+          "difficultyLevel": 2
+        },
+        {
+          "type": "TRACING",
+          "questionText": "ر",
+          "correctAnswer": "ر",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRACING",
+          "questionText": "را",
+          "correctAnswer": "را",
+          "options": null,
+          "difficultyLevel": 2
         }
       ],
       "imageUrls": []
@@ -162,6 +197,41 @@
           "correctAnswer": "باء",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "باب",
+          "correctAnswer": "باب",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "بطة",
+          "correctAnswer": "بطة",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "بيت",
+          "correctAnswer": "بيت",
+          "options": null,
+          "difficultyLevel": 2
+        },
+        {
+          "type": "TRACING",
+          "questionText": "ب",
+          "correctAnswer": "ب",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRACING",
+          "questionText": "با",
+          "correctAnswer": "با",
+          "options": null,
+          "difficultyLevel": 2
         }
       ],
       "imageUrls": []
@@ -246,6 +316,41 @@
           "correctAnswer": "ميم",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "موز",
+          "correctAnswer": "موز",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "ماء",
+          "correctAnswer": "ماء",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "ملك",
+          "correctAnswer": "ملك",
+          "options": null,
+          "difficultyLevel": 2
+        },
+        {
+          "type": "TRACING",
+          "questionText": "م",
+          "correctAnswer": "م",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRACING",
+          "questionText": "ما",
+          "correctAnswer": "ما",
+          "options": null,
+          "difficultyLevel": 2
         }
       ],
       "imageUrls": []

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import '../models/pronunciation_score.dart';
 import 'api_service.dart';
 
 class AudioApiService {
@@ -45,6 +46,26 @@ class AudioApiService {
       formData: formData,
     );
     return response['data'] ?? {};
+  }
+
+  /// Submit a pronunciation attempt — transcribes + scores phonetic similarity.
+  Future<PronunciationScore> submitPronunciation({
+    required int attemptId,
+    required int questionId,
+    required String audioFilePath,
+    String language = 'ar',
+  }) async {
+    final formData = FormData.fromMap({
+      'audio': await MultipartFile.fromFile(audioFilePath, filename: 'pron.webm'),
+      'questionId': questionId,
+      'language': language,
+    });
+    final response = await _api.postMultipart(
+      '/quiz/attempt/$attemptId/pronunciation',
+      formData: formData,
+    );
+    return PronunciationScore.fromJson(
+        (response['data'] as Map).cast<String, dynamic>());
   }
 
   /// Get a hint for a question.

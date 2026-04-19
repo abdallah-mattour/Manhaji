@@ -42,7 +42,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
 
     if (success && mounted) {
-      Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+      final role = context.read<AuthProvider>().userRole;
+      Navigator.of(context)
+          .pushReplacementNamed(AppRoutes.homeForRole(role));
     }
   }
 

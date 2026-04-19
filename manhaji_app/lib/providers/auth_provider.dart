@@ -1,8 +1,8 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../models/auth_response.dart';
 import '../services/auth_service.dart';
 import '../services/local_storage_service.dart';
+import '../utils/error_handler.dart';
 
 class AuthProvider extends ChangeNotifier {
   final AuthService _authService;
@@ -50,8 +50,8 @@ class AuthProvider extends ChangeNotifier {
       );
       await _handleAuthSuccess(response);
       return true;
-    } on DioException catch (e) {
-      _errorMessage = _extractError(e);
+    } catch (e) {
+      _errorMessage = extractError(e);
       return false;
     } finally {
       _isLoading = false;
@@ -74,8 +74,8 @@ class AuthProvider extends ChangeNotifier {
       );
       await _handleAuthSuccess(response);
       return true;
-    } on DioException catch (e) {
-      _errorMessage = _extractError(e);
+    } catch (e) {
+      _errorMessage = extractError(e);
       return false;
     } finally {
       _isLoading = false;
@@ -98,8 +98,8 @@ class AuthProvider extends ChangeNotifier {
       );
       await _handleAuthSuccess(response);
       return true;
-    } on DioException catch (e) {
-      _errorMessage = _extractError(e);
+    } catch (e) {
+      _errorMessage = extractError(e);
       return false;
     } finally {
       _isLoading = false;
@@ -130,17 +130,4 @@ class AuthProvider extends ChangeNotifier {
     _userId = response.userId;
   }
 
-  String _extractError(DioException e) {
-    if (e.response?.data != null && e.response!.data is Map) {
-      return e.response!.data['message'] ?? 'حدث خطأ غير متوقع';
-    }
-    if (e.type == DioExceptionType.connectionTimeout ||
-        e.type == DioExceptionType.receiveTimeout) {
-      return 'انتهت مهلة الاتصال. تأكد من اتصالك بالإنترنت';
-    }
-    if (e.type == DioExceptionType.connectionError) {
-      return 'لا يمكن الاتصال بالخادم. تأكد من اتصالك بالإنترنت';
-    }
-    return 'حدث خطأ غير متوقع';
-  }
 }

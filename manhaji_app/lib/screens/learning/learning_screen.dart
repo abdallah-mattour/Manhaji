@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:confetti/confetti.dart';
 import '../../app/theme.dart';
+import '../../constants/strings.dart';
 import '../../models/learning_step.dart';
 import '../../models/quiz.dart';
 import '../../providers/learning_provider.dart';
 import '../../services/audio_service.dart';
 import '../../services/tts_service.dart';
+import '../../widgets/learning/quiz_question_view.dart';
 import '../../widgets/progress_dots_bar.dart';
 import '../../widgets/teaching_card_widget.dart';
 import '../../widgets/star_display_widget.dart';
@@ -15,6 +17,8 @@ import '../../widgets/question_widgets/true_false_widget.dart';
 import '../../widgets/question_widgets/short_answer_widget.dart';
 import '../../widgets/question_widgets/fill_blank_widget.dart';
 import '../../widgets/question_widgets/ordering_widget.dart';
+import '../../widgets/question_widgets/pronunciation_widget.dart';
+import '../../widgets/question_widgets/tracing_widget.dart';
 import 'learning_completion_screen.dart';
 
 class LearningScreen extends StatefulWidget {
@@ -83,8 +87,9 @@ class _LearningScreenState extends State<LearningScreen>
   }
 
   Future<void> _initTts() async {
-    _ttsService = TtsService(context.read<AudioApiService>());
-    await _ttsService!.init();
+    final tts = TtsService(context.read<AudioApiService>());
+    _ttsService = tts;
+    await tts.init();
   }
 
   @override
@@ -99,16 +104,19 @@ class _LearningScreenState extends State<LearningScreen>
 
   void _autoSpeak(LearningProvider provider) {
     final step = provider.currentStep;
-    if (step == null || _ttsService == null) return;
+    final tts = _ttsService;
+    if (step == null || tts == null) return;
 
     final idx = provider.isInRetryRound ? -99 : provider.currentStepIndex;
     if (idx == _lastSpokenStepIndex) return;
     _lastSpokenStepIndex = idx;
 
-    if (step.isTeaching && step.teachingData != null) {
-      _ttsService!.speakText(step.teachingData!.content);
-    } else if (step.isQuestion && step.question != null) {
-      _ttsService!.speakQuestion(step.question!.id, step.question!.questionText);
+    final teaching = step.teachingData;
+    final question = step.question;
+    if (step.isTeaching && teaching != null) {
+      tts.speakText(teaching.content);
+    } else if (step.isQuestion && question != null) {
+      tts.speakQuestion(question.id, question.questionText);
     }
   }
 
@@ -284,8 +292,11 @@ class _LearningScreenState extends State<LearningScreen>
     final step = provider.currentStep;
     if (step == null) return const SizedBox();
 
+    final teaching = step.teachingData;
+    final question = step.question;
+
     // Teaching cards
-    if (step.isTeaching && step.teachingData != null) {
+    if (step.isTeaching && teaching != null) {
       return AnimatedSwitcher(
         duration: const Duration(milliseconds: 400),
         transitionBuilder: (child, animation) {
@@ -302,7 +313,7 @@ class _LearningScreenState extends State<LearningScreen>
         },
         child: TeachingCardWidget(
           key: ValueKey('teaching-${provider.currentStepIndex}'),
-          data: step.teachingData!,
+          data: teaching,
           isIntro: step.type == LearningStepType.teachingIntro,
           onNext: () => provider.advanceFromTeaching(),
         ),
@@ -310,7 +321,7 @@ class _LearningScreenState extends State<LearningScreen>
     }
 
     // Question steps
-    if (step.isQuestion && step.question != null) {
+    if (step.isQuestion && question != null) {
       return AnimatedSwitcher(
         duration: const Duration(milliseconds: 400),
         transitionBuilder: (child, animation) {
@@ -326,14 +337,14 @@ class _LearningScreenState extends State<LearningScreen>
           );
         },
         child: SingleChildScrollView(
-          key: ValueKey('question-${step.question!.id}-${provider.isInRetryRound}'),
+          key: ValueKey('question-${question.id}-${provider.isInRetryRound}'),
           padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _buildQuestionCard(provider, step.question!),
+              _buildQuestionCard(provider, question),
               const SizedBox(height: 20),
-              _buildAnswerArea(provider, step.question!),
+              _buildAnswerArea(provider, question),
               if (_shouldShowFeedback(provider)) ...[
                 const SizedBox(height: 16),
                 _buildFeedback(provider),
@@ -353,151 +364,27 @@ class _LearningScreenState extends State<LearningScreen>
   }
 
   Widget _buildQuestionCard(LearningProvider provider, Question question) {
-    final isRetry = provider.phase == LearningPhase.stepRetry;
-
-    return AnimatedBuilder(
-      animation: _shakeAnimation,
-      builder: (context, child) {
-        return Transform.translate(
-          offset: Offset(_shakeAnimation.value, 0),
-          child: child,
-        );
-      },
-      child: Container(
-        padding: const EdgeInsets.all(24),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: _getQuestionBorderColor(provider),
-            width: _shouldShowFeedback(provider) ? 2 : 0,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: AppTheme.primaryBlue.withValues(alpha: 0.08),
-              blurRadius: 12,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Column(
-          children: [
-            // Question type badge
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-              decoration: BoxDecoration(
-                color: _getTypeColor(question.type).withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                _getTypeLabel(question.type),
-                style: TextStyle(
-                  fontFamily: 'Cairo',
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: _getTypeColor(question.type),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            // Question text
-            Text(
-              question.questionText,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontFamily: 'Cairo',
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: AppTheme.textDark,
-                height: 1.6,
-              ),
-            ),
-            // Retry banner
-            if (isRetry)
-              Container(
-                margin: const EdgeInsets.only(top: 12),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  color: AppTheme.primaryOrange.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Text(
-                  'لا بأس! حاول مرة أخرى 💪',
-                  style: TextStyle(
-                    fontFamily: 'Cairo',
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: AppTheme.primaryOrange,
-                  ),
-                ),
-              ),
-            // Hint section
-            if (!_isAnswered(provider) && !isRetry) ...[
-              const SizedBox(height: 12),
-              TextButton.icon(
-                onPressed: _isLoadingHint
-                    ? null
-                    : () => _requestHint(question.id),
-                icon: _isLoadingHint
-                    ? const SizedBox(
-                        width: 16,
-                        height: 16,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                    : const Text('💡', style: TextStyle(fontSize: 18)),
-                label: Text(
-                  _hintLevel >= 3 ? 'لا مزيد من التلميحات' : 'مساعدة',
-                  style: TextStyle(
-                    fontFamily: 'Cairo',
-                    fontSize: 14,
-                    color: _hintLevel >= 3
-                        ? AppTheme.textLight
-                        : AppTheme.primaryOrange,
-                  ),
-                ),
-              ),
-            ],
-            if (_currentHint != null)
-              Container(
-                margin: const EdgeInsets.only(top: 8),
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: AppTheme.primaryYellow.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                      color: AppTheme.primaryYellow.withValues(alpha: 0.3)),
-                ),
-                child: Row(
-                  children: [
-                    const Text('💡', style: TextStyle(fontSize: 20)),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        _currentHint!,
-                        style: const TextStyle(
-                          fontFamily: 'Cairo',
-                          fontSize: 14,
-                          color: AppTheme.textDark,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-          ],
-        ),
-      ),
+    return QuizQuestionView(
+      question: question,
+      isRetry: provider.phase == LearningPhase.stepRetry,
+      showFeedbackBorder: _shouldShowFeedback(provider),
+      borderColor: _getQuestionBorderColor(provider),
+      isAnswered: _isAnswered(provider),
+      shakeAnimation: _shakeAnimation,
+      hintLevel: _hintLevel,
+      currentHint: _currentHint,
+      isLoadingHint: _isLoadingHint,
+      onRequestHint: () => _requestHint(question.id),
     );
   }
 
   Color _getQuestionBorderColor(LearningProvider provider) {
-    final tracker = provider.currentTracker;
-    if (tracker?.lastResult == null) return Colors.transparent;
+    final result = provider.currentTracker?.lastResult;
+    if (result == null) return Colors.transparent;
     if (provider.phase == LearningPhase.stepRetry) {
       return AppTheme.primaryOrange;
     }
-    return tracker!.lastResult!.isCorrect ? Colors.green : Colors.red;
+    return result.isCorrect ? Colors.green : Colors.red;
   }
 
   bool _isAnswered(LearningProvider provider) {
@@ -509,6 +396,44 @@ class _LearningScreenState extends State<LearningScreen>
     final isAnswered = _isAnswered(provider);
     final isCorrect = tracker?.lastResult?.isCorrect ?? false;
     final correctAnswer = tracker?.lastResult?.correctAnswer;
+
+    if (question.isPronunciation) {
+      return PronunciationWidget(
+        question: question,
+        lastScore: tracker?.lastPronunciationScore,
+        isAnswered: isAnswered,
+        isProcessing: provider.phase == LearningPhase.stepFeedback &&
+            tracker?.lastPronunciationScore == null,
+        onRecordingComplete: (audioPath) =>
+            _handlePronunciationAnswer(provider, audioPath),
+        onPlayTarget: () => _ttsService?.speakText(question.questionText),
+      );
+    }
+
+    if (question.isTracing) {
+      final lastScore = tracker?.lastTracingScore;
+      final lastResult = lastScore == null
+          ? null
+          : TracingResult(
+              score: lastScore,
+              stars: lastScore >= 90
+                  ? 3
+                  : lastScore >= 75
+                      ? 2
+                      : lastScore >= 60
+                          ? 1
+                          : 0,
+              rating: tracker?.lastResult?.feedback ?? '',
+              feedback: tracker?.lastResult?.feedback ?? '',
+            );
+      return TracingWidget(
+        key: ValueKey('tracing-${question.id}-${provider.isInRetryRound}'),
+        question: question,
+        isAnswered: isAnswered,
+        lastResult: lastResult,
+        onComplete: (result) => _handleTracingResult(provider, result),
+      );
+    }
 
     if (question.isMCQ) {
       return McqWidget(
@@ -554,6 +479,43 @@ class _LearningScreenState extends State<LearningScreen>
     }
   }
 
+  Future<void> _handleTracingResult(
+      LearningProvider provider, TracingResult result) async {
+    provider.applyTracingResult(
+      score: result.score,
+      stars: result.stars,
+      feedback: result.feedback,
+    );
+    _onAnswerSubmitted(provider);
+  }
+
+  Future<void> _handlePronunciationAnswer(
+      LearningProvider provider, String audioPath) async {
+    final attemptId = provider.currentAttemptId;
+    final question = provider.currentStep?.question;
+    if (attemptId == null || question == null) return;
+
+    // Show processing state via tracker (feedback phase without a score yet)
+    provider.markPhaseFeedback();
+
+    try {
+      final audioService = context.read<AudioApiService>();
+      final score = await audioService.submitPronunciation(
+        attemptId: attemptId,
+        questionId: question.id,
+        audioFilePath: audioPath,
+      );
+      provider.applyPronunciationResult(score);
+      _onAnswerSubmitted(provider);
+    } catch (_) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('حدث خطأ في تقييم النطق')),
+        );
+      }
+    }
+  }
+
   Future<void> _handleVoiceAnswer(
       LearningProvider provider, String audioPath) async {
     final attemptId = provider.currentAttemptId;
@@ -587,7 +549,8 @@ class _LearningScreenState extends State<LearningScreen>
 
   Widget _buildFeedback(LearningProvider provider) {
     final tracker = provider.currentTracker;
-    final result = tracker?.lastResult;
+    if (tracker == null) return const SizedBox();
+    final result = tracker.lastResult;
     if (result == null) return const SizedBox();
 
     final isRetryPrompt = provider.phase == LearningPhase.stepRetry;
@@ -671,7 +634,7 @@ class _LearningScreenState extends State<LearningScreen>
                     ),
                   if (result.isCorrect)
                     Text(
-                      '+${tracker!.starsEarned} ⭐',
+                      '+${tracker.starsEarned} ⭐',
                       style: const TextStyle(
                         fontFamily: 'Cairo',
                         fontSize: 14,
@@ -695,7 +658,7 @@ class _LearningScreenState extends State<LearningScreen>
     final phase = provider.phase;
 
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(AppTheme.spacingM),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -728,7 +691,7 @@ class _LearningScreenState extends State<LearningScreen>
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         ),
         child: const Text(
-          'حاول مرة أخرى 💪',
+          AppStrings.actionTryAgain,
           style: TextStyle(fontFamily: 'Cairo', fontSize: 18, color: Colors.white),
         ),
       );
@@ -749,9 +712,9 @@ class _LearningScreenState extends State<LearningScreen>
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         ),
-        child: Text(
-          'التالي ←',
-          style: const TextStyle(
+        child: const Text(
+          AppStrings.actionNext,
+          style: TextStyle(
               fontFamily: 'Cairo', fontSize: 18, color: Colors.white),
         ),
       );
@@ -767,7 +730,7 @@ class _LearningScreenState extends State<LearningScreen>
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
       child: const Text(
-        'تأكيد الإجابة',
+        AppStrings.actionConfirm,
         style: TextStyle(fontFamily: 'Cairo', fontSize: 18, color: Colors.white),
       ),
     );
@@ -850,7 +813,7 @@ class _LearningScreenState extends State<LearningScreen>
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx),
-              child: const Text('متابعة',
+              child: const Text(AppStrings.actionContinue,
                   style: TextStyle(
                       fontFamily: 'Cairo', color: AppTheme.primaryGreen)),
             ),
@@ -862,7 +825,7 @@ class _LearningScreenState extends State<LearningScreen>
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: AppTheme.primaryRed),
-              child: const Text('الخروج',
+              child: const Text(AppStrings.actionExit,
                   style: TextStyle(fontFamily: 'Cairo')),
             ),
           ],
@@ -871,37 +834,4 @@ class _LearningScreenState extends State<LearningScreen>
     );
   }
 
-  Color _getTypeColor(String type) {
-    switch (type) {
-      case 'MCQ':
-        return AppTheme.primaryBlue;
-      case 'TRUE_FALSE':
-        return AppTheme.primaryPurple;
-      case 'SHORT_ANSWER':
-        return AppTheme.primaryOrange;
-      case 'FILL_BLANK':
-        return const Color(0xFF00897B);
-      case 'ORDERING':
-        return const Color(0xFF7B1FA2);
-      default:
-        return AppTheme.primaryGreen;
-    }
-  }
-
-  String _getTypeLabel(String type) {
-    switch (type) {
-      case 'MCQ':
-        return 'اختيار من متعدد';
-      case 'TRUE_FALSE':
-        return 'صح أو خطأ';
-      case 'SHORT_ANSWER':
-        return 'إجابة قصيرة';
-      case 'FILL_BLANK':
-        return 'أكمل الفراغ';
-      case 'ORDERING':
-        return 'رتّب العناصر';
-      default:
-        return '';
-    }
-  }
 }

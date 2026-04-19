@@ -5,5 +5,7 @@ public enum QuestionType {
     MCQ,
     SHORT_ANSWER,
     FILL_BLANK,
-    ORDERING
+    ORDERING,
+    PRONUNCIATION,
+    TRACING
 }

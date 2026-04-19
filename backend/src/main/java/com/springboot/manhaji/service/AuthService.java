@@ -6,11 +6,11 @@ import com.springboot.manhaji.dto.request.PhoneLoginRequest;
 import com.springboot.manhaji.dto.request.RegisterRequest;
 import com.springboot.manhaji.dto.response.AuthResponse;
 import com.springboot.manhaji.entity.*;
-import com.springboot.manhaji.entity.enums.Role;
 import com.springboot.manhaji.exception.BadRequestException;
 import com.springboot.manhaji.exception.ResourceNotFoundException;
 import com.springboot.manhaji.exception.UnauthorizedException;
 import com.springboot.manhaji.repository.UserRepository;
+import com.springboot.manhaji.support.Messages;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,22 +20,24 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+    private final Messages messages;
 
     @Transactional
     public AuthResponse register(RegisterRequest request) {
         if (request.getEmail() != null && userRepository.existsByEmail(request.getEmail())) {
-            throw new BadRequestException("Email already registered");
+            throw new BadRequestException(messages.get("error.auth.emailAlreadyRegistered"));
         }
         if (request.getPhone() != null && userRepository.existsByPhone(request.getPhone())) {
-            throw new BadRequestException("Phone number already registered");
+            throw new BadRequestException(messages.get("error.auth.phoneAlreadyRegistered"));
         }
         if (request.getEmail() == null && request.getPhone() == null) {
-            throw new BadRequestException("Email or phone number is required");
+            throw new BadRequestException(messages.get("error.auth.emailOrPhoneRequired"));
         }
 
         User user = createUserByRole(request);
@@ -51,12 +53,13 @@ public class AuthService {
         return buildAuthResponse(user);
     }
 
+    @Transactional
     public AuthResponse loginWithEmail(LoginRequest request) {
         User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new UnauthorizedException("Invalid email or password"));
+                .orElseThrow(() -> new UnauthorizedException(messages.get("error.auth.invalidEmailCredentials")));
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPasswordHash())) {
-            throw new UnauthorizedException("Invalid email or password");
+            throw new UnauthorizedException(messages.get("error.auth.invalidEmailCredentials"));
         }
 
         user.setLastLoginAt(LocalDateTime.now());
@@ -65,12 +68,13 @@ public class AuthService {
         return buildAuthResponse(user);
     }
 
+    @Transactional
     public AuthResponse loginWithPhone(PhoneLoginRequest request) {
         User user = userRepository.findByPhone(request.getPhone())
-                .orElseThrow(() -> new UnauthorizedException("Invalid phone number or password"));
+                .orElseThrow(() -> new UnauthorizedException(messages.get("error.auth.invalidPhoneCredentials")));
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPasswordHash())) {
-            throw new UnauthorizedException("Invalid phone number or password");
+            throw new UnauthorizedException(messages.get("error.auth.invalidPhoneCredentials"));
         }
 
         user.setLastLoginAt(LocalDateTime.now());
@@ -81,7 +85,7 @@ public class AuthService {
 
     public AuthResponse refreshToken(String refreshToken) {
         if (!jwtService.isTokenValid(refreshToken)) {
-            throw new UnauthorizedException("Invalid or expired refresh token");
+            throw new UnauthorizedException(messages.get("error.auth.invalidRefreshToken"));
         }
 
         String subject = jwtService.extractSubject(refreshToken);
@@ -107,7 +111,7 @@ public class AuthService {
             case TEACHER -> new Teacher();
             case PARENT -> new Parent();
             case ADMIN -> new Admin();
-            default -> throw new BadRequestException("Invalid role: " + request.getRole());
+            default -> throw new BadRequestException(messages.get("error.auth.invalidRole", request.getRole()));
         };
         user.setRole(request.getRole());
         return user;

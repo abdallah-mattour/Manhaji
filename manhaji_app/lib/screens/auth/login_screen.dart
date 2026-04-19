@@ -44,7 +44,9 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     if (success && mounted) {
-      Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+      final role = auth.userRole;
+      Navigator.of(context)
+          .pushReplacementNamed(AppRoutes.homeForRole(role));
     }
   }
 
@@ -259,26 +261,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             : const Text('تسجيل الدخول'),
                       );
                     },
-                  ),
-                  const SizedBox(height: 16),
-
-                  // Google sign in
-                  OutlinedButton.icon(
-                    onPressed: () {
-                      // TODO: Google sign-in
-                    },
-                    icon: const Icon(Icons.g_mobiledata, size: 28),
-                    label: const Text(
-                      'تسجيل الدخول بحساب Google',
-                      style: TextStyle(fontFamily: 'Cairo'),
-                    ),
-                    style: OutlinedButton.styleFrom(
-                      minimumSize: const Size(double.infinity, 56),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      side: const BorderSide(color: Color(0xFFE0E0E0)),
-                    ),
                   ),
                   const SizedBox(height: 24),
 

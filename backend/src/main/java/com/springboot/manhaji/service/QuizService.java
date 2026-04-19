@@ -2,6 +2,7 @@ package com.springboot.manhaji.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.springboot.manhaji.config.QuizConfigProperties;
 import com.springboot.manhaji.dto.request.SubmitAnswerRequest;
 import com.springboot.manhaji.dto.response.*;
 import com.springboot.manhaji.entity.*;
@@ -12,6 +13,9 @@ import com.springboot.manhaji.exception.BadRequestException;
 import com.springboot.manhaji.exception.ResourceNotFoundException;
 import com.springboot.manhaji.repository.*;
 import com.springboot.manhaji.service.ai.GeminiService;
+import com.springboot.manhaji.service.ai.PronunciationScoringService;
+import com.springboot.manhaji.service.ai.WhisperService;
+import com.springboot.manhaji.support.Messages;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,6 +28,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional(readOnly = true)
 public class QuizService {
 
     private final QuizRepository quizRepository;
@@ -34,8 +39,10 @@ public class QuizService {
     private final ProgressRepository progressRepository;
     private final ObjectMapper objectMapper;
     private final GeminiService geminiService;
-
-    private static final int POINTS_PER_CORRECT = 10;
+    private final WhisperService whisperService;
+    private final PronunciationScoringService pronunciationScoringService;
+    private final Messages messages;
+    private final QuizConfigProperties quizConfig;
 
     // Get quiz for a lesson
     public QuizResponse getQuizByLesson(Long lessonId) {
@@ -89,10 +96,10 @@ public class QuizService {
                 .orElseThrow(() -> new ResourceNotFoundException("Attempt", attemptId));
 
         if (!attempt.getStudent().getId().equals(studentId)) {
-            throw new BadRequestException("هذه المحاولة لا تخصك");
+            throw new BadRequestException(messages.get("error.attempt.notYours"));
         }
         if (attempt.getStatus() != AttemptStatus.IN_PROGRESS) {
-            throw new BadRequestException("هذه المحاولة مكتملة بالفعل");
+            throw new BadRequestException(messages.get("error.attempt.alreadyCompleted"));
         }
 
         Question question = questionRepository.findById(request.getQuestionId())
@@ -101,7 +108,7 @@ public class QuizService {
         // Evaluate the answer
         boolean isCorrect = evaluateAnswer(question, request);
         String feedback = generateFeedback(question, request, isCorrect);
-        int pointsEarned = isCorrect ? POINTS_PER_CORRECT : 0;
+        int pointsEarned = isCorrect ? quizConfig.getPointsPerCorrect() : 0;
 
         // Save student response
         StudentResponse response = new StudentResponse();
@@ -129,6 +136,53 @@ public class QuizService {
                 .build();
     }
 
+    // Submit a pronunciation attempt: transcribe audio, score fuzzy match, persist response.
+    @Transactional
+    public PronunciationScoreResponse submitPronunciation(
+            Long attemptId, Long questionId, byte[] audioBytes, String language, Long studentId) {
+        Attempt attempt = attemptRepository.findById(attemptId)
+                .orElseThrow(() -> new ResourceNotFoundException("Attempt", attemptId));
+
+        if (!attempt.getStudent().getId().equals(studentId)) {
+            throw new BadRequestException(messages.get("error.attempt.notYours"));
+        }
+        if (attempt.getStatus() != AttemptStatus.IN_PROGRESS) {
+            throw new BadRequestException(messages.get("error.attempt.alreadyCompleted"));
+        }
+
+        Question question = questionRepository.findById(questionId)
+                .orElseThrow(() -> new ResourceNotFoundException("Question", questionId));
+
+        String expected = question.getCorrectAnswer();
+        String transcribed = whisperService.transcribe(audioBytes, language != null ? language : "ar");
+
+        int score = pronunciationScoringService.score(expected, transcribed);
+        String rating = pronunciationScoringService.rating(score);
+        String feedback = pronunciationScoringService.feedback(score, expected);
+        boolean isCorrect = pronunciationScoringService.isCorrect(score);
+        int pointsEarned = isCorrect ? quizConfig.getPointsPerCorrect() : 0;
+
+        StudentResponse response = new StudentResponse();
+        response.setAttempt(attempt);
+        response.setQuestion(question);
+        response.setIsCorrect(isCorrect);
+        response.setFeedback(feedback);
+        response.setSpokenText(transcribed);
+        response.setEvaluatedText(transcribed);
+        responseRepository.save(response);
+
+        return PronunciationScoreResponse.builder()
+                .questionId(questionId)
+                .expectedText(expected)
+                .transcribedText(transcribed)
+                .score(score)
+                .rating(rating)
+                .feedback(feedback)
+                .isCorrect(isCorrect)
+                .pointsEarned(pointsEarned)
+                .build();
+    }
+
     // Complete the attempt and calculate final score
     @Transactional
     public AttemptResponse completeAttempt(Long attemptId, Long studentId) {
@@ -136,10 +190,10 @@ public class QuizService {
                 .orElseThrow(() -> new ResourceNotFoundException("Attempt", attemptId));
 
         if (!attempt.getStudent().getId().equals(studentId)) {
-            throw new BadRequestException("هذه المحاولة لا تخصك");
+            throw new BadRequestException(messages.get("error.attempt.notYours"));
         }
         if (attempt.getStatus() != AttemptStatus.IN_PROGRESS) {
-            throw new BadRequestException("هذه المحاولة مكتملة بالفعل");
+            throw new BadRequestException(messages.get("error.attempt.alreadyCompleted"));
         }
 
         Quiz quiz = attempt.getQuiz();
@@ -156,7 +210,7 @@ public class QuizService {
         int totalQuestions = quiz.getQuestions().size();
         int correctAnswers = (int) dedupedResponses.stream().filter(r -> Boolean.TRUE.equals(r.getIsCorrect())).count();
         double score = totalQuestions > 0 ? (correctAnswers * 100.0) / totalQuestions : 0;
-        int pointsEarned = correctAnswers * POINTS_PER_CORRECT;
+        int pointsEarned = correctAnswers * quizConfig.getPointsPerCorrect();
 
         // Update attempt
         attempt.setStatus(AttemptStatus.GRADED);
@@ -201,14 +255,15 @@ public class QuizService {
         Question question = questionRepository.findById(questionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Question", questionId));
 
-        level = Math.max(1, Math.min(3, level)); // Clamp 1-3
+        int maxLevel = quizConfig.getMaxHintLevel();
+        level = Math.max(1, Math.min(maxLevel, level)); // Clamp 1..maxLevel
         String hint = geminiService.generateHint(
                 question.getQuestionText(), question.getCorrectAnswer(), level, "ar");
 
         return Map.of(
                 "hint", hint,
                 "hintLevel", level,
-                "remainingHints", 3 - level
+                "remainingHints", maxLevel - level
         );
     }
 
@@ -310,10 +365,10 @@ public class QuizService {
         progress.setMasteryLevel(score);
         progress.setLastAccessedAt(LocalDateTime.now());
 
-        if (score >= 80) {
+        if (score >= quizConfig.getMasteryThreshold()) {
             progress.setCompletionStatus(CompletionStatus.MASTERED);
             progress.setCompletedAt(LocalDateTime.now());
-        } else if (score >= 50) {
+        } else if (score >= quizConfig.getCompletionThreshold()) {
             progress.setCompletionStatus(CompletionStatus.COMPLETED);
             progress.setCompletedAt(LocalDateTime.now());
         } else {
@@ -394,7 +449,7 @@ public class QuizService {
                 .score(attempt.getScore())
                 .totalQuestions(quiz.getQuestions().size())
                 .correctAnswers(correctAnswers)
-                .pointsEarned(correctAnswers * POINTS_PER_CORRECT)
+                .pointsEarned(correctAnswers * quizConfig.getPointsPerCorrect())
                 .submittedAt(attempt.getSubmittedAt())
                 .build();
     }

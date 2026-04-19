@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:confetti/confetti.dart';
 import '../../app/theme.dart';
 import '../../providers/learning_provider.dart';
+import '../../widgets/stat_card.dart';
 
 class LearningCompletionScreen extends StatefulWidget {
   final String lessonTitle;
@@ -42,7 +43,7 @@ class _LearningCompletionScreenState extends State<LearningCompletionScreen>
         TweenSequenceItem(tween: Tween(begin: 1.3, end: 1.0), weight: 40),
       ]).animate(CurvedAnimation(
         parent: _starsController,
-        curve: Interval(i * 0.15, 0.5 + i * 0.15, curve: Curves.elasticOut),
+        curve: Interval(i * 0.15, 0.5 + i * 0.15, curve: Curves.bounceOut),
       ));
     });
 
@@ -149,36 +150,44 @@ class _LearningCompletionScreenState extends State<LearningCompletionScreen>
                         // Stats grid
                         Row(
                           children: [
-                            _buildStatCard(
-                              '$score%',
-                              'النتيجة',
-                              AppTheme.primaryGreen,
-                              Icons.emoji_events_rounded,
+                            StatCard(
+                              value: '$score%',
+                              label: 'النتيجة',
+                              color: AppTheme.primaryGreen,
+                              icon: Icons.emoji_events_rounded,
+                              padding: const EdgeInsets.all(16),
+                              valueFontSize: 22,
                             ),
                             const SizedBox(width: 12),
-                            _buildStatCard(
-                              '$correctCount/$questionCount',
-                              'إجابات صحيحة',
-                              AppTheme.primaryBlue,
-                              Icons.check_circle_rounded,
+                            StatCard(
+                              value: '$correctCount/$questionCount',
+                              label: 'إجابات صحيحة',
+                              color: AppTheme.primaryBlue,
+                              icon: Icons.check_circle_rounded,
+                              padding: const EdgeInsets.all(16),
+                              valueFontSize: 22,
                             ),
                           ],
                         ),
                         const SizedBox(height: 12),
                         Row(
                           children: [
-                            _buildStatCard(
-                              '+$points',
-                              'نقاط مكتسبة',
-                              AppTheme.primaryOrange,
-                              Icons.bolt_rounded,
+                            StatCard(
+                              value: '+$points',
+                              label: 'نقاط مكتسبة',
+                              color: AppTheme.primaryOrange,
+                              icon: Icons.bolt_rounded,
+                              padding: const EdgeInsets.all(16),
+                              valueFontSize: 22,
                             ),
                             const SizedBox(width: 12),
-                            _buildStatCard(
-                              '$totalStars',
-                              'نجوم مجموعة',
-                              AppTheme.primaryYellow,
-                              Icons.star_rounded,
+                            StatCard(
+                              value: '$totalStars',
+                              label: 'نجوم مجموعة',
+                              color: AppTheme.primaryYellow,
+                              icon: Icons.star_rounded,
+                              padding: const EdgeInsets.all(16),
+                              valueFontSize: 22,
                             ),
                           ],
                         ),
@@ -261,43 +270,6 @@ class _LearningCompletionScreenState extends State<LearningCompletionScreen>
                   AppTheme.primaryBlue,
                   AppTheme.primaryPurple,
                 ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildStatCard(
-      String value, String label, Color color, IconData icon) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.08),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: color.withValues(alpha: 0.2)),
-        ),
-        child: Column(
-          children: [
-            Icon(icon, color: color, size: 28),
-            const SizedBox(height: 8),
-            Text(
-              value,
-              style: TextStyle(
-                fontFamily: 'Cairo',
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: color,
-              ),
-            ),
-            Text(
-              label,
-              style: const TextStyle(
-                fontFamily: 'Cairo',
-                fontSize: 12,
-                color: AppTheme.textGray,
               ),
             ),
           ],

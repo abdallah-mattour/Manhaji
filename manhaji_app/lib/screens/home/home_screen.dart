@@ -6,6 +6,9 @@ import '../../models/subject.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/lesson_provider.dart';
 import '../../services/local_storage_service.dart';
+import '../../widgets/error_state.dart';
+import '../../widgets/loading_state.dart';
+import '../../widgets/stat_card.dart';
 import '../subject/subject_lessons_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -47,30 +50,14 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Consumer<LessonProvider>(
           builder: (context, lessonProvider, _) {
             if (lessonProvider.isLoading && lessonProvider.dashboard == null) {
-              return const Center(child: CircularProgressIndicator());
+              return const LoadingState();
             }
 
             if (lessonProvider.errorMessage != null &&
                 lessonProvider.dashboard == null) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.error_outline,
-                        size: 64, color: AppTheme.textLight),
-                    const SizedBox(height: 16),
-                    Text(
-                      lessonProvider.errorMessage!,
-                      style: const TextStyle(
-                          fontFamily: 'Cairo', color: AppTheme.textGray),
-                    ),
-                    const SizedBox(height: 16),
-                    ElevatedButton(
-                      onPressed: () => lessonProvider.loadDashboard(),
-                      child: const Text('إعادة المحاولة'),
-                    ),
-                  ],
-                ),
+              return ErrorState(
+                message: lessonProvider.errorMessage!,
+                onRetry: lessonProvider.loadDashboard,
               );
             }
 
@@ -114,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     // Subjects grid
                     SliverPadding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: AppTheme.spacingM),
                       sliver: SliverGrid(
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
@@ -204,51 +191,36 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildStatsRow(int points, int streak, int completed) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(AppTheme.spacingM),
       child: Row(
         children: [
-          _buildStatCard('⭐', '$points', 'نقطة', AppTheme.primaryYellow),
+          StatCard(
+            emoji: '⭐',
+            value: '$points',
+            label: 'نقطة',
+            color: AppTheme.primaryYellow,
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+            labelFontSize: 11,
+          ),
           const SizedBox(width: 10),
-          _buildStatCard('🔥', '$streak', 'أيام متتالية', AppTheme.primaryOrange),
+          StatCard(
+            emoji: '🔥',
+            value: '$streak',
+            label: 'أيام متتالية',
+            color: AppTheme.primaryOrange,
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+            labelFontSize: 11,
+          ),
           const SizedBox(width: 10),
-          _buildStatCard('✅', '$completed', 'درس مكتمل', AppTheme.primaryGreen),
+          StatCard(
+            emoji: '✅',
+            value: '$completed',
+            label: 'درس مكتمل',
+            color: AppTheme.primaryGreen,
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+            labelFontSize: 11,
+          ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildStatCard(String emoji, String value, String label, Color color) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-        decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: color.withValues(alpha: 0.3)),
-        ),
-        child: Column(
-          children: [
-            Text(emoji, style: const TextStyle(fontSize: 24)),
-            const SizedBox(height: 4),
-            Text(
-              value,
-              style: TextStyle(
-                fontFamily: 'Cairo',
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: color,
-              ),
-            ),
-            Text(
-              label,
-              style: const TextStyle(
-                fontFamily: 'Cairo',
-                fontSize: 11,
-                color: AppTheme.textGray,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

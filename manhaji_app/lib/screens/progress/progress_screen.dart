@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../app/theme.dart';
 import '../../models/progress.dart';
+import '../../app/routes.dart';
 import '../../providers/progress_provider.dart';
-import 'leaderboard_screen.dart';
+import '../../widgets/error_state.dart';
+import '../../widgets/loading_state.dart';
+import '../../widgets/stat_card.dart';
 
 class ProgressScreen extends StatefulWidget {
   const ProgressScreen({super.key});
@@ -30,10 +33,13 @@ class _ProgressScreenState extends State<ProgressScreen> {
           title: const Text('تقدمي'),
           actions: [
             IconButton(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const LeaderboardScreen()),
-              ),
+              onPressed: () => Navigator.pushNamed(context, AppRoutes.aiReports),
+              icon: const Icon(Icons.auto_awesome_rounded),
+              tooltip: 'تقارير الذكاء الاصطناعي',
+            ),
+            IconButton(
+              onPressed: () =>
+                  Navigator.pushNamed(context, AppRoutes.leaderboard),
               icon: const Icon(Icons.leaderboard_rounded),
               tooltip: 'لوحة المتصدرين',
             ),
@@ -42,24 +48,12 @@ class _ProgressScreenState extends State<ProgressScreen> {
         body: Consumer<ProgressProvider>(
           builder: (context, provider, _) {
             if (provider.isLoading && provider.summary == null) {
-              return const Center(child: CircularProgressIndicator());
+              return const LoadingState();
             }
             if (provider.errorMessage != null && provider.summary == null) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.error_outline, size: 64, color: AppTheme.textLight),
-                    const SizedBox(height: 16),
-                    Text(provider.errorMessage!,
-                        style: const TextStyle(fontFamily: 'Cairo')),
-                    const SizedBox(height: 16),
-                    ElevatedButton(
-                      onPressed: () => provider.loadProgress(),
-                      child: const Text('إعادة المحاولة'),
-                    ),
-                  ],
-                ),
+              return ErrorState(
+                message: provider.errorMessage!,
+                onRetry: provider.loadProgress,
               );
             }
 
@@ -70,18 +64,18 @@ class _ProgressScreenState extends State<ProgressScreen> {
               onRefresh: () => provider.loadProgress(),
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(AppTheme.spacingM),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     _buildOverallProgress(summary),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: AppTheme.spacingM),
                     _buildStatsGrid(summary),
                     const SizedBox(height: 20),
                     _buildSubjectBreakdown(summary.subjectProgress),
                     const SizedBox(height: 20),
                     _buildRecentActivity(summary.recentActivity),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: AppTheme.spacingL),
                   ],
                 ),
               ),
@@ -181,77 +175,50 @@ class _ProgressScreenState extends State<ProgressScreen> {
   Widget _buildStatsGrid(ProgressSummary summary) {
     return Row(
       children: [
-        Expanded(
-          child: _buildStatCard(
-            '⭐',
-            '${summary.totalPoints}',
-            'النقاط',
-            AppTheme.primaryYellow,
-          ),
+        StatCard(
+          emoji: '⭐',
+          value: '${summary.totalPoints}',
+          label: 'النقاط',
+          color: AppTheme.primaryYellow,
+          emojiSize: 20,
+          valueFontSize: 16,
+          labelFontSize: 10,
+          borderRadius: 14,
         ),
         const SizedBox(width: 10),
-        Expanded(
-          child: _buildStatCard(
-            '🔥',
-            '${summary.currentStreak}',
-            'أيام متتالية',
-            AppTheme.primaryOrange,
-          ),
+        StatCard(
+          emoji: '🔥',
+          value: '${summary.currentStreak}',
+          label: 'أيام متتالية',
+          color: AppTheme.primaryOrange,
+          emojiSize: 20,
+          valueFontSize: 16,
+          labelFontSize: 10,
+          borderRadius: 14,
         ),
         const SizedBox(width: 10),
-        Expanded(
-          child: _buildStatCard(
-            '📝',
-            '${summary.totalQuizzesTaken}',
-            'اختبار',
-            AppTheme.primaryBlue,
-          ),
+        StatCard(
+          emoji: '📝',
+          value: '${summary.totalQuizzesTaken}',
+          label: 'اختبار',
+          color: AppTheme.primaryBlue,
+          emojiSize: 20,
+          valueFontSize: 16,
+          labelFontSize: 10,
+          borderRadius: 14,
         ),
         const SizedBox(width: 10),
-        Expanded(
-          child: _buildStatCard(
-            '🏆',
-            '${summary.averageQuizScore.toInt()}%',
-            'معدل النجاح',
-            AppTheme.primaryPurple,
-          ),
+        StatCard(
+          emoji: '🏆',
+          value: '${summary.averageQuizScore.toInt()}%',
+          label: 'معدل النجاح',
+          color: AppTheme.primaryPurple,
+          emojiSize: 20,
+          valueFontSize: 16,
+          labelFontSize: 10,
+          borderRadius: 14,
         ),
       ],
-    );
-  }
-
-  Widget _buildStatCard(String emoji, String value, String label, Color color) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 8),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: color.withValues(alpha: 0.2)),
-      ),
-      child: Column(
-        children: [
-          Text(emoji, style: const TextStyle(fontSize: 20)),
-          const SizedBox(height: 4),
-          Text(
-            value,
-            style: TextStyle(
-              fontFamily: 'Cairo',
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
-          Text(
-            label,
-            style: const TextStyle(
-              fontFamily: 'Cairo',
-              fontSize: 10,
-              color: AppTheme.textGray,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
     );
   }
 

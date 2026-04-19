@@ -19,10 +19,10 @@ public class Student extends User {
     @Column
     private String avatarId;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "INTEGER NOT NULL DEFAULT 0")
     private Integer currentStreak = 0;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "INTEGER NOT NULL DEFAULT 0")
     private Integer totalPoints = 0;
 
     @ManyToOne(fetch = FetchType.LAZY)

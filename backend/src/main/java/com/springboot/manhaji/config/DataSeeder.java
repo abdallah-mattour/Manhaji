@@ -2,15 +2,24 @@ package com.springboot.manhaji.config;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.springboot.manhaji.entity.Admin;
 import com.springboot.manhaji.entity.Lesson;
 import com.springboot.manhaji.entity.Question;
 import com.springboot.manhaji.entity.Quiz;
 import com.springboot.manhaji.entity.Subject;
+import com.springboot.manhaji.entity.Teacher;
 import com.springboot.manhaji.entity.enums.QuestionType;
+import com.springboot.manhaji.entity.enums.Role;
+import com.springboot.manhaji.repository.AdminRepository;
 import com.springboot.manhaji.repository.LessonRepository;
+import com.springboot.manhaji.repository.ParentRepository;
 import com.springboot.manhaji.repository.QuestionRepository;
 import com.springboot.manhaji.repository.QuizRepository;
+import com.springboot.manhaji.repository.StudentRepository;
 import com.springboot.manhaji.repository.SubjectRepository;
+import com.springboot.manhaji.repository.TeacherRepository;
+import com.springboot.manhaji.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -35,6 +44,12 @@ public class DataSeeder implements CommandLineRunner {
     private final QuestionRepository questionRepository;
     private final QuizRepository quizRepository;
     private final ObjectMapper objectMapper;
+    private final UserRepository userRepository;
+    private final StudentRepository studentRepository;
+    private final TeacherRepository teacherRepository;
+    private final AdminRepository adminRepository;
+    private final ParentRepository parentRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) {
@@ -49,6 +64,59 @@ public class DataSeeder implements CommandLineRunner {
 
         // Always generate quizzes for lessons that have questions but no quiz
         seedQuizzes();
+
+        // Seed demo teacher and admin accounts
+        seedDemoAccounts();
+    }
+
+    private void seedDemoAccounts() {
+        // Teacher account
+        if (userRepository.findByEmail("teacher@manhaji.edu").isEmpty()) {
+            Teacher teacher = new Teacher();
+            teacher.setFullName("أحمد المعلم");
+            teacher.setEmail("teacher@manhaji.edu");
+            teacher.setPasswordHash(passwordEncoder.encode("teacher123"));
+            teacher.setRole(Role.TEACHER);
+            teacher.setIsActive(true);
+            teacher.setDepartment("اللغة العربية");
+            teacher.setAssignedGrade(1);
+            teacherRepository.save(teacher);
+            log.info("Created demo teacher account: teacher@manhaji.edu / teacher123");
+        }
+
+        // Admin account
+        if (userRepository.findByEmail("admin@manhaji.edu").isEmpty()) {
+            Admin admin = new Admin();
+            admin.setFullName("مشرف النظام");
+            admin.setEmail("admin@manhaji.edu");
+            admin.setPasswordHash(passwordEncoder.encode("admin123"));
+            admin.setRole(Role.ADMIN);
+            admin.setIsActive(true);
+            admin.setPermissions("ALL");
+            adminRepository.save(admin);
+            log.info("Created demo admin account: admin@manhaji.edu / admin123");
+        }
+
+        // Parent account — link to all existing students that have no parent
+        if (userRepository.findByEmail("parent@manhaji.edu").isEmpty()) {
+            com.springboot.manhaji.entity.Parent parent = new com.springboot.manhaji.entity.Parent();
+            parent.setFullName("ولي أمر محمد");
+            parent.setEmail("parent@manhaji.edu");
+            parent.setPasswordHash(passwordEncoder.encode("parent123"));
+            parent.setRole(Role.PARENT);
+            parent.setIsActive(true);
+            parent = parentRepository.save(parent);
+
+            // Link unassigned students to this demo parent
+            var students = studentRepository.findAll();
+            for (var student : students) {
+                if (student.getParent() == null) {
+                    student.setParent(parent);
+                    studentRepository.save(student);
+                }
+            }
+            log.info("Created demo parent account: parent@manhaji.edu / parent123 (linked {} children)", students.size());
+        }
     }
 
     /**
@@ -274,7 +342,8 @@ public class DataSeeder implements CommandLineRunner {
             try {
                 int pageNum = Integer.parseInt(name.substring(4, name.indexOf('_')));
                 pageGroups.computeIfAbsent(pageNum, k -> new ArrayList<>()).add(name);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                log.warn("Could not parse page number from image filename '{}': {}", name, e.getMessage());
             }
         }
         for (List<String> group : pageGroups.values()) {
@@ -348,7 +417,8 @@ public class DataSeeder implements CommandLineRunner {
                     try {
                         lesson.setImageUrls(objectMapper.writeValueAsString(imgs));
                         changed = true;
-                    } catch (Exception ignored) {
+                    } catch (Exception e) {
+                        log.warn("Failed to backfill imageUrls for lesson '{}': {}", lesson.getTitle(), e.getMessage());
                     }
                 }
             }

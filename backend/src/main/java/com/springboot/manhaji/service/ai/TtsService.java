@@ -62,7 +62,7 @@ public class TtsService {
                     .bodyValue(requestBody)
                     .retrieve()
                     .bodyToMono(String.class)
-                    .block(java.time.Duration.ofSeconds(30));
+                    .block(java.time.Duration.ofSeconds(12));
 
             return extractAudio(responseJson);
         } catch (Exception e) {

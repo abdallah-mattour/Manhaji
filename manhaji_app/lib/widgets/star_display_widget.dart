@@ -29,7 +29,7 @@ class _StarDisplayWidgetState extends State<StarDisplayWidget>
       TweenSequenceItem(tween: Tween(begin: 1.4, end: 1.0), weight: 60),
     ]).animate(CurvedAnimation(
       parent: _bounceController,
-      curve: Curves.elasticOut,
+      curve: Curves.bounceOut,
     ));
   }
 

@@ -1,9 +1,10 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../app/theme.dart';
+import '../models/pronunciation_score.dart';
 import '../models/quiz.dart';
 import '../models/learning_step.dart';
 import '../services/quiz_service.dart';
+import '../utils/error_handler.dart';
 
 enum LearningPhase {
   loading,
@@ -24,6 +25,8 @@ class QuestionTracker {
   int starsEarned;
   bool inRetryRound;
   SubmitAnswerResult? lastResult;
+  PronunciationScore? lastPronunciationScore;
+  int? lastTracingScore;
 
   QuestionTracker({required this.questionId})
       : attemptCount = 0,
@@ -130,11 +133,8 @@ class LearningProvider extends ChangeNotifier {
       }
 
       _phase = LearningPhase.teachingIntro;
-    } on DioException catch (e) {
-      _errorMessage = _extractError(e);
-      _phase = LearningPhase.error;
     } catch (e) {
-      _errorMessage = 'حدث خطأ غير متوقع';
+      _errorMessage = extractError(e);
       _phase = LearningPhase.error;
     }
     notifyListeners();
@@ -193,13 +193,113 @@ class LearningProvider extends ChangeNotifier {
           _retryQueue.add(question.id);
         }
       }
-    } on DioException catch (e) {
-      _errorMessage = _extractError(e);
-      _phase = LearningPhase.stepActive;
     } catch (e) {
-      _errorMessage = 'حدث خطأ غير متوقع';
+      _errorMessage = extractError(e);
       _phase = LearningPhase.stepActive;
     }
+    notifyListeners();
+  }
+
+  // Flip into feedback phase to show a spinner while pronunciation request is in flight.
+  void markPhaseFeedback() {
+    _phase = LearningPhase.stepFeedback;
+    notifyListeners();
+  }
+
+  // Apply pronunciation scoring result from backend.
+  // Treats score >= 60 as correct; uses PronunciationScoringService's star logic.
+  void applyPronunciationResult(PronunciationScore score) {
+    final step = currentStep;
+    if (step?.question == null) return;
+    final question = step!.question!;
+    final tracker = _trackers[question.id];
+    if (tracker == null) return;
+
+    tracker.attemptCount++;
+    tracker.lastPronunciationScore = score;
+    tracker.lastResult = SubmitAnswerResult(
+      questionId: question.id,
+      isCorrect: score.isCorrect,
+      feedback: score.feedback,
+      correctAnswer: score.expectedText,
+      pointsEarned: score.pointsEarned,
+    );
+
+    if (score.isCorrect) {
+      tracker.everCorrect = true;
+      final baseStars = score.stars;
+      if (tracker.inRetryRound) {
+        tracker.starsEarned = 1;
+      } else if (tracker.attemptCount == 1) {
+        tracker.starsEarned = baseStars;
+      } else {
+        tracker.starsEarned = baseStars > 2 ? 2 : baseStars;
+      }
+      _recalcStars();
+    } else if (!tracker.inRetryRound && tracker.attemptCount == 1) {
+      _phase = LearningPhase.stepRetry;
+      notifyListeners();
+      return;
+    } else {
+      if (tracker.inRetryRound) {
+        tracker.starsEarned = 1;
+        _recalcStars();
+      } else if (!tracker.everCorrect) {
+        _retryQueue.add(question.id);
+      }
+    }
+
+    _phase = LearningPhase.stepFeedback;
+    notifyListeners();
+  }
+
+  // Apply tracing result (client-side scored).
+  void applyTracingResult({
+    required int score,
+    required int stars,
+    required String feedback,
+  }) {
+    final step = currentStep;
+    if (step?.question == null) return;
+    final question = step!.question!;
+    final tracker = _trackers[question.id];
+    if (tracker == null) return;
+
+    tracker.attemptCount++;
+    tracker.lastTracingScore = score;
+    final isCorrect = score >= 60;
+    tracker.lastResult = SubmitAnswerResult(
+      questionId: question.id,
+      isCorrect: isCorrect,
+      feedback: feedback,
+      correctAnswer: question.questionText,
+      pointsEarned: isCorrect ? 10 : 0,
+    );
+
+    if (isCorrect) {
+      tracker.everCorrect = true;
+      if (tracker.inRetryRound) {
+        tracker.starsEarned = 1;
+      } else if (tracker.attemptCount == 1) {
+        tracker.starsEarned = stars;
+      } else {
+        tracker.starsEarned = stars > 2 ? 2 : stars;
+      }
+      _recalcStars();
+    } else if (!tracker.inRetryRound && tracker.attemptCount == 1) {
+      _phase = LearningPhase.stepRetry;
+      notifyListeners();
+      return;
+    } else {
+      if (tracker.inRetryRound) {
+        tracker.starsEarned = 1;
+        _recalcStars();
+      } else if (!tracker.everCorrect) {
+        _retryQueue.add(question.id);
+      }
+    }
+
+    _phase = LearningPhase.stepFeedback;
     notifyListeners();
   }
 
@@ -236,10 +336,7 @@ class LearningProvider extends ChangeNotifier {
         _completeLesson();
       }
     } else {
-      final nextStep = _steps[_currentStepIndex];
-      _phase = nextStep.isTeaching
-          ? LearningPhase.stepActive
-          : LearningPhase.stepActive;
+      _phase = LearningPhase.stepActive;
     }
     notifyListeners();
   }
@@ -262,12 +359,9 @@ class LearningProvider extends ChangeNotifier {
       _recalcStars();
 
       _phase = LearningPhase.completed;
-    } on DioException catch (e) {
-      _errorMessage = _extractError(e);
-      _phase = LearningPhase.completed; // Still show results even if API fails
     } catch (e) {
-      _errorMessage = 'حدث خطأ غير متوقع';
-      _phase = LearningPhase.completed;
+      _errorMessage = extractError(e);
+      _phase = LearningPhase.completed; // Still show results even if API fails
     }
     notifyListeners();
   }
@@ -416,12 +510,5 @@ class LearningProvider extends ChangeNotifier {
     _attemptResult = null;
     _totalStars = 0;
     _maxPossibleStars = 0;
-  }
-
-  String _extractError(DioException e) {
-    if (e.response?.data != null && e.response!.data is Map) {
-      return e.response!.data['message'] ?? 'حدث خطأ';
-    }
-    return 'حدث خطأ في الاتصال';
   }
 }

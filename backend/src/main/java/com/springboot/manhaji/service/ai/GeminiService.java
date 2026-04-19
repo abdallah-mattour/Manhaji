@@ -134,6 +134,81 @@ public class GeminiService {
         }
     }
 
+    /**
+     * Generate a progress report summary for a student based on their performance data.
+     */
+    public String generateProgressReport(String studentName, int gradeLevel,
+                                          String performanceData) {
+        if (!isAvailable()) {
+            return null;
+        }
+
+        String prompt = String.format("""
+                أنت مستشار تربوي فلسطيني متخصص في التعليم الابتدائي.
+                اكتب تقريراً مختصراً عن تقدم الطالب التالي:
+
+                اسم الطالب: %s
+                الصف: %d
+
+                بيانات الأداء:
+                %s
+
+                المطلوب:
+                1. ملخص عام عن أداء الطالب (2-3 جمل)
+                2. نقاط القوة (2-3 نقاط)
+                3. نقاط تحتاج تحسين (2-3 نقاط)
+                4. توصيات لولي الأمر (2-3 نقاط)
+                5. مستوى الخطر: LOW أو MEDIUM أو HIGH
+
+                أجب بصيغة JSON فقط:
+                {"summary": "...", "strengths": ["..."], "improvements": ["..."], "recommendations": ["..."], "riskLevel": "LOW|MEDIUM|HIGH"}
+                """, studentName, gradeLevel, performanceData);
+
+        try {
+            return callGemini(prompt);
+        } catch (Exception e) {
+            log.warn("Gemini progress report generation failed: {}", e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Generate personalized learning path recommendations for a student.
+     */
+    public String generateLearningPath(String studentName, int gradeLevel,
+                                        String weakAreas, String completedLessons) {
+        if (!isAvailable()) {
+            return null;
+        }
+
+        String prompt = String.format("""
+                أنت معلم ذكي يصمم خطط تعلّم مخصصة لطلاب الصف الأول في فلسطين.
+
+                الطالب: %s (الصف %d)
+
+                المواضيع الضعيفة:
+                %s
+
+                الدروس المكتملة:
+                %s
+
+                صمّم خطة تعلّم مخصصة تتضمن:
+                1. ترتيب الدروس المقترحة للمراجعة (الأضعف أولاً)
+                2. أنشطة إضافية مقترحة
+                3. نصائح للطالب
+
+                أجب بصيغة JSON فقط:
+                {"reviewLessons": [{"subject": "...", "topic": "...", "reason": "..."}], "activities": ["..."], "tips": ["..."]}
+                """, studentName, gradeLevel, weakAreas, completedLessons);
+
+        try {
+            return callGemini(prompt);
+        } catch (Exception e) {
+            log.warn("Gemini learning path generation failed: {}", e.getMessage());
+            return null;
+        }
+    }
+
     // --- Internal methods ---
 
     private String callGemini(String prompt) {
@@ -160,7 +235,7 @@ public class GeminiService {
                 .bodyValue(requestBody)
                 .retrieve()
                 .bodyToMono(String.class)
-                .block(java.time.Duration.ofSeconds(30));
+                .block(java.time.Duration.ofSeconds(12));
 
         return extractTextFromGeminiResponse(responseJson);
     }

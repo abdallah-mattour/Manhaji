@@ -1,7 +1,7 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../models/progress.dart';
 import '../services/progress_service.dart';
+import '../utils/error_handler.dart';
 
 class ProgressProvider extends ChangeNotifier {
   final ProgressApiService _progressService;
@@ -26,10 +26,8 @@ class ProgressProvider extends ChangeNotifier {
 
     try {
       _summary = await _progressService.getProgressSummary();
-    } on DioException catch (e) {
-      _errorMessage = _extractError(e);
-    } catch (_) {
-      _errorMessage = 'حدث خطأ غير متوقع';
+    } catch (e) {
+      _errorMessage = extractError(e);
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -43,27 +41,11 @@ class ProgressProvider extends ChangeNotifier {
 
     try {
       _leaderboard = await _progressService.getLeaderboard(gradeLevel: gradeLevel);
-    } on DioException catch (e) {
-      _errorMessage = _extractError(e);
-    } catch (_) {
-      _errorMessage = 'حدث خطأ غير متوقع';
+    } catch (e) {
+      _errorMessage = extractError(e);
     } finally {
       _isLoading = false;
       notifyListeners();
     }
-  }
-
-  String _extractError(DioException e) {
-    if (e.response?.data != null && e.response!.data is Map) {
-      return e.response!.data['message'] ?? 'حدث خطأ';
-    }
-    if (e.type == DioExceptionType.connectionTimeout ||
-        e.type == DioExceptionType.receiveTimeout) {
-      return 'انتهت مهلة الاتصال';
-    }
-    if (e.type == DioExceptionType.connectionError) {
-      return 'لا يمكن الاتصال بالخادم';
-    }
-    return 'حدث خطأ في الاتصال';
   }
 }

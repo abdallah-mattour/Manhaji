@@ -52,6 +52,13 @@ app:
     audio-dir: ./uploads/audio
     image-dir: ./uploads/images
 
+  # Quiz scoring / progression
+  quiz:
+    points-per-correct: 10
+    mastery-threshold: 80.0
+    completion-threshold: 50.0
+    max-hint-level: 3
+
 # Logging
 logging:
   level:

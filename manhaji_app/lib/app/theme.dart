@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
+  // Spacing scale
+  static const double spacingS = 8;
+  static const double spacingM = 16;
+  static const double spacingL = 24;
+
   // Child-friendly colors
   static const Color primaryGreen = Color(0xFF4CAF50);
   static const Color primaryBlue = Color(0xFF2196F3);

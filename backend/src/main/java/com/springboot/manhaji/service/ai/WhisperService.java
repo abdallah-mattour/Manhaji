@@ -70,7 +70,7 @@ public class WhisperService {
                     .bodyValue(requestBody)
                     .retrieve()
                     .bodyToMono(String.class)
-                    .block(java.time.Duration.ofSeconds(30));
+                    .block(java.time.Duration.ofSeconds(12));
 
             return extractTextFromGeminiResponse(responseJson);
         } catch (Exception e) {

@@ -3,6 +3,7 @@ package com.springboot.manhaji.controller;
 import com.springboot.manhaji.dto.request.SubmitAnswerRequest;
 import com.springboot.manhaji.dto.response.ApiResponse;
 import com.springboot.manhaji.dto.response.AttemptResponse;
+import com.springboot.manhaji.dto.response.PronunciationScoreResponse;
 import com.springboot.manhaji.dto.response.QuizResponse;
 import com.springboot.manhaji.dto.response.SubmitAnswerResponse;
 import com.springboot.manhaji.service.QuizService;
@@ -84,6 +85,28 @@ public class QuizController {
             log.error("Voice answer failed for attempt {}: {}", attemptId, e.getMessage());
             return ResponseEntity.internalServerError().body(
                     ApiResponse.error("حدث خطأ في معالجة الصوت"));
+        }
+    }
+
+    // Submit a pronunciation attempt — transcribe audio then score phonetic similarity
+    @PostMapping("/attempt/{attemptId}/pronunciation")
+    public ResponseEntity<ApiResponse<PronunciationScoreResponse>> submitPronunciation(
+            @PathVariable Long attemptId,
+            @RequestParam("audio") MultipartFile audioFile,
+            @RequestParam("questionId") Long questionId,
+            @RequestParam(value = "language", defaultValue = "ar") String language,
+            Authentication authentication) {
+
+        Long studentId = (Long) authentication.getPrincipal();
+
+        try {
+            PronunciationScoreResponse response = quizService.submitPronunciation(
+                    attemptId, questionId, audioFile.getBytes(), language, studentId);
+            return ResponseEntity.ok(ApiResponse.success(response));
+        } catch (Exception e) {
+            log.error("Pronunciation scoring failed for attempt {}: {}", attemptId, e.getMessage());
+            return ResponseEntity.internalServerError().body(
+                    ApiResponse.error("حدث خطأ في تقييم النطق"));
         }
     }
 

@@ -15,7 +15,6 @@ class ApiConfig {
   static const String register = '/auth/register';
   static const String login = '/auth/login';
   static const String loginPhone = '/auth/login/phone';
-  static const String loginGoogle = '/auth/login/google';
   static const String refreshToken = '/auth/refresh';
   static const String me = '/auth/me';
 
@@ -32,6 +31,24 @@ class ApiConfig {
   static const String startAttempt = '/quiz/attempt/start';
   static const String submitAnswer = '/quiz/attempt/answer';
   static const String completeAttempt = '/quiz/attempt/complete';
+
+  // Teacher
+  static const String teacherDashboard = '/teacher/dashboard';
+  static const String teacherStudents = '/teacher/students';
+
+  // Admin
+  static const String adminStats = '/admin/stats';
+  static const String adminUsers = '/admin/users';
+
+  // Parent
+  static const String parentDashboard = '/parent/dashboard';
+  static const String parentChildren = '/parent/children';
+
+  // AI Reports
+  static const String generateReport = '/reports/progress';
+  static const String getReports = '/reports/progress';
+  static const String generateLearningPath = '/reports/learning-path';
+  static const String getLearningPath = '/reports/learning-path';
 
   // Audio & AI
   static const String narrateLesson = '/audio/lesson';

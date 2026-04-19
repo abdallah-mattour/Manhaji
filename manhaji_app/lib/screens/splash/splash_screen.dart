@@ -42,7 +42,9 @@ class _SplashScreenState extends State<SplashScreen>
     if (!mounted) return;
 
     final storage = context.read<LocalStorageService>();
-    final route = storage.isLoggedIn ? AppRoutes.home : AppRoutes.login;
+    final route = storage.isLoggedIn
+        ? AppRoutes.homeForRole(storage.getUserRole())
+        : AppRoutes.login;
     Navigator.of(context).pushReplacementNamed(route);
   }
 

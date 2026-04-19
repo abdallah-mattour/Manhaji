@@ -7,7 +7,12 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", indexes = {
+        @Index(name = "idx_user_role", columnList = "role"),
+        @Index(name = "idx_user_parent", columnList = "parent_id"),
+        @Index(name = "idx_user_school", columnList = "school_id"),
+        @Index(name = "idx_user_school_grade", columnList = "school_id, gradeLevel")
+})
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 @Getter

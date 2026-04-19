@@ -70,6 +70,8 @@ class Question {
   bool get isShortAnswer => type == 'SHORT_ANSWER';
   bool get isFillBlank => type == 'FILL_BLANK';
   bool get isOrdering => type == 'ORDERING';
+  bool get isPronunciation => type == 'PRONUNCIATION';
+  bool get isTracing => type == 'TRACING';
 }
 
 class AttemptResult {

@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import '../../app/theme.dart';
 import '../../models/lesson.dart';
 import '../../providers/lesson_provider.dart';
+import '../../widgets/error_state.dart';
+import '../../widgets/loading_state.dart';
 import '../learning/learning_screen.dart';
 
 class SubjectLessonsScreen extends StatefulWidget {
@@ -70,25 +72,14 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
         body: Consumer<LessonProvider>(
           builder: (context, provider, _) {
             if (provider.isLoading && provider.currentLessons.isEmpty) {
-              return const Center(child: CircularProgressIndicator());
+              return const LoadingState();
             }
 
             if (provider.errorMessage != null &&
                 provider.currentLessons.isEmpty) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(provider.errorMessage!,
-                        style: const TextStyle(fontFamily: 'Cairo')),
-                    const SizedBox(height: 16),
-                    ElevatedButton(
-                      onPressed: () =>
-                          provider.loadLessons(widget.subjectId),
-                      child: const Text('إعادة المحاولة'),
-                    ),
-                  ],
-                ),
+              return ErrorState(
+                message: provider.errorMessage!,
+                onRetry: () => provider.loadLessons(widget.subjectId),
               );
             }
 

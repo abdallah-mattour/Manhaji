@@ -42,6 +42,41 @@
           "correctAnswer": "ذ",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "ذئب",
+          "correctAnswer": "ذئب",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "ذرة",
+          "correctAnswer": "ذرة",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "ذهب",
+          "correctAnswer": "ذهب",
+          "options": null,
+          "difficultyLevel": 2
+        },
+        {
+          "type": "TRACING",
+          "questionText": "ذ",
+          "correctAnswer": "ذ",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRACING",
+          "questionText": "ذا",
+          "correctAnswer": "ذا",
+          "options": null,
+          "difficultyLevel": 2
         }
       ],
       "imageUrls": []
@@ -84,6 +119,41 @@
           "correctAnswer": "غين",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "غزال",
+          "correctAnswer": "غزال",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "غيمة",
+          "correctAnswer": "غيمة",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "غابة",
+          "correctAnswer": "غابة",
+          "options": null,
+          "difficultyLevel": 2
+        },
+        {
+          "type": "TRACING",
+          "questionText": "غ",
+          "correctAnswer": "غ",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRACING",
+          "questionText": "غا",
+          "correctAnswer": "غا",
+          "options": null,
+          "difficultyLevel": 2
         }
       ],
       "imageUrls": []
@@ -126,6 +196,41 @@
           "correctAnswer": "طاء",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "طائرة",
+          "correctAnswer": "طائرة",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "طاولة",
+          "correctAnswer": "طاولة",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "طبيب",
+          "correctAnswer": "طبيب",
+          "options": null,
+          "difficultyLevel": 2
+        },
+        {
+          "type": "TRACING",
+          "questionText": "ط",
+          "correctAnswer": "ط",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRACING",
+          "questionText": "طا",
+          "correctAnswer": "طا",
+          "options": null,
+          "difficultyLevel": 2
         }
       ],
       "imageUrls": []
@@ -168,6 +273,41 @@
           "correctAnswer": "كاف",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "كتاب",
+          "correctAnswer": "كتاب",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "كلب",
+          "correctAnswer": "كلب",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "كرسي",
+          "correctAnswer": "كرسي",
+          "options": null,
+          "difficultyLevel": 2
+        },
+        {
+          "type": "TRACING",
+          "questionText": "ك",
+          "correctAnswer": "ك",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRACING",
+          "questionText": "كا",
+          "correctAnswer": "كا",
+          "options": null,
+          "difficultyLevel": 2
         }
       ],
       "imageUrls": []
@@ -210,6 +350,41 @@
           "correctAnswer": "ضاد",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "ضفدع",
+          "correctAnswer": "ضفدع",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "ضوء",
+          "correctAnswer": "ضوء",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "ضرس",
+          "correctAnswer": "ضرس",
+          "options": null,
+          "difficultyLevel": 2
+        },
+        {
+          "type": "TRACING",
+          "questionText": "ض",
+          "correctAnswer": "ض",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRACING",
+          "questionText": "ضا",
+          "correctAnswer": "ضا",
+          "options": null,
+          "difficultyLevel": 2
         }
       ],
       "imageUrls": []
@@ -245,6 +420,41 @@
           "correctAnswer": "ك",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "ذئب",
+          "correctAnswer": "ذئب",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "غزال",
+          "correctAnswer": "غزال",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "طائرة",
+          "correctAnswer": "طائرة",
+          "options": null,
+          "difficultyLevel": 2
+        },
+        {
+          "type": "TRACING",
+          "questionText": "ذ",
+          "correctAnswer": "ذ",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRACING",
+          "questionText": "ط",
+          "correctAnswer": "ط",
+          "options": null,
+          "difficultyLevel": 2
         }
       ],
       "imageUrls": []
@@ -287,6 +497,41 @@
           "correctAnswer": "هاء",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "هلال",
+          "correctAnswer": "هلال",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "هدية",
+          "correctAnswer": "هدية",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "هاتف",
+          "correctAnswer": "هاتف",
+          "options": null,
+          "difficultyLevel": 2
+        },
+        {
+          "type": "TRACING",
+          "questionText": "ه",
+          "correctAnswer": "ه",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRACING",
+          "questionText": "ها",
+          "correctAnswer": "ها",
+          "options": null,
+          "difficultyLevel": 2
         }
       ],
       "imageUrls": []
@@ -329,6 +574,41 @@
           "correctAnswer": "واو",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "وردة",
+          "correctAnswer": "وردة",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "ولد",
+          "correctAnswer": "ولد",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "وسادة",
+          "correctAnswer": "وسادة",
+          "options": null,
+          "difficultyLevel": 2
+        },
+        {
+          "type": "TRACING",
+          "questionText": "و",
+          "correctAnswer": "و",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRACING",
+          "questionText": "وا",
+          "correctAnswer": "وا",
+          "options": null,
+          "difficultyLevel": 2
         }
       ],
       "imageUrls": []
@@ -371,6 +651,41 @@
           "correctAnswer": "همزة (ألف)",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "أرنب",
+          "correctAnswer": "أرنب",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "أم",
+          "correctAnswer": "أم",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "أسد",
+          "correctAnswer": "أسد",
+          "options": null,
+          "difficultyLevel": 2
+        },
+        {
+          "type": "TRACING",
+          "questionText": "أ",
+          "correctAnswer": "أ",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRACING",
+          "questionText": "ا",
+          "correctAnswer": "ا",
+          "options": null,
+          "difficultyLevel": 2
         }
       ],
       "imageUrls": []
@@ -413,6 +728,41 @@
           "correctAnswer": "ظاء",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "ظبي",
+          "correctAnswer": "ظبي",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "ظرف",
+          "correctAnswer": "ظرف",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "ظلام",
+          "correctAnswer": "ظلام",
+          "options": null,
+          "difficultyLevel": 2
+        },
+        {
+          "type": "TRACING",
+          "questionText": "ظ",
+          "correctAnswer": "ظ",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRACING",
+          "questionText": "ظا",
+          "correctAnswer": "ظا",
+          "options": null,
+          "difficultyLevel": 2
         }
       ],
       "imageUrls": []
@@ -455,6 +805,41 @@
           "correctAnswer": "ياء",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "يد",
+          "correctAnswer": "يد",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "ياسمين",
+          "correctAnswer": "ياسمين",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "يوم",
+          "correctAnswer": "يوم",
+          "options": null,
+          "difficultyLevel": 2
+        },
+        {
+          "type": "TRACING",
+          "questionText": "ي",
+          "correctAnswer": "ي",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRACING",
+          "questionText": "يا",
+          "correctAnswer": "يا",
+          "options": null,
+          "difficultyLevel": 2
         }
       ],
       "imageUrls": []
@@ -490,6 +875,41 @@
           "correctAnswer": "٢٨",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "هلال",
+          "correctAnswer": "هلال",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "وردة",
+          "correctAnswer": "وردة",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "ياسمين",
+          "correctAnswer": "ياسمين",
+          "options": null,
+          "difficultyLevel": 2
+        },
+        {
+          "type": "TRACING",
+          "questionText": "و",
+          "correctAnswer": "و",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRACING",
+          "questionText": "ي",
+          "correctAnswer": "ي",
+          "options": null,
+          "difficultyLevel": 2
         }
       ],
       "imageUrls": []
@@ -525,6 +945,41 @@
           "correctAnswer": "لأنه يحتاج مساعدتنا",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "جدي",
+          "correctAnswer": "جدي",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "جدتي",
+          "correctAnswer": "جدتي",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "شكراً",
+          "correctAnswer": "شكراً",
+          "options": null,
+          "difficultyLevel": 2
+        },
+        {
+          "type": "TRACING",
+          "questionText": "ج",
+          "correctAnswer": "ج",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRACING",
+          "questionText": "ش",
+          "correctAnswer": "ش",
+          "options": null,
+          "difficultyLevel": 2
         }
       ],
       "imageUrls": []
@@ -560,6 +1015,41 @@
           "correctAnswer": "فلسطين",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "وطني",
+          "correctAnswer": "وطني",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "أجمل",
+          "correctAnswer": "أجمل",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "بلد",
+          "correctAnswer": "بلد",
+          "options": null,
+          "difficultyLevel": 2
+        },
+        {
+          "type": "TRACING",
+          "questionText": "و",
+          "correctAnswer": "و",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRACING",
+          "questionText": "ب",
+          "correctAnswer": "ب",
+          "options": null,
+          "difficultyLevel": 2
         }
       ],
       "imageUrls": []
@@ -595,6 +1085,41 @@
           "correctAnswer": "الشرب",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "ماء",
+          "correctAnswer": "ماء",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "نظيف",
+          "correctAnswer": "نظيف",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "بحر",
+          "correctAnswer": "بحر",
+          "options": null,
+          "difficultyLevel": 2
+        },
+        {
+          "type": "TRACING",
+          "questionText": "م",
+          "correctAnswer": "م",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "TRACING",
+          "questionText": "ب",
+          "correctAnswer": "ب",
+          "options": null,
+          "difficultyLevel": 2
         }
       ],
       "imageUrls": []

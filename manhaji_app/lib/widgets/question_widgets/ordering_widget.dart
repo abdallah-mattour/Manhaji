@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../app/theme.dart';
 import '../../models/quiz.dart';
 
@@ -72,6 +73,7 @@ class _OrderingWidgetState extends State<OrderingWidget> {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: _items.length,
             onReorder: (oldIndex, newIndex) {
+              HapticFeedback.selectionClick();
               setState(() {
                 if (newIndex > oldIndex) newIndex -= 1;
                 final item = _items.removeAt(oldIndex);
@@ -137,18 +139,17 @@ class _OrderingWidgetState extends State<OrderingWidget> {
         else
           Column(
             children: _items.asMap().entries.map((entry) {
+              final resultColor = widget.isCorrect
+                  ? AppTheme.primaryGreen
+                  : AppTheme.primaryRed;
               return Container(
                 margin: const EdgeInsets.only(bottom: 8),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                 decoration: BoxDecoration(
-                  color: widget.isCorrect
-                      ? Colors.green.shade50
-                      : Colors.red.shade50,
+                  color: resultColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: widget.isCorrect ? Colors.green : Colors.red,
-                  ),
+                  border: Border.all(color: resultColor),
                 ),
                 child: Row(
                   children: [
@@ -156,9 +157,7 @@ class _OrderingWidgetState extends State<OrderingWidget> {
                       width: 28,
                       height: 28,
                       decoration: BoxDecoration(
-                        color: widget.isCorrect
-                            ? Colors.green.withValues(alpha: 0.2)
-                            : Colors.red.withValues(alpha: 0.2),
+                        color: resultColor.withValues(alpha: 0.2),
                         shape: BoxShape.circle,
                       ),
                       child: Center(
@@ -167,8 +166,7 @@ class _OrderingWidgetState extends State<OrderingWidget> {
                           style: TextStyle(
                             fontFamily: 'Cairo',
                             fontWeight: FontWeight.bold,
-                            color:
-                                widget.isCorrect ? Colors.green : Colors.red,
+                            color: resultColor,
                           ),
                         ),
                       ),
@@ -183,7 +181,7 @@ class _OrderingWidgetState extends State<OrderingWidget> {
                     ),
                     Icon(
                       widget.isCorrect ? Icons.check_circle : Icons.cancel,
-                      color: widget.isCorrect ? Colors.green : Colors.red,
+                      color: resultColor,
                     ),
                   ],
                 ),

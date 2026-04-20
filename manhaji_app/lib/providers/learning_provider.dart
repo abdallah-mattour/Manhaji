@@ -254,11 +254,13 @@ class LearningProvider extends ChangeNotifier {
   }
 
   // Apply tracing result (client-side scored).
-  void applyTracingResult({
+  // Persists to backend so StudentResponse rows feed dashboards + AI reports.
+  // API failure is non-fatal — we still transition locally to keep UX flowing.
+  Future<void> applyTracingResult({
     required int score,
     required int stars,
     required String feedback,
-  }) {
+  }) async {
     final step = currentStep;
     if (step?.question == null) return;
     final question = step!.question!;
@@ -275,6 +277,22 @@ class LearningProvider extends ChangeNotifier {
       correctAnswer: question.questionText,
       pointsEarned: isCorrect ? 10 : 0,
     );
+
+    // Fire-and-log: backend persistence should not block UI transitions.
+    if (_currentAttemptId != null) {
+      try {
+        await _quizService.submitTracingResult(
+          _currentAttemptId!,
+          questionId: question.id,
+          score: score,
+          stars: stars,
+          isCorrect: isCorrect,
+          feedback: feedback,
+        );
+      } catch (e) {
+        debugPrint('Tracing persistence failed (non-fatal): $e');
+      }
+    }
 
     if (isCorrect) {
       tracker.everCorrect = true;

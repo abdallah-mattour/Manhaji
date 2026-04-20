@@ -20,6 +20,7 @@ class QuizQuestionView extends StatelessWidget {
     required this.currentHint,
     required this.isLoadingHint,
     required this.onRequestHint,
+    this.onSpeak,
     this.maxHintLevel = 3,
   });
 
@@ -33,6 +34,9 @@ class QuizQuestionView extends StatelessWidget {
   final String? currentHint;
   final bool isLoadingHint;
   final VoidCallback onRequestHint;
+  /// Reads the question text aloud. When null the speaker icon is hidden —
+  /// pronunciation widgets render their own target card with its own speaker.
+  final VoidCallback? onSpeak;
   final int maxHintLevel;
 
   @override
@@ -82,17 +86,39 @@ class QuizQuestionView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            // Question text
-            Text(
-              question.questionText,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontFamily: 'Cairo',
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: AppTheme.textDark,
-                height: 1.6,
-              ),
+            // Question text (+ optional speaker button so young learners who
+            // can't read yet can tap to hear the prompt).
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (onSpeak != null)
+                  IconButton(
+                    onPressed: onSpeak,
+                    icon: const Icon(Icons.volume_up_rounded,
+                        size: 28, color: AppTheme.primaryBlue),
+                    tooltip: 'استمع للسؤال',
+                    padding: EdgeInsets.zero,
+                    constraints:
+                        const BoxConstraints(minWidth: 36, minHeight: 36),
+                  )
+                else
+                  const SizedBox(width: 36),
+                Expanded(
+                  child: Text(
+                    question.questionText,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontFamily: 'Cairo',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: AppTheme.textDark,
+                      height: 1.6,
+                    ),
+                  ),
+                ),
+                // Spacer to keep the text visually centered when the speaker is on.
+                const SizedBox(width: 36),
+              ],
             ),
             // Retry banner
             if (isRetry)

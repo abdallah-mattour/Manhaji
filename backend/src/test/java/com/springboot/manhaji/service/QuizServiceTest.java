@@ -3,6 +3,7 @@ package com.springboot.manhaji.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springboot.manhaji.config.QuizConfigProperties;
 import com.springboot.manhaji.dto.request.SubmitAnswerRequest;
+import com.springboot.manhaji.dto.request.TracingSubmitRequest;
 import com.springboot.manhaji.dto.response.AttemptResponse;
 import com.springboot.manhaji.dto.response.QuizResponse;
 import com.springboot.manhaji.dto.response.SubmitAnswerResponse;
@@ -496,6 +497,131 @@ class QuizServiceTest {
 
             assertThat(result.get("hintLevel")).isEqualTo(3);
             assertThat(result.get("remainingHints")).isEqualTo(0);
+        }
+    }
+
+    // ==================== submitTracingResult Tests ====================
+
+    @Nested
+    @DisplayName("submitTracingResult()")
+    class SubmitTracingResultTests {
+
+        private Attempt tracingAttempt;
+        private Question tracingQuestion;
+
+        @BeforeEach
+        void seedTracing() {
+            tracingAttempt = new Attempt();
+            tracingAttempt.setId(50L);
+            tracingAttempt.setStudent(testStudent);
+            tracingAttempt.setQuiz(testQuiz);
+            tracingAttempt.setStatus(AttemptStatus.IN_PROGRESS);
+
+            tracingQuestion = new Question();
+            tracingQuestion.setId(99L);
+            tracingQuestion.setType(QuestionType.TRACING);
+            tracingQuestion.setQuestionText("ر");
+            tracingQuestion.setCorrectAnswer("ر");
+            tracingQuestion.setDifficultyLevel(1);
+        }
+
+        @Test
+        @DisplayName("should persist a correct tracing response with points")
+        void persistCorrect() {
+            TracingSubmitRequest req = new TracingSubmitRequest();
+            req.setQuestionId(99L);
+            req.setScore(95);
+            req.setStars(3);
+            req.setIsCorrect(true);
+            req.setFeedback("أحسنت الكتابة!");
+
+            when(attemptRepository.findById(50L)).thenReturn(Optional.of(tracingAttempt));
+            when(questionRepository.findById(99L)).thenReturn(Optional.of(tracingQuestion));
+            when(responseRepository.save(any(StudentResponse.class))).thenAnswer(inv -> inv.getArgument(0));
+
+            SubmitAnswerResponse response = quizService.submitTracingResult(50L, req, 1L);
+
+            assertThat(response.getQuestionId()).isEqualTo(99L);
+            assertThat(response.isCorrect()).isTrue();
+            assertThat(response.getPointsEarned()).isGreaterThan(0);
+            assertThat(response.getFeedback()).contains("أحسنت");
+
+            ArgumentCaptor<StudentResponse> captor = ArgumentCaptor.forClass(StudentResponse.class);
+            verify(responseRepository).save(captor.capture());
+            StudentResponse saved = captor.getValue();
+            assertThat(saved.getIsCorrect()).isTrue();
+            assertThat(saved.getEvaluatedText()).contains("score=95").contains("stars=3");
+        }
+
+        @Test
+        @DisplayName("should persist a wrong tracing response with zero points")
+        void persistWrong() {
+            TracingSubmitRequest req = new TracingSubmitRequest();
+            req.setQuestionId(99L);
+            req.setScore(30);
+            req.setStars(0);
+            req.setIsCorrect(false);
+
+            when(attemptRepository.findById(50L)).thenReturn(Optional.of(tracingAttempt));
+            when(questionRepository.findById(99L)).thenReturn(Optional.of(tracingQuestion));
+            when(responseRepository.save(any(StudentResponse.class))).thenAnswer(inv -> inv.getArgument(0));
+
+            SubmitAnswerResponse response = quizService.submitTracingResult(50L, req, 1L);
+
+            assertThat(response.isCorrect()).isFalse();
+            assertThat(response.getPointsEarned()).isZero();
+            verify(responseRepository).save(any(StudentResponse.class));
+        }
+
+        @Test
+        @DisplayName("should reject non-tracing question type")
+        void rejectNonTracingQuestion() {
+            Question mcq = testQuiz.getQuestions().get(0); // MCQ
+            TracingSubmitRequest req = new TracingSubmitRequest();
+            req.setQuestionId(mcq.getId());
+            req.setScore(80);
+            req.setStars(2);
+            req.setIsCorrect(true);
+
+            when(attemptRepository.findById(50L)).thenReturn(Optional.of(tracingAttempt));
+            when(questionRepository.findById(mcq.getId())).thenReturn(Optional.of(mcq));
+
+            assertThatThrownBy(() -> quizService.submitTracingResult(50L, req, 1L))
+                    .isInstanceOf(BadRequestException.class);
+            verify(responseRepository, never()).save(any());
+        }
+
+        @Test
+        @DisplayName("should reject submission to another student's attempt")
+        void rejectWrongStudent() {
+            TracingSubmitRequest req = new TracingSubmitRequest();
+            req.setQuestionId(99L);
+            req.setScore(80);
+            req.setStars(2);
+            req.setIsCorrect(true);
+
+            when(attemptRepository.findById(50L)).thenReturn(Optional.of(tracingAttempt));
+
+            assertThatThrownBy(() -> quizService.submitTracingResult(50L, req, 999L))
+                    .isInstanceOf(BadRequestException.class);
+            verify(responseRepository, never()).save(any());
+        }
+
+        @Test
+        @DisplayName("should reject submission to a completed attempt")
+        void rejectCompletedAttempt() {
+            tracingAttempt.setStatus(AttemptStatus.GRADED);
+            TracingSubmitRequest req = new TracingSubmitRequest();
+            req.setQuestionId(99L);
+            req.setScore(80);
+            req.setStars(2);
+            req.setIsCorrect(true);
+
+            when(attemptRepository.findById(50L)).thenReturn(Optional.of(tracingAttempt));
+
+            assertThatThrownBy(() -> quizService.submitTracingResult(50L, req, 1L))
+                    .isInstanceOf(BadRequestException.class);
+            verify(responseRepository, never()).save(any());
         }
     }
 }

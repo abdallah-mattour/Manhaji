@@ -1,6 +1,7 @@
 package com.springboot.manhaji.controller;
 
 import com.springboot.manhaji.dto.request.SubmitAnswerRequest;
+import com.springboot.manhaji.dto.request.TracingSubmitRequest;
 import com.springboot.manhaji.dto.response.ApiResponse;
 import com.springboot.manhaji.dto.response.AttemptResponse;
 import com.springboot.manhaji.dto.response.PronunciationScoreResponse;
@@ -108,6 +109,17 @@ public class QuizController {
             return ResponseEntity.internalServerError().body(
                     ApiResponse.error("حدث خطأ في تقييم النطق"));
         }
+    }
+
+    // Submit a tracing attempt — client-scored, persists StudentResponse for dashboards
+    @PostMapping("/attempt/{attemptId}/tracing")
+    public ResponseEntity<ApiResponse<SubmitAnswerResponse>> submitTracing(
+            @PathVariable Long attemptId,
+            @Valid @RequestBody TracingSubmitRequest request,
+            Authentication authentication) {
+        Long studentId = (Long) authentication.getPrincipal();
+        SubmitAnswerResponse response = quizService.submitTracingResult(attemptId, request, studentId);
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 
     // Get hint for a question

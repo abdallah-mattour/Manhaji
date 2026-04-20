@@ -45,4 +45,17 @@ class LocalStorageService {
   }
 
   bool get isLoggedIn => _prefs?.getString(AppConstants.tokenKey) != null;
+
+  // Onboarding flags — one-time tips per AI question type.
+  static const _kSeenPronunciationTip = 'seen_pronunciation_tip';
+  static const _kSeenTracingTip = 'seen_tracing_tip';
+
+  bool get seenPronunciationTip =>
+      _prefs?.getBool(_kSeenPronunciationTip) ?? false;
+  bool get seenTracingTip => _prefs?.getBool(_kSeenTracingTip) ?? false;
+
+  Future<void> markPronunciationTipSeen() async =>
+      _prefs?.setBool(_kSeenPronunciationTip, true);
+  Future<void> markTracingTipSeen() async =>
+      _prefs?.setBool(_kSeenTracingTip, true);
 }

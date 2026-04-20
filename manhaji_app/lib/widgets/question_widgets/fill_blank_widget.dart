@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../app/theme.dart';
 
 class FillBlankWidget extends StatelessWidget {
@@ -53,7 +54,9 @@ class FillBlankWidget extends StatelessWidget {
                         border: Border(
                           bottom: BorderSide(
                             color: isAnswered
-                                ? (isCorrect ? Colors.green : Colors.red)
+                                ? (isCorrect
+                                    ? AppTheme.primaryGreen
+                                    : AppTheme.primaryRed)
                                 : AppTheme.primaryOrange,
                             width: 2,
                           ),
@@ -64,10 +67,12 @@ class FillBlankWidget extends StatelessWidget {
                           selectedAnswer ?? '...',
                           style: TextStyle(
                             fontFamily: 'Cairo',
-                            fontSize: 16,
+                            fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: isAnswered
-                                ? (isCorrect ? Colors.green : Colors.red)
+                                ? (isCorrect
+                                    ? AppTheme.primaryGreen
+                                    : AppTheme.primaryRed)
                                 : AppTheme.primaryOrange,
                           ),
                         ),
@@ -83,17 +88,26 @@ class FillBlankWidget extends StatelessWidget {
           controller: controller,
           enabled: !isAnswered,
           textAlign: TextAlign.center,
-          style: const TextStyle(fontFamily: 'Cairo', fontSize: 18),
+          style: const TextStyle(
+              fontFamily: 'Cairo', fontSize: 18, fontWeight: FontWeight.w600),
           decoration: InputDecoration(
             hintText: 'اكتب الكلمة الناقصة...',
+            hintStyle: const TextStyle(
+                fontFamily: 'Cairo', color: AppTheme.textLight),
             filled: true,
-            fillColor: isAnswered ? Colors.grey.shade100 : Colors.white,
+            fillColor: isAnswered
+                ? AppTheme.textLight.withValues(alpha: 0.08)
+                : Colors.white,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
             ),
-            prefixIcon: const Icon(Icons.edit_note, color: AppTheme.primaryOrange),
+            prefixIcon:
+                const Icon(Icons.edit_note, color: AppTheme.primaryOrange),
           ),
-          onChanged: onChanged,
+          onChanged: (v) {
+            HapticFeedback.selectionClick();
+            onChanged(v);
+          },
         ),
       ],
     );

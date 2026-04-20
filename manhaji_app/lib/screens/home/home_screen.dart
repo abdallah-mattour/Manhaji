@@ -62,7 +62,15 @@ class _HomeScreenState extends State<HomeScreen> {
             }
 
             final dashboard = lessonProvider.dashboard;
-            if (dashboard == null) return const SizedBox();
+            // Shouldn't normally hit this branch — the two checks above cover
+            // loading + error. Show a retry-able friendly state instead of a
+            // silent blank so we never leave the user looking at an empty screen.
+            if (dashboard == null) {
+              return ErrorState(
+                message: 'تعذّر تحميل البيانات',
+                onRetry: lessonProvider.loadDashboard,
+              );
+            }
 
             return SafeArea(
               child: RefreshIndicator(

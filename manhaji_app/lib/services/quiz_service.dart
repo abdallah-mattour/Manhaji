@@ -39,4 +39,28 @@ class QuizApiService {
     final response = await _api.post('/quiz/attempt/$attemptId/complete');
     return AttemptResult.fromJson(response['data'] ?? {});
   }
+
+  /// Persist a client-scored tracing attempt so dashboards/reports reflect it.
+  /// Scoring stays client-side (pure CustomPainter heuristic); the backend
+  /// trusts this payload and stores a StudentResponse row.
+  Future<SubmitAnswerResult> submitTracingResult(
+    int attemptId, {
+    required int questionId,
+    required int score,
+    required int stars,
+    required bool isCorrect,
+    String? feedback,
+  }) async {
+    final response = await _api.post(
+      '/quiz/attempt/$attemptId/tracing',
+      data: {
+        'questionId': questionId,
+        'score': score,
+        'stars': stars,
+        'isCorrect': isCorrect,
+        if (feedback != null) 'feedback': feedback, // ignore: use_null_aware_elements
+      },
+    );
+    return SubmitAnswerResult.fromJson(response['data'] ?? {});
+  }
 }

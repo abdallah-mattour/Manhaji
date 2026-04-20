@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import '../../app/theme.dart';
 import '../voice_recorder_widget.dart';
 
 class ShortAnswerWidget extends StatelessWidget {
@@ -25,16 +27,24 @@ class ShortAnswerWidget extends StatelessWidget {
           controller: controller,
           enabled: !isAnswered,
           textAlign: TextAlign.center,
-          style: const TextStyle(fontFamily: 'Cairo', fontSize: 18),
+          style: const TextStyle(
+              fontFamily: 'Cairo', fontSize: 18, fontWeight: FontWeight.w600),
           decoration: InputDecoration(
             hintText: 'اكتب إجابتك هنا...',
+            hintStyle: const TextStyle(
+                fontFamily: 'Cairo', color: AppTheme.textLight),
             filled: true,
-            fillColor: isAnswered ? Colors.grey.shade100 : Colors.white,
+            fillColor: isAnswered
+                ? AppTheme.textLight.withValues(alpha: 0.08)
+                : Colors.white,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
             ),
           ),
-          onChanged: onChanged,
+          onChanged: (v) {
+            HapticFeedback.selectionClick();
+            onChanged(v);
+          },
         ),
         if (voiceEnabled && onVoiceComplete != null)
           VoiceRecorderWidget(

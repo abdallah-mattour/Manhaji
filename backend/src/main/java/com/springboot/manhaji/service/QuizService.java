@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springboot.manhaji.config.QuizConfigProperties;
 import com.springboot.manhaji.dto.request.SubmitAnswerRequest;
+import com.springboot.manhaji.dto.request.TracingSubmitRequest;
 import com.springboot.manhaji.dto.response.*;
 import com.springboot.manhaji.entity.*;
 import com.springboot.manhaji.entity.enums.AttemptStatus;
@@ -179,6 +180,51 @@ public class QuizService {
                 .rating(rating)
                 .feedback(feedback)
                 .isCorrect(isCorrect)
+                .pointsEarned(pointsEarned)
+                .build();
+    }
+
+    // Submit a tracing attempt: tracing is scored client-side (CustomPainter heuristic),
+    // so we trust the client-supplied score/isCorrect and persist a StudentResponse so
+    // completeAttempt totals and teacher/parent dashboards reflect tracing activity.
+    @Transactional
+    public SubmitAnswerResponse submitTracingResult(
+            Long attemptId, TracingSubmitRequest request, Long studentId) {
+        Attempt attempt = attemptRepository.findById(attemptId)
+                .orElseThrow(() -> new ResourceNotFoundException("Attempt", attemptId));
+
+        if (!attempt.getStudent().getId().equals(studentId)) {
+            throw new BadRequestException(messages.get("error.attempt.notYours"));
+        }
+        if (attempt.getStatus() != AttemptStatus.IN_PROGRESS) {
+            throw new BadRequestException(messages.get("error.attempt.alreadyCompleted"));
+        }
+
+        Question question = questionRepository.findById(request.getQuestionId())
+                .orElseThrow(() -> new ResourceNotFoundException("Question", request.getQuestionId()));
+
+        if (question.getType() != QuestionType.TRACING) {
+            throw new BadRequestException("Question is not a tracing question");
+        }
+
+        boolean isCorrect = Boolean.TRUE.equals(request.getIsCorrect());
+        String feedback = request.getFeedback() != null ? request.getFeedback()
+                : (isCorrect ? "أحسنت الكتابة!" : "استمر في التدريب");
+        int pointsEarned = isCorrect ? quizConfig.getPointsPerCorrect() : 0;
+
+        StudentResponse response = new StudentResponse();
+        response.setAttempt(attempt);
+        response.setQuestion(question);
+        response.setIsCorrect(isCorrect);
+        response.setFeedback(feedback);
+        response.setEvaluatedText("score=" + request.getScore() + ",stars=" + request.getStars());
+        responseRepository.save(response);
+
+        return SubmitAnswerResponse.builder()
+                .questionId(question.getId())
+                .isCorrect(isCorrect)
+                .feedback(feedback)
+                .correctAnswer(question.getCorrectAnswer())
                 .pointsEarned(pointsEarned)
                 .build();
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:confetti/confetti.dart';
 import '../../app/theme.dart';
@@ -7,7 +8,9 @@ import '../../models/learning_step.dart';
 import '../../models/quiz.dart';
 import '../../providers/learning_provider.dart';
 import '../../services/audio_service.dart';
+import '../../services/local_storage_service.dart';
 import '../../services/tts_service.dart';
+import '../../widgets/onboarding_overlay.dart';
 import '../../widgets/learning/quiz_question_view.dart';
 import '../../widgets/progress_dots_bar.dart';
 import '../../widgets/teaching_card_widget.dart';
@@ -116,7 +119,25 @@ class _LearningScreenState extends State<LearningScreen>
     if (step.isTeaching && teaching != null) {
       tts.speakText(teaching.content);
     } else if (step.isQuestion && question != null) {
+      // Show a first-time tip for novel AI question types before TTS kicks in.
+      _maybeShowOnboarding(question.type);
       tts.speakQuestion(question.id, question.questionText);
+    }
+  }
+
+  /// Shows a one-time onboarding overlay the first time a learner meets a
+  /// PRONUNCIATION or TRACING question. The seen-flag persists via
+  /// SharedPreferences so subsequent sessions don't interrupt the flow.
+  Future<void> _maybeShowOnboarding(String type) async {
+    final storage = context.read<LocalStorageService>();
+    if (type == 'PRONUNCIATION' && !storage.seenPronunciationTip) {
+      await storage.markPronunciationTipSeen();
+      if (!mounted) return;
+      await OnboardingOverlay.showPronunciation(context);
+    } else if (type == 'TRACING' && !storage.seenTracingTip) {
+      await storage.markTracingTipSeen();
+      if (!mounted) return;
+      await OnboardingOverlay.showTracing(context);
     }
   }
 
@@ -364,6 +385,11 @@ class _LearningScreenState extends State<LearningScreen>
   }
 
   Widget _buildQuestionCard(LearningProvider provider, Question question) {
+    // Pronunciation/tracing render their own target card with a dedicated
+    // speaker, so we only surface the prompt-level speaker for the
+    // read-to-solve question types.
+    final needsSpeaker =
+        question.type != 'PRONUNCIATION' && question.type != 'TRACING';
     return QuizQuestionView(
       question: question,
       isRetry: provider.phase == LearningPhase.stepRetry,
@@ -375,6 +401,9 @@ class _LearningScreenState extends State<LearningScreen>
       currentHint: _currentHint,
       isLoadingHint: _isLoadingHint,
       onRequestHint: () => _requestHint(question.id),
+      onSpeak: needsSpeaker
+          ? () => _ttsService?.speakQuestion(question.id, question.questionText)
+          : null,
     );
   }
 
@@ -384,7 +413,7 @@ class _LearningScreenState extends State<LearningScreen>
     if (provider.phase == LearningPhase.stepRetry) {
       return AppTheme.primaryOrange;
     }
-    return result.isCorrect ? Colors.green : Colors.red;
+    return result.isCorrect ? AppTheme.primaryGreen : AppTheme.primaryRed;
   }
 
   bool _isAnswered(LearningProvider provider) {
@@ -481,11 +510,12 @@ class _LearningScreenState extends State<LearningScreen>
 
   Future<void> _handleTracingResult(
       LearningProvider provider, TracingResult result) async {
-    provider.applyTracingResult(
+    await provider.applyTracingResult(
       score: result.score,
       stars: result.stars,
       feedback: result.feedback,
     );
+    if (!mounted) return;
     _onAnswerSubmitted(provider);
   }
 
@@ -586,17 +616,16 @@ class _LearningScreenState extends State<LearningScreen>
       );
     }
 
+    final accentColor =
+        result.isCorrect ? AppTheme.primaryGreen : AppTheme.primaryRed;
     return ScaleTransition(
       scale: _feedbackAnimation,
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: result.isCorrect ? Colors.green.shade50 : Colors.red.shade50,
+          color: accentColor.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: result.isCorrect ? Colors.green : Colors.red,
-            width: 1.5,
-          ),
+          border: Border.all(color: accentColor, width: 1.5),
         ),
         child: Row(
           children: [
@@ -617,19 +646,17 @@ class _LearningScreenState extends State<LearningScreen>
                       fontFamily: 'Cairo',
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: result.isCorrect
-                          ? Colors.green.shade700
-                          : Colors.red.shade700,
+                      color: accentColor,
                     ),
                   ),
                   if (!result.isCorrect)
                     Text(
                       result.correctAnswer,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'Cairo',
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Colors.green.shade700,
+                        color: AppTheme.primaryGreen,
                       ),
                     ),
                   if (result.isCorrect)
@@ -743,24 +770,33 @@ class _LearningScreenState extends State<LearningScreen>
     await provider.submitAnswer(_selectedAnswer!);
 
     if (!mounted) return;
-
-    final tracker = provider.currentTracker;
-    if (tracker?.lastResult?.isCorrect == true) {
-      _confettiController.play();
-      _feedbackController.forward(from: 0);
-    } else if (provider.phase == LearningPhase.stepRetry) {
-      _shakeController.forward(from: 0);
-      _feedbackController.forward(from: 0);
-    } else {
-      _feedbackController.forward(from: 0);
-    }
+    _playFeedbackEffects(provider);
   }
 
   void _onAnswerSubmitted(LearningProvider provider) {
+    _playFeedbackEffects(provider);
+  }
+
+  /// Unified post-answer feedback: confetti/shake animation, haptic buzz,
+  /// and a short TTS "أحسنت" / "حاول مرة أخرى". Called after every question
+  /// type (MCQ, TF, short, fill, ordering, pronunciation, tracing).
+  void _playFeedbackEffects(LearningProvider provider) {
     final tracker = provider.currentTracker;
-    if (tracker?.lastResult?.isCorrect == true) {
+    final isCorrect = tracker?.lastResult?.isCorrect == true;
+    final isRetrying = provider.phase == LearningPhase.stepRetry;
+
+    if (isCorrect) {
+      HapticFeedback.mediumImpact();
       _confettiController.play();
+      _ttsService?.speakText('أحسنت!');
+    } else {
+      HapticFeedback.heavyImpact();
+      _shakeController.forward(from: 0);
+      if (isRetrying) {
+        _ttsService?.speakText('حاول مرة أخرى');
+      }
     }
+
     _feedbackController.forward(from: 0);
   }
 

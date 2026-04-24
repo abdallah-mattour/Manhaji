@@ -53,7 +53,9 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        // Always try to import/sync from curriculum JSON (skips existing lessons)
+        // Always try to import/sync from curriculum JSON (skips existing lessons,
+        // but backfills new questions into existing lessons — required so
+        // newly-added PRONUNCIATION items flow into dev DBs without a wipe).
         boolean imported = importFromCurriculum();
 
         if (!imported && subjectRepository.count() == 0) {
@@ -62,7 +64,8 @@ public class DataSeeder implements CommandLineRunner {
             ensureHardcodedSubjects();
         }
 
-        // Always generate quizzes for lessons that have questions but no quiz
+        // Always generate quizzes for lessons that have questions but no quiz,
+        // and attach backfilled questions to quizzes that already exist.
         seedQuizzes();
 
         // Seed demo teacher and admin accounts
@@ -242,7 +245,21 @@ public class DataSeeder implements CommandLineRunner {
                     List<Lesson> importedLessons = new ArrayList<>();
                     for (Map<String, Object> lessonData : lessons) {
                         String title = (String) lessonData.get("title");
-                        if (existingTitles.contains(title)) continue;
+
+                        if (existingTitles.contains(title)) {
+                            // Lesson exists — backfill any NEW questions that were
+                            // added to the JSON after the initial seed (e.g. the
+                            // English PRONUNCIATION additions). Match on type +
+                            // questionText so edits to existing questions don't
+                            // duplicate-insert.
+                            Lesson existing = existingLessons.stream()
+                                    .filter(l -> title.equals(l.getTitle()))
+                                    .findFirst().orElse(null);
+                            if (existing != null) {
+                                newQuestions += backfillLessonQuestions(existing, lessonData);
+                            }
+                            continue;
+                        }
 
                         List<String> mappedImages = lessonImageMap.getOrDefault(title, List.of());
                         Lesson lesson = importLesson(subject, lessonData, semester, mappedImages);
@@ -432,6 +449,43 @@ public class DataSeeder implements CommandLineRunner {
         }
     }
 
+    /**
+     * Insert any questions from the JSON that are missing from an already-seeded
+     * lesson. Match by (type, questionText) pair — this lets us add new items
+     * (like the English PRONUNCIATION additions for the demo) without wiping
+     * the DB or duplicating existing rows.
+     *
+     * @return number of rows inserted
+     */
+    @SuppressWarnings("unchecked")
+    private int backfillLessonQuestions(Lesson lesson, Map<String, Object> lessonData) {
+        List<Map<String, Object>> jsonQuestions =
+                (List<Map<String, Object>>) lessonData.get("questions");
+        if (jsonQuestions == null || jsonQuestions.isEmpty()) return 0;
+
+        List<Question> existing = questionRepository.findByLessonIdOrderByIdAsc(lesson.getId());
+        java.util.Set<String> existingKeys = new java.util.HashSet<>();
+        for (Question q : existing) {
+            existingKeys.add(q.getType().name() + "||" + q.getQuestionText());
+        }
+
+        int inserted = 0;
+        for (Map<String, Object> qData : jsonQuestions) {
+            String type = (String) qData.get("type");
+            String text = (String) qData.get("questionText");
+            if (type == null || text == null) continue;
+            if (existingKeys.contains(type + "||" + text)) continue;
+
+            importQuestion(lesson, qData);
+            inserted++;
+        }
+        if (inserted > 0) {
+            log.info("Backfilled {} new questions into existing lesson '{}'",
+                    inserted, lesson.getTitle());
+        }
+        return inserted;
+    }
+
     @SuppressWarnings("unchecked")
     private void importQuestion(Lesson lesson, Map<String, Object> data) {
         Question q = new Question();
@@ -468,22 +522,53 @@ public class DataSeeder implements CommandLineRunner {
     private void createQuizzesForAllLessons() {
         List<Lesson> allLessons = lessonRepository.findAll();
         int created = 0;
+        int attached = 0;
         for (Lesson lesson : allLessons) {
-            // Skip if this lesson already has a quiz
-            List<Quiz> existingQuizzes = quizRepository.findByLessonId(lesson.getId());
-            if (!existingQuizzes.isEmpty()) continue;
-
             List<Question> questions = questionRepository.findByLessonIdOrderByIdAsc(lesson.getId());
-            if (!questions.isEmpty()) {
-                Quiz quiz = new Quiz();
-                quiz.setTitle("اختبار: " + lesson.getTitle());
-                quiz.setLesson(lesson);
-                quiz.setGamified(true);
-                quiz.setGeneratedFromLesson(true);
-                quiz.setQuestions(questions);
-                quizRepository.save(quiz);
-                created++;
+            if (questions.isEmpty()) continue;
+
+            List<Quiz> existingQuizzes = quizRepository.findByLessonId(lesson.getId());
+            if (!existingQuizzes.isEmpty()) {
+                // Attach any questions backfilled since the quiz was first created.
+                // Use a direct join-table query (not quiz.getQuestions()) to avoid
+                // triggering a LazyInitializationException — the seeder doesn't run
+                // inside an open Hibernate session.
+                Quiz quiz = existingQuizzes.get(0);
+                List<Long> attachedIds = quizRepository.findQuestionIdsByQuizId(quiz.getId());
+                java.util.Set<Long> alreadyInQuiz = new java.util.HashSet<>(attachedIds);
+                List<Question> toAttach = new ArrayList<>();
+                for (Question q : questions) {
+                    if (!alreadyInQuiz.contains(q.getId())) {
+                        toAttach.add(q);
+                    }
+                }
+                if (!toAttach.isEmpty()) {
+                    // Re-fetch the quiz with its questions initialized, add new
+                    // ones, save. We merge toAttach into a fresh collection so we
+                    // don't rely on the original 'quiz' reference's lazy state.
+                    List<Question> merged = new ArrayList<>();
+                    for (Long id : alreadyInQuiz) {
+                        questionRepository.findById(id).ifPresent(merged::add);
+                    }
+                    merged.addAll(toAttach);
+                    quiz.setQuestions(merged);
+                    quizRepository.save(quiz);
+                    attached += toAttach.size();
+                }
+                continue;
             }
+
+            Quiz quiz = new Quiz();
+            quiz.setTitle("اختبار: " + lesson.getTitle());
+            quiz.setLesson(lesson);
+            quiz.setGamified(true);
+            quiz.setGeneratedFromLesson(true);
+            quiz.setQuestions(questions);
+            quizRepository.save(quiz);
+            created++;
+        }
+        if (attached > 0) {
+            log.info("Attached {} newly-backfilled questions to existing quizzes", attached);
         }
         if (created > 0) {
             log.info("Created {} new quizzes for lessons without quizzes", created);

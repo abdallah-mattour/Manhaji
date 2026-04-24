@@ -42,6 +42,13 @@
           "correctAnswer": "school",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say the word: Hello",
+          "correctAnswer": "Hello",
+          "options": null,
+          "difficultyLevel": 1
         }
       ],
       "imageUrls": []
@@ -96,6 +103,13 @@
           "correctAnswer": "school",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say the word: Book",
+          "correctAnswer": "Book",
+          "options": null,
+          "difficultyLevel": 1
         }
       ],
       "imageUrls": []
@@ -136,6 +150,13 @@
           "type": "FILL_BLANK",
           "questionText": "Complete: I go to ___ every morning.",
           "correctAnswer": "school",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say the word: Father",
+          "correctAnswer": "Father",
           "options": null,
           "difficultyLevel": 1
         }
@@ -192,6 +213,13 @@
           "correctAnswer": "school",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say the word: Three",
+          "correctAnswer": "Three",
+          "options": null,
+          "difficultyLevel": 1
         }
       ],
       "imageUrls": []
@@ -232,6 +260,13 @@
           "type": "FILL_BLANK",
           "questionText": "Complete: I go to ___ every morning.",
           "correctAnswer": "school",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say the word: Red",
+          "correctAnswer": "Red",
           "options": null,
           "difficultyLevel": 1
         }
@@ -276,6 +311,13 @@
           "correctAnswer": "school",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say the word: Head",
+          "correctAnswer": "Head",
+          "options": null,
+          "difficultyLevel": 1
         }
       ],
       "imageUrls": []
@@ -316,6 +358,13 @@
           "type": "FILL_BLANK",
           "questionText": "Complete: I go to ___ every morning.",
           "correctAnswer": "school",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say the word: Cat",
+          "correctAnswer": "Cat",
           "options": null,
           "difficultyLevel": 1
         }
@@ -360,6 +409,13 @@
           "correctAnswer": "school",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say the word: Apple",
+          "correctAnswer": "Apple",
+          "options": null,
+          "difficultyLevel": 1
         }
       ],
       "imageUrls": []
@@ -393,6 +449,13 @@
           "type": "SHORT_ANSWER",
           "questionText": "Count from 1 to 3 in English",
           "correctAnswer": "One two three",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say the word: Milk",
+          "correctAnswer": "Milk",
           "options": null,
           "difficultyLevel": 1
         }

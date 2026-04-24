@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import '../constants/strings.dart';
+import '../services/api_service.dart';
 
 /// Centralized error-to-Arabic-message conversion.
 ///
@@ -8,7 +9,14 @@ import '../constants/strings.dart';
 /// Providers should call [extractError] and expose the result as their error
 /// state, so users see a consistent and translated message regardless of which
 /// screen they're on.
+///
+/// [ApiService] now throws [ApiException] with already-translated copy, so we
+/// just pass it through. Legacy [DioException] paths (e.g. direct Dio usage
+/// in refresh-token flow) still get mapped here.
 String extractError(Object error) {
+  if (error is ApiException) {
+    return error.message;
+  }
   if (error is DioException) {
     return _fromDio(error);
   }

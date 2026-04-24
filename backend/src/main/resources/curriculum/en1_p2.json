@@ -42,6 +42,13 @@
           "correctAnswer": "school",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say the word: Home",
+          "correctAnswer": "Home",
+          "options": null,
+          "difficultyLevel": 1
         }
       ],
       "imageUrls": []
@@ -82,6 +89,13 @@
           "type": "FILL_BLANK",
           "questionText": "Complete: I go to ___ every morning.",
           "correctAnswer": "school",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say the word: Shoes",
+          "correctAnswer": "Shoes",
           "options": null,
           "difficultyLevel": 1
         }
@@ -126,6 +140,13 @@
           "correctAnswer": "school",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say the word: Seven",
+          "correctAnswer": "Seven",
+          "options": null,
+          "difficultyLevel": 1
         }
       ],
       "imageUrls": []
@@ -166,6 +187,13 @@
           "type": "FILL_BLANK",
           "questionText": "Complete: I go to ___ every morning.",
           "correctAnswer": "school",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say the word: Ball",
+          "correctAnswer": "Ball",
           "options": null,
           "difficultyLevel": 1
         }
@@ -210,6 +238,13 @@
           "correctAnswer": "school",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say the word: Sun",
+          "correctAnswer": "Sun",
+          "options": null,
+          "difficultyLevel": 1
         }
       ],
       "imageUrls": []
@@ -250,6 +285,13 @@
           "type": "FILL_BLANK",
           "questionText": "Complete: I go to ___ every morning.",
           "correctAnswer": "school",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say the word: Orange",
+          "correctAnswer": "Orange",
           "options": null,
           "difficultyLevel": 1
         }
@@ -294,6 +336,13 @@
           "correctAnswer": "school",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say the word: Run",
+          "correctAnswer": "Run",
+          "options": null,
+          "difficultyLevel": 1
         }
       ],
       "imageUrls": []
@@ -336,6 +385,13 @@
           "correctAnswer": "school",
           "options": null,
           "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say the word: Morning",
+          "correctAnswer": "Morning",
+          "options": null,
+          "difficultyLevel": 1
         }
       ],
       "imageUrls": []
@@ -369,6 +425,13 @@
           "type": "SHORT_ANSWER",
           "questionText": "Say three numbers in English",
           "correctAnswer": "One two three",
+          "options": null,
+          "difficultyLevel": 1
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say the word: Water",
+          "correctAnswer": "Water",
           "options": null,
           "difficultyLevel": 1
         }

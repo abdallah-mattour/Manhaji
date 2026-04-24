@@ -155,9 +155,39 @@ public class QuizService {
                 .orElseThrow(() -> new ResourceNotFoundException("Question", questionId));
 
         String expected = question.getCorrectAnswer();
-        String transcribed = whisperService.transcribe(audioBytes, language != null ? language : "ar");
+        // Prefer language from client, but auto-detect from the expected answer
+        // if the client didn't send one or sent the default "ar" for what is
+        // clearly an English word (e.g. "Hello"). This keeps Flutter simple:
+        // it can always pass "ar" and the backend will DTRT per question.
+        String lang = (language != null && !language.isBlank())
+                ? language
+                : "ar";
+        if ("ar".equals(lang) && !containsArabic(expected)) {
+            lang = "en";
+        }
 
-        int score = pronunciationScoringService.score(expected, transcribed);
+        // Graceful fallback: if Gemini isn't configured (demo laptop without
+        // GEMINI_API_KEY exported), don't 500 — hand back a friendly zero
+        // score so the UI renders "lm asmaek jayedan" feedback and the
+        // learner can retry. Nothing crashes; no StudentResponse persisted
+        // since we didn't actually evaluate anything.
+        if (!whisperService.isAvailable()) {
+            log.warn("Pronunciation requested but Whisper/Gemini is not configured — returning fallback response");
+            return PronunciationScoreResponse.builder()
+                    .questionId(questionId)
+                    .expectedText(expected)
+                    .transcribedText("")
+                    .score(0)
+                    .rating(pronunciationScoringService.rating(0))
+                    .feedback("خدمة النطق غير متاحة الآن. حاول لاحقاً.")
+                    .isCorrect(false)
+                    .pointsEarned(0)
+                    .build();
+        }
+
+        String transcribed = whisperService.transcribe(audioBytes, lang);
+
+        int score = pronunciationScoringService.score(expected, transcribed, lang);
         String rating = pronunciationScoringService.rating(score);
         String feedback = pronunciationScoringService.feedback(score, expected);
         boolean isCorrect = pronunciationScoringService.isCorrect(score);
@@ -498,5 +528,15 @@ public class QuizService {
                 .pointsEarned(correctAnswers * quizConfig.getPointsPerCorrect())
                 .submittedAt(attempt.getSubmittedAt())
                 .build();
+    }
+
+    /** Arabic unicode block U+0600..U+06FF. */
+    private boolean containsArabic(String text) {
+        if (text == null) return false;
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            if (c >= 0x0600 && c <= 0x06FF) return true;
+        }
+        return false;
     }
 }

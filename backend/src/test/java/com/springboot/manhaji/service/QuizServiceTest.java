@@ -624,4 +624,75 @@ class QuizServiceTest {
             verify(responseRepository, never()).save(any());
         }
     }
+
+    // ==================== submitPronunciation fallback Tests ====================
+
+    @Nested
+    @DisplayName("submitPronunciation() — Gemini unavailable fallback")
+    class SubmitPronunciationFallbackTests {
+
+        private Attempt pronAttempt;
+        private Question pronQuestion;
+
+        @BeforeEach
+        void seedPron() {
+            pronAttempt = new Attempt();
+            pronAttempt.setId(70L);
+            pronAttempt.setStudent(testStudent);
+            pronAttempt.setQuiz(testQuiz);
+            pronAttempt.setStatus(AttemptStatus.IN_PROGRESS);
+
+            pronQuestion = new Question();
+            pronQuestion.setId(77L);
+            pronQuestion.setType(QuestionType.PRONUNCIATION);
+            pronQuestion.setQuestionText("رمان");
+            pronQuestion.setCorrectAnswer("رمان");
+            pronQuestion.setDifficultyLevel(1);
+        }
+
+        @Test
+        @DisplayName("should return friendly fallback response when Gemini API key missing")
+        void gracefulWhenGeminiUnavailable() {
+            when(attemptRepository.findById(70L)).thenReturn(Optional.of(pronAttempt));
+            when(questionRepository.findById(77L)).thenReturn(Optional.of(pronQuestion));
+            when(whisperService.isAvailable()).thenReturn(false);
+
+            var response = quizService.submitPronunciation(70L, 77L, new byte[]{1, 2, 3}, "ar", 1L);
+
+            assertThat(response).isNotNull();
+            assertThat(response.getScore()).isZero();
+            assertThat(response.isCorrect()).isFalse();
+            assertThat(response.getFeedback()).contains("غير متاحة");
+            // No transcription attempted, no DB write.
+            verify(whisperService, never()).transcribe(any(), any());
+            verify(responseRepository, never()).save(any());
+        }
+
+        @Test
+        @DisplayName("should pass language code to pronunciation scorer")
+        void passesLanguageToScorer() {
+            Question englishQuestion = new Question();
+            englishQuestion.setId(78L);
+            englishQuestion.setType(QuestionType.PRONUNCIATION);
+            englishQuestion.setQuestionText("apple");
+            englishQuestion.setCorrectAnswer("apple");
+            englishQuestion.setDifficultyLevel(1);
+
+            when(attemptRepository.findById(70L)).thenReturn(Optional.of(pronAttempt));
+            when(questionRepository.findById(78L)).thenReturn(Optional.of(englishQuestion));
+            when(whisperService.isAvailable()).thenReturn(true);
+            when(whisperService.transcribe(any(), eq("en"))).thenReturn("apple");
+            when(pronunciationScoringService.score("apple", "apple", "en")).thenReturn(100);
+            when(pronunciationScoringService.rating(100)).thenReturn("ممتاز");
+            when(pronunciationScoringService.feedback(100, "apple")).thenReturn("نطق رائع! أحسنت.");
+            when(pronunciationScoringService.isCorrect(100)).thenReturn(true);
+
+            var response = quizService.submitPronunciation(70L, 78L, new byte[]{1, 2, 3}, "en", 1L);
+
+            assertThat(response.getScore()).isEqualTo(100);
+            assertThat(response.isCorrect()).isTrue();
+            verify(pronunciationScoringService).score("apple", "apple", "en");
+            verify(whisperService).transcribe(any(), eq("en"));
+        }
+    }
 }

@@ -22,7 +22,8 @@ class TtsService {
     // Check backend TTS
     try {
       _backendAvailable = await _audioApi.isTtsAvailable();
-    } catch (_) {
+    } catch (e) {
+      debugPrint('[tts-init] backend check failed: $e');
       _backendAvailable = false;
     }
 

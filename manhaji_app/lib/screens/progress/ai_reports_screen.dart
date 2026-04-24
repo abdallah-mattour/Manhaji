@@ -306,7 +306,8 @@ class _LearningPathContent extends StatelessWidget {
     Map<String, dynamic>? parsed;
     try {
       parsed = jsonDecode(recommendations);
-    } catch (_) {
+    } catch (e) {
+      debugPrint('[ai-report] JSON parse failed: $e');
       parsed = null;
     }
 

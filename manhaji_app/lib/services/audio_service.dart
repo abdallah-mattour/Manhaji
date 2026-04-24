@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import '../models/pronunciation_score.dart';
 import 'api_service.dart';
 
@@ -24,7 +25,8 @@ class AudioApiService {
     try {
       final response = await _api.get('/audio/tts/status');
       return response['data']?['available'] == true;
-    } catch (_) {
+    } catch (e) {
+      debugPrint('[tts-availability] error: $e');
       return false;
     }
   }

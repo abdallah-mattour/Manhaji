@@ -6,7 +6,8 @@ import '../utils/error_handler.dart';
 class ProgressProvider extends ChangeNotifier {
   final ProgressApiService _progressService;
 
-  bool _isLoading = false;
+  bool _loadingProgress = false;
+  bool _loadingLeaderboard = false;
   String? _errorMessage;
 
   ProgressSummary? _summary;
@@ -14,13 +15,16 @@ class ProgressProvider extends ChangeNotifier {
 
   ProgressProvider(this._progressService);
 
-  bool get isLoading => _isLoading;
+  // Backward-compatible: true while either request is in flight.
+  bool get isLoading => _loadingProgress || _loadingLeaderboard;
+  bool get isLoadingProgress => _loadingProgress;
+  bool get isLoadingLeaderboard => _loadingLeaderboard;
   String? get errorMessage => _errorMessage;
   ProgressSummary? get summary => _summary;
   List<LeaderboardEntry> get leaderboard => _leaderboard;
 
   Future<void> loadProgress() async {
-    _isLoading = true;
+    _loadingProgress = true;
     _errorMessage = null;
     notifyListeners();
 
@@ -29,13 +33,13 @@ class ProgressProvider extends ChangeNotifier {
     } catch (e) {
       _errorMessage = extractError(e);
     } finally {
-      _isLoading = false;
+      _loadingProgress = false;
       notifyListeners();
     }
   }
 
   Future<void> loadLeaderboard({int? gradeLevel}) async {
-    _isLoading = true;
+    _loadingLeaderboard = true;
     _errorMessage = null;
     notifyListeners();
 
@@ -44,7 +48,7 @@ class ProgressProvider extends ChangeNotifier {
     } catch (e) {
       _errorMessage = extractError(e);
     } finally {
-      _isLoading = false;
+      _loadingLeaderboard = false;
       notifyListeners();
     }
   }

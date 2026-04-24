@@ -537,7 +537,8 @@ class _LearningScreenState extends State<LearningScreen>
       );
       provider.applyPronunciationResult(score);
       _onAnswerSubmitted(provider);
-    } catch (_) {
+    } catch (e) {
+      debugPrint('[pronunciation] error: $e');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('حدث خطأ في تقييم النطق')),
@@ -565,10 +566,11 @@ class _LearningScreenState extends State<LearningScreen>
         setState(() => _selectedAnswer = transcription);
       }
       await provider.submitAnswer(
-        result['correctAnswer']?.toString() ?? _selectedAnswer ?? '',
+        transcription.isNotEmpty ? transcription : (_selectedAnswer ?? ''),
       );
       _onAnswerSubmitted(provider);
-    } catch (_) {
+    } catch (e) {
+      debugPrint('[voice-answer] error: $e');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('حدث خطأ في معالجة الصوت')),
@@ -823,7 +825,8 @@ class _LearningScreenState extends State<LearningScreen>
         _currentHint = result['hint']?.toString();
         _hintLevel = (result['hintLevel'] as num?)?.toInt() ?? _hintLevel + 1;
       });
-    } catch (_) {
+    } catch (e) {
+      debugPrint('[hint] error: $e');
       setState(() {
         _hintLevel++;
         _currentHint = 'فكّر جيداً في السؤال 🤔';

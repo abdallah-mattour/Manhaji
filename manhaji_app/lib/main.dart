@@ -8,6 +8,7 @@ import 'providers/lesson_provider.dart';
 import 'providers/progress_provider.dart';
 import 'providers/learning_provider.dart';
 import 'providers/parent_provider.dart';
+import 'providers/question_bank_provider.dart';
 import 'providers/report_provider.dart';
 import 'providers/teacher_provider.dart';
 import 'services/admin_service.dart';
@@ -108,6 +109,9 @@ class ManhajiApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => ReportProvider(reportService),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => QuestionBankProvider(teacherService, adminService),
         ),
       ],
       child: MaterialApp(

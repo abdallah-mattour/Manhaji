@@ -1,26 +1,36 @@
 package com.springboot.manhaji.service;
 
 import com.springboot.manhaji.dto.response.AdminStatsResponse;
+import com.springboot.manhaji.dto.response.QuestionBankResponse;
+import com.springboot.manhaji.dto.response.SubjectSummary;
 import com.springboot.manhaji.dto.response.UserSummaryResponse;
 import com.springboot.manhaji.entity.Admin;
-import com.springboot.manhaji.entity.Student;
-import com.springboot.manhaji.entity.Teacher;
 import com.springboot.manhaji.entity.Attempt;
+import com.springboot.manhaji.entity.Lesson;
 import com.springboot.manhaji.entity.Progress;
+import com.springboot.manhaji.entity.Question;
+import com.springboot.manhaji.entity.Student;
+import com.springboot.manhaji.entity.Subject;
+import com.springboot.manhaji.entity.Teacher;
 import com.springboot.manhaji.entity.enums.AttemptStatus;
 import com.springboot.manhaji.entity.enums.CompletionStatus;
+import com.springboot.manhaji.entity.enums.QuestionType;
 import com.springboot.manhaji.entity.enums.Role;
+import com.springboot.manhaji.exception.ResourceNotFoundException;
 import com.springboot.manhaji.repository.*;
+import com.springboot.manhaji.service.support.QuestionBankMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -35,11 +45,19 @@ class AdminServiceTest {
     @Mock private AdminRepository adminRepository;
     @Mock private SubjectRepository subjectRepository;
     @Mock private LessonRepository lessonRepository;
+    @Mock private QuestionRepository questionRepository;
     @Mock private AttemptRepository attemptRepository;
     @Mock private ProgressRepository progressRepository;
 
-    @InjectMocks
     private AdminService adminService;
+
+    @BeforeEach
+    void setUp() {
+        adminService = new AdminService(
+                userRepository, studentRepository, teacherRepository, parentRepository,
+                adminRepository, subjectRepository, lessonRepository, questionRepository,
+                attemptRepository, progressRepository, new QuestionBankMapper());
+    }
 
     // ==================== getStats Tests ====================
 
@@ -194,5 +212,160 @@ class AdminServiceTest {
             assertThat(studentSummary.getGradeLevel()).isEqualTo(1);
             assertThat(adminSummary.getGradeLevel()).isNull();
         }
+    }
+
+    // ==================== getAllSubjects Tests ====================
+
+    @Nested
+    @DisplayName("getAllSubjects()")
+    class GetAllSubjectsTests {
+
+        @Test
+        @DisplayName("should return all subjects unrestricted when no grade filter")
+        void returnsAllSubjectsUnrestricted() {
+            Subject arabic = createSubject(1L, "اللغة العربية", 1);
+            Subject english = createSubject(2L, "English", 2);
+            Subject math = createSubject(3L, "الرياضيات", 1);
+
+            when(subjectRepository.findAll()).thenReturn(List.of(arabic, english, math));
+
+            List<SubjectSummary> result = adminService.getAllSubjects(null);
+
+            assertThat(result).hasSize(3);
+            // Sorted by gradeLevel asc, then name asc within grade
+            assertThat(result.get(0).getGradeLevel()).isEqualTo(1);
+            assertThat(result.get(1).getGradeLevel()).isEqualTo(1);
+            assertThat(result.get(2).getGradeLevel()).isEqualTo(2);
+            verify(subjectRepository).findAll();
+            verify(subjectRepository, never()).findByGradeLevel(anyInt());
+        }
+
+        @Test
+        @DisplayName("should filter by grade when gradeFilter provided")
+        void filtersByGrade() {
+            Subject arabicG1 = createSubject(1L, "اللغة العربية", 1);
+            Subject mathG1 = createSubject(2L, "الرياضيات", 1);
+
+            when(subjectRepository.findByGradeLevel(1)).thenReturn(List.of(arabicG1, mathG1));
+
+            List<SubjectSummary> result = adminService.getAllSubjects(1);
+
+            assertThat(result).hasSize(2);
+            assertThat(result).allMatch(s -> s.getGradeLevel() == 1);
+            verify(subjectRepository).findByGradeLevel(1);
+            verify(subjectRepository, never()).findAll();
+        }
+    }
+
+    // ==================== getQuestionsForSubject Tests ====================
+
+    @Nested
+    @DisplayName("getQuestionsForSubject()")
+    class GetQuestionsForSubjectTests {
+
+        @Test
+        @DisplayName("should return all questions for subject without grade guard")
+        void returnsAllQuestionsUnrestricted() {
+            Subject subject = createSubject(10L, "اللغة العربية", 1);
+            Lesson lesson = createLesson(100L, "حرف الراء", 1, subject);
+            Question q1 = createQuestion(1L, QuestionType.MCQ, 1, lesson);
+            Question q2 = createQuestion(2L, QuestionType.PRONUNCIATION, 2, lesson);
+
+            when(subjectRepository.findById(10L)).thenReturn(Optional.of(subject));
+            when(questionRepository.findAllBySubjectIdWithLesson(10L))
+                    .thenReturn(List.of(q1, q2));
+
+            QuestionBankResponse response = adminService.getQuestionsForSubject(10L, null, null);
+
+            assertThat(response.getSubjectId()).isEqualTo(10L);
+            assertThat(response.getGradeLevel()).isEqualTo(1);
+            assertThat(response.getQuestions()).hasSize(2);
+            assertThat(response.getTotalQuestionsInSubject()).isEqualTo(2);
+        }
+
+        @Test
+        @DisplayName("should filter questions by difficulty")
+        void filtersByDifficulty() {
+            Subject subject = createSubject(10L, "اللغة العربية", 1);
+            Lesson lesson = createLesson(100L, "حرف الراء", 1, subject);
+            Question easy = createQuestion(1L, QuestionType.MCQ, 1, lesson);
+            Question medium = createQuestion(2L, QuestionType.MCQ, 2, lesson);
+            Question hard = createQuestion(3L, QuestionType.MCQ, 3, lesson);
+
+            when(subjectRepository.findById(10L)).thenReturn(Optional.of(subject));
+            when(questionRepository.findAllBySubjectIdWithLesson(10L))
+                    .thenReturn(List.of(easy, medium, hard));
+
+            QuestionBankResponse response = adminService.getQuestionsForSubject(10L, 2, null);
+
+            assertThat(response.getQuestions()).hasSize(1);
+            assertThat(response.getQuestions().get(0).getDifficultyLevel()).isEqualTo(2);
+            // Total unfiltered count preserved
+            assertThat(response.getTotalQuestionsInSubject()).isEqualTo(3);
+        }
+
+        @Test
+        @DisplayName("should filter questions by lesson")
+        void filtersByLesson() {
+            Subject subject = createSubject(10L, "اللغة العربية", 1);
+            Lesson lessonA = createLesson(100L, "حرف الراء", 1, subject);
+            Lesson lessonB = createLesson(101L, "حرف السين", 2, subject);
+            Question q1 = createQuestion(1L, QuestionType.MCQ, 1, lessonA);
+            Question q2 = createQuestion(2L, QuestionType.MCQ, 1, lessonB);
+
+            when(subjectRepository.findById(10L)).thenReturn(Optional.of(subject));
+            when(questionRepository.findAllBySubjectIdWithLesson(10L))
+                    .thenReturn(List.of(q1, q2));
+
+            QuestionBankResponse response = adminService.getQuestionsForSubject(10L, null, 100L);
+
+            assertThat(response.getQuestions()).hasSize(1);
+            assertThat(response.getQuestions().get(0).getLessonId()).isEqualTo(100L);
+            assertThat(response.getLessons()).hasSize(2); // lessons list is unfiltered
+        }
+
+        @Test
+        @DisplayName("should throw ResourceNotFoundException when subject missing")
+        void throwsWhenSubjectMissing() {
+            when(subjectRepository.findById(999L)).thenReturn(Optional.empty());
+
+            assertThatThrownBy(() -> adminService.getQuestionsForSubject(999L, null, null))
+                    .isInstanceOf(ResourceNotFoundException.class);
+            verify(questionRepository, never()).findAllBySubjectIdWithLesson(anyLong());
+        }
+    }
+
+    // ==================== Helpers ====================
+
+    private Subject createSubject(Long id, String name, Integer gradeLevel) {
+        Subject s = new Subject();
+        s.setId(id);
+        s.setName(name);
+        s.setGradeLevel(gradeLevel);
+        s.setLessons(new ArrayList<>());
+        return s;
+    }
+
+    private Lesson createLesson(Long id, String title, Integer orderIndex, Subject subject) {
+        Lesson l = new Lesson();
+        l.setId(id);
+        l.setTitle(title);
+        l.setOrderIndex(orderIndex);
+        l.setSubject(subject);
+        if (subject.getLessons() != null) {
+            subject.getLessons().add(l);
+        }
+        return l;
+    }
+
+    private Question createQuestion(Long id, QuestionType type, Integer difficulty, Lesson lesson) {
+        Question q = new Question();
+        q.setId(id);
+        q.setType(type);
+        q.setQuestionText("نص السؤال " + id);
+        q.setCorrectAnswer("answer");
+        q.setDifficultyLevel(difficulty);
+        q.setLesson(lesson);
+        return q;
     }
 }

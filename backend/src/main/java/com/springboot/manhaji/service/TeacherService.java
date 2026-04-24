@@ -1,20 +1,29 @@
 package com.springboot.manhaji.service;
 
 import com.springboot.manhaji.dto.response.ClassStudentSummary;
+import com.springboot.manhaji.dto.response.LessonSummary;
+import com.springboot.manhaji.dto.response.QuestionBankItem;
+import com.springboot.manhaji.dto.response.QuestionBankResponse;
 import com.springboot.manhaji.dto.response.StudentDetailResponse;
 import com.springboot.manhaji.dto.response.SubjectMasterySummary;
+import com.springboot.manhaji.dto.response.SubjectSummary;
 import com.springboot.manhaji.dto.response.TeacherDashboardResponse;
 import com.springboot.manhaji.entity.Attempt;
 import com.springboot.manhaji.entity.Progress;
+import com.springboot.manhaji.entity.Question;
 import com.springboot.manhaji.entity.Student;
+import com.springboot.manhaji.entity.Subject;
 import com.springboot.manhaji.entity.Teacher;
 import com.springboot.manhaji.exception.ResourceNotFoundException;
 import com.springboot.manhaji.exception.UnauthorizedException;
 import com.springboot.manhaji.repository.AttemptRepository;
 import com.springboot.manhaji.repository.ProgressRepository;
+import com.springboot.manhaji.repository.QuestionRepository;
 import com.springboot.manhaji.repository.StudentRepository;
+import com.springboot.manhaji.repository.SubjectRepository;
 import com.springboot.manhaji.repository.TeacherRepository;
 import com.springboot.manhaji.service.support.ProgressMetrics;
+import com.springboot.manhaji.service.support.QuestionBankMapper;
 import com.springboot.manhaji.support.Messages;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,6 +43,9 @@ public class TeacherService {
     private final StudentRepository studentRepository;
     private final ProgressRepository progressRepository;
     private final AttemptRepository attemptRepository;
+    private final SubjectRepository subjectRepository;
+    private final QuestionRepository questionRepository;
+    private final QuestionBankMapper questionBankMapper;
     private final ProgressMetrics metrics;
     private final Messages messages;
 
@@ -121,6 +133,70 @@ public class TeacherService {
                 .totalAttempts(attempts.size())
                 .averageScore(ProgressMetrics.round2(metrics.averageGradedScore(attempts)))
                 .subjectBreakdown(subjectBreakdown)
+                .build();
+    }
+
+    // ==================== Question Bank (FR-9) ====================
+
+    /**
+     * Lists all subjects at the teacher's assigned grade. When the teacher has
+     * no grade set, falls back to every subject so the demo still shows rows.
+     */
+    public List<SubjectSummary> getAssignedSubjects(Long teacherId) {
+        Teacher teacher = teacherRepository.findById(teacherId)
+                .orElseThrow(() -> new ResourceNotFoundException("Teacher", teacherId));
+
+        List<Subject> subjects = teacher.getAssignedGrade() != null
+                ? subjectRepository.findByGradeLevel(teacher.getAssignedGrade())
+                : subjectRepository.findAll();
+
+        return subjects.stream()
+                .sorted(Comparator.comparing(
+                        Subject::getName,
+                        Comparator.nullsLast(Comparator.naturalOrder())))
+                .map(questionBankMapper::toSubjectSummary)
+                .toList();
+    }
+
+    /**
+     * Returns questions belonging to the given subject, filtered by optional
+     * difficulty + lesson. Access is denied if the subject is at a grade other
+     * than the teacher's {@code assignedGrade} (teachers with no grade assigned
+     * can see everything — matches {@link #loadStudentsForTeacher}).
+     */
+    public QuestionBankResponse getQuestionsForSubject(
+            Long teacherId,
+            Long subjectId,
+            Integer difficultyLevel,
+            Long lessonId) {
+        Teacher teacher = teacherRepository.findById(teacherId)
+                .orElseThrow(() -> new ResourceNotFoundException("Teacher", teacherId));
+        Subject subject = subjectRepository.findById(subjectId)
+                .orElseThrow(() -> new ResourceNotFoundException("Subject", subjectId));
+
+        if (teacher.getAssignedGrade() != null
+                && !teacher.getAssignedGrade().equals(subject.getGradeLevel())) {
+            throw new UnauthorizedException(messages.get("error.teacher.subjectNotInGrade"));
+        }
+
+        List<Question> allForSubject = questionRepository.findAllBySubjectIdWithLesson(subjectId);
+        List<LessonSummary> lessons = questionBankMapper.collectLessonFilters(allForSubject);
+
+        List<QuestionBankItem> filtered = allForSubject.stream()
+                .filter(q -> difficultyLevel == null
+                        || difficultyLevel.equals(q.getDifficultyLevel()))
+                .filter(q -> lessonId == null
+                        || (q.getLesson() != null && lessonId.equals(q.getLesson().getId())))
+                .map(questionBankMapper::toQuestionItem)
+                .toList();
+
+        return QuestionBankResponse.builder()
+                .subjectId(subject.getId())
+                .subjectName(subject.getName())
+                .gradeLevel(subject.getGradeLevel())
+                .lessons(lessons)
+                .questions(filtered)
+                .totalQuestionsInSubject(allForSubject.size())
                 .build();
     }
 

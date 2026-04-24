@@ -7,6 +7,7 @@ import '../../providers/auth_provider.dart';
 import '../../providers/teacher_provider.dart';
 import '../../widgets/error_state.dart';
 import '../../widgets/loading_state.dart';
+import '../question_bank/question_bank_subjects_screen.dart';
 
 class TeacherDashboardScreen extends StatefulWidget {
   const TeacherDashboardScreen({super.key});
@@ -117,6 +118,16 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
                         value: '${dash.averageMasteryAcrossClass.toStringAsFixed(0)}%',
                       ),
                     ],
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Question bank entry
+                  _ActionTile(
+                    icon: Icons.quiz_rounded,
+                    title: 'بنك الأسئلة',
+                    subtitle: 'استعرض الأسئلة المعتمدة لكل مادة ودرس',
+                    color: AppTheme.primaryGreen,
+                    onTap: () => context.openTeacherQuestionBank(),
                   ),
                   const SizedBox(height: 24),
 
@@ -281,6 +292,81 @@ class _StudentTile extends StatelessWidget {
         ),
         trailing: const Icon(Icons.arrow_back_ios, size: 16),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+    );
+  }
+}
+
+class _ActionTile extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final Color color;
+  final VoidCallback onTap;
+
+  const _ActionTile({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.color,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      elevation: 1,
+      shadowColor: Colors.black.withValues(alpha: 0.06),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Container(
+                width: 48,
+                height: 48,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Icon(icon, color: color, size: 24),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontFamily: 'Cairo',
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: AppTheme.textDark,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      subtitle,
+                      style: const TextStyle(
+                        fontFamily: 'Cairo',
+                        fontSize: 13,
+                        color: AppTheme.textGray,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(Icons.arrow_back_ios,
+                  size: 16, color: AppTheme.textGray),
+            ],
+          ),
+        ),
       ),
     );
   }

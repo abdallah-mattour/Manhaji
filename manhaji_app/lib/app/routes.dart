@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../screens/admin/admin_dashboard_screen.dart';
+import '../screens/gate/platform_mismatch_screen.dart';
 import '../screens/parent/child_progress_screen.dart';
 import '../screens/parent/parent_dashboard_screen.dart';
 import '../screens/progress/ai_reports_screen.dart';
@@ -44,7 +46,20 @@ class AppRoutes {
   // Leaderboard
   static const String leaderboard = '/leaderboard';
 
+  // Platform-role gate (student on web, staff on mobile)
+  static const String platformMismatch = '/platform-mismatch';
+
+  /// Route a logged-in user to their home, or to the mismatch screen
+  /// if they're on the wrong platform. Per proposal:
+  ///   - Mobile hosts STUDENT + PARENT only
+  ///   - Web   hosts TEACHER + ADMIN only
   static String homeForRole(String? role) {
+    final isStaff = role == 'TEACHER' || role == 'ADMIN';
+    final isLearner = role == 'STUDENT' || role == 'PARENT';
+
+    if (kIsWeb && isLearner) return platformMismatch;
+    if (!kIsWeb && isStaff) return platformMismatch;
+
     return switch (role) {
       'TEACHER' => teacherDashboard,
       'ADMIN' => adminDashboard,
@@ -68,5 +83,6 @@ class AppRoutes {
         childProgress: (_) => const ChildProgressScreen(),
         aiReports: (_) => const AiReportsScreen(),
         leaderboard: (_) => const LeaderboardScreen(),
+        platformMismatch: (_) => const PlatformMismatchScreen(),
       };
 }

@@ -1,6 +1,12 @@
+import 'package:flutter/foundation.dart';
+
 class ApiConfig {
-  static const String baseUrl = 'http://10.0.2.2:8080/api';
-  static const String serverUrl = 'http://10.0.2.2:8080';
+  /// On web we assume the Flutter bundle is served from the same origin as the
+  /// Spring Boot backend (see Phase E: `static/app/` inside the jar). A relative
+  /// `/api` base means no CORS and survives whichever host/port the browser is on.
+  /// On mobile we still point at the Android-emulator loopback.
+  static String get baseUrl => kIsWeb ? '/api' : 'http://10.0.2.2:8080/api';
+  static String get serverUrl => kIsWeb ? '' : 'http://10.0.2.2:8080';
 
   /// Resolves a backend-relative path like `/uploads/images/...` into a full URL.
   /// Returns the input unchanged if it already starts with `http`.
@@ -35,10 +41,12 @@ class ApiConfig {
   // Teacher
   static const String teacherDashboard = '/teacher/dashboard';
   static const String teacherStudents = '/teacher/students';
+  static const String teacherSubjects = '/teacher/subjects';
 
   // Admin
   static const String adminStats = '/admin/stats';
   static const String adminUsers = '/admin/users';
+  static const String adminSubjects = '/admin/subjects';
 
   // Parent
   static const String parentDashboard = '/parent/dashboard';

@@ -2,10 +2,13 @@
 
 **Purpose:** If a completely fresh Claude instance (different account, new conversation, no memory) picks up this project, this doc must be enough to resume work at high performance without asking the user for context.
 
-**Last updated:** 2026-04-20 by the previous Claude session.
+**Last updated:** 2026-04-29 by the monorepo restructure session.
 **Owner:** Abdallah Mattour (solo dev, Birzeit CS graduation project).
 **Deadline:** 2026-07-01 (graduation showcase).
-**Current branch:** `feat/dashboards-ai-and-letters`.
+**Current branch:** `main` (the only branch — repo was force-restructured 2026-04-29 to a single-branch monorepo).
+**Repo layout:** monorepo at `github.com/abdallah-mattour/Manhaji.git` containing code (`Manhaji/`), textbooks (`PDFBooks/`, ~1.2 GB via Git LFS), tooling (`tools/`), and docs at the root.
+
+> **Cloning note:** Run `git lfs install` once before your first clone, otherwise PDFBooks/* will appear as text-pointer stubs instead of real files. Then `git clone https://github.com/abdallah-mattour/Manhaji.git`.
 
 ---
 

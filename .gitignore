@@ -1,0 +1,98 @@
+# IDE / editor
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+
+# Claude Code local state
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Java / Gradle (backend)
+Manhaji/backend/build/
+Manhaji/backend/.gradle/
+Manhaji/backend/out/
+Manhaji/backend/.idea/
+Manhaji/backend/*.log
+Manhaji/backend/HELP.md
+
+# Flutter / Dart (manhaji_app)
+Manhaji/manhaji_app/.dart_tool/
+Manhaji/manhaji_app/.flutter-plugins
+Manhaji/manhaji_app/.flutter-plugins-dependencies
+Manhaji/manhaji_app/.packages
+Manhaji/manhaji_app/build/
+Manhaji/manhaji_app/.metadata
+Manhaji/manhaji_app/pubspec.lock
+
+# Android / iOS build artifacts
+Manhaji/manhaji_app/android/.gradle/
+Manhaji/manhaji_app/android/local.properties
+Manhaji/manhaji_app/android/key.properties
+Manhaji/manhaji_app/android/**/build/
+Manhaji/manhaji_app/ios/Pods/
+Manhaji/manhaji_app/ios/.symlinks/
+Manhaji/manhaji_app/ios/Flutter/Flutter.framework
+Manhaji/manhaji_app/ios/Flutter/Generated.xcconfig
+Manhaji/manhaji_app/ios/Flutter/flutter_export_environment.sh
+
+# Generated mocks (regenerable)
+Manhaji/manhaji_app/test/**/*.mocks.dart
+
+# PDF extractor tool — Python virtualenv / cache
+tools/pdf_extractor/.venv/
+tools/pdf_extractor/__pycache__/
+tools/pdf_extractor/*.pyc
+
+# Curriculum backfill scripts — Python cache
+Manhaji/scripts/**/__pycache__/
+Manhaji/scripts/**/*.pyc
+
+# Secrets / credentials (never commit)
+*.env
+*.env.local
+.env
+.env.*
+!.env.example
+secrets.properties
+google-services.json
+
+# Logs
+*.log
+logs/
+
+# Temp / scratch
+*.tmp
+*.bak
+*.backup
+*~
+
+# Build outputs
+*.class
+*.jar
+*.war
+*.ear
+target/
+node_modules/
+
+# Python
+*.pyc
+__pycache__/
+.pytest_cache/
+
+# Test / debug artifacts (Android dumps, screenshots)
+screen*.png
+screen_p2_*.png
+dump_*.xml
+window_dump*.xml
+ui.xml
+toc_extract.txt
+
+# macOS finder + Linux thumbnails
+.DS_Store
+Thumbs.db

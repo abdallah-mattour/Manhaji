@@ -1,0 +1,264 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../app/theme.dart';
+import '../../models/lesson.dart';
+import '../../providers/lesson_provider.dart';
+import '../../widgets/error_state.dart';
+import '../../widgets/loading_state.dart';
+import '../learning/learning_screen.dart';
+
+class SubjectLessonsScreen extends StatefulWidget {
+  final int subjectId;
+  final String subjectName;
+  final Color subjectColor;
+
+  const SubjectLessonsScreen({
+    super.key,
+    required this.subjectId,
+    required this.subjectName,
+    required this.subjectColor,
+  });
+
+  @override
+  State<SubjectLessonsScreen> createState() => _SubjectLessonsScreenState();
+}
+
+class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
+    with SingleTickerProviderStateMixin {
+  late final TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<LessonProvider>().loadLessons(widget.subjectId);
+    });
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(widget.subjectName),
+          backgroundColor: widget.subjectColor,
+          bottom: TabBar(
+            controller: _tabController,
+            indicatorColor: Colors.white,
+            indicatorWeight: 3,
+            labelStyle: const TextStyle(
+              fontFamily: 'Cairo',
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+            unselectedLabelStyle: const TextStyle(
+              fontFamily: 'Cairo',
+              fontSize: 14,
+            ),
+            tabs: const [
+              Tab(text: 'الفصل الأول'),
+              Tab(text: 'الفصل الثاني'),
+            ],
+          ),
+        ),
+        body: Consumer<LessonProvider>(
+          builder: (context, provider, _) {
+            if (provider.isLoading && provider.currentLessons.isEmpty) {
+              return const LoadingState();
+            }
+
+            if (provider.errorMessage != null &&
+                provider.currentLessons.isEmpty) {
+              return ErrorState(
+                message: provider.errorMessage!,
+                onRetry: () => provider.loadLessons(widget.subjectId),
+              );
+            }
+
+            final semester1Lessons = provider.currentLessons
+                .where((l) => l.semesterNumber == 1)
+                .toList();
+            final semester2Lessons = provider.currentLessons
+                .where((l) => l.semesterNumber == 2)
+                .toList();
+
+            return TabBarView(
+              controller: _tabController,
+              children: [
+                _buildLessonList(semester1Lessons, 1),
+                _buildLessonList(semester2Lessons, 2),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLessonList(List<LessonSummary> lessons, int semester) {
+    if (lessons.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.menu_book_outlined,
+                size: 72, color: Colors.grey.shade400),
+            const SizedBox(height: 16),
+            Text(
+              semester == 1
+                  ? 'لا توجد دروس في الفصل الأول بعد'
+                  : 'لا توجد دروس في الفصل الثاني بعد',
+              style: TextStyle(
+                fontFamily: 'Cairo',
+                fontSize: 16,
+                color: Colors.grey.shade600,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    return ListView.builder(
+      padding: const EdgeInsets.all(16),
+      itemCount: lessons.length,
+      itemBuilder: (context, index) {
+        return _buildLessonTile(lessons, lessons[index], index);
+      },
+    );
+  }
+
+  Widget _buildLessonTile(
+      List<LessonSummary> semesterLessons, LessonSummary lesson, int index) {
+    final isLocked = index > 0 && !semesterLessons[index - 1].isCompleted;
+
+    return GestureDetector(
+      onTap: isLocked
+          ? null
+          : () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => LearningScreen(
+                    lessonId: lesson.id,
+                    lessonTitle: lesson.title,
+                  ),
+                ),
+              );
+            },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: isLocked ? Colors.grey.shade100 : Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: isLocked
+              ? []
+              : [
+                  BoxShadow(
+                    color: widget.subjectColor.withValues(alpha: 0.1),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+        ),
+        child: Row(
+          children: [
+            // Lesson number circle
+            Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: isLocked
+                    ? Colors.grey.shade300
+                    : lesson.isCompleted
+                        ? AppTheme.primaryGreen
+                        : widget.subjectColor.withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Center(
+                child: isLocked
+                    ? const Icon(Icons.lock, color: Colors.grey, size: 22)
+                    : lesson.isCompleted
+                        ? const Icon(Icons.check, color: Colors.white, size: 24)
+                        : Text(
+                            '${lesson.orderIndex}',
+                            style: TextStyle(
+                              fontFamily: 'Cairo',
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: widget.subjectColor,
+                            ),
+                          ),
+              ),
+            ),
+            const SizedBox(width: 16),
+            // Lesson info
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    lesson.title,
+                    style: TextStyle(
+                      fontFamily: 'Cairo',
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: isLocked ? AppTheme.textLight : AppTheme.textDark,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    _getStatusText(lesson.completionStatus),
+                    style: TextStyle(
+                      fontFamily: 'Cairo',
+                      fontSize: 13,
+                      color: isLocked ? AppTheme.textLight : AppTheme.textGray,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            // Progress indicator
+            if (!isLocked && lesson.isInProgress)
+              SizedBox(
+                width: 40,
+                height: 40,
+                child: CircularProgressIndicator(
+                  value: lesson.masteryLevel / 100,
+                  backgroundColor: Colors.grey.shade200,
+                  valueColor: AlwaysStoppedAnimation(widget.subjectColor),
+                  strokeWidth: 4,
+                ),
+              ),
+            if (!isLocked && !lesson.isCompleted && !lesson.isInProgress)
+              Icon(Icons.arrow_back_ios,
+                  size: 18, color: widget.subjectColor),
+          ],
+        ),
+      ),
+    );
+  }
+
+  String _getStatusText(String status) {
+    switch (status) {
+      case 'NOT_STARTED':
+        return 'لم يبدأ بعد';
+      case 'IN_PROGRESS':
+        return 'قيد التعلم';
+      case 'COMPLETED':
+        return 'مكتمل ✅';
+      case 'MASTERED':
+        return 'متقن 🌟';
+      default:
+        return '';
+    }
+  }
+}

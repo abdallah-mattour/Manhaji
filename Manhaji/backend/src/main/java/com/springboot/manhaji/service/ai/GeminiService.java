@@ -1,5 +1,6 @@
 package com.springboot.manhaji.service.ai;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springboot.manhaji.config.AiConfigProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ public class GeminiService {
 
     private final AiConfigProperties aiConfig;
     private final WebClient.Builder webClientBuilder;
+    private final ObjectMapper objectMapper;  // audit TD3 (2026-04-29): Spring's auto-configured singleton
 
     private static final String GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta";
 
@@ -243,8 +245,7 @@ public class GeminiService {
     @SuppressWarnings("unchecked")
     private String extractTextFromGeminiResponse(String json) {
         try {
-            var mapper = new com.fasterxml.jackson.databind.ObjectMapper();
-            var root = mapper.readTree(json);
+            var root = objectMapper.readTree(json);
             return root.path("candidates").path(0)
                     .path("content").path("parts").path(0)
                     .path("text").asText();
@@ -255,27 +256,45 @@ public class GeminiService {
     }
 
     private Map<String, Object> parseEvaluationResponse(String response) {
-        // Try to parse as JSON first
+        String trimmed = response == null ? "" : response.trim();
+
+        // Strip Markdown code-fences (```json ... ``` or ``` ... ```) — Gemini sometimes wraps JSON.
+        if (trimmed.startsWith("```")) {
+            int firstNewline = trimmed.indexOf('\n');
+            int lastFence = trimmed.lastIndexOf("```");
+            if (firstNewline > 0 && lastFence > firstNewline) {
+                trimmed = trimmed.substring(firstNewline + 1, lastFence).trim();
+            }
+        }
+
+        // Try strict JSON first (the prompt requests JSON-only).
         try {
-            var mapper = new com.fasterxml.jackson.databind.ObjectMapper();
-            var node = mapper.readTree(response.trim());
+            var node = objectMapper.readTree(trimmed);
             if (node.has("isCorrect")) {
                 return Map.of(
                         "isCorrect", node.get("isCorrect").asBoolean(false),
-                        "feedback", node.has("feedback") ? node.get("feedback").asText("") : response.trim()
+                        "feedback", node.has("feedback") ? node.get("feedback").asText("") : trimmed
                 );
             }
         } catch (Exception ignored) {
-            // Not valid JSON, fall back to string matching
+            // Fall through to heuristic
         }
 
-        // Fallback: string matching
-        String lower = response.toLowerCase();
-        boolean isCorrect = lower.contains("\"iscorrect\": true") || lower.contains("\"iscorrect\":true");
+        // Heuristic fallback for narrative responses (audit fix 2026-04-29):
+        // The previous fallback looked for the literal substring "iscorrect: true",
+        // which a narrative response will essentially never contain. Instead match
+        // on Arabic/English correctness vocabulary the prompt instructs Gemini to use.
+        String lower = trimmed.toLowerCase();
+        boolean isCorrect = trimmed.startsWith("صحيحة")
+                         || trimmed.startsWith("صحيح")
+                         || trimmed.startsWith("صحّ")
+                         || lower.startsWith("correct")
+                         || lower.contains("\"iscorrect\":true")
+                         || lower.contains("\"iscorrect\": true");
 
         return Map.of(
                 "isCorrect", isCorrect,
-                "feedback", response.trim()
+                "feedback", trimmed
         );
     }
 
@@ -288,10 +307,11 @@ public class GeminiService {
                 إجابة الطالب: %s
 
                 قيّم إجابة الطالب. إذا كانت الإجابة صحيحة أو قريبة من الصحيحة، اعتبرها صحيحة.
-                كن لطيفاً ومشجعاً في ردك.
+                كن لطيفاً ومشجعاً في ردك. اجعل التغذية الراجعة جملة أو جملتين فقط، مناسبة لطفل في الصف الأول.
 
-                أجب بجملة أو جملتين فقط، مناسبة لطفل في الصف الأول.
-                ابدأ بكلمة "صحيحة" إذا كانت الإجابة صحيحة، أو "خاطئة" إذا كانت خاطئة.
+                IMPORTANT: Respond with JSON only. Do NOT add any prose before or after.
+                Format:
+                {"isCorrect": true|false, "feedback": "<one or two short sentences in Arabic>"}
                 """, questionText, correctAnswer, studentAnswer);
     }
 

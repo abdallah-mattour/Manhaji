@@ -106,9 +106,12 @@ public class QuizService {
         Question question = questionRepository.findById(request.getQuestionId())
                 .orElseThrow(() -> new ResourceNotFoundException("Question", request.getQuestionId()));
 
-        // Evaluate the answer
-        boolean isCorrect = evaluateAnswer(question, request);
-        String feedback = generateFeedback(question, request, isCorrect);
+        // BUG-FIX (audit B2, 2026-04-29): the AI evaluation used to run twice —
+        // once in evaluateAnswer() and once in generateFeedback() for the same
+        // question. We now call Gemini at most once and pass the result down.
+        Map<String, Object> aiResult = aiEvaluateIfShortAnswer(question, request);
+        boolean isCorrect = evaluateAnswer(question, request, aiResult);
+        String feedback = generateFeedback(question, request, isCorrect, aiResult);
         int pointsEarned = isCorrect ? quizConfig.getPointsPerCorrect() : 0;
 
         // Save student response
@@ -345,7 +348,31 @@ public class QuizService {
 
     // --- Helper methods ---
 
-    private boolean evaluateAnswer(Question question, SubmitAnswerRequest request) {
+    /**
+     * For SHORT_ANSWER questions, run a single Gemini evaluation up front so the
+     * result can be reused by both {@link #evaluateAnswer} and
+     * {@link #generateFeedback}. Returns null when the type isn't SHORT_ANSWER,
+     * Gemini isn't available, or the call failed — callers must handle null.
+     *
+     * <p>Audit fix B2 (2026-04-29): previously the Gemini call ran twice per
+     * submission for the same input.
+     */
+    private Map<String, Object> aiEvaluateIfShortAnswer(Question question, SubmitAnswerRequest request) {
+        if (question.getType() != QuestionType.SHORT_ANSWER) return null;
+        if (!geminiService.isAvailable()) return null;
+        String studentAnswer = (request.getAnswer() != null ? request.getAnswer() :
+                                request.getSpokenText() != null ? request.getSpokenText() : "").trim();
+        try {
+            return geminiService.evaluateShortAnswer(
+                    question.getQuestionText(), question.getCorrectAnswer().trim(), studentAnswer, "ar");
+        } catch (Exception e) {
+            log.warn("Gemini evaluation failed, falling back to string matching: {}", e.getMessage());
+            return null;
+        }
+    }
+
+    private boolean evaluateAnswer(Question question, SubmitAnswerRequest request,
+                                    Map<String, Object> aiResult) {
         String correctAnswer = question.getCorrectAnswer().trim();
         String studentAnswer = (request.getAnswer() != null ? request.getAnswer() :
                                request.getSpokenText() != null ? request.getSpokenText() : "").trim();
@@ -365,18 +392,10 @@ public class QuizService {
             return false;
         }
 
-        // SHORT_ANSWER: try Gemini AI evaluation first, fall back to string matching
+        // SHORT_ANSWER: prefer the AI result (computed once in submitAnswer); fall back to string matching
         if (question.getType() == QuestionType.SHORT_ANSWER) {
-            if (geminiService.isAvailable()) {
-                try {
-                    var result = geminiService.evaluateShortAnswer(
-                            question.getQuestionText(), correctAnswer, studentAnswer, "ar");
-                    if (result != null && result.get("isCorrect") instanceof Boolean isCorrectResult) {
-                        return isCorrectResult;
-                    }
-                } catch (Exception e) {
-                    log.warn("Gemini evaluation failed, falling back to string matching: {}", e.getMessage());
-                }
+            if (aiResult != null && aiResult.get("isCorrect") instanceof Boolean isCorrectResult) {
+                return isCorrectResult;
             }
 
             // Fallback: normalize Arabic text and compare
@@ -393,29 +412,29 @@ public class QuizService {
 
     private String normalizeArabic(String text) {
         if (text == null) return "";
+        // BUG-FIX (audit B1, 2026-04-29):
+        // The replacement strings used to be doubly-escaped backslash-u-NNNN
+        // forms, which java.lang.String.replaceAll does NOT interpret as Unicode
+        // escapes — the inserted bytes were 6 ASCII chars, not the Arabic letter.
+        // The fix is to put the actual character directly in the source string.
+        // Cf. PronunciationScoringService.normalizeArabic() which uses the
+        // correct pattern via String.replace(char, char).
         return text
-                .replaceAll("[\\u064B-\\u065F\\u0670]", "") // Remove Arabic diacritics
-                .replaceAll("[\\u0622\\u0623\\u0625]", "\\u0627") // Normalize alef variants to alef
-                .replaceAll("\\u0629", "\\u0647") // Normalize taa marbouta to ha
+                .replaceAll("[\\u064B-\\u065F\\u0670]", "")  // Strip Arabic diacritics
+                .replaceAll("[آأإ]", "ا") // أ/إ/آ → ا
+                .replace('ة', 'ه')                  // ة → ه (use char-replace to avoid regex pitfalls)
                 .replaceAll("\\s+", " ")
                 .trim()
                 .toLowerCase();
     }
 
-    private String generateFeedback(Question question, SubmitAnswerRequest request, boolean isCorrect) {
-        // For SHORT_ANSWER with Gemini available, get AI-generated feedback
-        if (question.getType() == QuestionType.SHORT_ANSWER && geminiService.isAvailable()) {
-            try {
-                String studentAnswer = request.getAnswer() != null ? request.getAnswer() :
-                        request.getSpokenText() != null ? request.getSpokenText() : "";
-                var result = geminiService.evaluateShortAnswer(
-                        question.getQuestionText(), question.getCorrectAnswer(), studentAnswer, "ar");
-                if (result != null && result.get("feedback") != null) {
-                    return (String) result.get("feedback");
-                }
-            } catch (Exception e) {
-                log.warn("Gemini feedback generation failed: {}", e.getMessage());
-            }
+    private String generateFeedback(Question question, SubmitAnswerRequest request, boolean isCorrect,
+                                     Map<String, Object> aiResult) {
+        // SHORT_ANSWER: prefer the feedback from the single AI evaluation
+        // computed in submitAnswer(). Audit fix B2 (2026-04-29).
+        if (question.getType() == QuestionType.SHORT_ANSWER
+                && aiResult != null && aiResult.get("feedback") != null) {
+            return (String) aiResult.get("feedback");
         }
 
         // Fallback static feedback

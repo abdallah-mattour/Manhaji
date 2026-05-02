@@ -87,6 +87,12 @@ MySQL 8 on `localhost:3306`, db `manhaji_db`, user `root`, password `ben@me` (de
 
 If unset, defaults to literal `not-set` and AI endpoints return 500. Pronunciation/tracing UIs still render without them; only the scoring call breaks.
 
+### Required env var for JWT auth
+
+- `MANHAJI_JWT_SECRET` — Base64-encoded ≥256-bit random key used by `JwtService` to sign tokens. Generate with `openssl rand -base64 32`. If unset, `application.yaml` falls back to a hardcoded dev-only Base64 string suitable ONLY for the developer's laptop — it is NOT a production secret.
+
+Audit fix S1/S2 (2026-04-29): the previous `app.jwt.secret` was a plaintext string committed to source, and `JwtService.getSigningKey()` round-tripped it through Base64 encode/decode (a no-op). Both are fixed. Set `MANHAJI_JWT_SECRET` in any non-laptop environment.
+
 ## Architecture notes
 
 ### Backend layering

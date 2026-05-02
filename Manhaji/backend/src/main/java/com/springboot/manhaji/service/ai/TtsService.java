@@ -1,5 +1,6 @@
 package com.springboot.manhaji.service.ai;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springboot.manhaji.config.AiConfigProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ public class TtsService {
 
     private final AiConfigProperties aiConfig;
     private final WebClient.Builder webClientBuilder;
+    private final ObjectMapper objectMapper;  // audit TD3 (2026-04-29)
 
     private static final String TTS_URL = "https://texttospeech.googleapis.com/v1/text:synthesize";
 
@@ -74,8 +76,7 @@ public class TtsService {
     @SuppressWarnings("unchecked")
     private byte[] extractAudio(String json) {
         try {
-            var mapper = new com.fasterxml.jackson.databind.ObjectMapper();
-            Map<String, Object> response = mapper.readValue(json, Map.class);
+            Map<String, Object> response = objectMapper.readValue(json, Map.class);
             String audioContent = (String) response.get("audioContent");
             return Base64.getDecoder().decode(audioContent);
         } catch (Exception e) {

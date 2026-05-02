@@ -1,5 +1,6 @@
 package com.springboot.manhaji.service.ai;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springboot.manhaji.config.AiConfigProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ public class WhisperService {
 
     private final AiConfigProperties aiConfig;
     private final WebClient.Builder webClientBuilder;
+    private final ObjectMapper objectMapper;  // audit TD3 (2026-04-29)
 
     private static final String GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta";
 
@@ -81,8 +83,7 @@ public class WhisperService {
 
     private String extractTextFromGeminiResponse(String json) {
         try {
-            var mapper = new com.fasterxml.jackson.databind.ObjectMapper();
-            var root = mapper.readTree(json);
+            var root = objectMapper.readTree(json);
             return root.path("candidates").path(0)
                     .path("content").path("parts").path(0)
                     .path("text").asText();

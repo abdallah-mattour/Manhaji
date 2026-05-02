@@ -28,7 +28,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
-                        .requestMatchers("/uploads/**").permitAll()
+                        // Audit fix S4 (2026-04-29): /uploads/audio/** holds student voice
+                        // recordings (PII) — must require auth. /uploads/images/** holds
+                        // curriculum images and is safe to serve publicly.
+                        .requestMatchers("/uploads/images/**").permitAll()
+                        .requestMatchers("/uploads/audio/**").authenticated()
                         // Flutter web bundle (teacher/admin portal) — static assets, unauthenticated.
                         // The Flutter app handles its own auth state via JWT in /api/auth/**.
                         .requestMatchers("/", "/index.html", "/favicon.ico").permitAll()

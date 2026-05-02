@@ -89,8 +89,11 @@ public class JwtService {
     }
 
     private SecretKey getSigningKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(
-                java.util.Base64.getEncoder().encodeToString(secretKey.getBytes()));
-        return Keys.hmacShaKeyFor(keyBytes);
+        // Audit fix S2 (2026-04-29): the previous implementation Base64-encoded
+        // the plaintext secret bytes and immediately Base64-decoded them — a
+        // round-trip no-op that yielded the raw UTF-8 bytes of the plaintext.
+        // The signing key must come from a single, well-defined Base64 decode
+        // of a properly-generated random key (see application.yaml note + README).
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
     }
 }

@@ -313,6 +313,63 @@ class QuizServiceTest {
 
             assertThat(response.isCorrect()).isTrue();
         }
+
+        @Test
+        @DisplayName("audit B1 regression: FILL_BLANK with alef-hamza (إجابة) accepts plain alef (اجابة)")
+        void fillBlankNormalizeAlefVariants() {
+            // Before audit fix B1, normalizeArabic used a doubly-escaped backslash-u
+            // form in its replaceAll() second arg, which Java does NOT interpret as a
+            // Unicode escape. Result: "إجابة" stayed as-is and never matched "اجابة".
+            Question fillBlank = new Question();
+            fillBlank.setId(7L);
+            fillBlank.setType(QuestionType.FILL_BLANK);
+            fillBlank.setQuestionText("أكمل: ___ صحيحة");
+            fillBlank.setCorrectAnswer("اجابة"); // canonical: plain alef + ta marbuta
+
+            SubmitAnswerRequest request = new SubmitAnswerRequest();
+            request.setQuestionId(7L);
+            request.setAnswer("إجابة"); // alef-hamza-below + ta marbuta
+
+            when(attemptRepository.findById(10L)).thenReturn(Optional.of(inProgressAttempt));
+            when(questionRepository.findById(7L)).thenReturn(Optional.of(fillBlank));
+            when(responseRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+            SubmitAnswerResponse response = quizService.submitAnswer(10L, request, 1L);
+
+            assertThat(response.isCorrect()).isTrue();
+        }
+
+        @Test
+        @DisplayName("audit B2 regression: SHORT_ANSWER submit calls Gemini.evaluateShortAnswer ONCE")
+        void shortAnswerCallsGeminiOnce() {
+            // Before audit fix B2, evaluateAnswer() and generateFeedback() each
+            // invoked geminiService.evaluateShortAnswer() for the same input —
+            // doubling API cost and latency on every short-answer submission.
+            Question shortAnswer = new Question();
+            shortAnswer.setId(11L);
+            shortAnswer.setType(QuestionType.SHORT_ANSWER);
+            shortAnswer.setQuestionText("ما اسم رسولنا؟");
+            shortAnswer.setCorrectAnswer("محمد");
+
+            SubmitAnswerRequest request = new SubmitAnswerRequest();
+            request.setQuestionId(11L);
+            request.setAnswer("محمد ﷺ");
+
+            when(attemptRepository.findById(10L)).thenReturn(Optional.of(inProgressAttempt));
+            when(questionRepository.findById(11L)).thenReturn(Optional.of(shortAnswer));
+            when(responseRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+            when(geminiService.isAvailable()).thenReturn(true);
+            when(geminiService.evaluateShortAnswer(anyString(), anyString(), anyString(), anyString()))
+                    .thenReturn(Map.of("isCorrect", true, "feedback", "أحسنت! 🌟"));
+
+            SubmitAnswerResponse response = quizService.submitAnswer(10L, request, 1L);
+
+            assertThat(response.isCorrect()).isTrue();
+            assertThat(response.getFeedback()).isEqualTo("أحسنت! 🌟");
+            // The whole point of this regression: exactly ONE Gemini call.
+            verify(geminiService, times(1))
+                    .evaluateShortAnswer(anyString(), anyString(), anyString(), anyString());
+        }
     }
 
     // ==================== completeAttempt Tests ====================

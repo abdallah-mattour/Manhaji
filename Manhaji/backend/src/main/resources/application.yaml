@@ -30,9 +30,14 @@ server:
   port: 8080
 
 # JWT Configuration
+# Audit fix S1 (2026-04-29): the signing secret must NEVER be committed to source.
+# Set MANHAJI_JWT_SECRET in the environment (Base64-encoded ≥256-bit random key).
+# The default value below ONLY works for local dev — it is intentionally unsuitable
+# for any deployment outside the developer's laptop.
+# Generate a production secret with: openssl rand -base64 32
 app:
   jwt:
-    secret: manhaji-secret-key-change-in-production-must-be-at-least-256-bits-long-for-hs256
+    secret: ${MANHAJI_JWT_SECRET:bWFuaGFqaS1kZXYtb25seS1zZWNyZXQtY2hhbmdlLWluLXByb2R1Y3Rpb24tcGxlYXNlLW5vdy0xMjM=}
     access-token-expiration: 86400000    # 24 hours
     refresh-token-expiration: 604800000  # 7 days
 

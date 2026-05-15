@@ -249,6 +249,98 @@ class _ScoreCard extends StatelessWidget {
               ),
             ),
           ],
+          // Feature B (2026-04-29): phoneme-level coaching from Gemini.
+          // Only renders when the backend supplied a non-blank guidance string,
+          // so the legacy zero-AI path stays clean.
+          if (score.guidance != null && score.guidance!.isNotEmpty) ...[
+            const SizedBox(height: 12),
+            _CoachingCard(
+              guidance: score.guidance!,
+              phonemeErrors: score.phonemeErrors,
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _CoachingCard extends StatelessWidget {
+  final String guidance;
+  final List<String> phonemeErrors;
+
+  const _CoachingCard({required this.guidance, required this.phonemeErrors});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: AppTheme.primaryYellow.withValues(alpha: 0.15),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+            color: AppTheme.primaryYellow.withValues(alpha: 0.45), width: 1),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: const [
+              Text('🎯', style: TextStyle(fontSize: 20)),
+              SizedBox(width: 6),
+              Text(
+                'تلميح المعلم',
+                style: TextStyle(
+                  fontFamily: 'Cairo',
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                  color: AppTheme.textGray,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            guidance,
+            textAlign: TextAlign.start,
+            style: const TextStyle(
+              fontFamily: 'Cairo',
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+              color: AppTheme.textDark,
+              height: 1.5,
+            ),
+          ),
+          if (phonemeErrors.isNotEmpty) ...[
+            const SizedBox(height: 10),
+            Wrap(
+              spacing: 6,
+              runSpacing: 6,
+              children: phonemeErrors
+                  .map((p) => Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: AppTheme.primaryRed.withValues(alpha: 0.12),
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                              color: AppTheme.primaryRed
+                                  .withValues(alpha: 0.35)),
+                        ),
+                        child: Text(
+                          p,
+                          style: const TextStyle(
+                            fontFamily: 'Cairo',
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: AppTheme.primaryRed,
+                          ),
+                        ),
+                      ))
+                  .toList(),
+            ),
+          ],
         ],
       ),
     );

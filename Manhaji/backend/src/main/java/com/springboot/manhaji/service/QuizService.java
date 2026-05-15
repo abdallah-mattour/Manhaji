@@ -188,7 +188,13 @@ public class QuizService {
                     .build();
         }
 
-        String transcribed = whisperService.transcribe(audioBytes, lang);
+        // Feature B (2026-04-29): use the structured-JSON transcription path so
+        // we can surface phoneme-level coaching to the child. Falls back gracefully
+        // when Gemini returns plain text — `transcribed` is populated and the
+        // phonemeErrors/guidance fields stay empty.
+        com.springboot.manhaji.service.ai.PhonemeAnalysis analysis =
+                whisperService.transcribeWithPhonemes(audioBytes, expected, lang);
+        String transcribed = analysis.transcribed();
 
         int score = pronunciationScoringService.score(expected, transcribed, lang);
         String rating = pronunciationScoringService.rating(score);
@@ -214,6 +220,8 @@ public class QuizService {
                 .feedback(feedback)
                 .isCorrect(isCorrect)
                 .pointsEarned(pointsEarned)
+                .phonemeErrors(analysis.phonemeErrors())
+                .guidance(analysis.guidance())
                 .build();
     }
 

@@ -738,7 +738,10 @@ class QuizServiceTest {
             when(attemptRepository.findById(70L)).thenReturn(Optional.of(pronAttempt));
             when(questionRepository.findById(78L)).thenReturn(Optional.of(englishQuestion));
             when(whisperService.isAvailable()).thenReturn(true);
-            when(whisperService.transcribe(any(), eq("en"))).thenReturn("apple");
+            // Feature B (2026-04-29): QuizService now calls transcribeWithPhonemes.
+            when(whisperService.transcribeWithPhonemes(any(), eq("apple"), eq("en")))
+                    .thenReturn(new com.springboot.manhaji.service.ai.PhonemeAnalysis(
+                            "apple", java.util.List.of(), null));
             when(pronunciationScoringService.score("apple", "apple", "en")).thenReturn(100);
             when(pronunciationScoringService.rating(100)).thenReturn("ممتاز");
             when(pronunciationScoringService.feedback(100, "apple")).thenReturn("نطق رائع! أحسنت.");
@@ -749,7 +752,37 @@ class QuizServiceTest {
             assertThat(response.getScore()).isEqualTo(100);
             assertThat(response.isCorrect()).isTrue();
             verify(pronunciationScoringService).score("apple", "apple", "en");
-            verify(whisperService).transcribe(any(), eq("en"));
+            verify(whisperService).transcribeWithPhonemes(any(), eq("apple"), eq("en"));
+        }
+
+        @Test
+        @DisplayName("Feature B: phoneme errors + guidance from Gemini flow into the response")
+        void surfacesPhonemeCoaching() {
+            Question arabicQuestion = new Question();
+            arabicQuestion.setId(79L);
+            arabicQuestion.setType(QuestionType.PRONUNCIATION);
+            arabicQuestion.setQuestionText("رمان");
+            arabicQuestion.setCorrectAnswer("رمان");
+            arabicQuestion.setDifficultyLevel(1);
+
+            when(attemptRepository.findById(70L)).thenReturn(Optional.of(pronAttempt));
+            when(questionRepository.findById(79L)).thenReturn(Optional.of(arabicQuestion));
+            when(whisperService.isAvailable()).thenReturn(true);
+            when(whisperService.transcribeWithPhonemes(any(), eq("رمان"), eq("ar")))
+                    .thenReturn(new com.springboot.manhaji.service.ai.PhonemeAnalysis(
+                            "لمان",
+                            java.util.List.of("ر"),
+                            "ركّز على صوت الراء من الحلق"));
+            when(pronunciationScoringService.score("رمان", "لمان", "ar")).thenReturn(45);
+            when(pronunciationScoringService.rating(45)).thenReturn("حاول مرة أخرى");
+            when(pronunciationScoringService.feedback(45, "رمان")).thenReturn("ركز على الحروف.");
+            when(pronunciationScoringService.isCorrect(45)).thenReturn(false);
+
+            var response = quizService.submitPronunciation(70L, 79L, new byte[]{1, 2, 3}, "ar", 1L);
+
+            assertThat(response.getTranscribedText()).isEqualTo("لمان");
+            assertThat(response.getPhonemeErrors()).containsExactly("ر");
+            assertThat(response.getGuidance()).isEqualTo("ركّز على صوت الراء من الحلق");
         }
     }
 }

@@ -3,6 +3,7 @@ package com.springboot.manhaji.entity;
 import com.springboot.manhaji.entity.enums.RiskLevel;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Check;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,8 +11,16 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "progress_reports",
         indexes = {
-                @Index(name = "idx_report_student", columnList = "student_id")
+                @Index(name = "idx_report_student", columnList = "student_id"),
+                // Audit fix (2026-05-15): the parent + teacher dashboards both
+                // use `findByStudentIdOrderByGeneratedAtDesc`. This composite
+                // index makes the ORDER BY index-resolved.
+                @Index(name = "idx_report_student_generated",
+                        columnList = "student_id, generated_at DESC")
         })
+// Audit fix (2026-05-15): reporting periods must be ordered correctly.
+// A swapped pair would render charts inverted or empty.
+@Check(constraints = "period_end >= period_start")
 @Getter
 @Setter
 @NoArgsConstructor

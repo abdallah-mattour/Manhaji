@@ -3,12 +3,26 @@ package com.springboot.manhaji.entity;
 import com.springboot.manhaji.entity.enums.QuestionType;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Check;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "questions")
+@Table(
+        name = "questions",
+        // Audit fix (2026-05-15): `findByLessonIdAndDifficultyLevel` is hit by
+        // the adaptive selector. The single FK index on lesson_id wouldn't
+        // narrow the difficulty filter; the composite index handles both.
+        indexes = {
+                @Index(name = "idx_question_lesson_difficulty",
+                        columnList = "lesson_id, difficulty_level")
+        }
+)
+// Audit fix (2026-05-15): difficulty 0 or 4+ would break the adaptive engine's
+// L1/L2/L3 bucketing. The audit lint (R7) already catches this on the JSON
+// authoring side; this is belt-and-suspenders at the DB level.
+@Check(constraints = "difficulty_level BETWEEN 1 AND 3")
 @Getter
 @Setter
 @NoArgsConstructor

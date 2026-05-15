@@ -19,10 +19,14 @@ public class Student extends User {
     @Column
     private String avatarId;
 
-    @Column(columnDefinition = "INTEGER NOT NULL DEFAULT 0")
+    // Audit fix (2026-05-15): dropped the MySQL-specific `INTEGER NOT NULL DEFAULT 0`
+    // columnDefinition. The Java field initializer already supplies the default
+    // for new entities, and `nullable = false` is portable across MySQL / Postgres /
+    // H2 alike.
+    @Column(nullable = false)
     private Integer currentStreak = 0;
 
-    @Column(columnDefinition = "INTEGER NOT NULL DEFAULT 0")
+    @Column(nullable = false)
     private Integer totalPoints = 0;
 
     @ManyToOne(fetch = FetchType.LAZY)

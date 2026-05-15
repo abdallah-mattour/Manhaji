@@ -3,6 +3,7 @@ package com.springboot.manhaji.entity;
 import com.springboot.manhaji.entity.enums.CompletionStatus;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Check;
 
 import java.time.LocalDateTime;
 
@@ -13,8 +14,16 @@ import java.time.LocalDateTime;
         },
         indexes = {
                 @Index(name = "idx_progress_student", columnList = "student_id"),
-                @Index(name = "idx_progress_lesson", columnList = "lesson_id")
+                @Index(name = "idx_progress_lesson", columnList = "lesson_id"),
+                // Audit fix (2026-05-15): the parent dashboard hits
+                // `findByStudentIdAndCompletionStatus`. This composite index
+                // turns that into an index-only lookup.
+                @Index(name = "idx_progress_student_status",
+                        columnList = "student_id, completion_status")
         })
+// Audit fix (2026-05-15): masteryLevel is a percentage. Out-of-range values
+// would corrupt the home-screen "stars" and the analytics rollups.
+@Check(constraints = "mastery_level BETWEEN 0 AND 100")
 @Getter
 @Setter
 @NoArgsConstructor

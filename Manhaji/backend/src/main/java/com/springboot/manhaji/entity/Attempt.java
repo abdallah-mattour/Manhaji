@@ -3,6 +3,7 @@ package com.springboot.manhaji.entity;
 import com.springboot.manhaji.entity.enums.AttemptStatus;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Check;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,6 +16,10 @@ import java.util.List;
                 @Index(name = "idx_attempt_quiz", columnList = "quiz_id"),
                 @Index(name = "idx_attempt_student_quiz_status", columnList = "student_id, quiz_id, status")
         })
+// Audit fix (2026-05-15): score is a percentage. Anything outside 0..100 is a
+// scoring-engine bug, and silently storing it would corrupt rankings and the
+// MASTERED status threshold. NULL is allowed for IN_PROGRESS attempts.
+@Check(constraints = "score IS NULL OR score BETWEEN 0 AND 100")
 @Getter
 @Setter
 @NoArgsConstructor

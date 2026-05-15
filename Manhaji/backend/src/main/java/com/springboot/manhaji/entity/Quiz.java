@@ -8,7 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "quizzes")
+@Table(name = "quizzes",
+        // Audit fix (2026-05-15): `findByLessonIdAndGamified` is the home-screen
+        // filter (gamified vs practice quizzes). The FK alone covers lesson_id
+        // only; this composite serves both filters together.
+        indexes = {
+                @Index(name = "idx_quiz_lesson_gamified",
+                        columnList = "lesson_id, gamified")
+        })
 @Getter
 @Setter
 @NoArgsConstructor
@@ -35,11 +42,19 @@ public class Quiz {
     @JoinColumn(name = "lesson_id", nullable = false)
     private Lesson lesson;
 
+    // Audit fix (2026-05-15): without the unique constraint on the join
+    // table, the same Question could be linked to the same Quiz multiple
+    // times (e.g. via accidental re-add). The unique constraint makes the
+    // join-table row idempotent and ensures `quiz.questions` is set-like.
     @ManyToMany
     @JoinTable(
             name = "quiz_questions",
             joinColumns = @JoinColumn(name = "quiz_id"),
-            inverseJoinColumns = @JoinColumn(name = "question_id")
+            inverseJoinColumns = @JoinColumn(name = "question_id"),
+            uniqueConstraints = @UniqueConstraint(
+                    name = "uk_quiz_question",
+                    columnNames = {"quiz_id", "question_id"}
+            )
     )
     private List<Question> questions = new ArrayList<>();
 

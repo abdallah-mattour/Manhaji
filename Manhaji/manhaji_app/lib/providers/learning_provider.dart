@@ -112,6 +112,11 @@ class LearningProvider extends ChangeNotifier {
     return null;
   }
 
+  /// Tier A / A1 (2026-05-15): when true, [startLesson] fetches the lesson's
+  /// quiz via the adaptive endpoint (Practice Mode) instead of fixed order.
+  /// Driven by the "Practice" button on the lesson card.
+  bool practiceMode = false;
+
   // Start lesson
   Future<void> startLesson(int lessonId) async {
     _phase = LearningPhase.loading;
@@ -120,7 +125,9 @@ class LearningProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      _currentQuiz = await _quizService.getQuizByLesson(lessonId);
+      _currentQuiz = practiceMode
+          ? await _quizService.getAdaptiveQuizByLesson(lessonId)
+          : await _quizService.getQuizByLesson(lessonId);
       final attempt = await _quizService.startAttempt(_currentQuiz!.id);
       _currentAttemptId = attempt.attemptId;
 

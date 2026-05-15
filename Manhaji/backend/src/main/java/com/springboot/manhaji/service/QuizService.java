@@ -42,6 +42,7 @@ public class QuizService {
     private final GeminiService geminiService;
     private final WhisperService whisperService;
     private final PronunciationScoringService pronunciationScoringService;
+    private final QuizSelectionService quizSelectionService;
     private final Messages messages;
     private final QuizConfigProperties quizConfig;
 
@@ -53,6 +54,42 @@ public class QuizService {
         }
         Quiz quiz = quizzes.get(0); // Get the first quiz for the lesson
         return buildQuizResponse(quiz);
+    }
+
+    /**
+     * Tier A / A1 (2026-05-15): Practice Mode — returns the same lesson's
+     * quiz but with questions reordered/picked by {@link QuizSelectionService}
+     * based on the student's past performance. Closes the FR-6 / UC-3 gap.
+     *
+     * <p>Independent endpoint so the existing fixed-order
+     * {@link #getQuizByLesson} is untouched (and its callers in tests / on
+     * the Flutter standard quiz path keep their current behaviour).
+     */
+    public QuizResponse getAdaptiveQuizByLesson(Long lessonId, Long studentId) {
+        List<Quiz> quizzes = quizRepository.findByLessonId(lessonId);
+        if (quizzes.isEmpty()) {
+            throw new ResourceNotFoundException("Quiz", lessonId);
+        }
+        Quiz quiz = quizzes.get(0);
+
+        List<Question> chosen = quizSelectionService.selectAdaptive(
+                studentId, lessonId, QuizSelectionService.DEFAULT_PRACTICE_SIZE);
+
+        List<QuestionResponse> questionResponses = chosen.stream()
+                .map(this::buildQuestionResponse)
+                .toList();
+        List<String> lessonImageUrls = parseImageUrls(quiz.getLesson().getImageUrls());
+
+        return QuizResponse.builder()
+                .id(quiz.getId())
+                .title(quiz.getTitle() + " — تدريب")
+                .gamified(true) // Practice Mode is always gamified per the proposal's UC-2.
+                .totalQuestions(chosen.size())
+                .questions(questionResponses)
+                .lessonContent(quiz.getLesson().getContent())
+                .lessonObjectives(quiz.getLesson().getObjectives())
+                .lessonImageUrls(lessonImageUrls)
+                .build();
     }
 
     // Start a new attempt

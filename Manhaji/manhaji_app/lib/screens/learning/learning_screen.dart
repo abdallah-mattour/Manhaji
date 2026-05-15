@@ -28,10 +28,17 @@ class LearningScreen extends StatefulWidget {
   final int lessonId;
   final String lessonTitle;
 
+  /// Tier A / A1 (2026-05-15): when true, the screen launches Practice Mode
+  /// — questions are reordered by the backend's adaptive selector based on
+  /// the student's past performance in this lesson. Defaults to false so
+  /// the standard lesson flow is unchanged.
+  final bool practiceMode;
+
   const LearningScreen({
     super.key,
     required this.lessonId,
     required this.lessonTitle,
+    this.practiceMode = false,
   });
 
   @override
@@ -84,6 +91,9 @@ class _LearningScreenState extends State<LearningScreen>
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = context.read<LearningProvider>();
+      // Audit / A1: hand the flag to the provider before kicking off the
+      // lesson so startLesson() picks the adaptive endpoint when appropriate.
+      provider.practiceMode = widget.practiceMode;
       provider.startLesson(widget.lessonId);
       _initTts();
     });

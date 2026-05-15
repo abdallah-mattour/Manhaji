@@ -12,6 +12,15 @@ class QuizApiService {
     return Quiz.fromJson(response['data'] ?? {});
   }
 
+  /// Tier A / A1 (2026-05-15) — Practice Mode. Calls the adaptive endpoint
+  /// which returns questions reordered by the student's past performance:
+  /// weak sub-skills first, then "stretch" difficulty, then novelty.
+  /// Falls back server-side to fixed order on first visit.
+  Future<Quiz> getAdaptiveQuizByLesson(int lessonId) async {
+    final response = await _api.get('${ApiConfig.quizByLesson}/$lessonId/adaptive');
+    return Quiz.fromJson(response['data'] ?? {});
+  }
+
   Future<AttemptResult> startAttempt(int quizId) async {
     final response = await _api.post('${ApiConfig.startAttempt}/$quizId');
     return AttemptResult.fromJson(response['data'] ?? {});

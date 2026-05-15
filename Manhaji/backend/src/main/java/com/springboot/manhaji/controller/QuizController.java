@@ -58,6 +58,24 @@ public class QuizController {
         return ResponseEntity.ok(ApiResponse.success(quiz));
     }
 
+    /**
+     * Tier A / A1 (2026-05-15): Practice Mode — adaptive question selection.
+     * Returns the lesson's quiz but with questions reordered/picked by
+     * {@code QuizSelectionService} based on the student's past performance.
+     * Closes the FR-6 / UC-3 gap from the project proposal.
+     *
+     * <p>Separate endpoint so the existing fixed-order
+     * {@link #getQuizByLesson} is untouched.
+     */
+    @GetMapping("/lesson/{lessonId}/adaptive")
+    public ResponseEntity<ApiResponse<QuizResponse>> getAdaptiveQuiz(
+            @PathVariable Long lessonId,
+            Authentication authentication) {
+        Long studentId = (Long) authentication.getPrincipal();
+        QuizResponse quiz = quizService.getAdaptiveQuizByLesson(lessonId, studentId);
+        return ResponseEntity.ok(ApiResponse.success(quiz));
+    }
+
     // Start a new quiz attempt
     @PostMapping("/attempt/start/{quizId}")
     public ResponseEntity<ApiResponse<AttemptResponse>> startAttempt(

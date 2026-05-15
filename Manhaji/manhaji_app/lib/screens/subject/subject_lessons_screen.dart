@@ -238,6 +238,26 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
                   strokeWidth: 4,
                 ),
               ),
+            // Tier A / A1 (2026-05-15): Practice Mode entry point. Only shown
+            // for lessons the student has already engaged with, since the
+            // adaptive selector needs history to bias against.
+            if (!isLocked && (lesson.isCompleted || lesson.isInProgress))
+              IconButton(
+                icon: const Text('🎯', style: TextStyle(fontSize: 22)),
+                tooltip: 'تدريب',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => LearningScreen(
+                        lessonId: lesson.id,
+                        lessonTitle: lesson.title,
+                        practiceMode: true,
+                      ),
+                    ),
+                  );
+                },
+              ),
             if (!isLocked && !lesson.isCompleted && !lesson.isInProgress)
               Icon(Icons.arrow_back_ios,
                   size: 18, color: widget.subjectColor),

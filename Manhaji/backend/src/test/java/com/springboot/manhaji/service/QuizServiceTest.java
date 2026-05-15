@@ -49,6 +49,7 @@ class QuizServiceTest {
     @Mock private GeminiService geminiService;
     @Mock private WhisperService whisperService;
     @Mock private PronunciationScoringService pronunciationScoringService;
+    @Mock private com.springboot.manhaji.service.QuizSelectionService quizSelectionService;
     @Spy  private ObjectMapper objectMapper = new ObjectMapper();
 
     private QuizService quizService;
@@ -63,7 +64,7 @@ class QuizServiceTest {
         quizService = new QuizService(
                 quizRepository, questionRepository, attemptRepository, responseRepository,
                 studentRepository, progressRepository, objectMapper, geminiService,
-                whisperService, pronunciationScoringService,
+                whisperService, pronunciationScoringService, quizSelectionService,
                 TestMessages.create(), new QuizConfigProperties());
 
         // Audit-4 fix C2 (2026-05-15): every submit-* path now verifies that

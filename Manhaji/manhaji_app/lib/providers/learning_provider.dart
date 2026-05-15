@@ -206,6 +206,18 @@ class LearningProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Revert to the active step (e.g. after a network failure during
+  /// pronunciation upload). The student can then re-record without having
+  /// to back out of the lesson.
+  ///
+  /// Audit-3 fix (2026-05-15): previously the screen showed a SnackBar but
+  /// the phase stayed in {@code stepFeedback}, leaving the spinner spinning
+  /// indefinitely.
+  void markPhaseActive() {
+    _phase = LearningPhase.stepActive;
+    notifyListeners();
+  }
+
   // Apply pronunciation scoring result from backend.
   // Treats score >= 60 as correct; uses PronunciationScoringService's star logic.
   void applyPronunciationResult(PronunciationScore score) {

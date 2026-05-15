@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import '../app/theme.dart';
@@ -33,11 +35,29 @@ class QuestionMediaHeader extends StatefulWidget {
 
 class _QuestionMediaHeaderState extends State<QuestionMediaHeader> {
   AudioPlayer? _player;
+  // Audit-3 fix (2026-05-15): the playerStateStream subscription was
+  // (a) re-attached on every _toggleAudio play, and (b) never cancelled
+  // on dispose. After a child taps "استمع" N times, N listeners accumulate
+  // and keep firing setState even after navigation. Track the subscription
+  // so we can replace it cleanly and cancel on dispose.
+  StreamSubscription<PlayerState>? _stateSub;
   bool _playing = false;
 
   @override
   void dispose() {
-    _player?.dispose();
+    // Audit-3 fix (2026-05-15): cancel the listener and stop playback BEFORE
+    // disposing the player. Without the stop(), zombie audio can keep playing
+    // for a moment after the widget is gone.
+    _stateSub?.cancel();
+    _stateSub = null;
+    final p = _player;
+    _player = null;
+    () async {
+      try {
+        await p?.stop();
+      } catch (_) {/* ignore */}
+      await p?.dispose();
+    }();
     super.dispose();
   }
 
@@ -53,8 +73,10 @@ class _QuestionMediaHeaderState extends State<QuestionMediaHeader> {
         return;
       }
       await _player!.setUrl(resolved);
-      // Listen-once for natural completion so the icon flips back.
-      _player!.playerStateStream.listen((s) {
+      // Audit-3 fix: cancel any prior listener BEFORE attaching a new one,
+      // so repeated taps don't leak listeners.
+      await _stateSub?.cancel();
+      _stateSub = _player!.playerStateStream.listen((s) {
         if (s.processingState == ProcessingState.completed && mounted) {
           setState(() => _playing = false);
         }

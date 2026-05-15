@@ -539,9 +539,19 @@ class _LearningScreenState extends State<LearningScreen>
       _onAnswerSubmitted(provider);
     } catch (e) {
       debugPrint('[pronunciation] error: $e');
+      // Audit-3 fix (2026-05-15): a network blip during the pronunciation
+      // upload would leave the screen stuck in stepFeedback (spinner)
+      // forever. Revert to active so the child can re-record.
       if (mounted) {
+        provider.markPhaseActive();
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('حدث خطأ في تقييم النطق')),
+          const SnackBar(
+            content: Text(
+              'تعذر تقييم النطق. حاول مرة أخرى.',
+              style: TextStyle(fontFamily: 'Cairo'),
+            ),
+            duration: Duration(seconds: 3),
+          ),
         );
       }
     }

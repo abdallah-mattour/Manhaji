@@ -28,6 +28,28 @@ public class QuizController {
     private final QuizService quizService;
     private final WhisperService whisperService;
 
+    /**
+     * Audit-3 fix (2026-05-15): Spring's global multipart cap is 50 MB to
+     * accommodate eventual lesson image uploads, but a single pronunciation
+     * recording from a Grade 1 student should be well under 10 seconds at
+     * ~64 kbps webm/m4a ≈ 80 KB. Capping at 10 MB protects the Gemini
+     * transcription path (which has its own undocumented size limit and
+     * will silently time out on big payloads) and shields the demo from a
+     * curious child who taps record and walks away for 10 minutes.
+     */
+    private static final long MAX_AUDIO_BYTES = 10L * 1024 * 1024;
+
+    private static void requireAudioWithinLimit(MultipartFile audioFile) {
+        if (audioFile == null || audioFile.isEmpty()) {
+            throw new com.springboot.manhaji.exception.BadRequestException(
+                    "ملف الصوت فارغ");
+        }
+        if (audioFile.getSize() > MAX_AUDIO_BYTES) {
+            throw new com.springboot.manhaji.exception.BadRequestException(
+                    "حجم التسجيل كبير جداً. التسجيل يجب أن يكون أقل من 10 ميغابايت.");
+        }
+    }
+
     // Get quiz for a lesson (with questions, no correct answers)
     @GetMapping("/lesson/{lessonId}")
     public ResponseEntity<ApiResponse<QuizResponse>> getQuizByLesson(
@@ -67,6 +89,7 @@ public class QuizController {
             Authentication authentication) {
 
         Long studentId = (Long) authentication.getPrincipal();
+        requireAudioWithinLimit(audioFile);
 
         try {
             // Transcribe audio via Whisper
@@ -99,6 +122,7 @@ public class QuizController {
             Authentication authentication) {
 
         Long studentId = (Long) authentication.getPrincipal();
+        requireAudioWithinLimit(audioFile);
 
         try {
             PronunciationScoreResponse response = quizService.submitPronunciation(

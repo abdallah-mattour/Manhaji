@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../app/theme.dart';
 import '../../models/pronunciation_score.dart';
 import '../../models/quiz.dart';
+import '../../utils/arabic_numerals.dart';
 import '../voice_recorder_widget.dart';
 
 class PronunciationWidget extends StatelessWidget {
@@ -171,11 +172,14 @@ class _ScoreCard extends StatelessWidget {
       ),
       child: Column(
         children: [
+          // Audit-3 fix (2026-05-15): display in Arabic-Indic digits to
+          // match the rest of the (Arabic-first) UI. Was previously
+          // "89 / 100" which mixed scripts inside an Arabic context.
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '${score.score}',
+                arabicInt(score.score),
                 style: TextStyle(
                   fontFamily: 'Cairo',
                   fontSize: 42,
@@ -184,7 +188,7 @@ class _ScoreCard extends StatelessWidget {
                 ),
               ),
               Text(
-                ' / 100',
+                ' / ١٠٠',
                 style: TextStyle(
                   fontFamily: 'Cairo',
                   fontSize: 18,

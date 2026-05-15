@@ -3,10 +3,14 @@ spring:
     name: Manhaji
 
   # MySQL Database
+  # Audit-3 fix (2026-05-15): DB password used to be committed plaintext.
+  # Set MANHAJI_DB_PASSWORD in the environment. The default below ONLY
+  # works for the developer's laptop (matches local MySQL setup) and is
+  # intentionally unsuitable for any deployed environment.
   datasource:
-    url: jdbc:mysql://localhost:3306/manhaji_db?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&useUnicode=true
-    username: root
-    password: ben@me
+    url: ${MANHAJI_DB_URL:jdbc:mysql://localhost:3306/manhaji_db?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&useUnicode=true}
+    username: ${MANHAJI_DB_USERNAME:root}
+    password: ${MANHAJI_DB_PASSWORD:ben@me}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   # JPA / Hibernate
@@ -64,12 +68,18 @@ app:
     completion-threshold: 50.0
     max-hint-level: 3
 
-# Curriculum re-seeding — set to true ONCE, boot, then flip back to false.
-# Wipes subjects/lessons/questions/quizzes/attempts/responses and re-imports
-# from /resources/curriculum/*.json. Never enable in production.
+# Curriculum re-seeding — set MANHAJI_CURRICULUM_RESEED=true in the
+# environment ONCE, boot, then unset (or set false). Wipes
+# subjects/lessons/questions/quizzes/attempts/responses and re-imports
+# from /resources/curriculum/*.json.
+#
+# Audit-3 fix (2026-05-15): the flag used to default to true via yaml-only
+# config and could be accidentally committed in the wrong state — a footgun
+# that wipes all dev data on next boot. Now it MUST be set via env var,
+# and the default is always false.
 manhaji:
   curriculum:
-    reseed: false
+    reseed: ${MANHAJI_CURRICULUM_RESEED:false}
 
 # Logging
 logging:

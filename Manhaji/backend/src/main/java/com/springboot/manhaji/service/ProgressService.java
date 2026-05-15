@@ -22,6 +22,39 @@ public class ProgressService {
     private final SubjectRepository subjectRepository;
     private final LessonRepository lessonRepository;
 
+    /**
+     * Tier B / B4 (2026-05-15): persist the student's current segment index
+     * for a lesson so they can resume mid-lesson. Creates a Progress row if
+     * none exists. Closes SR-10 / UC-1 alt flow A1.
+     *
+     * <p>Bounded between 0 and 999 to prevent a buggy client from writing
+     * something like Integer.MAX_VALUE. The UI is expected to clamp to the
+     * actual segment count before calling this endpoint.
+     */
+    @org.springframework.transaction.annotation.Transactional
+    public void updateLastSegmentIndex(Long studentId, Long lessonId, Integer segmentIndex) {
+        if (segmentIndex == null || segmentIndex < 0) segmentIndex = 0;
+        if (segmentIndex > 999) segmentIndex = 999;
+
+        Progress progress = progressRepository
+                .findByStudentIdAndLessonId(studentId, lessonId)
+                .orElseGet(() -> {
+                    Progress p = new Progress();
+                    Student s = studentRepository.findById(studentId)
+                            .orElseThrow(() -> new ResourceNotFoundException("Student", studentId));
+                    Lesson l = lessonRepository.findById(lessonId)
+                            .orElseThrow(() -> new ResourceNotFoundException("Lesson", lessonId));
+                    p.setStudent(s);
+                    p.setLesson(l);
+                    p.setCompletionStatus(CompletionStatus.IN_PROGRESS);
+                    p.setMasteryLevel(0.0);
+                    return p;
+                });
+        progress.setLastSegmentIndex(segmentIndex);
+        progress.setLastAccessedAt(java.time.LocalDateTime.now());
+        progressRepository.save(progress);
+    }
+
     public ProgressSummaryResponse getProgressSummary(Long studentId) {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Student", studentId));

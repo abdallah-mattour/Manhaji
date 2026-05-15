@@ -34,4 +34,22 @@ public class ProgressController {
         List<LeaderboardEntryResponse> leaderboard = progressService.getLeaderboard(studentId, gradeLevel);
         return ResponseEntity.ok(ApiResponse.success(leaderboard));
     }
+
+    /**
+     * Tier B / B4 (2026-05-15): track which lesson segment the student is
+     * viewing so they can resume after navigating away. Closes SR-10
+     * ("pick up right where they last left off") and UC-1 alt flow A1.
+     *
+     * <p>Idempotent: callable on every segment advance (next/prev tap) or
+     * just once on dispose. Creates the Progress row if none exists.
+     */
+    @org.springframework.web.bind.annotation.PatchMapping("/lesson/{lessonId}/segment/{segmentIndex}")
+    public ResponseEntity<ApiResponse<Void>> setLastSegment(
+            @org.springframework.web.bind.annotation.PathVariable Long lessonId,
+            @org.springframework.web.bind.annotation.PathVariable Integer segmentIndex,
+            Authentication authentication) {
+        Long studentId = (Long) authentication.getPrincipal();
+        progressService.updateLastSegmentIndex(studentId, lessonId, segmentIndex);
+        return ResponseEntity.ok(ApiResponse.success(null));
+    }
 }

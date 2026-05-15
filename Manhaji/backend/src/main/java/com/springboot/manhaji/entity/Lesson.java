@@ -49,6 +49,18 @@ public class Lesson {
     @Column(columnDefinition = "TEXT")
     private String content;
 
+    /**
+     * Tier B / B4 (2026-05-15): optional JSON array of segment strings.
+     * When non-null, the lesson UI renders {@code segmentsJson[lastSegmentIndex..]}
+     * with prev/next controls so students can resume mid-lesson per UC-1 alt
+     * flow A1. When null, the UI falls back to rendering the single-block
+     * {@code content} field unchanged (existing behaviour preserved).
+     *
+     * <p>Schema example: {@code ["مرحبا بحرف الراء", "كلمات تبدأ بحرف الراء: رمان، ريشة", "لنتدرب على نطق ر"]}
+     */
+    @Column(columnDefinition = "TEXT")
+    private String segmentsJson;
+
     @Column
     private String audioUrl;
 

@@ -47,6 +47,18 @@ public class Progress {
     @Column
     private LocalDateTime completedAt;
 
+    /**
+     * Tier B / B4 (2026-05-15): index of the last lesson segment the student
+     * was viewing when they navigated away. When they re-open the lesson, the
+     * UI can jump to this segment instead of starting from segment 0. Closes
+     * SR-10 ("pick up right where they last left off") and UC-1 alt flow A1.
+     *
+     * <p>Null on legacy rows / lessons without segments; the UI treats null
+     * as "start from segment 0".
+     */
+    @Column
+    private Integer lastSegmentIndex;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
     private Student student;

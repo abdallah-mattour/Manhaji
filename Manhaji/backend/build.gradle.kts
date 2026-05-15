@@ -46,6 +46,14 @@ dependencies {
     // WebFlux (for external AI API calls)
     implementation("org.springframework.boot:spring-boot-starter-webflux")
 
+    // AOP — Tier B / B3 (2026-05-15): @Aspect support for admin audit logs
+    // (closes FR-11.2: "audit logs for all administrative actions").
+    // Direct aspectjweaver dep — Spring Boot 4 BOM doesn't ship the
+    // spring-boot-starter-aop convenience here for whatever reason.
+    // spring-aop is already on the classpath transitively via security/web,
+    // so we only need the AspectJ weaver itself.
+    implementation("org.aspectj:aspectjweaver:1.9.22")
+
     // OpenAPI / Swagger
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.6")
 

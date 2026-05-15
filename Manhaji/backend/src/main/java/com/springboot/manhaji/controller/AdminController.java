@@ -5,9 +5,13 @@ import com.springboot.manhaji.dto.response.ApiResponse;
 import com.springboot.manhaji.dto.response.QuestionBankResponse;
 import com.springboot.manhaji.dto.response.SubjectSummary;
 import com.springboot.manhaji.dto.response.UserSummaryResponse;
+import com.springboot.manhaji.entity.AuditLog;
 import com.springboot.manhaji.entity.enums.Role;
+import com.springboot.manhaji.repository.AuditLogRepository;
 import com.springboot.manhaji.service.AdminService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +27,7 @@ import java.util.List;
 public class AdminController {
 
     private final AdminService adminService;
+    private final AuditLogRepository auditLogRepository;
 
     @GetMapping("/stats")
     public ResponseEntity<ApiResponse<AdminStatsResponse>> getStats() {
@@ -50,5 +55,23 @@ public class AdminController {
             @RequestParam(required = false) Long lessonId) {
         return ResponseEntity.ok(ApiResponse.success(
                 adminService.getQuestionsForSubject(subjectId, difficulty, lessonId)));
+    }
+
+    /**
+     * Tier B / B3 (2026-05-15): paginated audit-log viewer. Closes FR-11.2.
+     * Default page size capped at 50 so a careless ?size=10000 can't pin the
+     * server. Most-recent-first ordering.
+     */
+    @GetMapping("/audit-logs")
+    public ResponseEntity<ApiResponse<Page<AuditLog>>> getAuditLogs(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "50") int size,
+            @RequestParam(required = false) Long actorUserId) {
+        int safeSize = Math.max(1, Math.min(size, 200));
+        PageRequest pageable = PageRequest.of(Math.max(0, page), safeSize);
+        Page<AuditLog> result = actorUserId == null
+                ? auditLogRepository.findAllByOrderByCreatedAtDesc(pageable)
+                : auditLogRepository.findByActorUserIdOrderByCreatedAtDesc(actorUserId, pageable);
+        return ResponseEntity.ok(ApiResponse.success(result));
     }
 }

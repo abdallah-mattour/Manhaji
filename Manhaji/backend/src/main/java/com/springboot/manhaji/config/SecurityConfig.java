@@ -41,6 +41,19 @@ public class SecurityConfig {
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/teacher/**").hasAnyRole("TEACHER", "ADMIN")
                         .requestMatchers("/api/parent/**").hasAnyRole("PARENT", "ADMIN")
+                        // Audit-4 fix H3 (2026-05-15): previously the rule below
+                        // (anyRequest().authenticated()) was the ONLY gate on
+                        // /api/student, /api/lessons, /api/quiz, /api/progress,
+                        // /api/audio and /api/reports — meaning a teacher token
+                        // could hit student-only flows. ADMIN keeps access to
+                        // everything for impersonation/inspection in dashboards.
+                        .requestMatchers("/api/student/**").hasAnyRole("STUDENT", "ADMIN")
+                        .requestMatchers("/api/lessons/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
+                        .requestMatchers("/api/quiz/**").hasAnyRole("STUDENT", "ADMIN")
+                        .requestMatchers("/api/progress/**").hasAnyRole("STUDENT", "PARENT", "TEACHER", "ADMIN")
+                        .requestMatchers("/api/audio/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
+                        .requestMatchers("/api/reports/**").hasAnyRole("STUDENT", "PARENT", "TEACHER", "ADMIN")
+                        .requestMatchers("/api/learning-path/**").hasAnyRole("STUDENT", "PARENT", "TEACHER", "ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

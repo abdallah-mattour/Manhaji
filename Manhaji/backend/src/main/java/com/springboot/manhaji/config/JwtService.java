@@ -17,6 +17,18 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
+    /**
+     * Token-type discriminator. Audit-4 fix C5 (2026-05-15): without a
+     * tokenType claim, refresh tokens were silently accepted by the bearer
+     * filter and could be used as access tokens (defeats refresh rotation,
+     * confuses the trust boundary). Now {@link #isAccessToken} and
+     * {@link #isRefreshToken} let the filter and refresh endpoint reject
+     * mis-typed tokens.
+     */
+    public static final String TOKEN_TYPE_ACCESS = "ACCESS";
+    public static final String TOKEN_TYPE_REFRESH = "REFRESH";
+    private static final String CLAIM_TOKEN_TYPE = "tokenType";
+
     @Value("${app.jwt.secret}")
     private String secretKey;
 
@@ -30,11 +42,14 @@ public class JwtService {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", user.getRole().name());
         claims.put("userId", user.getId());
+        claims.put(CLAIM_TOKEN_TYPE, TOKEN_TYPE_ACCESS);
         return buildToken(claims, user.getEmail() != null ? user.getEmail() : user.getPhone(), accessTokenExpiration);
     }
 
     public String generateRefreshToken(User user) {
-        return buildToken(new HashMap<>(), user.getEmail() != null ? user.getEmail() : user.getPhone(), refreshTokenExpiration);
+        Map<String, Object> claims = new HashMap<>();
+        claims.put(CLAIM_TOKEN_TYPE, TOKEN_TYPE_REFRESH);
+        return buildToken(claims, user.getEmail() != null ? user.getEmail() : user.getPhone(), refreshTokenExpiration);
     }
 
     private String buildToken(Map<String, Object> extraClaims, String subject, long expiration) {
@@ -62,6 +77,26 @@ public class JwtService {
     public boolean isTokenValid(String token) {
         try {
             return !isTokenExpired(token);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /** Audit-4 fix C5: only ACCESS tokens may pass the bearer auth filter. */
+    public boolean isAccessToken(String token) {
+        try {
+            String type = extractClaim(token, c -> c.get(CLAIM_TOKEN_TYPE, String.class));
+            return TOKEN_TYPE_ACCESS.equals(type) && !isTokenExpired(token);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /** Audit-4 fix C5: only REFRESH tokens may be used at the refresh endpoint. */
+    public boolean isRefreshToken(String token) {
+        try {
+            String type = extractClaim(token, c -> c.get(CLAIM_TOKEN_TYPE, String.class));
+            return TOKEN_TYPE_REFRESH.equals(type) && !isTokenExpired(token);
         } catch (Exception e) {
             return false;
         }

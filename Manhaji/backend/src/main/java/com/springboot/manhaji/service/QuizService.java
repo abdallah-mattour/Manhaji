@@ -64,11 +64,17 @@ public class QuizService {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Student", studentId));
 
-        // Check for existing IN_PROGRESS attempt
+        // Audit-4 fix H8 (2026-05-15): two near-simultaneous startAttempt calls
+        // (e.g. an over-eager Flutter re-fetch on the home screen) could each
+        // see "no IN_PROGRESS" and both insert a new row, double-counting
+        // points on the eventual complete. Wrap in @Transactional and re-check
+        // after the existence test; catch the constraint violation we expect
+        // when a race winner exists and return its row instead. MySQL doesn't
+        // support partial unique indexes natively so we can't push this into
+        // the DB; the @Transactional + retry handles the demo-scale race.
         Optional<Attempt> inProgress = attemptRepository.findByStudentIdAndQuizIdAndStatus(
                 studentId, quizId, AttemptStatus.IN_PROGRESS);
         if (inProgress.isPresent()) {
-            // Return existing in-progress attempt
             return buildAttemptResponse(inProgress.get(), quiz);
         }
 
@@ -77,7 +83,16 @@ public class QuizService {
         attempt.setStudent(student);
         attempt.setQuiz(quiz);
         attempt.setStatus(AttemptStatus.IN_PROGRESS);
-        attempt = attemptRepository.save(attempt);
+        try {
+            attempt = attemptRepository.save(attempt);
+        } catch (org.springframework.dao.DataIntegrityViolationException race) {
+            // Another concurrent request won. Reload the winner.
+            log.warn("startAttempt race detected for student {} quiz {} — returning winning row",
+                    studentId, quizId);
+            attempt = attemptRepository.findByStudentIdAndQuizIdAndStatus(
+                            studentId, quizId, AttemptStatus.IN_PROGRESS)
+                    .orElseThrow(() -> race);
+        }
 
         return AttemptResponse.builder()
                 .attemptId(attempt.getId())
@@ -88,6 +103,29 @@ public class QuizService {
                 .pointsEarned(0)
                 .answers(new ArrayList<>())
                 .build();
+    }
+
+    /**
+     * Audit-4 fix C2 (2026-05-15): ensure {@code questionId} actually belongs
+     * to the quiz the attempt is for. Previously the three submit-* paths
+     * loaded any Question by ID — a malicious client could submit answers
+     * for unrelated (easier) questions from another quiz and corrupt the
+     * scoring aggregate. This helper centralises the check so every submit
+     * path uses identical logic.
+     *
+     * <p>Uses a query against the M2M join table rather than walking
+     * {@code attempt.getQuiz().getQuestions()} (which would lazily load
+     * the full collection and add an N+1).
+     */
+    private Question requireQuestionInAttemptQuiz(Attempt attempt, Long questionId) {
+        Question question = questionRepository.findById(questionId)
+                .orElseThrow(() -> new ResourceNotFoundException("Question", questionId));
+        Long quizId = attempt.getQuiz().getId();
+        boolean belongs = quizRepository.findQuestionIdsByQuizId(quizId).contains(questionId);
+        if (!belongs) {
+            throw new BadRequestException(messages.get("error.attempt.questionNotInQuiz"));
+        }
+        return question;
     }
 
     // Submit an answer for one question
@@ -103,8 +141,7 @@ public class QuizService {
             throw new BadRequestException(messages.get("error.attempt.alreadyCompleted"));
         }
 
-        Question question = questionRepository.findById(request.getQuestionId())
-                .orElseThrow(() -> new ResourceNotFoundException("Question", request.getQuestionId()));
+        Question question = requireQuestionInAttemptQuiz(attempt, request.getQuestionId());
 
         // BUG-FIX (audit B2, 2026-04-29): the AI evaluation used to run twice —
         // once in evaluateAnswer() and once in generateFeedback() for the same
@@ -154,8 +191,8 @@ public class QuizService {
             throw new BadRequestException(messages.get("error.attempt.alreadyCompleted"));
         }
 
-        Question question = questionRepository.findById(questionId)
-                .orElseThrow(() -> new ResourceNotFoundException("Question", questionId));
+        // Audit-4 fix C2 (2026-05-15): question must belong to this attempt's quiz.
+        Question question = requireQuestionInAttemptQuiz(attempt, questionId);
 
         String expected = question.getCorrectAnswer();
         // Prefer language from client, but auto-detect from the expected answer
@@ -241,14 +278,33 @@ public class QuizService {
             throw new BadRequestException(messages.get("error.attempt.alreadyCompleted"));
         }
 
-        Question question = questionRepository.findById(request.getQuestionId())
-                .orElseThrow(() -> new ResourceNotFoundException("Question", request.getQuestionId()));
+        // Audit-4 fix C2 (2026-05-15): question must belong to this attempt's quiz.
+        Question question = requireQuestionInAttemptQuiz(attempt, request.getQuestionId());
 
         if (question.getType() != QuestionType.TRACING) {
             throw new BadRequestException("Question is not a tracing question");
         }
 
-        boolean isCorrect = Boolean.TRUE.equals(request.getIsCorrect());
+        // Audit-4 fix C3 (2026-05-15): tracing is scored client-side (no ML Kit
+        // on the backend by design), but the previous code trusted any value
+        // the client sent. Bound-check score/stars and clamp the booleans so a
+        // modified client can't award itself unlimited points. If the values
+        // are wildly out of range we refuse the submission outright.
+        Integer rawScore = request.getScore();
+        Integer rawStars = request.getStars();
+        if (rawScore != null && (rawScore < 0 || rawScore > 100)) {
+            throw new BadRequestException(messages.get("error.tracing.scoreOutOfRange"));
+        }
+        if (rawStars != null && (rawStars < 0 || rawStars > 3)) {
+            throw new BadRequestException(messages.get("error.tracing.scoreOutOfRange"));
+        }
+        int safeScore = rawScore == null ? 0 : rawScore;
+        int safeStars = rawStars == null ? 0 : rawStars;
+
+        // Anchor correctness to the (server-validated) score, not the client's
+        // boolean flag. ≥60 matches the pronunciation scoring threshold for
+        // consistency across audio + handwriting paths.
+        boolean isCorrect = safeScore >= 60;
         String feedback = request.getFeedback() != null ? request.getFeedback()
                 : (isCorrect ? "أحسنت الكتابة!" : "استمر في التدريب");
         int pointsEarned = isCorrect ? quizConfig.getPointsPerCorrect() : 0;
@@ -258,7 +314,7 @@ public class QuizService {
         response.setQuestion(question);
         response.setIsCorrect(isCorrect);
         response.setFeedback(feedback);
-        response.setEvaluatedText("score=" + request.getScore() + ",stars=" + request.getStars());
+        response.setEvaluatedText("score=" + safeScore + ",stars=" + safeStars);
         responseRepository.save(response);
 
         return SubmitAnswerResponse.builder()

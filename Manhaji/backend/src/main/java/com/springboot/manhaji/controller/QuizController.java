@@ -94,7 +94,11 @@ public class QuizController {
         try {
             // Transcribe audio via Whisper
             String transcription = whisperService.transcribe(audioFile.getBytes(), language);
-            log.info("Voice transcription for question {}: {}", questionId, transcription);
+            // Audit-4 fix H4 (2026-05-15): do NOT log the transcription content.
+            // Student utterances are PII; in a school deployment this could leak
+            // child voice content into log aggregators. Just log a length proxy.
+            log.info("Voice transcription complete for question {} ({} chars)", questionId,
+                    transcription == null ? 0 : transcription.length());
 
             // Build answer request with transcribed text
             SubmitAnswerRequest request = new SubmitAnswerRequest();

@@ -66,6 +66,16 @@ class QuizServiceTest {
                 whisperService, pronunciationScoringService,
                 TestMessages.create(), new QuizConfigProperties());
 
+        // Audit-4 fix C2 (2026-05-15): every submit-* path now verifies that
+        // the question belongs to the attempt's quiz. Default the mock to
+        // return all question IDs used in this test class so existing tests
+        // don't have to be touched individually. The dedicated C2 regression
+        // test overrides this mock with a narrower list to assert rejection.
+        org.mockito.Mockito.lenient()
+                .when(quizRepository.findQuestionIdsByQuizId(any()))
+                .thenReturn(List.of(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L, 13L, 14L, 15L,
+                        77L, 78L, 79L, 99L));
+
         testSubject = new Subject();
         testSubject.setId(1L);
         testSubject.setName("اللغة العربية");
@@ -678,6 +688,88 @@ class QuizServiceTest {
 
             assertThatThrownBy(() -> quizService.submitTracingResult(50L, req, 1L))
                     .isInstanceOf(BadRequestException.class);
+            verify(responseRepository, never()).save(any());
+        }
+
+        @Test
+        @DisplayName("audit C3 regression: tracing score outside 0..100 is rejected")
+        void rejectsTracingScoreOutOfRange() {
+            // Audit-4 fix C3: previously the client could send score=99999
+            // and the backend would store it unmodified, breaking analytics.
+            TracingSubmitRequest req = new TracingSubmitRequest();
+            req.setQuestionId(99L);
+            req.setScore(150);    // out of range
+            req.setStars(2);
+            req.setIsCorrect(true);
+
+            when(attemptRepository.findById(50L)).thenReturn(Optional.of(tracingAttempt));
+            when(questionRepository.findById(99L)).thenReturn(Optional.of(tracingQuestion));
+
+            assertThatThrownBy(() -> quizService.submitTracingResult(50L, req, 1L))
+                    .isInstanceOf(BadRequestException.class)
+                    .hasMessageContaining("Tracing score");
+            verify(responseRepository, never()).save(any());
+        }
+
+        @Test
+        @DisplayName("audit C3 regression: tracing stars outside 0..3 is rejected")
+        void rejectsTracingStarsOutOfRange() {
+            TracingSubmitRequest req = new TracingSubmitRequest();
+            req.setQuestionId(99L);
+            req.setScore(80);
+            req.setStars(99);     // out of range
+            req.setIsCorrect(true);
+
+            when(attemptRepository.findById(50L)).thenReturn(Optional.of(tracingAttempt));
+            when(questionRepository.findById(99L)).thenReturn(Optional.of(tracingQuestion));
+
+            assertThatThrownBy(() -> quizService.submitTracingResult(50L, req, 1L))
+                    .isInstanceOf(BadRequestException.class);
+            verify(responseRepository, never()).save(any());
+        }
+
+        @Test
+        @DisplayName("audit C3 regression: client isCorrect=true with low score is overridden to false")
+        void clientIsCorrectIgnoredWhenScoreLow() {
+            // Audit-4 fix C3: anchor correctness to the server-validated score
+            // rather than trusting the client's boolean. A modified client
+            // sending score=30 + isCorrect=true used to receive points.
+            TracingSubmitRequest req = new TracingSubmitRequest();
+            req.setQuestionId(99L);
+            req.setScore(30);     // below the ≥60 threshold
+            req.setStars(0);
+            req.setIsCorrect(true); // client lies
+
+            when(attemptRepository.findById(50L)).thenReturn(Optional.of(tracingAttempt));
+            when(questionRepository.findById(99L)).thenReturn(Optional.of(tracingQuestion));
+            when(responseRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+            SubmitAnswerResponse response = quizService.submitTracingResult(50L, req, 1L);
+
+            assertThat(response.isCorrect()).isFalse();
+            assertThat(response.getPointsEarned()).isZero();
+        }
+
+        @Test
+        @DisplayName("audit C2 regression: tracing submission with question outside attempt's quiz is rejected")
+        void rejectsQuestionNotInQuiz() {
+            // Audit-4 fix C2: override the default permissive mock so the
+            // question (99L) is NOT in the quiz's question list.
+            org.mockito.Mockito.when(quizRepository.findQuestionIdsByQuizId(any()))
+                    .thenReturn(List.of(1L, 2L, 3L)); // 99L deliberately excluded
+
+            TracingSubmitRequest req = new TracingSubmitRequest();
+            req.setQuestionId(99L);
+            req.setScore(80);
+            req.setStars(2);
+            req.setIsCorrect(true);
+
+            when(attemptRepository.findById(50L)).thenReturn(Optional.of(tracingAttempt));
+            when(questionRepository.findById(99L)).thenReturn(Optional.of(tracingQuestion));
+
+            assertThatThrownBy(() -> quizService.submitTracingResult(50L, req, 1L))
+                    .isInstanceOf(BadRequestException.class)
+                    .hasMessageContaining("does not belong");
             verify(responseRepository, never()).save(any());
         }
     }

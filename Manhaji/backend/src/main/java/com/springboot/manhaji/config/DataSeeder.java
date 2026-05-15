@@ -110,19 +110,37 @@ public class DataSeeder implements CommandLineRunner {
         log.warn("Curriculum data wiped. Will re-import from /resources/curriculum/*.json on this boot.");
     }
 
+    /**
+     * Audit-4 fix C4 + H4 (2026-05-15): demo seeding is now gated by an env
+     * var ({@code MANHAJI_DEMO_SEED=true}) and the password values come from
+     * env vars too — they are NEVER logged. Without the gate, every boot
+     * recreated three privileged users with well-known passwords, and the
+     * password literals were emitted to stdout where any log aggregator
+     * would capture them. The seed defaults are documented in HANDOFF.md
+     * for the demo laptop only.
+     */
     private void seedDemoAccounts() {
+        if (!"true".equalsIgnoreCase(System.getenv("MANHAJI_DEMO_SEED"))) {
+            log.info("Demo seeding disabled (set MANHAJI_DEMO_SEED=true to enable for local dev only).");
+            return;
+        }
+
+        String teacherPw = System.getenv().getOrDefault("MANHAJI_DEMO_TEACHER_PASSWORD", "teacher123");
+        String adminPw = System.getenv().getOrDefault("MANHAJI_DEMO_ADMIN_PASSWORD", "admin123");
+        String parentPw = System.getenv().getOrDefault("MANHAJI_DEMO_PARENT_PASSWORD", "parent123");
+
         // Teacher account
         if (userRepository.findByEmail("teacher@manhaji.edu").isEmpty()) {
             Teacher teacher = new Teacher();
             teacher.setFullName("أحمد المعلم");
             teacher.setEmail("teacher@manhaji.edu");
-            teacher.setPasswordHash(passwordEncoder.encode("teacher123"));
+            teacher.setPasswordHash(passwordEncoder.encode(teacherPw));
             teacher.setRole(Role.TEACHER);
             teacher.setIsActive(true);
             teacher.setDepartment("اللغة العربية");
             teacher.setAssignedGrade(1);
             teacherRepository.save(teacher);
-            log.info("Created demo teacher account: teacher@manhaji.edu / teacher123");
+            log.info("Created demo teacher account: teacher@manhaji.edu (password not logged)");
         }
 
         // Admin account
@@ -130,12 +148,12 @@ public class DataSeeder implements CommandLineRunner {
             Admin admin = new Admin();
             admin.setFullName("مشرف النظام");
             admin.setEmail("admin@manhaji.edu");
-            admin.setPasswordHash(passwordEncoder.encode("admin123"));
+            admin.setPasswordHash(passwordEncoder.encode(adminPw));
             admin.setRole(Role.ADMIN);
             admin.setIsActive(true);
             admin.setPermissions("ALL");
             adminRepository.save(admin);
-            log.info("Created demo admin account: admin@manhaji.edu / admin123");
+            log.info("Created demo admin account: admin@manhaji.edu (password not logged)");
         }
 
         // Parent account — link to all existing students that have no parent
@@ -143,20 +161,22 @@ public class DataSeeder implements CommandLineRunner {
             com.springboot.manhaji.entity.Parent parent = new com.springboot.manhaji.entity.Parent();
             parent.setFullName("ولي أمر محمد");
             parent.setEmail("parent@manhaji.edu");
-            parent.setPasswordHash(passwordEncoder.encode("parent123"));
+            parent.setPasswordHash(passwordEncoder.encode(parentPw));
             parent.setRole(Role.PARENT);
             parent.setIsActive(true);
             parent = parentRepository.save(parent);
 
             // Link unassigned students to this demo parent
             var students = studentRepository.findAll();
+            int linked = 0;
             for (var student : students) {
                 if (student.getParent() == null) {
                     student.setParent(parent);
                     studentRepository.save(student);
+                    linked++;
                 }
             }
-            log.info("Created demo parent account: parent@manhaji.edu / parent123 (linked {} children)", students.size());
+            log.info("Created demo parent account: parent@manhaji.edu (password not logged; linked {} children)", linked);
         }
     }
 

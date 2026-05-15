@@ -96,36 +96,37 @@ class AuthServiceTest {
         }
 
         @Test
-        @DisplayName("should register a teacher successfully")
-        void registerTeacher() {
+        @DisplayName("audit C1 regression: public registration rejects TEACHER role")
+        void rejectsPublicTeacherRegistration() {
+            // Audit-4 fix C1: only STUDENT and PARENT may self-register.
+            // Teachers must be created via the admin-protected flow.
             RegisterRequest request = new RegisterRequest();
             request.setFullName("معلم جديد");
             request.setEmail("teacher@test.com");
             request.setPassword("pass123");
             request.setRole(Role.TEACHER);
 
-            when(userRepository.existsByEmail(anyString())).thenReturn(false);
-            when(passwordEncoder.encode(anyString())).thenReturn("hashed");
-            when(userRepository.save(any())).thenAnswer(inv -> {
-                Teacher t = (Teacher) inv.getArgument(0);
-                t.setId(2L);
-                return t;
-            });
-            when(userRepository.findById(2L)).thenAnswer(inv -> {
-                Teacher t = new Teacher();
-                t.setId(2L);
-                t.setFullName("معلم جديد");
-                t.setEmail("teacher@test.com");
-                t.setRole(Role.TEACHER);
-                return Optional.of(t);
-            });
-            when(jwtService.generateAccessToken(any())).thenReturn("at");
-            when(jwtService.generateRefreshToken(any())).thenReturn("rt");
+            assertThatThrownBy(() -> authService.register(request))
+                    .isInstanceOf(BadRequestException.class)
+                    .hasMessageContaining("Invalid role");
+            verifyNoInteractions(userRepository, passwordEncoder, jwtService);
+        }
 
-            AuthResponse response = authService.register(request);
+        @Test
+        @DisplayName("audit C1 regression: public registration rejects ADMIN role (privilege escalation)")
+        void rejectsPublicAdminRegistration() {
+            // Audit-4 fix C1: an anonymous attacker used to be able to mint
+            // an admin token by setting role=ADMIN in the register payload.
+            RegisterRequest request = new RegisterRequest();
+            request.setFullName("evil");
+            request.setEmail("attacker@example.com");
+            request.setPassword("pass123");
+            request.setRole(Role.ADMIN);
 
-            assertThat(response.getRole()).isEqualTo(Role.TEACHER);
-            assertThat(response.getGradeLevel()).isNull();
+            assertThatThrownBy(() -> authService.register(request))
+                    .isInstanceOf(BadRequestException.class)
+                    .hasMessageContaining("Invalid role");
+            verifyNoInteractions(userRepository, passwordEncoder, jwtService);
         }
 
         @Test
@@ -270,6 +271,32 @@ class AuthServiceTest {
             assertThatThrownBy(() -> authService.loginWithEmail(request))
                     .isInstanceOf(UnauthorizedException.class);
         }
+
+        @Test
+        @DisplayName("audit H1 regression: disabled account is rejected even with correct password")
+        void rejectsDisabledAccount() {
+            // Audit-4 fix H1: isActive=false used to be ignored by login.
+            LoginRequest request = new LoginRequest();
+            request.setEmail("disabled@test.com");
+            request.setPassword("correct_pass");
+
+            Student disabled = new Student();
+            disabled.setId(99L);
+            disabled.setEmail("disabled@test.com");
+            disabled.setPasswordHash("hashed_pass");
+            disabled.setIsActive(false);
+            disabled.setRole(Role.STUDENT);
+
+            when(userRepository.findByEmail("disabled@test.com")).thenReturn(Optional.of(disabled));
+            when(passwordEncoder.matches("correct_pass", "hashed_pass")).thenReturn(true);
+
+            assertThatThrownBy(() -> authService.loginWithEmail(request))
+                    .isInstanceOf(UnauthorizedException.class)
+                    .hasMessageContaining("disabled");
+            // Critical: no tokens minted, no save called.
+            verify(jwtService, never()).generateAccessToken(any());
+            verify(userRepository, never()).save(any());
+        }
     }
 
     // ==================== Phone Login Tests ====================
@@ -326,7 +353,8 @@ class AuthServiceTest {
         @Test
         @DisplayName("should refresh with valid token")
         void refreshSuccess() {
-            when(jwtService.isTokenValid("valid_refresh")).thenReturn(true);
+            // Audit-4 fix C5: refresh now requires isRefreshToken() (type-checked).
+            when(jwtService.isRefreshToken("valid_refresh")).thenReturn(true);
             when(jwtService.extractSubject("valid_refresh")).thenReturn("user@test.com");
 
             Student student = new Student();
@@ -334,6 +362,7 @@ class AuthServiceTest {
             student.setEmail("user@test.com");
             student.setRole(Role.STUDENT);
             student.setFullName("Test");
+            student.setIsActive(true); // Audit-4 fix H1: refresh also blocks disabled users.
 
             when(userRepository.findByEmail("user@test.com")).thenReturn(Optional.of(student));
             when(jwtService.generateAccessToken(student)).thenReturn("new_access");
@@ -348,11 +377,43 @@ class AuthServiceTest {
         @Test
         @DisplayName("should reject expired token")
         void refreshExpiredToken() {
-            when(jwtService.isTokenValid("expired_token")).thenReturn(false);
+            when(jwtService.isRefreshToken("expired_token")).thenReturn(false);
 
             assertThatThrownBy(() -> authService.refreshToken("expired_token"))
                     .isInstanceOf(UnauthorizedException.class)
                     .hasMessageContaining("Invalid or expired refresh token");
+        }
+
+        @Test
+        @DisplayName("audit C5 regression: access token rejected on refresh endpoint")
+        void rejectsAccessTokenAtRefresh() {
+            // Audit-4 fix C5: previously, an access token could be replayed
+            // at /api/auth/refresh because the validity check didn't
+            // distinguish token types.
+            when(jwtService.isRefreshToken("access_token_replayed")).thenReturn(false);
+
+            assertThatThrownBy(() -> authService.refreshToken("access_token_replayed"))
+                    .isInstanceOf(UnauthorizedException.class);
+            verify(userRepository, never()).findByEmail(any());
+        }
+
+        @Test
+        @DisplayName("audit H1 regression: refresh path also blocks disabled accounts")
+        void rejectsRefreshForDisabledAccount() {
+            when(jwtService.isRefreshToken("valid_refresh")).thenReturn(true);
+            when(jwtService.extractSubject("valid_refresh")).thenReturn("disabled@test.com");
+
+            Student disabled = new Student();
+            disabled.setId(11L);
+            disabled.setEmail("disabled@test.com");
+            disabled.setIsActive(false);
+            disabled.setRole(Role.STUDENT);
+            when(userRepository.findByEmail("disabled@test.com")).thenReturn(Optional.of(disabled));
+
+            assertThatThrownBy(() -> authService.refreshToken("valid_refresh"))
+                    .isInstanceOf(UnauthorizedException.class)
+                    .hasMessageContaining("disabled");
+            verify(jwtService, never()).generateAccessToken(any());
         }
     }
 

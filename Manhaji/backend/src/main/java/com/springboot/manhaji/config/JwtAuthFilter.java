@@ -35,7 +35,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         final String token = authHeader.substring(7);
 
-        if (jwtService.isTokenValid(token) && SecurityContextHolder.getContext().getAuthentication() == null) {
+        // Audit-4 fix C5 (2026-05-15): only ACCESS tokens may authenticate
+        // protected endpoints. A refresh token must round-trip through
+        // /api/auth/refresh and is not interchangeable as a bearer.
+        if (jwtService.isAccessToken(token) && SecurityContextHolder.getContext().getAuthentication() == null) {
             String subject = jwtService.extractSubject(token);
             String role = jwtService.extractRole(token);
             Long userId = jwtService.extractUserId(token);

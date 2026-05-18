@@ -28,7 +28,7 @@ import json
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-ROOT = HERE.parent.parent
+ROOT = HERE.parent.parent.parent  # scripts/curriculum/media/ → Manhaji/
 CURRICULUM = ROOT / "backend" / "src" / "main" / "resources" / "curriculum"
 STATIC = ROOT / "backend" / "src" / "main" / "resources" / "static"
 

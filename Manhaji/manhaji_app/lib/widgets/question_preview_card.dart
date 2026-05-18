@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../app/theme.dart';
-import '../../models/question_bank.dart';
+import '../app/theme.dart';
+import '../models/question_bank.dart';
 
 /// Read-only preview of a bank question for the teacher/admin viewer.
 ///

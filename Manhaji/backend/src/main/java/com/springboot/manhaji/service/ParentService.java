@@ -16,7 +16,7 @@ import com.springboot.manhaji.repository.ParentRepository;
 import com.springboot.manhaji.repository.ProgressRepository;
 import com.springboot.manhaji.repository.StudentRepository;
 import com.springboot.manhaji.service.support.ProgressMetrics;
-import com.springboot.manhaji.support.Messages;
+import com.springboot.manhaji.infrastructure.Messages;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

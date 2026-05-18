@@ -22,7 +22,7 @@ import json
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-CURRICULUM = HERE.parent.parent / "backend" / "src" / "main" / "resources" / "curriculum"
+CURRICULUM = HERE.parent.parent.parent / "backend" / "src" / "main" / "resources" / "curriculum"
 
 
 def alphabet_lesson(title, order_index, content, objectives, questions):

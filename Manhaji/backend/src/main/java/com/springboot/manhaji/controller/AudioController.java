@@ -7,7 +7,7 @@ import com.springboot.manhaji.exception.ResourceNotFoundException;
 import com.springboot.manhaji.repository.LessonRepository;
 import com.springboot.manhaji.repository.QuestionRepository;
 import com.springboot.manhaji.service.ai.TtsService;
-import com.springboot.manhaji.service.storage.FileStorageService;
+import com.springboot.manhaji.service.FileStorageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

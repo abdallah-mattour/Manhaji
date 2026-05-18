@@ -55,6 +55,7 @@ public class DataSeeder implements CommandLineRunner {
     private final AdminRepository adminRepository;
     private final ParentRepository parentRepository;
     private final PasswordEncoder passwordEncoder;
+    private final StorageConfigProperties storageConfig;
 
     /**
      * When {@code true}, the seeder wipes all curriculum data (subjects, lessons,
@@ -400,7 +401,7 @@ public class DataSeeder implements CommandLineRunner {
         }
 
         String folderName = subjectCode + gradeLevel + "-p" + semester; // e.g. "ar1-p1"
-        File folder = new File("./uploads/images/" + folderName);
+        File folder = new File(storageConfig.getImageDir() + "/" + folderName);
         if (!folder.exists() || !folder.isDirectory()) {
             return result;
         }

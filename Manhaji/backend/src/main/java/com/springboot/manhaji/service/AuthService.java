@@ -10,7 +10,7 @@ import com.springboot.manhaji.exception.BadRequestException;
 import com.springboot.manhaji.exception.ResourceNotFoundException;
 import com.springboot.manhaji.exception.UnauthorizedException;
 import com.springboot.manhaji.repository.UserRepository;
-import com.springboot.manhaji.support.Messages;
+import com.springboot.manhaji.infrastructure.Messages;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -76,67 +76,6 @@ public class GeminiService {
     }
 
     /**
-     * Generate practice questions for a lesson.
-     * Returns raw JSON string from Gemini.
-     */
-    public String generateQuestions(String lessonContent, String subject, int count, int difficultyLevel) {
-        if (!isAvailable()) {
-            return null;
-        }
-
-        String prompt = String.format("""
-                أنت معلم فلسطيني خبير. بناءً على محتوى الدرس التالي، أنشئ %d أسئلة بمستوى صعوبة %d (من 1-3).
-                المادة: %s
-
-                محتوى الدرس:
-                %s
-
-                أجب بصيغة JSON فقط كمصفوفة من الكائنات:
-                [{"type": "MCQ"|"TRUE_FALSE"|"SHORT_ANSWER", "questionText": "...", "correctAnswer": "...", "options": ["..."] أو null, "difficultyLevel": %d}]
-                """, count, difficultyLevel, subject, lessonContent, difficultyLevel);
-
-        try {
-            return callGemini(prompt);
-        } catch (Exception e) {
-            log.warn("Gemini question generation failed: {}", e.getMessage());
-            return null;
-        }
-    }
-
-    /**
-     * Analyze PDF-extracted text and clean it up.
-     */
-    public String analyzePdfContent(String rawText, String subject) {
-        if (!isAvailable()) {
-            return null;
-        }
-
-        String prompt = String.format("""
-                أنت خبير في المناهج الفلسطينية. النص التالي مستخرج من كتاب %s للصف الأول.
-                قد يكون النص العربي مقلوباً أو مشوهاً بسبب استخراجه من PDF.
-
-                المطلوب:
-                1. أصلح أي نص عربي مقلوب أو مشوه
-                2. نظّم المحتوى بشكل واضح
-                3. حدد عنوان الدرس
-                4. استخرج الأهداف التعليمية
-
-                النص المستخرج:
-                %s
-
-                أجب بصيغة JSON:
-                {"title": "عنوان الدرس", "content": "المحتوى المنظم", "objectives": "الأهداف التعليمية"}
-                """, subject, rawText);
-
-        try {
-            return callGemini(prompt);
-        } catch (Exception e) {
-            log.warn("Gemini PDF analysis failed: {}", e.getMessage());
-            return null;
-        }
-    }
-
-    /**
      * Generate a progress report summary for a student based on their performance data.
      */
     public String generateProgressReport(String studentName, int gradeLevel,

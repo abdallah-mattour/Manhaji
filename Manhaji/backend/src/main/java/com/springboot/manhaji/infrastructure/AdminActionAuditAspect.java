@@ -1,4 +1,4 @@
-package com.springboot.manhaji.support;
+package com.springboot.manhaji.infrastructure;
 
 import com.springboot.manhaji.entity.AuditLog;
 import com.springboot.manhaji.repository.AuditLogRepository;

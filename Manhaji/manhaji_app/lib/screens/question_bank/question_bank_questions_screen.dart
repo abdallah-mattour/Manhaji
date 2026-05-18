@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '../../app/theme.dart';
 import '../../models/question_bank.dart';
 import '../../providers/question_bank_provider.dart';
-import '../../widgets/question_bank/question_preview_card.dart';
+import '../../widgets/question_preview_card.dart';
 
 /// Questions within one subject, grouped by lesson.
 /// Top bar holds difficulty chips + a lesson dropdown filter.

@@ -10,7 +10,7 @@ import json
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-CURRICULUM = HERE.parent.parent / "backend" / "src" / "main" / "resources" / "curriculum"
+CURRICULUM = HERE.parent.parent.parent / "backend" / "src" / "main" / "resources" / "curriculum"
 
 # Per (file, lessonTitle) -> the diff-3 question to append.
 ADDITIONS = {

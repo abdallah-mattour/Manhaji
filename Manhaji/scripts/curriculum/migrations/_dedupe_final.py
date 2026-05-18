@@ -13,7 +13,7 @@ import json
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-CURRICULUM = HERE.parent.parent / "backend" / "src" / "main" / "resources" / "curriculum"
+CURRICULUM = HERE.parent.parent.parent / "backend" / "src" / "main" / "resources" / "curriculum"
 
 # (file, lessonTitle, qIndex 0-based) -> replacement question dict OR
 # {"patch": {"questionText": ..., "correctAnswer": ...}} for a partial patch.

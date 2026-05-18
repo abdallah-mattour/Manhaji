@@ -15,7 +15,7 @@ import json
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-CURRICULUM = HERE.parent.parent / "backend" / "src" / "main" / "resources" / "curriculum"
+CURRICULUM = HERE.parent.parent.parent / "backend" / "src" / "main" / "resources" / "curriculum"
 
 # (file, reviewTitle) -> list of {old_questionText: replacement-question-dict}
 # When the lesson contains a question matching old_questionText we overwrite

@@ -16,7 +16,7 @@ import com.springboot.manhaji.repository.*;
 import com.springboot.manhaji.service.ai.GeminiService;
 import com.springboot.manhaji.service.ai.PronunciationScoringService;
 import com.springboot.manhaji.service.ai.WhisperService;
-import com.springboot.manhaji.support.Messages;
+import com.springboot.manhaji.infrastructure.Messages;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

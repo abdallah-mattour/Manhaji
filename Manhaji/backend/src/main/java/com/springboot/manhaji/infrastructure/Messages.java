@@ -1,4 +1,4 @@
-package com.springboot.manhaji.support;
+package com.springboot.manhaji.infrastructure;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;

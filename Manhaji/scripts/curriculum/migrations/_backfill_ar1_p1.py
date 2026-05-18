@@ -28,7 +28,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 # Scripts live in Manhaji/scripts/curriculum/; JSON lives in
 # Manhaji/backend/src/main/resources/curriculum/.
-CURRICULUM = (HERE.parent.parent
+CURRICULUM = (HERE.parent.parent.parent
               / "backend" / "src" / "main" / "resources" / "curriculum")
 TARGET = CURRICULUM / "ar1_p1.json"
 

@@ -21,7 +21,7 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-CURRICULUM = (HERE.parent.parent
+CURRICULUM = (HERE.parent.parent.parent
               / "backend" / "src" / "main" / "resources" / "curriculum")
 
 # Per-lesson additions, keyed by lesson title. Each entry is a list of question

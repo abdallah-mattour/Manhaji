@@ -24,7 +24,7 @@ import com.springboot.manhaji.repository.SubjectRepository;
 import com.springboot.manhaji.repository.TeacherRepository;
 import com.springboot.manhaji.service.support.ProgressMetrics;
 import com.springboot.manhaji.service.support.QuestionBankMapper;
-import com.springboot.manhaji.support.Messages;
+import com.springboot.manhaji.infrastructure.Messages;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

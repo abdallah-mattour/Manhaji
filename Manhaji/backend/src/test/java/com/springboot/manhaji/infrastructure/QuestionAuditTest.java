@@ -1,4 +1,4 @@
-package com.springboot.manhaji.support;
+package com.springboot.manhaji.infrastructure;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

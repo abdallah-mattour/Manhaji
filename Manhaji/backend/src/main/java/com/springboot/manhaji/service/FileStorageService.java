@@ -1,4 +1,4 @@
-package com.springboot.manhaji.service.storage;
+package com.springboot.manhaji.service;
 
 import com.springboot.manhaji.config.StorageConfigProperties;
 import jakarta.annotation.PostConstruct;

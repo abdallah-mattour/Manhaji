@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../app/theme.dart';
-import '../../models/quiz.dart';
-import '../question_media_header.dart';
+import '../app/theme.dart';
+import '../models/quiz.dart';
+import 'question_media_header.dart';
 
 /// Card rendering for an active quiz question.
 ///

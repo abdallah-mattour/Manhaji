@@ -11,7 +11,7 @@ import '../../services/audio_service.dart';
 import '../../services/local_storage_service.dart';
 import '../../services/tts_service.dart';
 import '../../widgets/onboarding_overlay.dart';
-import '../../widgets/learning/quiz_question_view.dart';
+import '../../widgets/quiz_question_view.dart';
 import '../../widgets/progress_dots_bar.dart';
 import '../../widgets/teaching_card_widget.dart';
 import '../../widgets/star_display_widget.dart';

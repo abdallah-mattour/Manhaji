@@ -10,7 +10,7 @@ import com.springboot.manhaji.exception.ResourceNotFoundException;
 import com.springboot.manhaji.exception.UnauthorizedException;
 import com.springboot.manhaji.repository.*;
 import com.springboot.manhaji.service.support.ProgressMetrics;
-import com.springboot.manhaji.support.TestMessages;
+import com.springboot.manhaji.infrastructure.TestMessages;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

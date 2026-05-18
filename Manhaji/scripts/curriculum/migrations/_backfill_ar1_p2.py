@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-CURRICULUM = (HERE.parent.parent
+CURRICULUM = (HERE.parent.parent.parent
               / "backend" / "src" / "main" / "resources" / "curriculum")
 TARGET = CURRICULUM / "ar1_p2.json"
 

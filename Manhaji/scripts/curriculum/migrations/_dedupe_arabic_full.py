@@ -17,7 +17,7 @@ import json
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-CURRICULUM = HERE.parent.parent / "backend" / "src" / "main" / "resources" / "curriculum"
+CURRICULUM = HERE.parent.parent.parent / "backend" / "src" / "main" / "resources" / "curriculum"
 
 ARABIC_FILES = ["ar1_p1.json", "ar1_p2.json"]
 

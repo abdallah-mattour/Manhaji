@@ -17,7 +17,7 @@ import com.springboot.manhaji.repository.*;
 import com.springboot.manhaji.service.ai.GeminiService;
 import com.springboot.manhaji.service.ai.PronunciationScoringService;
 import com.springboot.manhaji.service.ai.WhisperService;
-import com.springboot.manhaji.support.TestMessages;
+import com.springboot.manhaji.infrastructure.TestMessages;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

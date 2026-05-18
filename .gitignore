@@ -28,7 +28,8 @@ Manhaji/manhaji_app/.flutter-plugins-dependencies
 Manhaji/manhaji_app/.packages
 Manhaji/manhaji_app/build/
 Manhaji/manhaji_app/.metadata
-Manhaji/manhaji_app/pubspec.lock
+# pubspec.lock IS tracked for applications (reproducible builds) — only
+# untrack for libraries. Flutter convention: applications commit it.
 
 # Android / iOS build artifacts
 Manhaji/manhaji_app/android/.gradle/
@@ -79,6 +80,12 @@ logs/
 *.ear
 target/
 node_modules/
+
+# Exception: the Gradle wrapper jar MUST be tracked so a fresh clone can run
+# `./gradlew` without having Gradle pre-installed. (Flutter android/'s own
+# .gitignore intentionally still excludes its wrapper — Android Studio
+# regenerates it — so this exception only re-enables the Spring Boot one.)
+!**/gradle/wrapper/gradle-wrapper.jar
 
 # Python
 *.pyc

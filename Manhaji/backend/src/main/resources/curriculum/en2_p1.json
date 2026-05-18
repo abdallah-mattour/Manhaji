@@ -1,0 +1,1313 @@
+{
+  "subject": "English",
+  "subjectCode": "en",
+  "gradeLevel": 2,
+  "semester": 1,
+  "totalLessons": 9,
+  "lessons": [
+    {
+      "title": "Hi, I'm ... (Unit 1)",
+      "orderIndex": 1,
+      "content": "Greetings and introductions. Asking and giving names and ages. Identifying boys and girls.",
+      "objectives": "Ask and answer about names and ages. Introduce yourself and others. Review numbers 1-10.",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What do you ask to know someone's name?",
+          "correctAnswer": "What's your name?",
+          "options": [
+            "What's your name?",
+            "How old are you?",
+            "Where are you?",
+            "Who's that?"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "How do you reply when someone asks 'How old are you?' and you are 8?",
+          "correctAnswer": "I'm eight",
+          "options": [
+            "I'm seven",
+            "I'm eight",
+            "I'm nine",
+            "My name is eight"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Salwa is 7 years old. How do you say her age?",
+          "correctAnswer": "She's seven",
+          "options": [
+            "He's seven",
+            "She's seven",
+            "It's seven",
+            "They're seven"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "We say 'My name's Tala' to tell people our name.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "We say 'How old is he?' when asking about a girl.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Translate to English: ما اسمك؟",
+          "correctAnswer": "What's your name?",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "If a boy is in the picture, you ask: '___ that boy?'",
+          "correctAnswer": "Who's",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: My name ___ Sami.",
+          "correctAnswer": "is",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I'm eight years ___.",
+          "correctAnswer": "old",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put the words in order to form a question: name, your, what's, ?",
+          "correctAnswer": "what's, your, name, ?",
+          "options": [
+            "name",
+            "your",
+            "what's",
+            "?"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: What's your name?",
+          "correctAnswer": "What's your name?",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: My name is Tala",
+          "correctAnswer": "My name is Tala",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: How old are you?",
+          "correctAnswer": "How old are you?",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "A new student joins the class. What is the best thing to say first?",
+          "correctAnswer": "Hi, what's your name?",
+          "options": [
+            "Goodbye",
+            "Hi, what's your name?",
+            "Be quiet!",
+            "I don't know"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "In the kitchen (Unit 2)",
+      "orderIndex": 2,
+      "content": "Food vocabulary: kunafeh, rice, meat, fish, chicken, salad, ice cream, chocolate. Talking about food likes. Numbers 11, 12, 13.",
+      "objectives": "Name common food items. Ask and answer 'What does he/she like?'. Read numbers 11-13.",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What is 'أرز' in English?",
+          "correctAnswer": "rice",
+          "options": [
+            "rice",
+            "meat",
+            "fish",
+            "chicken"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "What is the famous Palestinian dessert?",
+          "correctAnswer": "kunafeh",
+          "options": [
+            "chocolate",
+            "kunafeh",
+            "salad",
+            "rice"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "How do you ask about Sami's favourite food?",
+          "correctAnswer": "What does he like?",
+          "options": [
+            "What does she like?",
+            "What does he like?",
+            "What do you like?",
+            "What is your name?"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "Ice cream is usually cold.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "Chicken is a kind of fruit.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Translate to English: سمك",
+          "correctAnswer": "fish",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What number comes after twelve?",
+          "correctAnswer": "thirteen",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: She ___ chocolate. (like / likes)",
+          "correctAnswer": "likes",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: 11, 12, ___",
+          "correctAnswer": "13",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put in order to form a sentence: likes, rice, he, and meat",
+          "correctAnswer": "he, likes, rice, and meat",
+          "options": [
+            "likes",
+            "rice",
+            "he",
+            "and meat"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: kunafeh",
+          "correctAnswer": "kunafeh",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: ice cream",
+          "correctAnswer": "ice cream",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: chocolate",
+          "correctAnswer": "chocolate",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Tala likes salad and fish. Sami doesn't like fish. What does Sami like?",
+          "correctAnswer": "He likes salad",
+          "options": [
+            "He likes fish",
+            "He likes salad",
+            "He likes everything",
+            "We don't know"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "In the garden (Unit 3)",
+      "orderIndex": 3,
+      "content": "Garden vocabulary: bee, butterfly, bird, flower, tree. Numbers 14, 15, 16. Talking about things in the garden using 'has'.",
+      "objectives": "Name common garden creatures and plants. Use 'has' in simple sentences. Read numbers 14-16.",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What is 'نحلة' in English?",
+          "correctAnswer": "bee",
+          "options": [
+            "bird",
+            "butterfly",
+            "bee",
+            "tree"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Which one can fly and has colourful wings?",
+          "correctAnswer": "butterfly",
+          "options": [
+            "tree",
+            "butterfly",
+            "flower",
+            "stone"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "A bird ___ two legs.",
+          "correctAnswer": "has",
+          "options": [
+            "is",
+            "has",
+            "have",
+            "do"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "A flower has roots and petals.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "A tree usually has only one leaf.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Translate to English: شجرة",
+          "correctAnswer": "tree",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What number comes after fifteen?",
+          "correctAnswer": "sixteen",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: A bird has two ___.",
+          "correctAnswer": "legs",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: 14, ___, 16",
+          "correctAnswer": "15",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put in order: tree, the, on, sits, bird, the",
+          "correctAnswer": "the, bird, sits, on, the, tree",
+          "options": [
+            "tree",
+            "the",
+            "on",
+            "sits",
+            "bird",
+            "the"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: butterfly",
+          "correctAnswer": "butterfly",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: flower",
+          "correctAnswer": "flower",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: tree",
+          "correctAnswer": "tree",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Look in a garden. Which of these would you NOT expect to see?",
+          "correctAnswer": "fish",
+          "options": [
+            "bee",
+            "flower",
+            "tree",
+            "fish"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "My body (Unit 4)",
+      "orderIndex": 4,
+      "content": "New body parts vocabulary: ear, eye, hair, shoulder. Using 'I/You/We have' and 'He/She has'. Simple commands. Numbers 17-20.",
+      "objectives": "Name new body parts. Use 'have' and 'has' correctly. Follow simple commands. Read numbers 17-20.",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "Which body part do you use to see?",
+          "correctAnswer": "eye",
+          "options": [
+            "ear",
+            "eye",
+            "hair",
+            "shoulder"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Which body part do you use to hear?",
+          "correctAnswer": "ear",
+          "options": [
+            "ear",
+            "eye",
+            "hair",
+            "shoulder"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Tala has long hair. We say: 'She ___ long hair'.",
+          "correctAnswer": "has",
+          "options": [
+            "have",
+            "has",
+            "is",
+            "having"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "We have two shoulders.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "We have three eyes.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Translate to English: شعر",
+          "correctAnswer": "hair",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What number comes after nineteen?",
+          "correctAnswer": "twenty",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I have two ___ to listen.",
+          "correctAnswer": "ears",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: 17, 18, ___, 20",
+          "correctAnswer": "19",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put in order: brown, has, hair, she",
+          "correctAnswer": "she, has, brown, hair",
+          "options": [
+            "brown",
+            "has",
+            "hair",
+            "she"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: shoulder",
+          "correctAnswer": "shoulder",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: eye",
+          "correctAnswer": "eye",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: hair",
+          "correctAnswer": "hair",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Your teacher says: 'Touch your hair'. What do you do?",
+          "correctAnswer": "I put my hand on my head",
+          "options": [
+            "I put my hand on my head",
+            "I close my eyes",
+            "I sit down",
+            "I clap my hands"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "Revision Units 1-4 (Unit 5)",
+      "orderIndex": 5,
+      "content": "Review: greetings, names, ages, food, garden vocabulary, body parts, numbers 1-20.",
+      "objectives": "Review the language and vocabulary from Units 1-4.",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "Choose the correct greeting in the morning.",
+          "correctAnswer": "Good morning",
+          "options": [
+            "Good morning",
+            "Good night",
+            "Goodbye",
+            "Be quiet"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Which of these is food, NOT a garden item?",
+          "correctAnswer": "chicken",
+          "options": [
+            "bee",
+            "flower",
+            "chicken",
+            "tree"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "She has a butterfly. Pick the correct rewrite as a question.",
+          "correctAnswer": "Does she have a butterfly?",
+          "options": [
+            "She does have a butterfly?",
+            "Have she a butterfly?",
+            "Does she have a butterfly?",
+            "She a butterfly has?"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "Number 17 is bigger than number 14.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "An eye is a kind of food.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Translate to English: عمر",
+          "correctAnswer": "age",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Name one thing you eat that is sweet.",
+          "correctAnswer": "ice cream",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: He ___ ice cream and salad.",
+          "correctAnswer": "likes",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: 12, 13, ___, 15",
+          "correctAnswer": "14",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put the numbers in order from smallest to biggest: 19, 11, 16, 13",
+          "correctAnswer": "11, 13, 16, 19",
+          "options": [
+            "19",
+            "11",
+            "16",
+            "13"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: ear",
+          "correctAnswer": "ear",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: bee",
+          "correctAnswer": "bee",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "I am 8. My friend Adam is 7. Who is older?",
+          "correctAnswer": "I am older",
+          "options": [
+            "Adam is older",
+            "I am older",
+            "We are the same age",
+            "I don't know"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "Jump! (Unit 6)",
+      "orderIndex": 6,
+      "content": "Action commands: jump, hop, clap, open, close, come here, go there, be quiet. Negative commands using 'Don't'.",
+      "objectives": "Understand and obey simple commands. Form negative commands with 'Don't'.",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What is the English word for 'يقفز'?",
+          "correctAnswer": "jump",
+          "options": [
+            "clap",
+            "jump",
+            "hop",
+            "open"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Your teacher says 'Clap'. What do you do?",
+          "correctAnswer": "I hit my hands together",
+          "options": [
+            "I hit my hands together",
+            "I close my eyes",
+            "I stand still",
+            "I sit on the floor"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "How do you tell a friend NOT to sit down?",
+          "correctAnswer": "Don't sit down.",
+          "options": [
+            "Sit down.",
+            "Don't sit down.",
+            "Please sit.",
+            "I sit down."
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Be quiet' means we should not make noise.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Open' is the opposite of 'come'.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Translate to English: اصمت",
+          "correctAnswer": "Be quiet",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What is the opposite of 'open'?",
+          "correctAnswer": "close",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: ___ here, please.",
+          "correctAnswer": "Come",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: ___ run in the classroom!",
+          "correctAnswer": "Don't",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put in order: the, please, open, door",
+          "correctAnswer": "open, the, door, please",
+          "options": [
+            "the",
+            "please",
+            "open",
+            "door"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: jump",
+          "correctAnswer": "jump",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: clap",
+          "correctAnswer": "clap",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: come here",
+          "correctAnswer": "come here",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Your little brother is making noise in the library. What do you say?",
+          "correctAnswer": "Please be quiet.",
+          "options": [
+            "Jump!",
+            "Please be quiet.",
+            "Open the door.",
+            "Clap your hands."
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "My home (Unit 7)",
+      "orderIndex": 7,
+      "content": "Living-room vocabulary: telephone, sofa, computer, rug, TV. Prepositions: on, in, under. Saying where things are.",
+      "objectives": "Name common living-room items. Use prepositions 'on/in/under' correctly.",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What do you use to call your friends?",
+          "correctAnswer": "telephone",
+          "options": [
+            "sofa",
+            "telephone",
+            "rug",
+            "TV"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Where do you usually sit to watch TV?",
+          "correctAnswer": "on the sofa",
+          "options": [
+            "under the rug",
+            "on the sofa",
+            "in the telephone",
+            "on the TV"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "The cat is ___ the table (she sits on top).",
+          "correctAnswer": "on",
+          "options": [
+            "in",
+            "on",
+            "under",
+            "next to"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "A computer can be used to play games and study.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "A rug is something we eat.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Translate to English: تلفاز",
+          "correctAnswer": "TV",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Name one thing in your living room.",
+          "correctAnswer": "sofa",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: My ball is ___ the chair (below it).",
+          "correctAnswer": "under",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: The toys are ___ the box (inside).",
+          "correctAnswer": "in",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put in order: the, sofa, on, the, cat, is",
+          "correctAnswer": "the, cat, is, on, the, sofa",
+          "options": [
+            "the",
+            "sofa",
+            "on",
+            "the",
+            "cat",
+            "is"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: telephone",
+          "correctAnswer": "telephone",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: computer",
+          "correctAnswer": "computer",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: rug",
+          "correctAnswer": "rug",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Your book is missing. Your mum says 'Look under the sofa'. What do you do?",
+          "correctAnswer": "I look below the sofa",
+          "options": [
+            "I look on top of the sofa",
+            "I look below the sofa",
+            "I look inside the TV",
+            "I sit on the sofa"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "My town (Unit 8)",
+      "orderIndex": 8,
+      "content": "Town places: mosque, church, shop, school, park, playground, house. Prepositions: next to, between. Saying where places are.",
+      "objectives": "Name places in town. Use 'next to' and 'between' to describe locations.",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "Where do Muslims pray?",
+          "correctAnswer": "mosque",
+          "options": [
+            "shop",
+            "mosque",
+            "park",
+            "school"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Where do children play games and run?",
+          "correctAnswer": "playground",
+          "options": [
+            "shop",
+            "playground",
+            "church",
+            "house"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "The library is ___ the school (right beside it).",
+          "correctAnswer": "next to",
+          "options": [
+            "between",
+            "next to",
+            "in",
+            "under"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "A park usually has trees and benches.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "A shop is where we go to sleep.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Translate to English: متجر",
+          "correctAnswer": "shop",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Name one place in your town that you visit on Fridays.",
+          "correctAnswer": "mosque",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: The park is ___ the school and the church.",
+          "correctAnswer": "between",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I live in a ___ with my family.",
+          "correctAnswer": "house",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put in order: school, the, the, next to, is, mosque",
+          "correctAnswer": "the, school, is, next to, the, mosque",
+          "options": [
+            "school",
+            "the",
+            "the",
+            "next to",
+            "is",
+            "mosque"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: playground",
+          "correctAnswer": "playground",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: mosque",
+          "correctAnswer": "mosque",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: church",
+          "correctAnswer": "church",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "On the map, the park is between two places. Which sentence is correct?",
+          "correctAnswer": "The park is between the church and the school.",
+          "options": [
+            "The park is in the church.",
+            "The park is between the church and the school.",
+            "The park is under the school.",
+            "The park is on the playground."
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "Revision Units 6-8 (Unit 9)",
+      "orderIndex": 9,
+      "content": "Review: action commands, negative commands, living-room items, town places, prepositions.",
+      "objectives": "Review the language and vocabulary from Units 6-8.",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "Which one is NOT an action?",
+          "correctAnswer": "rug",
+          "options": [
+            "jump",
+            "clap",
+            "hop",
+            "rug"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Which item is in a living room, NOT in a town?",
+          "correctAnswer": "sofa",
+          "options": [
+            "mosque",
+            "sofa",
+            "playground",
+            "shop"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "The ball is ___ the rug (above it).",
+          "correctAnswer": "on",
+          "options": [
+            "on",
+            "in",
+            "under",
+            "between"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "We say 'Don't go there' to stop someone from leaving.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "A computer is a place in town.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Translate to English: حديقة",
+          "correctAnswer": "park",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What word means 'don't speak'?",
+          "correctAnswer": "be quiet",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: My toys are ___ the box (inside).",
+          "correctAnswer": "in",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: The shop is ___ to the mosque.",
+          "correctAnswer": "next",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put in order: please, be, quiet, !",
+          "correctAnswer": "be, quiet, please, !",
+          "options": [
+            "please",
+            "be",
+            "quiet",
+            "!"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: shop",
+          "correctAnswer": "shop",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: open",
+          "correctAnswer": "open",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Sami is in the park with his sister, between the mosque and the school. Which sentence is true?",
+          "correctAnswer": "Sami is between the mosque and the school.",
+          "options": [
+            "Sami is in the school.",
+            "Sami is in the mosque.",
+            "Sami is between the mosque and the school.",
+            "Sami is under the park."
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "imageUrls": []
+    }
+  ]
+}

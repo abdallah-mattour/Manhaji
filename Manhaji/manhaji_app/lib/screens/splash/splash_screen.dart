@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../app/routes.dart';
 import '../../app/theme.dart';
 import '../../services/local_storage_service.dart';
+import '../../widgets/mascot.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -79,34 +80,37 @@ class _SplashScreenState extends State<SplashScreen>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      // Mascot Hakeem peeks out of a soft white circle so
+                      // the blue owl reads cleanly against the green gradient.
                       Container(
-                        width: 120,
-                        height: 120,
+                        width: 180,
+                        height: 180,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(30),
+                          shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.2),
-                              blurRadius: 20,
-                              offset: const Offset(0, 10),
+                              color: Colors.black.withValues(alpha: 0.18),
+                              blurRadius: 28,
+                              offset: const Offset(0, 12),
                             ),
                           ],
                         ),
-                        child: const Icon(
-                          Icons.menu_book_rounded,
-                          size: 60,
-                          color: AppTheme.primaryGreen,
+                        alignment: Alignment.center,
+                        child: const AnimatedMascot(
+                          mood: MascotMood.sleeping,
+                          size: 150,
                         ),
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 28),
                       const Text(
                         'منهجي',
                         style: TextStyle(
                           fontFamily: 'Cairo',
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 44,
+                          fontWeight: FontWeight.w800,
                           color: Colors.white,
+                          letterSpacing: 1,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -115,7 +119,8 @@ class _SplashScreenState extends State<SplashScreen>
                         style: TextStyle(
                           fontFamily: 'Cairo',
                           fontSize: 18,
-                          color: Colors.white.withValues(alpha: 0.9),
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white.withValues(alpha: 0.92),
                         ),
                       ),
                     ],

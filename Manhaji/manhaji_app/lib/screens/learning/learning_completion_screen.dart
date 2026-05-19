@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:confetti/confetti.dart';
 import '../../app/theme.dart';
 import '../../providers/learning_provider.dart';
+import '../../widgets/mascot.dart';
 import '../../widgets/stat_card.dart';
 
 class LearningCompletionScreen extends StatefulWidget {
@@ -85,12 +86,24 @@ class _LearningCompletionScreenState extends State<LearningCompletionScreen>
                         ? 2
                         : 1;
 
+                // Pick a mood that matches the score so the mascot's mood
+                // tracks the kid's performance, not a one-size-fits-all face.
+                final mascotMood = score >= 70
+                    ? MascotMood.celebrating
+                    : score >= 50
+                        ? MascotMood.happy
+                        : MascotMood.sad;
+
                 return SafeArea(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.all(24),
                     child: Column(
                       children: [
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 12),
+                        // Hero mascot — bigger than usual; this is the
+                        // celebratory moment.
+                        AnimatedMascot(mood: mascotMood, size: 180),
+                        const SizedBox(height: 16),
                         // Title
                         Text(
                           _getMessage(score.toDouble()),

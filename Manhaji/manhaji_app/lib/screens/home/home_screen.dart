@@ -8,6 +8,7 @@ import '../../providers/lesson_provider.dart';
 import '../../services/local_storage_service.dart';
 import '../../widgets/error_state.dart';
 import '../../widgets/loading_state.dart';
+import '../../widgets/mascot.dart';
 import '../../widgets/stat_card.dart';
 import '../subject/subject_lessons_screen.dart';
 
@@ -158,6 +159,22 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Row(
             children: [
+              // Hakeem peeks out of a soft white circle on the leading
+              // side — gives the header a recognizable mascot anchor.
+              Container(
+                width: 72,
+                height: 72,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.25),
+                  shape: BoxShape.circle,
+                ),
+                alignment: Alignment.center,
+                child: const Mascot(
+                  mood: MascotMood.idle,
+                  size: 60,
+                ),
+              ),
+              const SizedBox(width: 14),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,10 +191,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       name,
                       style: const TextStyle(
                         fontFamily: 'Cairo',
-                        fontSize: 24,
+                        fontSize: 22,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
@@ -185,9 +204,10 @@ class _HomeScreenState extends State<HomeScreen> {
               GestureDetector(
                 onTap: () => _showLogoutDialog(),
                 child: CircleAvatar(
-                  radius: 25,
+                  radius: 22,
                   backgroundColor: Colors.white.withValues(alpha: 0.2),
-                  child: const Icon(Icons.person, color: Colors.white, size: 30),
+                  child: const Icon(Icons.logout_rounded,
+                      color: Colors.white, size: 24),
                 ),
               ),
             ],

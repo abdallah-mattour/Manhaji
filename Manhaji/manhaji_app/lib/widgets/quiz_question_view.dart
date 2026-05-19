@@ -3,11 +3,24 @@ import '../app/theme.dart';
 import '../models/quiz.dart';
 import 'question_media_header.dart';
 
-/// Card rendering for an active quiz question.
+/// Hero card rendering for the currently-active quiz question.
 ///
-/// Extracted from `learning_screen.dart`'s `_buildQuestionCard` so the screen
-/// can focus on flow/animation orchestration. Handles the type badge, question
-/// text, retry banner, hint button, and hint content.
+/// Visual structure (top to bottom):
+///
+///   ┌─────────────────────────────────────────────┐
+///   │  [🎯 اختر الإجابة]    ←  type pill (top-right) │
+///   │                                              │
+///   │              [question image]                │
+///   │                                              │
+///   │     ما عاصمة فلسطين؟       ←  big prompt     │
+///   │            [🔊]            ←  speaker chip   │
+///   │                                              │
+///   │   [💡 احصل على مساعدة]    ←  hint button     │
+///   └─────────────────────────────────────────────┘
+///
+/// The card itself is white with a soft subject-tinted glow shadow so it
+/// reads as friendly without being garish. On wrong answer it shakes via
+/// the parent-provided `shakeAnimation` and the border briefly tints red.
 class QuizQuestionView extends StatelessWidget {
   const QuizQuestionView({
     super.key,
@@ -35,13 +48,16 @@ class QuizQuestionView extends StatelessWidget {
   final String? currentHint;
   final bool isLoadingHint;
   final VoidCallback onRequestHint;
-  /// Reads the question text aloud. When null the speaker icon is hidden —
-  /// pronunciation widgets render their own target card with its own speaker.
+
+  /// When null the speaker chip is hidden — used by PRONUNCIATION which
+  /// renders its own target card with its own speaker.
   final VoidCallback? onSpeak;
   final int maxHintLevel;
 
   @override
   Widget build(BuildContext context) {
+    final typeColor = AppTheme.colorForQuestionType(question.type);
+
     return AnimatedBuilder(
       animation: shakeAnimation,
       builder: (context, child) {
@@ -50,192 +66,307 @@ class QuizQuestionView extends StatelessWidget {
           child: child,
         );
       },
-      child: Container(
-        padding: const EdgeInsets.all(24),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: borderColor,
-            width: showFeedbackBorder ? 2 : 0,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: AppTheme.primaryBlue.withValues(alpha: 0.08),
-              blurRadius: 12,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
+      child: AppCard(
+        radius: AppTheme.radiusXXL,
+        tint: typeColor,
+        borderColor: showFeedbackBorder ? borderColor : Colors.transparent,
+        borderWidth: showFeedbackBorder ? 2 : 0,
+        padding: const EdgeInsets.all(AppTheme.space5),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Question type badge
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-              decoration: BoxDecoration(
-                color: _typeColor(question.type).withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                _typeLabel(question.type),
-                style: TextStyle(
-                  fontFamily: 'Cairo',
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: _typeColor(question.type),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            // Optional image + audio attached to the question.
+            _TypePill(type: question.type, color: typeColor),
+            const AppGap.v4(),
             QuestionMediaHeader(
               imageUrl: question.imageUrl,
               audioUrl: question.audioUrl,
             ),
-            // Question text (+ optional speaker button so young learners who
-            // can't read yet can tap to hear the prompt).
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                if (onSpeak != null)
-                  IconButton(
-                    onPressed: onSpeak,
-                    icon: const Icon(Icons.volume_up_rounded,
-                        size: 28, color: AppTheme.primaryBlue),
-                    tooltip: 'استمع للسؤال',
-                    padding: EdgeInsets.zero,
-                    constraints:
-                        const BoxConstraints(minWidth: 36, minHeight: 36),
-                  )
-                else
-                  const SizedBox(width: 36),
-                Expanded(
-                  child: Text(
-                    question.questionText,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontFamily: 'Cairo',
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.textDark,
-                      height: 1.6,
-                    ),
-                  ),
-                ),
-                // Spacer to keep the text visually centered when the speaker is on.
-                const SizedBox(width: 36),
-              ],
-            ),
-            // Retry banner
-            if (isRetry)
-              Container(
-                margin: const EdgeInsets.only(top: 12),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  color: AppTheme.primaryOrange.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Text(
-                  'لا بأس! حاول مرة أخرى 💪',
-                  style: TextStyle(
-                    fontFamily: 'Cairo',
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: AppTheme.primaryOrange,
-                  ),
-                ),
-              ),
-            // Hint section
+            _Prompt(text: question.questionText, onSpeak: onSpeak),
+            if (isRetry) ...const [
+              AppGap.v3(),
+              _RetryBanner(),
+            ],
             if (!isAnswered && !isRetry) ...[
-              const SizedBox(height: 12),
-              TextButton.icon(
-                onPressed: isLoadingHint ? null : onRequestHint,
-                icon: isLoadingHint
-                    ? const SizedBox(
-                        width: 16,
-                        height: 16,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                    : const Text('💡', style: TextStyle(fontSize: 18)),
-                label: Text(
-                  hintLevel >= maxHintLevel
-                      ? 'لا مزيد من التلميحات'
-                      : 'مساعدة',
-                  style: TextStyle(
-                    fontFamily: 'Cairo',
-                    fontSize: 14,
-                    color: hintLevel >= maxHintLevel
-                        ? AppTheme.textLight
-                        : AppTheme.primaryOrange,
-                  ),
-                ),
+              const AppGap.v4(),
+              _HintButton(
+                hintLevel: hintLevel,
+                maxHintLevel: maxHintLevel,
+                isLoading: isLoadingHint,
+                onRequest: onRequestHint,
               ),
             ],
-            if (currentHint != null)
-              Container(
-                margin: const EdgeInsets.only(top: 8),
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: AppTheme.primaryYellow.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                      color: AppTheme.primaryYellow.withValues(alpha: 0.3)),
-                ),
-                child: Row(
-                  children: [
-                    const Text('💡', style: TextStyle(fontSize: 20)),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        currentHint!,
-                        style: const TextStyle(
-                          fontFamily: 'Cairo',
-                          fontSize: 14,
-                          color: AppTheme.textDark,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            if (currentHint != null) ...[
+              const AppGap.v3(),
+              _HintBubble(text: currentHint!),
+            ],
           ],
         ),
       ),
     );
   }
+}
 
-  static Color _typeColor(String type) {
-    switch (type) {
-      case 'MCQ':
-        return AppTheme.primaryBlue;
-      case 'TRUE_FALSE':
-        return AppTheme.primaryPurple;
-      case 'SHORT_ANSWER':
-        return AppTheme.primaryOrange;
-      case 'FILL_BLANK':
-        return const Color(0xFF00897B);
-      case 'ORDERING':
-        return const Color(0xFF7B1FA2);
-      default:
-        return AppTheme.primaryGreen;
-    }
+// ============================================================
+// Type pill — emoji + label in the brand color
+// ============================================================
+class _TypePill extends StatelessWidget {
+  final String type;
+  final Color color;
+  const _TypePill({required this.type, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    final emoji = AppTheme.emojiForQuestionType(type);
+    final label = AppTheme.labelForQuestionType(type);
+    return Align(
+      alignment: Directionality.of(context) == TextDirection.rtl
+          ? Alignment.centerRight
+          : Alignment.centerLeft,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppTheme.space3,
+          vertical: 6,
+        ),
+        decoration: BoxDecoration(
+          color: color.withValues(alpha: 0.12),
+          borderRadius: BorderRadius.circular(AppTheme.radiusPill),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(emoji, style: const TextStyle(fontSize: 14)),
+            const AppGap.h2(),
+            Text(
+              label,
+              style: TextStyle(
+                fontFamily: 'Cairo',
+                fontSize: 13,
+                fontWeight: FontWeight.w800,
+                color: color,
+                letterSpacing: 0.3,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
+}
 
-  static String _typeLabel(String type) {
-    switch (type) {
-      case 'MCQ':
-        return 'اختيار من متعدد';
-      case 'TRUE_FALSE':
-        return 'صح أو خطأ';
-      case 'SHORT_ANSWER':
-        return 'إجابة قصيرة';
-      case 'FILL_BLANK':
-        return 'أكمل الفراغ';
-      case 'ORDERING':
-        return 'رتّب العناصر';
-      default:
-        return '';
-    }
+// ============================================================
+// Question prompt with optional inline speaker chip
+// ============================================================
+class _Prompt extends StatelessWidget {
+  final String text;
+  final VoidCallback? onSpeak;
+  const _Prompt({required this.text, this.onSpeak});
+
+  @override
+  Widget build(BuildContext context) {
+    final hasSpeaker = onSpeak != null;
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        if (hasSpeaker) ...[
+          _SpeakerChip(onTap: onSpeak!),
+          const AppGap.h3(),
+        ],
+        Expanded(
+          child: Text(
+            text,
+            textAlign: hasSpeaker ? TextAlign.start : TextAlign.center,
+            style: AppTheme.questionPrompt,
+          ),
+        ),
+        if (hasSpeaker)
+          // Keep visual balance — invisible mirror of the speaker chip.
+          const SizedBox(width: 0),
+      ],
+    );
+  }
+}
+
+/// 44dp circle button with a speaker icon. Kept distinct from a generic
+/// IconButton because we want a soft brand-blue fill that reads as
+/// "tap me — I'll read this".
+class _SpeakerChip extends StatelessWidget {
+  final VoidCallback onTap;
+  const _SpeakerChip({required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkResponse(
+      onTap: onTap,
+      radius: 26,
+      child: Container(
+        width: 44,
+        height: 44,
+        decoration: BoxDecoration(
+          color: AppTheme.primaryBlue.withValues(alpha: 0.12),
+          shape: BoxShape.circle,
+        ),
+        alignment: Alignment.center,
+        child: const Icon(
+          Icons.volume_up_rounded,
+          color: AppTheme.primaryBlue,
+          size: 24,
+        ),
+      ),
+    );
+  }
+}
+
+// ============================================================
+// Retry banner — friendly, encouraging
+// ============================================================
+class _RetryBanner extends StatelessWidget {
+  const _RetryBanner();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppTheme.space4,
+        vertical: AppTheme.space3,
+      ),
+      decoration: BoxDecoration(
+        color: AppTheme.warningContainer,
+        borderRadius: BorderRadius.circular(AppTheme.radiusL),
+      ),
+      child: Row(
+        children: const [
+          Text('💪', style: TextStyle(fontSize: 22)),
+          AppGap.h3(),
+          Expanded(
+            child: Text(
+              'لا بأس! حاول مرة أخرى',
+              style: TextStyle(
+                fontFamily: 'Cairo',
+                fontSize: 15,
+                fontWeight: FontWeight.w700,
+                color: AppTheme.warning,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ============================================================
+// Hint button — pill button with emoji
+// ============================================================
+class _HintButton extends StatelessWidget {
+  final int hintLevel;
+  final int maxHintLevel;
+  final bool isLoading;
+  final VoidCallback onRequest;
+
+  const _HintButton({
+    required this.hintLevel,
+    required this.maxHintLevel,
+    required this.isLoading,
+    required this.onRequest,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final exhausted = hintLevel >= maxHintLevel;
+    final disabled = exhausted || isLoading;
+    return Align(
+      alignment: Alignment.center,
+      child: InkWell(
+        onTap: disabled ? null : onRequest,
+        borderRadius: BorderRadius.circular(AppTheme.radiusPill),
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppTheme.space5,
+            vertical: AppTheme.space3,
+          ),
+          decoration: BoxDecoration(
+            color: exhausted
+                ? AppTheme.surfaceSubtle
+                : AppTheme.warningContainer,
+            borderRadius: BorderRadius.circular(AppTheme.radiusPill),
+            border: Border.all(
+              color: exhausted
+                  ? AppTheme.surfaceStrong
+                  : AppTheme.warning.withValues(alpha: 0.4),
+              width: 1.5,
+            ),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (isLoading)
+                const SizedBox(
+                  width: 18,
+                  height: 18,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
+              else
+                const Text('💡', style: TextStyle(fontSize: 18)),
+              const AppGap.h2(),
+              Text(
+                exhausted ? 'لا مزيد من التلميحات' : 'احصل على مساعدة',
+                style: TextStyle(
+                  fontFamily: 'Cairo',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w800,
+                  color:
+                      exhausted ? AppTheme.textLight : AppTheme.warning,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ============================================================
+// Hint bubble — when a hint is revealed
+// ============================================================
+class _HintBubble extends StatelessWidget {
+  final String text;
+  const _HintBubble({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSize(
+      duration: AppTheme.motionBase,
+      curve: AppTheme.motionCurve,
+      child: Container(
+        padding: const EdgeInsets.all(AppTheme.space4),
+        decoration: BoxDecoration(
+          color: AppTheme.warningContainer,
+          borderRadius: BorderRadius.circular(AppTheme.radiusL),
+          border: Border.all(
+            color: AppTheme.warning.withValues(alpha: 0.3),
+          ),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('💡', style: TextStyle(fontSize: 22)),
+            const AppGap.h3(),
+            Expanded(
+              child: Text(
+                text,
+                style: const TextStyle(
+                  fontFamily: 'Cairo',
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: AppTheme.textDark,
+                  height: 1.5,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -176,6 +176,15 @@ class ApiService {
     }
   }
 
+  Future<Map<String, dynamic>> delete(String path) async {
+    try {
+      final response = await _dio.delete(path);
+      return _asMap(response.data);
+    } on DioException catch (e) {
+      _throwFriendly(e);
+    }
+  }
+
   Future<Map<String, dynamic>> postMultipart(String path,
       {required FormData formData}) async {
     try {

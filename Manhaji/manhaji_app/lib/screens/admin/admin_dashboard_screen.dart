@@ -190,63 +190,24 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                   ),
                   const SizedBox(height: 20),
 
+                  // Manage users entry — admin CRUD for students + teachers.
+                  _NavTile(
+                    icon: Icons.manage_accounts_rounded,
+                    accentColor: AppTheme.primaryBlue,
+                    title: 'إدارة المستخدمين',
+                    subtitle: 'أضف أو عدّل أو احذف الطلاب والمعلمين',
+                    onTap: () => Navigator.of(context)
+                        .pushNamed(AppRoutes.adminManageUsers),
+                  ),
+                  const SizedBox(height: 10),
+
                   // Question bank entry
-                  Material(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    elevation: 1,
-                    shadowColor: Colors.black.withValues(alpha: 0.06),
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(16),
-                      onTap: () => context.openAdminQuestionBank(),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 48,
-                              height: 48,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: AppTheme.primaryGreen
-                                    .withValues(alpha: 0.12),
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                              child: const Icon(Icons.quiz_rounded,
-                                  color: AppTheme.primaryGreen, size: 24),
-                            ),
-                            const SizedBox(width: 14),
-                            const Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'بنك الأسئلة',
-                                    style: TextStyle(
-                                      fontFamily: 'Cairo',
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppTheme.textDark,
-                                    ),
-                                  ),
-                                  SizedBox(height: 2),
-                                  Text(
-                                    'استعرض أسئلة جميع المواد عبر كل الصفوف',
-                                    style: TextStyle(
-                                      fontFamily: 'Cairo',
-                                      fontSize: 13,
-                                      color: AppTheme.textGray,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const Icon(Icons.arrow_back_ios,
-                                size: 16, color: AppTheme.textGray),
-                          ],
-                        ),
-                      ),
-                    ),
+                  _NavTile(
+                    icon: Icons.quiz_rounded,
+                    accentColor: AppTheme.primaryGreen,
+                    title: 'بنك الأسئلة',
+                    subtitle: 'استعرض أسئلة جميع المواد عبر كل الصفوف',
+                    onTap: () => context.openAdminQuestionBank(),
                   ),
                   const SizedBox(height: 24),
 
@@ -346,6 +307,81 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
       'ADMIN' => 'مشرف',
       _ => role,
     };
+  }
+}
+
+class _NavTile extends StatelessWidget {
+  final IconData icon;
+  final Color accentColor;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  const _NavTile({
+    required this.icon,
+    required this.accentColor,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      elevation: 1,
+      shadowColor: Colors.black.withValues(alpha: 0.06),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Container(
+                width: 48,
+                height: 48,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: accentColor.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Icon(icon, color: accentColor, size: 24),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontFamily: 'Cairo',
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: AppTheme.textDark,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      subtitle,
+                      style: const TextStyle(
+                        fontFamily: 'Cairo',
+                        fontSize: 13,
+                        color: AppTheme.textGray,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(Icons.arrow_back_ios,
+                  size: 16, color: AppTheme.textGray),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 

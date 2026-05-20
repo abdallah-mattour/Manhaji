@@ -21,6 +21,68 @@ class AdminService {
     return list.map((u) => UserSummary.fromJson(u)).toList();
   }
 
+  /// Create a STUDENT or TEACHER. Pass only the fields relevant to the role:
+  /// `gradeLevel` for students, `department` + `assignedGrade` for teachers.
+  Future<UserSummary> createUser({
+    required String fullName,
+    String? email,
+    String? phone,
+    required String password,
+    required String role,
+    int? gradeLevel,
+    String? department,
+    int? assignedGrade,
+  }) async {
+    final Map<String, dynamic> body = {
+      'fullName': fullName,
+      'password': password,
+      'role': role,
+      if (email != null && email.isNotEmpty) 'email': email,
+      if (phone != null && phone.isNotEmpty) 'phone': phone,
+      'gradeLevel': ?gradeLevel,
+      if (department != null && department.isNotEmpty) 'department': department,
+      'assignedGrade': ?assignedGrade,
+    };
+    final response = await _api.post(ApiConfig.adminUsers, data: body);
+    return UserSummary.fromJson(
+      (response['data'] as Map<String, dynamic>?) ?? const {},
+    );
+  }
+
+  /// PATCH semantics: only fields provided are applied. Password is rehashed
+  /// only if non-null and non-empty.
+  Future<UserSummary> updateUser(
+    int userId, {
+    String? fullName,
+    String? email,
+    String? phone,
+    String? password,
+    bool? isActive,
+    int? gradeLevel,
+    String? department,
+    int? assignedGrade,
+  }) async {
+    final Map<String, dynamic> body = {
+      if (fullName != null && fullName.isNotEmpty) 'fullName': fullName,
+      if (email != null && email.isNotEmpty) 'email': email,
+      if (phone != null && phone.isNotEmpty) 'phone': phone,
+      if (password != null && password.isNotEmpty) 'password': password,
+      'isActive': ?isActive,
+      'gradeLevel': ?gradeLevel,
+      'department': ?department,
+      'assignedGrade': ?assignedGrade,
+    };
+    final response =
+        await _api.put('${ApiConfig.adminUsers}/$userId', data: body);
+    return UserSummary.fromJson(
+      (response['data'] as Map<String, dynamic>?) ?? const {},
+    );
+  }
+
+  Future<void> deleteUser(int userId) async {
+    await _api.delete('${ApiConfig.adminUsers}/$userId');
+  }
+
   // ===== Question Bank (FR-9, unrestricted) =====
 
   Future<List<SubjectSummary>> getAllSubjects({int? grade}) async {

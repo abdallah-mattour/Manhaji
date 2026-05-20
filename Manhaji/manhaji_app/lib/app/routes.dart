@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../screens/admin/admin_dashboard_screen.dart';
+import '../screens/admin/manage_users_screen.dart';
 import '../screens/gate/platform_mismatch_screen.dart';
 import '../screens/parent/child_progress_screen.dart';
 import '../screens/parent/parent_dashboard_screen.dart';
@@ -35,6 +36,7 @@ class AppRoutes {
 
   // Admin
   static const String adminDashboard = '/admin';
+  static const String adminManageUsers = '/admin/users';
 
   // Parent
   static const String parentDashboard = '/parent';
@@ -79,6 +81,7 @@ class AppRoutes {
         classStudents: (_) => const ClassStudentsScreen(),
         teacherStudentDetail: (_) => const StudentDetailScreen(),
         adminDashboard: (_) => const AdminDashboardScreen(),
+        adminManageUsers: (_) => const ManageUsersScreen(),
         parentDashboard: (_) => const ParentDashboardScreen(),
         childProgress: (_) => const ChildProgressScreen(),
         aiReports: (_) => const AiReportsScreen(),

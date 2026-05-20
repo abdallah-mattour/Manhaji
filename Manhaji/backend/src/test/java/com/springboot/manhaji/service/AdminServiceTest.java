@@ -1,5 +1,7 @@
 package com.springboot.manhaji.service;
 
+import com.springboot.manhaji.dto.request.AdminCreateUserRequest;
+import com.springboot.manhaji.dto.request.AdminUpdateUserRequest;
 import com.springboot.manhaji.dto.response.AdminStatsResponse;
 import com.springboot.manhaji.dto.response.QuestionBankResponse;
 import com.springboot.manhaji.dto.response.SubjectSummary;
@@ -12,11 +14,14 @@ import com.springboot.manhaji.entity.Question;
 import com.springboot.manhaji.entity.Student;
 import com.springboot.manhaji.entity.Subject;
 import com.springboot.manhaji.entity.Teacher;
+import com.springboot.manhaji.entity.User;
 import com.springboot.manhaji.entity.enums.AttemptStatus;
 import com.springboot.manhaji.entity.enums.CompletionStatus;
 import com.springboot.manhaji.entity.enums.QuestionType;
 import com.springboot.manhaji.entity.enums.Role;
+import com.springboot.manhaji.exception.BadRequestException;
 import com.springboot.manhaji.exception.ResourceNotFoundException;
+import com.springboot.manhaji.infrastructure.Messages;
 import com.springboot.manhaji.repository.*;
 import com.springboot.manhaji.service.support.QuestionBankMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,6 +31,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -33,6 +39,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -48,6 +56,8 @@ class AdminServiceTest {
     @Mock private QuestionRepository questionRepository;
     @Mock private AttemptRepository attemptRepository;
     @Mock private ProgressRepository progressRepository;
+    @Mock private PasswordEncoder passwordEncoder;
+    @Mock private Messages messages;
 
     private AdminService adminService;
 
@@ -56,7 +66,11 @@ class AdminServiceTest {
         adminService = new AdminService(
                 userRepository, studentRepository, teacherRepository, parentRepository,
                 adminRepository, subjectRepository, lessonRepository, questionRepository,
-                attemptRepository, progressRepository, new QuestionBankMapper());
+                attemptRepository, progressRepository, new QuestionBankMapper(),
+                passwordEncoder, messages);
+        lenient().when(messages.get(anyString(), any(Object[].class)))
+                .thenAnswer(inv -> inv.getArgument(0));
+        lenient().when(messages.get(anyString())).thenAnswer(inv -> inv.getArgument(0));
     }
 
     // ==================== getStats Tests ====================
@@ -332,6 +346,234 @@ class AdminServiceTest {
             assertThatThrownBy(() -> adminService.getQuestionsForSubject(999L, null, null))
                     .isInstanceOf(ResourceNotFoundException.class);
             verify(questionRepository, never()).findAllBySubjectIdWithLesson(anyLong());
+        }
+    }
+
+    // ==================== createUser Tests ====================
+
+    @Nested
+    @DisplayName("createUser()")
+    class CreateUserTests {
+
+        @Test
+        @DisplayName("should create a student with hashed password")
+        void createStudent() {
+            AdminCreateUserRequest req = new AdminCreateUserRequest();
+            req.setFullName("سعد علي");
+            req.setEmail("saad@example.com");
+            req.setPassword("secret123");
+            req.setRole(Role.STUDENT);
+            req.setGradeLevel(2);
+
+            when(userRepository.existsByEmail("saad@example.com")).thenReturn(false);
+            when(passwordEncoder.encode("secret123")).thenReturn("HASH");
+            when(userRepository.save(any(User.class))).thenAnswer(inv -> {
+                User u = inv.getArgument(0);
+                u.setId(42L);
+                return u;
+            });
+
+            UserSummaryResponse result = adminService.createUser(req);
+
+            assertThat(result.getUserId()).isEqualTo(42L);
+            assertThat(result.getRole()).isEqualTo(Role.STUDENT);
+            assertThat(result.getGradeLevel()).isEqualTo(2);
+            assertThat(result.getFullName()).isEqualTo("سعد علي");
+
+            verify(passwordEncoder).encode("secret123");
+        }
+
+        @Test
+        @DisplayName("should create a teacher with department + assignedGrade")
+        void createTeacher() {
+            AdminCreateUserRequest req = new AdminCreateUserRequest();
+            req.setFullName("Ms. Sara");
+            req.setPhone("0599123456");
+            req.setPassword("p4ssword");
+            req.setRole(Role.TEACHER);
+            req.setDepartment("Arabic");
+            req.setAssignedGrade(1);
+
+            when(userRepository.existsByPhone("0599123456")).thenReturn(false);
+            when(passwordEncoder.encode("p4ssword")).thenReturn("HASH");
+            when(userRepository.save(any(User.class))).thenAnswer(inv -> {
+                User u = inv.getArgument(0);
+                u.setId(7L);
+                return u;
+            });
+
+            UserSummaryResponse result = adminService.createUser(req);
+
+            assertThat(result.getRole()).isEqualTo(Role.TEACHER);
+            assertThat(result.getPhone()).isEqualTo("0599123456");
+        }
+
+        @Test
+        @DisplayName("should reject non-manageable roles (ADMIN)")
+        void rejectsNonManageableRole() {
+            AdminCreateUserRequest req = new AdminCreateUserRequest();
+            req.setFullName("X");
+            req.setEmail("x@example.com");
+            req.setPassword("secret123");
+            req.setRole(Role.ADMIN);
+
+            assertThatThrownBy(() -> adminService.createUser(req))
+                    .isInstanceOf(BadRequestException.class);
+            verify(userRepository, never()).save(any(User.class));
+        }
+
+        @Test
+        @DisplayName("should reject student without gradeLevel")
+        void rejectsStudentWithoutGrade() {
+            AdminCreateUserRequest req = new AdminCreateUserRequest();
+            req.setFullName("Y");
+            req.setEmail("y@example.com");
+            req.setPassword("secret123");
+            req.setRole(Role.STUDENT);
+
+            when(userRepository.existsByEmail("y@example.com")).thenReturn(false);
+
+            assertThatThrownBy(() -> adminService.createUser(req))
+                    .isInstanceOf(BadRequestException.class);
+            verify(userRepository, never()).save(any(User.class));
+        }
+
+        @Test
+        @DisplayName("should reject duplicate email")
+        void rejectsDuplicateEmail() {
+            AdminCreateUserRequest req = new AdminCreateUserRequest();
+            req.setFullName("Z");
+            req.setEmail("z@example.com");
+            req.setPassword("secret123");
+            req.setRole(Role.STUDENT);
+            req.setGradeLevel(1);
+
+            when(userRepository.existsByEmail("z@example.com")).thenReturn(true);
+
+            assertThatThrownBy(() -> adminService.createUser(req))
+                    .isInstanceOf(BadRequestException.class);
+            verify(userRepository, never()).save(any(User.class));
+        }
+    }
+
+    // ==================== updateUser Tests ====================
+
+    @Nested
+    @DisplayName("updateUser()")
+    class UpdateUserTests {
+
+        @Test
+        @DisplayName("should patch only provided fields")
+        void patchesProvidedFieldsOnly() {
+            Student student = new Student();
+            student.setId(5L);
+            student.setRole(Role.STUDENT);
+            student.setFullName("Old Name");
+            student.setEmail("old@example.com");
+            student.setGradeLevel(1);
+            student.setPasswordHash("OLDHASH");
+            student.setIsActive(true);
+
+            when(userRepository.findById(5L)).thenReturn(Optional.of(student));
+            when(userRepository.save(any(User.class))).thenAnswer(inv -> inv.getArgument(0));
+
+            AdminUpdateUserRequest req = new AdminUpdateUserRequest();
+            req.setFullName("New Name");
+            req.setGradeLevel(3);
+
+            UserSummaryResponse result = adminService.updateUser(5L, req);
+
+            assertThat(result.getFullName()).isEqualTo("New Name");
+            assertThat(result.getGradeLevel()).isEqualTo(3);
+            assertThat(result.getEmail()).isEqualTo("old@example.com");
+            // password unchanged
+            assertThat(student.getPasswordHash()).isEqualTo("OLDHASH");
+        }
+
+        @Test
+        @DisplayName("should hash new password when provided")
+        void rehashesPasswordWhenProvided() {
+            Teacher teacher = new Teacher();
+            teacher.setId(8L);
+            teacher.setRole(Role.TEACHER);
+            teacher.setPasswordHash("OLD");
+
+            when(userRepository.findById(8L)).thenReturn(Optional.of(teacher));
+            when(passwordEncoder.encode("newpass")).thenReturn("NEWHASH");
+            when(userRepository.save(any(User.class))).thenAnswer(inv -> inv.getArgument(0));
+
+            AdminUpdateUserRequest req = new AdminUpdateUserRequest();
+            req.setPassword("newpass");
+
+            adminService.updateUser(8L, req);
+
+            assertThat(teacher.getPasswordHash()).isEqualTo("NEWHASH");
+        }
+
+        @Test
+        @DisplayName("should reject updates on ADMIN users")
+        void rejectsAdminTarget() {
+            Admin admin = new Admin();
+            admin.setId(1L);
+            admin.setRole(Role.ADMIN);
+            when(userRepository.findById(1L)).thenReturn(Optional.of(admin));
+
+            assertThatThrownBy(() -> adminService.updateUser(1L, new AdminUpdateUserRequest()))
+                    .isInstanceOf(BadRequestException.class);
+        }
+
+        @Test
+        @DisplayName("should reject when target user not found")
+        void rejectsMissingUser() {
+            when(userRepository.findById(404L)).thenReturn(Optional.empty());
+            assertThatThrownBy(() -> adminService.updateUser(404L, new AdminUpdateUserRequest()))
+                    .isInstanceOf(ResourceNotFoundException.class);
+        }
+    }
+
+    // ==================== deleteUser Tests ====================
+
+    @Nested
+    @DisplayName("deleteUser()")
+    class DeleteUserTests {
+
+        @Test
+        @DisplayName("should delete a student")
+        void deletesStudent() {
+            Student student = new Student();
+            student.setId(7L);
+            student.setRole(Role.STUDENT);
+            when(userRepository.findById(7L)).thenReturn(Optional.of(student));
+
+            adminService.deleteUser(7L, 2L);
+
+            verify(userRepository).delete(student);
+        }
+
+        @Test
+        @DisplayName("should reject self-deletion")
+        void rejectsSelfDelete() {
+            Student student = new Student();
+            student.setId(2L);
+            student.setRole(Role.STUDENT);
+            when(userRepository.findById(2L)).thenReturn(Optional.of(student));
+
+            assertThatThrownBy(() -> adminService.deleteUser(2L, 2L))
+                    .isInstanceOf(BadRequestException.class);
+            verify(userRepository, never()).delete(any(User.class));
+        }
+
+        @Test
+        @DisplayName("should reject deletion of ADMIN")
+        void rejectsAdminDelete() {
+            Admin admin = new Admin();
+            admin.setId(1L);
+            admin.setRole(Role.ADMIN);
+            when(userRepository.findById(1L)).thenReturn(Optional.of(admin));
+
+            assertThatThrownBy(() -> adminService.deleteUser(1L, 99L))
+                    .isInstanceOf(BadRequestException.class);
+            verify(userRepository, never()).delete(any(User.class));
         }
     }
 

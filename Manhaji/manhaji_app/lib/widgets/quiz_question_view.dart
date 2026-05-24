@@ -21,7 +21,12 @@ import 'question_media_header.dart';
 /// The card itself is white with a soft subject-tinted glow shadow so it
 /// reads as friendly without being garish. On wrong answer it shakes via
 /// the parent-provided `shakeAnimation` and the border briefly tints red.
-class QuizQuestionView extends StatelessWidget {
+///
+/// Palestinian Playful edition: an eight-pointed star (Levantine tilework
+/// motif) sits at the top corner as a subtle brand accent, and the card
+/// enters with a spring bounce so the moment of "new question" reads as
+/// energetic without being noisy.
+class QuizQuestionView extends StatefulWidget {
   const QuizQuestionView({
     super.key,
     required this.question,
@@ -55,53 +60,121 @@ class QuizQuestionView extends StatelessWidget {
   final int maxHintLevel;
 
   @override
-  Widget build(BuildContext context) {
-    final typeColor = AppTheme.colorForQuestionType(question.type);
+  State<QuizQuestionView> createState() => _QuizQuestionViewState();
+}
 
-    return AnimatedBuilder(
-      animation: shakeAnimation,
+class _QuizQuestionViewState extends State<QuizQuestionView>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _entrance;
+  late final Animation<double> _scale;
+  late final Animation<double> _opacity;
+
+  @override
+  void initState() {
+    super.initState();
+    _entrance = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 520),
+    );
+    _scale = Tween<double>(begin: 0.92, end: 1.0).animate(
+      CurvedAnimation(parent: _entrance, curve: Curves.elasticOut),
+    );
+    _opacity = CurvedAnimation(parent: _entrance, curve: Curves.easeOut);
+    _entrance.forward();
+  }
+
+  @override
+  void didUpdateWidget(covariant QuizQuestionView old) {
+    super.didUpdateWidget(old);
+    // Re-bounce when the question identity changes — gives every "new
+    // question" its own little entrance moment instead of static swaps.
+    if (old.question.id != widget.question.id) {
+      _entrance.forward(from: 0);
+    }
+  }
+
+  @override
+  void dispose() {
+    _entrance.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final typeColor = AppTheme.colorForQuestionType(widget.question.type);
+
+    final card = AnimatedBuilder(
+      animation: widget.shakeAnimation,
       builder: (context, child) {
         return Transform.translate(
-          offset: Offset(shakeAnimation.value, 0),
+          offset: Offset(widget.shakeAnimation.value, 0),
           child: child,
         );
       },
-      child: AppCard(
-        radius: AppTheme.radiusXXL,
-        tint: typeColor,
-        borderColor: showFeedbackBorder ? borderColor : Colors.transparent,
-        borderWidth: showFeedbackBorder ? 2 : 0,
-        padding: const EdgeInsets.all(AppTheme.space5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _TypePill(type: question.type, color: typeColor),
-            const AppGap.v4(),
-            QuestionMediaHeader(
-              imageUrl: question.imageUrl,
-              audioUrl: question.audioUrl,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          AppCard(
+            radius: AppTheme.radiusXXL,
+            tint: typeColor,
+            borderColor: widget.showFeedbackBorder
+                ? widget.borderColor
+                : Colors.transparent,
+            borderWidth: widget.showFeedbackBorder ? 3 : 0,
+            padding: const EdgeInsets.fromLTRB(
+                AppTheme.space5, AppTheme.space6, AppTheme.space5, AppTheme.space5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _TypePill(type: widget.question.type, color: typeColor),
+                const AppGap.v4(),
+                QuestionMediaHeader(
+                  imageUrl: widget.question.imageUrl,
+                  audioUrl: widget.question.audioUrl,
+                ),
+                _Prompt(text: widget.question.questionText, onSpeak: widget.onSpeak),
+                if (widget.isRetry) ...const [
+                  AppGap.v3(),
+                  _RetryBanner(),
+                ],
+                if (!widget.isAnswered && !widget.isRetry) ...[
+                  const AppGap.v4(),
+                  _HintButton(
+                    hintLevel: widget.hintLevel,
+                    maxHintLevel: widget.maxHintLevel,
+                    isLoading: widget.isLoadingHint,
+                    onRequest: widget.onRequestHint,
+                  ),
+                ],
+                if (widget.currentHint != null) ...[
+                  const AppGap.v3(),
+                  _HintBubble(text: widget.currentHint!),
+                ],
+              ],
             ),
-            _Prompt(text: question.questionText, onSpeak: onSpeak),
-            if (isRetry) ...const [
-              AppGap.v3(),
-              _RetryBanner(),
-            ],
-            if (!isAnswered && !isRetry) ...[
-              const AppGap.v4(),
-              _HintButton(
-                hintLevel: hintLevel,
-                maxHintLevel: maxHintLevel,
-                isLoading: isLoadingHint,
-                onRequest: onRequestHint,
-              ),
-            ],
-            if (currentHint != null) ...[
-              const AppGap.v3(),
-              _HintBubble(text: currentHint!),
-            ],
-          ],
-        ),
+          ),
+          // Decorative eight-point star — Levantine tilework motif. Sits
+          // half-on the corner of the card, brand-tinted, gives the surface
+          // a "this was designed, not generated" feel.
+          Positioned(
+            top: -12,
+            // RTL → star anchors to the visual left of the screen;
+            // LTR → mirror to right. Card is RTL by default per Directionality.
+            left: Directionality.of(context) == TextDirection.rtl ? null : -10,
+            right: Directionality.of(context) == TextDirection.rtl ? -10 : null,
+            child: EightPointStar(
+              size: 36,
+              color: typeColor,
+              rotation: 0.15,
+            ),
+          ),
+        ],
       ),
+    );
+
+    return FadeTransition(
+      opacity: _opacity,
+      child: ScaleTransition(scale: _scale, child: card),
     );
   }
 }
@@ -124,17 +197,28 @@ class _TypePill extends StatelessWidget {
           : Alignment.centerLeft,
       child: Container(
         padding: const EdgeInsets.symmetric(
-          horizontal: AppTheme.space3,
-          vertical: 6,
+          horizontal: AppTheme.space4,
+          vertical: 8,
         ),
         decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.12),
+          gradient: LinearGradient(
+            colors: [
+              color.withValues(alpha: 0.16),
+              color.withValues(alpha: 0.08),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
           borderRadius: BorderRadius.circular(AppTheme.radiusPill),
+          border: Border.all(
+            color: color.withValues(alpha: 0.25),
+            width: 1.5,
+          ),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(emoji, style: const TextStyle(fontSize: 14)),
+            Text(emoji, style: const TextStyle(fontSize: 15)),
             const AppGap.h2(),
             Text(
               label,

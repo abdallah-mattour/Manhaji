@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../app/routes.dart';
 import '../../app/theme.dart';
 import '../../providers/auth_provider.dart';
+import '../../widgets/mascot.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -57,119 +58,81 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.fromLTRB(24, 32, 24, 32),
             child: Form(
               key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const SizedBox(height: 40),
-                  // Logo
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: AppTheme.primaryGreen.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: const Icon(
-                      Icons.menu_book_rounded,
-                      size: 50,
-                      color: AppTheme.primaryGreen,
+                  // Hakeem owl in a soft olive disc — same brand anchor as
+                  // splash. Smaller than splash so the form has room.
+                  Center(
+                    child: Container(
+                      width: 130,
+                      height: 130,
+                      decoration: BoxDecoration(
+                        color: AppTheme.primaryGreen.withValues(alpha: 0.10),
+                        shape: BoxShape.circle,
+                      ),
+                      alignment: Alignment.center,
+                      child: const AnimatedMascot(
+                        mood: MascotMood.happy,
+                        size: 110,
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const AppGap.v5(),
                   const Text(
                     'مرحباً بك في منهجي',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'Cairo',
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 28,
+                      fontWeight: FontWeight.w800,
                       color: AppTheme.textDark,
+                      letterSpacing: -0.3,
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  const AppGap.v2(),
                   const Text(
                     'سجّل دخولك للمتابعة',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'Cairo',
                       fontSize: 16,
+                      fontWeight: FontWeight.w600,
                       color: AppTheme.textGray,
                     ),
                   ),
-                  const SizedBox(height: 32),
+                  const AppGap.v8(),
 
-                  // Toggle phone/email
-                  Row(
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () => setState(() => _isPhoneLogin = false),
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 12),
-                            decoration: BoxDecoration(
-                              color: !_isPhoneLogin
-                                  ? AppTheme.primaryGreen
-                                  : Colors.grey.shade200,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Text(
-                              'البريد الإلكتروني',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontFamily: 'Cairo',
-                                fontWeight: FontWeight.bold,
-                                color: !_isPhoneLogin
-                                    ? Colors.white
-                                    : AppTheme.textGray,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () => setState(() => _isPhoneLogin = true),
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 12),
-                            decoration: BoxDecoration(
-                              color: _isPhoneLogin
-                                  ? AppTheme.primaryGreen
-                                  : Colors.grey.shade200,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Text(
-                              'رقم الهاتف',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontFamily: 'Cairo',
-                                fontWeight: FontWeight.bold,
-                                color: _isPhoneLogin
-                                    ? Colors.white
-                                    : AppTheme.textGray,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                  // Email/phone toggle — clearer states using warm tokens.
+                  _LoginMethodToggle(
+                    isPhone: _isPhoneLogin,
+                    onChanged: (v) => setState(() => _isPhoneLogin = v),
                   ),
-                  const SizedBox(height: 24),
+                  const AppGap.v6(),
 
-                  // Email/Phone field
+                  // Email/phone field
                   TextFormField(
                     controller: _emailController,
-                    textDirection: _isPhoneLogin ? TextDirection.ltr : TextDirection.ltr,
+                    textDirection: TextDirection.ltr,
                     keyboardType: _isPhoneLogin
                         ? TextInputType.phone
                         : TextInputType.emailAddress,
+                    style: const TextStyle(
+                      fontFamily: 'Cairo',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: AppTheme.textDark,
+                    ),
                     decoration: InputDecoration(
-                      labelText: _isPhoneLogin ? 'رقم الهاتف' : 'البريد الإلكتروني',
+                      labelText:
+                          _isPhoneLogin ? 'رقم الهاتف' : 'البريد الإلكتروني',
                       prefixIcon: Icon(
-                        _isPhoneLogin ? Icons.phone : Icons.email_outlined,
+                        _isPhoneLogin
+                            ? Icons.phone_rounded
+                            : Icons.email_outlined,
                         color: AppTheme.primaryGreen,
                       ),
                     ),
@@ -182,28 +145,34 @@ class _LoginScreenState extends State<LoginScreen> {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 16),
+                  const AppGap.v4(),
 
-                  // Password field
+                  // Password
                   TextFormField(
                     controller: _passwordController,
                     obscureText: _obscurePassword,
                     textDirection: TextDirection.ltr,
+                    style: const TextStyle(
+                      fontFamily: 'Cairo',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: AppTheme.textDark,
+                    ),
                     decoration: InputDecoration(
                       labelText: 'كلمة المرور',
                       prefixIcon: const Icon(
-                        Icons.lock_outline,
+                        Icons.lock_outline_rounded,
                         color: AppTheme.primaryGreen,
                       ),
                       suffixIcon: IconButton(
                         icon: Icon(
                           _obscurePassword
-                              ? Icons.visibility_off
-                              : Icons.visibility,
+                              ? Icons.visibility_off_rounded
+                              : Icons.visibility_rounded,
                           color: AppTheme.textGray,
                         ),
-                        onPressed: () =>
-                            setState(() => _obscurePassword = !_obscurePassword),
+                        onPressed: () => setState(
+                            () => _obscurePassword = !_obscurePassword),
                       ),
                     ),
                     validator: (value) {
@@ -213,38 +182,54 @@ class _LoginScreenState extends State<LoginScreen> {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 24),
+                  const AppGap.v5(),
 
-                  // Error message
+                  // Friendly error in errorContainer tone instead of raw red.
                   Consumer<AuthProvider>(
                     builder: (context, auth, _) {
-                      if (auth.errorMessage != null) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 16),
-                          child: Container(
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: Colors.red.shade50,
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: Colors.red.shade200),
-                            ),
-                            child: Text(
-                              auth.errorMessage!,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontFamily: 'Cairo',
-                                color: Colors.red.shade700,
-                                fontSize: 14,
-                              ),
+                      if (auth.errorMessage == null) {
+                        return const SizedBox.shrink();
+                      }
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: Container(
+                          padding: const EdgeInsets.all(14),
+                          decoration: BoxDecoration(
+                            color: AppTheme.errorContainer,
+                            borderRadius:
+                                BorderRadius.circular(AppTheme.radiusL),
+                            border: Border.all(
+                              color:
+                                  AppTheme.error.withValues(alpha: 0.4),
+                              width: 1.5,
                             ),
                           ),
-                        );
-                      }
-                      return const SizedBox.shrink();
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Icon(Icons.error_outline_rounded,
+                                  color: AppTheme.error, size: 22),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: Text(
+                                  auth.errorMessage!,
+                                  style: const TextStyle(
+                                    fontFamily: 'Cairo',
+                                    color: AppTheme.error,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w700,
+                                    height: 1.4,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
                     },
                   ),
 
-                  // Login button
+                  // Login button — pulls primary olive from theme.
                   Consumer<AuthProvider>(
                     builder: (context, auth, _) {
                       return ElevatedButton(
@@ -255,16 +240,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                 width: 24,
                                 child: CircularProgressIndicator(
                                   color: Colors.white,
-                                  strokeWidth: 2,
+                                  strokeWidth: 2.5,
                                 ),
                               )
                             : const Text('تسجيل الدخول'),
                       );
                     },
                   ),
-                  const SizedBox(height: 24),
+                  const AppGap.v5(),
 
-                  // Register link
+                  // Register link — clear separation
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -272,6 +257,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         'ليس لديك حساب؟',
                         style: TextStyle(
                           fontFamily: 'Cairo',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
                           color: AppTheme.textGray,
                         ),
                       ),
@@ -282,7 +269,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           'سجّل الآن',
                           style: TextStyle(
                             fontFamily: 'Cairo',
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 15,
                             color: AppTheme.primaryGreen,
                           ),
                         ),
@@ -292,6 +280,66 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Two-segment toggle for email vs phone login. Selected segment is
+/// olive-filled with white text; unselected is warm sand with dark text.
+/// Generous 14px font + bold so the labels are unmistakable.
+class _LoginMethodToggle extends StatelessWidget {
+  final bool isPhone;
+  final ValueChanged<bool> onChanged;
+
+  const _LoginMethodToggle({
+    required this.isPhone,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        color: AppTheme.surfaceMuted,
+        borderRadius: BorderRadius.circular(AppTheme.radiusL),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: _segment('البريد الإلكتروني', !isPhone, () => onChanged(false)),
+          ),
+          Expanded(
+            child: _segment('رقم الهاتف', isPhone, () => onChanged(true)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _segment(String label, bool selected, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: AppTheme.motionFast,
+        curve: AppTheme.motionCurve,
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        decoration: BoxDecoration(
+          color: selected ? AppTheme.primaryGreen : Colors.transparent,
+          borderRadius: BorderRadius.circular(AppTheme.radiusM),
+          boxShadow: selected ? AppTheme.elevationLow : null,
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          label,
+          style: TextStyle(
+            fontFamily: 'Cairo',
+            fontWeight: FontWeight.w800,
+            fontSize: 14,
+            color: selected ? Colors.white : AppTheme.textGray,
           ),
         ),
       ),

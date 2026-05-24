@@ -72,9 +72,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'Cairo',
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 28,
+                      fontWeight: FontWeight.w800,
                       color: AppTheme.textDark,
+                      letterSpacing: -0.3,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -84,6 +85,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     style: TextStyle(
                       fontFamily: 'Cairo',
                       fontSize: 16,
+                      fontWeight: FontWeight.w600,
                       color: AppTheme.textGray,
                     ),
                   ),
@@ -179,14 +181,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 16),
 
-                  // Grade picker
+                  // Grade picker — using theme tokens for consistency
                   Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: const Color(0xFFE0E0E0)),
+                      color: AppTheme.cardWhite,
+                      borderRadius: BorderRadius.circular(AppTheme.radiusL),
+                      border: Border.all(
+                          color: AppTheme.surfaceSubtle, width: 2),
                     ),
                     child: Row(
                       children: [
@@ -198,6 +201,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           style: TextStyle(
                             fontFamily: 'Cairo',
                             fontSize: 16,
+                            fontWeight: FontWeight.w600,
                             color: AppTheme.textGray,
                           ),
                         ),
@@ -209,7 +213,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             fontFamily: 'Cairo',
                             fontSize: 16,
                             color: AppTheme.textDark,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w800,
                           ),
                           items: [1, 2, 3, 4].map((grade) {
                             return DropdownMenuItem(
@@ -228,31 +232,46 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 24),
 
-                  // Error message
+                  // Error message — themed container, watermelon error tone
                   Consumer<AuthProvider>(
                     builder: (context, auth, _) {
-                      if (auth.errorMessage != null) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 16),
-                          child: Container(
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: Colors.red.shade50,
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: Colors.red.shade200),
-                            ),
-                            child: Text(
-                              auth.errorMessage!,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontFamily: 'Cairo',
-                                color: Colors.red.shade700,
-                              ),
-                            ),
-                          ),
-                        );
+                      if (auth.errorMessage == null) {
+                        return const SizedBox.shrink();
                       }
-                      return const SizedBox.shrink();
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: Container(
+                          padding: const EdgeInsets.all(14),
+                          decoration: BoxDecoration(
+                            color: AppTheme.errorContainer,
+                            borderRadius:
+                                BorderRadius.circular(AppTheme.radiusL),
+                            border: Border.all(
+                                color: AppTheme.error.withValues(alpha: 0.4),
+                                width: 1.5),
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Icon(Icons.error_outline_rounded,
+                                  color: AppTheme.error, size: 22),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: Text(
+                                  auth.errorMessage!,
+                                  style: const TextStyle(
+                                    fontFamily: 'Cairo',
+                                    color: AppTheme.error,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w700,
+                                    height: 1.4,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
                     },
                   ),
 
@@ -283,6 +302,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         'لديك حساب بالفعل؟',
                         style: TextStyle(
                           fontFamily: 'Cairo',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
                           color: AppTheme.textGray,
                         ),
                       ),
@@ -292,7 +313,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           'سجّل دخولك',
                           style: TextStyle(
                             fontFamily: 'Cairo',
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 15,
                             color: AppTheme.primaryGreen,
                           ),
                         ),

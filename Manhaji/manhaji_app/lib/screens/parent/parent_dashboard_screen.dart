@@ -66,9 +66,10 @@ class _ParentDashboardScreenState extends State<ParentDashboardScreen> {
                     'مرحباً، ${dash.fullName}',
                     style: const TextStyle(
                       fontFamily: 'Cairo',
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w800,
                       color: AppTheme.textDark,
+                      letterSpacing: -0.2,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -76,7 +77,8 @@ class _ParentDashboardScreenState extends State<ParentDashboardScreen> {
                     'تابع تقدم ${dash.children.length == 1 ? "طفلك" : "أطفالك"} الدراسي',
                     style: const TextStyle(
                       fontFamily: 'Cairo',
-                      fontSize: 14,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
                       color: AppTheme.textGray,
                     ),
                   ),
@@ -86,18 +88,25 @@ class _ParentDashboardScreenState extends State<ParentDashboardScreen> {
                     Container(
                       padding: const EdgeInsets.all(32),
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
+                        color: AppTheme.cardWhite,
+                        borderRadius:
+                            BorderRadius.circular(AppTheme.radiusL),
+                        border: Border.all(
+                            color: AppTheme.surfaceSubtle, width: 1.5),
                       ),
                       child: const Column(
                         children: [
-                          Icon(Icons.child_care,
+                          Icon(Icons.child_care_rounded,
                               size: 60, color: AppTheme.textLight),
                           SizedBox(height: 12),
                           Text(
                             'لا يوجد أطفال مرتبطين بحسابك بعد',
+                            textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontFamily: 'Cairo', color: AppTheme.textGray),
+                                fontFamily: 'Cairo',
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                color: AppTheme.textGray),
                           ),
                         ],
                       ),
@@ -133,20 +142,19 @@ class _ChildCard extends StatelessWidget {
         child.totalLessons > 0 ? child.lessonsCompleted / child.totalLessons : 0.0;
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 14),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-          ),
-        ],
+        color: AppTheme.cardWhite,
+        borderRadius: BorderRadius.circular(AppTheme.radiusXL),
+        boxShadow: AppTheme.elevationMedium,
+        border: Border.all(
+          color: AppTheme.primaryGreen.withValues(alpha: 0.12),
+          width: 1.5,
+        ),
       ),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(AppTheme.radiusXL),
         child: Padding(
           padding: const EdgeInsets.all(18),
           child: Column(
@@ -155,15 +163,15 @@ class _ChildCard extends StatelessWidget {
               Row(
                 children: [
                   CircleAvatar(
-                    radius: 28,
+                    radius: 30,
                     backgroundColor:
-                        AppTheme.primaryGreen.withValues(alpha: 0.1),
+                        AppTheme.primaryGreen.withValues(alpha: 0.12),
                     child: Text(
                       child.fullName.isNotEmpty ? child.fullName[0] : '?',
                       style: const TextStyle(
-                        fontSize: 22,
+                        fontSize: 24,
                         fontFamily: 'Cairo',
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w800,
                         color: AppTheme.primaryGreen,
                       ),
                     ),
@@ -175,25 +183,30 @@ class _ChildCard extends StatelessWidget {
                       children: [
                         Text(
                           child.fullName,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontFamily: 'Cairo',
                             fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w800,
+                            color: AppTheme.textDark,
                           ),
                         ),
+                        const SizedBox(height: 2),
                         Text(
                           'الصف ${child.gradeLevel}',
                           style: const TextStyle(
                             fontFamily: 'Cairo',
                             fontSize: 13,
+                            fontWeight: FontWeight.w700,
                             color: AppTheme.textGray,
                           ),
                         ),
                       ],
                     ),
                   ),
-                  const Icon(Icons.arrow_back_ios, size: 16,
-                      color: AppTheme.textGray),
+                  const Icon(Icons.arrow_back_ios_rounded,
+                      size: 18, color: AppTheme.textGray),
                 ],
               ),
               const SizedBox(height: 16),
@@ -274,17 +287,20 @@ class _MiniStat extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Icon(icon, color: color, size: 22),
+        Icon(icon, color: color, size: 24),
         const SizedBox(height: 4),
         Text(value,
             style: TextStyle(
                 fontFamily: 'Cairo',
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
+                fontSize: 17,
+                fontWeight: FontWeight.w800,
                 color: color)),
         Text(label,
             style: const TextStyle(
-                fontFamily: 'Cairo', fontSize: 11, color: AppTheme.textGray)),
+                fontFamily: 'Cairo',
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: AppTheme.textGray)),
       ],
     );
   }

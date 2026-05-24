@@ -127,7 +127,9 @@ class _LearningCompletionScreenState extends State<LearningCompletionScreen>
                         ),
                         const SizedBox(height: 32),
 
-                        // Animated stars
+                        // Stars — eight-point Levantine motif. Larger
+                        // (72px) so the win moment lands. Spring-scaled
+                        // by _starAnimations, staggered 150ms each.
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: List.generate(3, (i) {
@@ -135,14 +137,13 @@ class _LearningCompletionScreenState extends State<LearningCompletionScreen>
                             return ScaleTransition(
                               scale: _starAnimations[i],
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 6),
-                                child: Icon(
-                                  earned ? Icons.star_rounded : Icons.star_border_rounded,
-                                  size: 64,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10),
+                                child: EightPointStar(
+                                  size: 72,
                                   color: earned
-                                      ? AppTheme.primaryYellow
-                                      : Colors.grey.shade300,
+                                      ? AppTheme.starGold
+                                      : AppTheme.starInactive,
                                 ),
                               ),
                             );

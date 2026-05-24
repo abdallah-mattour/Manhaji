@@ -91,7 +91,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [AppTheme.primaryGreen, Color(0xFF388E3C)],
+          colors: [AppTheme.primaryGreen, AppTheme.primaryGreenDeep],
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
         ),

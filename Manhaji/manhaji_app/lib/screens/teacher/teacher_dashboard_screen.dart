@@ -67,18 +67,23 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
                     'مرحباً، ${dash.fullName}',
                     style: const TextStyle(
                       fontFamily: 'Cairo',
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w800,
                       color: AppTheme.textDark,
+                      letterSpacing: -0.2,
                     ),
                   ),
                   if (dash.department != null)
-                    Text(
-                      dash.department!,
-                      style: const TextStyle(
-                        fontFamily: 'Cairo',
-                        fontSize: 14,
-                        color: AppTheme.textGray,
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Text(
+                        dash.department!,
+                        style: const TextStyle(
+                          fontFamily: 'Cairo',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: AppTheme.textGray,
+                        ),
                       ),
                     ),
                   const SizedBox(height: 20),
@@ -135,14 +140,22 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        'أفضل الطلاب',
-                        style: TextStyle(
-                          fontFamily: 'Cairo',
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: AppTheme.textDark,
-                        ),
+                      const Row(
+                        children: [
+                          EightPointStar(
+                              size: 16, color: AppTheme.primaryGreen),
+                          SizedBox(width: 8),
+                          Text(
+                            'أفضل الطلاب',
+                            style: TextStyle(
+                              fontFamily: 'Cairo',
+                              fontSize: 20,
+                              fontWeight: FontWeight.w800,
+                              color: AppTheme.textDark,
+                              letterSpacing: -0.2,
+                            ),
+                          ),
+                        ],
                       ),
                       TextButton(
                         onPressed: () => Navigator.pushNamed(
@@ -151,6 +164,8 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
                           'عرض الكل',
                           style: TextStyle(
                             fontFamily: 'Cairo',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w800,
                             color: AppTheme.primaryGreen,
                           ),
                         ),
@@ -204,14 +219,13 @@ class _StatCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.04),
-              blurRadius: 10,
-            ),
-          ],
+          color: AppTheme.cardWhite,
+          borderRadius: BorderRadius.circular(AppTheme.radiusL),
+          boxShadow: AppTheme.elevationLow,
+          border: Border.all(
+            color: color.withValues(alpha: 0.15),
+            width: 1.2,
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -229,16 +243,20 @@ class _StatCard extends StatelessWidget {
               value,
               style: const TextStyle(
                 fontFamily: 'Cairo',
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
+                fontSize: 24,
+                fontWeight: FontWeight.w800,
                 color: AppTheme.textDark,
               ),
             ),
+            const SizedBox(height: 2),
             Text(
               title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 fontFamily: 'Cairo',
-                fontSize: 12,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
                 color: AppTheme.textGray,
               ),
             ),
@@ -258,40 +276,56 @@ class _StudentTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 8),
+      margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.03),
-            blurRadius: 6,
-          ),
-        ],
+        color: AppTheme.cardWhite,
+        borderRadius: BorderRadius.circular(AppTheme.radiusL),
+        boxShadow: AppTheme.elevationLow,
+        border: Border.all(
+          color: AppTheme.surfaceSubtle,
+          width: 1,
+        ),
       ),
       child: ListTile(
         onTap: onTap,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
         leading: CircleAvatar(
-          backgroundColor: AppTheme.primaryBlue.withValues(alpha: 0.1),
+          backgroundColor: AppTheme.primaryGreen.withValues(alpha: 0.12),
           child: Text(
             student.fullName.isNotEmpty ? student.fullName[0] : '?',
             style: const TextStyle(
               fontFamily: 'Cairo',
-              fontWeight: FontWeight.bold,
-              color: AppTheme.primaryBlue,
+              fontWeight: FontWeight.w800,
+              fontSize: 18,
+              color: AppTheme.primaryGreen,
             ),
           ),
         ),
         title: Text(
           student.fullName,
-          style: const TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.w600),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(
+              fontFamily: 'Cairo',
+              fontWeight: FontWeight.w800,
+              fontSize: 16,
+              color: AppTheme.textDark),
         ),
-        subtitle: Text(
-          'النقاط: ${student.totalPoints}  •  الإتقان: ${student.averageMastery.toStringAsFixed(0)}%',
-          style: const TextStyle(fontFamily: 'Cairo', fontSize: 12),
+        subtitle: Padding(
+          padding: const EdgeInsets.only(top: 2),
+          child: Text(
+            'النقاط: ${student.totalPoints}  •  الإتقان: ${student.averageMastery.toStringAsFixed(0)}%',
+            style: const TextStyle(
+                fontFamily: 'Cairo',
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: AppTheme.textGray),
+          ),
         ),
-        trailing: const Icon(Icons.arrow_back_ios, size: 16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        trailing: const Icon(Icons.arrow_back_ios_rounded,
+            size: 18, color: AppTheme.textGray),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppTheme.radiusL)),
       ),
     );
   }
@@ -315,56 +349,75 @@ class _ActionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      elevation: 1,
-      shadowColor: Colors.black.withValues(alpha: 0.06),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(16),
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            children: [
-              Container(
-                width: 48,
-                height: 48,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: color.withValues(alpha: 0.12),
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: Icon(icon, color: color, size: 24),
-              ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontFamily: 'Cairo',
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: AppTheme.textDark,
-                      ),
+      color: AppTheme.cardWhite,
+      borderRadius: BorderRadius.circular(AppTheme.radiusL),
+      elevation: 0,
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppTheme.cardWhite,
+          borderRadius: BorderRadius.circular(AppTheme.radiusL),
+          boxShadow: AppTheme.elevationLow,
+          border: Border.all(
+            color: color.withValues(alpha: 0.18),
+            width: 1.2,
+          ),
+        ),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(AppTheme.radiusL),
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: [
+                Container(
+                  width: 52,
+                  height: 52,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        color.withValues(alpha: 0.18),
+                        color.withValues(alpha: 0.08),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
                     ),
-                    const SizedBox(height: 2),
-                    Text(
-                      subtitle,
-                      style: const TextStyle(
-                        fontFamily: 'Cairo',
-                        fontSize: 13,
-                        color: AppTheme.textGray,
-                      ),
-                    ),
-                  ],
+                    borderRadius: BorderRadius.circular(AppTheme.radiusM),
+                  ),
+                  child: Icon(icon, color: color, size: 26),
                 ),
-              ),
-              const Icon(Icons.arrow_back_ios,
-                  size: 16, color: AppTheme.textGray),
-            ],
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontFamily: 'Cairo',
+                          fontSize: 17,
+                          fontWeight: FontWeight.w800,
+                          color: AppTheme.textDark,
+                        ),
+                      ),
+                      const SizedBox(height: 3),
+                      Text(
+                        subtitle,
+                        style: const TextStyle(
+                          fontFamily: 'Cairo',
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: AppTheme.textGray,
+                          height: 1.4,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Icon(Icons.arrow_back_ios_rounded,
+                    size: 18, color: color.withValues(alpha: 0.6)),
+              ],
+            ),
           ),
         ),
       ),

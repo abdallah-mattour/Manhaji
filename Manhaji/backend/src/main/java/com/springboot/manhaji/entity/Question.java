@@ -34,7 +34,14 @@ public class Question {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    // Post-screenshot fix (2026-05-24): Hibernate's first CREATE TABLE for an
+    // EnumType.STRING column uses the longest enum value at that time as the
+    // VARCHAR length. The original schema was created before PRONUNCIATION
+    // (13 chars) and TRACING were added, so existing dev DBs had a too-short
+    // column and inserts truncated/failed. Pinning to 32 gives headroom for
+    // future enum values; existing DBs need a one-time
+    // `ALTER TABLE questions MODIFY COLUMN type VARCHAR(32)`.
+    @Column(nullable = false, length = 32)
     private QuestionType type;
 
     @Column(columnDefinition = "TEXT", nullable = false)

@@ -266,6 +266,12 @@ public class DataSeeder implements CommandLineRunner {
             int newLessons = 0;
             int newQuestions = 0;
 
+            // Diagnostic post-screenshot fix (2026-05-24): the previous version
+            // wrapped the entire file-by-file loop in a single try/catch, so
+            // any failure on file N silently aborted files N+1..end and the
+            // log just said "Failed to import curriculum JSON: …" with no
+            // hint of which file. Now each file is wrapped individually so
+            // a broken grade 2 file doesn't suppress the grade 2 files after it.
             for (Resource resource : resources) {
                 try (InputStream is = resource.getInputStream()) {
                     Map<String, Object> curriculum = objectMapper.readValue(is, new TypeReference<>() {});
@@ -343,6 +349,26 @@ public class DataSeeder implements CommandLineRunner {
 
                     // Backfill semesterNumber and imageUrls for existing lessons that are missing them
                     backfillLessonMetadata(existingLessons, semester, lessons, lessonImageMap);
+                } catch (Exception perFileEx) {
+                    // Don't let one bad file kill the rest. Log loudly with
+                    // the filename + exception type so the cause is obvious
+                    // (e.g. DataIntegrityViolationException → unique
+                    // constraint, JsonMappingException → malformed JSON).
+                    log.error("Failed to import curriculum file {} : {} — {}. " +
+                            "Other files in this boot are still processed.",
+                            resource.getFilename(),
+                            perFileEx.getClass().getSimpleName(),
+                            perFileEx.getMessage());
+                }
+            }
+
+            // Post-import diagnostic: dump subject counts per grade so a
+            // missing grade is visible at boot time (don't need to wait
+            // until a student logs in to find out).
+            for (int g = 1; g <= 4; g++) {
+                long count = subjectRepository.findByGradeLevel(g).size();
+                if (count > 0) {
+                    log.info("Curriculum diagnostic: Grade {} has {} subject(s).", g, count);
                 }
             }
 

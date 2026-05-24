@@ -16,6 +16,7 @@ dependencies:
   provider: ^6.1.2
   dio: ^5.7.0
   shared_preferences: ^2.3.4
+  flutter_secure_storage: ^9.2.2  # JWT tokens — Android Keystore / iOS Keychain instead of plaintext prefs
   just_audio: ^0.9.42
   cached_network_image: ^3.4.1
   flutter_animate: ^4.5.2

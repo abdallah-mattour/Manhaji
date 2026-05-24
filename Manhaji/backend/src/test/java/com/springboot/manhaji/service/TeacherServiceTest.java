@@ -96,12 +96,13 @@ class TeacherServiceTest {
         void getDashboardSuccess() {
             when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
             when(studentRepository.findByGradeLevel(1)).thenReturn(List.of(student1, student2));
-            when(progressRepository.findByStudentId(1L)).thenReturn(List.of(
-                    createProgress(CompletionStatus.COMPLETED, 85.0),
-                    createProgress(CompletionStatus.IN_PROGRESS, 40.0)
-            ));
-            when(progressRepository.findByStudentId(2L)).thenReturn(List.of(
-                    createProgress(CompletionStatus.COMPLETED, 70.0)
+            // Post-review fix (2026-05-24): TeacherService now bulk-loads
+            // progress via findByStudentIdIn and groups by student.id in
+            // memory — the test mirrors that single-query path.
+            when(progressRepository.findByStudentIdIn(List.of(1L, 2L))).thenReturn(List.of(
+                    createProgressFor(student1, CompletionStatus.COMPLETED, 85.0),
+                    createProgressFor(student1, CompletionStatus.IN_PROGRESS, 40.0),
+                    createProgressFor(student2, CompletionStatus.COMPLETED, 70.0)
             ));
 
             TeacherDashboardResponse response = teacherService.getDashboard(10L);
@@ -133,7 +134,7 @@ class TeacherServiceTest {
 
             when(teacherRepository.findById(20L)).thenReturn(Optional.of(unassigned));
             when(studentRepository.findAll()).thenReturn(List.of(student1, student2));
-            when(progressRepository.findByStudentId(anyLong())).thenReturn(List.of());
+            when(progressRepository.findByStudentIdIn(anyList())).thenReturn(List.of());
 
             TeacherDashboardResponse response = teacherService.getDashboard(20L);
 
@@ -153,7 +154,7 @@ class TeacherServiceTest {
         void getStudentsSorted() {
             when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
             when(studentRepository.findByGradeLevel(1)).thenReturn(List.of(student1, student2));
-            when(progressRepository.findByStudentId(anyLong())).thenReturn(List.of());
+            when(progressRepository.findByStudentIdIn(anyList())).thenReturn(List.of());
 
             List<ClassStudentSummary> students = teacherService.getStudents(10L);
 
@@ -386,6 +387,14 @@ class TeacherServiceTest {
         Progress p = new Progress();
         p.setCompletionStatus(status);
         p.setMasteryLevel(mastery);
+        return p;
+    }
+
+    /** Same as {@link #createProgress} but with the Student set, so the
+     *  groupingBy in {@code loadProgressByStudent} can find the student-id key. */
+    private Progress createProgressFor(Student student, CompletionStatus status, double mastery) {
+        Progress p = createProgress(status, mastery);
+        p.setStudent(student);
         return p;
     }
 

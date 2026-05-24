@@ -168,12 +168,14 @@ public class QuizController {
         return ResponseEntity.ok(ApiResponse.success(response));
     }
 
-    // Get hint for a question
+    // Get hint for a question — must belong to an active attempt the caller owns.
     @GetMapping("/question/{questionId}/hint")
     public ResponseEntity<ApiResponse<Map<String, Object>>> getHint(
             @PathVariable Long questionId,
-            @RequestParam(defaultValue = "1") int level) {
-        Map<String, Object> hint = quizService.getHint(questionId, level);
+            @RequestParam(defaultValue = "1") int level,
+            Authentication authentication) {
+        Long studentId = (Long) authentication.getPrincipal();
+        Map<String, Object> hint = quizService.getHint(questionId, level, studentId);
         return ResponseEntity.ok(ApiResponse.success(hint));
     }
 

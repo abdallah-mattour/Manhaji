@@ -430,10 +430,19 @@ public class QuizService {
                 .build();
     }
 
-    // Get hint for a question
-    public Map<String, Object> getHint(Long questionId, int level) {
+    /**
+     * Get a hint for a question. Post-review fix (2026-05-24): the previous
+     * version looked up any question by ID — a logged-in student could enumerate
+     * `/api/quiz/question/{id}/hint` for any of the 1,150+ Grade 1+2 questions
+     * and burn Gemini quota with no relationship to a real quiz session. Now
+     * the question must belong to a quiz the student has an IN_PROGRESS attempt
+     * for. Mirrors the {@link #requireQuestionInAttemptQuiz} pattern.
+     */
+    public Map<String, Object> getHint(Long questionId, int level, Long studentId) {
         Question question = questionRepository.findById(questionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Question", questionId));
+
+        requireQuestionInActiveAttempt(studentId, questionId);
 
         int maxLevel = quizConfig.getMaxHintLevel();
         level = Math.max(1, Math.min(maxLevel, level)); // Clamp 1..maxLevel
@@ -445,6 +454,17 @@ public class QuizService {
                 "hintLevel", level,
                 "remainingHints", maxLevel - level
         );
+    }
+
+    private void requireQuestionInActiveAttempt(Long studentId, Long questionId) {
+        List<Attempt> active = attemptRepository.findByStudentIdAndStatus(
+                studentId, AttemptStatus.IN_PROGRESS);
+        for (Attempt a : active) {
+            if (quizRepository.findQuestionIdsByQuizId(a.getQuiz().getId()).contains(questionId)) {
+                return;
+            }
+        }
+        throw new BadRequestException(messages.get("error.attempt.questionNotInQuiz"));
     }
 
     // --- Helper methods ---

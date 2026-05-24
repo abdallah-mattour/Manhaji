@@ -81,6 +81,15 @@ public class AudioController {
         Question question = questionRepository.findById(questionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Question", questionId));
 
+        // Post-review fix (2026-05-24): cache the generated audio URL on the
+        // Question. Previously every speaker-button tap regenerated the same
+        // mp3 and hit Google TTS — unbounded cost amplification, since a kid
+        // can tap the speaker as many times as they want.
+        if (question.getAudioUrl() != null && !question.getAudioUrl().isBlank()) {
+            return ResponseEntity.ok(ApiResponse.success(
+                    Map.of("audioUrl", question.getAudioUrl())));
+        }
+
         if (!ttsService.isAvailable()) {
             return ResponseEntity.ok(ApiResponse.success(
                     Map.of("message", "خدمة النطق غير متوفرة حالياً")));
@@ -96,6 +105,9 @@ public class AudioController {
 
             String filename = "question_" + questionId + ".mp3";
             String audioUrl = fileStorageService.saveAudio(audio, filename);
+
+            question.setAudioUrl(audioUrl);
+            questionRepository.save(question);
 
             return ResponseEntity.ok(ApiResponse.success(
                     Map.of("audioUrl", audioUrl)));

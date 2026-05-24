@@ -31,8 +31,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -54,8 +57,9 @@ public class TeacherService {
                 .orElseThrow(() -> new ResourceNotFoundException("Teacher", teacherId));
 
         List<Student> students = loadStudentsForTeacher(teacher);
+        Map<Long, List<Progress>> progressByStudent = loadProgressByStudent(students);
         List<ClassStudentSummary> summaries = students.stream()
-                .map(this::buildSummary)
+                .map(s -> buildSummary(s, progressByStudent.getOrDefault(s.getId(), Collections.emptyList())))
                 .sorted(Comparator.comparing(ClassStudentSummary::getTotalPoints,
                         Comparator.nullsLast(Comparator.reverseOrder())))
                 .toList();
@@ -95,11 +99,27 @@ public class TeacherService {
     public List<ClassStudentSummary> getStudents(Long teacherId) {
         Teacher teacher = teacherRepository.findById(teacherId)
                 .orElseThrow(() -> new ResourceNotFoundException("Teacher", teacherId));
-        return loadStudentsForTeacher(teacher).stream()
-                .map(this::buildSummary)
+        List<Student> students = loadStudentsForTeacher(teacher);
+        Map<Long, List<Progress>> progressByStudent = loadProgressByStudent(students);
+        return students.stream()
+                .map(s -> buildSummary(s, progressByStudent.getOrDefault(s.getId(), Collections.emptyList())))
                 .sorted(Comparator.comparing(ClassStudentSummary::getFullName,
                         Comparator.nullsLast(Comparator.naturalOrder())))
                 .toList();
+    }
+
+    /**
+     * Post-review fix (2026-05-24): the previous code did one
+     * {@code progressRepository.findByStudentId} query per student. Now we
+     * pull every Progress row for the student set in a single
+     * {@code findByStudentIdIn} call and group by studentId in memory —
+     * dashboard load drops from O(N) round-trips to one.
+     */
+    private Map<Long, List<Progress>> loadProgressByStudent(List<Student> students) {
+        if (students.isEmpty()) return Collections.emptyMap();
+        List<Long> ids = students.stream().map(Student::getId).toList();
+        return progressRepository.findByStudentIdIn(ids).stream()
+                .collect(Collectors.groupingBy(p -> p.getStudent().getId()));
     }
 
     public StudentDetailResponse getStudentDetail(Long teacherId, Long studentId) {
@@ -239,8 +259,7 @@ public class TeacherService {
         return true;
     }
 
-    private ClassStudentSummary buildSummary(Student student) {
-        List<Progress> progressRecords = progressRepository.findByStudentId(student.getId());
+    private ClassStudentSummary buildSummary(Student student, List<Progress> progressRecords) {
         return ClassStudentSummary.builder()
                 .studentId(student.getId())
                 .fullName(student.getFullName())

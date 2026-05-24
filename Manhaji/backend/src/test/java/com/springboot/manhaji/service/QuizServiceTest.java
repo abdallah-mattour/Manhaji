@@ -543,10 +543,16 @@ class QuizServiceTest {
         void getHintSuccess() {
             Question question = testQuiz.getQuestions().get(0);
             when(questionRepository.findById(1L)).thenReturn(Optional.of(question));
+            Attempt active = new Attempt();
+            active.setStudent(testStudent);
+            active.setQuiz(testQuiz);
+            active.setStatus(AttemptStatus.IN_PROGRESS);
+            when(attemptRepository.findByStudentIdAndStatus(1L, AttemptStatus.IN_PROGRESS))
+                    .thenReturn(List.of(active));
             when(geminiService.generateHint(anyString(), anyString(), eq(2), eq("ar")))
                     .thenReturn("حاول التفكير في أول حرف في الأبجدية");
 
-            Map<String, Object> result = quizService.getHint(1L, 2);
+            Map<String, Object> result = quizService.getHint(1L, 2, 1L);
 
             assertThat(result.get("hint")).isEqualTo("حاول التفكير في أول حرف في الأبجدية");
             assertThat(result.get("hintLevel")).isEqualTo(2);
@@ -558,13 +564,32 @@ class QuizServiceTest {
         void clampHintLevel() {
             Question question = testQuiz.getQuestions().get(0);
             when(questionRepository.findById(1L)).thenReturn(Optional.of(question));
+            Attempt active = new Attempt();
+            active.setStudent(testStudent);
+            active.setQuiz(testQuiz);
+            active.setStatus(AttemptStatus.IN_PROGRESS);
+            when(attemptRepository.findByStudentIdAndStatus(1L, AttemptStatus.IN_PROGRESS))
+                    .thenReturn(List.of(active));
             when(geminiService.generateHint(anyString(), anyString(), eq(3), eq("ar")))
                     .thenReturn("الإجابة هي: أ");
 
-            Map<String, Object> result = quizService.getHint(1L, 10); // level 10 should clamp to 3
+            Map<String, Object> result = quizService.getHint(1L, 10, 1L); // level 10 → clamp to 3
 
             assertThat(result.get("hintLevel")).isEqualTo(3);
             assertThat(result.get("remainingHints")).isEqualTo(0);
+        }
+
+        @Test
+        @DisplayName("should reject hint when caller has no active attempt for the question's quiz")
+        void rejectHintWithoutActiveAttempt() {
+            Question question = testQuiz.getQuestions().get(0);
+            when(questionRepository.findById(1L)).thenReturn(Optional.of(question));
+            when(attemptRepository.findByStudentIdAndStatus(1L, AttemptStatus.IN_PROGRESS))
+                    .thenReturn(List.of()); // no active attempt
+
+            assertThatThrownBy(() -> quizService.getHint(1L, 2, 1L))
+                    .isInstanceOf(BadRequestException.class);
+            verify(geminiService, never()).generateHint(anyString(), anyString(), anyInt(), anyString());
         }
     }
 

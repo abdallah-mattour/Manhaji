@@ -3,8 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:confetti/confetti.dart';
 import '../../app/theme.dart';
 import '../../providers/learning_provider.dart';
+import '../../widgets/duolingo_button.dart';
+import '../../widgets/duolingo_card.dart';
 import '../../widgets/mascot.dart';
-import '../../widgets/stat_card.dart';
+import '../../widgets/vibrant_background.dart';
 
 class LearningCompletionScreen extends StatefulWidget {
   final String lessonTitle;
@@ -66,7 +68,10 @@ class _LearningCompletionScreenState extends State<LearningCompletionScreen>
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        body: Stack(
+        body: VibrantBackground(
+          backgroundColor: AppTheme.backgroundMint,
+          pattern: BackgroundPattern.shapes,
+          child: Stack(
           children: [
             Consumer<LearningProvider>(
               builder: (context, provider, _) {
@@ -127,9 +132,7 @@ class _LearningCompletionScreenState extends State<LearningCompletionScreen>
                         ),
                         const SizedBox(height: 32),
 
-                        // Stars — eight-point Levantine motif. Larger
-                        // (72px) so the win moment lands. Spring-scaled
-                        // by _starAnimations, staggered 150ms each.
+                        // Stars — Modern bubbly stars
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: List.generate(3, (i) {
@@ -139,11 +142,18 @@ class _LearningCompletionScreenState extends State<LearningCompletionScreen>
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 10),
-                                child: EightPointStar(
-                                  size: 72,
+                                child: Icon(
+                                  Icons.star_rounded,
+                                  size: 84,
                                   color: earned
-                                      ? AppTheme.starGold
-                                      : AppTheme.starInactive,
+                                      ? AppTheme.primaryYellow
+                                      : AppTheme.surfaceMuted,
+                                  shadows: earned ? [
+                                    const Shadow(
+                                      color: AppTheme.primaryYellowDeep,
+                                      offset: Offset(0, 6),
+                                    ),
+                                  ] : null,
                                 ),
                               ),
                             );
@@ -164,99 +174,57 @@ class _LearningCompletionScreenState extends State<LearningCompletionScreen>
                         // Stats grid
                         Row(
                           children: [
-                            StatCard(
-                              value: '$score%',
-                              label: 'النتيجة',
-                              color: AppTheme.primaryGreen,
-                              icon: Icons.emoji_events_rounded,
-                              padding: const EdgeInsets.all(16),
-                              valueFontSize: 22,
+                            Expanded(
+                              child: DuolingoCard(
+                                padding: const EdgeInsets.all(16),
+                                borderColor: AppTheme.primaryGreen,
+                                child: _buildStatItem('$score%', 'النتيجة', AppTheme.primaryGreen, Icons.emoji_events_rounded),
+                              ),
                             ),
                             const SizedBox(width: 12),
-                            StatCard(
-                              value: '$correctCount/$questionCount',
-                              label: 'إجابات صحيحة',
-                              color: AppTheme.primaryBlue,
-                              icon: Icons.check_circle_rounded,
-                              padding: const EdgeInsets.all(16),
-                              valueFontSize: 22,
+                            Expanded(
+                              child: DuolingoCard(
+                                padding: const EdgeInsets.all(16),
+                                borderColor: AppTheme.primaryBlue,
+                                child: _buildStatItem('$correctCount/$questionCount', 'إجابات صحيحة', AppTheme.primaryBlue, Icons.check_circle_rounded),
+                              ),
                             ),
                           ],
                         ),
                         const SizedBox(height: 12),
                         Row(
                           children: [
-                            StatCard(
-                              value: '+$points',
-                              label: 'نقاط مكتسبة',
-                              color: AppTheme.primaryOrange,
-                              icon: Icons.bolt_rounded,
-                              padding: const EdgeInsets.all(16),
-                              valueFontSize: 22,
+                            Expanded(
+                              child: DuolingoCard(
+                                padding: const EdgeInsets.all(16),
+                                borderColor: AppTheme.primaryOrange,
+                                child: _buildStatItem('+$points', 'نقاط مكتسبة', AppTheme.primaryOrange, Icons.bolt_rounded),
+                              ),
                             ),
                             const SizedBox(width: 12),
-                            StatCard(
-                              value: '$totalStars',
-                              label: 'نجوم مجموعة',
-                              color: AppTheme.primaryYellow,
-                              icon: Icons.star_rounded,
-                              padding: const EdgeInsets.all(16),
-                              valueFontSize: 22,
+                            Expanded(
+                              child: DuolingoCard(
+                                padding: const EdgeInsets.all(16),
+                                borderColor: AppTheme.primaryYellow,
+                                child: _buildStatItem('$totalStars', 'نجوم مجموعة', AppTheme.primaryYellow, Icons.star_rounded),
+                              ),
                             ),
                           ],
                         ),
                         const SizedBox(height: 40),
 
                         // Buttons
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () => Navigator.pop(context),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppTheme.primaryGreen,
-                              minimumSize: const Size(double.infinity, 56),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
-                            child: const Text(
-                              'العودة للدروس 📚',
-                              style: TextStyle(
-                                fontFamily: 'Cairo',
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
+                        DuolingoButton(
+                          text: 'العودة للدروس 📚',
+                          color: AppTheme.primaryGreen,
+                          onPressed: () => Navigator.pop(context),
                         ),
                         if (score < 50) ...[
-                          const SizedBox(height: 12),
-                          SizedBox(
-                            width: double.infinity,
-                            child: OutlinedButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                                // The subject_lessons_screen will allow re-entering
-                              },
-                              style: OutlinedButton.styleFrom(
-                                minimumSize: const Size(double.infinity, 56),
-                                side: const BorderSide(
-                                    color: AppTheme.primaryOrange, width: 2),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                              ),
-                              child: const Text(
-                                'أعد المحاولة 🔄',
-                                style: TextStyle(
-                                  fontFamily: 'Cairo',
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppTheme.primaryOrange,
-                                ),
-                              ),
-                            ),
+                          const SizedBox(height: 16),
+                          DuolingoButton(
+                            text: 'أعد المحاولة 🔄',
+                            color: AppTheme.primaryOrange,
+                            onPressed: () => Navigator.pop(context),
                           ),
                         ],
                       ],
@@ -288,7 +256,35 @@ class _LearningCompletionScreenState extends State<LearningCompletionScreen>
             ),
           ],
         ),
+        ),
       ),
+    );
+  }
+
+  Widget _buildStatItem(String value, String label, Color color, IconData icon) {
+    return Column(
+      children: [
+        Icon(icon, color: color, size: 32),
+        const SizedBox(height: 8),
+        Text(
+          value,
+          style: TextStyle(
+            fontFamily: 'Cairo',
+            fontSize: 24,
+            fontWeight: FontWeight.w900,
+            color: color,
+          ),
+        ),
+        Text(
+          label,
+          style: const TextStyle(
+            fontFamily: 'Cairo',
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: AppTheme.textGray,
+          ),
+        ),
+      ],
     );
   }
 

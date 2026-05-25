@@ -6,6 +6,7 @@ import '../../models/parent_dashboard.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/parent_provider.dart';
 import '../../widgets/error_state.dart';
+import '../../widgets/vibrant_background.dart';
 import '../../widgets/loading_state.dart';
 
 class ParentDashboardScreen extends StatefulWidget {
@@ -31,6 +32,8 @@ class _ParentDashboardScreenState extends State<ParentDashboardScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('لوحة ولي الأمر'),
+          backgroundColor: AppTheme.backgroundLight,
+          elevation: 0,
           actions: [
             IconButton(
               icon: const Icon(Icons.logout),
@@ -42,7 +45,10 @@ class _ParentDashboardScreenState extends State<ParentDashboardScreen> {
             ),
           ],
         ),
-        body: Consumer<ParentProvider>(
+        body: VibrantBackground(
+          backgroundColor: AppTheme.backgroundLight,
+          pattern: BackgroundPattern.shapes,
+          child: Consumer<ParentProvider>(
           builder: (context, provider, _) {
             if (provider.isLoading && provider.dashboard == null) {
               return const LoadingState();
@@ -124,6 +130,7 @@ class _ParentDashboardScreenState extends State<ParentDashboardScreen> {
               ),
             );
           },
+        ),
         ),
       ),
     );

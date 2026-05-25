@@ -7,6 +7,7 @@ import '../../providers/progress_provider.dart';
 import '../../widgets/error_state.dart';
 import '../../widgets/loading_state.dart';
 import '../../widgets/stat_card.dart';
+import '../../widgets/vibrant_background.dart';
 
 class ProgressScreen extends StatefulWidget {
   const ProgressScreen({super.key});
@@ -45,42 +46,46 @@ class _ProgressScreenState extends State<ProgressScreen> {
             ),
           ],
         ),
-        body: Consumer<ProgressProvider>(
-          builder: (context, provider, _) {
-            if (provider.isLoading && provider.summary == null) {
-              return const LoadingState();
-            }
-            if (provider.errorMessage != null && provider.summary == null) {
-              return ErrorState(
-                message: provider.errorMessage!,
-                onRetry: provider.loadProgress,
-              );
-            }
+        body: VibrantBackground(
+          backgroundColor: AppTheme.backgroundLight,
+          pattern: BackgroundPattern.shapes,
+          child: Consumer<ProgressProvider>(
+            builder: (context, provider, _) {
+              if (provider.isLoading && provider.summary == null) {
+                return const LoadingState();
+              }
+              if (provider.errorMessage != null && provider.summary == null) {
+                return ErrorState(
+                  message: provider.errorMessage!,
+                  onRetry: provider.loadProgress,
+                );
+              }
 
-            final summary = provider.summary;
-            if (summary == null) return const SizedBox();
+              final summary = provider.summary;
+              if (summary == null) return const SizedBox();
 
-            return RefreshIndicator(
-              onRefresh: () => provider.loadProgress(),
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                padding: const EdgeInsets.all(AppTheme.spacingM),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    _buildOverallProgress(summary),
-                    const SizedBox(height: AppTheme.spacingM),
-                    _buildStatsGrid(summary),
-                    const SizedBox(height: 20),
-                    _buildSubjectBreakdown(summary.subjectProgress),
-                    const SizedBox(height: 20),
-                    _buildRecentActivity(summary.recentActivity),
-                    const SizedBox(height: AppTheme.spacingL),
-                  ],
+              return RefreshIndicator(
+                onRefresh: () => provider.loadProgress(),
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: const EdgeInsets.all(AppTheme.spacingM),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      _buildOverallProgress(summary),
+                      const SizedBox(height: AppTheme.spacingM),
+                      _buildStatsGrid(summary),
+                      const SizedBox(height: 20),
+                      _buildSubjectBreakdown(summary.subjectProgress),
+                      const SizedBox(height: 20),
+                      _buildRecentActivity(summary.recentActivity),
+                      const SizedBox(height: AppTheme.spacingL),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );

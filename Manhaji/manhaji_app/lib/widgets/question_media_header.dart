@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:provider/provider.dart';
 import '../app/theme.dart';
 import '../config/api_config.dart';
+import '../services/local_storage_service.dart';
 
 /// Renders the optional image + audio attached to a question.
 ///
@@ -72,7 +74,14 @@ class _QuestionMediaHeaderState extends State<QuestionMediaHeader> {
         if (mounted) setState(() => _playing = false);
         return;
       }
-      await _player!.setUrl(resolved);
+      // Backend cached audio lives under `/uploads/audio/**`, which is
+      // gated as `authenticated()` in SecurityConfig (audit fix S4 — voice
+      // recordings are PII). Without the bearer header ExoPlayer gets a
+      // 401 and reports it as a generic "Source error". Bundled curriculum
+      // audio under `/uploads/images/**` and `static/assets/**` is public,
+      // so sending the header there is harmless — the server ignores it.
+      final headers = await _authHeaders();
+      await _player!.setUrl(resolved, headers: headers);
       // Audit-3 fix: cancel any prior listener BEFORE attaching a new one,
       // so repeated taps don't leak listeners.
       await _stateSub?.cancel();
@@ -86,6 +95,22 @@ class _QuestionMediaHeaderState extends State<QuestionMediaHeader> {
     } catch (_) {
       // Silent fallback — bad URL or codec; just reset the UI.
       if (mounted) setState(() => _playing = false);
+    }
+  }
+
+  /// Pulls the JWT from secure storage so we can attach
+  /// `Authorization: Bearer <jwt>` to playback requests against
+  /// `/uploads/audio/**`. Returns `null` if no token is available, in which
+  /// case [_toggleAudio] still tries the request — the server's 401 then
+  /// trips the catch block and the UI resets cleanly.
+  Future<Map<String, String>?> _authHeaders() async {
+    try {
+      final storage = context.read<LocalStorageService>();
+      final token = await storage.getToken();
+      if (token == null || token.isEmpty) return null;
+      return {'Authorization': 'Bearer $token'};
+    } catch (_) {
+      return null;
     }
   }
 

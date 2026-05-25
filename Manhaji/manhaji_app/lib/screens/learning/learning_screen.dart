@@ -12,9 +12,9 @@ import '../../services/local_storage_service.dart';
 import '../../services/tts_service.dart';
 import '../../widgets/onboarding_overlay.dart';
 import '../../widgets/quiz_question_view.dart';
-import '../../widgets/progress_dots_bar.dart';
+import '../../widgets/vibrant_background.dart';
 import '../../widgets/teaching_card_widget.dart';
-import '../../widgets/star_display_widget.dart';
+import '../../widgets/duolingo_button.dart';
 import '../../widgets/question_widgets/mcq_widget.dart';
 import '../../widgets/question_widgets/true_false_widget.dart';
 import '../../widgets/question_widgets/short_answer_widget.dart';
@@ -49,8 +49,6 @@ class _LearningScreenState extends State<LearningScreen>
     with TickerProviderStateMixin {
   String? _selectedAnswer;
   final _textController = TextEditingController();
-  late AnimationController _feedbackController;
-  late Animation<double> _feedbackAnimation;
   late AnimationController _shakeController;
   late Animation<double> _shakeAnimation;
   late ConfettiController _confettiController;
@@ -63,15 +61,6 @@ class _LearningScreenState extends State<LearningScreen>
   @override
   void initState() {
     super.initState();
-    _feedbackController = AnimationController(
-      duration: const Duration(milliseconds: 500),
-      vsync: this,
-    );
-    _feedbackAnimation = CurvedAnimation(
-      parent: _feedbackController,
-      curve: Curves.elasticOut,
-    );
-
     _shakeController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
@@ -100,7 +89,14 @@ class _LearningScreenState extends State<LearningScreen>
   }
 
   Future<void> _initTts() async {
-    final tts = TtsService(context.read<AudioApiService>());
+    // TtsService needs LocalStorageService so it can attach the JWT bearer
+    // header to /uploads/audio/** playback requests (the endpoint is gated
+    // as authenticated() — audit fix S4). Without the header, ExoPlayer
+    // gets a 401 and surfaces it as a generic "Source error".
+    final tts = TtsService(
+      context.read<AudioApiService>(),
+      context.read<LocalStorageService>(),
+    );
     _ttsService = tts;
     await tts.init();
   }
@@ -108,7 +104,6 @@ class _LearningScreenState extends State<LearningScreen>
   @override
   void dispose() {
     _textController.dispose();
-    _feedbackController.dispose();
     _shakeController.dispose();
     _confettiController.dispose();
     _ttsService?.dispose();
@@ -195,17 +190,16 @@ class _LearningScreenState extends State<LearningScreen>
                 }
 
                 return SafeArea(
-                  child: Column(
-                    children: [
-                      _buildTopBar(provider),
-                      ProgressDotsBar(
-                        steps: provider.steps,
-                        currentIndex: provider.currentStepIndex,
-                        isRetryRound: provider.isInRetryRound,
-                      ),
-                      Expanded(child: _buildContent(provider)),
-                      _buildBottomBar(provider),
-                    ],
+                  child: VibrantBackground(
+                    backgroundColor: AppTheme.backgroundLight,
+                    pattern: BackgroundPattern.dots,
+                    child: Column(
+                      children: [
+                        _buildTopBar(provider),
+                        Expanded(child: _buildContent(provider)),
+                        _buildBottomBar(provider),
+                      ],
+                    ),
                   ),
                 );
               },
@@ -282,38 +276,46 @@ class _LearningScreenState extends State<LearningScreen>
   }
 
   Widget _buildTopBar(LearningProvider provider) {
+    // Duolingo-style thin progress bar at the very top
+    final progress = provider.steps.isEmpty ? 0.0 : provider.currentStepIndex / provider.steps.length;
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+      decoration: const BoxDecoration(color: Colors.white),
       child: Row(
         children: [
           IconButton(
             onPressed: _showExitDialog,
-            icon: const Icon(Icons.close, color: AppTheme.textGray),
+            icon: const Icon(Icons.close, color: AppTheme.textLight, size: 28),
           ),
+          const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              widget.lessonTitle,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                fontFamily: 'Cairo',
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: AppTheme.textDark,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(AppTheme.radiusPill),
+              child: LinearProgressIndicator(
+                value: progress,
+                backgroundColor: AppTheme.surfaceSubtle,
+                valueColor: const AlwaysStoppedAnimation(AppTheme.primaryGreen),
+                minHeight: 14,
               ),
             ),
           ),
-          StarDisplayWidget(totalStars: provider.totalStars),
+          const SizedBox(width: 16),
+          Row(
+            children: [
+              const Text('⭐', style: TextStyle(fontSize: 20)),
+              const SizedBox(width: 4),
+              Text(
+                '${provider.totalStars}',
+                style: const TextStyle(
+                  fontFamily: 'Cairo',
+                  fontSize: 18,
+                  fontWeight: FontWeight.w900,
+                  color: AppTheme.primaryYellow,
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -330,18 +332,6 @@ class _LearningScreenState extends State<LearningScreen>
     if (step.isTeaching && teaching != null) {
       return AnimatedSwitcher(
         duration: const Duration(milliseconds: 400),
-        transitionBuilder: (child, animation) {
-          return FadeTransition(
-            opacity: animation,
-            child: SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(0, 0.15),
-                end: Offset.zero,
-              ).animate(animation),
-              child: child,
-            ),
-          );
-        },
         child: TeachingCardWidget(
           key: ValueKey('teaching-${provider.currentStepIndex}'),
           data: teaching,
@@ -355,31 +345,15 @@ class _LearningScreenState extends State<LearningScreen>
     if (step.isQuestion && question != null) {
       return AnimatedSwitcher(
         duration: const Duration(milliseconds: 400),
-        transitionBuilder: (child, animation) {
-          return FadeTransition(
-            opacity: animation,
-            child: SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(-0.15, 0),
-                end: Offset.zero,
-              ).animate(animation),
-              child: child,
-            ),
-          );
-        },
         child: SingleChildScrollView(
           key: ValueKey('question-${question.id}-${provider.isInRetryRound}'),
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _buildQuestionCard(provider, question),
-              const SizedBox(height: 20),
+              const SizedBox(height: 32),
               _buildAnswerArea(provider, question),
-              if (_shouldShowFeedback(provider)) ...[
-                const SizedBox(height: 16),
-                _buildFeedback(provider),
-              ],
             ],
           ),
         ),
@@ -599,133 +573,88 @@ class _LearningScreenState extends State<LearningScreen>
     }
   }
 
-  Widget _buildFeedback(LearningProvider provider) {
-    final tracker = provider.currentTracker;
-    if (tracker == null) return const SizedBox();
-    final result = tracker.lastResult;
-    if (result == null) return const SizedBox();
-
-    final isRetryPrompt = provider.phase == LearningPhase.stepRetry;
-
-    if (isRetryPrompt) {
-      return ScaleTransition(
-        scale: _feedbackAnimation,
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: AppTheme.primaryOrange.withValues(alpha: 0.08),
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: AppTheme.primaryOrange, width: 1.5),
-          ),
-          child: const Row(
-            children: [
-              Text('💪', style: TextStyle(fontSize: 28)),
-              SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  'لا بأس! حاول مرة أخرى',
-                  style: TextStyle(
-                    fontFamily: 'Cairo',
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: AppTheme.primaryOrange,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    final accentColor =
-        result.isCorrect ? AppTheme.primaryGreen : AppTheme.primaryRed;
-    return ScaleTransition(
-      scale: _feedbackAnimation,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: accentColor.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: accentColor, width: 1.5),
-        ),
-        child: Row(
-          children: [
-            Text(
-              result.isCorrect ? '🎉' : '😔',
-              style: const TextStyle(fontSize: 28),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    result.isCorrect
-                        ? 'أحسنت! ممتاز!'
-                        : 'الإجابة الصحيحة:',
-                    style: TextStyle(
-                      fontFamily: 'Cairo',
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: accentColor,
-                    ),
-                  ),
-                  if (!result.isCorrect)
-                    Text(
-                      result.correctAnswer,
-                      style: const TextStyle(
-                        fontFamily: 'Cairo',
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: AppTheme.primaryGreen,
-                      ),
-                    ),
-                  if (result.isCorrect)
-                    Text(
-                      '+${tracker.starsEarned} ⭐',
-                      style: const TextStyle(
-                        fontFamily: 'Cairo',
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: AppTheme.primaryOrange,
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _buildBottomBar(LearningProvider provider) {
     final step = provider.currentStep;
     if (step == null || step.isTeaching) return const SizedBox();
 
     final phase = provider.phase;
+    final tracker = provider.currentTracker;
+    final result = tracker?.lastResult;
+    final isAnswered = phase == LearningPhase.stepFeedback || phase == LearningPhase.stepRetry;
 
-    return Container(
-      padding: const EdgeInsets.all(AppTheme.spacingM),
+    // Duolingo-style sliding feedback panel
+    return AnimatedContainer(
+      duration: AppTheme.motionBase,
+      curve: Curves.easeOutQuart,
+      padding: EdgeInsets.fromLTRB(24, 24, 24, 24 + MediaQuery.of(context).padding.bottom),
       decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 8,
-            offset: const Offset(0, -2),
+        color: !isAnswered 
+            ? Colors.white 
+            : (result?.isCorrect == true ? AppTheme.successContainer : AppTheme.errorContainer),
+        border: Border(
+          top: BorderSide(
+            color: !isAnswered 
+                ? AppTheme.surfaceSubtle 
+                : (result?.isCorrect == true ? AppTheme.primaryGreen : AppTheme.primaryRed),
+            width: 2,
           ),
+        ),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (isAnswered && result != null) ...[
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Text(
+                    result.isCorrect ? '🎉' : '😔',
+                    style: const TextStyle(fontSize: 24),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Text(
+                  result.isCorrect ? 'أحسنت! ممتاز!' : 'الإجابة الصحيحة:',
+                  style: TextStyle(
+                    fontFamily: 'Cairo',
+                    fontSize: 22,
+                    fontWeight: FontWeight.w900,
+                    color: result.isCorrect ? AppTheme.primaryGreenDeep : AppTheme.primaryRedDeep,
+                  ),
+                ),
+              ],
+            ),
+            if (!result.isCorrect) ...[
+              const SizedBox(height: 8),
+              Text(
+                result.correctAnswer,
+                style: const TextStyle(
+                  fontFamily: 'Cairo',
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: AppTheme.primaryRedDeep,
+                ),
+              ),
+            ],
+            const SizedBox(height: 24),
+          ],
+          _buildActionButton(provider, phase),
         ],
       ),
-      child: _buildActionButton(provider, phase),
     );
   }
 
   Widget _buildActionButton(LearningProvider provider, LearningPhase phase) {
-    // During step retry — show "retry" button
     if (phase == LearningPhase.stepRetry) {
-      return ElevatedButton(
+      return DuolingoButton(
+        text: AppStrings.actionTryAgain,
+        color: AppTheme.primaryOrange,
         onPressed: () {
           setState(() {
             _selectedAnswer = null;
@@ -733,55 +662,24 @@ class _LearningScreenState extends State<LearningScreen>
           });
           provider.retryCurrentQuestion();
         },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppTheme.primaryOrange,
-          minimumSize: const Size(double.infinity, 56),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        ),
-        child: const Text(
-          AppStrings.actionTryAgain,
-          style: TextStyle(fontFamily: 'Cairo', fontSize: 18, color: Colors.white),
-        ),
       );
     }
 
-    // After feedback — show "next" button
     if (phase == LearningPhase.stepFeedback) {
-      final isLast = provider.isInRetryRound
-          ? false // retry round handles its own "last"
-          : provider.isLastMainStep;
+      final tracker = provider.currentTracker;
+      final isCorrect = tracker?.lastResult?.isCorrect == true;
 
-      return ElevatedButton(
+      return DuolingoButton(
+        text: AppStrings.actionNext,
+        color: isCorrect ? AppTheme.primaryGreen : AppTheme.primaryRed,
         onPressed: () => _goNext(provider),
-        style: ElevatedButton.styleFrom(
-          backgroundColor:
-              isLast ? AppTheme.primaryGreen : AppTheme.primaryBlue,
-          minimumSize: const Size(double.infinity, 56),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        ),
-        child: const Text(
-          AppStrings.actionNext,
-          style: TextStyle(
-              fontFamily: 'Cairo', fontSize: 18, color: Colors.white),
-        ),
       );
     }
 
-    // Active question — show "confirm" button
-    return ElevatedButton(
-      onPressed:
-          _selectedAnswer != null ? () => _submitAnswer(provider) : null,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: AppTheme.primaryOrange,
-        minimumSize: const Size(double.infinity, 56),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      ),
-      child: const Text(
-        AppStrings.actionConfirm,
-        style: TextStyle(fontFamily: 'Cairo', fontSize: 18, color: Colors.white),
-      ),
+    return DuolingoButton(
+      text: AppStrings.actionConfirm,
+      color: AppTheme.primaryGreen,
+      onPressed: _selectedAnswer != null ? () => _submitAnswer(provider) : null,
     );
   }
 
@@ -819,7 +717,6 @@ class _LearningScreenState extends State<LearningScreen>
       }
     }
 
-    _feedbackController.forward(from: 0);
   }
 
   void _goNext(LearningProvider provider) {

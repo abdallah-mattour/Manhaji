@@ -4,6 +4,8 @@ import '../../app/theme.dart';
 import '../../models/progress.dart';
 import '../../providers/progress_provider.dart';
 import '../../services/local_storage_service.dart';
+import '../../widgets/vibrant_background.dart';
+import '../../widgets/duolingo_card.dart';
 
 class LeaderboardScreen extends StatefulWidget {
   const LeaderboardScreen({super.key});
@@ -31,46 +33,51 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
           title: const Text('لوحة المتصدرين'),
           backgroundColor: AppTheme.primaryYellow,
           foregroundColor: AppTheme.textDark,
+          elevation: 0,
         ),
-        body: Consumer<ProgressProvider>(
-          builder: (context, provider, _) {
-            if (provider.isLoading && provider.leaderboard.isEmpty) {
-              return const Center(child: CircularProgressIndicator());
-            }
+        body: VibrantBackground(
+          backgroundColor: AppTheme.backgroundGold,
+          pattern: BackgroundPattern.shapes,
+          child: Consumer<ProgressProvider>(
+            builder: (context, provider, _) {
+              if (provider.isLoading && provider.leaderboard.isEmpty) {
+                return const Center(child: CircularProgressIndicator());
+              }
 
-            if (provider.leaderboard.isEmpty) {
-              return const Center(
-                child: Text(
-                  'لا يوجد متصدرون بعد\nكن أول من يحقق نقاطاً! 🏆',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'Cairo',
-                    fontSize: 16,
-                    color: AppTheme.textGray,
+              if (provider.leaderboard.isEmpty) {
+                return const Center(
+                  child: Text(
+                    'لا يوجد متصدرون بعد\nكن أول من يحقق نقاطاً! 🏆',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Cairo',
+                      fontSize: 16,
+                      color: AppTheme.textGray,
+                    ),
                   ),
-                ),
+                );
+              }
+
+              return Column(
+                children: [
+                  // Top 3 podium
+                  if (provider.leaderboard.length >= 3)
+                    _buildPodium(provider.leaderboard),
+                  // Rest of the list
+                  Expanded(
+                    child: ListView.builder(
+                      padding: const EdgeInsets.all(16),
+                      itemCount: provider.leaderboard.length,
+                      itemBuilder: (context, index) {
+                        if (index < 3) return const SizedBox.shrink();
+                        return _buildLeaderboardTile(provider.leaderboard[index]);
+                      },
+                    ),
+                  ),
+                ],
               );
-            }
-
-            return Column(
-              children: [
-                // Top 3 podium
-                if (provider.leaderboard.length >= 3)
-                  _buildPodium(provider.leaderboard),
-                // Rest of the list
-                Expanded(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(16),
-                    itemCount: provider.leaderboard.length,
-                    itemBuilder: (context, index) {
-                      if (index < 3) return const SizedBox.shrink();
-                      return _buildLeaderboardTile(provider.leaderboard[index]);
-                    },
-                  ),
-                ),
-              ],
-            );
-          },
+            },
+          ),
         ),
       ),
     );
@@ -184,20 +191,16 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
   }
 
   Widget _buildLeaderboardTile(LeaderboardEntry entry) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: entry.isCurrentUser
-            ? AppTheme.primaryGreen.withValues(alpha: 0.08)
-            : Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: entry.isCurrentUser
-            ? Border.all(color: AppTheme.primaryGreen, width: 1.5)
-            : null,
-      ),
-      child: Row(
-        children: [
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: DuolingoCard(
+        padding: const EdgeInsets.all(14),
+        borderColor: entry.isCurrentUser ? AppTheme.primaryGreen : AppTheme.surfaceMuted,
+        backgroundColor: entry.isCurrentUser
+            ? AppTheme.primaryGreen.withValues(alpha: 0.05)
+            : AppTheme.cardWhite,
+        child: Row(
+          children: [
           // Rank
           SizedBox(
             width: 32,
@@ -259,6 +262,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
           ),
         ],
       ),
+    ),
     );
   }
 }

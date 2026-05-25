@@ -6,6 +6,7 @@ import '../../models/teacher_dashboard.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/teacher_provider.dart';
 import '../../widgets/error_state.dart';
+import '../../widgets/vibrant_background.dart';
 import '../../widgets/loading_state.dart';
 import '../question_bank/question_bank_subjects_screen.dart';
 
@@ -32,6 +33,8 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('لوحة المعلم'),
+          backgroundColor: AppTheme.backgroundLight,
+          elevation: 0,
           actions: [
             IconButton(
               icon: const Icon(Icons.logout),
@@ -43,7 +46,10 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
             ),
           ],
         ),
-        body: Consumer<TeacherProvider>(
+        body: VibrantBackground(
+          backgroundColor: AppTheme.backgroundLight,
+          pattern: BackgroundPattern.shapes,
+          child: Consumer<TeacherProvider>(
           builder: (context, provider, _) {
             if (provider.isLoading && provider.dashboard == null) {
               return const LoadingState();
@@ -142,8 +148,7 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
                     children: [
                       const Row(
                         children: [
-                          EightPointStar(
-                              size: 16, color: AppTheme.primaryGreen),
+                          Icon(Icons.stars_rounded, size: 20, color: AppTheme.primaryGreen),
                           SizedBox(width: 8),
                           Text(
                             'أفضل الطلاب',
@@ -194,6 +199,7 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
               ),
             );
           },
+        ),
         ),
       ),
     );

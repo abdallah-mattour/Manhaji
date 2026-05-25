@@ -4,6 +4,9 @@ import 'package:provider/provider.dart';
 import '../../app/theme.dart';
 import '../../models/ai_report.dart';
 import '../../providers/report_provider.dart';
+import '../../widgets/vibrant_background.dart';
+import '../../widgets/duolingo_card.dart';
+import '../../widgets/duolingo_button.dart';
 
 class AiReportsScreen extends StatefulWidget {
   const AiReportsScreen({super.key});
@@ -40,21 +43,31 @@ class _AiReportsScreenState extends State<AiReportsScreen>
       child: Scaffold(
         appBar: AppBar(
           title: const Text('التقارير الذكية'),
+          backgroundColor: AppTheme.backgroundLight,
+          foregroundColor: AppTheme.textDark,
+          elevation: 0,
           bottom: TabBar(
             controller: _tabController,
-            indicatorColor: Colors.white,
+            indicatorColor: AppTheme.primaryPurple,
+            labelColor: AppTheme.primaryPurple,
+            unselectedLabelColor: AppTheme.textGray,
+            labelStyle: const TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.bold),
             tabs: const [
               Tab(text: 'تقرير الأداء'),
               Tab(text: 'خطة التعلم'),
             ],
           ),
         ),
-        body: TabBarView(
-          controller: _tabController,
-          children: [
-            _ProgressReportsTab(),
-            _LearningPathTab(),
-          ],
+        body: VibrantBackground(
+          backgroundColor: AppTheme.backgroundLight,
+          pattern: BackgroundPattern.shapes,
+          child: TabBarView(
+            controller: _tabController,
+            children: [
+              _ProgressReportsTab(),
+              _LearningPathTab(),
+            ],
+          ),
         ),
       ),
     );
@@ -71,25 +84,34 @@ class _ProgressReportsTab extends StatelessWidget {
             // Generate button
             Padding(
               padding: const EdgeInsets.all(16),
-              child: ElevatedButton.icon(
+              child: DuolingoButton(
                 onPressed: provider.isGenerating
                     ? null
                     : () => provider.generateReport(),
-                icon: provider.isGenerating
-                    ? const SizedBox(
+                color: AppTheme.primaryPurple,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (provider.isGenerating)
+                      const SizedBox(
                         width: 20,
                         height: 20,
                         child: CircularProgressIndicator(
                             strokeWidth: 2, color: Colors.white),
                       )
-                    : const Icon(Icons.auto_awesome),
-                label: Text(
-                  provider.isGenerating ? 'جاري الإنشاء...' : 'إنشاء تقرير جديد',
-                  style: const TextStyle(fontFamily: 'Cairo'),
-                ),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 50),
-                  backgroundColor: AppTheme.primaryPurple,
+                    else
+                      const Icon(Icons.auto_awesome, color: Colors.white),
+                    const SizedBox(width: 8),
+                    Text(
+                      provider.isGenerating ? 'جاري الإنشاء...' : 'إنشاء تقرير جديد',
+                      style: const TextStyle(
+                        fontFamily: 'Cairo',
+                        fontSize: 18,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -160,69 +182,64 @@ class _ReportCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 8,
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  const Icon(Icons.calendar_today,
-                      size: 16, color: AppTheme.textGray),
-                  const SizedBox(width: 6),
-                  Text(
-                    '${report.periodStart} → ${report.periodEnd}',
-                    style: const TextStyle(
-                        fontFamily: 'Cairo',
-                        fontSize: 12,
-                        color: AppTheme.textGray),
-                  ),
-                ],
-              ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(
-                  color: _riskColor(report.riskLevel).withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(8),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: DuolingoCard(
+        padding: const EdgeInsets.all(16),
+        borderColor: AppTheme.surfaceMuted,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    const Icon(Icons.calendar_today,
+                        size: 16, color: AppTheme.textGray),
+                    const SizedBox(width: 6),
+                    Text(
+                      '${report.periodStart} → ${report.periodEnd}',
+                      style: const TextStyle(
+                          fontFamily: 'Cairo',
+                          fontSize: 12,
+                          color: AppTheme.textGray,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
-                child: Text(
-                  _riskLabel(report.riskLevel),
-                  style: TextStyle(
-                    fontFamily: 'Cairo',
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: _riskColor(report.riskLevel),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: _riskColor(report.riskLevel).withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    _riskLabel(report.riskLevel),
+                    style: TextStyle(
+                      fontFamily: 'Cairo',
+                      fontSize: 12,
+                      fontWeight: FontWeight.w900,
+                      color: _riskColor(report.riskLevel),
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Text(
-            report.summary,
-            style: const TextStyle(
-              fontFamily: 'Cairo',
-              fontSize: 14,
-              height: 1.6,
-              color: AppTheme.textDark,
+              ],
             ),
-          ),
-        ],
+            const SizedBox(height: 12),
+            Text(
+              report.summary,
+              style: const TextStyle(
+                fontFamily: 'Cairo',
+                fontSize: 15,
+                height: 1.5,
+                color: AppTheme.textDark,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -237,27 +254,34 @@ class _LearningPathTab extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(16),
-              child: ElevatedButton.icon(
+              child: DuolingoButton(
                 onPressed: provider.isGenerating
                     ? null
                     : () => provider.generateLearningPath(),
-                icon: provider.isGenerating
-                    ? const SizedBox(
+                color: AppTheme.primaryBlue,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (provider.isGenerating)
+                      const SizedBox(
                         width: 20,
                         height: 20,
                         child: CircularProgressIndicator(
                             strokeWidth: 2, color: Colors.white),
                       )
-                    : const Icon(Icons.route),
-                label: Text(
-                  provider.isGenerating
-                      ? 'جاري الإنشاء...'
-                      : 'إنشاء خطة تعلم مخصصة',
-                  style: const TextStyle(fontFamily: 'Cairo'),
-                ),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 50),
-                  backgroundColor: AppTheme.primaryBlue,
+                    else
+                      const Icon(Icons.route, color: Colors.white),
+                    const SizedBox(width: 8),
+                    Text(
+                      provider.isGenerating ? 'جاري الإنشاء...' : 'إنشاء خطة تعلم مخصصة',
+                      style: const TextStyle(
+                        fontFamily: 'Cairo',
+                        fontSize: 18,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -314,16 +338,13 @@ class _LearningPathContent extends StatelessWidget {
     if (parsed == null) {
       return SingleChildScrollView(
         padding: const EdgeInsets.all(16),
-        child: Container(
+        child: DuolingoCard(
           padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(14),
-          ),
+          borderColor: AppTheme.surfaceMuted,
           child: Text(
             recommendations,
             style: const TextStyle(
-                fontFamily: 'Cairo', fontSize: 14, height: 1.6),
+                fontFamily: 'Cairo', fontSize: 14, height: 1.6, fontWeight: FontWeight.bold),
           ),
         ),
       );
@@ -343,38 +364,39 @@ class _LearningPathContent extends StatelessWidget {
                   fontSize: 16,
                   fontWeight: FontWeight.bold)),
           const SizedBox(height: 8),
-          ...reviewLessons.map((l) => Container(
-                margin: const EdgeInsets.only(bottom: 8),
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                  children: [
-                    const Icon(Icons.replay_circle_filled,
-                        color: AppTheme.primaryOrange, size: 22),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            l is Map ? (l['topic'] ?? l['subject'] ?? '') : '$l',
-                            style: const TextStyle(
-                                fontFamily: 'Cairo',
-                                fontWeight: FontWeight.w600),
-                          ),
-                          if (l is Map && l['reason'] != null)
-                            Text(l['reason'],
-                                style: const TextStyle(
-                                    fontFamily: 'Cairo',
-                                    fontSize: 12,
-                                    color: AppTheme.textGray)),
-                        ],
+          ...reviewLessons.map((l) => Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: DuolingoCard(
+                  padding: const EdgeInsets.all(12),
+                  borderColor: AppTheme.primaryOrange,
+                  child: Row(
+                    children: [
+                      const Icon(Icons.replay_circle_filled,
+                          color: AppTheme.primaryOrange, size: 22),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              l is Map ? (l['topic'] ?? l['subject'] ?? '') : '$l',
+                              style: const TextStyle(
+                                  fontFamily: 'Cairo',
+                                  fontWeight: FontWeight.w900,
+                                  color: AppTheme.textDark),
+                            ),
+                            if (l is Map && l['reason'] != null)
+                              Text(l['reason'],
+                                  style: const TextStyle(
+                                      fontFamily: 'Cairo',
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppTheme.textGray)),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               )),
           const SizedBox(height: 16),
@@ -416,23 +438,22 @@ class _BulletItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        children: [
-          Icon(icon, color: color, size: 20),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(text,
-                style:
-                    const TextStyle(fontFamily: 'Cairo', fontSize: 14)),
-          ),
-        ],
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: DuolingoCard(
+        padding: const EdgeInsets.all(12),
+        borderColor: color,
+        child: Row(
+          children: [
+            Icon(icon, color: color, size: 20),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(text,
+                  style:
+                      const TextStyle(fontFamily: 'Cairo', fontSize: 14, fontWeight: FontWeight.bold, color: AppTheme.textDark)),
+            ),
+          ],
+        ),
       ),
     );
   }

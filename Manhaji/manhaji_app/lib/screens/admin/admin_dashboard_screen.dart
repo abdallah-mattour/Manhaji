@@ -5,6 +5,7 @@ import '../../app/theme.dart';
 import '../../providers/admin_provider.dart';
 import '../../providers/auth_provider.dart';
 import '../../widgets/error_state.dart';
+import '../../widgets/vibrant_background.dart';
 import '../../widgets/loading_state.dart';
 import '../question_bank/question_bank_subjects_screen.dart';
 
@@ -33,6 +34,8 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('لوحة المشرف'),
+          backgroundColor: AppTheme.backgroundLight,
+          elevation: 0,
           actions: [
             IconButton(
               icon: const Icon(Icons.logout),
@@ -44,7 +47,10 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
             ),
           ],
         ),
-        body: Consumer<AdminProvider>(
+        body: VibrantBackground(
+          backgroundColor: AppTheme.backgroundLight,
+          pattern: BackgroundPattern.shapes,
+          child: Consumer<AdminProvider>(
           builder: (context, provider, _) {
             if (provider.isLoading && provider.stats == null) {
               return const LoadingState();
@@ -274,6 +280,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
               ),
             );
           },
+        ),
         ),
       ),
     );

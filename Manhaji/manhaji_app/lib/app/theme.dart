@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 
 /// Manhaji design system — Palestinian Playful edition (2026-05-24).
@@ -18,7 +16,7 @@ import 'package:flutter/material.dart';
 /// English) so JSON-driven subject lookups keep working.
 class AppTheme {
   // ============================================================
-  // SPACING SCALE — 8pt grid, named t-shirt sizes (unchanged)
+  // SPACING SCALE — 8pt grid, named t-shirt sizes
   // ============================================================
 
   static const double space1 = 4;
@@ -31,176 +29,137 @@ class AppTheme {
   static const double space10 = 40;
   static const double space12 = 48;
 
-  // Legacy aliases (do not remove):
+  // Legacy aliases
   static const double spacingS = space2;
   static const double spacingM = space4;
   static const double spacingL = space6;
 
   // ============================================================
-  // RADIUS SCALE — slightly softer than Material default,
-  // Duolingo-leaning roundness for buttons (rXL).
+  // RADIUS SCALE — Duolingo-style bubbly roundness
   // ============================================================
 
-  static const double radiusS = 10;
-  static const double radiusM = 14;
-  static const double radiusL = 18;
-  static const double radiusXL = 22;
-  static const double radiusXXL = 28;
+  static const double radiusS = 12;
+  static const double radiusM = 16;
+  static const double radiusL = 20;
+  static const double radiusXL = 24;
+  static const double radiusXXL = 32;
   static const double radiusPill = 999;
 
   // ============================================================
-  // ELEVATION TOKENS — warm-tinted shadows that read as
-  // "afternoon sun on a courtyard wall" rather than sharp gray.
+  // ELEVATION & DEPTH TOKENS
   // ============================================================
 
-  static List<BoxShadow> get elevationFlat => const [];
+  /// Standard Duolingo-style "3D" depth for buttons.
+  static const double buttonDepth = 4.0;
+  static const double buttonDepthPressed = 0.0;
 
-  /// Subtle lift for interactive surfaces (cards in lists).
   static List<BoxShadow> get elevationLow => [
         BoxShadow(
-          color: const Color(0xFF4A3B1A).withValues(alpha: 0.05),
+          color: const Color(0xFF000000).withValues(alpha: 0.05),
           blurRadius: 10,
-          offset: const Offset(0, 3),
+          offset: const Offset(0, 4),
         ),
       ];
 
-  /// Default card elevation — visible without dominating.
   static List<BoxShadow> get elevationMedium => [
         BoxShadow(
-          color: const Color(0xFF3D2E0F).withValues(alpha: 0.08),
+          color: const Color(0xFF000000).withValues(alpha: 0.08),
           blurRadius: 18,
           offset: const Offset(0, 6),
         ),
       ];
 
-  /// For hero elements (quiz card, completion screen) — almost a halo.
-  static List<BoxShadow> get elevationHigh => [
-        BoxShadow(
-          color: const Color(0xFF3D2E0F).withValues(alpha: 0.10),
-          blurRadius: 28,
-          offset: const Offset(0, 10),
-        ),
-        BoxShadow(
-          color: const Color(0xFF3D2E0F).withValues(alpha: 0.05),
-          blurRadius: 6,
-          offset: const Offset(0, 2),
-        ),
-      ];
-
-  /// Subject-tinted glow — used on cards that should feel alive.
-  static List<BoxShadow> coloredGlow(Color color) => [
-        BoxShadow(
-          color: color.withValues(alpha: 0.22),
-          blurRadius: 28,
-          offset: const Offset(0, 8),
-        ),
-      ];
-
   // ============================================================
-  // MOTION TOKENS — bouncier than before, kid-app appropriate.
+  // MOTION TOKENS
   // ============================================================
 
-  static const Duration motionInstant = Duration(milliseconds: 100);
-  static const Duration motionFast = Duration(milliseconds: 180);
-  static const Duration motionBase = Duration(milliseconds: 280);
-  static const Duration motionSlow = Duration(milliseconds: 450);
+  static const Duration motionInstant = Duration(milliseconds: 80);
+  static const Duration motionFast = Duration(milliseconds: 150);
+  static const Duration motionBase = Duration(milliseconds: 250);
+  static const Duration motionSlow = Duration(milliseconds: 400);
 
-  /// Standard easing — gentler than easeOut, lands without overshoot.
   static const Curve motionCurve = Curves.easeOutCubic;
-
-  /// Celebration moments — stars revealing, correct answers, mascot pop.
-  /// Slightly less bouncy than elasticOut to avoid nausea on repeat plays.
   static const Curve motionSpring = Curves.elasticOut;
 
   // ============================================================
-  // PRIMARY BRAND PALETTE — Palestinian Playful (renamed values,
-  // same symbolic names so callers keep working).
-  // ============================================================
-  //
-  // The names are kept for API compatibility. The actual hues are:
-  //   primaryGreen → Olive green (heritage primary)
-  //   primaryBlue  → Deep teal   (cool / international)
-  //   primaryYellow→ Sunset gold (achievements, stars)
-  //   primaryOrange→ Terracotta  (energy, action)
-  //   primaryPurple→ Muted plum  (admin/parent accent)
-  //   primaryRed   → Watermelon  (errors, meaningful accent)
-
-  static const Color primaryGreen = Color(0xFF5C7A4F);   // olive
-  static const Color primaryGreenDeep = Color(0xFF3D5A33);
-  static const Color primaryBlue = Color(0xFF2D5A6B);    // deep teal
-  static const Color primaryBlueDeep = Color(0xFF1A3F4E);
-  static const Color primaryYellow = Color(0xFFF4B942);  // sunset gold
-  static const Color primaryYellowDeep = Color(0xFFB8821E);
-  static const Color primaryOrange = Color(0xFFD67342);  // terracotta
-  static const Color primaryOrangeDeep = Color(0xFFA85525);
-  static const Color primaryPurple = Color(0xFF7C4B6F);  // plum
-  static const Color primaryRed = Color(0xFFD43F4A);     // watermelon
-
-  // ============================================================
-  // SURFACE & TEXT — warm sand foundation
-  // ============================================================
-  //
-  // `backgroundLight` is the page background — warm cream-sand. Cards
-  // sit on top in `cardWhite` (pure white) for crisp contrast. Muted/
-  // subtle/strong are dividers, disabled chips, focused borders.
-
-  static const Color backgroundLight = Color(0xFFF7F2E4);   // warm sand
-  static const Color cardWhite = Color(0xFFFFFFFF);         // crisp white
-  static const Color surface = Color(0xFFFCFAF5);           // warm white
-  static const Color surfaceMuted = Color(0xFFEFE8D4);      // alt panel
-  static const Color surfaceSubtle = Color(0xFFE2D9BE);     // divider
-  static const Color surfaceStrong = Color(0xFFCBBE94);     // focused border
-
-  static const Color textDark = Color(0xFF1F2D24);          // olive-black
-  static const Color textGray = Color(0xFF5C6A5E);          // warm gray
-  static const Color textLight = Color(0xFFA9B0A3);         // muted
-
-  // ============================================================
-  // SEMANTIC COLORS — status feedback, two-tone
+  // VIBRANT BRAND PALETTE — Duolingo Inspired
   // ============================================================
 
-  static const Color success = Color(0xFF4A6741);
-  static const Color successContainer = Color(0xFFE5F0DC);
-
-  static const Color warning = Color(0xFFE89B30);
-  static const Color warningContainer = Color(0xFFFBE8C2);
-
-  static const Color error = Color(0xFFD43F4A);
-  static const Color errorContainer = Color(0xFFFBE0E3);
-
-  static const Color info = Color(0xFF2D5A6B);
-  static const Color infoContainer = Color(0xFFD8E6EC);
+  static const Color primaryGreen = Color(0xFF58CC02);   // Duolingo green
+  static const Color primaryGreenDeep = Color(0xFF46A302);
+  
+  static const Color primaryBlue = Color(0xFF1CB0F6);    // Sky blue
+  static const Color primaryBlueDeep = Color(0xFF1899D6);
+  
+  static const Color primaryYellow = Color(0xFFFFC800);  // Gold
+  static const Color primaryYellowDeep = Color(0xFFE5A500);
+  
+  static const Color primaryOrange = Color(0xFFFF9600);  // Vibrant orange
+  static const Color primaryOrangeDeep = Color(0xFFE58700);
+  
+  static const Color primaryPurple = Color(0xFFCE82FF);  // Bright purple
+  static const Color primaryPurpleDeep = Color(0xFFA568CC);
+  
+  static const Color primaryRed = Color(0xFFFF4B4B);     // Flamingo red
+  static const Color primaryRedDeep = Color(0xFFD33131);
 
   // ============================================================
-  // SUBJECT THEMES — index matches DataSeeder subject order
-  // (0 Arabic / 1 Math / 2 Islamic Education / 3 English).
+  // SURFACE & TEXT
   // ============================================================
-  //
-  // Re-themed from the previous Material-clone palette to Palestinian
-  // identity colors. Each subject gets a hue with strong cultural
-  // resonance plus a soft tint for backgrounds and a two-color
-  // gradient for hero cards.
+
+  static const Color backgroundLight = Color(0xFFF0F9FF);   // Very soft sky blue
+  static const Color backgroundMint = Color(0xFFF2FFF5);    // Very soft mint
+  static const Color backgroundGold = Color(0xFFFFFBF0);    // Very soft gold
+
+  static const Color cardWhite = Color(0xFFFFFFFF);
+  static const Color surface = Color(0xFFF7F7F7);           // Light gray bg
+  static const Color surfaceMuted = Color(0xFFE5E5E5);      // Border/Disabled
+  static const Color surfaceSubtle = Color(0xFFF0F0F0);     // Subtle alt
+  static const Color surfaceStrong = Color(0xFFAFAFAF);     // Muted text/border
+
+  static const Color textDark = Color(0xFF4B4B4B);          // Dark gray text
+  static const Color textGray = Color(0xFF777777);          // Medium gray text
+  static const Color textLight = Color(0xFFAFAFAF);         // Muted text
+
+  // ============================================================
+  // SEMANTIC COLORS
+  // ============================================================
+
+  static const Color success = Color(0xFF58CC02);
+  static const Color successContainer = Color(0xFFD7FFB8);
+
+  static const Color warning = Color(0xFFFFC800);
+  static const Color warningContainer = Color(0xFFFFF4D1);
+
+  static const Color error = Color(0xFFFF4B4B);
+  static const Color errorContainer = Color(0xFFFFDFE0);
+
+  static const Color info = Color(0xFF1CB0F6);
+  static const Color infoContainer = Color(0xFFDDF4FF);
+
+  // ============================================================
+  // SUBJECT THEMES
+  // ============================================================
 
   static const List<Color> subjectColors = [
-    Color(0xFF5C7A4F), // 0 Arabic — olive (heritage)
-    Color(0xFFD67342), // 1 Math — terracotta (energy)
-    Color(0xFFF4B942), // 2 Islamic Education — sunset gold (sacred)
-    Color(0xFF2D5A6B), // 3 English — deep teal (international)
+    primaryGreen,   // 0 Arabic
+    primaryBlue,    // 1 Math
+    primaryYellow,  // 2 Islamic
+    primaryOrange,  // 3 English
   ];
 
   static const List<Color> subjectLightColors = [
-    Color(0xFFE6EEDA), // olive wash
-    Color(0xFFF8DDCB), // terracotta wash
-    Color(0xFFFBE8C2), // gold wash
-    Color(0xFFCEDDE4), // teal wash
+    Color(0xFFD7FFB8),
+    Color(0xFFDDF4FF),
+    Color(0xFFFFF4D1),
+    Color(0xFFFFEAD1),
   ];
 
-  /// Hero gradients per subject. First color = bright, second = deep.
   static List<List<Color>> get subjectGradients => const [
-        [Color(0xFF7C9070), Color(0xFF3D5A33)], // Arabic: olive → deep olive
-        [Color(0xFFE89568), Color(0xFFA85525)], // Math: terracotta → burnt sienna
-        [Color(0xFFFBD06D), Color(0xFFB8821E)], // Islamic: gold → amber
-        [Color(0xFF5680A0), Color(0xFF1A3F4E)], // English: teal → midnight
+        [primaryGreen, primaryGreenDeep],
+        [primaryBlue, primaryBlueDeep],
+        [primaryYellow, primaryYellowDeep],
+        [primaryOrange, primaryOrangeDeep],
       ];
 
   /// Page-wide subtle washes — same hue, much lighter.
@@ -408,22 +367,22 @@ class AppTheme {
         seedColor: primaryGreen,
         brightness: Brightness.light,
         primary: primaryGreen,
-        secondary: primaryOrange,
+        secondary: primaryBlue,
         tertiary: primaryYellow,
         surface: cardWhite,
         error: error,
       ),
       scaffoldBackgroundColor: backgroundLight,
       appBarTheme: const AppBarTheme(
-        backgroundColor: primaryGreen,
-        foregroundColor: Colors.white,
+        backgroundColor: backgroundLight,
+        foregroundColor: textDark,
         elevation: 0,
         centerTitle: true,
         titleTextStyle: TextStyle(
           fontFamily: 'Cairo',
           fontSize: 20,
           fontWeight: FontWeight.w800,
-          color: Colors.white,
+          color: textDark,
           letterSpacing: 0.2,
         ),
       ),
@@ -431,37 +390,35 @@ class AppTheme {
         style: ElevatedButton.styleFrom(
           backgroundColor: primaryGreen,
           foregroundColor: Colors.white,
-          minimumSize: const Size(double.infinity, 60),
+          minimumSize: const Size(double.infinity, 56),
           elevation: 0,
-          shadowColor: Colors.transparent,
           padding: const EdgeInsets.symmetric(horizontal: space5, vertical: space4),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radiusXL),
+            borderRadius: BorderRadius.circular(radiusL),
           ),
           textStyle: const TextStyle(
             fontFamily: 'Cairo',
-            fontSize: 18,
+            fontSize: 17,
             fontWeight: FontWeight.w800,
-            letterSpacing: 0.3,
           ),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: cardWhite,
+        fillColor: surfaceSubtle,
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(radiusL),
-          borderSide: const BorderSide(color: surfaceSubtle, width: 2),
+          borderRadius: BorderRadius.circular(radiusM),
+          borderSide: const BorderSide(color: surfaceMuted, width: 2),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(radiusL),
-          borderSide: const BorderSide(color: surfaceSubtle, width: 2),
+          borderRadius: BorderRadius.circular(radiusM),
+          borderSide: const BorderSide(color: surfaceMuted, width: 2),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(radiusL),
-          borderSide: const BorderSide(color: primaryGreen, width: 3),
+          borderRadius: BorderRadius.circular(radiusM),
+          borderSide: const BorderSide(color: primaryBlue, width: 2),
         ),
         labelStyle: const TextStyle(
             fontFamily: 'Cairo', fontSize: 16, color: textGray),
@@ -472,7 +429,7 @@ class AppTheme {
         elevation: 0,
         color: cardWhite,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radiusXL)),
+            borderRadius: BorderRadius.circular(radiusL)),
         margin:
             const EdgeInsets.symmetric(horizontal: space4, vertical: space2),
       ),
@@ -557,10 +514,7 @@ class AppCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveShadow = shadow ??
-        (tint != null
-            ? AppTheme.coloredGlow(tint!)
-            : AppTheme.elevationMedium);
+    final effectiveShadow = shadow ?? AppTheme.elevationLow;
 
     final decoration = BoxDecoration(
       color: gradient == null ? AppTheme.cardWhite : null,
@@ -594,74 +548,4 @@ class AppCard extends StatelessWidget {
       ),
     );
   }
-}
-
-// ============================================================
-// EightPointStar — Levantine geometric accent
-// ============================================================
-
-/// An eight-pointed star, the signature motif of Islamic geometric
-/// art and the tilework of every Levantine courtyard. Used as a quiet
-/// decorative element in card corners and section dividers — never as
-/// a button or interactive element.
-///
-/// Implemented as a `CustomPaint`, no external image assets.
-class EightPointStar extends StatelessWidget {
-  final double size;
-  final Color color;
-  final double rotation;
-
-  const EightPointStar({
-    super.key,
-    this.size = 24,
-    this.color = AppTheme.starGold,
-    this.rotation = 0,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Transform.rotate(
-      angle: rotation,
-      child: SizedBox(
-        width: size,
-        height: size,
-        child: CustomPaint(painter: _EightPointStarPainter(color)),
-      ),
-    );
-  }
-}
-
-class _EightPointStarPainter extends CustomPainter {
-  final Color color;
-  _EightPointStarPainter(this.color);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = color
-      ..style = PaintingStyle.fill;
-    final center = Offset(size.width / 2, size.height / 2);
-    final outerRadius = size.width / 2;
-    final innerRadius = outerRadius * 0.55;
-
-    // 16-point path that alternates outer + inner vertices to draw an
-    // eight-pointed star (signature Levantine tilework motif).
-    final path = Path();
-    for (int i = 0; i < 16; i++) {
-      final r = i.isEven ? outerRadius : innerRadius;
-      final theta = (i * 22.5) * (math.pi / 180);
-      final dx = center.dx + r * math.cos(theta);
-      final dy = center.dy + r * math.sin(theta);
-      if (i == 0) {
-        path.moveTo(dx, dy);
-      } else {
-        path.lineTo(dx, dy);
-      }
-    }
-    path.close();
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(_EightPointStarPainter old) => old.color != color;
 }

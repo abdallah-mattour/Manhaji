@@ -21,6 +21,12 @@ Manhaji/backend/.idea/
 Manhaji/backend/*.log
 Manhaji/backend/HELP.md
 
+# Runtime-generated artifacts — TTS MP3 cache, voice recordings, etc.
+# FileStorageService writes these into ./uploads/* relative to the boot
+# CWD (which is backend/ during `./gradlew bootRun`). They're per-laptop
+# state, not source.
+Manhaji/backend/uploads/
+
 # Flutter / Dart (manhaji_app)
 Manhaji/manhaji_app/.dart_tool/
 Manhaji/manhaji_app/.flutter-plugins

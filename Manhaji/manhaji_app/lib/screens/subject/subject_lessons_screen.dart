@@ -6,6 +6,7 @@ import '../../providers/lesson_provider.dart';
 import '../../widgets/error_state.dart';
 import '../../widgets/loading_state.dart';
 import '../../widgets/mascot.dart';
+import '../../widgets/vibrant_background.dart';
 import '../learning/learning_screen.dart';
 
 class SubjectLessonsScreen extends StatefulWidget {
@@ -55,26 +56,25 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
           elevation: 0,
           titleTextStyle: const TextStyle(
             fontFamily: 'Cairo',
-            fontSize: 20,
-            fontWeight: FontWeight.w800,
+            fontSize: 22,
+            fontWeight: FontWeight.w900,
             color: Colors.white,
-            letterSpacing: 0.2,
           ),
           bottom: TabBar(
             controller: _tabController,
             indicatorColor: Colors.white,
-            indicatorWeight: 3,
+            indicatorWeight: 4,
             labelColor: Colors.white,
-            unselectedLabelColor: Colors.white.withValues(alpha: 0.7),
+            unselectedLabelColor: Colors.white.withValues(alpha: 0.6),
             labelStyle: const TextStyle(
               fontFamily: 'Cairo',
-              fontWeight: FontWeight.w800,
-              fontSize: 15,
+              fontWeight: FontWeight.w900,
+              fontSize: 16,
             ),
             unselectedLabelStyle: const TextStyle(
               fontFamily: 'Cairo',
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              fontSize: 15,
             ),
             tabs: const [
               Tab(text: 'الفصل الأول'),
@@ -82,35 +82,40 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
             ],
           ),
         ),
-        body: Consumer<LessonProvider>(
-          builder: (context, provider, _) {
-            if (provider.isLoading && provider.currentLessons.isEmpty) {
-              return const LoadingState();
-            }
+        body: VibrantBackground(
+          backgroundColor: AppTheme.backgroundLight,
+          pattern: BackgroundPattern.shapes,
+          patternColor: widget.subjectColor,
+          child: Consumer<LessonProvider>(
+            builder: (context, provider, _) {
+              if (provider.isLoading && provider.currentLessons.isEmpty) {
+                return const LoadingState();
+              }
 
-            if (provider.errorMessage != null &&
-                provider.currentLessons.isEmpty) {
-              return ErrorState(
-                message: provider.errorMessage!,
-                onRetry: () => provider.loadLessons(widget.subjectId),
+              if (provider.errorMessage != null &&
+                  provider.currentLessons.isEmpty) {
+                return ErrorState(
+                  message: provider.errorMessage!,
+                  onRetry: () => provider.loadLessons(widget.subjectId),
+                );
+              }
+
+              final semester1Lessons = provider.currentLessons
+                  .where((l) => l.semesterNumber == 1)
+                  .toList();
+              final semester2Lessons = provider.currentLessons
+                  .where((l) => l.semesterNumber == 2)
+                  .toList();
+
+              return TabBarView(
+                controller: _tabController,
+                children: [
+                  _buildLessonList(semester1Lessons, 1),
+                  _buildLessonList(semester2Lessons, 2),
+                ],
               );
-            }
-
-            final semester1Lessons = provider.currentLessons
-                .where((l) => l.semesterNumber == 1)
-                .toList();
-            final semester2Lessons = provider.currentLessons
-                .where((l) => l.semesterNumber == 2)
-                .toList();
-
-            return TabBarView(
-              controller: _tabController,
-              children: [
-                _buildLessonList(semester1Lessons, 1),
-                _buildLessonList(semester2Lessons, 2),
-              ],
-            );
-          },
+            },
+          ),
         ),
       ),
     );
@@ -145,143 +150,56 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
         ),
       );
     }
-    return ListView.builder(
-      padding: const EdgeInsets.fromLTRB(
-          AppTheme.space4, AppTheme.space4, AppTheme.space4, AppTheme.space8),
-      itemCount: lessons.length,
-      itemBuilder: (context, index) {
-        return _buildLessonTile(lessons, lessons[index], index);
-      },
-    );
-  }
+    // Demo-readiness decision (2026-05-24): every lesson is tappable so the
+    // demo committee can jump to any node during the live walkthrough. The
+    // Duolingo-style progressive unlock (lock until previous is complete)
+    // looked great visually but blocked 90% of the path on a fresh student.
+    // To restore gating post-demo, change to:
+    //   isLocked = index > 0 && !lessons[index - 1].isCompleted;
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
 
-  Widget _buildLessonTile(
-      List<LessonSummary> semesterLessons, LessonSummary lesson, int index) {
-    final isLocked = index > 0 && !semesterLessons[index - 1].isCompleted;
-
-    return Container(
-      margin: const EdgeInsets.only(bottom: AppTheme.space3),
-      decoration: BoxDecoration(
-        color: isLocked ? AppTheme.surfaceMuted : AppTheme.cardWhite,
-        borderRadius: BorderRadius.circular(AppTheme.radiusL),
-        boxShadow: isLocked ? [] : AppTheme.elevationLow,
-        border: Border.all(
-          color: isLocked
-              ? AppTheme.surfaceSubtle
-              : widget.subjectColor.withValues(alpha: 0.15),
-          width: 1.5,
-        ),
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(AppTheme.radiusL),
-          onTap: isLocked ? null : () => _openLesson(lesson, practice: false),
-          child: Padding(
-            padding: const EdgeInsets.all(AppTheme.space4),
-            child: Row(
-              children: [
-                _LessonBadge(
-                  isLocked: isLocked,
-                  isCompleted: lesson.isCompleted,
-                  orderIndex: lesson.orderIndex,
-                  subjectColor: widget.subjectColor,
-                ),
-                const AppGap.h4(),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        lesson.title,
-                        style: TextStyle(
-                          fontFamily: 'Cairo',
-                          fontSize: 17,
-                          fontWeight: FontWeight.w800,
-                          color: isLocked
-                              ? AppTheme.textLight
-                              : AppTheme.textDark,
-                          height: 1.3,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 4),
-                      _StatusChip(
-                        status: lesson.completionStatus,
-                        isLocked: isLocked,
-                        subjectColor: widget.subjectColor,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 8),
-                // Progress ring + practice chip OR chevron, depending on state.
-                if (!isLocked && lesson.isInProgress)
-                  SizedBox(
-                    width: 42,
-                    height: 42,
-                    child: CircularProgressIndicator(
-                      value: lesson.masteryLevel / 100,
-                      backgroundColor: AppTheme.surfaceSubtle,
-                      valueColor:
-                          AlwaysStoppedAnimation(widget.subjectColor),
-                      strokeWidth: 5,
-                    ),
-                  ),
-                if (!isLocked && (lesson.isCompleted || lesson.isInProgress))
-                  // Practice Mode button — labeled instead of bare emoji so
-                  // kids can see what it does. Sized to be a clear tap target.
-                  Padding(
-                    padding: const EdgeInsetsDirectional.only(start: 8),
-                    child: InkWell(
-                      onTap: () => _openLesson(lesson, practice: true),
-                      borderRadius:
-                          BorderRadius.circular(AppTheme.radiusPill),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 8),
-                        decoration: BoxDecoration(
-                          color: widget.subjectColor.withValues(alpha: 0.12),
-                          borderRadius:
-                              BorderRadius.circular(AppTheme.radiusPill),
-                          border: Border.all(
-                            color:
-                                widget.subjectColor.withValues(alpha: 0.3),
-                            width: 1.2,
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Text('🎯',
-                                style: TextStyle(fontSize: 14)),
-                            const SizedBox(width: 4),
-                            Text(
-                              'تدريب',
-                              style: TextStyle(
-                                fontFamily: 'Cairo',
-                                fontSize: 12,
-                                fontWeight: FontWeight.w800,
-                                color: widget.subjectColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                if (!isLocked && !lesson.isCompleted && !lesson.isInProgress)
-                  Icon(Icons.arrow_back_ios_rounded,
-                      size: 20, color: widget.subjectColor),
-                if (isLocked)
-                  Icon(Icons.lock_rounded,
-                      size: 22, color: AppTheme.textLight),
-              ],
+    return Stack(
+      children: [
+        // Path lines layer
+        Positioned.fill(
+          child: CustomPaint(
+            painter: _PathLinePainter(
+              lessonsCount: lessons.length,
+              color: widget.subjectColor.withValues(alpha: 0.2),
+              isRtl: isRtl,
             ),
           ),
         ),
-      ),
+        ListView.builder(
+          padding: const EdgeInsets.symmetric(vertical: 60),
+          itemCount: lessons.length,
+          itemBuilder: (context, index) {
+            final lesson = lessons[index];
+            const isLocked = false;
+
+            final double rawOffset = (index % 4 == 0 || index % 4 == 3)
+                ? 0
+                : (index % 4 == 1 ? 70 : -70);
+
+            final double offset = isRtl ? -rawOffset : rawOffset;
+
+            return Padding(
+              padding: EdgeInsetsDirectional.only(
+                bottom: 40,
+                start: offset > 0 ? offset : 0,
+                end: offset < 0 ? -offset : 0,
+              ),
+              child: _LessonPathNode(
+                lesson: lesson,
+                isLocked: isLocked,
+                color: widget.subjectColor,
+                onTap: () => _openLesson(lesson, practice: false),
+                onPractice: () => _openLesson(lesson, practice: true),
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 
@@ -299,133 +217,208 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
   }
 }
 
-/// The left-edge badge — lock / check / lesson number — in a single widget
-/// so the parent build method stays compact.
-class _LessonBadge extends StatelessWidget {
+/// A circular node in the lesson path.
+class _LessonPathNode extends StatelessWidget {
+  final LessonSummary lesson;
   final bool isLocked;
-  final bool isCompleted;
-  final int orderIndex;
-  final Color subjectColor;
+  final Color color;
+  final VoidCallback? onTap;
+  final VoidCallback onPractice;
 
-  const _LessonBadge({
+  const _LessonPathNode({
+    required this.lesson,
     required this.isLocked,
-    required this.isCompleted,
-    required this.orderIndex,
-    required this.subjectColor,
+    required this.color,
+    this.onTap,
+    required this.onPractice,
   });
 
   @override
   Widget build(BuildContext context) {
-    final size = 52.0;
-    if (isLocked) {
-      return Container(
-        width: size,
-        height: size,
-        decoration: BoxDecoration(
-          color: AppTheme.surfaceSubtle,
-          borderRadius: BorderRadius.circular(AppTheme.radiusM),
-        ),
-        child: const Icon(Icons.lock_rounded,
-            color: AppTheme.textLight, size: 24),
-      );
-    }
-    if (isCompleted) {
-      return Container(
-        width: size,
-        height: size,
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [AppTheme.success, AppTheme.primaryGreenDeep],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        GestureDetector(
+          onTap: onTap,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              // 3D Depth Shadow
+              Container(
+                width: 84,
+                height: 84,
+                margin: const EdgeInsets.only(top: 8),
+                decoration: BoxDecoration(
+                  color: isLocked ? AppTheme.surfaceMuted : _getDarkerColor(color),
+                  shape: BoxShape.circle,
+                ),
+              ),
+              // Top Layer
+              Container(
+                width: 84,
+                height: 84,
+                decoration: BoxDecoration(
+                  color: isLocked ? AppTheme.surfaceSubtle : color,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: isLocked ? AppTheme.surfaceMuted : Colors.white.withValues(alpha: 0.3),
+                    width: 4,
+                  ),
+                ),
+                child: Icon(
+                  isLocked ? Icons.lock_rounded : (lesson.isCompleted ? Icons.check_rounded : Icons.play_arrow_rounded),
+                  color: Colors.white,
+                  size: 40,
+                ),
+              ),
+              // Mastery stars if completed
+              if (lesson.isCompleted)
+                Positioned(
+                  bottom: -4,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: AppTheme.primaryYellow,
+                      borderRadius: BorderRadius.circular(AppTheme.radiusPill),
+                      border: Border.all(color: Colors.white, width: 2),
+                    ),
+                    child: Text(
+                      // masteryLevel is 0..100 (DB check constraint on
+                      // Progress.mastery_level) — but it's a double, so
+                      // raw interpolation gives "85.0%". Round to int.
+                      '🌟 ${lesson.masteryLevel.toStringAsFixed(0)}%',
+                      style: const TextStyle(
+                        fontFamily: 'Cairo',
+                        fontSize: 10,
+                        fontWeight: FontWeight.w900,
+                        color: AppTheme.textDark,
+                      ),
+                    ),
+                  ),
+                ),
+            ],
           ),
-          borderRadius: BorderRadius.circular(AppTheme.radiusM),
-          boxShadow: AppTheme.coloredGlow(AppTheme.success),
         ),
-        child: const Icon(Icons.check_rounded, color: Colors.white, size: 28),
-      );
-    }
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: subjectColor.withValues(alpha: 0.14),
-        borderRadius: BorderRadius.circular(AppTheme.radiusM),
-        border: Border.all(
-          color: subjectColor.withValues(alpha: 0.3),
-          width: 1.5,
+        const SizedBox(height: 12),
+        // Lesson Title
+        SizedBox(
+          width: 140,
+          child: Text(
+            lesson.title,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'Cairo',
+              fontSize: 14,
+              fontWeight: FontWeight.w800,
+              color: isLocked ? AppTheme.textLight : AppTheme.textDark,
+              height: 1.2,
+            ),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        '$orderIndex',
-        style: TextStyle(
-          fontFamily: 'Cairo',
-          fontSize: 22,
-          fontWeight: FontWeight.w800,
-          color: subjectColor,
-        ),
-      ),
+        if (!isLocked && (lesson.isCompleted || lesson.isInProgress))
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: TextButton(
+              onPressed: onPractice,
+              style: TextButton.styleFrom(
+                minimumSize: Size.zero,
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                backgroundColor: color.withValues(alpha: 0.1),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppTheme.radiusPill)),
+              ),
+              child: Text(
+                'مراجعة 🎯',
+                style: TextStyle(
+                  fontFamily: 'Cairo',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w800,
+                  color: color,
+                ),
+              ),
+            ),
+          ),
+      ],
     );
+  }
+
+  Color _getDarkerColor(Color color) {
+    final hsl = HSLColor.fromColor(color);
+    return hsl.withLightness((hsl.lightness - 0.15).clamp(0.0, 1.0)).toColor();
   }
 }
 
-/// Status pill — shows "قيد التعلم" / "مكتمل ✅" / "متقن 🌟" / "لم يبدأ".
-class _StatusChip extends StatelessWidget {
-  final String status;
-  final bool isLocked;
-  final Color subjectColor;
+class _PathLinePainter extends CustomPainter {
+  final int lessonsCount;
+  final Color color;
+  final bool isRtl;
 
-  const _StatusChip({
-    required this.status,
-    required this.isLocked,
-    required this.subjectColor,
+  _PathLinePainter({
+    required this.lessonsCount,
+    required this.color,
+    required this.isRtl,
   });
 
   @override
-  Widget build(BuildContext context) {
-    if (isLocked) {
-      return const Text(
-        'مقفل',
-        style: TextStyle(
-          fontFamily: 'Cairo',
-          fontSize: 13,
-          fontWeight: FontWeight.w700,
-          color: AppTheme.textLight,
-        ),
-      );
+  void paint(Canvas canvas, Size size) {
+    if (lessonsCount < 2) return;
+
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 10
+      ..strokeCap = StrokeCap.round;
+
+    final path = Path();
+    
+    // Starting point (approx center of first node)
+    double startX = size.width / 2;
+    double startY = 60 + (84 / 2); // vertical padding + half node height
+    
+    path.moveTo(startX, startY);
+
+    for (int i = 1; i < lessonsCount; i++) {
+      final double rawOffset = (i % 4 == 0 || i % 4 == 3)
+          ? 0
+          : (i % 4 == 1 ? 70 : -70);
+      final double offset = isRtl ? -rawOffset : rawOffset;
+      
+      double endX = (size.width / 2) + offset;
+      double endY = startY + 40 + 84; // gap + node height
+      
+      // Control points for a smooth curve
+      double ctrlX = (startX + endX) / 2;
+      double ctrlY = (startY + endY) / 2;
+      
+      path.quadraticBezierTo(ctrlX, ctrlY - 20, endX, endY);
+      
+      startX = endX;
+      startY = endY;
     }
-    final (text, color, bg) = _statusVisual(status);
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-      decoration: BoxDecoration(
-        color: bg,
-        borderRadius: BorderRadius.circular(AppTheme.radiusPill),
-      ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontFamily: 'Cairo',
-          fontSize: 12,
-          fontWeight: FontWeight.w800,
-          color: color,
-        ),
-      ),
-    );
+
+    // Draw dashed path
+    final dashPath = _dashPath(path, dashLength: 15, gapLength: 10);
+    canvas.drawPath(dashPath, paint);
   }
 
-  (String, Color, Color) _statusVisual(String status) {
-    switch (status) {
-      case 'NOT_STARTED':
-        return ('لم يبدأ بعد', AppTheme.textGray, AppTheme.surfaceMuted);
-      case 'IN_PROGRESS':
-        return ('قيد التعلم', subjectColor, subjectColor.withValues(alpha: 0.1));
-      case 'COMPLETED':
-        return ('مكتمل ✅', AppTheme.success, AppTheme.successContainer);
-      case 'MASTERED':
-        return ('متقن 🌟', AppTheme.primaryYellowDeep, AppTheme.warningContainer);
-      default:
-        return ('', AppTheme.textGray, AppTheme.surfaceMuted);
+  Path _dashPath(Path source, {required double dashLength, required double gapLength}) {
+    final dest = Path();
+    for (final metric in source.computeMetrics()) {
+      double distance = 0.0;
+      bool draw = true;
+      while (distance < metric.length) {
+        final length = draw ? dashLength : gapLength;
+        if (draw) {
+          dest.addPath(metric.extractPath(distance, distance + length), Offset.zero);
+        }
+        distance += length;
+        draw = !draw;
+      }
     }
+    return dest;
   }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

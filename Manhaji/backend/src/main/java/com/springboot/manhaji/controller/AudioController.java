@@ -96,7 +96,10 @@ public class AudioController {
         }
 
         try {
-            String language = "ar"; // Default to Arabic
+            // Detect language from the question text itself — any character in
+            // the Arabic unicode block ⇒ Arabic voice. Previously hardcoded
+            // to "ar", so English questions came out with Arabic phonemes.
+            String language = containsArabic(question.getQuestionText()) ? "ar" : "en";
             byte[] audio = ttsService.synthesize(question.getQuestionText(), language);
             if (audio == null) {
                 return ResponseEntity.ok(ApiResponse.success(
@@ -130,5 +133,15 @@ public class AudioController {
             return "en";
         }
         return "ar";
+    }
+
+    /** Any character in the Arabic unicode block ⇒ Arabic. */
+    private static boolean containsArabic(String text) {
+        if (text == null) return false;
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            if (c >= 0x0600 && c <= 0x06FF) return true;
+        }
+        return false;
     }
 }

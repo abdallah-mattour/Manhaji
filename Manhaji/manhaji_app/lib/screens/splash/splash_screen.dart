@@ -58,77 +58,70 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppTheme.primaryGreen,
-              AppTheme.primaryGreenDeep,
-            ],
-          ),
-        ),
-        child: Center(
-          child: AnimatedBuilder(
-            animation: _controller,
-            builder: (context, child) {
-              return Opacity(
-                opacity: _fadeAnimation.value,
-                child: Transform.scale(
-                  scale: _scaleAnimation.value,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // Mascot Hakeem peeks out of a soft white circle so
-                      // the blue owl reads cleanly against the green gradient.
-                      Container(
-                        width: 180,
-                        height: 180,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.18),
-                              blurRadius: 28,
-                              offset: const Offset(0, 12),
-                            ),
-                          ],
-                        ),
-                        alignment: Alignment.center,
-                        child: const AnimatedMascot(
-                          mood: MascotMood.sleeping,
-                          size: 150,
-                        ),
+      backgroundColor: AppTheme.primaryGreen,
+      body: Center(
+        child: AnimatedBuilder(
+          animation: _controller,
+          builder: (context, child) {
+            return Opacity(
+              opacity: _fadeAnimation.value,
+              child: Transform.scale(
+                scale: _scaleAnimation.value,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Mascot Hakeem bubbly presentation
+                    Container(
+                      width: 200,
+                      height: 200,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppTheme.primaryGreenDeep.withValues(alpha: 0.3),
+                            offset: const Offset(0, 8),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 28),
-                      const Text(
-                        'منهجي',
-                        style: TextStyle(
-                          fontFamily: 'Cairo',
-                          fontSize: 44,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.white,
-                          letterSpacing: 1,
-                        ),
+                      alignment: Alignment.center,
+                      child: const AnimatedMascot(
+                        mood: MascotMood.happy,
+                        size: 160,
                       ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'تعلّم بذكاء',
-                        style: TextStyle(
-                          fontFamily: 'Cairo',
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white.withValues(alpha: 0.92),
-                        ),
+                    ),
+                    const SizedBox(height: 40),
+                    const Text(
+                      'منهجي',
+                      style: TextStyle(
+                        fontFamily: 'Cairo',
+                        fontSize: 52,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+                        letterSpacing: 1.5,
+                        shadows: [
+                          Shadow(
+                            color: AppTheme.primaryGreenDeep,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      'تعلّم بذكاء، العب بذكاء',
+                      style: TextStyle(
+                        fontFamily: 'Cairo',
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white.withValues(alpha: 0.9),
+                      ),
+                    ),
+                  ],
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ),
     );

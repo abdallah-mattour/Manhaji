@@ -54,6 +54,21 @@ app:
       api-key: unused  # Transcription now uses Gemini instead of OpenAI Whisper
     google-tts:
       api-key: ${GOOGLE_TTS_API_KEY:not-set}
+    # Active TTS provider — "edge" (free, no key, recommended) or "google".
+    tts-provider: ${MANHAJI_TTS_PROVIDER:edge}
+    edge-tts:
+      # Override if `python` isn't on PATH. Examples:
+      #   Windows MSYS: /c/Python313/python
+      #   Linux/macOS:  python3
+      python-path: ${MANHAJI_PYTHON:python}
+      # Levantine female (Jordanian) — closest to Palestinian Arabic.
+      # Alternatives worth A/B-ing: ar-EG-SalmaNeural (Egyptian female),
+      # ar-JO-TaimNeural (Jordanian male), ar-SA-ZariyahNeural (Saudi female).
+      voice-arabic: ${MANHAJI_TTS_VOICE_AR:ar-JO-SanaNeural}
+      # Microsoft's flagship warm-teacher US female voice. Alternatives:
+      # en-US-JennyNeural (younger), en-GB-SoniaNeural (textbook British).
+      voice-english: ${MANHAJI_TTS_VOICE_EN:en-US-AriaNeural}
+      timeout-seconds: 20
 
   # File Storage
   storage:

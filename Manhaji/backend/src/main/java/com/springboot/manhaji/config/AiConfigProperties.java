@@ -14,6 +14,14 @@ public class AiConfigProperties {
     private Gemini gemini = new Gemini();
     private Whisper whisper = new Whisper();
     private GoogleTts googleTts = new GoogleTts();
+    private EdgeTts edgeTts = new EdgeTts();
+    /**
+     * Which TTS provider {@link com.springboot.manhaji.service.ai.TtsService}
+     * uses. Values: {@code "edge"} (Microsoft Edge neural voices, free, no
+     * key — preferred) or {@code "google"} (Google Cloud TTS, requires
+     * billing-enabled GOOGLE_TTS_API_KEY).
+     */
+    private String ttsProvider = "edge";
 
     @Getter
     @Setter
@@ -43,6 +51,38 @@ public class AiConfigProperties {
 
         public boolean isConfigured() {
             return apiKey != null && !apiKey.isBlank() && !"not-set".equals(apiKey);
+        }
+    }
+
+    /**
+     * Microsoft Edge TTS — free neural voices, no API key. Wraps the
+     * {@code edge-tts} Python library via a sidecar script. See
+     * {@code src/main/resources/tts/edge_tts_sidecar.py} for the runtime
+     * and {@code src/main/resources/tts/requirements.txt} for install.
+     *
+     * <p>Voice naming follows Azure Cognitive Services format
+     * ({@code <locale>-<region>-<name>Neural}). Defaults are picked for
+     * the Palestinian Grade 1-2 context — Jordanian Arabic for the
+     * Levantine accent, warm US English for the "teacher" tone.
+     */
+    @Getter
+    @Setter
+    public static class EdgeTts {
+        /** Path to the Python interpreter. Use {@code python} if it's on PATH. */
+        private String pythonPath = "python";
+
+        /** Voice for ar.* questions. Levantine female (Jordanian) by default. */
+        private String voiceArabic = "ar-JO-SanaNeural";
+
+        /** Voice for en.* questions. Microsoft's flagship warm-teacher voice. */
+        private String voiceEnglish = "en-US-AriaNeural";
+
+        /** Max wall-clock seconds for a single synthesize call. */
+        private int timeoutSeconds = 20;
+
+        /** Edge TTS needs no API key, so this is always "configured". */
+        public boolean isConfigured() {
+            return true;
         }
     }
 }

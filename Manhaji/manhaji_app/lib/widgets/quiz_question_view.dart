@@ -111,64 +111,44 @@ class _QuizQuestionViewState extends State<QuizQuestionView>
           child: child,
         );
       },
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          AppCard(
-            radius: AppTheme.radiusXXL,
-            tint: typeColor,
-            borderColor: widget.showFeedbackBorder
-                ? widget.borderColor
-                : Colors.transparent,
-            borderWidth: widget.showFeedbackBorder ? 3 : 0,
-            padding: const EdgeInsets.fromLTRB(
-                AppTheme.space5, AppTheme.space6, AppTheme.space5, AppTheme.space5),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _TypePill(type: widget.question.type, color: typeColor),
-                const AppGap.v4(),
-                QuestionMediaHeader(
-                  imageUrl: widget.question.imageUrl,
-                  audioUrl: widget.question.audioUrl,
-                ),
-                _Prompt(text: widget.question.questionText, onSpeak: widget.onSpeak),
-                if (widget.isRetry) ...const [
-                  AppGap.v3(),
-                  _RetryBanner(),
-                ],
-                if (!widget.isAnswered && !widget.isRetry) ...[
-                  const AppGap.v4(),
-                  _HintButton(
-                    hintLevel: widget.hintLevel,
-                    maxHintLevel: widget.maxHintLevel,
-                    isLoading: widget.isLoadingHint,
-                    onRequest: widget.onRequestHint,
-                  ),
-                ],
-                if (widget.currentHint != null) ...[
-                  const AppGap.v3(),
-                  _HintBubble(text: widget.currentHint!),
-                ],
-              ],
+      child: AppCard(
+        radius: AppTheme.radiusXXL,
+        tint: typeColor,
+        borderColor: widget.showFeedbackBorder
+            ? widget.borderColor
+            : AppTheme.surfaceMuted,
+        borderWidth: 3,
+        padding: const EdgeInsets.fromLTRB(
+            AppTheme.space5, AppTheme.space6, AppTheme.space5, AppTheme.space5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _TypePill(type: widget.question.type, color: typeColor),
+            const AppGap.v4(),
+            QuestionMediaHeader(
+              imageUrl: widget.question.imageUrl,
+              audioUrl: widget.question.audioUrl,
             ),
-          ),
-          // Decorative eight-point star — Levantine tilework motif. Sits
-          // half-on the corner of the card, brand-tinted, gives the surface
-          // a "this was designed, not generated" feel.
-          Positioned(
-            top: -12,
-            // RTL → star anchors to the visual left of the screen;
-            // LTR → mirror to right. Card is RTL by default per Directionality.
-            left: Directionality.of(context) == TextDirection.rtl ? null : -10,
-            right: Directionality.of(context) == TextDirection.rtl ? -10 : null,
-            child: EightPointStar(
-              size: 36,
-              color: typeColor,
-              rotation: 0.15,
-            ),
-          ),
-        ],
+            _Prompt(text: widget.question.questionText, onSpeak: widget.onSpeak),
+            if (widget.isRetry) ...const [
+              AppGap.v3(),
+              _RetryBanner(),
+            ],
+            if (!widget.isAnswered && !widget.isRetry) ...[
+              const AppGap.v4(),
+              _HintButton(
+                hintLevel: widget.hintLevel,
+                maxHintLevel: widget.maxHintLevel,
+                isLoading: widget.isLoadingHint,
+                onRequest: widget.onRequestHint,
+              ),
+            ],
+            if (widget.currentHint != null) ...[
+              const AppGap.v3(),
+              _HintBubble(text: widget.currentHint!),
+            ],
+          ],
+        ),
       ),
     );
 

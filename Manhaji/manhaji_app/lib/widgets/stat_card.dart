@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import '../app/theme.dart';
+import 'duolingo_card.dart';
 
 /// A small tinted card showing a single statistic (points, streak, score, etc.).
-///
-/// Replaces three near-duplicate `_buildStatCard` helpers that used to live in
-/// `progress_screen.dart`, `home_screen.dart`, and `learning_completion_screen.dart`.
-/// The visual differences across those sites (emoji vs icon, padding, font size)
-/// are exposed as optional parameters so each caller keeps its original look.
 class StatCard extends StatelessWidget {
   const StatCard({
     super.key,
@@ -21,7 +17,7 @@ class StatCard extends StatelessWidget {
     this.iconSize = 28,
     this.valueFontSize = 20,
     this.labelFontSize = 12,
-    this.borderRadius = 16,
+    this.borderRadius = AppTheme.radiusL,
   }) : assert(emoji != null || icon != null,
             'StatCard requires either an emoji or an icon');
 
@@ -40,26 +36,26 @@ class StatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final content = Container(
+    final content = DuolingoCard(
       padding: padding,
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(borderRadius),
-        border: Border.all(color: color.withValues(alpha: 0.25)),
-      ),
+      backgroundColor: AppTheme.cardWhite,
+      borderColor: color,
+      borderRadius: borderRadius,
+      depth: 4,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           if (emoji != null)
             Text(emoji!, style: TextStyle(fontSize: emojiSize))
           else
             Icon(icon, color: color, size: iconSize),
-          const SizedBox(height: 4),
+          const SizedBox(height: 6),
           Text(
             value,
             style: TextStyle(
               fontFamily: 'Cairo',
               fontSize: valueFontSize,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w900,
               color: color,
             ),
           ),
@@ -69,6 +65,7 @@ class StatCard extends StatelessWidget {
             style: TextStyle(
               fontFamily: 'Cairo',
               fontSize: labelFontSize,
+              fontWeight: FontWeight.w700,
               color: AppTheme.textGray,
             ),
           ),

@@ -9,7 +9,7 @@ import '../../services/local_storage_service.dart';
 import '../../widgets/error_state.dart';
 import '../../widgets/loading_state.dart';
 import '../../widgets/mascot.dart';
-import '../../widgets/stat_card.dart';
+import '../../widgets/vibrant_background.dart';
 import '../subject/subject_lessons_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -47,7 +47,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        body: Consumer<LessonProvider>(
+        body: VibrantBackground(
+          child: Consumer<LessonProvider>(
           builder: (context, lessonProvider, _) {
             if (lessonProvider.isLoading && lessonProvider.dashboard == null) {
               return const LoadingState();
@@ -87,32 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             0, (sum, s) => sum + s.completedLessons),
                       ),
                     ),
-                    // Section header for subjects — bumped to titleLarge so it
-                    // reads cleanly above the grid even on small phones.
-                    const SliverToBoxAdapter(
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(20, 12, 20, 8),
-                        child: Row(
-                          children: [
-                            EightPointStar(
-                              size: 16,
-                              color: AppTheme.primaryGreen,
-                            ),
-                            SizedBox(width: 10),
-                            Text(
-                              'المواد الدراسية',
-                              style: TextStyle(
-                                fontFamily: 'Cairo',
-                                fontSize: 22,
-                                fontWeight: FontWeight.w800,
-                                color: AppTheme.textDark,
-                                letterSpacing: -0.2,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    // Section header removed as it's now part of _buildStatsRow/Header style
                     if (dashboard.subjects.isEmpty)
                       // Defensive empty state — without this the user just
                       // sees a section header over blank space and assumes
@@ -143,11 +119,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             crossAxisCount: 2,
                             crossAxisSpacing: 14,
                             mainAxisSpacing: 14,
-                            // Post-screenshot fix (2026-05-24): was 0.98 (almost
-                            // square), which clipped long Arabic subject names
-                            // like "التربية الإسلامية" that wrap to 2 lines.
-                            // 0.85 gives enough vertical room for the title + bar.
-                            childAspectRatio: 0.85,
+                            // Post-screenshot fix v2 (2026-05-24): 0.85 still
+                            // overflowed by 1.3px after the icon grew to 72px
+                            // and title bumped to 18pt w900. 0.78 gives a
+                            // comfortable ~10px of vertical headroom for the
+                            // longest 2-line Arabic name ("التربية الإسلامية").
+                            childAspectRatio: 0.78,
                           ),
                           delegate: SliverChildBuilderDelegate(
                             (context, index) {
@@ -168,6 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             );
           },
+        ),
         ),
         bottomNavigationBar: _buildBottomNav(),
       ),
@@ -191,128 +169,87 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  /// Olive gradient header with Hakeem, name, and logout. Text is white at
-  /// high alpha for clarity against the olive gradient.
+  /// Duolingo-style top bar with stats.
   Widget _buildHeader(String name, int points, int streak) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [AppTheme.primaryGreen, AppTheme.primaryGreenDeep],
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-        ),
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(32),
-          bottomRight: Radius.circular(32),
+        color: AppTheme.cardWhite,
+        border: Border(
+          bottom: BorderSide(color: AppTheme.surfaceMuted, width: 2),
         ),
       ),
-      child: Stack(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Decorative motif — large eight-point star in the corner at
-          // very low alpha so it's a watermark, not competition for text.
-          Positioned(
-            top: -16,
-            right: -20,
-            child: EightPointStar(
-              size: 84,
-              color: Colors.white.withValues(alpha: 0.08),
+          // Mascot Avatar (Left)
+          GestureDetector(
+            onTap: () => _showLogoutDialog(),
+            child: Container(
+              width: 44,
+              height: 44,
+              decoration: BoxDecoration(
+                color: AppTheme.surfaceSubtle,
+                shape: BoxShape.circle,
+                border: Border.all(color: AppTheme.surfaceMuted, width: 2),
+              ),
+              child: const ClipOval(
+                child: Mascot(mood: MascotMood.idle, size: 36),
+              ),
             ),
           ),
+          
+          // Stats Row (Center)
           Row(
             children: [
-              Container(
-                width: 72,
-                height: 72,
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.25),
-                  shape: BoxShape.circle,
-                ),
-                alignment: Alignment.center,
-                child: const Mascot(
-                  mood: MascotMood.idle,
-                  size: 60,
-                ),
-              ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'مرحباً! 👋',
-                      style: TextStyle(
-                        fontFamily: 'Cairo',
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white.withValues(alpha: 0.95),
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      name,
-                      style: const TextStyle(
-                        fontFamily: 'Cairo',
-                        fontSize: 22,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.white,
-                        letterSpacing: -0.2,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-              GestureDetector(
-                onTap: () => _showLogoutDialog(),
-                child: CircleAvatar(
-                  radius: 22,
-                  backgroundColor: Colors.white.withValues(alpha: 0.22),
-                  child: const Icon(Icons.logout_rounded,
-                      color: Colors.white, size: 22),
-                ),
-              ),
+              _buildStatItem('🔥', '$streak', AppTheme.primaryOrange),
+              const SizedBox(width: 16),
+              _buildStatItem('⭐', '$points', AppTheme.primaryYellow),
+              const SizedBox(width: 16),
+              _buildStatItem('💎', '0', AppTheme.primaryBlue), // Mock Gems
             ],
+          ),
+
+          // Settings/Profile icon (Right)
+          IconButton(
+            onPressed: () => Navigator.pushNamed(context, AppRoutes.settings),
+            icon: const Icon(Icons.person_rounded, color: AppTheme.textGray, size: 28),
           ),
         ],
       ),
     );
   }
 
+  Widget _buildStatItem(String emoji, String value, Color color) {
+    return Row(
+      children: [
+        Text(emoji, style: const TextStyle(fontSize: 20)),
+        const SizedBox(width: 4),
+        Text(
+          value,
+          style: TextStyle(
+            fontFamily: 'Cairo',
+            fontSize: 16,
+            fontWeight: FontWeight.w800,
+            color: color,
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildStatsRow(int points, int streak, int completed) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(
-          AppTheme.space4, AppTheme.space5, AppTheme.space4, AppTheme.space2),
-      child: Row(
-        children: [
-          StatCard(
-            emoji: '⭐',
-            value: '$points',
-            label: 'نقطة',
-            color: AppTheme.primaryYellow,
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-            labelFontSize: 12,
-          ),
-          const SizedBox(width: 10),
-          StatCard(
-            emoji: '🔥',
-            value: '$streak',
-            label: 'أيام متتالية',
-            color: AppTheme.primaryOrange,
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-            labelFontSize: 12,
-          ),
-          const SizedBox(width: 10),
-          StatCard(
-            emoji: '✅',
-            value: '$completed',
-            label: 'درس مكتمل',
-            color: AppTheme.primaryGreen,
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-            labelFontSize: 12,
-          ),
-        ],
+    // We moved stats to the header, so this can return a minimal sub-header
+    return const Padding(
+      padding: EdgeInsets.fromLTRB(20, 24, 20, 8),
+      child: Text(
+        'موادي الدراسية',
+        style: TextStyle(
+          fontFamily: 'Cairo',
+          fontSize: 24,
+          fontWeight: FontWeight.w900,
+          color: AppTheme.textDark,
+        ),
       ),
     );
   }
@@ -638,7 +575,6 @@ class _SubjectCardState extends State<_SubjectCard>
   Widget build(BuildContext context) {
     final colorSlot = _colorIndexForSubject(widget.subject.name);
     final color = AppTheme.subjectColors[colorSlot];
-    final lightColor = AppTheme.subjectLightColors[colorSlot];
     final icon = _iconForSubject(widget.subject.name);
 
     return FadeTransition(
@@ -651,101 +587,74 @@ class _SubjectCardState extends State<_SubjectCard>
           onTapUp: (_) => setState(() => _pressed = false),
           onTap: widget.onTap,
           child: AnimatedScale(
-            scale: _pressed ? 0.97 : 1.0,
+            scale: _pressed ? 0.96 : 1.0,
             duration: AppTheme.motionInstant,
             child: Container(
               decoration: BoxDecoration(
                 color: AppTheme.cardWhite,
                 borderRadius: BorderRadius.circular(AppTheme.radiusXL),
-                boxShadow: AppTheme.coloredGlow(color),
                 border: Border.all(
-                  color: color.withValues(alpha: 0.18),
-                  width: 1.5,
+                  color: AppTheme.surfaceMuted,
+                  width: 2,
                 ),
-              ),
-              child: Stack(
-                clipBehavior: Clip.hardEdge,
-                children: [
-                  // Watermark star bottom-corner — far behind text.
-                  Positioned(
-                    bottom: -10,
-                    left: -10,
-                    child: EightPointStar(
-                      size: 60,
-                      color: color.withValues(alpha: 0.07),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(AppTheme.space4),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // Icon block with gradient fill
-                        Container(
-                          width: 56,
-                          height: 56,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                lightColor,
-                                Color.lerp(lightColor, color, 0.25)!,
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                            borderRadius:
-                                BorderRadius.circular(AppTheme.radiusL),
-                          ),
-                          child: Icon(icon, size: 30, color: color),
-                        ),
-                        // Subject name — bumped to 16, w800 for clarity
-                        Padding(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 4),
-                          child: Text(
-                            widget.subject.name,
-                            textAlign: TextAlign.center,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontFamily: 'Cairo',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w800,
-                              color: AppTheme.textDark,
-                              height: 1.2,
-                            ),
-                          ),
-                        ),
-                        // Progress with explicit count, clearer bg color.
-                        Column(
-                          children: [
-                            ClipRRect(
-                              borderRadius:
-                                  BorderRadius.circular(AppTheme.radiusPill),
-                              child: LinearProgressIndicator(
-                                value: widget.subject.progressPercent,
-                                backgroundColor: AppTheme.surfaceSubtle,
-                                valueColor: AlwaysStoppedAnimation(color),
-                                minHeight: 8,
-                              ),
-                            ),
-                            const SizedBox(height: 6),
-                            Text(
-                              '${widget.subject.completedLessons} / ${widget.subject.totalLessons} درس',
-                              style: TextStyle(
-                                fontFamily: 'Cairo',
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
-                                color: AppTheme.textGray,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppTheme.surfaceMuted,
+                    offset: const Offset(0, 4),
                   ),
                 ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(AppTheme.space4),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    // Icon block with Duolingo-style colorful bubble
+                    Center(
+                      child: Container(
+                        width: 72,
+                        height: 72,
+                        decoration: BoxDecoration(
+                          color: color.withValues(alpha: 0.15),
+                          shape: BoxShape.circle,
+                          border: Border.all(color: color, width: 3),
+                        ),
+                        child: Icon(icon, size: 36, color: color),
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+                    // Subject name — Flexible so the text always gets the
+                    // available vertical space without pushing the progress
+                    // bar past the card boundary. ellipsis on long names.
+                    Flexible(
+                      child: Text(
+                        widget.subject.name,
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontFamily: 'Cairo',
+                          fontSize: 17,
+                          fontWeight: FontWeight.w900,
+                          color: AppTheme.textDark,
+                          height: 1.15,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    // Progress bar
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(AppTheme.radiusPill),
+                      child: LinearProgressIndicator(
+                        value: widget.subject.progressPercent,
+                        backgroundColor: AppTheme.surfaceSubtle,
+                        valueColor: AlwaysStoppedAnimation(color),
+                        minHeight: 10,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

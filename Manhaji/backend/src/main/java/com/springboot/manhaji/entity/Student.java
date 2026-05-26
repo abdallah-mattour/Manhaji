@@ -6,7 +6,24 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Student profile data. With JOINED inheritance (see {@link User}), the
+ * physical row layout is:
+ * <pre>
+ *   users    : (id, email, phone, password_hash, role='STUDENT', ...)
+ *   students : (id ←FK→ users.id, grade_level, avatar_id, current_streak,
+ *               total_points, current_lesson_id, school_id, parent_id)
+ * </pre>
+ * Existing FKs from {@code attempts}, {@code progress}, {@code learning_paths},
+ * etc. that point at {@code users.id} keep working — the student's id is the
+ * same value in both tables.
+ */
 @Entity
+@Table(name = "students", indexes = {
+        @Index(name = "idx_student_parent", columnList = "parent_id"),
+        @Index(name = "idx_student_school", columnList = "school_id"),
+        @Index(name = "idx_student_school_grade", columnList = "school_id, grade_level")
+})
 @DiscriminatorValue("STUDENT")
 @Getter
 @Setter

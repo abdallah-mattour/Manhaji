@@ -6,7 +6,16 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Parent profile. Holds no scalar columns of its own — the parent↔child
+ * relationship lives on {@link Student#getParent()} (FK
+ * {@code students.parent_id} → {@code parents.id} ← shared with
+ * {@code users.id}). The {@code parents} table is essentially an
+ * inheritance marker; that's fine — JOINED inheritance still benefits us by
+ * keeping the unused student-only columns out of every parent row.
+ */
 @Entity
+@Table(name = "parents")
 @DiscriminatorValue("PARENT")
 @Getter
 @Setter

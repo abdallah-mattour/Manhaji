@@ -9,16 +9,26 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users", indexes = {
-        @Index(name = "idx_user_role", columnList = "role"),
-        @Index(name = "idx_user_parent", columnList = "parent_id"),
-        @Index(name = "idx_user_school", columnList = "school_id"),
-        // Audit fix (2026-05-15): use the physical DB column name explicitly
-        // (`grade_level`, snake_case) rather than the camelCase Java field
-        // name. Hibernate's SpringPhysicalNamingStrategy translates @Column
-        // names but the safer, portable form is to specify the DB column.
-        @Index(name = "idx_user_school_grade", columnList = "school_id, grade_level")
+        @Index(name = "idx_user_role", columnList = "role")
+        // Refactor (2026-05-26): migrated from SINGLE_TABLE to JOINED inheritance.
+        // The previous indexes on parent_id / school_id / (school_id, grade_level)
+        // referenced columns that now live in the per-role child tables
+        // (`students`, `teachers`). They've been moved to their respective
+        // subclass entities' @Table.indexes — see Student.java and Teacher.java.
 })
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+// Refactor (2026-05-26): JOINED inheritance. `users` keeps the shared identity
+// columns (id, email, phone, password_hash, role, isActive, lastLoginAt,
+// createdAt). Each role's specific columns live in its own child table
+// (`students`, `teachers`, `parents`, `admins`), with the PK doubling as an
+// FK back to `users.id`. Existing FKs from `attempts`, `progress`,
+// `student_responses`, etc. that point at `users.id` continue to work
+// unchanged — the student's ID is the same number in both tables.
+//
+// The discriminator column (`role`) is retained even though JOINED makes it
+// optional: with the discriminator Hibernate can determine the subtype from
+// the parent row alone, avoiding LEFT JOINs across every subclass table on
+// polymorphic loads.
+@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 // Audit fix (2026-05-15): a user must have at least one of email / phone for
 // login. Currently the application validates this in AuthService.register but

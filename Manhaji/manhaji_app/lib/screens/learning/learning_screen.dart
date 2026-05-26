@@ -10,6 +10,7 @@ import '../../providers/learning_provider.dart';
 import '../../services/audio_service.dart';
 import '../../services/local_storage_service.dart';
 import '../../services/tts_service.dart';
+import '../../utils/app_log.dart';
 import '../../widgets/onboarding_overlay.dart';
 import '../../widgets/quiz_question_view.dart';
 import '../../widgets/vibrant_background.dart';
@@ -47,6 +48,8 @@ class LearningScreen extends StatefulWidget {
 
 class _LearningScreenState extends State<LearningScreen>
     with TickerProviderStateMixin {
+  static final AppLog _sttLog = AppLog.tag('stt');
+
   String? _selectedAnswer;
   final _textController = TextEditingController();
   late AnimationController _shakeController;
@@ -507,10 +510,18 @@ class _LearningScreenState extends State<LearningScreen>
       LearningProvider provider, String audioPath) async {
     final attemptId = provider.currentAttemptId;
     final question = provider.currentStep?.question;
-    if (attemptId == null || question == null) return;
+    if (attemptId == null || question == null) {
+      _sttLog.w('handoff: missing attemptId/question — abandoning upload');
+      return;
+    }
 
-    // Show processing state via tracker (feedback phase without a score yet)
+    // Show processing state via tracker (feedback phase without a score yet).
+    // The PronunciationWidget reads `provider.phase == stepFeedback` AND
+    // `lastPronunciationScore == null` to render its in-card spinner.
+    // _buildBottomBar now also gates its red/green colors on `lastResult`
+    // being non-null, so flipping phase here no longer flashes red.
     provider.markPhaseFeedback();
+    _sttLog.i('handoff: q=${question.id} attempt=$attemptId');
 
     try {
       final audioService = context.read<AudioApiService>();
@@ -522,7 +533,7 @@ class _LearningScreenState extends State<LearningScreen>
       provider.applyPronunciationResult(score);
       _onAnswerSubmitted(provider);
     } catch (e) {
-      debugPrint('[pronunciation] error: $e');
+      _sttLog.e('handoff: pronunciation pipeline failed', e);
       // Audit-3 fix (2026-05-15): a network blip during the pronunciation
       // upload would leave the screen stuck in stepFeedback (spinner)
       // forever. Revert to active so the child can re-record.
@@ -580,7 +591,18 @@ class _LearningScreenState extends State<LearningScreen>
     final phase = provider.phase;
     final tracker = provider.currentTracker;
     final result = tracker?.lastResult;
-    final isAnswered = phase == LearningPhase.stepFeedback || phase == LearningPhase.stepRetry;
+    // `hasVerdict` is the only safe gate for the success/error colours.
+    // Just looking at `phase == stepFeedback` is wrong for pronunciation
+    // questions, where `markPhaseFeedback()` flips the phase the moment
+    // recording stops — *before* the Gemini transcription + scoring
+    // round-trip resolves. Without this gate, the bottom bar painted red
+    // for the duration of the network call, then flipped to green when
+    // the score arrived. Same root cause as the MCQ flicker, surfaced
+    // through a different submit path.
+    final hasVerdict = result != null;
+    final isAnswered =
+        phase == LearningPhase.stepFeedback || phase == LearningPhase.stepRetry;
+    final showVerdictColors = isAnswered && hasVerdict;
 
     // Duolingo-style sliding feedback panel
     return AnimatedContainer(
@@ -588,14 +610,14 @@ class _LearningScreenState extends State<LearningScreen>
       curve: Curves.easeOutQuart,
       padding: EdgeInsets.fromLTRB(24, 24, 24, 24 + MediaQuery.of(context).padding.bottom),
       decoration: BoxDecoration(
-        color: !isAnswered 
-            ? Colors.white 
-            : (result?.isCorrect == true ? AppTheme.successContainer : AppTheme.errorContainer),
+        color: !showVerdictColors
+            ? Colors.white
+            : (result.isCorrect ? AppTheme.successContainer : AppTheme.errorContainer),
         border: Border(
           top: BorderSide(
-            color: !isAnswered 
-                ? AppTheme.surfaceSubtle 
-                : (result?.isCorrect == true ? AppTheme.primaryGreen : AppTheme.primaryRed),
+            color: !showVerdictColors
+                ? AppTheme.surfaceSubtle
+                : (result.isCorrect ? AppTheme.primaryGreen : AppTheme.primaryRed),
             width: 2,
           ),
         ),
@@ -667,19 +689,34 @@ class _LearningScreenState extends State<LearningScreen>
 
     if (phase == LearningPhase.stepFeedback) {
       final tracker = provider.currentTracker;
-      final isCorrect = tracker?.lastResult?.isCorrect == true;
+      final result = tracker?.lastResult;
+
+      // During pronunciation processing the phase is stepFeedback but the
+      // verdict (lastResult) hasn't arrived yet. Don't paint a red/green
+      // Next button preemptively — the in-card processing spinner is the
+      // only signal a child should see while we wait on Gemini.
+      if (result == null) {
+        return const SizedBox.shrink();
+      }
 
       return DuolingoButton(
         text: AppStrings.actionNext,
-        color: isCorrect ? AppTheme.primaryGreen : AppTheme.primaryRed,
+        color: result.isCorrect ? AppTheme.primaryGreen : AppTheme.primaryRed,
         onPressed: () => _goNext(provider),
       );
     }
 
+    // Disable the Confirm button while a submission is in flight so a
+    // double-tap can't fire two POST /attempt/answer calls. The provider
+    // also keeps `phase = stepActive` during this window, which keeps the
+    // answer options painted in their "selected blue" state instead of
+    // flashing red against a not-yet-arrived verdict.
     return DuolingoButton(
       text: AppStrings.actionConfirm,
       color: AppTheme.primaryGreen,
-      onPressed: _selectedAnswer != null ? () => _submitAnswer(provider) : null,
+      onPressed: (_selectedAnswer != null && !provider.isSubmitting)
+          ? () => _submitAnswer(provider)
+          : null,
     );
   }
 

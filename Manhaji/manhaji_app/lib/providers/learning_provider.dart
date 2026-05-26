@@ -4,6 +4,7 @@ import '../models/pronunciation_score.dart';
 import '../models/quiz.dart';
 import '../models/learning_step.dart';
 import '../services/quiz_service.dart';
+import '../utils/app_log.dart';
 import '../utils/error_handler.dart';
 
 enum LearningPhase {
@@ -36,10 +37,18 @@ class QuestionTracker {
 }
 
 class LearningProvider extends ChangeNotifier {
+  static final AppLog _log = AppLog.tag('learning');
+
   final QuizApiService _quizService;
 
   LearningPhase _phase = LearningPhase.loading;
   String? _errorMessage;
+  // True from the moment the user hits "Confirm" until the backend's
+  // evaluation comes back with a verdict. The screen disables the Confirm
+  // button while this is true so double-taps can't double-submit, and the
+  // bottom action button switches to a disabled "checking" state instead
+  // of preemptively painting the green/red Next button.
+  bool _isSubmitting = false;
 
   Quiz? _currentQuiz;
   int? _currentAttemptId;
@@ -60,6 +69,7 @@ class LearningProvider extends ChangeNotifier {
 
   // Getters
   LearningPhase get phase => _phase;
+  bool get isSubmitting => _isSubmitting;
   String? get errorMessage => _errorMessage;
   Quiz? get currentQuiz => _currentQuiz;
   int? get currentAttemptId => _currentAttemptId;
@@ -154,7 +164,18 @@ class LearningProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Submit answer
+  // Submit answer.
+  //
+  // Bug history: this method used to flip `_phase = stepFeedback` and
+  // notifyListeners() *before* the await — which meant the screen
+  // rebuilt with `phase = stepFeedback` but `tracker.lastResult` still
+  // null. MCQ + the bottom action panel both default their colour to red
+  // when there's no verdict, so the child saw a red "wrong" flash for the
+  // duration of the network round-trip (~50–300ms), then green once the
+  // result arrived. Now we keep `phase = stepActive` until the verdict is
+  // in hand, and surface "submission in flight" via `_isSubmitting` so
+  // the screen can disable the Confirm button without lying about the
+  // phase.
   Future<void> submitAnswer(String answer) async {
     final step = currentStep;
     if (step?.question == null || _currentAttemptId == null) return;
@@ -164,8 +185,13 @@ class LearningProvider extends ChangeNotifier {
     if (tracker == null) return;
     tracker.attemptCount++;
 
-    _phase = LearningPhase.stepFeedback;
+    // Tell the UI we're working without claiming the verdict is in. The
+    // screen reads `isSubmitting` to disable the Confirm button; the
+    // colour of the answer options keeps its pre-submit "selected" blue
+    // because phase is still stepActive.
+    _isSubmitting = true;
     notifyListeners();
+    final stopwatch = Stopwatch()..start();
 
     try {
       final result = await _quizService.submitAnswer(
@@ -174,6 +200,9 @@ class LearningProvider extends ChangeNotifier {
         answer: answer,
       );
       tracker.lastResult = result;
+      _log.i('submitAnswer id=${question.id} verdict='
+          '${result.isCorrect ? "correct" : "wrong"} '
+          'in ${stopwatch.elapsedMilliseconds}ms');
 
       if (result.isCorrect) {
         tracker.everCorrect = true;
@@ -185,11 +214,10 @@ class LearningProvider extends ChangeNotifier {
           tracker.starsEarned = 2;
         }
         _recalcStars();
+        _phase = LearningPhase.stepFeedback;
       } else if (!tracker.inRetryRound && tracker.attemptCount == 1) {
         // First wrong — allow retry
         _phase = LearningPhase.stepRetry;
-        notifyListeners();
-        return;
       } else {
         // Second wrong in main round or wrong in retry round
         if (tracker.inRetryRound) {
@@ -199,10 +227,15 @@ class LearningProvider extends ChangeNotifier {
           // Failed both attempts in main round → queue for retry round
           _retryQueue.add(question.id);
         }
+        _phase = LearningPhase.stepFeedback;
       }
     } catch (e) {
+      _log.e('submitAnswer id=${question.id} failed after '
+          '${stopwatch.elapsedMilliseconds}ms', e);
       _errorMessage = extractError(e);
       _phase = LearningPhase.stepActive;
+    } finally {
+      _isSubmitting = false;
     }
     notifyListeners();
   }

@@ -1,12 +1,28 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import '../models/pronunciation_score.dart';
+import '../utils/app_log.dart';
 import 'api_service.dart';
 
 class AudioApiService {
+  static final AppLog _log = AppLog.tag('stt');
+
   final ApiService _api;
 
   AudioApiService(this._api);
+
+  /// Pulls the filename out of an absolute path so the multipart upload's
+  /// `filename` field matches the actual extension Gemini will see in
+  /// `Content-Type`. Previously this was hardcoded to `pron.webm` while
+  /// the recorder emitted AAC-in-M4A — Gemini's format autodetection still
+  /// worked from the bytes, but mismatched filenames make server-side
+  /// debugging unnecessarily painful.
+  String _basename(String path) {
+    final fwd = path.lastIndexOf('/');
+    final bwd = path.lastIndexOf('\\');
+    final idx = fwd > bwd ? fwd : bwd;
+    return idx >= 0 ? path.substring(idx + 1) : path;
+  }
 
   /// Request TTS narration for a lesson. Returns audio URL or status message.
   Future<Map<String, dynamic>> narrateLesson(int lessonId) async {
@@ -38,8 +54,10 @@ class AudioApiService {
     required String audioFilePath,
     String language = 'ar',
   }) async {
+    final filename = _basename(audioFilePath);
+    _log.i('voice-answer: upload q=$questionId lang=$language file=$filename');
     final formData = FormData.fromMap({
-      'audio': await MultipartFile.fromFile(audioFilePath, filename: 'voice.webm'),
+      'audio': await MultipartFile.fromFile(audioFilePath, filename: filename),
       'questionId': questionId,
       'language': language,
     });
@@ -57,17 +75,30 @@ class AudioApiService {
     required String audioFilePath,
     String language = 'ar',
   }) async {
+    final filename = _basename(audioFilePath);
+    _log.i('pronunciation: upload q=$questionId lang=$language file=$filename');
+    final stopwatch = Stopwatch()..start();
     final formData = FormData.fromMap({
-      'audio': await MultipartFile.fromFile(audioFilePath, filename: 'pron.webm'),
+      'audio': await MultipartFile.fromFile(audioFilePath, filename: filename),
       'questionId': questionId,
       'language': language,
     });
-    final response = await _api.postMultipart(
-      '/quiz/attempt/$attemptId/pronunciation',
-      formData: formData,
-    );
-    return PronunciationScore.fromJson(
-        (response['data'] as Map).cast<String, dynamic>());
+    try {
+      final response = await _api.postMultipart(
+        '/quiz/attempt/$attemptId/pronunciation',
+        formData: formData,
+      );
+      final score = PronunciationScore.fromJson(
+          (response['data'] as Map).cast<String, dynamic>());
+      _log.i('pronunciation: verdict score=${score.score} '
+          'correct=${score.isCorrect} heard="${score.transcribedText}" '
+          'in ${stopwatch.elapsedMilliseconds}ms');
+      return score;
+    } catch (e) {
+      _log.e('pronunciation: upload/score failed after '
+          '${stopwatch.elapsedMilliseconds}ms', e);
+      rethrow;
+    }
   }
 
   /// Get a hint for a question.

@@ -1,7 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:just_audio/just_audio.dart';
 import '../config/api_config.dart';
+import '../utils/app_log.dart';
 import 'audio_service.dart';
 import 'local_storage_service.dart';
 
@@ -14,7 +14,7 @@ import 'local_storage_service.dart';
 ///
 /// `AudioApiService.readQuestion` returns a backend-relative path like
 /// `uploads/audio/<uuid>_question_<id>.mp3` (see
-/// `FileStorageService.saveAudio` on the server). Two things must happen
+/// `FileStorageService.saveAudio` on the server). Three things must happen
 /// before [just_audio] can play it:
 ///
 /// 1. **Prefix with the server origin.** Schemeless strings are interpreted
@@ -27,6 +27,11 @@ import 'local_storage_service.dart';
 ///    recordings are PII). Without the bearer token, the server returns 401
 ///    and [just_audio] reports it as `Source error`. We read the token from
 ///    [LocalStorageService] and pass it via `setUrl(..., headers: ...)`.
+/// 3. **Be reachable from Android.** Loopback HTTP requires
+///    `network_security_config.xml` to allow cleartext for
+///    `10.0.2.2` / `127.0.0.1` / `localhost`; without it ExoPlayer throws
+///    `CleartextNotPermittedException`. See
+///    `android/app/src/main/res/xml/network_security_config.xml`.
 ///
 /// ### Language routing
 ///
@@ -36,7 +41,19 @@ import 'local_storage_service.dart';
 /// English questions came out with Arabic phonemes (unintelligible). The
 /// fallback now re-applies language per call so a single [FlutterTts]
 /// instance can swap between Arabic and English mid-session.
+///
+/// ### Console logging
+///
+/// Every decision point emits a line via [AppLog] under the `[tts]` tag —
+/// init outcome, which path each request took (backend cached / backend
+/// fresh / local fallback), and the underlying error if a request failed.
+/// Filter with `flutter run | Select-String "\[tts\]"` to see only TTS
+/// activity.
 class TtsService {
+  TtsService(this._audioApi, this._storage);
+
+  static final AppLog _log = AppLog.tag('tts');
+
   final AudioApiService _audioApi;
   final LocalStorageService _storage;
   final FlutterTts _flutterTts = FlutterTts();
@@ -44,8 +61,6 @@ class TtsService {
 
   bool _backendAvailable = false;
   bool _initialized = false;
-
-  TtsService(this._audioApi, this._storage);
 
   bool get isBackendAvailable => _backendAvailable;
 
@@ -58,9 +73,10 @@ class TtsService {
     // wasted round-trips.
     try {
       _backendAvailable = await _audioApi.isTtsAvailable();
+      _log.i('init: backend=${_backendAvailable ? "available" : "unavailable"}');
     } catch (e) {
-      debugPrint('[tts-init] backend check failed: $e');
       _backendAvailable = false;
+      _log.w('init: backend check failed, falling back to local-only — $e');
     }
 
     // Init local fallback. Don't fix the language here — we re-apply it
@@ -71,8 +87,9 @@ class TtsService {
       await _flutterTts.setSpeechRate(0.5);
       await _flutterTts.setPitch(1.0);
       await _flutterTts.setVolume(1.0);
+      _log.i('init: local engine ready');
     } catch (e) {
-      debugPrint('Failed to initialize local TTS: $e');
+      _log.e('init: failed to configure local TTS', e);
     }
   }
 
@@ -92,28 +109,41 @@ class TtsService {
   /// glitch, surrogate-encoding edge case in the sidecar) we silently fall
   /// back to local synthesis. The child never sees a broken speaker button.
   Future<void> speakQuestion(int questionId, String text) async {
-    if (_backendAvailable) {
-      try {
-        final result = await _audioApi.readQuestion(questionId);
-        final audioUrl = result['audioUrl'] as String?;
-        if (audioUrl != null && audioUrl.isNotEmpty) {
-          final playableUrl = ApiConfig.resolveMediaUrl(audioUrl);
-          final headers = await _authHeaders();
-          await _audioPlayer.setUrl(playableUrl, headers: headers);
-          await _audioPlayer.play();
-          return;
-        }
-      } catch (e) {
-        debugPrint('Backend TTS failed for question $questionId: $e');
-      }
+    if (!_backendAvailable) {
+      _log.i('speakQuestion id=$questionId → local (backend unavailable)');
+      await _localSpeak(text);
+      return;
     }
-    await _localSpeak(text);
+
+    try {
+      final result = await _audioApi.readQuestion(questionId);
+      final audioUrl = result['audioUrl'] as String?;
+      if (audioUrl == null || audioUrl.isEmpty) {
+        // Backend responded but produced no URL — usually means the server
+        // couldn't synthesize (e.g. Python sidecar exit 4) and returned a
+        // message field instead. Falling back to local keeps the UI alive.
+        _log.w('speakQuestion id=$questionId → local '
+            '(backend returned no audioUrl, msg=${result['message']})');
+        await _localSpeak(text);
+        return;
+      }
+
+      final playableUrl = ApiConfig.resolveMediaUrl(audioUrl);
+      final headers = await _authHeaders();
+      _log.i('speakQuestion id=$questionId → backend ($playableUrl)');
+      await _audioPlayer.setUrl(playableUrl, headers: headers);
+      await _audioPlayer.play();
+    } catch (e) {
+      _log.w('speakQuestion id=$questionId → local (backend failed: $e)');
+      await _localSpeak(text);
+    }
   }
 
   /// Speak arbitrary text (teaching cards, hint reveals) — always local,
   /// because the backend caches by questionId and arbitrary strings don't
   /// have a stable cache key.
   Future<void> speakText(String text) async {
+    _log.i('speakText → local (${text.length} chars)');
     await _localSpeak(text);
   }
 
@@ -130,7 +160,7 @@ class TtsService {
       await _flutterTts.setSpeechRate(isAr ? 0.5 : 0.55);
       await _flutterTts.speak(text);
     } catch (e) {
-      debugPrint('Local TTS speak failed: $e');
+      _log.e('local speak failed', e);
     }
   }
 
@@ -141,10 +171,13 @@ class TtsService {
   Future<Map<String, String>?> _authHeaders() async {
     try {
       final token = await _storage.getToken();
-      if (token == null || token.isEmpty) return null;
+      if (token == null || token.isEmpty) {
+        _log.w('no JWT in secure storage — playback will likely 401');
+        return null;
+      }
       return {'Authorization': 'Bearer $token'};
     } catch (e) {
-      debugPrint('[tts] failed to read auth token: $e');
+      _log.e('failed to read JWT from secure storage', e);
       return null;
     }
   }

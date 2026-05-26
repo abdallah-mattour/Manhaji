@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import '../config/api_config.dart';
+import '../utils/app_log.dart';
 import 'local_storage_service.dart';
 
 /// Thrown by [ApiService] when a request fails in a way the UI should
@@ -19,6 +19,8 @@ class ApiException implements Exception {
 }
 
 class ApiService {
+  static final AppLog _log = AppLog.tag('api');
+
   late final Dio _dio;
   final LocalStorageService _storage;
 
@@ -41,16 +43,19 @@ class ApiService {
       },
       onError: (error, handler) async {
         if (error.response?.statusCode == 401) {
+          _log.w('401 on ${error.requestOptions.path} — attempting refresh');
           final refreshed = await _tryRefreshToken();
           if (refreshed) {
+            _log.i('refresh ok — retrying ${error.requestOptions.path}');
             try {
               final retryResponse = await _retry(error.requestOptions);
               return handler.resolve(retryResponse);
             } catch (retryErr) {
-              debugPrint('Retry after refresh failed: $retryErr');
+              _log.e('retry after refresh failed', retryErr);
             }
           } else {
             // Token refresh failed — clear stale auth data
+            _log.w('refresh failed — clearing stored auth, user must re-login');
             await _storage.clearAll();
           }
         }
@@ -65,8 +70,8 @@ class ApiService {
   /// the demo will see these. The console still gets the raw exception via
   /// [debugPrint] for us to diagnose post-demo.
   Never _throwFriendly(DioException err) {
-    debugPrint('API error [${err.type}] ${err.requestOptions.path}: '
-        '${err.response?.statusCode} ${err.message}');
+    _log.e('${err.requestOptions.method} ${err.requestOptions.path} '
+        '[${err.type.name}] status=${err.response?.statusCode} ${err.message}');
     final status = err.response?.statusCode;
     String msg;
     switch (err.type) {
@@ -127,7 +132,7 @@ class ApiService {
       }
       return false;
     } catch (e) {
-      debugPrint('Token refresh failed: $e');
+      _log.e('token refresh request itself failed', e);
       return false;
     }
   }
@@ -200,7 +205,7 @@ class ApiService {
   Map<String, dynamic> _asMap(dynamic data) {
     if (data is Map<String, dynamic>) return data;
     if (data is Map) return Map<String, dynamic>.from(data);
-    debugPrint('API returned non-map payload: ${data.runtimeType}');
+    _log.w('non-map payload from backend: ${data.runtimeType}');
     return {'success': false, 'message': 'ردّ غير متوقّع من الخادم'};
   }
 }

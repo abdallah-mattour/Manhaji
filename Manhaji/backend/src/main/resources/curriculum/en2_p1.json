@@ -68,7 +68,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate to English: ما اسمك؟",
+          "questionText": "What do we say to ask someone's name?",
           "correctAnswer": "What's your name?",
           "options": null,
           "difficultyLevel": 1,
@@ -159,7 +159,7 @@
       "questions": [
         {
           "type": "MCQ",
-          "questionText": "What is 'أرز' in English?",
+          "questionText": "What white food do we cook and eat with chicken or meat?",
           "correctAnswer": "rice",
           "options": [
             "rice",
@@ -214,7 +214,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate to English: سمك",
+          "questionText": "What food do we get from rivers and the sea?",
           "correctAnswer": "fish",
           "options": null,
           "difficultyLevel": 1,
@@ -305,7 +305,7 @@
       "questions": [
         {
           "type": "MCQ",
-          "questionText": "What is 'نحلة' in English?",
+          "questionText": "Which insect makes honey?",
           "correctAnswer": "bee",
           "options": [
             "bird",
@@ -360,7 +360,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate to English: شجرة",
+          "questionText": "What grows tall in a garden and has leaves and branches?",
           "correctAnswer": "tree",
           "options": null,
           "difficultyLevel": 1,
@@ -508,7 +508,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate to English: شعر",
+          "questionText": "What grows on top of our head?",
           "correctAnswer": "hair",
           "options": null,
           "difficultyLevel": 1,
@@ -654,7 +654,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate to English: عمر",
+          "questionText": "What word do we use to say how many years old someone is?",
           "correctAnswer": "age",
           "options": null,
           "difficultyLevel": 1,
@@ -737,7 +737,7 @@
       "questions": [
         {
           "type": "MCQ",
-          "questionText": "What is the English word for 'يقفز'?",
+          "questionText": "Which action means to push up off the ground with your feet?",
           "correctAnswer": "jump",
           "options": [
             "clap",
@@ -792,7 +792,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate to English: اصمت",
+          "questionText": "What do we say to ask someone to stop talking?",
           "correctAnswer": "Be quiet",
           "options": null,
           "difficultyLevel": 1,
@@ -938,7 +938,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate to English: تلفاز",
+          "questionText": "What do we watch programs on at home?",
           "correctAnswer": "TV",
           "options": null,
           "difficultyLevel": 1,
@@ -1086,7 +1086,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate to English: متجر",
+          "questionText": "Where do we go to buy things?",
           "correctAnswer": "shop",
           "options": null,
           "difficultyLevel": 1,
@@ -1234,7 +1234,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate to English: حديقة",
+          "questionText": "Where do children play with grass and trees outside?",
           "correctAnswer": "park",
           "options": null,
           "difficultyLevel": 1,

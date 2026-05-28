@@ -25,15 +25,15 @@
         },
         {
           "type": "TRUE_FALSE",
-          "questionText": "'Kitchen' is where we cook",
-          "correctAnswer": "صح",
+          "questionText": "A kitchen is where we cook.",
+          "correctAnswer": "True",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "comprehension"
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "What is 'حديقة' in English?",
+          "questionText": "Where do plants and flowers grow outside a house?",
           "correctAnswer": "Garden",
           "options": null,
           "difficultyLevel": 1,
@@ -94,7 +94,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate: غرفة",
+          "questionText": "What do we call a space inside a house, like a bedroom?",
           "correctAnswer": "Room",
           "options": null,
           "difficultyLevel": 1,
@@ -137,7 +137,7 @@
       "questions": [
         {
           "type": "MCQ",
-          "questionText": "What is 'قميص' in English?",
+          "questionText": "We wear a ___ on the top half of our body.",
           "correctAnswer": "Shirt",
           "options": [
             "Shirt",
@@ -150,8 +150,8 @@
         },
         {
           "type": "TRUE_FALSE",
-          "questionText": "'Shoes' means 'أحذية'",
-          "correctAnswer": "صح",
+          "questionText": "We wear shoes on our feet.",
+          "correctAnswer": "True",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -206,7 +206,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate: قميص",
+          "questionText": "What clothing has buttons and we wear it on top?",
           "correctAnswer": "Shirt",
           "options": null,
           "difficultyLevel": 1,
@@ -262,15 +262,15 @@
         },
         {
           "type": "TRUE_FALSE",
-          "questionText": "'Ten' means '١٠'",
-          "correctAnswer": "صح",
+          "questionText": "Ten is bigger than five.",
+          "correctAnswer": "True",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "comprehension"
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Write the English word for ٧",
+          "questionText": "Write the English word for 7.",
           "correctAnswer": "Seven",
           "options": null,
           "difficultyLevel": 1,
@@ -294,7 +294,7 @@
         },
         {
           "type": "MCQ",
-          "questionText": "How do we say '٧' in English?",
+          "questionText": "How do we say the number 7 in English?",
           "correctAnswer": "Seven",
           "options": [
             "Six",
@@ -367,7 +367,7 @@
       "questions": [
         {
           "type": "MCQ",
-          "questionText": "What is 'كرة' in English?",
+          "questionText": "What round toy do we kick or throw?",
           "correctAnswer": "Ball",
           "options": [
             "Ball",
@@ -380,8 +380,8 @@
         },
         {
           "type": "TRUE_FALSE",
-          "questionText": "'Doll' means 'دمية'",
-          "correctAnswer": "صح",
+          "questionText": "A doll looks like a little person.",
+          "correctAnswer": "True",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -449,7 +449,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate: لعبة",
+          "questionText": "What do children play with for fun?",
           "correctAnswer": "Toy",
           "options": null,
           "difficultyLevel": 1,
@@ -505,8 +505,8 @@
         },
         {
           "type": "TRUE_FALSE",
-          "questionText": "'Rainy' means 'ممطر'",
-          "correctAnswer": "صح",
+          "questionText": "On a rainy day, water falls from the sky.",
+          "correctAnswer": "True",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -574,7 +574,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate: حار",
+          "questionText": "How does it feel outside in summer?",
           "correctAnswer": "Hot",
           "options": null,
           "difficultyLevel": 1,
@@ -617,7 +617,7 @@
       "questions": [
         {
           "type": "MCQ",
-          "questionText": "What is 'برتقالة' in English?",
+          "questionText": "Which fruit is round and orange in color?",
           "correctAnswer": "Orange",
           "options": [
             "Orange",
@@ -630,15 +630,15 @@
         },
         {
           "type": "TRUE_FALSE",
-          "questionText": "'Carrot' is a vegetable",
-          "correctAnswer": "صح",
+          "questionText": "A carrot is a vegetable.",
+          "correctAnswer": "True",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "comprehension"
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "What is 'خيار' in English?",
+          "questionText": "Which long green vegetable do we put in salad?",
           "correctAnswer": "Cucumber",
           "options": null,
           "difficultyLevel": 1,
@@ -699,7 +699,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate: برتقالة",
+          "questionText": "Which fruit gives us juice that is orange in color?",
           "correctAnswer": "Orange",
           "options": null,
           "difficultyLevel": 1,
@@ -742,7 +742,7 @@
       "questions": [
         {
           "type": "MCQ",
-          "questionText": "What is 'اركض' in English?",
+          "questionText": "What do we do when we move fast on our feet?",
           "correctAnswer": "Run",
           "options": [
             "Run",
@@ -755,15 +755,15 @@
         },
         {
           "type": "TRUE_FALSE",
-          "questionText": "'Jump' means 'اقفز'",
-          "correctAnswer": "صح",
+          "questionText": "When we jump, our feet go up.",
+          "correctAnswer": "True",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "comprehension"
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "What is 'اكتب' in English?",
+          "questionText": "What do we do with a pencil on paper?",
           "correctAnswer": "Write",
           "options": null,
           "difficultyLevel": 1,
@@ -824,7 +824,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate: يأكل",
+          "questionText": "What do we do at lunch with our food?",
           "correctAnswer": "Eat",
           "options": null,
           "difficultyLevel": 1,
@@ -880,8 +880,8 @@
         },
         {
           "type": "TRUE_FALSE",
-          "questionText": "We eat breakfast in the morning",
-          "correctAnswer": "صح",
+          "questionText": "We eat breakfast in the morning.",
+          "correctAnswer": "True",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -933,7 +933,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate: ليل",
+          "questionText": "When the sky is dark and stars are out, it is ___.",
           "correctAnswer": "Night",
           "options": null,
           "difficultyLevel": 1,
@@ -988,8 +988,8 @@
         },
         {
           "type": "TRUE_FALSE",
-          "questionText": "'Cold' is the opposite of 'hot'",
-          "correctAnswer": "صح",
+          "questionText": "Cold is the opposite of hot.",
+          "correctAnswer": "True",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1054,7 +1054,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate: مدرسة",
+          "questionText": "Where do students go to learn?",
           "correctAnswer": "School",
           "options": null,
           "difficultyLevel": 1,

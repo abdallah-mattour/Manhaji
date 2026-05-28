@@ -13,7 +13,7 @@
       "questions": [
         {
           "type": "MCQ",
-          "questionText": "What is the English word for 'سباحة'?",
+          "questionText": "What sport do we do in a pool or in the sea?",
           "correctAnswer": "swimming",
           "options": [
             "dancing",
@@ -68,7 +68,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate to English: رسم",
+          "questionText": "What hobby do we do with pencils and paper to make pictures?",
           "correctAnswer": "drawing",
           "options": null,
           "difficultyLevel": 1,
@@ -160,7 +160,7 @@
       "questions": [
         {
           "type": "MCQ",
-          "questionText": "What is the English word for 'طائرة'?",
+          "questionText": "Which vehicle flies in the sky?",
           "correctAnswer": "plane",
           "options": [
             "train",
@@ -215,7 +215,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate to English: حافلة",
+          "questionText": "Which big vehicle takes many people to school or work?",
           "correctAnswer": "bus",
           "options": null,
           "difficultyLevel": 1,
@@ -307,7 +307,7 @@
       "questions": [
         {
           "type": "MCQ",
-          "questionText": "What is the English word for 'ممحاة'?",
+          "questionText": "Which classroom item helps us fix a pencil mistake?",
           "correctAnswer": "eraser",
           "options": [
             "ruler",
@@ -362,7 +362,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate to English: مسطرة",
+          "questionText": "What do we use to measure or draw a straight line?",
           "correctAnswer": "ruler",
           "options": null,
           "difficultyLevel": 1,
@@ -509,7 +509,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate to English: قميص",
+          "questionText": "What clothing has buttons and we wear it on the top of our body?",
           "correctAnswer": "shirt",
           "options": null,
           "difficultyLevel": 1,
@@ -657,7 +657,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate to English: قطار",
+          "questionText": "Which long vehicle moves on tracks?",
           "correctAnswer": "train",
           "options": null,
           "difficultyLevel": 1,
@@ -739,7 +739,7 @@
       "questions": [
         {
           "type": "MCQ",
-          "questionText": "What is 'جد' in English?",
+          "questionText": "What do we call our father's father?",
           "correctAnswer": "grandfather",
           "options": [
             "father",
@@ -752,7 +752,7 @@
         },
         {
           "type": "MCQ",
-          "questionText": "What is 'ابن العم' in English?",
+          "questionText": "What do we call our uncle's son or our aunt's son?",
           "correctAnswer": "cousin",
           "options": [
             "brother",
@@ -794,7 +794,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate to English: جدّة",
+          "questionText": "What do we call our mother's mother?",
           "correctAnswer": "grandmother",
           "options": null,
           "difficultyLevel": 1,
@@ -940,7 +940,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate to English: نهر",
+          "questionText": "Where does fresh water flow through the land?",
           "correctAnswer": "river",
           "options": null,
           "difficultyLevel": 1,
@@ -1086,7 +1086,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate to English: حفلة",
+          "questionText": "What do we have to celebrate a birthday with friends?",
           "correctAnswer": "party",
           "options": null,
           "difficultyLevel": 1,
@@ -1231,7 +1231,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate to English: عمّ",
+          "questionText": "What do we call our father's brother?",
           "correctAnswer": "uncle",
           "options": null,
           "difficultyLevel": 1,

@@ -645,15 +645,15 @@
         },
         {
           "type": "TRUE_FALSE",
-          "questionText": "'Hello' means 'مرحباً'",
-          "correctAnswer": "صح",
+          "questionText": "We say 'Hello' to greet people.",
+          "correctAnswer": "True",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "comprehension"
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "What is the English word for 'مرحباً'?",
+          "questionText": "What word do we use to greet someone?",
           "correctAnswer": "Hello",
           "options": null,
           "difficultyLevel": 1,
@@ -690,7 +690,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate to English: مع السلامة",
+          "questionText": "What do we say when we leave someone?",
           "correctAnswer": "Goodbye",
           "options": null,
           "difficultyLevel": 1,
@@ -748,7 +748,7 @@
       "questions": [
         {
           "type": "MCQ",
-          "questionText": "What is 'كتاب' in English?",
+          "questionText": "We read a ___ at school.",
           "correctAnswer": "Book",
           "options": [
             "Book",
@@ -761,15 +761,15 @@
         },
         {
           "type": "TRUE_FALSE",
-          "questionText": "'Pen' means 'قلم'",
-          "correctAnswer": "صح",
+          "questionText": "We write with a pen.",
+          "correctAnswer": "True",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "comprehension"
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "What is 'حقيبة' in English?",
+          "questionText": "We carry our books in a ___.",
           "correctAnswer": "Bag",
           "options": null,
           "difficultyLevel": 1,
@@ -806,7 +806,7 @@
         },
         {
           "type": "MCQ",
-          "questionText": "What is 'مسطرة' in English?",
+          "questionText": "We use a ___ to draw a straight line.",
           "correctAnswer": "Ruler",
           "options": [
             "Pen",
@@ -835,7 +835,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate to English: ممحاة",
+          "questionText": "What do we use to remove pencil marks?",
           "correctAnswer": "Eraser",
           "options": null,
           "difficultyLevel": 2,
@@ -878,7 +878,7 @@
       "questions": [
         {
           "type": "MCQ",
-          "questionText": "What is 'أب' in English?",
+          "questionText": "My ___ is a man in my family.",
           "correctAnswer": "Father",
           "options": [
             "Father",
@@ -891,15 +891,15 @@
         },
         {
           "type": "TRUE_FALSE",
-          "questionText": "'Mother' means 'أم'",
-          "correctAnswer": "صح",
+          "questionText": "A mother is a parent.",
+          "correctAnswer": "True",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "comprehension"
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "What is 'أخت' in English?",
+          "questionText": "My ___ is a girl in my family.",
           "correctAnswer": "Sister",
           "options": null,
           "difficultyLevel": 1,
@@ -923,7 +923,7 @@
         },
         {
           "type": "MCQ",
-          "questionText": "What is 'أم' in English?",
+          "questionText": "My ___ is a woman in my family.",
           "correctAnswer": "Mother",
           "options": [
             "Father",
@@ -1008,15 +1008,15 @@
         },
         {
           "type": "TRUE_FALSE",
-          "questionText": "'Five' means '٥'",
-          "correctAnswer": "صح",
+          "questionText": "Five comes after four.",
+          "correctAnswer": "True",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "comprehension"
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Write the English word for ٢",
+          "questionText": "Write the English word for 2.",
           "correctAnswer": "Two",
           "options": null,
           "difficultyLevel": 1,
@@ -1053,7 +1053,7 @@
         },
         {
           "type": "MCQ",
-          "questionText": "How do we say '٣' in English?",
+          "questionText": "How do we say the number 3 in English?",
           "correctAnswer": "Three",
           "options": [
             "Two",
@@ -1139,15 +1139,15 @@
         },
         {
           "type": "TRUE_FALSE",
-          "questionText": "'Red' means 'أحمر'",
-          "correctAnswer": "صح",
+          "questionText": "A tomato is red.",
+          "correctAnswer": "True",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "comprehension"
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "What is 'أخضر' in English?",
+          "questionText": "What color are most leaves on trees?",
           "correctAnswer": "Green",
           "options": null,
           "difficultyLevel": 1,
@@ -1208,7 +1208,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate: أحمر",
+          "questionText": "What color is a fire truck?",
           "correctAnswer": "Red",
           "options": null,
           "difficultyLevel": 1,
@@ -1250,7 +1250,7 @@
       "questions": [
         {
           "type": "MCQ",
-          "questionText": "What is 'رأس' in English?",
+          "questionText": "Our hair grows on our ___.",
           "correctAnswer": "Head",
           "options": [
             "Head",
@@ -1263,15 +1263,15 @@
         },
         {
           "type": "TRUE_FALSE",
-          "questionText": "We have two eyes",
-          "correctAnswer": "صح",
+          "questionText": "We have two eyes.",
+          "correctAnswer": "True",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "comprehension"
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "What is 'يد' in English?",
+          "questionText": "We use our ___ to write.",
           "correctAnswer": "Hand",
           "options": null,
           "difficultyLevel": 1,
@@ -1319,7 +1319,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate: قدم",
+          "questionText": "What do we wear shoes on?",
           "correctAnswer": "Foot",
           "options": null,
           "difficultyLevel": 1,
@@ -1362,7 +1362,7 @@
       "questions": [
         {
           "type": "MCQ",
-          "questionText": "What is 'قطة' in English?",
+          "questionText": "Which animal says meow?",
           "correctAnswer": "Cat",
           "options": [
             "Cat",
@@ -1375,15 +1375,15 @@
         },
         {
           "type": "TRUE_FALSE",
-          "questionText": "'Dog' means 'كلب'",
-          "correctAnswer": "صح",
+          "questionText": "A dog says woof.",
+          "correctAnswer": "True",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "comprehension"
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "What is 'سمكة' in English?",
+          "questionText": "Which animal lives in water?",
           "correctAnswer": "Fish",
           "options": null,
           "difficultyLevel": 1,
@@ -1444,7 +1444,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate: عصفور",
+          "questionText": "Which animal can fly and sings in the morning?",
           "correctAnswer": "Bird",
           "options": null,
           "difficultyLevel": 1,
@@ -1487,7 +1487,7 @@
       "questions": [
         {
           "type": "MCQ",
-          "questionText": "What is 'تفاحة' in English?",
+          "questionText": "Which red fruit is healthy to eat every day?",
           "correctAnswer": "Apple",
           "options": [
             "Apple",
@@ -1500,15 +1500,15 @@
         },
         {
           "type": "TRUE_FALSE",
-          "questionText": "'Milk' means 'حليب'",
-          "correctAnswer": "صح",
+          "questionText": "Milk is a white drink.",
+          "correctAnswer": "True",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "comprehension"
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "What is 'خبز' in English?",
+          "questionText": "What do we make sandwiches with?",
           "correctAnswer": "Bread",
           "options": null,
           "difficultyLevel": 1,
@@ -1569,7 +1569,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate: ماء",
+          "questionText": "What do we drink when we are thirsty?",
           "correctAnswer": "Water",
           "options": null,
           "difficultyLevel": 1,
@@ -1625,8 +1625,8 @@
         },
         {
           "type": "TRUE_FALSE",
-          "questionText": "'Brother' means 'أخ'",
-          "correctAnswer": "صح",
+          "questionText": "A brother is a boy in your family.",
+          "correctAnswer": "True",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1698,7 +1698,7 @@
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Translate: قطة",
+          "questionText": "Which small pet says meow?",
           "correctAnswer": "Cat",
           "options": null,
           "difficultyLevel": 1,

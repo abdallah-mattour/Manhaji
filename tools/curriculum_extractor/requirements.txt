@@ -1,0 +1,13 @@
+# PDF parsing — text + images
+PyMuPDF==1.25.3
+Pillow==11.1.0
+
+# Arabic text shaping for the rare PDF that's bidi-reversed
+python-bidi==0.6.6
+arabic-reshaper==3.0.0
+
+# AI drafting — Google Gemini SDK
+google-genai>=2.6.0
+
+# Fallback for direct REST calls if SDK isn't usable
+requests>=2.32.0

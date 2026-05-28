@@ -56,6 +56,13 @@ tools/pdf_extractor/.venv/
 tools/pdf_extractor/__pycache__/
 tools/pdf_extractor/*.pyc
 
+# Curriculum extractor — extraction output (ephemeral; final artifacts go
+# to Manhaji/backend/src/main/resources/{curriculum,static/assets/...})
+tools/curriculum_extractor/.venv/
+tools/curriculum_extractor/__pycache__/
+tools/curriculum_extractor/*.pyc
+tools/curriculum_extractor/_out/
+
 # Curriculum backfill scripts — Python cache
 Manhaji/scripts/**/__pycache__/
 Manhaji/scripts/**/*.pyc

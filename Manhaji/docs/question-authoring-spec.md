@@ -197,6 +197,75 @@ Split A-Z into **4 lessons of 6-7 letters each** (A-G, H-N, O-T, U-Z). Per lesso
 | ORDERING | 1 | Story sequence (5-6 events) |
 | **Total** | **10** | **≥1 difficulty-3** |
 
+---
+
+### 4.11 Arabic — narrative / reading-comprehension lesson (Grade 3+)
+
+Reading at Grade 3 onward centers on **multi-paragraph passages** rather than letter recognition. Each lesson's `content` field holds the textbook's full reading passage (200-500 words); all 12 questions reference back to it.
+
+| Type | Count | Notes |
+|------|------:|-------|
+| MCQ | 3 | Literal recall, inference, main idea — in that order |
+| TRUE_FALSE | 2 | One straightforward, one misleading |
+| SHORT_ANSWER | 2 | One vocabulary (synonym/antonym), one open recall |
+| FILL_BLANK | 2 | Vocabulary in passage context |
+| ORDERING | 1 | Re-order story events OR re-order words to form a sentence |
+| PRONUNCIATION | 2 | Read short sentences from the passage (not single words — students have moved past G1 single-word recitation) |
+| **Total** | **12** | **≥1 difficulty-3** |
+
+**No TRACING** for G3+: students have mastered handwriting and the textbook doesn't teach it anymore.
+
+**Sub-skill mix**: comprehension (5), production (4), application (1), pronunciation (2).
+
+### 4.12 Arabic — grammar concept lesson (Grade 3+)
+
+Grade 3 introduces formal grammar concepts (verb/noun/particle identification, gender, number, demonstrative pronouns). These lessons don't have narrative passages; they have rule explanations + example words.
+
+| Type | Count | Notes |
+|------|------:|-------|
+| MCQ | 4 | "What kind of word is X?" — answer = grammatical category |
+| TRUE_FALSE | 2 | Rule statements ("الفعل يدل على حدث") |
+| SHORT_ANSWER | 2 | Apply the rule — "Give an example of a verb" |
+| FILL_BLANK | 2 | Complete a sentence with the correct grammatical form |
+| ORDERING | 1 | Re-order words to form a grammatically correct sentence |
+| PRONUNCIATION | 1 | Read an example sentence demonstrating the concept |
+| **Total** | **12** | **≥1 difficulty-3** |
+
+**No TRACING** (G3+). **Sub-skill mix**: recognition (4), comprehension (2), production (4), application (1), pronunciation (1).
+
+### 4.13 Math — multi-step word problem lesson (Grade 3+)
+
+Grade 3+ introduces two-operation word problems ("Sara has 5 apples, gives 2 to her brother, then buys 7 more — how many?"). These are higher cognitive load than G1/G2 single-operation problems.
+
+| Type | Count | Notes |
+|------|------:|-------|
+| MCQ | 4 | Two single-step, two multi-step word problems |
+| TRUE_FALSE | 2 | Statement about numerical relationship |
+| SHORT_ANSWER | 3 | Pure calculation OR translation of word→equation |
+| FILL_BLANK | 2 | Complete an equation OR fill in a missing operand |
+| ORDERING | 1 | Re-order steps to solve a problem |
+| **Total** | **12** | **≥1 difficulty-3** |
+
+**No PRONUNCIATION** (math has no oral component at this level). **No TRACING**. **Sub-skill mix**: comprehension (2), computation (5), production (3), application (2).
+
+### 4.14 Civics / geography lesson (Grade 4)
+
+Grade 4 introduces civic concepts (Palestinian government structure, geography, national symbols). Existing subjects don't have a civics lesson type but if/when one is added, this is the template.
+
+| Type | Count | Notes |
+|------|------:|-------|
+| MCQ | 4 | Factual recall — capitals, dates, names |
+| TRUE_FALSE | 2 | Civic concept statements |
+| SHORT_ANSWER | 2 | One-word fact answers |
+| FILL_BLANK | 2 | Sentence with key civic vocabulary |
+| ORDERING | 1 | Re-order historical events OR geographic features by size |
+| PRONUNCIATION | 1 | Read an Arabic civic vocabulary phrase |
+| **Total** | **12** | **≥1 difficulty-3** |
+
+**No TRACING**. **Sub-skill mix**: recognition (4), comprehension (2), production (4), application (1), pronunciation (1).
+
+---
+
 ## 5. Difficulty calibration
 
 | Level | Definition | % of bank target |

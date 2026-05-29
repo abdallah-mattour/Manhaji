@@ -46,10 +46,12 @@ class QuizServiceTest {
     @Mock private StudentResponseRepository responseRepository;
     @Mock private StudentRepository studentRepository;
     @Mock private ProgressRepository progressRepository;
+    @Mock private SubjectRepository subjectRepository;
     @Mock private GeminiService geminiService;
     @Mock private WhisperService whisperService;
     @Mock private PronunciationScoringService pronunciationScoringService;
     @Mock private com.springboot.manhaji.service.QuizSelectionService quizSelectionService;
+    @Mock private com.springboot.manhaji.service.SkillMasteryService skillMasteryService;
     @Spy  private ObjectMapper objectMapper = new ObjectMapper();
 
     private QuizService quizService;
@@ -63,8 +65,9 @@ class QuizServiceTest {
     void setUp() {
         quizService = new QuizService(
                 quizRepository, questionRepository, attemptRepository, responseRepository,
-                studentRepository, progressRepository, objectMapper, geminiService,
-                whisperService, pronunciationScoringService, quizSelectionService,
+                studentRepository, progressRepository, subjectRepository, objectMapper,
+                geminiService, whisperService, pronunciationScoringService,
+                quizSelectionService, skillMasteryService,
                 TestMessages.create(), new QuizConfigProperties());
 
         // Audit-4 fix C2 (2026-05-15): every submit-* path now verifies that
@@ -266,6 +269,55 @@ class QuizServiceTest {
 
             when(attemptRepository.findById(10L)).thenReturn(Optional.of(inProgressAttempt));
             when(questionRepository.findById(2L)).thenReturn(Optional.of(tf));
+            when(responseRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+            SubmitAnswerResponse response = quizService.submitAnswer(10L, request, 1L);
+
+            assertThat(response.isCorrect()).isTrue();
+        }
+
+        @Test
+        @DisplayName("should accept English TRUE_FALSE answer (True/False)")
+        void correctEnglishTrueFalseAnswer() {
+            // English-subject TF questions store "True"/"False" and the Flutter
+            // widget submits "True"/"False" to match. Regression guard for the
+            // bug where English TF was unanswerable (submitted صح vs stored True).
+            Question enTf = new Question();
+            enTf.setId(99L);
+            enTf.setType(QuestionType.TRUE_FALSE);
+            enTf.setQuestionText("We say 'Hello' to greet people.");
+            enTf.setCorrectAnswer("True");
+
+            SubmitAnswerRequest request = new SubmitAnswerRequest();
+            request.setQuestionId(99L);
+            request.setAnswer("True");
+
+            when(attemptRepository.findById(10L)).thenReturn(Optional.of(inProgressAttempt));
+            when(questionRepository.findById(99L)).thenReturn(Optional.of(enTf));
+            when(responseRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+            SubmitAnswerResponse response = quizService.submitAnswer(10L, request, 1L);
+
+            assertThat(response.isCorrect()).isTrue();
+        }
+
+        @Test
+        @DisplayName("TRUE_FALSE compares across languages (صح ≡ True)")
+        void trueFalseCrossLanguage() {
+            // Safety net: a stored Arabic "صح" with a submitted English "True"
+            // (or vice-versa) still scores correct via canonical normalization.
+            Question tf = new Question();
+            tf.setId(99L);
+            tf.setType(QuestionType.TRUE_FALSE);
+            tf.setQuestionText("الشمس تشرق من الشرق");
+            tf.setCorrectAnswer("صح");
+
+            SubmitAnswerRequest request = new SubmitAnswerRequest();
+            request.setQuestionId(99L);
+            request.setAnswer("True"); // different language than stored answer
+
+            when(attemptRepository.findById(10L)).thenReturn(Optional.of(inProgressAttempt));
+            when(questionRepository.findById(99L)).thenReturn(Optional.of(tf));
             when(responseRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
 
             SubmitAnswerResponse response = quizService.submitAnswer(10L, request, 1L);
@@ -529,6 +581,47 @@ class QuizServiceTest {
             assertThat(response.getCorrectAnswers()).isEqualTo(2);
             assertThat(response.getTotalQuestions()).isEqualTo(2);
             assertThat(response.getScore()).isEqualTo(100.0);
+        }
+
+        @Test
+        @DisplayName("personalized quiz (null lesson) completes without touching lesson Progress")
+        void personalizedQuizCompletesWithoutLessonProgress() {
+            // A PERSONALIZED quiz has no lesson — completeAttempt must NOT call
+            // updateLessonProgress (which dereferences lesson) and must NOT throw.
+            Quiz personalized = new Quiz();
+            personalized.setId(99L);
+            personalized.setTitle("تحدَّ نفسك — اللغة العربية");
+            personalized.setQuizType(com.springboot.manhaji.entity.enums.QuizType.PERSONALIZED);
+            personalized.setLesson(null); // the key: no lesson
+            personalized.setSubject(testSubject);
+            personalized.setQuestions(testQuiz.getQuestions());
+
+            Attempt attempt = new Attempt();
+            attempt.setId(11L);
+            attempt.setStudent(testStudent);
+            attempt.setQuiz(personalized);
+            attempt.setStatus(AttemptStatus.IN_PROGRESS);
+
+            StudentResponse r1 = new StudentResponse();
+            r1.setQuestion(personalized.getQuestions().get(0));
+            r1.setIsCorrect(true);
+            StudentResponse r2 = new StudentResponse();
+            r2.setQuestion(personalized.getQuestions().get(1));
+            r2.setIsCorrect(true);
+
+            when(attemptRepository.findById(11L)).thenReturn(Optional.of(attempt));
+            when(responseRepository.findByAttemptId(11L)).thenReturn(List.of(r1, r2));
+            when(attemptRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+            when(studentRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+            AttemptResponse response = quizService.completeAttempt(11L, 1L);
+
+            assertThat(response.getStatus()).isEqualTo("GRADED");
+            assertThat(response.getScore()).isEqualTo(100.0);
+            // Critical: no lesson Progress write for a lesson-less quiz.
+            verify(progressRepository, org.mockito.Mockito.never()).save(any());
+            // BKT still fired (analytics hook is independent of lesson Progress).
+            verify(skillMasteryService).recordResponses(eq(1L), any());
         }
     }
 

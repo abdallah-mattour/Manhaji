@@ -3,6 +3,7 @@ import '../../app/theme.dart';
 import '../../models/pronunciation_score.dart';
 import '../../models/quiz.dart';
 import '../../utils/arabic_numerals.dart';
+import '../../utils/text_direction.dart';
 import '../voice_recorder_widget.dart';
 
 class PronunciationWidget extends StatelessWidget {
@@ -133,6 +134,8 @@ class _TargetCard extends StatelessWidget {
             child: Text(
               text,
               textAlign: TextAlign.center,
+              // English pronunciation prompts (G3/G4 sentence reads) flow LTR.
+              textDirection: directionOf(text),
               style: const TextStyle(
                 fontFamily: 'Cairo',
                 fontSize: 32,

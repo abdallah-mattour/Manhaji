@@ -98,6 +98,9 @@ class ManhajiApp extends StatelessWidget {
           create: (_) => ProgressProvider(progressService),
         ),
         Provider<AudioApiService>.value(value: audioService),
+        // Registered so the home-screen "Challenge Me" flow can call
+        // generatePersonalizedQuiz / getSkillMastery directly.
+        Provider<QuizApiService>.value(value: quizService),
         ChangeNotifierProvider(
           create: (_) => TeacherProvider(teacherService),
         ),

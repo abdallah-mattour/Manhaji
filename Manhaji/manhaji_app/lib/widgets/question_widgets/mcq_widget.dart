@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../app/theme.dart';
 import '../../models/quiz.dart';
+import '../../utils/text_direction.dart';
 
 class McqWidget extends StatelessWidget {
   final Question question;
@@ -110,6 +111,9 @@ class _McqOption extends StatelessWidget {
             Expanded(
               child: Text(
                 option,
+                // Per-option direction so English options keep their "?" on
+                // the right under the app's ambient RTL; Arabic stays RTL.
+                textDirection: directionOf(option),
                 style: TextStyle(
                   fontFamily: 'Cairo',
                   fontSize: 18,

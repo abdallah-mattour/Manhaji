@@ -10,6 +10,7 @@ import com.springboot.manhaji.entity.*;
 import com.springboot.manhaji.entity.enums.AttemptStatus;
 import com.springboot.manhaji.entity.enums.CompletionStatus;
 import com.springboot.manhaji.entity.enums.QuestionType;
+import com.springboot.manhaji.entity.enums.QuizType;
 import com.springboot.manhaji.exception.BadRequestException;
 import com.springboot.manhaji.exception.ResourceNotFoundException;
 import com.springboot.manhaji.repository.*;
@@ -38,11 +39,13 @@ public class QuizService {
     private final StudentResponseRepository responseRepository;
     private final StudentRepository studentRepository;
     private final ProgressRepository progressRepository;
+    private final SubjectRepository subjectRepository;
     private final ObjectMapper objectMapper;
     private final GeminiService geminiService;
     private final WhisperService whisperService;
     private final PronunciationScoringService pronunciationScoringService;
     private final QuizSelectionService quizSelectionService;
+    private final SkillMasteryService skillMasteryService;
     private final Messages messages;
     private final QuizConfigProperties quizConfig;
 
@@ -90,6 +93,65 @@ public class QuizService {
                 .lessonObjectives(quiz.getLesson().getObjectives())
                 .lessonImageUrls(lessonImageUrls)
                 .build();
+    }
+
+    /**
+     * Personalized-quiz feature (2026-05-27): generate (or refresh) the
+     * student's "Challenge Me" quiz for one subject. Questions are selected
+     * across the subject's lessons by {@link QuizSelectionService#selectPersonalized}
+     * using the persisted BKT mastery model — weakest sub-skills get the most
+     * questions.
+     *
+     * <p>We keep ONE {@code PERSONALIZED} {@link Quiz} row per (student,
+     * subject) and repopulate its {@code quiz_questions} on each call, so all
+     * the existing attempt machinery ({@code startAttempt}, the submit paths,
+     * {@code requireQuestionInAttemptQuiz}, {@code completeAttempt}) works
+     * unchanged — every path still resolves a real Quiz with a populated
+     * question set.
+     *
+     * @return the same {@link QuizResponse} shape {@link #getQuizByLesson}
+     *         returns, so Flutter renders it with the existing quiz UI.
+     */
+    @Transactional
+    public QuizResponse generatePersonalizedQuiz(Long subjectId, Long studentId) {
+        Subject subject = subjectRepository.findById(subjectId)
+                .orElseThrow(() -> new ResourceNotFoundException("Subject", subjectId));
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Student", studentId));
+
+        List<Question> chosen = quizSelectionService.selectPersonalized(
+                studentId, subjectId, QuizSelectionService.DEFAULT_PRACTICE_SIZE);
+        if (chosen.isEmpty()) {
+            throw new ResourceNotFoundException("Subject questions", subjectId);
+        }
+
+        // Find-or-create the one personalized quiz row for this (student, subject).
+        Quiz quiz = quizRepository
+                .findByGeneratedForStudentIdAndSubjectIdAndQuizType(
+                        studentId, subjectId, QuizType.PERSONALIZED)
+                .orElseGet(Quiz::new);
+        quiz.setTitle("تحدَّ نفسك — " + subject.getName());
+        quiz.setGamified(true);
+        quiz.setGeneratedFromLesson(false);
+        quiz.setQuizType(QuizType.PERSONALIZED);
+        quiz.setLesson(null);
+        quiz.setSubject(subject);
+        quiz.setGeneratedForStudentId(studentId);
+        // Repopulate the question set (replace, don't append).
+        quiz.setQuestions(new ArrayList<>(chosen));
+        quiz = quizRepository.save(quiz);
+
+        return buildQuizResponse(quiz);
+    }
+
+    /**
+     * Personalized-quiz feature (2026-05-27): per-subject skill-mastery
+     * snapshot for the "My Skills" radar chart. Thin passthrough to
+     * {@link SkillMasteryService} so the Flutter client has one quiz-namespaced
+     * endpoint family.
+     */
+    public SkillMasteryResponse getSkillMastery(Long subjectId, Long studentId) {
+        return skillMasteryService.getSkillScores(studentId, subjectId);
     }
 
     // Start a new attempt
@@ -403,8 +465,26 @@ public class QuizService {
         student.setTotalPoints(student.getTotalPoints() + pointsEarned);
         studentRepository.save(student);
 
-        // Update lesson progress
-        updateLessonProgress(student, quiz.getLesson(), score);
+        // Update lesson progress. PERSONALIZED quizzes span a subject (no
+        // single lesson), so skip per-lesson progress for them — their signal
+        // is captured by the per-skill BKT update below instead.
+        if (quiz.getLesson() != null) {
+            updateLessonProgress(student, quiz.getLesson(), score);
+        }
+
+        // Knowledge Tracing: fold this attempt's graded answers into the
+        // student's per-sub-skill mastery (BKT). Wrapped so an analytics
+        // failure can never break scoring / point-award above. Uses the
+        // deduped set (a retried question counts once) in insertion order
+        // (= answer order, the documented ordering since StudentResponse has
+        // no answered-at timestamp).
+        try {
+            skillMasteryService.recordResponses(
+                    student.getId(), new ArrayList<>(dedupedResponses));
+        } catch (Exception e) {
+            log.warn("BKT mastery update failed for attempt {} (non-fatal): {}",
+                    attemptId, e.getMessage());
+        }
 
         // Build answer feedback list (deduplicated)
         List<AnswerFeedback> feedbacks = dedupedResponses.stream().map(r -> AnswerFeedback.builder()
@@ -498,7 +578,24 @@ public class QuizService {
         String studentAnswer = (request.getAnswer() != null ? request.getAnswer() :
                                request.getSpokenText() != null ? request.getSpokenText() : "").trim();
 
-        if (question.getType() == QuestionType.MCQ || question.getType() == QuestionType.TRUE_FALSE) {
+        // TRUE_FALSE: compare canonically so the two languages are
+        // interchangeable — "صح"≡"True", "خطأ"≡"False". English-subject
+        // questions store True/False, Arabic-script subjects store صح/خطأ,
+        // and the Flutter widget submits whichever matches the question's
+        // language; this normalization makes scoring robust even if the
+        // stored answer and the submitted value ever drift in language.
+        if (question.getType() == QuestionType.TRUE_FALSE) {
+            String c = canonicalTrueFalse(correctAnswer);
+            String s = canonicalTrueFalse(studentAnswer);
+            // If either side isn't a recognized TF token, fall back to a
+            // literal compare (don't silently pass on garbage).
+            if (c.isEmpty() || s.isEmpty()) {
+                return correctAnswer.equalsIgnoreCase(studentAnswer);
+            }
+            return c.equals(s);
+        }
+
+        if (question.getType() == QuestionType.MCQ) {
             return correctAnswer.equalsIgnoreCase(studentAnswer);
         }
 
@@ -529,6 +626,31 @@ public class QuizService {
         }
 
         return false;
+    }
+
+    /**
+     * Maps a TRUE_FALSE answer (in either language) to a canonical token so
+     * the two languages compare equal: صح/صحيح/true/yes/نعم → "TRUE",
+     * خطأ/خطا/false/no/لا → "FALSE". Returns "" for anything unrecognized so
+     * the caller can fall back to a literal compare.
+     */
+    private static String canonicalTrueFalse(String s) {
+        if (s == null) return "";
+        String t = s.trim().toLowerCase();
+        switch (t) {
+            case "صح":
+            case "صحيح":
+            case "true":
+            case "نعم":
+                return "TRUE";
+            case "خطأ":
+            case "خطا":
+            case "false":
+            case "لا":
+                return "FALSE";
+            default:
+                return "";
+        }
     }
 
     private String normalizeArabic(String text) {
@@ -601,7 +723,13 @@ public class QuizService {
                 .map(this::buildQuestionResponse)
                 .toList();
 
-        List<String> lessonImageUrls = parseImageUrls(quiz.getLesson().getImageUrls());
+        // PERSONALIZED quizzes have no lesson (they span a subject), so the
+        // lesson-derived fields are empty for them. LESSON quizzes read them
+        // from their lesson as before.
+        Lesson lesson = quiz.getLesson();
+        List<String> lessonImageUrls = lesson != null
+                ? parseImageUrls(lesson.getImageUrls())
+                : Collections.emptyList();
 
         return QuizResponse.builder()
                 .id(quiz.getId())
@@ -609,8 +737,8 @@ public class QuizService {
                 .gamified(quiz.getGamified())
                 .totalQuestions(quiz.getQuestions().size())
                 .questions(questionResponses)
-                .lessonContent(quiz.getLesson().getContent())
-                .lessonObjectives(quiz.getLesson().getObjectives())
+                .lessonContent(lesson != null ? lesson.getContent() : null)
+                .lessonObjectives(lesson != null ? lesson.getObjectives() : null)
                 .lessonImageUrls(lessonImageUrls)
                 .build();
     }

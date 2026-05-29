@@ -83,6 +83,18 @@ app:
     completion-threshold: 50.0
     max-hint-level: 3
 
+  # Bayesian Knowledge Tracing — per-skill mastery model that powers the
+  # personalized "Challenge Me" quiz + the skills radar. Standard K-12 BKT
+  # defaults (Corbett & Anderson 1995); exposed as config so they can be
+  # calibrated without a rebuild. guess-by-type is inlined as defaults in
+  # BktConfigProperties (MCQ 0.25, TRUE_FALSE 0.50, FILL_BLANK 0.10, else 0.05).
+  bkt:
+    p-init: 0.30          # P(L0) — prior that a skill is already mastered
+    p-transit: 0.15       # P(T) — chance of learning between opportunities
+    p-slip: 0.10          # P(S) — a master answers wrong
+    p-guess-default: 0.05 # fallback guess for unlisted question types
+    mastery-threshold: 0.95
+
 # Curriculum re-seeding — set MANHAJI_CURRICULUM_RESEED=true in the
 # environment ONCE, boot, then unset (or set false). Wipes
 # subjects/lessons/questions/quizzes/attempts/responses and re-imports

@@ -8,6 +8,7 @@ import '../../widgets/loading_state.dart';
 import '../../widgets/mascot.dart';
 import '../../widgets/vibrant_background.dart';
 import '../learning/learning_screen.dart';
+import '../progress/skills_screen.dart';
 
 class SubjectLessonsScreen extends StatefulWidget {
   final int subjectId;
@@ -54,6 +55,23 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
           backgroundColor: widget.subjectColor,
           foregroundColor: Colors.white,
           elevation: 0,
+          actions: [
+            // "My Skills" — the Knowledge Tracing radar for this subject.
+            IconButton(
+              icon: const Icon(Icons.insights_rounded),
+              tooltip: 'مهاراتي',
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => SkillsScreen(
+                    subjectId: widget.subjectId,
+                    subjectName: widget.subjectName,
+                    subjectColor: widget.subjectColor,
+                  ),
+                ),
+              ),
+            ),
+          ],
           titleTextStyle: const TextStyle(
             fontFamily: 'Cairo',
             fontSize: 22,

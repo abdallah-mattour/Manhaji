@@ -6,6 +6,7 @@ import com.springboot.manhaji.dto.response.ApiResponse;
 import com.springboot.manhaji.dto.response.AttemptResponse;
 import com.springboot.manhaji.dto.response.PronunciationScoreResponse;
 import com.springboot.manhaji.dto.response.QuizResponse;
+import com.springboot.manhaji.dto.response.SkillMasteryResponse;
 import com.springboot.manhaji.dto.response.SubmitAnswerResponse;
 import com.springboot.manhaji.service.QuizService;
 import com.springboot.manhaji.service.ai.WhisperService;
@@ -74,6 +75,35 @@ public class QuizController {
         Long studentId = (Long) authentication.getPrincipal();
         QuizResponse quiz = quizService.getAdaptiveQuizByLesson(lessonId, studentId);
         return ResponseEntity.ok(ApiResponse.success(quiz));
+    }
+
+    /**
+     * Personalized-quiz feature (2026-05-27): generate a "Challenge Me" quiz
+     * for one subject, targeting the student's weakest sub-skills via the
+     * persisted BKT mastery model. Returns the same {@link QuizResponse} shape
+     * as {@link #getQuizByLesson}, so the client starts an attempt on the
+     * returned quiz id with the existing {@code /attempt/start/{quizId}} flow.
+     */
+    @PostMapping("/personalized/{subjectId}")
+    public ResponseEntity<ApiResponse<QuizResponse>> generatePersonalizedQuiz(
+            @PathVariable Long subjectId,
+            Authentication authentication) {
+        Long studentId = (Long) authentication.getPrincipal();
+        QuizResponse quiz = quizService.generatePersonalizedQuiz(subjectId, studentId);
+        return ResponseEntity.ok(ApiResponse.success(quiz));
+    }
+
+    /**
+     * Personalized-quiz feature (2026-05-27): per-subject skill-mastery
+     * snapshot for the "My Skills" radar chart.
+     */
+    @GetMapping("/skills/{subjectId}")
+    public ResponseEntity<ApiResponse<SkillMasteryResponse>> getSkillMastery(
+            @PathVariable Long subjectId,
+            Authentication authentication) {
+        Long studentId = (Long) authentication.getPrincipal();
+        SkillMasteryResponse skills = quizService.getSkillMastery(subjectId, studentId);
+        return ResponseEntity.ok(ApiResponse.success(skills));
     }
 
     // Start a new quiz attempt

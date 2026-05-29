@@ -157,6 +157,54 @@ class LearningProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Knowledge Tracing "Challenge Me": start a personalized quiz from a Quiz
+  /// the caller already fetched via [QuizApiService.generatePersonalizedQuiz].
+  ///
+  /// Unlike [startLesson], a personalized quiz spans a subject (no single
+  /// lesson) so it has no teaching content — we build question-only steps and
+  /// go straight to the first question, skipping the teaching-intro phase.
+  Future<void> startPersonalizedQuiz(Quiz quiz) async {
+    _phase = LearningPhase.loading;
+    _errorMessage = null;
+    _resetState();
+    notifyListeners();
+
+    try {
+      _currentQuiz = quiz;
+      final attempt = await _quizService.startAttempt(quiz.id);
+      _currentAttemptId = attempt.attemptId;
+
+      _buildQuestionOnlySteps();
+      _maxPossibleStars = quiz.questions.length * 3;
+      for (final q in quiz.questions) {
+        _trackers[q.id] = QuestionTracker(questionId: q.id);
+      }
+
+      // No teaching intro for a personalized challenge — jump to the first
+      // question. stepActive is the phase the question UI renders in.
+      _phase = LearningPhase.stepActive;
+    } catch (e) {
+      _errorMessage = extractError(e);
+      _phase = LearningPhase.error;
+    }
+    notifyListeners();
+  }
+
+  /// Build steps with NO teaching cards — every step is a question. Used by
+  /// the personalized challenge, which has no lesson narrative to weave in.
+  void _buildQuestionOnlySteps() {
+    _steps = [];
+    int stepIdx = 0;
+    final questions = _currentQuiz?.questions ?? [];
+    for (final q in questions) {
+      _steps.add(LearningStep(
+        type: LearningStepType.question,
+        question: q,
+        stepIndex: stepIdx++,
+      ));
+    }
+  }
+
   // Move past intro / teaching card
   void advanceFromTeaching() {
     _currentStepIndex++;

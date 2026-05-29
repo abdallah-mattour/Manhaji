@@ -35,11 +35,18 @@ class LearningScreen extends StatefulWidget {
   /// the standard lesson flow is unchanged.
   final bool practiceMode;
 
+  /// Knowledge Tracing "Challenge Me": when set, the screen plays this
+  /// already-generated personalized quiz instead of a lesson's quiz. The
+  /// quiz spans a subject (no single lesson), so [lessonId] is unused in
+  /// this mode and the teaching-intro phase is skipped.
+  final Quiz? personalizedQuiz;
+
   const LearningScreen({
     super.key,
     required this.lessonId,
     required this.lessonTitle,
     this.practiceMode = false,
+    this.personalizedQuiz,
   });
 
   @override
@@ -83,10 +90,15 @@ class _LearningScreenState extends State<LearningScreen>
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = context.read<LearningProvider>();
-      // Audit / A1: hand the flag to the provider before kicking off the
-      // lesson so startLesson() picks the adaptive endpoint when appropriate.
-      provider.practiceMode = widget.practiceMode;
-      provider.startLesson(widget.lessonId);
+      if (widget.personalizedQuiz != null) {
+        // Challenge Me: play the already-generated cross-subject quiz.
+        provider.startPersonalizedQuiz(widget.personalizedQuiz!);
+      } else {
+        // Audit / A1: hand the flag to the provider before kicking off the
+        // lesson so startLesson() picks the adaptive endpoint when appropriate.
+        provider.practiceMode = widget.practiceMode;
+        provider.startLesson(widget.lessonId);
+      }
       _initTts();
     });
   }
@@ -466,6 +478,7 @@ class _LearningScreenState extends State<LearningScreen>
         isAnswered: isAnswered,
         isCorrect: isCorrect,
         correctAnswer: correctAnswer,
+        questionText: question.questionText,
         onSelect: (v) => setState(() => _selectedAnswer = v),
       );
     } else if (question.isFillBlank) {

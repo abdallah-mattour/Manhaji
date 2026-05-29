@@ -1,5 +1,6 @@
 import '../config/api_config.dart';
 import '../models/quiz.dart';
+import '../models/skill_mastery.dart';
 import 'api_service.dart';
 
 class QuizApiService {
@@ -10,6 +11,23 @@ class QuizApiService {
   Future<Quiz> getQuizByLesson(int lessonId) async {
     final response = await _api.get('${ApiConfig.quizByLesson}/$lessonId');
     return Quiz.fromJson(response['data'] ?? {});
+  }
+
+  /// Knowledge Tracing "Challenge Me": generate/refresh a personalized quiz
+  /// for one subject. Questions are picked across the subject's lessons,
+  /// weighted toward the student's weakest sub-skills by the backend's BKT
+  /// model. Returns the same [Quiz] shape as [getQuizByLesson] so the normal
+  /// quiz UI renders it unchanged.
+  Future<Quiz> generatePersonalizedQuiz(int subjectId) async {
+    final response =
+        await _api.post('${ApiConfig.personalizedQuiz}/$subjectId');
+    return Quiz.fromJson(response['data'] ?? {});
+  }
+
+  /// Per-subject skill-mastery snapshot for the "My Skills" radar chart.
+  Future<SkillMastery> getSkillMastery(int subjectId) async {
+    final response = await _api.get('${ApiConfig.skillMastery}/$subjectId');
+    return SkillMastery.fromJson(response['data'] ?? {});
   }
 
   /// Tier A / A1 (2026-05-15) — Practice Mode. Calls the adaptive endpoint

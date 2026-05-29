@@ -1,9 +1,12 @@
 package com.springboot.manhaji.service;
 
+import com.springboot.manhaji.config.BktConfigProperties;
 import com.springboot.manhaji.entity.Question;
+import com.springboot.manhaji.entity.SkillMastery;
 import com.springboot.manhaji.entity.StudentResponse;
 import com.springboot.manhaji.entity.enums.QuestionType;
 import com.springboot.manhaji.repository.QuestionRepository;
+import com.springboot.manhaji.repository.SkillMasteryRepository;
 import com.springboot.manhaji.repository.StudentResponseRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +43,8 @@ public class QuizSelectionService {
 
     private final QuestionRepository questionRepository;
     private final StudentResponseRepository responseRepository;
+    private final SkillMasteryRepository skillMasteryRepository;
+    private final BktConfigProperties bktConfig;
 
     /** Number of questions a Practice-Mode quiz returns by default. */
     public static final int DEFAULT_PRACTICE_SIZE = 10;
@@ -134,12 +139,159 @@ public class QuizSelectionService {
     }
 
     /**
+     * Select {@code count} questions from across a whole SUBJECT's lessons,
+     * weighted toward the sub-skills where the student's BKT mastery is
+     * lowest. This is the engine behind the personalized "Challenge Me" quiz.
+     *
+     * <p>Unlike {@link #selectAdaptive} (which works within one lesson off
+     * on-the-fly accuracy), this reads the PERSISTED {@link SkillMastery}
+     * BKT model so the selection reflects everything the student has ever
+     * done in the subject, not just one lesson's history.
+     *
+     * <p><b>Cold start</b>: a student with no mastery rows (or all at zero
+     * observations) gets the first {@code count} difficulty-1 questions
+     * spread round-robin across distinct sub-skills — deterministic (no
+     * shuffle, stable for the demo) and seeds the BKT model so the next
+     * generation is properly adaptive.
+     *
+     * @param studentId the student to personalise for
+     * @param subjectId the subject to draw questions from
+     * @param count     desired number of questions (clamped to availability)
+     * @return ordered question list (weakest-skill question first), never null
+     */
+    public List<Question> selectPersonalized(Long studentId, Long subjectId, int count) {
+        List<Question> all = questionRepository.findAllBySubjectIdWithLesson(subjectId);
+        if (all.isEmpty()) return List.of();
+        int target = Math.max(1, Math.min(count, all.size()));
+
+        List<SkillMastery> masteryRows =
+                skillMasteryRepository.findByStudentIdAndSubjectId(studentId, subjectId);
+        Map<String, Double> masteryBySkill = new HashMap<>();
+        int totalObservations = 0;
+        for (SkillMastery sm : masteryRows) {
+            masteryBySkill.put(sm.getSubSkill(), sm.getPMastery());
+            totalObservations += sm.getObservationCount();
+        }
+
+        // Cold start — no signal yet.
+        if (totalObservations == 0) {
+            return coldStartSelection(all, target);
+        }
+
+        // Average mastery sets the difficulty we aim for: weak → easy (1),
+        // strong → hard (3).
+        double avgMastery = masteryBySkill.values().stream()
+                .mapToDouble(Double::doubleValue).average()
+                .orElse(bktConfig.getPInit());
+        double targetDifficulty = 1.0 + 2.0 * avgMastery; // [1,3]
+
+        // Questions the student saw in their most recent responses for this
+        // subject get a novelty penalty so the quiz doesn't repeat them.
+        Set<Long> recentQids = recentlySeenQuestionIds(studentId, all);
+
+        record Scored(Question q, double weight, double pMastery) {}
+        List<Scored> scored = new ArrayList<>(all.size());
+        for (Question q : all) {
+            String skill = deriveSubSkill(q);
+            double pMastery = masteryBySkill.getOrDefault(skill, bktConfig.getPInit());
+
+            int diff = q.getDifficultyLevel() == null ? 1 : q.getDifficultyLevel();
+            double difficultyFit = 1.0 - Math.min(1.0, Math.abs(diff - targetDifficulty) / 2.0);
+            double novelty = recentQids.contains(q.getId()) ? 0.1 : 1.0;
+
+            double weight =
+                    0.60 * (1.0 - pMastery)   // weakest skills first
+                  + 0.25 * difficultyFit
+                  + 0.15 * novelty;
+            scored.add(new Scored(q, weight, pMastery));
+        }
+
+        scored.sort((a, b) -> Double.compare(b.weight, a.weight));
+
+        List<Question> out = new ArrayList<>(target);
+        for (int i = 0; i < target; i++) out.add(scored.get(i).q());
+        log.debug("Personalized selection student {} subject {}: avgMastery {} "
+                        + "targetDiff {} chose {} of {} questions",
+                studentId, subjectId, String.format("%.2f", avgMastery),
+                String.format("%.2f", targetDifficulty), out.size(), all.size());
+        return out;
+    }
+
+    /**
+     * Cold-start fallback: easiest questions, one per distinct sub-skill in
+     * round-robin so the first quiz touches the breadth of the subject and
+     * seeds a mastery signal for every axis.
+     */
+    private List<Question> coldStartSelection(List<Question> all, int target) {
+        // Bucket difficulty-1 questions by sub-skill, preserving encounter order.
+        LinkedHashMap<String, Deque<Question>> bySkill = new LinkedHashMap<>();
+        for (Question q : all) {
+            int diff = q.getDifficultyLevel() == null ? 1 : q.getDifficultyLevel();
+            if (diff != 1) continue;
+            bySkill.computeIfAbsent(deriveSubSkill(q), k -> new ArrayDeque<>()).add(q);
+        }
+        // If there are no difficulty-1 questions at all, just take the first N.
+        if (bySkill.isEmpty()) return all.subList(0, target);
+
+        List<Question> out = new ArrayList<>(target);
+        while (out.size() < target) {
+            boolean progressed = false;
+            for (Deque<Question> bucket : bySkill.values()) {
+                if (!bucket.isEmpty()) {
+                    out.add(bucket.poll());
+                    progressed = true;
+                    if (out.size() == target) break;
+                }
+            }
+            if (!progressed) break; // exhausted all difficulty-1 questions
+        }
+        // Top up with any remaining questions if we ran short on difficulty-1.
+        if (out.size() < target) {
+            for (Question q : all) {
+                if (!out.contains(q)) {
+                    out.add(q);
+                    if (out.size() == target) break;
+                }
+            }
+        }
+        return out;
+    }
+
+    /**
+     * Question IDs the student answered in their most recent attempts across
+     * the subject — used to down-weight just-seen questions. We scan the
+     * subject's questions' responses; "recent" is approximated as the last
+     * {@code 2 * count}-ish responses, which is cheap and good enough for
+     * novelty (BKT itself doesn't need exact recency).
+     */
+    private Set<Long> recentlySeenQuestionIds(Long studentId, List<Question> subjectQuestions) {
+        // Gather distinct lesson IDs in the subject, then pull this student's
+        // responses per lesson (reusing the only available history query).
+        Set<Long> lessonIds = new HashSet<>();
+        for (Question q : subjectQuestions) {
+            if (q.getLesson() != null) lessonIds.add(q.getLesson().getId());
+        }
+        Set<Long> recent = new HashSet<>();
+        for (Long lessonId : lessonIds) {
+            for (StudentResponse r :
+                    responseRepository.findByStudentIdAndLessonId(studentId, lessonId)) {
+                if (r.getQuestion() != null) recent.add(r.getQuestion().getId());
+            }
+        }
+        return recent;
+    }
+
+    /**
      * Mirror of {@code QuestionAuditTest.deriveSubSkill}: if the question
      * carries an explicit sub-skill tag use it, otherwise derive from type.
      * Kept inline (no shared util) because the audit test reads JSON files
      * and this service reads JPA entities — different inputs.
+     *
+     * <p>Public + static so {@code SkillMasteryService} can reuse the exact
+     * same derivation (single source of truth for entity-based sub-skill
+     * resolution).
      */
-    private static String deriveSubSkill(Question q) {
+    public static String deriveSubSkill(Question q) {
         String explicit = q.getSubSkill();
         if (explicit != null && !explicit.isBlank()) return explicit;
         QuestionType t = q.getType();

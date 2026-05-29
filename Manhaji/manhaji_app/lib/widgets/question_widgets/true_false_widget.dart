@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../app/theme.dart';
+import '../../utils/text_direction.dart';
 
 class TrueFalseWidget extends StatelessWidget {
   final String? selectedAnswer;
@@ -8,6 +9,14 @@ class TrueFalseWidget extends StatelessWidget {
   final String? correctAnswer;
   final ValueChanged<String> onSelect;
 
+  /// The question prompt — used to pick the language of the True/False
+  /// buttons so an English question shows "True"/"False" and an Arabic
+  /// question shows "صح"/"خطأ". Without this the widget hardcoded صح/خطأ,
+  /// which made every English TRUE_FALSE question unanswerable (the submitted
+  /// "صح" never matched the stored "True", so it always scored wrong and the
+  /// picked button always went red).
+  final String questionText;
+
   const TrueFalseWidget({
     super.key,
     required this.selectedAnswer,
@@ -15,18 +24,26 @@ class TrueFalseWidget extends StatelessWidget {
     required this.isCorrect,
     this.correctAnswer,
     required this.onSelect,
+    this.questionText = '',
   });
 
   @override
   Widget build(BuildContext context) {
+    // English subject questions use "True"/"False"; Arabic-script subjects
+    // (Arabic, Math, Religion) use "صح"/"خطأ". The stored correctAnswer is in
+    // the same language as the question, so the button values match it.
+    final isEnglish = directionOf(questionText) == TextDirection.ltr;
+    final trueValue = isEnglish ? 'True' : 'صح';
+    final falseValue = isEnglish ? 'False' : 'خطأ';
+
     return Row(
       children: [
         Expanded(
           child: _TfButton(
-            value: 'صح',
+            value: trueValue,
             icon: Icons.check_rounded,
             accentColor: AppTheme.primaryGreen,
-            isSelected: selectedAnswer == 'صح',
+            isSelected: selectedAnswer == trueValue,
             isAnswered: isAnswered,
             isCorrect: isCorrect,
             correctAnswer: correctAnswer,
@@ -36,10 +53,10 @@ class TrueFalseWidget extends StatelessWidget {
         const SizedBox(width: 20),
         Expanded(
           child: _TfButton(
-            value: 'خطأ',
+            value: falseValue,
             icon: Icons.close_rounded,
             accentColor: AppTheme.primaryRed,
-            isSelected: selectedAnswer == 'خطأ',
+            isSelected: selectedAnswer == falseValue,
             isAnswered: isAnswered,
             isCorrect: isCorrect,
             correctAnswer: correctAnswer,

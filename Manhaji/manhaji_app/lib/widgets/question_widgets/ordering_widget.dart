@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../app/theme.dart';
 import '../../models/quiz.dart';
+import '../../utils/text_direction.dart';
 
 class OrderingWidget extends StatefulWidget {
   final Question question;
@@ -123,6 +124,9 @@ class _OrderingWidgetState extends State<OrderingWidget> {
                     Expanded(
                       child: Text(
                         _items[index],
+                        // English ordering tokens (words/sentence fragments)
+                        // flow LTR; Arabic tokens stay RTL.
+                        textDirection: directionOf(_items[index]),
                         style: const TextStyle(
                           fontFamily: 'Cairo',
                           fontSize: 16,

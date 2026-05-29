@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../app/theme.dart';
+import '../../utils/text_direction.dart';
 
 class FillBlankWidget extends StatelessWidget {
   final String questionText;
@@ -36,7 +37,10 @@ class FillBlankWidget extends StatelessWidget {
             ),
             child: RichText(
               textAlign: TextAlign.center,
-              textDirection: TextDirection.rtl,
+              // Was hardcoded RTL — broke English fill-blanks ("I live in a
+              // ___ with my family." rendered with reversed word order +
+              // misplaced period). Derive from the sentence's own script.
+              textDirection: directionOf(questionText),
               text: TextSpan(
                 style: const TextStyle(
                   fontFamily: 'Cairo',

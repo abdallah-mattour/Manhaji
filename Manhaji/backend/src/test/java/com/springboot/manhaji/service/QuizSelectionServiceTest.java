@@ -1,8 +1,10 @@
 package com.springboot.manhaji.service;
 
+import com.springboot.manhaji.config.BktConfigProperties;
 import com.springboot.manhaji.entity.*;
 import com.springboot.manhaji.entity.enums.QuestionType;
 import com.springboot.manhaji.repository.QuestionRepository;
+import com.springboot.manhaji.repository.SkillMasteryRepository;
 import com.springboot.manhaji.repository.StudentResponseRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -30,6 +32,7 @@ class QuizSelectionServiceTest {
 
     @Mock private QuestionRepository questionRepository;
     @Mock private StudentResponseRepository responseRepository;
+    @Mock private SkillMasteryRepository skillMasteryRepository;
 
     private QuizSelectionService service;
 
@@ -37,7 +40,9 @@ class QuizSelectionServiceTest {
 
     @BeforeEach
     void setUp() {
-        service = new QuizSelectionService(questionRepository, responseRepository);
+        service = new QuizSelectionService(
+                questionRepository, responseRepository,
+                skillMasteryRepository, new BktConfigProperties());
 
         lesson = new Lesson();
         lesson.setId(1L);
@@ -175,5 +180,78 @@ class QuizSelectionServiceTest {
         assertThat(mediumIdx).isLessThan(hardIdx);
         // Medium should be at the top (sub-skill mastered, novelty highest, diff fit best).
         assertThat(result.get(0)).isEqualTo(medium);
+    }
+
+    // ==================== selectPersonalized (cross-subject, BKT-driven) ====================
+
+    private SkillMastery mastery(String subSkill, double p, int obs) {
+        SkillMastery sm = new SkillMastery();
+        sm.setSubSkill(subSkill);
+        sm.setPMastery(p);
+        sm.setObservationCount(obs);
+        return sm;
+    }
+
+    @Test
+    @DisplayName("personalized: cold start (no mastery) returns difficulty-1 questions across skills")
+    void personalizedColdStart() {
+        Question easyRecog = q(1L, QuestionType.MCQ, 1, "recognition");
+        Question easyProd  = q(2L, QuestionType.SHORT_ANSWER, 1, "production");
+        Question hard      = q(3L, QuestionType.ORDERING, 3, "application");
+
+        when(questionRepository.findAllBySubjectIdWithLesson(7L))
+                .thenReturn(List.of(easyRecog, easyProd, hard));
+        when(skillMasteryRepository.findByStudentIdAndSubjectId(5L, 7L))
+                .thenReturn(List.of()); // no signal yet
+
+        List<Question> result = service.selectPersonalized(5L, 7L, 2);
+
+        // Cold start prefers the difficulty-1 questions, one per skill.
+        assertThat(result).hasSize(2);
+        assertThat(result).containsExactlyInAnyOrder(easyRecog, easyProd);
+        assertThat(result).doesNotContain(hard);
+    }
+
+    @Test
+    @DisplayName("personalized: weakest sub-skill question ranks first")
+    void personalizedWeakestFirst() {
+        Question strong = q(1L, QuestionType.MCQ, 1, "recognition");   // mastered
+        Question weak   = q(2L, QuestionType.SHORT_ANSWER, 1, "production"); // weak
+
+        when(questionRepository.findAllBySubjectIdWithLesson(7L))
+                .thenReturn(List.of(strong, weak));
+        // recognition mastered (0.90), production weak (0.20) — both observed.
+        when(skillMasteryRepository.findByStudentIdAndSubjectId(5L, 7L)).thenReturn(List.of(
+                mastery("recognition", 0.90, 5),
+                mastery("production", 0.20, 5)));
+        // No recent responses → no novelty penalty.
+        when(responseRepository.findByStudentIdAndLessonId(any(), any()))
+                .thenReturn(List.of());
+
+        List<Question> result = service.selectPersonalized(5L, 7L, 2);
+
+        assertThat(result.get(0)).isEqualTo(weak);
+    }
+
+    @Test
+    @DisplayName("personalized: empty subject → empty result")
+    void personalizedEmptySubject() {
+        when(questionRepository.findAllBySubjectIdWithLesson(7L)).thenReturn(List.of());
+        assertThat(service.selectPersonalized(5L, 7L, 10)).isEmpty();
+    }
+
+    @Test
+    @DisplayName("personalized: clamps to requested count")
+    void personalizedClampsCount() {
+        List<Question> pool = List.of(
+                q(1L, QuestionType.MCQ, 1, "recognition"),
+                q(2L, QuestionType.MCQ, 1, "recognition"),
+                q(3L, QuestionType.MCQ, 1, "recognition"),
+                q(4L, QuestionType.MCQ, 1, "recognition"));
+        when(questionRepository.findAllBySubjectIdWithLesson(7L)).thenReturn(pool);
+        when(skillMasteryRepository.findByStudentIdAndSubjectId(5L, 7L)).thenReturn(List.of());
+
+        assertThat(service.selectPersonalized(5L, 7L, 2)).hasSize(2);
+        assertThat(service.selectPersonalized(5L, 7L, 99)).hasSize(4); // clamped
     }
 }

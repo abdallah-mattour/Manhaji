@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../app/theme.dart';
 import '../models/quiz.dart';
+import '../utils/text_direction.dart';
 import 'question_media_header.dart';
 
 /// Hero card rendering for the currently-active quiz question.
@@ -238,6 +239,10 @@ class _Prompt extends StatelessWidget {
         Expanded(
           child: Text(
             text,
+            // Direction from the question's own script so English prompts
+            // flow LTR (trailing "?" on the right) even under the app's
+            // ambient RTL. Arabic prompts stay RTL.
+            textDirection: directionOf(text),
             textAlign: hasSpeaker ? TextAlign.start : TextAlign.center,
             style: AppTheme.questionPrompt,
           ),

@@ -37,6 +37,10 @@ class ApiConfig {
   static const String startAttempt = '/quiz/attempt/start';
   static const String submitAnswer = '/quiz/attempt/answer';
   static const String completeAttempt = '/quiz/attempt/complete';
+  // Personalized "Challenge Me" quiz (Knowledge Tracing). POST {subjectId}
+  // generates/refreshes the quiz; GET skills/{subjectId} reads the radar data.
+  static const String personalizedQuiz = '/quiz/personalized';
+  static const String skillMastery = '/quiz/skills';
 
   // Teacher
   static const String teacherDashboard = '/teacher/dashboard';

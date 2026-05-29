@@ -6,10 +6,13 @@ import '../../models/subject.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/lesson_provider.dart';
 import '../../services/local_storage_service.dart';
+import '../../services/quiz_service.dart';
+import '../../utils/error_handler.dart';
 import '../../widgets/error_state.dart';
 import '../../widgets/loading_state.dart';
 import '../../widgets/mascot.dart';
 import '../../widgets/vibrant_background.dart';
+import '../learning/learning_screen.dart';
 import '../subject/subject_lessons_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -88,6 +91,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             0, (sum, s) => sum + s.completedLessons),
                       ),
                     ),
+                    // Knowledge Tracing "Challenge Me" — personalized adaptive
+                    // quiz entry point. Only shown when the student has
+                    // subjects to be challenged on.
+                    if (dashboard.subjects.isNotEmpty)
+                      SliverToBoxAdapter(
+                        child: _ChallengeMeBanner(
+                          onTap: () => _openChallengePicker(dashboard.subjects),
+                        ),
+                      ),
                     // Section header removed as it's now part of _buildStatsRow/Header style
                     if (dashboard.subjects.isEmpty)
                       // Defensive empty state — without this the user just
@@ -167,6 +179,64 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  /// "Challenge Me": pick a subject, then generate a personalized adaptive
+  /// quiz for it. Scope is one subject at a time (per the project proposal),
+  /// so we present a simple subject chooser bottom sheet.
+  void _openChallengePicker(List<Subject> subjects) {
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (sheetCtx) => _ChallengeSubjectPicker(
+        subjects: subjects,
+        onPick: (subject) {
+          Navigator.pop(sheetCtx);
+          _startChallenge(subject);
+        },
+      ),
+    );
+  }
+
+  /// Generate the personalized quiz for [subject] then push the quiz UI.
+  /// Shows a brief loading dialog while the backend's BKT selector runs.
+  Future<void> _startChallenge(Subject subject) async {
+    final quizService = context.read<QuizApiService>();
+    final navigator = Navigator.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const Center(
+        child: CircularProgressIndicator(color: AppTheme.primaryGreen),
+      ),
+    );
+
+    try {
+      final quiz = await quizService.generatePersonalizedQuiz(subject.id);
+      navigator.pop(); // dismiss loading dialog
+      if (quiz.questions.isEmpty) {
+        messenger.showSnackBar(const SnackBar(
+          content: Text('لا توجد أسئلة كافية لهذا التحدّي بعد.',
+              style: TextStyle(fontFamily: 'Cairo')),
+        ));
+        return;
+      }
+      navigator.push(MaterialPageRoute(
+        builder: (_) => LearningScreen(
+          lessonId: -1, // unused in personalized mode
+          lessonTitle: quiz.title,
+          personalizedQuiz: quiz,
+        ),
+      ));
+    } catch (e) {
+      navigator.pop(); // dismiss loading dialog
+      messenger.showSnackBar(SnackBar(
+        content: Text(extractError(e),
+            style: const TextStyle(fontFamily: 'Cairo')),
+      ));
+    }
   }
 
   /// Duolingo-style top bar with stats.
@@ -377,6 +447,22 @@ class _SubjectColorRouter {
     }
     if (name.contains('الإنجليزية') || lower.contains('english')) return 3;
     return 0; // Arabic + unknown both fall to olive.
+  }
+
+  /// Subject icon by name — same semantic mapping as `_SubjectCard`'s
+  /// instance helper, exposed statically so off-card widgets (the Challenge
+  /// Me subject picker) can render the matching icon.
+  static IconData iconForName(String name) {
+    switch (indexForName(name)) {
+      case 1:
+        return Icons.calculate_rounded;   // math
+      case 2:
+        return Icons.mosque_rounded;      // islamic
+      case 3:
+        return Icons.language_rounded;    // english
+      default:
+        return Icons.menu_book_rounded;   // arabic + unknown
+    }
   }
 }
 
@@ -659,6 +745,167 @@ class _SubjectCardState extends State<_SubjectCard>
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// "Challenge Me" entry banner — the personalized adaptive-quiz call to action.
+/// Visually distinct from the subject cards (purple gradient + bolt) so it
+/// reads as a special action, not just another subject.
+class _ChallengeMeBanner extends StatelessWidget {
+  final VoidCallback onTap;
+
+  const _ChallengeMeBanner({required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+          AppTheme.space4, AppTheme.space2, AppTheme.space4, AppTheme.space2),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(AppTheme.radiusL),
+          onTap: onTap,
+          child: Ink(
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [AppTheme.primaryPurple, AppTheme.primaryPurpleDeep],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(AppTheme.radiusL),
+              boxShadow: [
+                BoxShadow(
+                  color: AppTheme.primaryPurpleDeep,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppTheme.space5, vertical: AppTheme.space4),
+            child: Row(
+              children: [
+                const Text('⚡', style: TextStyle(fontSize: 34)),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        'تحدَّ نفسك!',
+                        style: TextStyle(
+                          fontFamily: 'Cairo',
+                          fontSize: 19,
+                          fontWeight: FontWeight.w900,
+                          color: Colors.white,
+                        ),
+                      ),
+                      SizedBox(height: 2),
+                      Text(
+                        'اختبار ذكيّ يركّز على ما تحتاج تدريبه',
+                        style: TextStyle(
+                          fontFamily: 'Cairo',
+                          fontSize: 13,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Icon(Icons.arrow_forward_ios_rounded,
+                    color: Colors.white, size: 18),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Bottom-sheet subject chooser for "Challenge Me". One subject at a time,
+/// per the project proposal's scope for the personalized quiz.
+class _ChallengeSubjectPicker extends StatelessWidget {
+  final List<Subject> subjects;
+  final void Function(Subject) onPick;
+
+  const _ChallengeSubjectPicker({required this.subjects, required this.onPick});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(20, 16, 20, 28),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Center(
+            child: Container(
+              width: 44,
+              height: 5,
+              decoration: BoxDecoration(
+                color: AppTheme.surfaceMuted,
+                borderRadius: BorderRadius.circular(3),
+              ),
+            ),
+          ),
+          const SizedBox(height: 18),
+          const Text(
+            'اختر مادّة للتحدّي',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'Cairo',
+              fontSize: 18,
+              fontWeight: FontWeight.w900,
+              color: AppTheme.textDark,
+            ),
+          ),
+          const SizedBox(height: 16),
+          ...subjects.map((s) {
+            final slot = _SubjectColorRouter.indexForName(s.name);
+            final color = AppTheme.subjectColors[slot];
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Material(
+                color: color.withValues(alpha: 0.12),
+                borderRadius: BorderRadius.circular(AppTheme.radiusM),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(AppTheme.radiusM),
+                  onTap: () => onPick(s),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 18, vertical: 16),
+                    child: Row(
+                      children: [
+                        Icon(_SubjectColorRouter.iconForName(s.name),
+                            color: color, size: 28),
+                        const SizedBox(width: 14),
+                        Expanded(
+                          child: Text(
+                            s.name,
+                            style: TextStyle(
+                              fontFamily: 'Cairo',
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700,
+                              color: AppTheme.textDark,
+                            ),
+                          ),
+                        ),
+                        Icon(Icons.bolt_rounded, color: color, size: 22),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          }),
+        ],
       ),
     );
   }

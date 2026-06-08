@@ -64,6 +64,15 @@ public class Lesson {
     @Column
     private String audioUrl;
 
+    /**
+     * Fingerprint of the spoken text the cached narration at {@code audioUrl}
+     * was generated from (see {@code TtsService.speechFingerprint}). Lets the
+     * narration cache self-invalidate when the lesson title/content is edited,
+     * mirroring {@code Question.audioTextHash}.
+     */
+    @Column(length = 64)
+    private String audioTextHash;
+
     @Column(columnDefinition = "JSON")
     private String imageUrls;
 

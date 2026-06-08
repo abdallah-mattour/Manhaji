@@ -11,11 +11,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
 import java.util.Base64;
+import java.util.HexFormat;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -35,7 +39,10 @@ import java.util.concurrent.TimeUnit;
  *
  * <p>Audio is cached upstream on {@code Question.audioUrl} /
  * {@code Lesson.audioUrl} — see {@code AudioController}. This service only
- * synthesizes; it doesn't cache.
+ * synthesizes; it doesn't store the bytes. It does, however, own the cache
+ * <em>key</em>: {@link #speechFingerprint} returns a hash of the spoken text
+ * that the controller persists alongside the URL, so the cache invalidates
+ * itself when the source text changes (see {@code AudioController}).
  */
 @Service
 @RequiredArgsConstructor
@@ -92,11 +99,75 @@ public class TtsService {
         if (text == null || text.isBlank()) return null;
         if (!isAvailable()) return null;
 
+        // Single chokepoint: every TTS request is cleaned here so no caller
+        // can accidentally ship raw markup to the voice.
+        text = sanitizeForSpeech(text);
+        if (text.isBlank()) return null;
+
         String provider = aiConfig.getTtsProvider();
         if ("edge".equalsIgnoreCase(provider)) {
             return synthesizeViaEdge(text, language);
         }
         return synthesizeViaGoogle(text, language);
+    }
+
+    /**
+     * The token a fill-in-the-blank marker becomes when spoken. An ellipsis
+     * is read by both Edge neural voices and on-device engines as a short
+     * natural pause — so "I live in a ___ with my family" is heard as
+     * "I live in a … with my family", with a beat where the word is missing,
+     * instead of the voice spelling out "underscore underscore underscore".
+     *
+     * <p>The blank is already shown visually in the FILL_BLANK widget, so the
+     * audio only needs a pause, not a spoken word. To instead announce the
+     * gap out loud, change this to {@code " فراغ "} (Arabic) / {@code " blank "}
+     * — though that's less natural mid-sentence.
+     */
+    private static final String BLANK_SPOKEN = " … ";
+
+    /**
+     * Strips non-speakable markup from question/lesson text before it goes to
+     * the voice. Currently collapses any run of underscores (the FILL_BLANK
+     * "___" marker) into a spoken pause and tidies the surrounding whitespace.
+     */
+    private static String sanitizeForSpeech(String text) {
+        if (text == null) return "";
+        String out = text.replaceAll("_{2,}", BLANK_SPOKEN);
+        // Collapse the doubled spaces the replacement can introduce.
+        out = out.replaceAll("[ \\t]{2,}", " ").trim();
+        return out;
+    }
+
+    /**
+     * A stable fingerprint of the audio that {@link #synthesize} would produce
+     * for {@code text} — a SHA-256 of the <em>sanitized</em> spoken form.
+     *
+     * <p>Callers persist this next to the cached audio URL (e.g.
+     * {@code Question.audioTextHash}) and compare it on the next read: if the
+     * source text has changed since the clip was generated, the fingerprints
+     * differ and the cache is treated as a miss, so the audio regenerates
+     * automatically. Because it hashes the sanitized form, a no-op edit that
+     * changes only the underscore run or whitespace (which sanitization
+     * collapses anyway) does <em>not</em> needlessly invalidate the cache.
+     *
+     * <p>Returns {@code null} for null/blank input — there's nothing to speak,
+     * so there's nothing to fingerprint.
+     */
+    public String speechFingerprint(String text) {
+        if (text == null) return null;
+        String spoken = sanitizeForSpeech(text);
+        if (spoken.isBlank()) return null;
+        try {
+            byte[] digest = MessageDigest.getInstance("SHA-256")
+                    .digest(spoken.getBytes(StandardCharsets.UTF_8));
+            return HexFormat.of().formatHex(digest);
+        } catch (NoSuchAlgorithmException e) {
+            // SHA-256 is guaranteed present on every JVM; this is unreachable.
+            // If it somehow isn't, degrade to "no fingerprint" rather than
+            // breaking playback — the cache just won't self-invalidate.
+            log.warn("SHA-256 unavailable, TTS cache cannot self-invalidate", e);
+            return null;
+        }
     }
 
     // ============================================================

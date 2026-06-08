@@ -151,17 +151,31 @@ class TtsService {
   /// instance handles both Arabic and English without bleeding phonemes
   /// from one language into the other.
   Future<void> _localSpeak(String text) async {
-    if (text.isEmpty) return;
+    // Sanitize first so the FILL_BLANK "___" marker is spoken as a natural
+    // pause, not "underscore underscore underscore". Mirrors the backend's
+    // sanitizeForSpeech; covers the offline fallback + teaching/hint text.
+    final cleaned = _sanitizeForSpeech(text);
+    if (cleaned.isEmpty) return;
     try {
-      final isAr = _isArabic(text);
+      final isAr = _isArabic(cleaned);
       await _flutterTts.setLanguage(isAr ? 'ar' : 'en-US');
       // English benefits from a slightly faster cadence than Arabic —
       // English words are shorter, so equal-rate speech feels lethargic.
       await _flutterTts.setSpeechRate(isAr ? 0.5 : 0.55);
-      await _flutterTts.speak(text);
+      await _flutterTts.speak(cleaned);
     } catch (e) {
       _log.e('local speak failed', e);
     }
+  }
+
+  /// Replace the fill-in-the-blank marker ("___") with a spoken pause (…) and
+  /// collapse the resulting double spaces. Mirrors the backend's
+  /// sanitizeForSpeech so both TTS paths sound identical.
+  String _sanitizeForSpeech(String text) {
+    return text
+        .replaceAll(RegExp(r'_{2,}'), ' … ')
+        .replaceAll(RegExp(r'[ \t]{2,}'), ' ')
+        .trim();
   }
 
   /// Builds the `Authorization: Bearer <jwt>` header needed for

@@ -31,8 +31,19 @@ public class AudioController {
         Lesson lesson = lessonRepository.findById(lessonId)
                 .orElseThrow(() -> new ResourceNotFoundException("Lesson", lessonId));
 
-        // Return cached audio if already generated
-        if (lesson.getAudioUrl() != null && !lesson.getAudioUrl().isBlank()) {
+        // The exact text we'd synthesize, computed up front so the cache
+        // fingerprint matches the audio byte-for-byte (title + content,
+        // capped at 5000 chars for the TTS provider).
+        String textToSpeak = lesson.getTitle() + ". " + lesson.getContent();
+        if (textToSpeak.length() > 5000) {
+            textToSpeak = textToSpeak.substring(0, 5000);
+        }
+
+        // Content-fingerprinted cache (2026-06-08): serve the cached narration
+        // only while it still matches the current lesson text; regenerate when
+        // the title/content is edited. See AudioController.readQuestion.
+        String fingerprint = ttsService.speechFingerprint(textToSpeak);
+        if (isCacheFresh(lesson.getAudioUrl(), lesson.getAudioTextHash(), fingerprint)) {
             return ResponseEntity.ok(ApiResponse.success(
                     Map.of("audioUrl", lesson.getAudioUrl())));
         }
@@ -46,13 +57,6 @@ public class AudioController {
             // Determine language from subject
             String language = detectLanguage(lesson);
 
-            // Synthesize the lesson content
-            String textToSpeak = lesson.getTitle() + ". " + lesson.getContent();
-            // Limit to 5000 chars for TTS
-            if (textToSpeak.length() > 5000) {
-                textToSpeak = textToSpeak.substring(0, 5000);
-            }
-
             byte[] audio = ttsService.synthesize(textToSpeak, language);
             if (audio == null) {
                 return ResponseEntity.ok(ApiResponse.success(
@@ -63,8 +67,9 @@ public class AudioController {
             String filename = "lesson_" + lessonId + ".mp3";
             String audioUrl = fileStorageService.saveAudio(audio, filename);
 
-            // Update lesson with audio URL
+            // Update lesson with audio URL + fingerprint
             lesson.setAudioUrl(audioUrl);
+            lesson.setAudioTextHash(fingerprint);
             lessonRepository.save(lesson);
 
             log.info("Generated audio for lesson {}: {}", lessonId, audioUrl);
@@ -83,9 +88,16 @@ public class AudioController {
 
         // Post-review fix (2026-05-24): cache the generated audio URL on the
         // Question. Previously every speaker-button tap regenerated the same
-        // mp3 and hit Google TTS — unbounded cost amplification, since a kid
-        // can tap the speaker as many times as they want.
-        if (question.getAudioUrl() != null && !question.getAudioUrl().isBlank()) {
+        // mp3 and hit the TTS provider — unbounded cost amplification, since a
+        // kid can tap the speaker as many times as they want.
+        //
+        // Content-fingerprinted cache (2026-06-08): serve the cached clip only
+        // while it still matches the current question text. When the text is
+        // edited (the FILL_BLANK "___" sanitizer, a TF/RTL rewrite, any future
+        // curriculum fix) the stored hash diverges and we regenerate instead
+        // of serving stale audio — no manual cache-clearing needed.
+        String fingerprint = ttsService.speechFingerprint(question.getQuestionText());
+        if (isCacheFresh(question.getAudioUrl(), question.getAudioTextHash(), fingerprint)) {
             return ResponseEntity.ok(ApiResponse.success(
                     Map.of("audioUrl", question.getAudioUrl())));
         }
@@ -110,6 +122,7 @@ public class AudioController {
             String audioUrl = fileStorageService.saveAudio(audio, filename);
 
             question.setAudioUrl(audioUrl);
+            question.setAudioTextHash(fingerprint);
             questionRepository.save(question);
 
             return ResponseEntity.ok(ApiResponse.success(
@@ -125,6 +138,35 @@ public class AudioController {
     public ResponseEntity<ApiResponse<Map<String, Boolean>>> getTtsStatus() {
         return ResponseEntity.ok(ApiResponse.success(
                 Map.of("available", ttsService.isAvailable())));
+    }
+
+    /**
+     * Whether a cached audio clip can be served as-is, or must be regenerated.
+     *
+     * <p>Three cases:
+     * <ul>
+     *   <li><b>No clip</b> ({@code audioUrl} null/blank) → not fresh; generate.</li>
+     *   <li><b>Authored asset</b> (URL not under {@code uploads/audio/}) →
+     *       always fresh. These are bundled reciter / native-speaker files set
+     *       at authoring time; they have no TTS fingerprint and must never be
+     *       overwritten by synthesis.</li>
+     *   <li><b>TTS-generated clip</b> (URL under {@code uploads/audio/}) → fresh
+     *       only while the stored fingerprint matches the current text's
+     *       fingerprint. A null stored hash (clip generated before this feature)
+     *       never matches, forcing a one-time regeneration that self-heals any
+     *       pre-existing stale audio.</li>
+     * </ul>
+     */
+    private static boolean isCacheFresh(String audioUrl, String storedHash, String currentFingerprint) {
+        if (audioUrl == null || audioUrl.isBlank()) {
+            return false;
+        }
+        if (!audioUrl.startsWith("uploads/audio/")) {
+            // Authored asset — serve it untouched, regardless of fingerprint.
+            return true;
+        }
+        // TTS-generated clip — fresh iff the fingerprint still matches.
+        return storedHash != null && storedHash.equals(currentFingerprint);
     }
 
     private String detectLanguage(Lesson lesson) {

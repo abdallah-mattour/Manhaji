@@ -81,6 +81,20 @@ public class Question {
     @Column(length = 512)
     private String audioUrl;
 
+    /**
+     * Fingerprint of the spoken text the cached TTS clip at {@code audioUrl}
+     * was generated from (see {@code TtsService.speechFingerprint}). Lets the
+     * audio cache self-invalidate: when {@code questionText} is edited, the
+     * stored hash no longer matches and {@code AudioController} regenerates the
+     * clip instead of serving the stale one.
+     *
+     * <p>Only set for TTS-generated clips (URL under {@code uploads/audio/}).
+     * Stays null for authored asset audio (bundled reciter/native-speaker
+     * files), which must never be overwritten by synthesis.
+     */
+    @Column(length = 64)
+    private String audioTextHash;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lesson_id", nullable = false)
     private Lesson lesson;

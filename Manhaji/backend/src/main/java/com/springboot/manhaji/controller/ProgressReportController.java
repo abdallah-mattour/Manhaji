@@ -2,6 +2,7 @@ package com.springboot.manhaji.controller;
 
 import com.springboot.manhaji.dto.response.ApiResponse;
 import com.springboot.manhaji.dto.response.LearningPathResponse;
+import com.springboot.manhaji.dto.response.PerformanceStatsResponse;
 import com.springboot.manhaji.dto.response.ProgressReportResponse;
 import com.springboot.manhaji.service.LearningPathService;
 import com.springboot.manhaji.service.ProgressReportService;
@@ -33,6 +34,12 @@ public class ProgressReportController {
     public ResponseEntity<ApiResponse<List<ProgressReportResponse>>> getReports(Authentication authentication) {
         Long studentId = (Long) authentication.getPrincipal();
         return ResponseEntity.ok(ApiResponse.success(reportService.getReports(studentId)));
+    }
+
+    @GetMapping("/stats")
+    public ResponseEntity<ApiResponse<PerformanceStatsResponse>> getStats(Authentication authentication) {
+        Long studentId = (Long) authentication.getPrincipal();
+        return ResponseEntity.ok(ApiResponse.success(reportService.getStats(studentId)));
     }
 
     @PostMapping("/learning-path")

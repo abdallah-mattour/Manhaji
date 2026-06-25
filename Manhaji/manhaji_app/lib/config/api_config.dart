@@ -5,8 +5,8 @@ class ApiConfig {
   /// Spring Boot backend (see Phase E: `static/app/` inside the jar). A relative
   /// `/api` base means no CORS and survives whichever host/port the browser is on.
   /// On mobile we still point at the Android-emulator loopback.
-  static String get baseUrl => kIsWeb ? '/api' : 'http://10.0.2.2:8080/api';
-  static String get serverUrl => kIsWeb ? '' : 'http://10.0.2.2:8080';
+  static String get baseUrl => kIsWeb ? '/api' : 'http://192.168.1.104:8080/api';
+  static String get serverUrl => kIsWeb ? '' : 'http://192.168.1.104:8080';
 
   /// Resolves a backend-relative path like `/uploads/images/...` into a full URL.
   /// Returns the input unchanged if it already starts with `http`.

@@ -55,15 +55,21 @@ public class ProgressReportService {
         String summary;
         RiskLevel riskLevel = RiskLevel.LOW;
 
+        String detailsJson = null;
+
         if (aiResponse != null) {
+            // Gemini wraps JSON in ```json ... ``` fences despite the JSON-only
+            // prompt; strip them before parsing or the raw blob leaks into the UI.
+            String cleaned = GeminiService.stripJsonFences(aiResponse);
             try {
-                JsonNode json = objectMapper.readTree(aiResponse);
-                summary = json.has("summary") ? json.get("summary").asText() : aiResponse;
+                JsonNode json = objectMapper.readTree(cleaned);
+                summary = json.has("summary") ? json.get("summary").asText() : cleaned;
                 if (json.has("riskLevel")) {
                     riskLevel = RiskLevel.valueOf(json.get("riskLevel").asText("LOW"));
                 }
+                detailsJson = extractDetailsJson(json);
             } catch (Exception e) {
-                summary = aiResponse;
+                summary = cleaned;
                 log.warn("Could not parse AI report as JSON, using raw text");
             }
         } else {
@@ -76,10 +82,81 @@ public class ProgressReportService {
         report.setPeriodStart(LocalDate.now().minusDays(30));
         report.setPeriodEnd(LocalDate.now());
         report.setSummary(summary);
+        report.setDetailsJson(detailsJson);
         report.setRiskLevel(riskLevel);
         report = reportRepository.save(report);
 
         return toResponse(report);
+    }
+
+    /**
+     * Re-serialises just the strengths/improvements/recommendations arrays from
+     * the AI JSON into a compact object string for storage. Returns null if none
+     * are present. Guaranteed-valid JSON (built via Jackson).
+     */
+    private String extractDetailsJson(JsonNode json) {
+        var root = objectMapper.createObjectNode();
+        boolean any = false;
+        for (String key : new String[]{"strengths", "improvements", "recommendations"}) {
+            if (json.has(key) && json.get(key).isArray()) {
+                root.set(key, json.get(key));
+                any = true;
+            }
+        }
+        if (!any) return null;
+        try {
+            return objectMapper.writeValueAsString(root);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /**
+     * Live performance snapshot for the report screen header — computed fresh
+     * each call from current data, so the numbers always reflect the latest
+     * state regardless of when reports were generated.
+     */
+    public com.springboot.manhaji.dto.response.PerformanceStatsResponse getStats(Long studentId) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Student", studentId));
+
+        List<Progress> progressRecords = progressRepository.findByStudentId(student.getId());
+        List<Attempt> attempts = attemptRepository.findByStudentIdOrderByCreatedAtDesc(student.getId());
+        List<com.springboot.manhaji.dto.response.SubjectMasterySummary> breakdown =
+                metrics.buildSubjectBreakdown(student, progressRecords);
+
+        int completed = metrics.countCompleted(progressRecords);
+        int inProgress = metrics.countInProgress(progressRecords);
+        int totalLessons = breakdown.stream()
+                .mapToInt(com.springboot.manhaji.dto.response.SubjectMasterySummary::getTotalLessons).sum();
+        long graded = attempts.stream()
+                .filter(a -> a.getStatus() == com.springboot.manhaji.entity.enums.AttemptStatus.GRADED)
+                .count();
+
+        var subjects = breakdown.stream()
+                .map(s -> com.springboot.manhaji.dto.response.PerformanceStatsResponse.SubjectStat.builder()
+                        .subjectName(s.getSubjectName())
+                        .completedLessons(s.getLessonsCompleted())
+                        .totalLessons(s.getTotalLessons())
+                        .averageMastery(s.getAverageMastery())
+                        .build())
+                .toList();
+
+        boolean hasActivity = completed > 0 || inProgress > 0 || graded > 0
+                || student.getTotalPoints() > 0;
+
+        return com.springboot.manhaji.dto.response.PerformanceStatsResponse.builder()
+                .completedLessons(completed)
+                .totalLessons(totalLessons)
+                .inProgressLessons(inProgress)
+                .averageMastery(ProgressMetrics.round2(metrics.averageMastery(progressRecords)))
+                .averageScore(ProgressMetrics.round2(metrics.averageGradedScore(attempts)))
+                .totalPoints(student.getTotalPoints())
+                .currentStreak(student.getCurrentStreak())
+                .quizzesTaken((int) graded)
+                .subjects(subjects)
+                .hasActivity(hasActivity)
+                .build();
     }
 
     public List<ProgressReportResponse> getReports(Long studentId) {
@@ -142,6 +219,25 @@ public class ProgressReportService {
                 .summary(report.getSummary())
                 .riskLevel(report.getRiskLevel())
                 .generatedAt(report.getGeneratedAt())
+                .strengths(readDetailList(report.getDetailsJson(), "strengths"))
+                .improvements(readDetailList(report.getDetailsJson(), "improvements"))
+                .recommendations(readDetailList(report.getDetailsJson(), "recommendations"))
                 .build();
+    }
+
+    private List<String> readDetailList(String detailsJson, String key) {
+        if (detailsJson == null || detailsJson.isBlank()) return List.of();
+        try {
+            JsonNode node = objectMapper.readTree(detailsJson).get(key);
+            if (node == null || !node.isArray()) return List.of();
+            List<String> out = new java.util.ArrayList<>();
+            node.forEach(n -> {
+                String s = n.asText("").trim();
+                if (!s.isEmpty()) out.add(s);
+            });
+            return out;
+        } catch (Exception e) {
+            return List.of();
+        }
     }
 }

@@ -24,7 +24,7 @@ class SettingsScreen extends StatelessWidget {
         ),
         body: VibrantBackground(
           backgroundColor: AppTheme.backgroundLight,
-          pattern: BackgroundPattern.shapes,
+          pattern: BackgroundPattern.none,
           child: ListView(
             padding: const EdgeInsets.all(24),
             children: [

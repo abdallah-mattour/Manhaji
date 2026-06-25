@@ -48,7 +48,7 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
         ),
         body: VibrantBackground(
           backgroundColor: AppTheme.backgroundLight,
-          pattern: BackgroundPattern.shapes,
+          pattern: BackgroundPattern.none,
           child: Consumer<TeacherProvider>(
           builder: (context, provider, _) {
             if (provider.isLoading && provider.dashboard == null) {

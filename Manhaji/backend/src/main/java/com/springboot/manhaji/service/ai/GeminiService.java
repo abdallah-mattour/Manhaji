@@ -86,22 +86,27 @@ public class GeminiService {
 
         String prompt = String.format("""
                 أنت مستشار تربوي فلسطيني متخصص في التعليم الابتدائي.
-                اكتب تقريراً مختصراً عن تقدم الطالب التالي:
+                اكتب تقريراً مختصراً وواضحاً عن تقدم الطالب التالي:
 
                 اسم الطالب: %s
                 الصف: %d
 
-                بيانات الأداء:
+                بيانات الأداء (أرقام حقيقية):
                 %s
 
                 المطلوب:
-                1. ملخص عام عن أداء الطالب (2-3 جمل)
-                2. نقاط القوة (2-3 نقاط)
-                3. نقاط تحتاج تحسين (2-3 نقاط)
-                4. توصيات لولي الأمر (2-3 نقاط)
-                5. مستوى الخطر: LOW أو MEDIUM أو HIGH
+                1. ملخص عام عن أداء الطالب (2-3 جمل) — يجب أن يذكر أرقاماً محددة من
+                   البيانات أعلاه (عدد الدروس المكتملة، متوسط الإتقان، أو الدرجات)
+                   بدلاً من عبارات عامة.
+                2. نقاط القوة (2-3 نقاط) — مبنية على المواد ذات الإتقان الأعلى.
+                3. نقاط تحتاج تحسين (2-3 نقاط) — مبنية على المواد الأضعف تحديداً.
+                4. توصيات عملية لولي الأمر (2-3 نقاط).
+                5. مستوى الخطر: LOW (إتقان جيد) أو MEDIUM أو HIGH (يحتاج دعماً عاجلاً).
 
-                أجب بصيغة JSON فقط:
+                إذا لم تكن هناك بيانات كافية، اذكر ذلك بوضوح واطلب من الطالب إكمال
+                بعض الدروس أولاً.
+
+                أجب بصيغة JSON فقط، دون أي نص قبله أو بعده:
                 {"summary": "...", "strengths": ["..."], "improvements": ["..."], "recommendations": ["..."], "riskLevel": "LOW|MEDIUM|HIGH"}
                 """, studentName, gradeLevel, performanceData);
 
@@ -194,10 +199,18 @@ public class GeminiService {
         }
     }
 
-    private Map<String, Object> parseEvaluationResponse(String response) {
-        String trimmed = response == null ? "" : response.trim();
-
-        // Strip Markdown code-fences (```json ... ``` or ``` ... ```) — Gemini sometimes wraps JSON.
+    /**
+     * Strips Markdown code-fences (```json ... ``` or ``` ... ```) that Gemini
+     * frequently wraps around JSON despite being asked for JSON-only. Returns
+     * the inner content, trimmed. Safe on already-clean input (returns it
+     * unchanged). Public so report/learning-path services can clean the raw
+     * response before {@code objectMapper.readTree(...)} — without this, the
+     * fenced blob fails to parse and the raw ```json...``` string leaks into
+     * the UI (see ProgressReportService).
+     */
+    public static String stripJsonFences(String response) {
+        if (response == null) return "";
+        String trimmed = response.trim();
         if (trimmed.startsWith("```")) {
             int firstNewline = trimmed.indexOf('\n');
             int lastFence = trimmed.lastIndexOf("```");
@@ -205,6 +218,11 @@ public class GeminiService {
                 trimmed = trimmed.substring(firstNewline + 1, lastFence).trim();
             }
         }
+        return trimmed;
+    }
+
+    private Map<String, Object> parseEvaluationResponse(String response) {
+        String trimmed = stripJsonFences(response);
 
         // Try strict JSON first (the prompt requests JSON-only).
         try {

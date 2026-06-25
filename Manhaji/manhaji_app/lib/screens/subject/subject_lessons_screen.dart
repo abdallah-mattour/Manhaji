@@ -102,7 +102,7 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
         ),
         body: VibrantBackground(
           backgroundColor: AppTheme.backgroundLight,
-          pattern: BackgroundPattern.shapes,
+          pattern: BackgroundPattern.none,
           patternColor: widget.subjectColor,
           child: Consumer<LessonProvider>(
             builder: (context, provider, _) {

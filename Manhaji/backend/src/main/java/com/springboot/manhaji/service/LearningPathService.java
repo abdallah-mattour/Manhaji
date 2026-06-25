@@ -13,6 +13,9 @@ import com.springboot.manhaji.repository.LessonRepository;
 import com.springboot.manhaji.repository.ProgressRepository;
 import com.springboot.manhaji.repository.StudentRepository;
 import com.springboot.manhaji.repository.SubjectRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.springboot.manhaji.service.ai.GeminiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +37,7 @@ public class LearningPathService {
     private final LessonRepository lessonRepository;
     private final LearningPathRepository learningPathRepository;
     private final GeminiService geminiService;
+    private final ObjectMapper objectMapper;
 
     @Transactional
     public LearningPathResponse generatePath(Long studentId) {
@@ -46,7 +50,15 @@ public class LearningPathService {
         String aiResponse = geminiService.generateLearningPath(
                 student.getFullName(), student.getGradeLevel(), weakAreas, completedLessons);
 
-        String recommendations = aiResponse != null ? aiResponse : buildFallbackRecommendations(student);
+        // `learning_paths.recommendations` is a MySQL JSON column — the value
+        // MUST be valid JSON or the INSERT fails with "Invalid JSON text".
+        // Gemini wraps JSON in ```json``` fences and sometimes returns prose,
+        // so: strip fences, then verify it actually parses; if not (or no AI),
+        // use the Jackson-built fallback which is guaranteed valid JSON.
+        String recommendations = asValidJson(aiResponse);
+        if (recommendations == null) {
+            recommendations = buildFallbackRecommendations(student);
+        }
 
         LearningPath path = learningPathRepository.findByStudentId(studentId)
                 .orElse(new LearningPath());
@@ -95,6 +107,35 @@ public class LearningPathService {
                 .collect(Collectors.joining("، "));
     }
 
+    /**
+     * Returns the AI response as valid JSON, or {@code null} if it can't be
+     * used. Strips ```json``` fences then parses to confirm validity — required
+     * because {@code recommendations} is a MySQL JSON column that rejects any
+     * non-JSON text (the cause of the "Invalid JSON text" INSERT crash).
+     */
+    private String asValidJson(String aiResponse) {
+        if (aiResponse == null) return null;
+        String cleaned = GeminiService.stripJsonFences(aiResponse);
+        if (cleaned.isBlank()) return null;
+        try {
+            // Must be a JSON object/array, not a bare string or prose.
+            var node = objectMapper.readTree(cleaned);
+            if (node.isObject() || node.isArray()) {
+                return cleaned;
+            }
+            return null;
+        } catch (Exception e) {
+            log.warn("Learning-path AI response is not valid JSON, using fallback: {}", e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Builds the fallback recommendations as guaranteed-valid JSON via Jackson
+     * (the previous String.format approach emitted a Java list literal —
+     * {@code [a, b]} with no quotes — which is invalid JSON and crashed the
+     * INSERT into the JSON column).
+     */
     private String buildFallbackRecommendations(Student student) {
         List<Progress> progressRecords = progressRepository.findByStudentId(student.getId());
         List<Lesson> allLessons = lessonRepository
@@ -105,14 +146,37 @@ public class LearningPathService {
                 .map(p -> p.getLesson().getId())
                 .toList();
 
-        List<String> pending = allLessons.stream()
+        List<Lesson> pending = allLessons.stream()
                 .filter(l -> !completedIds.contains(l.getId()))
                 .limit(5)
-                .map(Lesson::getTitle)
                 .toList();
 
-        return String.format("{\"reviewLessons\": [], \"activities\": [\"مراجعة الدروس السابقة\"], \"tips\": [\"استمر في التعلم!\"], \"pendingLessons\": %s}",
-                pending);
+        ObjectNode root = objectMapper.createObjectNode();
+
+        // reviewLessons: the next pending lessons, shaped like the AI output so
+        // the Flutter client renders them identically.
+        ArrayNode reviewLessons = root.putArray("reviewLessons");
+        for (Lesson l : pending) {
+            ObjectNode item = reviewLessons.addObject();
+            item.put("subject", l.getSubject() != null ? l.getSubject().getName() : "");
+            item.put("topic", l.getTitle());
+            item.put("reason", "الدرس التالي في خطتك");
+        }
+
+        ArrayNode activities = root.putArray("activities");
+        activities.add("راجع الدروس التي أكملتها لتثبيت المعلومة");
+        activities.add("جرّب اختبار \"تحدَّ نفسك\" لقياس مستواك");
+
+        ArrayNode tips = root.putArray("tips");
+        tips.add("تعلّم القليل كل يوم أفضل من الكثير مرة واحدة");
+        tips.add("لا تتردد في إعادة الاستماع للدرس عند الحاجة");
+
+        try {
+            return objectMapper.writeValueAsString(root);
+        } catch (Exception e) {
+            // Unreachable for a plain ObjectNode, but keep a safe literal.
+            return "{\"reviewLessons\":[],\"activities\":[],\"tips\":[]}";
+        }
     }
 
     private LearningPathResponse toResponse(LearningPath path) {

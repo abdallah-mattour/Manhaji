@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Scaffold(
         body: VibrantBackground(
           backgroundColor: AppTheme.backgroundLight,
-          pattern: BackgroundPattern.shapes,
+          pattern: BackgroundPattern.none,
           child: SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.fromLTRB(24, 32, 24, 32),

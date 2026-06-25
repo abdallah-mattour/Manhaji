@@ -44,7 +44,7 @@ class McqWidget extends StatelessWidget {
   }
 }
 
-class _McqOption extends StatelessWidget {
+class _McqOption extends StatefulWidget {
   final String option;
   final bool isSelected;
   final bool isAnswered;
@@ -62,17 +62,25 @@ class _McqOption extends StatelessWidget {
   });
 
   @override
+  State<_McqOption> createState() => _McqOptionState();
+}
+
+class _McqOptionState extends State<_McqOption> {
+  // Sticker-style press "boop" — scales down slightly while held, springs back.
+  bool _pressed = false;
+
+  @override
   Widget build(BuildContext context) {
     Color color = AppTheme.cardWhite;
     Color borderColor = AppTheme.surfaceMuted;
     Color textColor = AppTheme.textDark;
 
-    if (isAnswered) {
-      if (option == correctAnswer) {
+    if (widget.isAnswered) {
+      if (widget.option == widget.correctAnswer) {
         color = AppTheme.successContainer;
         borderColor = AppTheme.primaryGreen;
         textColor = AppTheme.primaryGreenDeep;
-      } else if (isSelected && !isCorrect) {
+      } else if (widget.isSelected && !widget.isCorrect) {
         color = AppTheme.errorContainer;
         borderColor = AppTheme.primaryRed;
         textColor = AppTheme.primaryRedDeep;
@@ -81,54 +89,71 @@ class _McqOption extends StatelessWidget {
         borderColor = AppTheme.surfaceMuted;
         textColor = AppTheme.textLight;
       }
-    } else if (isSelected) {
+    } else if (widget.isSelected) {
       color = AppTheme.infoContainer;
       borderColor = AppTheme.primaryBlue;
       textColor = AppTheme.primaryBlueDeep;
     }
 
+    final enabled = !widget.isAnswered;
+
     return GestureDetector(
-      onTap: isAnswered ? null : () => onSelect(option),
-      child: AnimatedContainer(
-        duration: AppTheme.motionFast,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(AppTheme.radiusL),
-          border: Border.all(
-            color: borderColor,
-            width: 3,
-          ),
-          boxShadow: [
-            BoxShadow(
+      onTap: enabled ? () => widget.onSelect(widget.option) : null,
+      onTapDown: enabled ? (_) => setState(() => _pressed = true) : null,
+      onTapUp: enabled ? (_) => setState(() => _pressed = false) : null,
+      onTapCancel: enabled ? () => setState(() => _pressed = false) : null,
+      child: AnimatedScale(
+        scale: _pressed ? 0.97 : 1.0,
+        duration: AppTheme.motionInstant,
+        curve: AppTheme.motionCurve,
+        child: AnimatedContainer(
+          duration: AppTheme.motionFast,
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(AppTheme.radiusL),
+            border: Border.all(
               color: borderColor,
-              offset: const Offset(0, 4),
+              width: 3,
             ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Text(
-                option,
-                // Per-option direction so English options keep their "?" on
-                // the right under the app's ambient RTL; Arabic stays RTL.
-                textDirection: directionOf(option),
-                style: TextStyle(
-                  fontFamily: 'Cairo',
-                  fontSize: 18,
-                  fontWeight: isSelected ? FontWeight.w900 : FontWeight.w700,
-                  color: textColor,
+            // Hard-offset "sticker" shadow — no blur, sits below the tile and
+            // collapses on press for a tactile feel.
+            boxShadow: [
+              BoxShadow(
+                color: borderColor,
+                offset: Offset(0, _pressed ? 1 : 4),
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  widget.option,
+                  // Per-option direction so English options keep their "?" on
+                  // the right under the app's ambient RTL; Arabic stays RTL.
+                  textDirection: directionOf(widget.option),
+                  style: TextStyle(
+                    fontFamily: 'Cairo',
+                    fontSize: 18,
+                    fontWeight:
+                        widget.isSelected ? FontWeight.w900 : FontWeight.w700,
+                    color: textColor,
+                  ),
                 ),
               ),
-            ),
-            if (isAnswered && (option == correctAnswer || (isSelected && !isCorrect)))
-              Icon(
-                option == correctAnswer ? Icons.check_circle_rounded : Icons.cancel_rounded,
-                color: borderColor,
-                size: 28,
-              ),
-          ],
+              if (widget.isAnswered &&
+                  (widget.option == widget.correctAnswer ||
+                      (widget.isSelected && !widget.isCorrect)))
+                Icon(
+                  widget.option == widget.correctAnswer
+                      ? Icons.check_circle_rounded
+                      : Icons.cancel_rounded,
+                  color: borderColor,
+                  size: 28,
+                ),
+            ],
+          ),
         ),
       ),
     );

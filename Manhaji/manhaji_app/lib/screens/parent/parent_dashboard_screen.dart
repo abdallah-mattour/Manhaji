@@ -47,7 +47,7 @@ class _ParentDashboardScreenState extends State<ParentDashboardScreen> {
         ),
         body: VibrantBackground(
           backgroundColor: AppTheme.backgroundLight,
-          pattern: BackgroundPattern.shapes,
+          pattern: BackgroundPattern.none,
           child: Consumer<ParentProvider>(
           builder: (context, provider, _) {
             if (provider.isLoading && provider.dashboard == null) {

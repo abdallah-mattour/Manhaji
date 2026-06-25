@@ -63,7 +63,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
         body: VibrantBackground(
           backgroundColor: AppTheme.backgroundLight,
-          pattern: BackgroundPattern.shapes,
+          pattern: BackgroundPattern.none,
           child: SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(24),

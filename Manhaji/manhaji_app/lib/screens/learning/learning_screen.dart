@@ -207,7 +207,7 @@ class _LearningScreenState extends State<LearningScreen>
                 return SafeArea(
                   child: VibrantBackground(
                     backgroundColor: AppTheme.backgroundLight,
-                    pattern: BackgroundPattern.dots,
+                    pattern: BackgroundPattern.none,
                     child: Column(
                       children: [
                         _buildTopBar(provider),
@@ -251,7 +251,7 @@ class _LearningScreenState extends State<LearningScreen>
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const CircularProgressIndicator(color: AppTheme.primaryGreen),
+          const CircularProgressIndicator(color: AppTheme.primaryTerracotta),
           const SizedBox(height: 16),
           Text(
             message,

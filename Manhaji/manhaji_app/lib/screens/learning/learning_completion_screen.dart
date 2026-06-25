@@ -70,7 +70,7 @@ class _LearningCompletionScreenState extends State<LearningCompletionScreen>
       child: Scaffold(
         body: VibrantBackground(
           backgroundColor: AppTheme.backgroundMint,
-          pattern: BackgroundPattern.shapes,
+          pattern: BackgroundPattern.none,
           child: Stack(
           children: [
             Consumer<LearningProvider>(

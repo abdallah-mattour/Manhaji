@@ -71,7 +71,7 @@ class _ChildProgressScreenState extends State<ChildProgressScreen> {
                             fontSize: 28,
                             fontFamily: 'Cairo',
                             fontWeight: FontWeight.bold,
-                            color: AppTheme.primaryGreen,
+                            color: AppTheme.primaryTerracotta,
                           ),
                         ),
                       ),

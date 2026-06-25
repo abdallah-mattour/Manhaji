@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../app/routes.dart';
 import '../../app/theme.dart';
+import '../../config/api_config.dart';
 import '../../models/subject.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/lesson_provider.dart';
@@ -76,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
             return SafeArea(
               child: RefreshIndicator(
                 onRefresh: () => lessonProvider.loadDashboard(),
-                color: AppTheme.primaryGreen,
+                color: AppTheme.primaryTerracotta,
                 child: CustomScrollView(
                   slivers: [
                     SliverToBoxAdapter(
@@ -91,6 +93,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             0, (sum, s) => sum + s.completedLessons),
                       ),
                     ),
+                    // Daily-goal progress card — overall lessons completed vs
+                    // total across all subjects, with a warm progress bar.
+                    if (dashboard.subjects.isNotEmpty)
+                      SliverToBoxAdapter(
+                        child: _DailyGoalCard(
+                          completed: dashboard.subjects.fold<int>(
+                              0, (sum, s) => sum + s.completedLessons),
+                          total: dashboard.subjects.fold<int>(
+                              0, (sum, s) => sum + s.totalLessons),
+                        ),
+                      ),
                     // Knowledge Tracing "Challenge Me" — personalized adaptive
                     // quiz entry point. Only shown when the student has
                     // subjects to be challenged on.
@@ -209,7 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       barrierDismissible: false,
       builder: (_) => const Center(
-        child: CircularProgressIndicator(color: AppTheme.primaryGreen),
+        child: CircularProgressIndicator(color: AppTheme.primaryTerracotta),
       ),
     );
 
@@ -696,17 +709,13 @@ class _SubjectCardState extends State<_SubjectCard>
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // Icon block with Duolingo-style colorful bubble
+                    // Cover image when the backend provides one; otherwise a
+                    // colored icon bubble (image-ready with graceful fallback).
                     Center(
-                      child: Container(
-                        width: 72,
-                        height: 72,
-                        decoration: BoxDecoration(
-                          color: color.withValues(alpha: 0.15),
-                          shape: BoxShape.circle,
-                          border: Border.all(color: color, width: 3),
-                        ),
-                        child: Icon(icon, size: 36, color: color),
+                      child: _SubjectVisual(
+                        coverImage: widget.subject.coverImage,
+                        icon: icon,
+                        color: color,
                       ),
                     ),
                     const SizedBox(height: 14),
@@ -753,6 +762,138 @@ class _SubjectCardState extends State<_SubjectCard>
 /// "Challenge Me" entry banner — the personalized adaptive-quiz call to action.
 /// Visually distinct from the subject cards (purple gradient + bolt) so it
 /// reads as a special action, not just another subject.
+/// Subject card visual: a rounded cover image when the backend supplies one,
+/// otherwise the colored icon bubble (our existing design as the fallback).
+/// Makes the subject cards image-ready with no backend change required today.
+class _SubjectVisual extends StatelessWidget {
+  final String? coverImage;
+  final IconData icon;
+  final Color color;
+
+  const _SubjectVisual({
+    required this.coverImage,
+    required this.icon,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final url = coverImage;
+    if (url != null && url.isNotEmpty) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(AppTheme.radiusM),
+        child: CachedNetworkImage(
+          imageUrl: ApiConfig.resolveMediaUrl(url),
+          width: 84,
+          height: 84,
+          fit: BoxFit.cover,
+          placeholder: (context, url) => _bubble(),
+          errorWidget: (context, url, error) => _bubble(),
+        ),
+      );
+    }
+    return _bubble();
+  }
+
+  Widget _bubble() {
+    return Container(
+      width: 72,
+      height: 72,
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.15),
+        shape: BoxShape.circle,
+        border: Border.all(color: color, width: 3),
+      ),
+      child: Icon(icon, size: 36, color: color),
+    );
+  }
+}
+
+/// Daily-goal progress card — borrowed composition (warm card, fraction,
+/// progress bar, encouraging line) re-created with our tokens + Arabic + RTL.
+class _DailyGoalCard extends StatelessWidget {
+  final int completed;
+  final int total;
+
+  const _DailyGoalCard({required this.completed, required this.total});
+
+  @override
+  Widget build(BuildContext context) {
+    final fraction =
+        total == 0 ? 0.0 : (completed / total).clamp(0.0, 1.0).toDouble();
+    final allDone = fraction >= 1.0;
+    final message = total == 0
+        ? 'ستبدأ دروسك قريباً!'
+        : allDone
+            ? 'أحسنت! أكملت كل الدروس 🎉'
+            : 'استمرّ، أنت تتقدّم بشكل رائع!';
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+          AppTheme.space4, AppTheme.space2, AppTheme.space4, AppTheme.space2),
+      child: Container(
+        padding: const EdgeInsets.all(AppTheme.space4),
+        decoration: BoxDecoration(
+          color: AppTheme.cardWhite,
+          borderRadius: BorderRadius.circular(AppTheme.radiusXL),
+          border: Border.all(color: AppTheme.primaryYellow, width: 2),
+          boxShadow: AppTheme.elevationLow,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                const Text('🎯', style: TextStyle(fontSize: 22)),
+                const SizedBox(width: 8),
+                const Text(
+                  'هدف اليوم',
+                  style: TextStyle(
+                    fontFamily: 'Cairo',
+                    fontSize: 16,
+                    fontWeight: FontWeight.w900,
+                    color: AppTheme.textDark,
+                  ),
+                ),
+                const Spacer(),
+                Text(
+                  total == 0 ? '—' : '$completed / $total',
+                  style: const TextStyle(
+                    fontFamily: 'Cairo',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w800,
+                    color: AppTheme.primaryTerracotta,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: AppTheme.space3),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(AppTheme.radiusPill),
+              child: LinearProgressIndicator(
+                value: fraction,
+                minHeight: 14,
+                backgroundColor: AppTheme.surfaceMuted,
+                valueColor: const AlwaysStoppedAnimation(AppTheme.primaryYellow),
+              ),
+            ),
+            const SizedBox(height: AppTheme.space2),
+            Text(
+              message,
+              style: const TextStyle(
+                fontFamily: 'Cairo',
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: AppTheme.textGray,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _ChallengeMeBanner extends StatelessWidget {
   final VoidCallback onTap;
 

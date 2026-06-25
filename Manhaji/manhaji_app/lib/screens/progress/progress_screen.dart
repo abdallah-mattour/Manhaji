@@ -48,7 +48,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
         ),
         body: VibrantBackground(
           backgroundColor: AppTheme.backgroundLight,
-          pattern: BackgroundPattern.shapes,
+          pattern: BackgroundPattern.none,
           child: Consumer<ProgressProvider>(
             builder: (context, provider, _) {
               if (provider.isLoading && provider.summary == null) {

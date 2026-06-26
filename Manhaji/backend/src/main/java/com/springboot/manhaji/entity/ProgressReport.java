@@ -40,6 +40,16 @@ public class ProgressReport {
     @Column(columnDefinition = "TEXT")
     private String summary;
 
+    /**
+     * AI-extracted detail lists (strengths / improvements / recommendations)
+     * stored as a JSON object string, e.g.
+     * {@code {"strengths":[...],"improvements":[...],"recommendations":[...]}}.
+     * Plain TEXT (not a JSON column) so a malformed value can never crash the
+     * insert; the service guarantees valid JSON. Null for older rows.
+     */
+    @Column(columnDefinition = "TEXT")
+    private String detailsJson;
+
     @Enumerated(EnumType.STRING)
     @Column
     private RiskLevel riskLevel;

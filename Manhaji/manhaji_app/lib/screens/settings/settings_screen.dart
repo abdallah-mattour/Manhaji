@@ -29,7 +29,7 @@ class SettingsScreen extends StatelessWidget {
         bottomNavigationBar: const StudentBottomNav(currentIndex: 2),
         body: VibrantBackground(
           backgroundColor: AppTheme.backgroundLight,
-          pattern: BackgroundPattern.shapes,
+          pattern: BackgroundPattern.none,
           child: ListView(
             padding: const EdgeInsets.all(24),
             children: [

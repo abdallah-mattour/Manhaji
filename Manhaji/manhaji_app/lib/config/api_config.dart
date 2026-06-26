@@ -84,6 +84,7 @@ class ApiConfig {
   // AI Reports
   static const String generateReport = '/reports/progress';
   static const String getReports = '/reports/progress';
+  static const String performanceStats = '/reports/stats';
   static const String generateLearningPath = '/reports/learning-path';
   static const String getLearningPath = '/reports/learning-path';
 

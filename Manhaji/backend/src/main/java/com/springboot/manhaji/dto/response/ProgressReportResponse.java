@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -22,4 +23,9 @@ public class ProgressReportResponse {
     private String summary;
     private RiskLevel riskLevel;
     private LocalDateTime generatedAt;
+
+    /** AI-extracted detail lists (may be empty when the AI returned prose only). */
+    private List<String> strengths;
+    private List<String> improvements;
+    private List<String> recommendations;
 }

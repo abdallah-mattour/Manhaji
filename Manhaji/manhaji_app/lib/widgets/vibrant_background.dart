@@ -15,7 +15,9 @@ class VibrantBackground extends StatelessWidget {
     super.key,
     required this.child,
     this.backgroundColor = AppTheme.backgroundLight,
-    this.pattern = BackgroundPattern.shapes,
+    // 2026-06 re-skin: flat warm cream by default (no geometric shapes) for the
+    // calm look. Pass an explicit `pattern` if a screen still wants texture.
+    this.pattern = BackgroundPattern.none,
     this.patternColor,
     this.animate = false,
   });

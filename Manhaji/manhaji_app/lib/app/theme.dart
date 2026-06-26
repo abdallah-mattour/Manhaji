@@ -85,16 +85,23 @@ class AppTheme {
   // VIBRANT BRAND PALETTE — Duolingo Inspired
   // ============================================================
 
-  static const Color primaryGreen = Color(0xFF58CC02);   // Duolingo green
+  static const Color primaryGreen = Color(0xFF58CC02);   // Duolingo green (semantic success / correct answers)
   static const Color primaryGreenDeep = Color(0xFF46A302);
-  
-  static const Color primaryBlue = Color(0xFF1CB0F6);    // Sky blue
-  static const Color primaryBlueDeep = Color(0xFF1899D6);
-  
-  static const Color primaryYellow = Color(0xFFFFC800);  // Gold
-  static const Color primaryYellowDeep = Color(0xFFE5A500);
-  
-  static const Color primaryOrange = Color(0xFFFF9600);  // Vibrant orange
+
+  // ── BRAND PRIMARY — warm terracotta (2026-06 re-skin to the warm theme) ──
+  // The app's brand/action color. Used by the Material theme, DuolingoButton
+  // default, app bar, and primary CTAs. `primaryGreen` is kept as-is so
+  // correct-answer/success feedback stays green.
+  static const Color primaryTerracotta = Color(0xFFE87F24);
+  static const Color primaryTerracottaDeep = Color(0xFFC96A10);
+
+  static const Color primaryBlue = Color(0xFF73A5CA);    // Dusty blue (her secondary)
+  static const Color primaryBlueDeep = Color(0xFF5A8AAD);
+
+  static const Color primaryYellow = Color(0xFFFFC81E);  // Warm gold
+  static const Color primaryYellowDeep = Color(0xFFD4A400);
+
+  static const Color primaryOrange = Color(0xFFFF9600);  // Flame orange (accents)
   static const Color primaryOrangeDeep = Color(0xFFE58700);
   
   static const Color primaryPurple = Color(0xFFCE82FF);  // Bright purple
@@ -107,18 +114,20 @@ class AppTheme {
   // SURFACE & TEXT
   // ============================================================
 
-  static const Color backgroundLight = Color(0xFFF0F9FF);   // Very soft sky blue
-  static const Color backgroundMint = Color(0xFFF2FFF5);    // Very soft mint
+  // ── WARM CREAM SURFACES (2026-06 re-skin) ──
+  static const Color backgroundLight = Color(0xFFFEFDDF);   // Signature warm cream
+  static const Color backgroundMint = Color(0xFFFBF7E4);    // Soft cream variant
   static const Color backgroundGold = Color(0xFFFFFBF0);    // Very soft gold
 
   static const Color cardWhite = Color(0xFFFFFFFF);
-  static const Color surface = Color(0xFFF7F7F7);           // Light gray bg
-  static const Color surfaceMuted = Color(0xFFE5E5E5);      // Border/Disabled
-  static const Color surfaceSubtle = Color(0xFFF0F0F0);     // Subtle alt
-  static const Color surfaceStrong = Color(0xFFAFAFAF);     // Muted text/border
+  static const Color surface = Color(0xFFFBF7E4);           // Warm cream surface
+  static const Color surfaceMuted = Color(0xFFE8DCC8);      // Sand border/divider
+  static const Color surfaceSubtle = Color(0xFFF5EFDD);     // Subtle cream alt
+  static const Color surfaceStrong = Color(0xFFC4B696);     // Muted sand text/border
+  static const Color surfaceBlue = Color(0xFFE0EEF8);       // Soft blue (path/progress bg)
 
-  static const Color textDark = Color(0xFF4B4B4B);          // Dark gray text
-  static const Color textGray = Color(0xFF777777);          // Medium gray text
+  static const Color textDark = Color(0xFF3C3C3C);          // Warm charcoal text
+  static const Color textGray = Color(0xFF7A7A7A);          // Medium gray text
   static const Color textLight = Color(0xFFAFAFAF);         // Muted text
 
   // ============================================================
@@ -162,12 +171,13 @@ class AppTheme {
         [primaryOrange, primaryOrangeDeep],
       ];
 
-  /// Page-wide subtle washes — same hue, much lighter.
+  /// Page-wide subtle washes — warm cream family so every subject page
+  /// keeps the signature warm background (2026-06 re-skin).
   static List<List<Color>> get subjectWashGradients => const [
-        [Color(0xFFF1EEDE), Color(0xFFE6EEDA)], // olive
-        [Color(0xFFFCF1E6), Color(0xFFF8DDCB)], // terracotta
-        [Color(0xFFFEF7E2), Color(0xFFFBE8C2)], // gold
-        [Color(0xFFEAF2F6), Color(0xFFCEDDE4)], // teal
+        [Color(0xFFFEFDDF), Color(0xFFF6EFD6)], // cream → soft sand
+        [Color(0xFFFEFBEF), Color(0xFFFBEAD3)], // cream → warm terracotta tint
+        [Color(0xFFFEFDDF), Color(0xFFFBF1C9)], // cream → gold tint
+        [Color(0xFFFAFBEB), Color(0xFFE6EEDC)], // cream → soft sage
       ];
 
   // ============================================================
@@ -364,9 +374,9 @@ class AppTheme {
       useMaterial3: true,
       fontFamily: 'Cairo',
       colorScheme: ColorScheme.fromSeed(
-        seedColor: primaryGreen,
+        seedColor: primaryTerracotta,
         brightness: Brightness.light,
-        primary: primaryGreen,
+        primary: primaryTerracotta,
         secondary: primaryBlue,
         tertiary: primaryYellow,
         surface: cardWhite,
@@ -388,7 +398,7 @@ class AppTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: primaryGreen,
+          backgroundColor: primaryTerracotta,
           foregroundColor: Colors.white,
           minimumSize: const Size(double.infinity, 56),
           elevation: 0,

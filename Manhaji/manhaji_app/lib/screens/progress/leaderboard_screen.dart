@@ -37,7 +37,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
         ),
         body: VibrantBackground(
           backgroundColor: AppTheme.backgroundGold,
-          pattern: BackgroundPattern.shapes,
+          pattern: BackgroundPattern.none,
           child: Consumer<ProgressProvider>(
             builder: (context, provider, _) {
               if (provider.isLoading && provider.leaderboard.isEmpty) {

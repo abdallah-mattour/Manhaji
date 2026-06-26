@@ -3,14 +3,12 @@ spring:
     name: Manhaji
 
   # MySQL Database
-  # Audit-3 fix (2026-05-15): DB password used to be committed plaintext.
-  # Set MANHAJI_DB_PASSWORD in the environment. The default below ONLY
-  # works for the developer's laptop (matches local MySQL setup) and is
-  # intentionally unsuitable for any deployed environment.
+  # Set MANHAJI_DB_PASSWORD in the environment when MySQL has a password.
+  # The default is empty for local MySQL installs where root has no password.
   datasource:
     url: ${MANHAJI_DB_URL:jdbc:mysql://localhost:3306/manhaji_db?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&useUnicode=true}
     username: ${MANHAJI_DB_USERNAME:root}
-    password: ${MANHAJI_DB_PASSWORD:ben@me}
+    password: ${MANHAJI_DB_PASSWORD:}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   # JPA / Hibernate
@@ -31,7 +29,7 @@ spring:
 
 # Server
 server:
-  port: 8080
+  port: ${MANHAJI_SERVER_PORT:${PORT:8080}}
 
 # JWT Configuration
 # Audit fix S1 (2026-04-29): the signing secret must NEVER be committed to source.

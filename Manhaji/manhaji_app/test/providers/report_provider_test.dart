@@ -13,6 +13,7 @@ class MockReportService extends ReportService {
   ProgressReportModel? generateReportResult;
   LearningPathModel? learningPathResult;
   LearningPathModel? generatePathResult;
+  PerformanceStats? statsResult;
   Exception? errorToThrow;
 
   MockReportService() : super(ApiService(FakeLocalStorage()));
@@ -21,6 +22,25 @@ class MockReportService extends ReportService {
   Future<List<ProgressReportModel>> getReports() async {
     if (errorToThrow != null) throw errorToThrow!;
     return reportsResult!;
+  }
+
+  @override
+  Future<PerformanceStats> getStats() async {
+    // Stats are best-effort in the provider; return a benign empty snapshot
+    // unless a test explicitly sets one.
+    return statsResult ??
+        PerformanceStats(
+          completedLessons: 0,
+          totalLessons: 0,
+          inProgressLessons: 0,
+          averageMastery: 0,
+          averageScore: 0,
+          totalPoints: 0,
+          currentStreak: 0,
+          quizzesTaken: 0,
+          hasActivity: false,
+          subjects: const [],
+        );
   }
 
   @override

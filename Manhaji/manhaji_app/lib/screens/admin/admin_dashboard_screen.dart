@@ -50,7 +50,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
         ),
         body: VibrantBackground(
           backgroundColor: AppTheme.backgroundLight,
-          pattern: BackgroundPattern.shapes,
+          pattern: BackgroundPattern.none,
           child: Consumer<AdminProvider>(
           builder: (context, provider, _) {
             if (provider.isLoading && provider.stats == null) {

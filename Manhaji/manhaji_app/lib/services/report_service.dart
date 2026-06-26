@@ -18,6 +18,11 @@ class ReportService {
     return list.map((r) => ProgressReportModel.fromJson(r)).toList();
   }
 
+  Future<PerformanceStats> getStats() async {
+    final response = await _api.get(ApiConfig.performanceStats);
+    return PerformanceStats.fromJson(response['data'] ?? {});
+  }
+
   Future<LearningPathModel> generateLearningPath() async {
     final response = await _api.post(ApiConfig.generateLearningPath);
     return LearningPathModel.fromJson(response['data'] ?? {});

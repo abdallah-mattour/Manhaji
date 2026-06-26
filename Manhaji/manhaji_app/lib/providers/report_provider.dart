@@ -10,12 +10,14 @@ class ReportProvider extends ChangeNotifier {
 
   List<ProgressReportModel>? _reports;
   LearningPathModel? _learningPath;
+  PerformanceStats? _stats;
   bool _isLoading = false;
   bool _isGenerating = false;
   String? _error;
 
   List<ProgressReportModel>? get reports => _reports;
   LearningPathModel? get learningPath => _learningPath;
+  PerformanceStats? get stats => _stats;
   bool get isLoading => _isLoading;
   bool get isGenerating => _isGenerating;
   String? get error => _error;
@@ -26,6 +28,12 @@ class ReportProvider extends ChangeNotifier {
     notifyListeners();
     try {
       _reports = await _service.getReports();
+      // Stats are best-effort — a failure here must not block the reports list.
+      try {
+        _stats = await _service.getStats();
+      } catch (_) {
+        _stats = null;
+      }
     } catch (e) {
       _error = extractError(e);
     } finally {

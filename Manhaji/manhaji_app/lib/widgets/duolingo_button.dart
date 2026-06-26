@@ -17,7 +17,7 @@ class DuolingoButton extends StatefulWidget {
     this.text,
     this.child,
     this.onPressed,
-    this.color = AppTheme.primaryGreen,
+    this.color = AppTheme.primaryTerracotta,
     this.shadowColor,
     this.width,
     this.height = 56,
@@ -97,6 +97,7 @@ class _DuolingoButtonState extends State<DuolingoButton> {
 
   Color _getDarkerColor(Color color) {
     // Basic heuristic to get a deeper shade for the shadow
+    if (color == AppTheme.primaryTerracotta) return AppTheme.primaryTerracottaDeep;
     if (color == AppTheme.primaryGreen) return AppTheme.primaryGreenDeep;
     if (color == AppTheme.primaryBlue) return AppTheme.primaryBlueDeep;
     if (color == AppTheme.primaryYellow) return AppTheme.primaryYellowDeep;

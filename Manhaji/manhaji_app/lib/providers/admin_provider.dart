@@ -143,4 +143,25 @@ class AdminProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<bool> linkStudentToParent(int studentId, int? parentId) async {
+    _isMutating = true;
+    _error = null;
+    notifyListeners();
+    try {
+      final updated = await _service.linkStudentToParent(studentId, parentId);
+      if (_users != null) {
+        _users = _users!
+            .map((u) => u.userId == studentId ? updated : u)
+            .toList(growable: false);
+      }
+      return true;
+    } catch (e) {
+      _error = extractError(e);
+      return false;
+    } finally {
+      _isMutating = false;
+      notifyListeners();
+    }
+  }
 }

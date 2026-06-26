@@ -1,12 +1,35 @@
 import 'package:flutter/foundation.dart';
 
 class ApiConfig {
-  /// On web we assume the Flutter bundle is served from the same origin as the
-  /// Spring Boot backend (see Phase E: `static/app/` inside the jar). A relative
-  /// `/api` base means no CORS and survives whichever host/port the browser is on.
-  /// On mobile we still point at the Android-emulator loopback.
-  static String get baseUrl => kIsWeb ? '/api' : 'http://10.0.2.2:8080/api';
-  static String get serverUrl => kIsWeb ? '' : 'http://10.0.2.2:8080';
+  /// API base can be overridden with:
+  /// `flutter run --dart-define=API_BASE_URL=http://localhost:8080/api`.
+  /// When Flutter web runs on its own dev server, relative `/api` would hit the
+  /// Flutter server and return 404, so we point dev web builds at Spring Boot.
+  static const String _apiBaseUrl = String.fromEnvironment('API_BASE_URL');
+
+  static String get baseUrl {
+    if (_apiBaseUrl.isNotEmpty) return _apiBaseUrl;
+    if (!kIsWeb) return 'http://10.0.2.2:8080/api';
+
+    final uri = Uri.base;
+    final servedByBackend =
+        uri.host == 'localhost' && (uri.hasPort ? uri.port == 8080 : false);
+    return servedByBackend ? '/api' : 'http://localhost:8080/api';
+  }
+
+  static String get serverUrl {
+    if (_apiBaseUrl.isNotEmpty) {
+      return _apiBaseUrl.endsWith('/api')
+          ? _apiBaseUrl.substring(0, _apiBaseUrl.length - 4)
+          : _apiBaseUrl;
+    }
+    if (!kIsWeb) return 'http://10.0.2.2:8080';
+
+    final uri = Uri.base;
+    final servedByBackend =
+        uri.host == 'localhost' && (uri.hasPort ? uri.port == 8080 : false);
+    return servedByBackend ? '' : 'http://localhost:8080';
+  }
 
   /// Resolves a backend-relative path like `/uploads/images/...` into a full URL.
   /// Returns the input unchanged if it already starts with `http`.
@@ -51,6 +74,8 @@ class ApiConfig {
   static const String adminStats = '/admin/stats';
   static const String adminUsers = '/admin/users';
   static const String adminSubjects = '/admin/subjects';
+  static String adminLinkParent(int studentId) =>
+      '/admin/students/$studentId/link-parent';
 
   // Parent
   static const String parentDashboard = '/parent/dashboard';

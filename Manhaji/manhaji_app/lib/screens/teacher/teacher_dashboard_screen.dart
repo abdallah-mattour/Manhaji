@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../app/route_args.dart';
 import '../../app/routes.dart';
 import '../../app/theme.dart';
 import '../../models/teacher_dashboard.dart';
@@ -21,7 +22,8 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
       context.read<TeacherProvider>().loadDashboard();
     });
   }
@@ -183,7 +185,7 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
                         onTap: () => Navigator.pushNamed(
                           context,
                           AppRoutes.teacherStudentDetail,
-                          arguments: student.studentId,
+                          arguments: StudentDetailArgs(student.studentId),
                         ),
                       )),
                   if (dash.topStudents.isEmpty)

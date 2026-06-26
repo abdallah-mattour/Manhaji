@@ -9,6 +9,7 @@ import com.springboot.manhaji.dto.response.QuestionBankResponse;
 import com.springboot.manhaji.dto.response.SubjectSummary;
 import com.springboot.manhaji.dto.response.UserSummaryResponse;
 import com.springboot.manhaji.entity.Question;
+import com.springboot.manhaji.entity.Parent;
 import com.springboot.manhaji.entity.Student;
 import com.springboot.manhaji.entity.Subject;
 import com.springboot.manhaji.entity.Teacher;
@@ -51,7 +52,7 @@ public class AdminService {
      * intentionally excluded — admins are managed via DB seeding, parents via
      * the public self-registration flow.
      */
-    private static final Set<Role> MANAGEABLE_ROLES = EnumSet.of(Role.STUDENT, Role.TEACHER);
+    private static final Set<Role> MANAGEABLE_ROLES = EnumSet.of(Role.STUDENT, Role.TEACHER, Role.PARENT);
 
     private final UserRepository userRepository;
     private final StudentRepository studentRepository;
@@ -137,6 +138,7 @@ public class AdminService {
                 teacher.setAssignedGrade(request.getAssignedGrade());
                 yield teacher;
             }
+            case PARENT -> new Parent();
             default -> throw new BadRequestException(messages.get(
                     "error.admin.roleNotManageable", role.name()));
         };
@@ -213,6 +215,25 @@ public class AdminService {
         userRepository.delete(user);
     }
 
+    @Transactional
+    public UserSummaryResponse linkStudentToParent(Long studentId, Long parentId) {
+        User user = userRepository.findById(studentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Student", studentId));
+        if (!(user instanceof Student student)) {
+            throw new BadRequestException(messages.get(
+                    "error.admin.roleNotManageable", user.getRole().name()));
+        }
+        if (parentId != null) {
+            Parent parent = parentRepository.findById(parentId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Parent", parentId));
+            student.setParent(parent);
+        } else {
+            student.setParent(null);
+        }
+        User saved = userRepository.save(student);
+        return toSummary(saved);
+    }
+
     // ==================== Question Bank (FR-9, unrestricted — admin sees all) ====================
 
     public List<SubjectSummary> getAllSubjects(Integer gradeFilter) {
@@ -259,8 +280,16 @@ public class AdminService {
 
     private UserSummaryResponse toSummary(User user) {
         Integer gradeLevel = null;
+        Long parentId = null;
+        String department = null;
+        Integer assignedGrade = null;
         if (user instanceof Student student) {
             gradeLevel = student.getGradeLevel();
+            parentId = student.getParent() != null ? student.getParent().getId() : null;
+        }
+        if (user instanceof Teacher teacher) {
+            department = teacher.getDepartment();
+            assignedGrade = teacher.getAssignedGrade();
         }
         return UserSummaryResponse.builder()
                 .userId(user.getId())
@@ -272,6 +301,9 @@ public class AdminService {
                 .lastLoginAt(user.getLastLoginAt())
                 .createdAt(user.getCreatedAt())
                 .gradeLevel(gradeLevel)
+                .department(department)
+                .assignedGrade(assignedGrade)
+                .parentId(parentId)
                 .build();
     }
 }

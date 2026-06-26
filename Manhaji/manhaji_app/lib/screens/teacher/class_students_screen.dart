@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../app/route_args.dart';
 import '../../app/routes.dart';
 import '../../app/theme.dart';
 import '../../providers/teacher_provider.dart';
@@ -17,7 +18,8 @@ class _ClassStudentsScreenState extends State<ClassStudentsScreen> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
       context.read<TeacherProvider>().loadStudents();
     });
   }
@@ -70,7 +72,7 @@ class _ClassStudentsScreenState extends State<ClassStudentsScreen> {
                       onTap: () => Navigator.pushNamed(
                         context,
                         AppRoutes.teacherStudentDetail,
-                        arguments: s.studentId,
+                        arguments: StudentDetailArgs(s.studentId),
                       ),
                       contentPadding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 8),

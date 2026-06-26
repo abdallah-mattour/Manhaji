@@ -2,6 +2,7 @@ package com.springboot.manhaji.controller;
 
 import com.springboot.manhaji.dto.request.AdminCreateUserRequest;
 import com.springboot.manhaji.dto.request.AdminUpdateUserRequest;
+import com.springboot.manhaji.dto.request.LinkParentRequest;
 import com.springboot.manhaji.dto.response.AdminStatsResponse;
 import com.springboot.manhaji.dto.response.ApiResponse;
 import com.springboot.manhaji.dto.response.QuestionBankResponse;
@@ -69,6 +70,14 @@ public class AdminController {
         Long callerUserId = currentUserId();
         adminService.deleteUser(userId, callerUserId);
         return ResponseEntity.ok(ApiResponse.success(null));
+    }
+
+    @PutMapping("/students/{studentId}/link-parent")
+    public ResponseEntity<ApiResponse<UserSummaryResponse>> linkParent(
+            @PathVariable Long studentId,
+            @RequestBody LinkParentRequest request) {
+        return ResponseEntity.ok(ApiResponse.success(
+                adminService.linkStudentToParent(studentId, request.getParentId())));
     }
 
     // ==================== Question Bank (FR-9, unrestricted) ====================

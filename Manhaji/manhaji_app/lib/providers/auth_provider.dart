@@ -15,6 +15,12 @@ class AuthProvider extends ChangeNotifier {
   String? _userRole;
   int? _userId;
 
+  // Profile fields — populated by fetchProfile() via GET /auth/me.
+  String? _userEmail;
+  String? _userPhone;
+  bool _isProfileLoading = false;
+  String? _profileError;
+
   AuthProvider(this._authService, this._storage) {
     _isLoggedIn = _storage.isLoggedIn;
     _userName = _storage.getUserName();
@@ -28,6 +34,11 @@ class AuthProvider extends ChangeNotifier {
   String? get userName => _userName;
   String? get userRole => _userRole;
   int? get userId => _userId;
+  String? get userEmail => _userEmail;
+  String? get userPhone => _userPhone;
+  int? get userGradeLevel => _storage.getGradeLevel();
+  bool get isProfileLoading => _isProfileLoading;
+  String? get profileError => _profileError;
 
   Future<bool> register({
     required String fullName,
@@ -128,6 +139,27 @@ class AuthProvider extends ChangeNotifier {
     _userName = response.fullName;
     _userRole = response.role;
     _userId = response.userId;
+  }
+
+  /// Fetches supplemental profile fields (email, phone) from GET /auth/me.
+  /// Name, role, and gradeLevel are already available locally without a call.
+  Future<void> fetchProfile() async {
+    if (_isProfileLoading) return;
+    _isProfileLoading = true;
+    _profileError = null;
+    notifyListeners();
+
+    try {
+      final data = await _authService.getCurrentUser();
+      _userEmail = data['email'] as String?;
+      _userPhone = data['phone'] as String?;
+      _profileError = null;
+    } catch (e) {
+      _profileError = extractError(e);
+    } finally {
+      _isProfileLoading = false;
+      notifyListeners();
+    }
   }
 
 }

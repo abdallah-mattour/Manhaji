@@ -16,6 +16,7 @@ import '../screens/settings/settings_screen.dart';
 import '../screens/teacher/class_students_screen.dart';
 import '../screens/teacher/student_detail_screen.dart';
 import '../screens/teacher/teacher_dashboard_screen.dart';
+import '../widgets/role_guard.dart';
 
 class AppRoutes {
   static const String splash = '/';
@@ -71,21 +72,66 @@ class AppRoutes {
   }
 
   static Map<String, WidgetBuilder> get routes => {
+        // ── Public routes — no guard ──────────────────────────────────────
         splash: (_) => const SplashScreen(),
         login: (_) => const LoginScreen(),
         register: (_) => const RegisterScreen(),
-        home: (_) => const HomeScreen(),
-        progress: (_) => const ProgressScreen(),
-        settings: (_) => const SettingsScreen(),
-        teacherDashboard: (_) => const TeacherDashboardScreen(),
-        classStudents: (_) => const ClassStudentsScreen(),
-        teacherStudentDetail: (_) => const StudentDetailScreen(),
-        adminDashboard: (_) => const AdminDashboardScreen(),
-        adminManageUsers: (_) => const ManageUsersScreen(),
-        parentDashboard: (_) => const ParentDashboardScreen(),
-        childProgress: (_) => const ChildProgressScreen(),
-        aiReports: (_) => const AiReportsScreen(),
-        leaderboard: (_) => const LeaderboardScreen(),
         platformMismatch: (_) => const PlatformMismatchScreen(),
+
+        // ── Student routes ────────────────────────────────────────────────
+        home: (_) => const RoleGuard(
+              allowedRoles: ['STUDENT'],
+              child: HomeScreen(),
+            ),
+        progress: (_) => const RoleGuard(
+              allowedRoles: ['STUDENT'],
+              child: ProgressScreen(),
+            ),
+        settings: (_) => const RoleGuard(
+              allowedRoles: ['STUDENT'],
+              child: SettingsScreen(),
+            ),
+        aiReports: (_) => const RoleGuard(
+              allowedRoles: ['STUDENT'],
+              child: AiReportsScreen(),
+            ),
+        leaderboard: (_) => const RoleGuard(
+              allowedRoles: ['STUDENT'],
+              child: LeaderboardScreen(),
+            ),
+
+        // ── Teacher routes ────────────────────────────────────────────────
+        teacherDashboard: (_) => const RoleGuard(
+              allowedRoles: ['TEACHER'],
+              child: TeacherDashboardScreen(),
+            ),
+        classStudents: (_) => const RoleGuard(
+              allowedRoles: ['TEACHER'],
+              child: ClassStudentsScreen(),
+            ),
+        teacherStudentDetail: (_) => const RoleGuard(
+              allowedRoles: ['TEACHER'],
+              child: StudentDetailScreen(),
+            ),
+
+        // ── Admin routes ──────────────────────────────────────────────────
+        adminDashboard: (_) => const RoleGuard(
+              allowedRoles: ['ADMIN'],
+              child: AdminDashboardScreen(),
+            ),
+        adminManageUsers: (_) => const RoleGuard(
+              allowedRoles: ['ADMIN'],
+              child: ManageUsersScreen(),
+            ),
+
+        // ── Parent routes ─────────────────────────────────────────────────
+        parentDashboard: (_) => const RoleGuard(
+              allowedRoles: ['PARENT'],
+              child: ParentDashboardScreen(),
+            ),
+        childProgress: (_) => const RoleGuard(
+              allowedRoles: ['PARENT'],
+              child: ChildProgressScreen(),
+            ),
       };
 }

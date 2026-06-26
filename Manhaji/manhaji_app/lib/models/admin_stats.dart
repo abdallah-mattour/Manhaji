@@ -46,6 +46,9 @@ class UserSummary {
   final String? lastLoginAt;
   final String? createdAt;
   final int? gradeLevel;
+  final String? department;   // null for non-teachers
+  final int? assignedGrade;   // null for non-teachers
+  final int? parentId;        // null for non-students and unlinked students
 
   UserSummary({
     required this.userId,
@@ -57,6 +60,9 @@ class UserSummary {
     this.lastLoginAt,
     this.createdAt,
     this.gradeLevel,
+    this.department,
+    this.assignedGrade,
+    this.parentId,
   });
 
   factory UserSummary.fromJson(Map<String, dynamic> json) {
@@ -70,6 +76,9 @@ class UserSummary {
       lastLoginAt: json['lastLoginAt'],
       createdAt: json['createdAt'],
       gradeLevel: json['gradeLevel'],
+      department: json['department'] as String?,
+      assignedGrade: json['assignedGrade'] as int?,
+      parentId: json['parentId'] as int?,
     );
   }
 }

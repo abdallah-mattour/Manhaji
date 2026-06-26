@@ -23,7 +23,7 @@ class _ManageUsersScreenState extends State<ManageUsersScreen>
   @override
   void initState() {
     super.initState();
-    _tabs = TabController(length: 2, vsync: this);
+    _tabs = TabController(length: 3, vsync: this);
     _tabs.addListener(() {
       if (mounted) setState(() {});
     });
@@ -39,7 +39,11 @@ class _ManageUsersScreenState extends State<ManageUsersScreen>
     super.dispose();
   }
 
-  String get _currentRoleForTab => _tabs.index == 0 ? 'STUDENT' : 'TEACHER';
+  String get _currentRoleForTab => switch (_tabs.index) {
+    0 => 'STUDENT',
+    1 => 'TEACHER',
+    _ => 'PARENT',
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -58,22 +62,27 @@ class _ManageUsersScreenState extends State<ManageUsersScreen>
             tabs: const [
               Tab(icon: Icon(Icons.person), text: 'الطلاب'),
               Tab(icon: Icon(Icons.school), text: 'المعلمون'),
+              Tab(icon: Icon(Icons.family_restroom), text: 'أولياء الأمور'),
             ],
           ),
         ),
         floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: AppTheme.primaryGreen,
-          icon: const Icon(Icons.person_add_alt_1, color: Colors.white),
-          label: Text(
-            _tabs.index == 0 ? 'إضافة طالب' : 'إضافة معلم',
-            style: const TextStyle(
-              fontFamily: 'Cairo',
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          onPressed: () => _openCreateForm(_currentRoleForTab),
-        ),
+                backgroundColor: AppTheme.primaryGreen,
+                icon: const Icon(Icons.person_add_alt_1, color: Colors.white),
+                label: Text(
+                  switch (_tabs.index) {
+                    0 => 'إضافة طالب',
+                    1 => 'إضافة معلم',
+                    _ => 'إضافة ولي أمر',
+                  },
+                  style: const TextStyle(
+                    fontFamily: 'Cairo',
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                onPressed: () => _openCreateForm(_currentRoleForTab),
+              ),
         body: Consumer<AdminProvider>(
           builder: (context, provider, _) {
             if (provider.isLoading && provider.users == null) {
@@ -88,6 +97,7 @@ class _ManageUsersScreenState extends State<ManageUsersScreen>
             final users = provider.users ?? const [];
             final students = users.where((u) => u.role == 'STUDENT').toList();
             final teachers = users.where((u) => u.role == 'TEACHER').toList();
+            final parents = users.where((u) => u.role == 'PARENT').toList();
             return TabBarView(
               controller: _tabs,
               children: [
@@ -100,6 +110,12 @@ class _ManageUsersScreenState extends State<ManageUsersScreen>
                 _UserList(
                   users: teachers,
                   emptyMessage: 'لا يوجد معلمون بعد',
+                  onEdit: _openEditForm,
+                  onDelete: _confirmDelete,
+                ),
+                _UserList(
+                  users: parents,
+                  emptyMessage: 'لا يوجد أولياء أمور بعد',
                   onEdit: _openEditForm,
                   onDelete: _confirmDelete,
                 ),
@@ -217,7 +233,12 @@ class _UserList extends StatelessWidget {
       itemBuilder: (_, i) {
         final u = users[i];
         final isStudent = u.role == 'STUDENT';
-        final color = isStudent ? AppTheme.primaryBlue : AppTheme.primaryGreen;
+        final isParent = u.role == 'PARENT';
+        final color = isStudent
+            ? AppTheme.primaryBlue
+            : isParent
+                ? AppTheme.primaryOrange
+                : AppTheme.primaryGreen;
         final contact = u.email ?? u.phone ?? '';
         final secondaryLine = isStudent
             ? 'الصف ${u.gradeLevel ?? "—"}  •  $contact'
@@ -234,7 +255,11 @@ class _UserList extends StatelessWidget {
                 CircleAvatar(
                   backgroundColor: color.withValues(alpha: 0.12),
                   child: Icon(
-                    isStudent ? Icons.person : Icons.school,
+                    isStudent
+                        ? Icons.person
+                        : isParent
+                            ? Icons.family_restroom
+                            : Icons.school,
                     color: color,
                     size: 22,
                   ),
@@ -308,7 +333,7 @@ class _UserList extends StatelessWidget {
 /// uses the AdminProvider's mutation methods directly and pops with `true` on
 /// success.
 class _UserForm extends StatefulWidget {
-  final String role; // 'STUDENT' or 'TEACHER'
+  final String role; // 'STUDENT', 'TEACHER', or 'PARENT'
   final UserSummary? editing;
 
   const _UserForm({required this.role, this.editing});
@@ -326,10 +351,12 @@ class _UserFormState extends State<_UserForm> {
   final TextEditingController _department = TextEditingController();
   int? _gradeLevel;
   int? _assignedGrade;
+  int? _selectedParentId;
   bool _isActive = true;
 
   bool get _isEdit => widget.editing != null;
   bool get _isStudent => widget.role == 'STUDENT';
+  bool get _isTeacher => widget.role == 'TEACHER';
 
   @override
   void initState() {
@@ -340,6 +367,13 @@ class _UserFormState extends State<_UserForm> {
     _phone = TextEditingController(text: u?.phone ?? '');
     _gradeLevel = u?.gradeLevel ?? (_isStudent ? 1 : null);
     _isActive = u?.isActive ?? true;
+    if (_isTeacher && u != null) {
+      _department.text = u.department ?? '';
+      _assignedGrade = u.assignedGrade;
+    }
+    if (_isStudent) {
+      _selectedParentId = u?.parentId;
+    }
   }
 
   @override
@@ -378,11 +412,20 @@ class _UserFormState extends State<_UserForm> {
             _password.text.trim().isEmpty ? null : _password.text.trim(),
         isActive: _isActive,
         gradeLevel: _isStudent ? _gradeLevel : null,
-        department: !_isStudent && _department.text.trim().isNotEmpty
+        department: _isTeacher && _department.text.trim().isNotEmpty
             ? _department.text.trim()
             : null,
-        assignedGrade: !_isStudent ? _assignedGrade : null,
+        assignedGrade: _isTeacher ? _assignedGrade : null,
       );
+      if (ok && _isStudent) {
+        final origParentId = widget.editing!.parentId;
+        if (_selectedParentId != origParentId) {
+          await provider.linkStudentToParent(
+            widget.editing!.userId,
+            _selectedParentId,
+          );
+        }
+      }
     } else {
       ok = await provider.createUser(
         fullName: _name.text.trim(),
@@ -391,10 +434,10 @@ class _UserFormState extends State<_UserForm> {
         password: _password.text.trim(),
         role: widget.role,
         gradeLevel: _isStudent ? _gradeLevel : null,
-        department: !_isStudent && _department.text.trim().isNotEmpty
+        department: _isTeacher && _department.text.trim().isNotEmpty
             ? _department.text.trim()
             : null,
-        assignedGrade: !_isStudent ? _assignedGrade : null,
+        assignedGrade: _isTeacher ? _assignedGrade : null,
       );
     }
 
@@ -413,7 +456,8 @@ class _UserFormState extends State<_UserForm> {
 
   @override
   Widget build(BuildContext context) {
-    final mutating = context.watch<AdminProvider>().isMutating;
+    final adminProvider = context.watch<AdminProvider>();
+    final mutating = adminProvider.isMutating;
     final viewInsets = MediaQuery.of(context).viewInsets.bottom;
     return Padding(
       padding: EdgeInsets.fromLTRB(20, 16, 20, 20 + viewInsets),
@@ -437,8 +481,16 @@ class _UserFormState extends State<_UserForm> {
               const SizedBox(height: 14),
               Text(
                 _isEdit
-                    ? (_isStudent ? 'تعديل بيانات الطالب' : 'تعديل بيانات المعلم')
-                    : (_isStudent ? 'إضافة طالب جديد' : 'إضافة معلم جديد'),
+                    ? (_isStudent
+                        ? 'تعديل بيانات الطالب'
+                        : _isTeacher
+                            ? 'تعديل بيانات المعلم'
+                            : 'تعديل بيانات ولي الأمر')
+                    : (_isStudent
+                        ? 'إضافة طالب جديد'
+                        : _isTeacher
+                            ? 'إضافة معلم جديد'
+                            : 'إضافة ولي أمر جديد'),
                 style: const TextStyle(
                   fontFamily: 'Cairo',
                   fontSize: 18,
@@ -485,7 +537,7 @@ class _UserFormState extends State<_UserForm> {
                   value: _gradeLevel,
                   onChanged: (v) => setState(() => _gradeLevel = v),
                 )
-              else ...[
+              else if (_isTeacher) ...[
                 _TextField(
                   controller: _department,
                   label: 'القسم (اختياري)',
@@ -496,6 +548,17 @@ class _UserFormState extends State<_UserForm> {
                   value: _assignedGrade,
                   onChanged: (v) => setState(() => _assignedGrade = v),
                   optional: true,
+                ),
+              ],
+              if (_isStudent && _isEdit) ...[
+                const SizedBox(height: 12),
+                _ParentDropdown(
+                  parents: adminProvider.users
+                          ?.where((u) => u.role == 'PARENT')
+                          .toList() ??
+                      [],
+                  value: _selectedParentId,
+                  onChanged: (v) => setState(() => _selectedParentId = v),
                 ),
               ],
               if (_isEdit) ...[
@@ -611,6 +674,43 @@ class _GradeDropdown extends StatelessWidget {
       validator: optional
           ? null
           : (v) => v == null ? 'اختر الصف' : null,
+    );
+  }
+}
+
+class _ParentDropdown extends StatelessWidget {
+  final List<UserSummary> parents;
+  final int? value;
+  final ValueChanged<int?> onChanged;
+
+  const _ParentDropdown({
+    required this.parents,
+    required this.value,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButtonFormField<int?>(
+      initialValue: value,
+      style: const TextStyle(fontFamily: 'Cairo', color: AppTheme.textDark),
+      decoration: InputDecoration(
+        labelText: 'ولي الأمر',
+        labelStyle: const TextStyle(fontFamily: 'Cairo'),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+      items: [
+        const DropdownMenuItem<int?>(
+          value: null,
+          child: Text('بدون ولي أمر', style: TextStyle(fontFamily: 'Cairo')),
+        ),
+        for (final p in parents)
+          DropdownMenuItem<int?>(
+            value: p.userId,
+            child: Text(p.fullName, style: const TextStyle(fontFamily: 'Cairo')),
+          ),
+      ],
+      onChanged: onChanged,
     );
   }
 }

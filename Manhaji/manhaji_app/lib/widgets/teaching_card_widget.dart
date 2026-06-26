@@ -45,7 +45,7 @@ class TeachingCardWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                errorWidget: (ctx, _, __) => Container(
+                errorWidget: (ctx, _, _) => Container(
                   height: 120,
                   decoration: BoxDecoration(
                     color: data.accentColor.withValues(alpha: 0.05),

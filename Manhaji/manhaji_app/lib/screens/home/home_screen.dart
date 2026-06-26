@@ -11,6 +11,7 @@ import '../../utils/error_handler.dart';
 import '../../widgets/error_state.dart';
 import '../../widgets/loading_state.dart';
 import '../../widgets/mascot.dart';
+import '../../widgets/student_bottom_nav.dart';
 import '../../widgets/vibrant_background.dart';
 import '../learning/learning_screen.dart';
 import '../subject/subject_lessons_screen.dart';
@@ -84,12 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           dashboard.totalPoints, dashboard.currentStreak),
                     ),
                     SliverToBoxAdapter(
-                      child: _buildStatsRow(
-                        dashboard.totalPoints,
-                        dashboard.currentStreak,
-                        dashboard.subjects.fold<int>(
-                            0, (sum, s) => sum + s.completedLessons),
-                      ),
+                      child: _buildStatsRow(),
                     ),
                     // Knowledge Tracing "Challenge Me" — personalized adaptive
                     // quiz entry point. Only shown when the student has
@@ -159,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
           },
         ),
         ),
-        bottomNavigationBar: _buildBottomNav(),
+        bottomNavigationBar: const StudentBottomNav(currentIndex: 0),
       ),
     );
   }
@@ -275,14 +271,12 @@ class _HomeScreenState extends State<HomeScreen> {
               _buildStatItem('🔥', '$streak', AppTheme.primaryOrange),
               const SizedBox(width: 16),
               _buildStatItem('⭐', '$points', AppTheme.primaryYellow),
-              const SizedBox(width: 16),
-              _buildStatItem('💎', '0', AppTheme.primaryBlue), // Mock Gems
             ],
           ),
 
           // Settings/Profile icon (Right)
           IconButton(
-            onPressed: () => Navigator.pushNamed(context, AppRoutes.settings),
+            onPressed: () => Navigator.pushReplacementNamed(context, AppRoutes.settings),
             icon: const Icon(Icons.person_rounded, color: AppTheme.textGray, size: 28),
           ),
         ],
@@ -308,7 +302,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildStatsRow(int points, int streak, int completed) {
+  Widget _buildStatsRow() {
     // We moved stats to the header, so this can return a minimal sub-header
     return const Padding(
       padding: EdgeInsets.fromLTRB(20, 24, 20, 8),
@@ -319,51 +313,6 @@ class _HomeScreenState extends State<HomeScreen> {
           fontSize: 24,
           fontWeight: FontWeight.w900,
           color: AppTheme.textDark,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBottomNav() {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppTheme.cardWhite,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.06),
-              blurRadius: 12,
-              offset: const Offset(0, -2),
-            ),
-          ],
-        ),
-        child: BottomNavigationBar(
-          currentIndex: 0,
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: AppTheme.cardWhite,
-          elevation: 0,
-          selectedItemColor: AppTheme.primaryGreen,
-          unselectedItemColor: AppTheme.textLight,
-          selectedLabelStyle: const TextStyle(
-              fontFamily: 'Cairo', fontSize: 12, fontWeight: FontWeight.w800),
-          unselectedLabelStyle: const TextStyle(
-              fontFamily: 'Cairo', fontSize: 12, fontWeight: FontWeight.w600),
-          onTap: (index) {
-            if (index == 1) {
-              Navigator.pushNamed(context, AppRoutes.progress);
-            } else if (index == 2) {
-              Navigator.pushNamed(context, AppRoutes.settings);
-            }
-          },
-          items: const [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home_rounded), label: 'الرئيسية'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.bar_chart_rounded), label: 'تقدمي'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.settings_rounded), label: 'الإعدادات'),
-          ],
         ),
       ),
     );

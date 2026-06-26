@@ -21,5 +21,8 @@ public class UserSummaryResponse {
     private Boolean isActive;
     private LocalDateTime lastLoginAt;
     private LocalDateTime createdAt;
-    private Integer gradeLevel; // null for non-students
+    private Integer gradeLevel;   // null for non-students
+    private String department;    // null for non-teachers
+    private Integer assignedGrade; // null for non-teachers
+    private Long parentId;        // null for non-students and unlinked students
 }

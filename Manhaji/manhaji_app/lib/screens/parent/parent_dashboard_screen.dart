@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../app/route_args.dart';
 import '../../app/routes.dart';
 import '../../app/theme.dart';
 import '../../models/parent_dashboard.dart';
@@ -20,7 +21,8 @@ class _ParentDashboardScreenState extends State<ParentDashboardScreen> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
       context.read<ParentProvider>().loadDashboard();
     });
   }
@@ -123,7 +125,7 @@ class _ParentDashboardScreenState extends State<ParentDashboardScreen> {
                         onTap: () => Navigator.pushNamed(
                           context,
                           AppRoutes.childProgress,
-                          arguments: child.studentId,
+                          arguments: ChildProgressArgs(child.studentId),
                         ),
                       )),
                 ],

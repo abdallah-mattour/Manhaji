@@ -168,12 +168,6 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
         ),
       );
     }
-    // Demo-readiness decision (2026-05-24): every lesson is tappable so the
-    // demo committee can jump to any node during the live walkthrough. The
-    // Duolingo-style progressive unlock (lock until previous is complete)
-    // looked great visually but blocked 90% of the path on a fresh student.
-    // To restore gating post-demo, change to:
-    //   isLocked = index > 0 && !lessons[index - 1].isCompleted;
     final isRtl = Directionality.of(context) == TextDirection.rtl;
 
     return Stack(
@@ -193,7 +187,7 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
           itemCount: lessons.length,
           itemBuilder: (context, index) {
             final lesson = lessons[index];
-            const isLocked = false;
+            final isLocked = index > 0 && !lessons[index - 1].isCompleted;
 
             final double rawOffset = (index % 4 == 0 || index % 4 == 3)
                 ? 0
@@ -211,7 +205,7 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
                 lesson: lesson,
                 isLocked: isLocked,
                 color: widget.subjectColor,
-                onTap: () => _openLesson(lesson, practice: false),
+                onTap: isLocked ? null : () => _openLesson(lesson, practice: false),
                 onPractice: () => _openLesson(lesson, practice: true),
               ),
             );

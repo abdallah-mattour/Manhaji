@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../app/route_args.dart';
 import '../../app/theme.dart';
 import '../../providers/parent_provider.dart';
+import '../../widgets/error_state.dart';
+import '../../widgets/loading_state.dart';
 
 class ChildProgressScreen extends StatefulWidget {
   const ChildProgressScreen({super.key});
@@ -12,19 +15,40 @@ class ChildProgressScreen extends StatefulWidget {
 
 class _ChildProgressScreenState extends State<ChildProgressScreen> {
   bool _loaded = false;
+  bool _invalidArgs = false;
+  int? _studentId;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_loaded) {
-      final childId = ModalRoute.of(context)!.settings.arguments as int;
-      context.read<ParentProvider>().loadChildDetail(childId);
+      final args = ModalRoute.of(context)?.settings.arguments;
+      if (args is ChildProgressArgs) {
+        _studentId = args.studentId;
+        context.read<ParentProvider>().loadChildDetail(args.studentId);
+      } else {
+        _invalidArgs = true;
+      }
       _loaded = true;
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_invalidArgs) {
+      return Directionality(
+        textDirection: TextDirection.rtl,
+        child: Scaffold(
+          appBar: AppBar(title: const Text('تقدم الطفل')),
+          body: ErrorState(
+            message: 'لم يتم تحديد الطفل بشكل صحيح',
+            onRetry: () => Navigator.of(context).pop(),
+            retryLabel: 'رجوع',
+          ),
+        ),
+      );
+    }
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -32,12 +56,14 @@ class _ChildProgressScreenState extends State<ChildProgressScreen> {
         body: Consumer<ParentProvider>(
           builder: (context, provider, _) {
             if (provider.isLoading && provider.childDetail == null) {
-              return const Center(child: CircularProgressIndicator());
+              return const LoadingState();
             }
             if (provider.error != null && provider.childDetail == null) {
-              return Center(
-                child: Text(provider.error!,
-                    style: const TextStyle(fontFamily: 'Cairo')),
+              return ErrorState(
+                message: provider.error!,
+                onRetry: () => context
+                    .read<ParentProvider>()
+                    .loadChildDetail(_studentId!),
               );
             }
             final s = provider.childDetail;

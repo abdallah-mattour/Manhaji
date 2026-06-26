@@ -9,6 +9,7 @@ import com.springboot.manhaji.dto.response.UserSummaryResponse;
 import com.springboot.manhaji.entity.Admin;
 import com.springboot.manhaji.entity.Attempt;
 import com.springboot.manhaji.entity.Lesson;
+import com.springboot.manhaji.entity.Parent;
 import com.springboot.manhaji.entity.Progress;
 import com.springboot.manhaji.entity.Question;
 import com.springboot.manhaji.entity.Student;
@@ -406,6 +407,34 @@ class AdminServiceTest {
 
             assertThat(result.getRole()).isEqualTo(Role.TEACHER);
             assertThat(result.getPhone()).isEqualTo("0599123456");
+            assertThat(result.getDepartment()).isEqualTo("Arabic");
+            assertThat(result.getAssignedGrade()).isEqualTo(1);
+        }
+
+        @Test
+        @DisplayName("should create a parent account with no role-specific fields")
+        void createParent() {
+            AdminCreateUserRequest req = new AdminCreateUserRequest();
+            req.setFullName("Sarah Parent");
+            req.setPhone("0599111222");
+            req.setPassword("pass1234");
+            req.setRole(Role.PARENT);
+
+            when(userRepository.existsByPhone("0599111222")).thenReturn(false);
+            when(passwordEncoder.encode("pass1234")).thenReturn("HASH");
+            when(userRepository.save(any(User.class))).thenAnswer(inv -> {
+                User u = inv.getArgument(0);
+                u.setId(20L);
+                return u;
+            });
+
+            UserSummaryResponse result = adminService.createUser(req);
+
+            assertThat(result.getRole()).isEqualTo(Role.PARENT);
+            assertThat(result.getGradeLevel()).isNull();
+            assertThat(result.getDepartment()).isNull();
+            assertThat(result.getAssignedGrade()).isNull();
+            verify(passwordEncoder).encode("pass1234");
         }
 
         @Test
@@ -523,6 +552,47 @@ class AdminServiceTest {
         }
 
         @Test
+        @DisplayName("should deactivate a parent account")
+        void deactivatesParent() {
+            Parent parent = new Parent();
+            parent.setId(15L);
+            parent.setRole(Role.PARENT);
+            parent.setIsActive(true);
+
+            when(userRepository.findById(15L)).thenReturn(Optional.of(parent));
+            when(userRepository.save(any(User.class))).thenAnswer(inv -> inv.getArgument(0));
+
+            AdminUpdateUserRequest req = new AdminUpdateUserRequest();
+            req.setIsActive(false);
+
+            UserSummaryResponse result = adminService.updateUser(15L, req);
+
+            assertThat(result.getRole()).isEqualTo(Role.PARENT);
+            assertThat(parent.getIsActive()).isFalse();
+            assertThat(result.getGradeLevel()).isNull();
+            assertThat(result.getDepartment()).isNull();
+        }
+
+        @Test
+        @DisplayName("should return department and assignedGrade for teacher")
+        void returnsDepartmentAndGradeForTeacher() {
+            Teacher teacher = new Teacher();
+            teacher.setId(9L);
+            teacher.setRole(Role.TEACHER);
+            teacher.setDepartment("Math");
+            teacher.setAssignedGrade(2);
+
+            when(userRepository.findById(9L)).thenReturn(Optional.of(teacher));
+            when(userRepository.save(any(User.class))).thenAnswer(inv -> inv.getArgument(0));
+
+            UserSummaryResponse result = adminService.updateUser(9L, new AdminUpdateUserRequest());
+
+            assertThat(result.getDepartment()).isEqualTo("Math");
+            assertThat(result.getAssignedGrade()).isEqualTo(2);
+            assertThat(result.getGradeLevel()).isNull();
+        }
+
+        @Test
         @DisplayName("should reject when target user not found")
         void rejectsMissingUser() {
             when(userRepository.findById(404L)).thenReturn(Optional.empty());
@@ -536,6 +606,19 @@ class AdminServiceTest {
     @Nested
     @DisplayName("deleteUser()")
     class DeleteUserTests {
+
+        @Test
+        @DisplayName("should delete a parent account")
+        void deletesParent() {
+            Parent parent = new Parent();
+            parent.setId(12L);
+            parent.setRole(Role.PARENT);
+            when(userRepository.findById(12L)).thenReturn(Optional.of(parent));
+
+            adminService.deleteUser(12L, 99L);
+
+            verify(userRepository).delete(parent);
+        }
 
         @Test
         @DisplayName("should delete a student")
@@ -574,6 +657,81 @@ class AdminServiceTest {
             assertThatThrownBy(() -> adminService.deleteUser(1L, 99L))
                     .isInstanceOf(BadRequestException.class);
             verify(userRepository, never()).delete(any(User.class));
+        }
+    }
+
+    // ==================== linkStudentToParent Tests ====================
+
+    @Nested
+    @DisplayName("linkStudentToParent()")
+    class LinkStudentToParentTests {
+
+        @Test
+        @DisplayName("should link a student to a parent and return parentId in summary")
+        void linksStudentToParent() {
+            Student student = new Student();
+            student.setId(1L);
+            student.setRole(Role.STUDENT);
+            student.setGradeLevel(1);
+
+            Parent parent = new Parent();
+            parent.setId(10L);
+            parent.setRole(Role.PARENT);
+
+            when(userRepository.findById(1L)).thenReturn(Optional.of(student));
+            when(parentRepository.findById(10L)).thenReturn(Optional.of(parent));
+            when(userRepository.save(any(User.class))).thenAnswer(inv -> inv.getArgument(0));
+
+            UserSummaryResponse result = adminService.linkStudentToParent(1L, 10L);
+
+            assertThat(student.getParent()).isEqualTo(parent);
+            assertThat(result.getParentId()).isEqualTo(10L);
+            assertThat(result.getRole()).isEqualTo(Role.STUDENT);
+        }
+
+        @Test
+        @DisplayName("should unlink a student when parentId is null")
+        void unlinksStudentWhenParentIdIsNull() {
+            Parent existingParent = new Parent();
+            existingParent.setId(5L);
+
+            Student student = new Student();
+            student.setId(2L);
+            student.setRole(Role.STUDENT);
+            student.setParent(existingParent);
+
+            when(userRepository.findById(2L)).thenReturn(Optional.of(student));
+            when(userRepository.save(any(User.class))).thenAnswer(inv -> inv.getArgument(0));
+
+            UserSummaryResponse result = adminService.linkStudentToParent(2L, null);
+
+            assertThat(student.getParent()).isNull();
+            assertThat(result.getParentId()).isNull();
+        }
+
+        @Test
+        @DisplayName("should throw ResourceNotFoundException when student not found")
+        void throwsWhenStudentNotFound() {
+            when(userRepository.findById(999L)).thenReturn(Optional.empty());
+
+            assertThatThrownBy(() -> adminService.linkStudentToParent(999L, 10L))
+                    .isInstanceOf(ResourceNotFoundException.class);
+            verify(userRepository, never()).save(any(User.class));
+        }
+
+        @Test
+        @DisplayName("should throw ResourceNotFoundException when parent not found")
+        void throwsWhenParentNotFound() {
+            Student student = new Student();
+            student.setId(1L);
+            student.setRole(Role.STUDENT);
+
+            when(userRepository.findById(1L)).thenReturn(Optional.of(student));
+            when(parentRepository.findById(999L)).thenReturn(Optional.empty());
+
+            assertThatThrownBy(() -> adminService.linkStudentToParent(1L, 999L))
+                    .isInstanceOf(ResourceNotFoundException.class);
+            verify(userRepository, never()).save(any(User.class));
         }
     }
 

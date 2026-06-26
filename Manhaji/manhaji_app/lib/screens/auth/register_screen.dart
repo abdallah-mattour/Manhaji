@@ -96,6 +96,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     const SizedBox(height: 32),
 
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 20),
+                      padding: const EdgeInsets.all(14),
+                      decoration: BoxDecoration(
+                        color: AppTheme.infoContainer,
+                        borderRadius: BorderRadius.circular(AppTheme.radiusM),
+                        border: Border.all(
+                          color: AppTheme.primaryBlue.withValues(alpha: 0.3),
+                          width: 1.5,
+                        ),
+                      ),
+                      child: const Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(Icons.info_outline_rounded,
+                              color: AppTheme.primaryBlue, size: 20),
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: Text(
+                              'التسجيل المباشر متاح للطلاب فقط، أما حسابات المعلمين والإدارة وأولياء الأمور فيتم إنشاؤها من لوحة الإدارة.',
+                              style: TextStyle(
+                                fontFamily: 'Cairo',
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
+                                color: AppTheme.primaryBlue,
+                                height: 1.5,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
                     TextFormField(
                       controller: _nameController,
                       decoration: const InputDecoration(

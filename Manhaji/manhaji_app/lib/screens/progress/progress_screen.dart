@@ -7,6 +7,7 @@ import '../../providers/progress_provider.dart';
 import '../../widgets/error_state.dart';
 import '../../widgets/loading_state.dart';
 import '../../widgets/stat_card.dart';
+import '../../widgets/student_bottom_nav.dart';
 import '../../widgets/vibrant_background.dart';
 
 class ProgressScreen extends StatefulWidget {
@@ -46,6 +47,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
             ),
           ],
         ),
+        bottomNavigationBar: const StudentBottomNav(currentIndex: 1),
         body: VibrantBackground(
           backgroundColor: AppTheme.backgroundLight,
           pattern: BackgroundPattern.shapes,

@@ -83,6 +83,16 @@ class AdminService {
     await _api.delete('${ApiConfig.adminUsers}/$userId');
   }
 
+  Future<UserSummary> linkStudentToParent(int studentId, int? parentId) async {
+    final response = await _api.put(
+      ApiConfig.adminLinkParent(studentId),
+      data: {'parentId': parentId},
+    );
+    return UserSummary.fromJson(
+      (response['data'] as Map<String, dynamic>?) ?? const {},
+    );
+  }
+
   // ===== Question Bank (FR-9, unrestricted) =====
 
   Future<List<SubjectSummary>> getAllSubjects({int? grade}) async {

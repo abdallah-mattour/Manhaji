@@ -20,7 +20,8 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
       final admin = context.read<AdminProvider>();
       admin.loadStats();
       admin.loadUsers();

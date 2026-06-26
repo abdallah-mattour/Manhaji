@@ -3,9 +3,13 @@ import 'package:provider/provider.dart';
 import '../../app/routes.dart';
 import '../../app/theme.dart';
 import '../../providers/auth_provider.dart';
+import '../../widgets/student_bottom_nav.dart';
 import '../../widgets/vibrant_background.dart';
 import '../../widgets/duolingo_button.dart';
 import '../../widgets/duolingo_card.dart';
+import 'about_screen.dart';
+import 'notifications_screen.dart';
+import 'profile_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -22,6 +26,7 @@ class SettingsScreen extends StatelessWidget {
           backgroundColor: AppTheme.backgroundLight,
           elevation: 0,
         ),
+        bottomNavigationBar: const StudentBottomNav(currentIndex: 2),
         body: VibrantBackground(
           backgroundColor: AppTheme.backgroundLight,
           pattern: BackgroundPattern.shapes,
@@ -32,6 +37,11 @@ class SettingsScreen extends StatelessWidget {
               DuolingoCard(
                 padding: const EdgeInsets.all(20),
                 borderColor: AppTheme.primaryGreen,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => const ProfileScreen()),
+                ),
                 child: Row(
                   children: [
                     CircleAvatar(
@@ -73,12 +83,19 @@ class SettingsScreen extends StatelessWidget {
               _buildSettingTile(
                 icon: Icons.notifications_outlined,
                 title: 'الإشعارات',
-                onTap: () {},
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => const NotificationsScreen()),
+                ),
               ),
               _buildSettingTile(
                 icon: Icons.info_outline,
                 title: 'عن التطبيق',
-                onTap: () {},
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const AboutScreen()),
+                ),
               ),
               const SizedBox(height: 32),
 

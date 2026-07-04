@@ -56,7 +56,7 @@ class QuestionAuditTest {
     private static final Set<String> VALID_SUB_SKILLS = Set.of(
             "recognition", "production", "pronunciation", "handwriting",
             "comprehension", "computation", "application",
-            "memorization", "recitation");
+            "memorization", "recitation", "reading");
 
     @Test
     @DisplayName("Schema integrity — hard rules per spec §10 (R1, R3–R11, R14, RU)")
@@ -121,6 +121,15 @@ class QuestionAuditTest {
                 if (questions == null) questions = List.of();
 
                 // -- LESSON-LEVEL CHECKS (soft) --
+
+                // Clean-image system (2026-07-03): lesson imageUrls must point
+                // at real files (bundled Flutter assets or backend static).
+                Object lessonImages = lesson.get("imageUrls");
+                if (lessonImages instanceof List<?> imgList) {
+                    for (Object img : imgList) {
+                        checkMediaRef(String.valueOf(img), "lesson imageUrls", tag, audit);
+                    }
+                }
 
                 // R8 (strict): ≥8 questions per lesson (12 ideal; 8 floor).
                 if (questions.size() < 8) {
@@ -209,13 +218,27 @@ class QuestionAuditTest {
             return;
         }
         switch (type) {
-            case "MCQ" -> auditMcq(qTag, options, correct, audit);
+            // IMAGE_MCQ / LISTEN_CHOOSE reuse MCQ's option rules (correct ∈ options,
+            // 3–5 items); the picture/audio is just presentation over the same options.
+            case "MCQ", "IMAGE_MCQ", "LISTEN_CHOOSE" -> auditMcq(qTag, options, correct, audit);
             case "TRUE_FALSE" -> auditTrueFalse(qTag, options, correct, audit);
             case "ORDERING" -> auditOrdering(qTag, options, correct, audit);
             case "FILL_BLANK" -> auditFillBlank(qTag, text, audit);
-            case "PRONUNCIATION", "TRACING", "SHORT_ANSWER" -> {
+            // IMAGE_MATCH / DRAG_DROP carry their data in `pairs`, not `options`;
+            // just require a non-blank correctAnswer (the "left=right,…" mapping).
+            case "IMAGE_MATCH", "DRAG_DROP" -> {
+                if (correct == null || correct.isBlank()) {
+                    audit.strict("R1 — " + type + " missing correctAnswer mapping", qTag);
+                }
+            }
+            // READING follows the PRONUNCIATION shape: questionText is the
+            // passage, correctAnswer duplicates it for scoring, no options.
+            case "PRONUNCIATION", "TRACING", "SHORT_ANSWER", "READING" -> {
                 if (options != null) {
                     audit.strict("R5/R6 — options must be null for " + type, qTag);
+                }
+                if ("READING".equals(type) && (correct == null || correct.isBlank())) {
+                    audit.strict("R1 — READING missing correctAnswer passage", qTag);
                 }
             }
             default -> audit.strict("RU — unknown type " + type, qTag);
@@ -236,22 +259,66 @@ class QuestionAuditTest {
         }
 
         // Media URL existence (warning, not strict — assets may be added in a later pass).
-        String imageUrl = stringOrNull(q.get("imageUrl"));
-        if (imageUrl != null && !imageUrl.isBlank()) {
-            File f = resolveStaticAsset(imageUrl);
-            if (f == null || !f.exists()) {
-                audit.warning("RU — imageUrl points to missing file",
-                        qTag + " (" + imageUrl + ")");
+        checkMediaRef(stringOrNull(q.get("imageUrl")), "imageUrl", qTag, audit);
+        checkMediaRef(stringOrNull(q.get("audioUrl")), "audioUrl", qTag, audit);
+        // Tier-1 optionImages (parallel picture array) — same existence rule.
+        Object optionImages = q.get("optionImages");
+        if (optionImages instanceof List<?> imgs) {
+            for (Object img : imgs) {
+                if (img != null) {
+                    checkMediaRef(String.valueOf(img), "optionImages", qTag, audit);
+                }
             }
         }
-        String audioUrl = stringOrNull(q.get("audioUrl"));
-        if (audioUrl != null && !audioUrl.isBlank()) {
-            File f = resolveStaticAsset(audioUrl);
-            if (f == null || !f.exists()) {
-                audit.warning("RU — audioUrl points to missing file",
-                        qTag + " (" + audioUrl + ")");
-            }
+    }
+
+    /**
+     * Clean-image system (2026-07-03): verify a media reference points at a
+     * file that actually exists, covering BOTH kinds of path the app renders:
+     * <ul>
+     *   <li>{@code assets/...} — bundled Flutter asset; resolved against the
+     *       sibling app module ({@code ../manhaji_app/}). Catches typos like
+     *       {@code assets/openmoji/aple.png} at build time.</li>
+     *   <li>anything else — backend static resource under {@code static/}.</li>
+     * </ul>
+     * Warning-only, matching the existing R12/R13 policy.
+     */
+    private void checkMediaRef(String url, String what, String tag, Audit audit) {
+        if (url == null || url.isBlank()) return;
+        boolean exists;
+        if (url.startsWith("assets/")) {
+            exists = flutterAssetExists(url);
+        } else {
+            File f = resolveStaticAsset(url);
+            exists = f != null && f.exists();
         }
+        if (!exists) {
+            audit.warning("RU — " + what + " points to missing file",
+                    tag + " (" + url + ")");
+        }
+    }
+
+    /**
+     * Does a bundled Flutter asset path (e.g. {@code assets/openmoji/apple.png})
+     * exist in the sibling app module? Tries the Gradle default CWD (the backend
+     * module dir) first, then anchors on the compiled-resources location so IDE
+     * test runners with a different CWD still resolve correctly.
+     */
+    private boolean flutterAssetExists(String url) {
+        File direct = new File("../manhaji_app/" + url);
+        if (direct.exists()) return true;
+        try {
+            URL u = getClass().getClassLoader().getResource("curriculum");
+            if (u != null) {
+                // .../backend/build/resources/main/curriculum → up 4 = backend dir
+                File backend = new File(u.toURI())
+                        .getParentFile().getParentFile().getParentFile().getParentFile();
+                return new File(backend, "../manhaji_app/" + url).exists();
+            }
+        } catch (Exception ignored) {
+            // fall through — warning-only rule, absence is reported by caller
+        }
+        return false;
     }
 
     private void auditMcq(String tag, List<String> options, String correct, Audit audit) {
@@ -386,11 +453,13 @@ class QuestionAuditTest {
         if (type == null) return "unknown";
         boolean isReligion = subject != null && subject.contains("الإسلامية");
         return switch (type) {
-            case "MCQ", "TRUE_FALSE" -> isReligion ? "comprehension" : "recognition";
+            case "MCQ", "TRUE_FALSE", "IMAGE_MCQ", "LISTEN_CHOOSE"
+                    -> isReligion ? "comprehension" : "recognition";
             case "SHORT_ANSWER", "FILL_BLANK" -> "production";
-            case "ORDERING" -> "application";
+            case "ORDERING", "IMAGE_MATCH", "DRAG_DROP" -> "application";
             case "PRONUNCIATION" -> isReligion ? "recitation" : "pronunciation";
             case "TRACING" -> "handwriting";
+            case "READING" -> "reading";
             default -> "unknown";
         };
     }

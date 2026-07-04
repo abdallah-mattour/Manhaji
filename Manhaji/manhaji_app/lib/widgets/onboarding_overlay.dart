@@ -14,38 +14,49 @@ class OnboardingOverlay extends StatelessWidget {
   final String body;
   final Color accentColor;
 
+  /// Full English experience (2026-07-03): English-subject lessons show the
+  /// tip (and its dismiss button) in English, laid out LTR.
+  final bool english;
+
   const OnboardingOverlay({
     super.key,
     required this.emoji,
     required this.title,
     required this.body,
     required this.accentColor,
+    this.english = false,
   });
 
-  static Future<void> showPronunciation(BuildContext context) {
+  static Future<void> showPronunciation(BuildContext context,
+      {bool english = false}) {
     return showDialog(
       context: context,
       barrierDismissible: true,
-      builder: (_) => const OnboardingOverlay(
+      builder: (_) => OnboardingOverlay(
         emoji: '🎤',
-        title: 'سؤال نطق!',
-        body:
-            'اضغط على زر الميكروفون واقرأ الكلمة بصوت واضح.\nيمكنك الاستماع للنموذج أولاً بالضغط على 🔊',
+        title: english ? 'Speaking question!' : 'سؤال نطق!',
+        body: english
+            ? 'Tap the microphone button and read the word in a clear voice.\nYou can listen to the example first by tapping 🔊'
+            : 'اضغط على زر الميكروفون واقرأ الكلمة بصوت واضح.\nيمكنك الاستماع للنموذج أولاً بالضغط على 🔊',
         accentColor: AppTheme.primaryPurple,
+        english: english,
       ),
     );
   }
 
-  static Future<void> showTracing(BuildContext context) {
+  static Future<void> showTracing(BuildContext context,
+      {bool english = false}) {
     return showDialog(
       context: context,
       barrierDismissible: true,
-      builder: (_) => const OnboardingOverlay(
+      builder: (_) => OnboardingOverlay(
         emoji: '✍️',
-        title: 'سؤال تتبّع!',
-        body:
-            'اتبع شكل الحرف بإصبعك على الشاشة.\nعندما تنتهي اضغط زر "تحقق" للحصول على نجومك.',
+        title: english ? 'Tracing question!' : 'سؤال تتبّع!',
+        body: english
+            ? 'Follow the shape of the letter with your finger.\nWhen you finish, tap "Check" to get your stars.'
+            : 'اتبع شكل الحرف بإصبعك على الشاشة.\nعندما تنتهي اضغط زر "تحقق" للحصول على نجومك.',
         accentColor: AppTheme.primaryOrange,
+        english: english,
       ),
     );
   }
@@ -53,7 +64,7 @@ class OnboardingOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection: TextDirection.rtl,
+      textDirection: english ? TextDirection.ltr : TextDirection.rtl,
       child: Dialog(
         backgroundColor: Colors.transparent,
         insetPadding: const EdgeInsets.all(24),
@@ -110,9 +121,9 @@ class OnboardingOverlay extends StatelessWidget {
                       borderRadius: BorderRadius.circular(14),
                     ),
                   ),
-                  child: const Text(
-                    'فهمت!',
-                    style: TextStyle(
+                  child: Text(
+                    english ? 'Got it!' : 'فهمت!',
+                    style: const TextStyle(
                       fontFamily: 'Cairo',
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

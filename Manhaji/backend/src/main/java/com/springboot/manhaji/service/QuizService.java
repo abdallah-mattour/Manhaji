@@ -44,6 +44,7 @@ public class QuizService {
     private final GeminiService geminiService;
     private final WhisperService whisperService;
     private final PronunciationScoringService pronunciationScoringService;
+    private final ReadingComparisonService readingComparisonService;
     private final QuizSelectionService quizSelectionService;
     private final SkillMasteryService skillMasteryService;
     private final Messages messages;
@@ -332,7 +333,20 @@ public class QuizService {
                 whisperService.transcribeWithPhonemes(audioBytes, expected, lang);
         String transcribed = analysis.transcribed();
 
-        int score = pronunciationScoringService.score(expected, transcribed, lang);
+        // Tier 4 (2026-07): READING passages score word-by-word (accuracy =
+        // % of passage words found in the transcript) and return an ordered
+        // per-word result list so the widget colors the passage in place.
+        // Ordinary PRONUNCIATION keeps the whole-string phonetic score.
+        int score;
+        List<PronunciationScoreResponse.WordResult> wordResults = null;
+        if (question.getType() == QuestionType.READING) {
+            ReadingComparisonService.ComparisonResult cmp =
+                    readingComparisonService.compare(expected, transcribed);
+            score = cmp.accuracy();
+            wordResults = cmp.wordResults();
+        } else {
+            score = pronunciationScoringService.score(expected, transcribed, lang);
+        }
         String rating = pronunciationScoringService.rating(score);
         String feedback = pronunciationScoringService.feedback(score, expected);
         boolean isCorrect = pronunciationScoringService.isCorrect(score);
@@ -358,6 +372,7 @@ public class QuizService {
                 .pointsEarned(pointsEarned)
                 .phonemeErrors(analysis.phonemeErrors())
                 .guidance(analysis.guidance())
+                .wordResults(wordResults)
                 .build();
     }
 
@@ -595,8 +610,24 @@ public class QuizService {
             return c.equals(s);
         }
 
-        if (question.getType() == QuestionType.MCQ) {
+        // MCQ + Tier-1 image/listen variants all score by exact match of the
+        // chosen option against the correct answer (the picture is just a
+        // presentation layer over the same option text).
+        if (question.getType() == QuestionType.MCQ
+                || question.getType() == QuestionType.IMAGE_MCQ
+                || question.getType() == QuestionType.LISTEN_CHOOSE) {
             return correctAnswer.equalsIgnoreCase(studentAnswer);
+        }
+
+        // IMAGE_MATCH: the student submits the pairing as "left=right,left=right".
+        // Correct iff the submitted mapping equals the correct mapping (order-
+        // independent). The correct mapping lives in question.correctAnswer in
+        // the same "left=right,..." form so scoring needs no extra parsing of
+        // pairsJson.
+        // DRAG_DROP (Tier 2) submits "target=token,..." — same format, same rule.
+        if (question.getType() == QuestionType.IMAGE_MATCH
+                || question.getType() == QuestionType.DRAG_DROP) {
+            return matchPairsEqual(correctAnswer, studentAnswer);
         }
 
         // FILL_BLANK: same as short answer — normalize and compare
@@ -651,6 +682,27 @@ public class QuizService {
             default:
                 return "";
         }
+    }
+
+    /**
+     * IMAGE_MATCH equality: both the correct and submitted answers are
+     * "left=right,left=right" strings. Returns true iff they describe the same
+     * set of pairs, independent of order and surrounding whitespace.
+     */
+    private static boolean matchPairsEqual(String correct, String student) {
+        java.util.Set<String> c = parsePairSet(correct);
+        java.util.Set<String> s = parsePairSet(student);
+        return !c.isEmpty() && c.equals(s);
+    }
+
+    private static java.util.Set<String> parsePairSet(String s) {
+        java.util.Set<String> out = new java.util.HashSet<>();
+        if (s == null || s.isBlank()) return out;
+        for (String pair : s.split(",")) {
+            String p = pair.trim();
+            if (!p.isEmpty()) out.add(p.replaceAll("\\s+", ""));
+        }
+        return out;
     }
 
     private String normalizeArabic(String text) {
@@ -772,6 +824,26 @@ public class QuizService {
         // For ORDERING, provide the items to be ordered
         // options already contains the items from JSON
 
+        // Tier 1: parse the parallel option-images array (IMAGE_MCQ / LISTEN_CHOOSE)
+        // and the image-match pairs object, if present.
+        List<String> optionImages = null;
+        if (question.getOptionImages() != null && !question.getOptionImages().isEmpty()) {
+            try {
+                optionImages = objectMapper.readValue(
+                        question.getOptionImages(), new TypeReference<List<String>>() {});
+            } catch (Exception e) {
+                optionImages = null;
+            }
+        }
+        Object pairs = null;
+        if (question.getPairsJson() != null && !question.getPairsJson().isEmpty()) {
+            try {
+                pairs = objectMapper.readValue(question.getPairsJson(), Object.class);
+            } catch (Exception e) {
+                pairs = null;
+            }
+        }
+
         return QuestionResponse.builder()
                 .id(question.getId())
                 .type(question.getType().name())
@@ -781,6 +853,8 @@ public class QuizService {
                 .subSkill(question.getSubSkill())
                 .imageUrl(question.getImageUrl())
                 .audioUrl(question.getAudioUrl())
+                .optionImages(optionImages)
+                .pairsJson(pairs)
                 .build();
     }
 

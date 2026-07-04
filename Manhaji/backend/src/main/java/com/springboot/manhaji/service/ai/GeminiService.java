@@ -38,7 +38,7 @@ public class GeminiService {
         String prompt = buildEvaluationPrompt(questionText, correctAnswer, studentAnswer, language);
 
         try {
-            String response = callGemini(prompt);
+            String response = callGemini(prompt, true);
             return parseEvaluationResponse(response);
         } catch (Exception e) {
             log.warn("Gemini evaluation failed, falling back to string matching: {}", e.getMessage());
@@ -111,7 +111,7 @@ public class GeminiService {
                 """, studentName, gradeLevel, performanceData);
 
         try {
-            return callGemini(prompt);
+            return callGemini(prompt, true);
         } catch (Exception e) {
             log.warn("Gemini progress report generation failed: {}", e.getMessage());
             return null;
@@ -148,7 +148,7 @@ public class GeminiService {
                 """, studentName, gradeLevel, weakAreas, completedLessons);
 
         try {
-            return callGemini(prompt);
+            return callGemini(prompt, true);
         } catch (Exception e) {
             log.warn("Gemini learning path generation failed: {}", e.getMessage());
             return null;
@@ -157,10 +157,32 @@ public class GeminiService {
 
     // --- Internal methods ---
 
+    /** Plain-text Gemini call (default) — used for free-text outputs like hints. */
     private String callGemini(String prompt) {
+        return callGemini(prompt, false);
+    }
+
+    /**
+     * @param jsonMode when true, asks Gemini for native JSON
+     *        ({@code responseMimeType: application/json}) so the model returns a
+     *        bare JSON object with NO ```json``` fences — eliminating the whole
+     *        class of "fence/blob leaked into the UI" bugs. Use for the report
+     *        and learning-path calls; leave false for plain-text hints.
+     */
+    private String callGemini(String prompt, boolean jsonMode) {
         String model = aiConfig.getGemini().getModel();
         String apiKey = aiConfig.getGemini().getApiKey();
         String url = String.format("%s/models/%s:generateContent?key=%s", GEMINI_BASE_URL, model, apiKey);
+
+        Map<String, Object> generationConfig = new java.util.HashMap<>();
+        generationConfig.put("temperature", 0.3);
+        // 1024 was too small — Arabic is token-heavy and the summary + 3 arrays
+        // overflowed, truncating the JSON mid-string (the "...مما" cut-off +
+        // missing closing brace). 2048 gives ample headroom for a full report.
+        generationConfig.put("maxOutputTokens", 2048);
+        if (jsonMode) {
+            generationConfig.put("responseMimeType", "application/json");
+        }
 
         Map<String, Object> requestBody = Map.of(
                 "contents", List.of(
@@ -168,10 +190,7 @@ public class GeminiService {
                                 Map.of("text", prompt)
                         ))
                 ),
-                "generationConfig", Map.of(
-                        "temperature", 0.3,
-                        "maxOutputTokens", 1024
-                )
+                "generationConfig", generationConfig
         );
 
         String responseJson = webClientBuilder.build()
@@ -181,7 +200,7 @@ public class GeminiService {
                 .bodyValue(requestBody)
                 .retrieve()
                 .bodyToMono(String.class)
-                .block(java.time.Duration.ofSeconds(12));
+                .block(java.time.Duration.ofSeconds(20));
 
         return extractTextFromGeminiResponse(responseJson);
     }

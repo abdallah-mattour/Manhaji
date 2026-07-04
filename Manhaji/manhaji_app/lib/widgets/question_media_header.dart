@@ -5,6 +5,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import '../app/theme.dart';
 import '../config/api_config.dart';
+import '../services/audio_focus.dart';
 import '../services/local_storage_service.dart';
 
 /// Renders the optional image + audio attached to a question.
@@ -22,10 +23,14 @@ class QuestionMediaHeader extends StatefulWidget {
     super.key,
     required this.imageUrl,
     required this.audioUrl,
+    this.english = false,
   });
 
   final String? imageUrl;
   final String? audioUrl;
+
+  /// Full English experience (2026-07-03): play/stop labels in English.
+  final bool english;
 
   bool get _hasAnything =>
       (imageUrl != null && imageUrl!.isNotEmpty) ||
@@ -45,11 +50,23 @@ class _QuestionMediaHeaderState extends State<QuestionMediaHeader> {
   StreamSubscription<PlayerState>? _stateSub;
   bool _playing = false;
 
+  /// Single-voice coordination (2026-07-03): stable closure handed to
+  /// [AudioFocus] so TTS playback stops this player and vice versa.
+  late final Future<void> Function() _focusStopper = _stopForFocus;
+
+  Future<void> _stopForFocus() async {
+    try {
+      await _player?.stop();
+    } catch (_) {}
+    if (mounted && _playing) setState(() => _playing = false);
+  }
+
   @override
   void dispose() {
     // Audit-3 fix (2026-05-15): cancel the listener and stop playback BEFORE
     // disposing the player. Without the stop(), zombie audio can keep playing
     // for a moment after the widget is gone.
+    AudioFocus.release(_focusStopper);
     _stateSub?.cancel();
     _stateSub = null;
     final p = _player;
@@ -74,6 +91,8 @@ class _QuestionMediaHeaderState extends State<QuestionMediaHeader> {
         if (mounted) setState(() => _playing = false);
         return;
       }
+      // Single-voice rule: silence any TTS (or other clip) before we start.
+      await AudioFocus.claim(_focusStopper);
       // Backend cached audio lives under `/uploads/audio/**`, which is
       // gated as `authenticated()` in SecurityConfig (audit fix S4 — voice
       // recordings are PII). Without the bearer header ExoPlayer gets a
@@ -121,16 +140,27 @@ class _QuestionMediaHeaderState extends State<QuestionMediaHeader> {
     final children = <Widget>[];
     final imageUrl = widget.imageUrl;
     if (imageUrl != null && imageUrl.isNotEmpty) {
+      // Clean-image system (2026-07-03): bundled Flutter assets
+      // (assets/openmoji/...) load locally; anything else is a backend URL.
+      // Both fail soft (no image, no crash) on a bad path.
       children.add(
         ClipRRect(
           borderRadius: BorderRadius.circular(14),
-          child: Image.network(
-            ApiConfig.resolveMediaUrl(imageUrl),
-            height: 180,
-            fit: BoxFit.contain,
-            errorBuilder: (context, error, stackTrace) =>
-                const SizedBox.shrink(),
-          ),
+          child: imageUrl.startsWith('assets/')
+              ? Image.asset(
+                  imageUrl,
+                  height: 140,
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) =>
+                      const SizedBox.shrink(),
+                )
+              : Image.network(
+                  ApiConfig.resolveMediaUrl(imageUrl),
+                  height: 180,
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) =>
+                      const SizedBox.shrink(),
+                ),
         ),
       );
     }
@@ -157,7 +187,9 @@ class _QuestionMediaHeaderState extends State<QuestionMediaHeader> {
                   ),
                   const SizedBox(width: 6),
                   Text(
-                    _playing ? 'إيقاف' : 'استمع',
+                    _playing
+                        ? (widget.english ? 'Stop' : 'إيقاف')
+                        : (widget.english ? 'Listen' : 'استمع'),
                     style: const TextStyle(
                       fontFamily: 'Cairo',
                       fontWeight: FontWeight.bold,

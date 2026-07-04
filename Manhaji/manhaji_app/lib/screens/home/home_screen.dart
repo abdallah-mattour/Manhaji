@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../app/routes.dart';
 import '../../app/theme.dart';
 import '../../config/api_config.dart';
+import '../../config/gamification.dart';
 import '../../models/subject.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/lesson_provider.dart';
@@ -83,7 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   slivers: [
                     SliverToBoxAdapter(
                       child: _buildHeader(dashboard.fullName,
-                          dashboard.totalPoints, dashboard.currentStreak),
+                          dashboard.totalPoints, dashboard.currentStreak,
+                          dashboard.avatarId),
                     ),
                     SliverToBoxAdapter(
                       child: _buildStatsRow(
@@ -241,6 +243,8 @@ class _HomeScreenState extends State<HomeScreen> {
           lessonId: -1, // unused in personalized mode
           lessonTitle: quiz.title,
           personalizedQuiz: quiz,
+          englishMode: subject.name.contains('English') ||
+              subject.name.contains('نجليزية'),
         ),
       ));
     } catch (e) {
@@ -253,7 +257,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   /// Duolingo-style top bar with stats.
-  Widget _buildHeader(String name, int points, int streak) {
+  Widget _buildHeader(String name, int points, int streak, String? avatarId) {
+    // Tier 3: the header circle shows the avatar the child picked on the
+    // rewards screen; the mascot remains the fallback for new accounts.
+    final avatar =
+        (avatarId == null || avatarId.isEmpty) ? null : Avatars.resolve(avatarId);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: const BoxDecoration(
@@ -265,7 +273,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Mascot Avatar (Left)
+          // Avatar (Left) — tap to log out (existing behavior)
           GestureDetector(
             onTap: () => _showLogoutDialog(),
             child: Container(
@@ -276,20 +284,28 @@ class _HomeScreenState extends State<HomeScreen> {
                 shape: BoxShape.circle,
                 border: Border.all(color: AppTheme.surfaceMuted, width: 2),
               ),
-              child: const ClipOval(
-                child: Mascot(mood: MascotMood.idle, size: 36),
-              ),
+              alignment: Alignment.center,
+              child: avatar != null
+                  ? Text(avatar.emoji, style: const TextStyle(fontSize: 24))
+                  : const ClipOval(
+                      child: Mascot(mood: MascotMood.idle, size: 36),
+                    ),
             ),
           ),
-          
-          // Stats Row (Center)
+
+          // Stats Row (Center) — trophy opens the rewards screen (Tier 3)
           Row(
             children: [
               _buildStatItem('🔥', '$streak', AppTheme.primaryOrange),
               const SizedBox(width: 16),
               _buildStatItem('⭐', '$points', AppTheme.primaryYellow),
               const SizedBox(width: 16),
-              _buildStatItem('💎', '0', AppTheme.primaryBlue), // Mock Gems
+              GestureDetector(
+                onTap: () =>
+                    Navigator.pushNamed(context, AppRoutes.rewards),
+                child: _buildStatItem(
+                    '🏆', 'مكافآتي', AppTheme.primaryTerracotta),
+              ),
             ],
           ),
 

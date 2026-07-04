@@ -26,7 +26,8 @@ dependencies:
   path_provider: ^2.1.5
   record: ^5.2.0
   flutter_svg: ^2.0.17  # mascot illustrations (see assets/mascots/)
-  flutter_tts: ^4.2.0
+  # flutter_tts removed 2026-07-03: TTS is backend-API only by product
+  # decision — no offline/on-device voices.
   confetti: ^0.8.0
 
 dev_dependencies:
@@ -41,6 +42,9 @@ flutter:
 
   assets:
     - assets/mascots/
+    # Picture-question artwork from OpenMoji (openmoji.org), CC BY-SA 4.0.
+    # See assets/openmoji/ATTRIBUTION.txt.
+    - assets/openmoji/
 
   fonts:
     - family: Cairo

@@ -58,6 +58,15 @@ class Question {
   /// Religion Surah recitation playback.
   final String? audioUrl;
 
+  /// Tier 1: image path per option, parallel to [options], for IMAGE_MCQ /
+  /// LISTEN_CHOOSE. An entry may be null/empty — the widget then shows the
+  /// option text instead, so a question works even before images ship.
+  final List<String?>? optionImages;
+
+  /// Tier 1: IMAGE_MATCH data — `{left:[{id,text,image}], right:[{id,text,image}]}`.
+  /// Null for non-match questions.
+  final Map<String, dynamic>? pairs;
+
   Question({
     required this.id,
     required this.type,
@@ -67,12 +76,44 @@ class Question {
     this.subSkill,
     this.imageUrl,
     this.audioUrl,
+    this.optionImages,
+    this.pairs,
   });
+
+  /// Tier 2: tolerant type parsing. Normalizes casing/hyphens and maps known
+  /// aliases (e.g. from hand-authored JSON or a differently-named backend
+  /// enum) onto our canonical type strings, so a near-miss renders the right
+  /// widget instead of silently falling through to the short-answer text box.
+  static String normalizeType(dynamic raw) {
+    final t = (raw?.toString() ?? 'MCQ')
+        .trim()
+        .toUpperCase()
+        .replaceAll('-', '_')
+        .replaceAll(' ', '_');
+    switch (t) {
+      case 'MULTIPLE_CHOICE':
+        return 'MCQ';
+      case 'DRAGDROP':
+      case 'DRAG_AND_DROP':
+        return 'DRAG_DROP';
+      case 'LISTEN_AND_CHOOSE':
+        return 'LISTEN_CHOOSE';
+      case 'REORDER_WORDS':
+      case 'REORDER':
+        return 'ORDERING';
+      case 'VOICE_ANSWER':
+        return 'PRONUNCIATION';
+      case 'WRITE_ANSWER':
+        return 'SHORT_ANSWER';
+      default:
+        return t.isEmpty ? 'MCQ' : t;
+    }
+  }
 
   factory Question.fromJson(Map<String, dynamic> json) {
     return Question(
       id: json['id'] ?? 0,
-      type: json['type'] ?? 'MCQ',
+      type: normalizeType(json['type']),
       questionText: json['questionText'] ?? '',
       options: json['options'] is List
           ? (json['options'] as List).map((e) => e.toString()).toList()
@@ -81,6 +122,14 @@ class Question {
       subSkill: json['subSkill']?.toString(),
       imageUrl: json['imageUrl']?.toString(),
       audioUrl: json['audioUrl']?.toString(),
+      optionImages: json['optionImages'] is List
+          ? (json['optionImages'] as List)
+              .map((e) => e?.toString())
+              .toList()
+          : null,
+      pairs: json['pairsJson'] is Map
+          ? Map<String, dynamic>.from(json['pairsJson'] as Map)
+          : null,
     );
   }
 
@@ -91,6 +140,16 @@ class Question {
   bool get isOrdering => type == 'ORDERING';
   bool get isPronunciation => type == 'PRONUNCIATION';
   bool get isTracing => type == 'TRACING';
+  // Tier 1 interactive types.
+  bool get isImageMcq => type == 'IMAGE_MCQ';
+  bool get isListenChoose => type == 'LISTEN_CHOOSE';
+  bool get isImageMatch => type == 'IMAGE_MATCH';
+  // Tier 2: drag tokens into named target groups (data in [pairs] as
+  // {targets:[...], tokens:[...]}; submits "target=token,..." like a match).
+  bool get isDragDrop => type == 'DRAG_DROP';
+  // Tier 4: read-aloud passage ([questionText] is the passage) scored
+  // word-by-word through the pronunciation endpoint.
+  bool get isReading => type == 'READING';
 }
 
 class AttemptResult {

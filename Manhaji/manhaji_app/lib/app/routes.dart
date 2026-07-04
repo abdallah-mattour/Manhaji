@@ -7,6 +7,7 @@ import '../screens/parent/child_progress_screen.dart';
 import '../screens/parent/parent_dashboard_screen.dart';
 import '../screens/progress/ai_reports_screen.dart';
 import '../screens/progress/leaderboard_screen.dart';
+import '../screens/rewards/rewards_screen.dart';
 import '../screens/splash/splash_screen.dart';
 import '../screens/auth/login_screen.dart';
 import '../screens/auth/register_screen.dart';
@@ -48,6 +49,9 @@ class AppRoutes {
   // Leaderboard
   static const String leaderboard = '/leaderboard';
 
+  // Rewards (Tier 3 gamification)
+  static const String rewards = '/rewards';
+
   // Platform-role gate (student on web, staff on mobile)
   static const String platformMismatch = '/platform-mismatch';
 
@@ -86,6 +90,7 @@ class AppRoutes {
         childProgress: (_) => const ChildProgressScreen(),
         aiReports: (_) => const AiReportsScreen(),
         leaderboard: (_) => const LeaderboardScreen(),
+        rewards: (_) => const RewardsScreen(),
         platformMismatch: (_) => const PlatformMismatchScreen(),
       };
 }

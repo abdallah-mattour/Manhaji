@@ -1,3 +1,16 @@
+/// Tier 4 (2026-07): one READING passage word + whether it was read correctly.
+class WordScore {
+  final String word;
+  final bool correct;
+
+  const WordScore({required this.word, required this.correct});
+
+  factory WordScore.fromJson(Map<String, dynamic> json) => WordScore(
+        word: json['word']?.toString() ?? '',
+        correct: json['correct'] == true,
+      );
+}
+
 class PronunciationScore {
   final int questionId;
   final String expectedText;
@@ -16,6 +29,10 @@ class PronunciationScore {
   /// Null when AI not available; the UI hides the coaching card in that case.
   final String? guidance;
 
+  /// Tier 4 (2026-07): READING questions only — per passage word, in passage
+  /// order, so the reading widget can color the text. Empty otherwise.
+  final List<WordScore> wordResults;
+
   PronunciationScore({
     required this.questionId,
     required this.expectedText,
@@ -27,6 +44,7 @@ class PronunciationScore {
     required this.pointsEarned,
     this.phonemeErrors = const [],
     this.guidance,
+    this.wordResults = const [],
   });
 
   factory PronunciationScore.fromJson(Map<String, dynamic> json) {
@@ -46,6 +64,12 @@ class PronunciationScore {
               (json['guidance'] as String).trim().isNotEmpty)
           ? (json['guidance'] as String).trim()
           : null,
+      wordResults: json['wordResults'] is List
+          ? (json['wordResults'] as List)
+              .whereType<Map>()
+              .map((e) => WordScore.fromJson(Map<String, dynamic>.from(e)))
+              .toList()
+          : const [],
     );
   }
 

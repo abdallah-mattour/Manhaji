@@ -63,10 +63,14 @@ class QuizServiceTest {
 
     @BeforeEach
     void setUp() {
+        // Tier 4: ReadingComparisonService is pure string logic with no
+        // dependencies — pass a real instance instead of a mock so READING
+        // submissions exercise the actual word matcher.
         quizService = new QuizService(
                 quizRepository, questionRepository, attemptRepository, responseRepository,
                 studentRepository, progressRepository, subjectRepository, objectMapper,
                 geminiService, whisperService, pronunciationScoringService,
+                new ReadingComparisonService(),
                 quizSelectionService, skillMasteryService,
                 TestMessages.create(), new QuizConfigProperties());
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import '../../app/theme.dart';
 import '../../models/lesson.dart';
@@ -176,6 +177,11 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
     //   isLocked = index > 0 && !lessons[index - 1].isCompleted;
     final isRtl = Directionality.of(context) == TextDirection.rtl;
 
+    // Tier 2 (ported from partner's path_screen): mark the first unfinished
+    // lesson as the "you are here" node — crown icon + bobbing "ابدأ هنا"
+    // bubble. Nodes stay tappable per the 2026-05-24 demo decision above.
+    final firstUnfinished = lessons.indexWhere((l) => !l.isCompleted);
+
     return Stack(
       children: [
         // Path lines layer
@@ -194,6 +200,7 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
           itemBuilder: (context, index) {
             final lesson = lessons[index];
             const isLocked = false;
+            final isCurrent = index == firstUnfinished;
 
             final double rawOffset = (index % 4 == 0 || index % 4 == 3)
                 ? 0
@@ -210,6 +217,7 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
               child: _LessonPathNode(
                 lesson: lesson,
                 isLocked: isLocked,
+                isCurrent: isCurrent,
                 color: widget.subjectColor,
                 onTap: () => _openLesson(lesson, practice: false),
                 onPractice: () => _openLesson(lesson, practice: true),
@@ -222,6 +230,10 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
   }
 
   void _openLesson(LessonSummary lesson, {required bool practice}) {
+    // Full English experience (2026-07-03): English-subject lessons flip the
+    // whole in-lesson UI to English. This screen knows the subject name.
+    final isEnglish = widget.subjectName.contains('English') ||
+        widget.subjectName.contains('نجليزية');
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -229,6 +241,7 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
           lessonId: lesson.id,
           lessonTitle: lesson.title,
           practiceMode: practice,
+          englishMode: isEnglish,
         ),
       ),
     );
@@ -239,6 +252,7 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
 class _LessonPathNode extends StatelessWidget {
   final LessonSummary lesson;
   final bool isLocked;
+  final bool isCurrent;
   final Color color;
   final VoidCallback? onTap;
   final VoidCallback onPractice;
@@ -246,6 +260,7 @@ class _LessonPathNode extends StatelessWidget {
   const _LessonPathNode({
     required this.lesson,
     required this.isLocked,
+    required this.isCurrent,
     required this.color,
     this.onTap,
     required this.onPractice,
@@ -256,11 +271,58 @@ class _LessonPathNode extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        // "You are here" bubble — gentle bob so the child's eye lands on it.
+        if (isCurrent)
+          Container(
+            margin: const EdgeInsets.only(bottom: 6),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(AppTheme.radiusPill),
+              border: Border.all(color: color, width: 2),
+              boxShadow: [
+                BoxShadow(
+                  color: color.withValues(alpha: 0.25),
+                  blurRadius: 8,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            child: Text(
+              'ابدأ هنا',
+              style: TextStyle(
+                fontFamily: 'Cairo',
+                fontSize: 13,
+                fontWeight: FontWeight.w900,
+                color: color,
+              ),
+            ),
+          )
+              .animate(onPlay: (c) => c.repeat(reverse: true))
+              .moveY(
+                begin: 0,
+                end: -5,
+                duration: 700.ms,
+                curve: Curves.easeInOut,
+              ),
         GestureDetector(
           onTap: onTap,
           child: Stack(
             alignment: Alignment.center,
             children: [
+              // Halo ring around the current node.
+              if (isCurrent)
+                Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: color.withValues(alpha: 0.35),
+                      width: 4,
+                    ),
+                  ),
+                ),
               // 3D Depth Shadow
               Container(
                 width: 84,
@@ -283,11 +345,21 @@ class _LessonPathNode extends StatelessWidget {
                     width: 4,
                   ),
                 ),
-                child: Icon(
-                  isLocked ? Icons.lock_rounded : (lesson.isCompleted ? Icons.check_rounded : Icons.play_arrow_rounded),
-                  color: Colors.white,
-                  size: 40,
-                ),
+                child: isCurrent
+                    ? const Text(
+                        '👑',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 34, height: 1.6),
+                      )
+                    : Icon(
+                        isLocked
+                            ? Icons.lock_rounded
+                            : (lesson.isCompleted
+                                ? Icons.check_rounded
+                                : Icons.play_arrow_rounded),
+                        color: Colors.white,
+                        size: 40,
+                      ),
               ),
               // Mastery stars if completed
               if (lesson.isCompleted)

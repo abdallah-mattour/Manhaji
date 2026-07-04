@@ -23,13 +23,10 @@ import com.springboot.manhaji.repository.TeacherRepository;
 import com.springboot.manhaji.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -55,7 +52,6 @@ public class DataSeeder implements CommandLineRunner {
     private final AdminRepository adminRepository;
     private final ParentRepository parentRepository;
     private final PasswordEncoder passwordEncoder;
-    private final StorageConfigProperties storageConfig;
 
     /**
      * When {@code true}, the seeder wipes all curriculum data (subjects, lessons,
@@ -302,9 +298,11 @@ public class DataSeeder implements CommandLineRunner {
                     List<Map<String, Object>> lessons = (List<Map<String, Object>>) curriculum.get("lessons");
                     if (lessons == null) continue;
 
-                    // Build per-lesson image mapping once per file
-                    Map<String, List<String>> lessonImageMap = buildLessonImageMap(
-                            subjectCode, gradeLevel, semester, lessons);
+                    // 2026-07-03: the textbook page-scan auto-mapper
+                    // (buildLessonImageMap) was REMOVED by product decision —
+                    // the scanned book pages rendered too blurry on device.
+                    // Lesson images now come ONLY from the JSON "imageUrls"
+                    // field (clean bundled illustrations, e.g. assets/openmoji/).
 
                     int importedFromFile = 0;
                     List<Lesson> importedLessons = new ArrayList<>();
@@ -326,8 +324,7 @@ public class DataSeeder implements CommandLineRunner {
                             continue;
                         }
 
-                        List<String> mappedImages = lessonImageMap.getOrDefault(title, List.of());
-                        Lesson lesson = importLesson(subject, lessonData, semester, mappedImages);
+                        Lesson lesson = importLesson(subject, lessonData, semester);
                         importedLessons.add(lesson);
                         newLessons++;
                         importedFromFile++;
@@ -348,7 +345,7 @@ public class DataSeeder implements CommandLineRunner {
                     }
 
                     // Backfill semesterNumber and imageUrls for existing lessons that are missing them
-                    backfillLessonMetadata(existingLessons, semester, lessons, lessonImageMap);
+                    backfillLessonMetadata(existingLessons, semester, lessons);
                 } catch (Exception perFileEx) {
                     // Don't let one bad file kill the rest. Log loudly with
                     // the filename + exception type so the cause is obvious
@@ -387,7 +384,7 @@ public class DataSeeder implements CommandLineRunner {
 
     @SuppressWarnings("unchecked")
     private Lesson importLesson(Subject subject, Map<String, Object> data,
-                                 Integer semester, List<String> mappedImages) {
+                                 Integer semester) {
         Lesson lesson = new Lesson();
         lesson.setSubject(subject);
         lesson.setTitle((String) data.get("title"));
@@ -397,11 +394,9 @@ public class DataSeeder implements CommandLineRunner {
         lesson.setContent((String) data.get("content"));
         lesson.setObjectives((String) data.get("objectives"));
 
-        // Prefer JSON-provided imageUrls if present, else use auto-mapped images
+        // Lesson images come ONLY from the JSON (clean bundled illustrations).
+        // The old textbook page-scan auto-mapper is gone — see importCurriculum.
         List<String> imageUrls = (List<String>) data.get("imageUrls");
-        if (imageUrls == null || imageUrls.isEmpty()) {
-            imageUrls = mappedImages;
-        }
         if (imageUrls != null && !imageUrls.isEmpty()) {
             try {
                 lesson.setImageUrls(objectMapper.writeValueAsString(imageUrls));
@@ -414,86 +409,30 @@ public class DataSeeder implements CommandLineRunner {
     }
 
     /**
-     * Build a mapping of lesson title -> list of image URLs by distributing
-     * the page-numbered images in the subject/semester folder evenly across
-     * the lessons in order. Returns an empty map if the folder doesn't exist.
-     */
-    private Map<String, List<String>> buildLessonImageMap(
-            String subjectCode, int gradeLevel, Integer semester,
-            List<Map<String, Object>> lessons) {
-        Map<String, List<String>> result = new java.util.HashMap<>();
-        if (subjectCode == null || lessons == null || lessons.isEmpty()) {
-            return result;
-        }
-
-        String folderName = subjectCode + gradeLevel + "-p" + semester; // e.g. "ar1-p1"
-        File folder = new File(storageConfig.getImageDir() + "/" + folderName);
-        if (!folder.exists() || !folder.isDirectory()) {
-            return result;
-        }
-
-        String[] fileNames = folder.list((dir, name) ->
-                name.toLowerCase().matches("page\\d+_img\\d+\\.(png|jpe?g|webp)"));
-        if (fileNames == null || fileNames.length == 0) {
-            return result;
-        }
-
-        // Group files by page number, preserve natural order
-        TreeMap<Integer, List<String>> pageGroups = new TreeMap<>();
-        for (String name : fileNames) {
-            try {
-                int pageNum = Integer.parseInt(name.substring(4, name.indexOf('_')));
-                pageGroups.computeIfAbsent(pageNum, k -> new ArrayList<>()).add(name);
-            } catch (Exception e) {
-                log.warn("Could not parse page number from image filename '{}': {}", name, e.getMessage());
-            }
-        }
-        for (List<String> group : pageGroups.values()) {
-            Collections.sort(group);
-        }
-
-        List<Integer> pageNumbers = new ArrayList<>(pageGroups.keySet());
-        int totalPages = pageNumbers.size();
-        int lessonCount = lessons.size();
-        if (totalPages == 0 || lessonCount == 0) return result;
-
-        // Distribute pages across lessons evenly
-        double pagesPerLesson = (double) totalPages / lessonCount;
-        for (int i = 0; i < lessonCount; i++) {
-            Map<String, Object> lessonData = lessons.get(i);
-            String title = (String) lessonData.get("title");
-            if (title == null) continue;
-
-            int startIdx = (int) Math.floor(i * pagesPerLesson);
-            int endIdx = (i == lessonCount - 1)
-                    ? totalPages
-                    : (int) Math.floor((i + 1) * pagesPerLesson);
-            if (endIdx <= startIdx) endIdx = Math.min(startIdx + 1, totalPages);
-
-            List<String> urls = new ArrayList<>();
-            for (int p = startIdx; p < endIdx; p++) {
-                int pageNum = pageNumbers.get(p);
-                for (String fileName : pageGroups.get(pageNum)) {
-                    urls.add("/uploads/images/" + folderName + "/" + fileName);
-                }
-            }
-            result.put(title, urls);
-        }
-        return result;
-    }
-
-    /**
      * Update existing lessons that may be missing semesterNumber or imageUrls
      * (e.g. from an earlier import before these fields were populated).
+     *
+     * <p>2026-07-03: also SELF-HEALS the old textbook page scans — any stored
+     * imageUrls that point at the removed {@code /uploads/images/**}
+     * page-scan convention are replaced with the JSON's imageUrls (or cleared
+     * when the JSON has none), so existing dev databases lose the blurry book
+     * photos on next boot without needing a destructive reseed.
      */
+    @SuppressWarnings("unchecked")
     private void backfillLessonMetadata(List<Lesson> existingLessons, Integer semester,
-                                         List<Map<String, Object>> jsonLessons,
-                                         Map<String, List<String>> lessonImageMap) {
+                                         List<Map<String, Object>> jsonLessons) {
         if (existingLessons == null || existingLessons.isEmpty() || jsonLessons == null) return;
+        Map<String, List<String>> jsonImagesByTitle = new java.util.HashMap<>();
         java.util.Set<String> jsonTitles = new java.util.HashSet<>();
         for (Map<String, Object> ld : jsonLessons) {
             Object t = ld.get("title");
-            if (t != null) jsonTitles.add(t.toString());
+            if (t == null) continue;
+            jsonTitles.add(t.toString());
+            Object imgs = ld.get("imageUrls");
+            if (imgs instanceof List<?> list && !list.isEmpty()) {
+                jsonImagesByTitle.put(t.toString(),
+                        list.stream().map(Object::toString).toList());
+            }
         }
 
         int backfilled = 0;
@@ -512,16 +451,24 @@ public class DataSeeder implements CommandLineRunner {
                 lesson.setSemesterNumber(semester);
                 changed = true;
             }
-            if ((lesson.getImageUrls() == null || lesson.getImageUrls().isBlank()
-                    || lesson.getImageUrls().equals("[]"))) {
-                List<String> imgs = lessonImageMap.get(lesson.getTitle());
-                if (imgs != null && !imgs.isEmpty()) {
-                    try {
-                        lesson.setImageUrls(objectMapper.writeValueAsString(imgs));
+
+            String stored = lesson.getImageUrls();
+            boolean storedEmpty = stored == null || stored.isBlank() || stored.equals("[]");
+            // Legacy book scans are recognizable by the auto-mapper's URL shape.
+            boolean storedIsBookScan = stored != null && stored.contains("/uploads/images/")
+                    && stored.contains("page");
+            if (storedEmpty || storedIsBookScan) {
+                List<String> imgs = jsonImagesByTitle.get(lesson.getTitle());
+                try {
+                    String replacement = (imgs == null || imgs.isEmpty())
+                            ? (storedIsBookScan ? "[]" : null)
+                            : objectMapper.writeValueAsString(imgs);
+                    if (replacement != null && !replacement.equals(stored)) {
+                        lesson.setImageUrls(replacement);
                         changed = true;
-                    } catch (Exception e) {
-                        log.warn("Failed to backfill imageUrls for lesson '{}': {}", lesson.getTitle(), e.getMessage());
                     }
+                } catch (Exception e) {
+                    log.warn("Failed to backfill imageUrls for lesson '{}': {}", lesson.getTitle(), e.getMessage());
                 }
             }
             if (changed) {
@@ -607,6 +554,25 @@ public class DataSeeder implements CommandLineRunner {
         Object audioUrl = data.get("audioUrl");
         if (audioUrl instanceof String s && !s.isBlank()) {
             q.setAudioUrl(s);
+        }
+
+        // Tier 1 (2026-06): IMAGE_MCQ / LISTEN_CHOOSE parallel images + IMAGE_MATCH pairs.
+        // Stored as raw JSON strings on the entity's JSON columns.
+        Object optionImages = data.get("optionImages");
+        if (optionImages instanceof List<?> list && !list.isEmpty()) {
+            try {
+                q.setOptionImages(objectMapper.writeValueAsString(list));
+            } catch (Exception ignored) {
+                // leave null — widget falls back to text options
+            }
+        }
+        Object pairs = data.get("pairs");
+        if (pairs instanceof Map<?, ?> map && !map.isEmpty()) {
+            try {
+                q.setPairsJson(objectMapper.writeValueAsString(map));
+            } catch (Exception ignored) {
+                // leave null
+            }
         }
 
         questionRepository.save(q);

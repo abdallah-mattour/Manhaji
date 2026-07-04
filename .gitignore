@@ -116,3 +116,6 @@ toc_extract.txt
 # macOS finder + Linux thumbnails
 .DS_Store
 Thumbs.db
+
+# Partner reference repo (analysis-only, never publish)
+OtherCode/

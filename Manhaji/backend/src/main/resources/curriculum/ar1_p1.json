@@ -361,6 +361,14 @@
           "subSkill": "recognition"
         },
         {
+          "type": "READING",
+          "questionText": "أَنَا أُحِبُّ بَابَا وَمَامَا",
+          "correctAnswer": "أَنَا أُحِبُّ بَابَا وَمَامَا",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
           "type": "TRUE_FALSE",
           "questionText": "نراجع: حرف الباء تحته نقطة وحرف الراء بدون نقاط",
           "correctAnswer": "صح",
@@ -1139,6 +1147,14 @@
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
+        },
+        {
+          "type": "READING",
+          "questionText": "ذَهَبَ سَامِي إِلَى الْمَدْرَسَةِ",
+          "correctAnswer": "ذَهَبَ سَامِي إِلَى الْمَدْرَسَةِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
         },
         {
           "type": "TRUE_FALSE",

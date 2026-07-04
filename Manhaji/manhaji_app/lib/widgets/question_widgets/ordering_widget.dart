@@ -10,12 +10,16 @@ class OrderingWidget extends StatefulWidget {
   final bool isCorrect;
   final ValueChanged<String> onOrderChanged;
 
+  /// Full English experience (2026-07-03).
+  final bool english;
+
   const OrderingWidget({
     super.key,
     required this.question,
     required this.isAnswered,
     required this.isCorrect,
     required this.onOrderChanged,
+    this.english = false,
   });
 
   @override
@@ -51,14 +55,16 @@ class _OrderingWidgetState extends State<OrderingWidget> {
             color: AppTheme.primaryPurple.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(12),
           ),
-          child: const Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.swap_vert, color: AppTheme.primaryPurple),
-              SizedBox(width: 8),
+              const Icon(Icons.swap_vert, color: AppTheme.primaryPurple),
+              const SizedBox(width: 8),
               Text(
-                'اسحب العناصر لترتيبها',
-                style: TextStyle(
+                widget.english
+                    ? 'Drag the items to order them'
+                    : 'اسحب العناصر لترتيبها',
+                style: const TextStyle(
                   fontFamily: 'Cairo',
                   fontSize: 14,
                   color: AppTheme.primaryPurple,

@@ -1238,6 +1238,51 @@
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MATCH",
+          "questionText": "Match each color to its English word.",
+          "correctAnswer": "r=red,b=blue,g=green,y=yellow",
+          "difficultyLevel": 2,
+          "subSkill": "recognition",
+          "pairs": {
+            "left": [
+              {
+                "id": "r",
+                "image": "assets/openmoji/red.png"
+              },
+              {
+                "id": "b",
+                "image": "assets/openmoji/blue.png"
+              },
+              {
+                "id": "g",
+                "image": "assets/openmoji/green.png"
+              },
+              {
+                "id": "y",
+                "image": "assets/openmoji/yellow.png"
+              }
+            ],
+            "right": [
+              {
+                "id": "red",
+                "text": "Red"
+              },
+              {
+                "id": "blue",
+                "text": "Blue"
+              },
+              {
+                "id": "green",
+                "text": "Green"
+              },
+              {
+                "id": "yellow",
+                "text": "Yellow"
+              }
+            ]
+          }
         }
       ],
       "imageUrls": []
@@ -1475,6 +1520,44 @@
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which one is the lion?",
+          "correctAnswer": "Lion",
+          "options": [
+            "Cat",
+            "Dog",
+            "Lion",
+            "Elephant"
+          ],
+          "optionImages": [
+            "assets/openmoji/cat.png",
+            "assets/openmoji/dog.png",
+            "assets/openmoji/lion.png",
+            "assets/openmoji/elephant.png"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "Drag each animal to its group.",
+          "correctAnswer": "Pets=Cat,Pets=Dog,Wild=Lion,Wild=Elephant",
+          "pairs": {
+            "targets": [
+              "Pets",
+              "Wild"
+            ],
+            "tokens": [
+              "Lion",
+              "Cat",
+              "Elephant",
+              "Dog"
+            ]
+          },
+          "difficultyLevel": 2,
+          "subSkill": "application"
         }
       ],
       "imageUrls": []
@@ -1600,6 +1683,44 @@
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "LISTEN_CHOOSE",
+          "questionText": "Apple",
+          "correctAnswer": "Apple",
+          "options": [
+            "Apple",
+            "Banana",
+            "Orange",
+            "Grapes"
+          ],
+          "optionImages": [
+            "assets/openmoji/apple.png",
+            "assets/openmoji/banana.png",
+            "assets/openmoji/orange.png",
+            "assets/openmoji/grapes.png"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "Drag each word to the correct group.",
+          "correctAnswer": "Food=Apple,Food=Bread,Drinks=Milk,Drinks=Water",
+          "pairs": {
+            "targets": [
+              "Food",
+              "Drinks"
+            ],
+            "tokens": [
+              "Milk",
+              "Apple",
+              "Water",
+              "Bread"
+            ]
+          },
+          "difficultyLevel": 2,
+          "subSkill": "application"
         }
       ],
       "imageUrls": []
@@ -1622,6 +1743,14 @@
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
+        },
+        {
+          "type": "READING",
+          "questionText": "I like my school",
+          "correctAnswer": "I like my school",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
         },
         {
           "type": "TRUE_FALSE",

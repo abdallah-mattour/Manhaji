@@ -28,4 +28,20 @@ public class PronunciationScoreResponse {
      * e.g. "ركّز على صوت الراء من الحلق". Null when AI not available.
      */
     private String guidance;
+
+    /**
+     * Tier 4 (2026-07): READING questions only — one entry per passage word,
+     * in passage order, so the widget can color the text in place. Null for
+     * ordinary PRONUNCIATION questions.
+     */
+    private List<WordResult> wordResults;
+
+    /** One passage word and whether the child read it correctly. */
+    @Data
+    @lombok.AllArgsConstructor
+    @lombok.NoArgsConstructor
+    public static class WordResult {
+        private String word;
+        private boolean correct;
+    }
 }

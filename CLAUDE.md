@@ -41,7 +41,7 @@ Manhaji Claude/               <-- git root; open Claude Code here
 ## Tech stack
 
 - **Backend**: Spring Boot 4.0.5, Java 17 toolchain, MySQL 8, JPA/Hibernate (`ddl-auto=update`), JWT auth, WebFlux client (for Gemini), Lombok, JUnit 5 + Mockito
-- **Frontend**: Flutter 3.10.4, Provider, Dio (HTTP + multipart), just_audio, record, flutter_tts, confetti, flutter_animate, fl_chart, cached_network_image
+- **Frontend**: Flutter 3.10.4, Provider, Dio (HTTP + multipart), just_audio, record, confetti, flutter_animate, fl_chart, cached_network_image. (flutter_tts REMOVED 2026-07-03 — TTS is backend-API only by product decision; the `AudioFocus` singleton in `lib/services/audio_focus.dart` enforces one voice at a time app-wide.)
 - **AI services**: Google Gemini 2.5 Flash (generation + transcription — replaced OpenAI Whisper; the class is still named `WhisperService`), Google Cloud TTS
 - **Auth**: JWT bearer tokens, role-based (STUDENT / PARENT / TEACHER / ADMIN)
 - **Language/locale**: Arabic (RTL) is primary. All UI text uses the **Cairo** font family.
@@ -141,17 +141,17 @@ Standard controller → service → repository with DTOs at boundary. Entity cla
 ### Flutter (`flutter test`)
 - 41 tests covering providers (auth, admin, teacher, parent, learning, report, progress) and one widget smoke test. Mostly mock-based (mockito) around API service layer.
 
-### Expected analyze baseline (6 info hints, ignore)
+### Expected analyze baseline (5 info hints, ignore)
 ```
-use_build_context_synchronously   lib/screens/admin/admin_dashboard_screen.dart:22
-use_build_context_synchronously   lib/screens/parent/parent_dashboard_screen.dart:23
-use_build_context_synchronously   lib/screens/progress/ai_reports_screen.dart:24
+use_build_context_synchronously   lib/screens/admin/admin_dashboard_screen.dart:24
+use_build_context_synchronously   lib/screens/parent/parent_dashboard_screen.dart:24
+use_build_context_synchronously   lib/screens/progress/ai_reports_screen.dart:27
 use_build_context_synchronously   lib/screens/teacher/class_students_screen.dart:21
-use_build_context_synchronously   lib/screens/teacher/teacher_dashboard_screen.dart:23
-unnecessary_underscores           lib/widgets/teaching_card_widget.dart:48
+use_build_context_synchronously   lib/screens/teacher/teacher_dashboard_screen.dart:25
 ```
+(The old `unnecessary_underscores` hint in teaching_card_widget was fixed 2026-07-03.)
 
-If analyze shows more than 6, your change introduced a new issue — fix before declaring done.
+If analyze shows more than 5, your change introduced a new issue — fix before declaring done.
 
 ## Recent work completed (as of 2026-04-20)
 

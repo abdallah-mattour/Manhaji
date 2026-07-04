@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../app/theme.dart';
+import '../services/audio_focus.dart';
 import '../utils/app_log.dart';
 
 /// A child-friendly voice recorder widget with visual feedback.
@@ -36,10 +37,15 @@ class VoiceRecorderWidget extends StatefulWidget {
   final Future<void> Function(String audioPath) onRecordingComplete;
   final bool enabled;
 
+  /// Full English experience (2026-07-03): English-subject lessons show
+  /// prompts, countdown, and error snackbars in English.
+  final bool english;
+
   const VoiceRecorderWidget({
     super.key,
     required this.onRecordingComplete,
     this.enabled = true,
+    this.english = false,
   });
 
   @override
@@ -101,17 +107,26 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
   }
 
   Future<void> _startRecording() async {
+    // Single-voice rule (2026-07-03): silence any playing TTS / audio clip
+    // before the mic opens, so the app's own voice never bleeds into the
+    // child's recording (which would corrupt the transcription).
+    await AudioFocus.stopCurrent();
+
     _log.i('start: requesting microphone permission');
     final status = await Permission.microphone.request();
     if (!status.isGranted) {
       _log.w('start: microphone permission denied (status=$status)');
-      await _showError('يرجى السماح بالوصول إلى الميكروفون');
+      await _showError(widget.english
+          ? 'Please allow microphone access'
+          : 'يرجى السماح بالوصول إلى الميكروفون');
       return;
     }
 
     if (!await _recorder.hasPermission()) {
       _log.w('start: recorder reports no permission even though OS granted');
-      await _showError('تعذّر تشغيل الميكروفون');
+      await _showError(widget.english
+          ? 'Could not start the microphone'
+          : 'تعذّر تشغيل الميكروفون');
       return;
     }
 
@@ -141,7 +156,9 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
       _log.e('start: recorder.start() threw', e);
       _currentPath = null;
       if (mounted) setState(() => _state = RecordingState.idle);
-      await _showError('تعذّر بدء التسجيل. حاول مرة أخرى.');
+      await _showError(widget.english
+          ? 'Could not start recording. Try again.'
+          : 'تعذّر بدء التسجيل. حاول مرة أخرى.');
     }
   }
 
@@ -164,7 +181,9 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
     if (path == null || path.isEmpty) {
       _log.w('stop: no output path (recorder.stop returned null)');
       if (mounted) setState(() => _state = RecordingState.idle);
-      await _showError('لم نتمكن من حفظ الصوت. حاول مرة أخرى.');
+      await _showError(widget.english
+          ? 'Could not save the audio. Try again.'
+          : 'لم نتمكن من حفظ الصوت. حاول مرة أخرى.');
       return;
     }
 
@@ -182,7 +201,9 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
     if (sizeBytes == 0) {
       _log.w('stop: file is empty — refusing to upload');
       if (mounted) setState(() => _state = RecordingState.idle);
-      await _showError('لم نسمع صوتاً. اقترب من الميكروفون وحاول مرة أخرى.');
+      await _showError(widget.english
+          ? "We didn't hear anything. Get closer to the microphone and try again."
+          : 'لم نسمع صوتاً. اقترب من الميكروفون وحاول مرة أخرى.');
       return;
     }
 
@@ -205,9 +226,9 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
     return Column(
       children: [
         const SizedBox(height: 12),
-        const Text(
-          'أو تكلّم إجابتك',
-          style: TextStyle(
+        Text(
+          widget.english ? 'Or speak your answer' : 'أو تكلّم إجابتك',
+          style: const TextStyle(
             fontFamily: 'Cairo',
             fontSize: 14,
             color: AppTheme.textGray,
@@ -218,7 +239,9 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
         if (_state == RecordingState.recording) ...[
           const SizedBox(height: 8),
           Text(
-            '$_recordingSeconds / $maxSeconds ثانية',
+            widget.english
+                ? '$_recordingSeconds / $maxSeconds seconds'
+                : '$_recordingSeconds / $maxSeconds ثانية',
             style: const TextStyle(
               fontFamily: 'Cairo',
               fontSize: 13,
@@ -240,19 +263,21 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
           ),
         ],
         if (_state == RecordingState.processing)
-          const Padding(
-            padding: EdgeInsets.only(top: 8),
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 16, height: 16,
                   child: CircularProgressIndicator(strokeWidth: 2, color: AppTheme.primaryOrange),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Text(
-                  'جاري معالجة الصوت...',
-                  style: TextStyle(fontFamily: 'Cairo', fontSize: 13, color: AppTheme.textGray),
+                  widget.english
+                      ? 'Processing audio...'
+                      : 'جاري معالجة الصوت...',
+                  style: const TextStyle(fontFamily: 'Cairo', fontSize: 13, color: AppTheme.textGray),
                 ),
               ],
             ),

@@ -15,6 +15,61 @@ class TeachingCardWidget extends StatelessWidget {
     required this.onNext,
   });
 
+  /// Renders the lesson illustration. Bundled Flutter assets
+  /// (`assets/openmoji/...` — the clean-image system, 2026-07-03) load via
+  /// Image.asset; anything else is a backend URL served through
+  /// CachedNetworkImage. Both fail soft to the lesson emoji.
+  Widget _buildImage() {
+    final url = data.imageUrl!;
+    if (url.startsWith('assets/')) {
+      return Container(
+        height: 160,
+        width: double.infinity,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: data.accentColor.withValues(alpha: 0.05),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Image.asset(
+          url,
+          height: 120,
+          fit: BoxFit.contain,
+          errorBuilder: (ctx, error, stack) =>
+              Text(data.emoji, style: const TextStyle(fontSize: 56)),
+        ),
+      );
+    }
+    return CachedNetworkImage(
+      imageUrl: ApiConfig.resolveMediaUrl(url),
+      height: 200,
+      width: double.infinity,
+      fit: BoxFit.contain,
+      placeholder: (ctx, _) => Container(
+        height: 200,
+        decoration: BoxDecoration(
+          color: data.accentColor.withValues(alpha: 0.05),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Center(
+          child: CircularProgressIndicator(
+            color: data.accentColor,
+            strokeWidth: 2,
+          ),
+        ),
+      ),
+      errorWidget: (ctx, url, error) => Container(
+        height: 120,
+        decoration: BoxDecoration(
+          color: data.accentColor.withValues(alpha: 0.05),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Center(
+          child: Text(data.emoji, style: const TextStyle(fontSize: 56)),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final hasImage = data.imageUrl != null && data.imageUrl!.isNotEmpty;
@@ -27,35 +82,7 @@ class TeachingCardWidget extends StatelessWidget {
           if (hasImage) ...[
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: CachedNetworkImage(
-                imageUrl: ApiConfig.resolveMediaUrl(data.imageUrl!),
-                height: 200,
-                width: double.infinity,
-                fit: BoxFit.contain,
-                placeholder: (ctx, _) => Container(
-                  height: 200,
-                  decoration: BoxDecoration(
-                    color: data.accentColor.withValues(alpha: 0.05),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      color: data.accentColor,
-                      strokeWidth: 2,
-                    ),
-                  ),
-                ),
-                errorWidget: (ctx, _, __) => Container(
-                  height: 120,
-                  decoration: BoxDecoration(
-                    color: data.accentColor.withValues(alpha: 0.05),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Center(
-                    child: Text(data.emoji, style: const TextStyle(fontSize: 56)),
-                  ),
-                ),
-              ),
+              child: _buildImage(),
             ),
             const SizedBox(height: 16),
           ] else

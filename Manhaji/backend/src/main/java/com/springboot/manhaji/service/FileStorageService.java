@@ -64,6 +64,20 @@ public class FileStorageService {
     }
 
     /**
+     * Save an audio file under EXACTLY the given (sanitized) filename — no
+     * random UUID prefix. Used by the generic {@code /api/audio/speak} cache,
+     * where the speech fingerprint in the filename IS the cache key and must
+     * therefore be reproducible across calls (pair with {@link #audioExists}).
+     */
+    public String saveAudioAs(byte[] data, String filename) throws IOException {
+        String safeFilename = sanitizeFilename(filename);
+        Path target = audioDir.resolve(safeFilename);
+        Files.write(target, data, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        log.info("Saved audio (deterministic): {}", target);
+        return "uploads/audio/" + safeFilename;
+    }
+
+    /**
      * Save an image to a subject-specific subdirectory.
      */
     public String saveSubjectImage(byte[] data, String subjectCode, String filename) throws IOException {

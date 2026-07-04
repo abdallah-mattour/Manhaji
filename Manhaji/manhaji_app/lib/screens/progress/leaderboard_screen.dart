@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../app/theme.dart';
+import '../../config/gamification.dart';
 import '../../models/progress.dart';
 import '../../providers/progress_provider.dart';
 import '../../services/local_storage_service.dart';
@@ -130,11 +131,17 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
         CircleAvatar(
           radius: place == 1 ? 32 : 26,
           backgroundColor: crownColors[place]!.withValues(alpha: 0.2),
-          child: Icon(
-            Icons.person,
-            size: place == 1 ? 32 : 26,
-            color: crownColors[place],
-          ),
+          // Tier 3: show the student's chosen avatar when they picked one.
+          child: (entry.avatarId != null && entry.avatarId!.isNotEmpty)
+              ? Text(
+                  Avatars.resolve(entry.avatarId).emoji,
+                  style: TextStyle(fontSize: place == 1 ? 30 : 24),
+                )
+              : Icon(
+                  Icons.person,
+                  size: place == 1 ? 32 : 26,
+                  color: crownColors[place],
+                ),
         ),
         const SizedBox(height: 6),
         SizedBox(
@@ -216,11 +223,17 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
             ),
           ),
           const SizedBox(width: 12),
-          // Avatar
+          // Avatar — chosen emoji when set (Tier 3), person icon otherwise.
           CircleAvatar(
             radius: 20,
             backgroundColor: AppTheme.primaryBlue.withValues(alpha: 0.1),
-            child: const Icon(Icons.person, color: AppTheme.primaryBlue, size: 22),
+            child: (entry.avatarId != null && entry.avatarId!.isNotEmpty)
+                ? Text(
+                    Avatars.resolve(entry.avatarId).emoji,
+                    style: const TextStyle(fontSize: 20),
+                  )
+                : const Icon(Icons.person,
+                    color: AppTheme.primaryBlue, size: 22),
           ),
           const SizedBox(width: 12),
           // Name

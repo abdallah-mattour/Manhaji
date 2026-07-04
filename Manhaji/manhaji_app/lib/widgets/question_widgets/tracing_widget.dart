@@ -31,7 +31,13 @@ class TracingWidget extends StatefulWidget {
     required this.isAnswered,
     required this.lastResult,
     required this.onComplete,
+    this.english = false,
   });
+
+  /// Full English experience (2026-07-03): English-subject lessons (A–Z
+  /// letter tracing) show instructions, buttons, ratings and feedback in
+  /// English.
+  final bool english;
 
   @override
   State<TracingWidget> createState() => _TracingWidgetState();
@@ -79,12 +85,13 @@ class _TracingWidgetState extends State<TracingWidget> {
   }
 
   TracingResult _score(List<Offset> points, int strokeCount) {
+    final en = widget.english;
     if (points.length < 5) {
-      return const TracingResult(
+      return TracingResult(
         score: 20,
         stars: 0,
-        rating: 'حاول مرة أخرى',
-        feedback: 'ارسم الحرف كاملاً',
+        rating: en ? 'Try again' : 'حاول مرة أخرى',
+        feedback: en ? 'Draw the whole letter' : 'ارسم الحرف كاملاً',
       );
     }
 
@@ -119,17 +126,17 @@ class _TracingWidgetState extends State<TracingWidget> {
       score: score,
       stars: stars,
       rating: stars == 3
-          ? 'ممتاز'
+          ? (en ? 'Excellent' : 'ممتاز')
           : stars == 2
-              ? 'جيد جداً'
+              ? (en ? 'Very good' : 'جيد جداً')
               : stars == 1
-                  ? 'جيد'
-                  : 'حاول مرة أخرى',
+                  ? (en ? 'Good' : 'جيد')
+                  : (en ? 'Try again' : 'حاول مرة أخرى'),
       feedback: stars >= 2
-          ? 'أحسنت الكتابة!'
+          ? (en ? 'Great writing!' : 'أحسنت الكتابة!')
           : stars == 1
-              ? 'استمر في التدريب، أنت تتحسن.'
-              : 'ارسم الحرف بخط واضح.',
+              ? (en ? 'Keep practicing, you are improving.' : 'استمر في التدريب، أنت تتحسن.')
+              : (en ? 'Draw the letter clearly.' : 'ارسم الحرف بخط واضح.'),
     );
   }
 
@@ -138,9 +145,11 @@ class _TracingWidgetState extends State<TracingWidget> {
     final target = widget.question.questionText;
     return Column(
       children: [
-        const Text(
-          'تتبّع الحرف بإصبعك',
-          style: TextStyle(
+        Text(
+          widget.english
+              ? 'Trace the letter with your finger'
+              : 'تتبّع الحرف بإصبعك',
+          style: const TextStyle(
             fontFamily: 'Cairo',
             fontSize: 15,
             color: AppTheme.textGray,
@@ -163,14 +172,15 @@ class _TracingWidgetState extends State<TracingWidget> {
               OutlinedButton.icon(
                 onPressed: _strokes.isEmpty ? null : _clear,
                 icon: const Icon(Icons.refresh_rounded),
-                label: const Text('مسح', style: TextStyle(fontFamily: 'Cairo')),
+                label: Text(widget.english ? 'Clear' : 'مسح',
+                    style: const TextStyle(fontFamily: 'Cairo')),
               ),
               const SizedBox(width: 12),
               ElevatedButton.icon(
                 onPressed: _strokes.isEmpty ? null : _submit,
                 icon: const Icon(Icons.check_rounded),
-                label: const Text('تحقق',
-                    style: TextStyle(fontFamily: 'Cairo')),
+                label: Text(widget.english ? 'Check' : 'تحقق',
+                    style: const TextStyle(fontFamily: 'Cairo')),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppTheme.primaryGreen,
                   foregroundColor: Colors.white,

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:confetti/confetti.dart';
 import '../../app/theme.dart';
 import '../../providers/learning_provider.dart';
+import '../../screens/rewards/rewards_screen.dart';
 import '../../widgets/duolingo_button.dart';
 import '../../widgets/duolingo_card.dart';
 import '../../widgets/mascot.dart';
@@ -218,6 +219,20 @@ class _LearningCompletionScreenState extends State<LearningCompletionScreen>
                           text: 'العودة للدروس 📚',
                           color: AppTheme.primaryGreen,
                           onPressed: () => Navigator.pop(context),
+                        ),
+                        const SizedBox(height: 16),
+                        // Tier 3: jump to the rewards screen with the freshly
+                        // earned points so it can celebrate new avatar unlocks.
+                        DuolingoButton(
+                          text: 'مكافآتي 🏆',
+                          color: AppTheme.primaryTerracotta,
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) =>
+                                  RewardsScreen(earnedPoints: points),
+                            ),
+                          ),
                         ),
                         if (score < 50) ...[
                           const SizedBox(height: 16),

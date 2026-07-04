@@ -411,20 +411,23 @@ class _ReportCard extends StatelessWidget {
     };
   }
 
-  /// Defensive cleanup so any report whose `summary` still arrives as a raw or
-  /// markdown-fenced JSON blob (e.g. older rows saved before the backend
-  /// fence-strip fix) renders as readable text instead of "json``` { ... }".
+  /// Defensive cleanup so any report whose `summary` still arrives as a raw,
+  /// markdown-fenced, or even TRUNCATED JSON blob (older rows saved before the
+  /// backend fixes) renders as readable text instead of "json``` { ... }".
   String _cleanSummary(String raw) {
     var s = raw.trim();
-    // Strip ```json ... ``` (or ``` ... ```) fences.
+
+    // 1) Strip a leading ```json / ``` fence even if the closing fence is
+    //    missing (truncated responses have no closing fence).
     if (s.startsWith('```')) {
       final firstNewline = s.indexOf('\n');
+      if (firstNewline > 0) s = s.substring(firstNewline + 1);
       final lastFence = s.lastIndexOf('```');
-      if (firstNewline > 0 && lastFence > firstNewline) {
-        s = s.substring(firstNewline + 1, lastFence).trim();
-      }
+      if (lastFence >= 0) s = s.substring(0, lastFence);
+      s = s.trim();
     }
-    // If what remains is a JSON object, pull out the summary field.
+
+    // 2) If it's a JSON object, pull out the summary field.
     if (s.startsWith('{')) {
       try {
         final decoded = jsonDecode(s);
@@ -432,7 +435,21 @@ class _ReportCard extends StatelessWidget {
           return (decoded['summary'] as String).trim();
         }
       } catch (_) {
-        // Not valid JSON — fall through and show the cleaned text as-is.
+        // 3) Invalid/truncated JSON — salvage the summary value with a regex
+        //    so even a cut-off report still shows its (partial) summary text
+        //    rather than raw "summary": "... markup.
+        final m =
+            RegExp(r'"summary"\s*:\s*"((?:[^"\\]|\\.)*)').firstMatch(s);
+        if (m != null) {
+          var v = m.group(1) ?? '';
+          // Unescape common JSON sequences for display.
+          v = v
+              .replaceAll(r'\n', '\n')
+              .replaceAll(r'\"', '"')
+              .replaceAll(r'\\', '\\')
+              .trim();
+          if (v.isNotEmpty) return v;
+        }
       }
     }
     return s;

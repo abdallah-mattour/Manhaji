@@ -11,6 +11,11 @@ class ProgressApiService {
     return ProgressSummary.fromJson(response['data'] ?? {});
   }
 
+  /// Tier 3: persist the chosen avatar id (rewards screen).
+  Future<void> updateAvatar(String avatarId) async {
+    await _api.put('/student/avatar', data: {'avatarId': avatarId});
+  }
+
   Future<List<LeaderboardEntry>> getLeaderboard({int? gradeLevel}) async {
     final response = await _api.get(
       '/progress/leaderboard',

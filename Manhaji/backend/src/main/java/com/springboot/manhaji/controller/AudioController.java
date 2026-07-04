@@ -134,6 +134,59 @@ public class AudioController {
         }
     }
 
+    /**
+     * TTS for arbitrary UI text — teaching-card narration, feedback phrases
+     * ("أحسنت!"), pronunciation/reading target playback. Added 2026-07-03 when
+     * the on-device flutter_tts fallback was removed from the app: every
+     * spoken string now comes from this neural pipeline or stays silent.
+     *
+     * <p>Cache: the speech fingerprint IS the filename
+     * ({@code speak_<sha256>.mp3}), so any repeated text — across students,
+     * sessions, and restarts — synthesizes exactly once and is served from
+     * disk afterwards. No DB row needed.
+     */
+    @PostMapping("/speak")
+    public ResponseEntity<ApiResponse<Map<String, Object>>> speak(@RequestBody Map<String, String> body) {
+        String text = body == null ? null : body.get("text");
+        if (text == null || text.isBlank()) {
+            return ResponseEntity.badRequest().body(ApiResponse.error("النص مطلوب"));
+        }
+        text = text.trim();
+        // Guardrail against runaway payloads; UI phrases are far shorter.
+        if (text.length() > 1000) {
+            text = text.substring(0, 1000);
+        }
+
+        String fingerprint = ttsService.speechFingerprint(text);
+        if (fingerprint == null) {
+            return ResponseEntity.badRequest().body(ApiResponse.error("النص مطلوب"));
+        }
+        String filename = "speak_" + fingerprint + ".mp3";
+        if (fileStorageService.audioExists(filename)) {
+            return ResponseEntity.ok(ApiResponse.success(
+                    Map.of("audioUrl", "uploads/audio/" + filename)));
+        }
+
+        if (!ttsService.isAvailable()) {
+            return ResponseEntity.ok(ApiResponse.success(
+                    Map.of("message", "خدمة النطق غير متوفرة حالياً")));
+        }
+
+        try {
+            String language = containsArabic(text) ? "ar" : "en";
+            byte[] audio = ttsService.synthesize(text, language);
+            if (audio == null) {
+                return ResponseEntity.ok(ApiResponse.success(
+                        Map.of("message", "فشل في إنشاء الصوت")));
+            }
+            String audioUrl = fileStorageService.saveAudioAs(audio, filename);
+            return ResponseEntity.ok(ApiResponse.success(Map.of("audioUrl", audioUrl)));
+        } catch (Exception e) {
+            log.error("Failed to synthesize generic speech ({} chars): {}", text.length(), e.getMessage());
+            return ResponseEntity.internalServerError().body(ApiResponse.error("حدث خطأ في إنشاء الصوت"));
+        }
+    }
+
     @GetMapping("/tts/status")
     public ResponseEntity<ApiResponse<Map<String, Boolean>>> getTtsStatus() {
         return ResponseEntity.ok(ApiResponse.success(

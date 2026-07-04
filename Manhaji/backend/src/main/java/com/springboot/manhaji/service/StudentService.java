@@ -57,4 +57,18 @@ public class StudentService {
                 .subjects(subjects)
                 .build();
     }
+
+    /**
+     * Tier 3 (2026-07): persist the student's chosen avatar id. Unlock
+     * eligibility (points threshold) is enforced client-side by the Flutter
+     * avatar registry — the server just stores the choice, same trust level
+     * as the rest of the cosmetic profile.
+     */
+    public String updateAvatar(Long studentId, String avatarId) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Student", studentId));
+        student.setAvatarId(avatarId.trim());
+        studentRepository.save(student);
+        return student.getAvatarId();
+    }
 }

@@ -4,6 +4,17 @@ import '../../app/theme.dart';
 import '../../models/quiz.dart';
 import '../../utils/text_direction.dart';
 
+/// ORDERING — the student arranges items into the correct sequence.
+///
+/// Rebuilt 2026-07-04 WITHOUT ReorderableListView. The drag-based list
+/// reparents render objects through an overlay while dragging, which is
+/// fragile inside the quiz screen's animated question transitions and
+/// produced `child._parent == this` render assertions on device. This
+/// implementation uses plain Columns only — nothing is ever reparented:
+///   • big ▲ / ▼ arrow buttons move a row one step (primary, unmissable
+///     for young kids),
+///   • tapping a row selects it (highlight), tapping another row moves the
+///     selected row to that position (same pattern as the match widget).
 class OrderingWidget extends StatefulWidget {
   final Question question;
   final bool isAnswered;
@@ -28,6 +39,7 @@ class OrderingWidget extends StatefulWidget {
 
 class _OrderingWidgetState extends State<OrderingWidget> {
   late List<String> _items;
+  int? _selected;
 
   @override
   void initState() {
@@ -40,7 +52,39 @@ class _OrderingWidgetState extends State<OrderingWidget> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.question.id != widget.question.id) {
       _items = List.from(widget.question.options ?? []);
+      _selected = null;
     }
+  }
+
+  void _emit() => widget.onOrderChanged(_items.join('، '));
+
+  void _moveBy(int index, int delta) {
+    final to = index + delta;
+    if (to < 0 || to >= _items.length) return;
+    HapticFeedback.selectionClick();
+    setState(() {
+      final item = _items.removeAt(index);
+      _items.insert(to, item);
+      _selected = null;
+    });
+    _emit();
+  }
+
+  void _tapRow(int index) {
+    if (widget.isAnswered) return;
+    HapticFeedback.selectionClick();
+    setState(() {
+      if (_selected == null) {
+        _selected = index;
+      } else if (_selected == index) {
+        _selected = null;
+      } else {
+        final item = _items.removeAt(_selected!);
+        _items.insert(index, item);
+        _selected = null;
+        _emit();
+      }
+    });
   }
 
   @override
@@ -60,91 +104,28 @@ class _OrderingWidgetState extends State<OrderingWidget> {
             children: [
               const Icon(Icons.swap_vert, color: AppTheme.primaryPurple),
               const SizedBox(width: 8),
-              Text(
-                widget.english
-                    ? 'Drag the items to order them'
-                    : 'اسحب العناصر لترتيبها',
-                style: const TextStyle(
-                  fontFamily: 'Cairo',
-                  fontSize: 14,
-                  color: AppTheme.primaryPurple,
-                  fontWeight: FontWeight.bold,
+              Flexible(
+                child: Text(
+                  widget.english
+                      ? 'Use the arrows to put the items in order'
+                      : 'استخدم الأسهم لترتيب العناصر',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontFamily: 'Cairo',
+                    fontSize: 14,
+                    color: AppTheme.primaryPurple,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
           ),
         ),
         if (!widget.isAnswered)
-          ReorderableListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: _items.length,
-            onReorder: (oldIndex, newIndex) {
-              HapticFeedback.selectionClick();
-              setState(() {
-                if (newIndex > oldIndex) newIndex -= 1;
-                final item = _items.removeAt(oldIndex);
-                _items.insert(newIndex, item);
-                widget.onOrderChanged(_items.join('، '));
-              });
-            },
-            itemBuilder: (context, index) {
-              return Container(
-                key: ValueKey('$index-${_items[index]}'),
-                margin: const EdgeInsets.only(bottom: 8),
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                      color: AppTheme.primaryPurple.withValues(alpha: 0.3)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.05),
-                      blurRadius: 4,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 28,
-                      height: 28,
-                      decoration: BoxDecoration(
-                        color: AppTheme.primaryPurple.withValues(alpha: 0.1),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Center(
-                        child: Text(
-                          '${index + 1}',
-                          style: const TextStyle(
-                            fontFamily: 'Cairo',
-                            fontWeight: FontWeight.bold,
-                            color: AppTheme.primaryPurple,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        _items[index],
-                        // English ordering tokens (words/sentence fragments)
-                        // flow LTR; Arabic tokens stay RTL.
-                        textDirection: directionOf(_items[index]),
-                        style: const TextStyle(
-                          fontFamily: 'Cairo',
-                          fontSize: 16,
-                          color: AppTheme.textDark,
-                        ),
-                      ),
-                    ),
-                    const Icon(Icons.drag_handle, color: AppTheme.textLight),
-                  ],
-                ),
-              );
-            },
+          Column(
+            children: [
+              for (var i = 0; i < _items.length; i++) _buildRow(i),
+            ],
           )
         else
           Column(
@@ -185,6 +166,7 @@ class _OrderingWidgetState extends State<OrderingWidget> {
                     Expanded(
                       child: Text(
                         entry.value,
+                        textDirection: directionOf(entry.value),
                         style:
                             const TextStyle(fontFamily: 'Cairo', fontSize: 16),
                       ),
@@ -199,6 +181,95 @@ class _OrderingWidgetState extends State<OrderingWidget> {
             }).toList(),
           ),
       ],
+    );
+  }
+
+  Widget _buildRow(int index) {
+    final isSelected = _selected == index;
+    final atTop = index == 0;
+    final atBottom = index == _items.length - 1;
+
+    return GestureDetector(
+      onTap: () => _tapRow(index),
+      child: AnimatedContainer(
+        duration: AppTheme.motionFast,
+        margin: const EdgeInsets.only(bottom: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(
+          color: isSelected ? AppTheme.infoContainer : Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: isSelected
+                ? AppTheme.primaryBlue
+                : AppTheme.primaryPurple.withValues(alpha: 0.3),
+            width: isSelected ? 2.5 : 1,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 28,
+              height: 28,
+              decoration: BoxDecoration(
+                color: AppTheme.primaryPurple.withValues(alpha: 0.1),
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: Text(
+                  '${index + 1}',
+                  style: const TextStyle(
+                    fontFamily: 'Cairo',
+                    fontWeight: FontWeight.bold,
+                    color: AppTheme.primaryPurple,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                _items[index],
+                // English ordering tokens (words/sentence fragments) flow
+                // LTR; Arabic tokens stay RTL.
+                textDirection: directionOf(_items[index]),
+                style: const TextStyle(
+                  fontFamily: 'Cairo',
+                  fontSize: 16,
+                  color: AppTheme.textDark,
+                ),
+              ),
+            ),
+            // Chunky move buttons — 40px targets, greyed at the edges.
+            IconButton(
+              onPressed: atTop || widget.isAnswered
+                  ? null
+                  : () => _moveBy(index, -1),
+              icon: const Icon(Icons.arrow_upward_rounded),
+              color: AppTheme.primaryPurple,
+              disabledColor: AppTheme.textLight.withValues(alpha: 0.4),
+              iconSize: 24,
+              visualDensity: VisualDensity.compact,
+            ),
+            IconButton(
+              onPressed: atBottom || widget.isAnswered
+                  ? null
+                  : () => _moveBy(index, 1),
+              icon: const Icon(Icons.arrow_downward_rounded),
+              color: AppTheme.primaryPurple,
+              disabledColor: AppTheme.textLight.withValues(alpha: 0.4),
+              iconSize: 24,
+              visualDensity: VisualDensity.compact,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

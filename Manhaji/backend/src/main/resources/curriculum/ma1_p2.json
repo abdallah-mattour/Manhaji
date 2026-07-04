@@ -5,8 +5,313 @@
   "semester": 2,
   "lessons": [
     {
-      "title": "الجمع ضمن ٢٠",
+      "title": "مقارنة وترتيب الأعداد ضمن ٢٠",
       "orderIndex": 1,
+      "content": "نقارن بين عددين ضمن ٢٠ باستخدام أكبر من وأصغر من ويساوي، ونرتب الأعداد تصاعدياً وتنازلياً.",
+      "objectives": "مقارنة الأعداد ضمن ٢٠ وترتيبها تصاعدياً وتنازلياً",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي عدد أكبر: ١٧ أم ١٤؟",
+          "correctAnswer": "١٧",
+          "options": [
+            "١٠",
+            "متساويان",
+            "١٤",
+            "١٧"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أي عدد أصغر: ١٩ أم ١٢؟",
+          "correctAnswer": "١٢",
+          "options": [
+            "٢٠",
+            "متساويان",
+            "١٩",
+            "١٢"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أي مجموعة مرتبة تنازلياً؟",
+          "correctAnswer": "٢٠، ١٥، ١١، ٦",
+          "options": [
+            "١٥، ٢٠، ٦، ١١",
+            "٦، ١١، ١٥، ٢٠",
+            "١١، ٦، ٢٠، ١٥",
+            "٢٠، ١٥، ١١، ٦"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ١٦ أكبر من العدد ١٨.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الترتيب التصاعدي يبدأ من الأصغر إلى الأكبر.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل بإشارة أكبر أو أصغر: ١٣ ___ ١٩.",
+          "correctAnswer": "أصغر",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب أكبر عدد مكوّن من: ١١، ١٧، ١٥.",
+          "correctAnswer": "١٧",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأعداد تصاعدياً: ١٦، ١٠، ١٩، ١٣",
+          "correctAnswer": "١٠، ١٣، ١٦، ١٩",
+          "options": [
+            "١٦",
+            "١٠",
+            "١٩",
+            "١٣"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأعداد تنازلياً: ١٢، ١٨، ١٤",
+          "correctAnswer": "١٨، ١٤، ١٢",
+          "options": [
+            "١٢",
+            "١٨",
+            "١٤"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الأعداد بالنسبة للعدد ١٥: أصغر أم أكبر؟",
+          "correctAnswer": "أصغر من ١٥=١١,أصغر من ١٥=١٣,أكبر من ١٥=١٧,أكبر من ١٥=١٩",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "أصغر من ١٥",
+              "أكبر من ١٥"
+            ],
+            "tokens": [
+              "١١",
+              "١٧",
+              "١٣",
+              "١٩"
+            ]
+          }
+        },
+        {
+          "type": "MCQ",
+          "questionText": "مع ليلى ١٤ قلماً ومع عمر ١٦ قلماً، مع من أقلام أكثر؟",
+          "correctAnswer": "عمر",
+          "options": [
+            "لا نعرف",
+            "ليلى",
+            "متساويان",
+            "عمر"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: العدد التالي للعدد ١٩ هو ___.",
+          "correctAnswer": "٢٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        }
+      ]
+    },
+    {
+      "title": "القيمة المنزلية والصورة الموسعة ضمن ٢٠",
+      "orderIndex": 2,
+      "content": "العدد ضمن ٢٠ يتكوّن من آحاد وعشرات: العدد ١٧ فيه عشرة واحدة و٧ آحاد، وصورته الموسعة ١٠ + ٧.",
+      "objectives": "تحليل الأعداد ضمن ٢٠ إلى عشرات وآحاد وكتابة الصورة الموسعة",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كم عدد الآحاد في العدد ١٦؟",
+          "correctAnswer": "٦",
+          "options": [
+            "١٠",
+            "٦",
+            "١٦",
+            "١"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كم عدد العشرات في العدد ١٤؟",
+          "correctAnswer": "١",
+          "options": [
+            "٤",
+            "١٤",
+            "١٠",
+            "١"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ما الصورة الموسعة للعدد ١٨؟",
+          "correctAnswer": "١٠ + ٨",
+          "options": [
+            "١٠ + ١",
+            "٨ + ٨",
+            "١٠ + ٨",
+            "١٨ + ٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ١٣ يتكوّن من عشرة واحدة و٣ آحاد.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الصورة الموسعة للعدد ١٥ هي ٥ + ١.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل الصورة الموسعة: ١٢ = ١٠ + ___.",
+          "correctAnswer": "٢",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: العدد المكوّن من عشرة واحدة و٩ آحاد هو ___.",
+          "correctAnswer": "١٩",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب العدد الذي صورته الموسعة ١٠ + ٥.",
+          "correctAnswer": "١٥",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب خطوات تحليل العدد ١٧: نكتب ١٠ + ٧، نحدد العشرات، نحدد الآحاد",
+          "correctAnswer": "نحدد العشرات، نحدد الآحاد، نكتب ١٠ + ٧",
+          "options": [
+            "نكتب ١٠ + ٧",
+            "نحدد العشرات",
+            "نحدد الآحاد"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MATCH",
+          "questionText": "صِل العدد بصورته الموسعة",
+          "correctAnswer": "1=a,2=b,3=c",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation",
+          "pairs": {
+            "left": [
+              {
+                "id": "1",
+                "text": "١١"
+              },
+              {
+                "id": "2",
+                "text": "١٦"
+              },
+              {
+                "id": "3",
+                "text": "٢٠"
+              }
+            ],
+            "right": [
+              {
+                "id": "b",
+                "text": "١٠ + ٦"
+              },
+              {
+                "id": "c",
+                "text": "١٠ + ١٠"
+              },
+              {
+                "id": "a",
+                "text": "١٠ + ١"
+              }
+            ]
+          }
+        },
+        {
+          "type": "MCQ",
+          "questionText": "عددان مجموع آحادهما ٥ وعشرات كل منهما ١، أيهما أكبر: ١٤ أم ١١؟",
+          "correctAnswer": "١٤",
+          "options": [
+            "متساويان",
+            "١١",
+            "٥١",
+            "١٤"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "اكتب العدد ١٥ بخط جميل",
+          "correctAnswer": "١٥",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "handwriting"
+        }
+      ]
+    },
+    {
+      "title": "الجمع ضمن ١٨",
+      "orderIndex": 3,
       "content": "نجمع أعداداً نتيجتها ٢٠ أو أقل: ١٠ + ٥ = ١٥، ٨ + ٧ = ١٥",
       "objectives": "إجراء عمليات جمع ضمن العدد 20",
       "questions": [
@@ -15,10 +320,10 @@
           "questionText": "١٠ + ٥ = ؟",
           "correctAnswer": "١٥",
           "options": [
-            "١٣",
             "١٤",
+            "١٦",
             "١٥",
-            "١٦"
+            "١٣"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -52,18 +357,18 @@
           "questionText": "٨ + ٧ = ؟",
           "correctAnswer": "١٥",
           "options": [
-            "١٤",
-            "١٥",
+            "١٧",
             "١٦",
-            "١٧"
+            "١٤",
+            "١٥"
           ],
           "difficultyLevel": 2,
           "subSkill": "computation"
         },
         {
           "type": "FILL_BLANK",
-          "questionText": "أكمل: ١٢ + ___ = ٢٠",
-          "correctAnswer": "٨",
+          "questionText": "أكمل: ١٢ + ___ = ١٨",
+          "correctAnswer": "٦",
           "options": null,
           "difficultyLevel": 2,
           "subSkill": "computation"
@@ -101,8 +406,8 @@
       "imageUrls": []
     },
     {
-      "title": "الطرح ضمن ٢٠",
-      "orderIndex": 2,
+      "title": "الطرح ضمن ١٨",
+      "orderIndex": 4,
       "content": "نطرح من أعداد حتى ٢٠: ١٥ - ٥ = ١٠، ٢٠ - ٨ = ١٢",
       "objectives": "إجراء عمليات طرح ضمن العدد 20",
       "questions": [
@@ -111,17 +416,17 @@
           "questionText": "١٥ - ٥ = ؟",
           "correctAnswer": "١٠",
           "options": [
-            "٨",
             "٩",
+            "١١",
             "١٠",
-            "١١"
+            "٨"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
         },
         {
           "type": "TRUE_FALSE",
-          "questionText": "٢٠ - ١٠ = ١٠",
+          "questionText": "١٦ - ٨ = ٨",
           "correctAnswer": "صح",
           "options": null,
           "difficultyLevel": 1,
@@ -148,23 +453,23 @@
           "questionText": "١٧ - ٥ = ؟",
           "correctAnswer": "١٢",
           "options": [
-            "١٠",
             "١١",
-            "١٢",
-            "١٣"
+            "١٠",
+            "١٣",
+            "١٢"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
         },
         {
           "type": "MCQ",
-          "questionText": "٢٠ - ٧ = ؟",
-          "correctAnswer": "١٣",
+          "questionText": "١٧ - ٩ = ؟",
+          "correctAnswer": "٨",
           "options": [
-            "١١",
-            "١٢",
-            "١٣",
-            "١٤"
+            "٦",
+            "٨",
+            "٩",
+            "٧"
           ],
           "difficultyLevel": 2,
           "subSkill": "computation"
@@ -195,13 +500,13 @@
         },
         {
           "type": "MCQ",
-          "questionText": "كان مع ريم ٢٠ ريالاً، اشترت لعبة بـ ٧ ريالات وكتاباً بـ ٥. كم بقي؟",
-          "correctAnswer": "٨",
+          "questionText": "كان مع ريم ١٨ شيقلاً، اشترت لعبة بـ ٧ شواقل وكتاباً بـ ٥. كم بقي معها؟",
+          "correctAnswer": "٦",
           "options": [
-            "٦",
-            "٧",
             "٨",
-            "٩"
+            "٩",
+            "٦",
+            "٧"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -211,7 +516,7 @@
     },
     {
       "title": "حقائق الجمع والطرح",
-      "orderIndex": 3,
+      "orderIndex": 5,
       "content": "العلاقة بين الجمع والطرح: إذا كان ٣ + ٤ = ٧ فإن ٧ - ٣ = ٤",
       "objectives": "فهم العلاقة بين الجمع والطرح",
       "questions": [
@@ -221,9 +526,9 @@
           "correctAnswer": "٥",
           "options": [
             "٣",
-            "٤",
             "٥",
-            "٦"
+            "٦",
+            "٤"
           ],
           "difficultyLevel": 2,
           "subSkill": "recognition"
@@ -258,9 +563,9 @@
           "correctAnswer": "٣",
           "options": [
             "٢",
-            "٣",
+            "٥",
             "٤",
-            "٥"
+            "٣"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -294,10 +599,10 @@
           "questionText": "أي حقيقة جمع تقابل ١٠ - ٦ = ٤؟",
           "correctAnswer": "٦ + ٤ = ١٠",
           "options": [
-            "٤ + ٤ = ٨",
+            "٦ + ٦ = ١٢",
             "٦ + ٤ = ١٠",
             "٥ + ٥ = ١٠",
-            "٦ + ٦ = ١٢"
+            "٤ + ٤ = ٨"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -319,8 +624,316 @@
       "imageUrls": []
     },
     {
+      "title": "تمثيل الأعداد ضمن ٩٩",
+      "orderIndex": 6,
+      "content": "نمثل الأعداد ضمن ٩٩ بالعشرات والآحاد: العدد ٤٣ هو ٤ عشرات و٣ آحاد، وصورته الموسعة ٤٠ + ٣.",
+      "objectives": "تمثيل الأعداد ضمن ٩٩ بالعشرات والآحاد وقراءتها",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "العدد المكوّن من ٥ عشرات و٢ آحاد هو:",
+          "correctAnswer": "٥٢",
+          "options": [
+            "٥٠٢",
+            "٢٥",
+            "٧",
+            "٥٢"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كم عشرة في العدد ٧٠؟",
+          "correctAnswer": "٧",
+          "options": [
+            "٧٠",
+            "٧",
+            "٠",
+            "١٧"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ما الصورة الموسعة للعدد ٦٤؟",
+          "correctAnswer": "٦٠ + ٤",
+          "options": [
+            "٦ + ٤",
+            "٦٠ + ٤",
+            "٦٤ + ٠",
+            "٤٠ + ٦"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ٣٨ فيه ٣ عشرات و٨ آحاد.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ٩٠ فيه ٩ آحاد.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٥٧ = ٥٠ + ___.",
+          "correctAnswer": "٧",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: العدد المكوّن من ٨ عشرات و٦ آحاد هو ___.",
+          "correctAnswer": "٨٦",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب العدد الذي صورته الموسعة ٣٠ + ٩.",
+          "correctAnswer": "٣٩",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأعداد حسب عدد عشراتها من الأقل إلى الأكثر: ٧١، ٢٥، ٤٨",
+          "correctAnswer": "٢٥، ٤٨، ٧١",
+          "options": [
+            "٧١",
+            "٢٥",
+            "٤٨"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MATCH",
+          "questionText": "صِل العدد بتحليله الصحيح",
+          "correctAnswer": "1=a,2=b,3=c",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation",
+          "pairs": {
+            "left": [
+              {
+                "id": "1",
+                "text": "٢٩"
+              },
+              {
+                "id": "2",
+                "text": "٩٢"
+              },
+              {
+                "id": "3",
+                "text": "٢٢"
+              }
+            ],
+            "right": [
+              {
+                "id": "b",
+                "text": "٩٠ + ٢"
+              },
+              {
+                "id": "c",
+                "text": "٢٠ + ٢"
+              },
+              {
+                "id": "a",
+                "text": "٢٠ + ٩"
+              }
+            ]
+          }
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الأعداد: أقل من ٥٠ أم أكثر من ٥٠؟",
+          "correctAnswer": "أقل من ٥٠=٣٤,أقل من ٥٠=٤٩,أكثر من ٥٠=٦٢,أكثر من ٥٠=٨٥",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "أقل من ٥٠",
+              "أكثر من ٥٠"
+            ],
+            "tokens": [
+              "٣٤",
+              "٦٢",
+              "٤٩",
+              "٨٥"
+            ]
+          }
+        },
+        {
+          "type": "TRACING",
+          "questionText": "اكتب العدد ٤٣ بخط جميل",
+          "correctAnswer": "٤٣",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "handwriting"
+        }
+      ]
+    },
+    {
+      "title": "الأعداد من ٣٠ إلى ٩٩",
+      "orderIndex": 7,
+      "content": "نقرأ الأعداد من ٣٠ إلى ٩٩ ونكتبها ونعدّ بالعشرات: ٣٠، ٤٠، ٥٠، ٦٠، ٧٠، ٨٠، ٩٠.",
+      "objectives": "قراءة الأعداد حتى ٩٩ وكتابتها والعد بالعشرات",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما العدد الذي يُقرأ (خمسة وسبعون)؟",
+          "correctAnswer": "٧٥",
+          "options": [
+            "٥٥",
+            "٥٧",
+            "٧٥",
+            "٧٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أكمل العد بالعشرات: ٣٠، ٤٠، ٥٠، ...",
+          "correctAnswer": "٦٠",
+          "options": [
+            "٧٠",
+            "٦٠",
+            "٥٥",
+            "٥١"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ما العدد الواقع بين ٥٩ و ٦١؟",
+          "correctAnswer": "٦٠",
+          "options": [
+            "٥٠",
+            "٦٠",
+            "٥٨",
+            "٦٢"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ٩٩ هو أكبر عدد مكوّن من رقمين.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "بعد العدد ٧٩ يأتي العدد ٧٠.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٨٧، ٨٨، ٨٩، ___.",
+          "correctAnswer": "٩٠",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل العد بالعشرات: ٦٠، ٧٠، ___، ٩٠.",
+          "correctAnswer": "٨٠",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب العدد التالي للعدد ٦٥.",
+          "correctAnswer": "٦٦",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأعداد تصاعدياً: ٨٤، ٣٧، ٥٩، ٩١",
+          "correctAnswer": "٣٧، ٥٩، ٨٤، ٩١",
+          "options": [
+            "٨٤",
+            "٣٧",
+            "٥٩",
+            "٩١"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "صف فيه ٤ مجموعات في كل منها ١٠ طلاب و٣ طلاب زيادة، كم طالباً في الصف؟",
+          "correctAnswer": "٤٣",
+          "options": [
+            "١٣",
+            "٣٤",
+            "٤٠",
+            "٤٣"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الأعداد: من عائلة الخمسينات أم من عائلة التسعينات؟",
+          "correctAnswer": "الخمسينات=٥٢,الخمسينات=٥٨,التسعينات=٩١,التسعينات=٩٧",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "الخمسينات",
+              "التسعينات"
+            ],
+            "tokens": [
+              "٥٢",
+              "٩١",
+              "٥٨",
+              "٩٧"
+            ]
+          }
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "تِسْعَةٌ وَتِسْعُونَ",
+          "correctAnswer": "تِسْعَةٌ وَتِسْعُونَ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        }
+      ]
+    },
+    {
       "title": "الأشكال الهندسية",
-      "orderIndex": 4,
+      "orderIndex": 8,
       "content": "نتعرف على الأشكال: المربع (٤ أضلاع متساوية)، المستطيل (٤ أضلاع)، المثلث (٣ أضلاع)، الدائرة.",
       "objectives": "التعرف على الأشكال الهندسية الأساسية",
       "questions": [
@@ -329,10 +942,10 @@
           "questionText": "كم ضلع للمثلث؟",
           "correctAnswer": "٣",
           "options": [
-            "٢",
+            "٥",
             "٣",
             "٤",
-            "٥"
+            "٢"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -358,10 +971,10 @@
           "questionText": "أي شكل له ٤ أضلاع متساوية؟",
           "correctAnswer": "المربع",
           "options": [
-            "المثلث",
-            "المربع",
             "الدائرة",
-            "الخط"
+            "المربع",
+            "الخط",
+            "المثلث"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -371,10 +984,10 @@
           "questionText": "كم ضلعاً للمثلث؟",
           "correctAnswer": "٣",
           "options": [
-            "٢",
-            "٣",
+            "٥",
             "٤",
-            "٥"
+            "٢",
+            "٣"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -400,10 +1013,10 @@
           "questionText": "أي شكل يشبه عجلة السيارة؟",
           "correctAnswer": "الدائرة",
           "options": [
-            "المربع",
             "المثلث",
-            "الدائرة",
-            "المستطيل"
+            "المربع",
+            "المستطيل",
+            "الدائرة"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -413,10 +1026,10 @@
           "questionText": "إذا قطعنا المربع إلى نصفين متساويين بخط مستقيم، نحصل على شكلين من نوع:",
           "correctAnswer": "مستطيل",
           "options": [
-            "مربع",
-            "مستطيل",
             "مثلث",
-            "دائرة"
+            "مربع",
+            "دائرة",
+            "مستطيل"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -433,13 +1046,254 @@
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "أيُّ صورةٍ تُظهر مثلثاً؟",
+          "correctAnswer": "مثلث",
+          "options": [
+            "معين",
+            "دائرة",
+            "مثلث",
+            "مربع"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/diamond.png",
+            "assets/openmoji/circle_red.png",
+            "assets/openmoji/triangle.png",
+            "assets/openmoji/square_blue.png"
+          ]
+        },
+        {
+          "type": "IMAGE_MATCH",
+          "questionText": "صِل كل شكل هندسي بصورته الصحيحة",
+          "correctAnswer": "1=a,2=b,3=c",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recognition",
+          "pairs": {
+            "left": [
+              {
+                "id": "1",
+                "text": "دائرة حمراء"
+              },
+              {
+                "id": "2",
+                "text": "مربع أزرق"
+              },
+              {
+                "id": "3",
+                "text": "معين برتقالي"
+              }
+            ],
+            "right": [
+              {
+                "id": "b",
+                "text": "",
+                "image": "assets/openmoji/square_blue.png"
+              },
+              {
+                "id": "c",
+                "text": "",
+                "image": "assets/openmoji/diamond.png"
+              },
+              {
+                "id": "a",
+                "text": "",
+                "image": "assets/openmoji/circle_red.png"
+              }
+            ]
+          }
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/triangle.png"
+      ]
+    },
+    {
+      "title": "المجسّمات",
+      "orderIndex": 9,
+      "content": "من المجسّمات: المكعب، متوازي المستطيلات، الكرة. المكعب أوجهه مربعة، والكرة تتدحرج.",
+      "objectives": "التعرف إلى المكعب ومتوازي المستطيلات والكرة",
+      "imageUrls": [
+        "assets/openmoji/soccer_ball.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي مجسّم يشبه كرة القدم؟",
+          "correctAnswer": "الكرة",
+          "options": [
+            "المكعب",
+            "المثلث",
+            "متوازي المستطيلات",
+            "الكرة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "المجسّم الذي كل أوجهه مربعات هو:",
+          "correctAnswer": "المكعب",
+          "options": [
+            "الكرة",
+            "متوازي المستطيلات",
+            "الدائرة",
+            "المكعب"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "علبة الحليب تشبه:",
+          "correctAnswer": "متوازي المستطيلات",
+          "options": [
+            "المثلث",
+            "الكرة",
+            "الدائرة",
+            "متوازي المستطيلات"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الكرة تتدحرج على الأرض.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "المكعب يتدحرج مثل الكرة.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: مكعب النرد كل أوجهه ___.",
+          "correctAnswer": "مربعات",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب اسم المجسّم الذي يشبه البرتقالة.",
+          "correctAnswer": "الكرة",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب حسب قدرتها على التدحرج من الأسهل إلى الأصعب: المكعب، الكرة، متوازي المستطيلات",
+          "correctAnswer": "الكرة، متوازي المستطيلات، المكعب",
+          "options": [
+            "المكعب",
+            "الكرة",
+            "متوازي المستطيلات"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "أي صورة تشبه شكل الكرة؟",
+          "correctAnswer": "كرة القدم",
+          "options": [
+            "كتاب",
+            "هدية",
+            "مسطرة",
+            "كرة القدم"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/book.png",
+            "assets/openmoji/gift.png",
+            "assets/openmoji/ruler.png",
+            "assets/openmoji/soccer_ball.png"
+          ]
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف: مجسّم أم شكل مستوٍ؟",
+          "correctAnswer": "مجسّم=المكعب,مجسّم=الكرة,شكل مستوٍ=المربع,شكل مستوٍ=الدائرة",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "مجسّم",
+              "شكل مستوٍ"
+            ],
+            "tokens": [
+              "المكعب",
+              "المربع",
+              "الكرة",
+              "الدائرة"
+            ]
+          }
+        },
+        {
+          "type": "IMAGE_MATCH",
+          "questionText": "صِل المجسّم بالشيء الذي يشبهه",
+          "correctAnswer": "1=a,2=b,3=c",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recognition",
+          "pairs": {
+            "left": [
+              {
+                "id": "1",
+                "text": "الكرة"
+              },
+              {
+                "id": "2",
+                "text": "متوازي المستطيلات"
+              },
+              {
+                "id": "3",
+                "text": "المكعب"
+              }
+            ],
+            "right": [
+              {
+                "id": "c",
+                "image": "assets/openmoji/gift.png"
+              },
+              {
+                "id": "a",
+                "image": "assets/openmoji/basketball.png"
+              },
+              {
+                "id": "b",
+                "image": "assets/openmoji/books.png"
+              }
+            ]
+          }
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "المُكَعَّب",
+          "correctAnswer": "المُكَعَّب",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        }
+      ]
     },
     {
       "title": "الأنماط",
-      "orderIndex": 5,
+      "orderIndex": 10,
       "content": "نتعلم الأنماط المتكررة: أحمر أزرق أحمر أزرق... ١ ٢ ١ ٢...",
       "objectives": "التعرف على الأنماط وإكمالها",
       "questions": [
@@ -448,9 +1302,9 @@
           "questionText": "أكمل النمط: ١، ٢، ١، ٢، ١، ؟",
           "correctAnswer": "٢",
           "options": [
-            "١",
-            "٢",
             "٣",
+            "٢",
+            "١",
             "٤"
           ],
           "difficultyLevel": 1,
@@ -477,10 +1331,10 @@
           "questionText": "ما الشكل التالي في النمط: 🔴🔵🔴🔵🔴__؟",
           "correctAnswer": "🔵",
           "options": [
-            "🔴",
-            "🔵",
+            "🟢",
             "🟡",
-            "🟢"
+            "🔴",
+            "🔵"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -515,9 +1369,9 @@
           "correctAnswer": "٢٥",
           "options": [
             "٢٠",
+            "٣٠",
             "٢٢",
-            "٢٥",
-            "٣٠"
+            "٢٥"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -547,117 +1401,8 @@
       "imageUrls": []
     },
     {
-      "title": "القياس والطول",
-      "orderIndex": 6,
-      "content": "نقيس الأطوال: طويل وقصير. نستخدم وحدات غير رسمية (مشابك، مكعبات) للقياس.",
-      "objectives": "مقارنة الأطوال واستخدام القياس غير الرسمي",
-      "questions": [
-        {
-          "type": "MCQ",
-          "questionText": "أيهما أطول: القلم أم الممحاة؟",
-          "correctAnswer": "القلم",
-          "options": [
-            "القلم",
-            "الممحاة",
-            "متساويان",
-            "لا أعرف"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "recognition"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "يمكننا قياس الأشياء بالمشابك",
-          "correctAnswer": "صح",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "ما عكس كلمة طويل؟",
-          "correctAnswer": "قصير",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "أي وحدة نستخدمها لقياس الطول الكبير كطول الغرفة؟",
-          "correctAnswer": "المتر",
-          "options": [
-            "السنتيمتر",
-            "المتر",
-            "الكيلومتر",
-            "الجرام"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "recognition"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "السنتيمتر أصغر من المتر",
-          "correctAnswer": "صح",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "ما الأداة التي نستخدمها لقياس الطول؟",
-          "correctAnswer": "المسطرة",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "FILL_BLANK",
-          "questionText": "أكمل: لقياس طول قلم نستخدم ___",
-          "correctAnswer": "السنتيمتر",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "إذا كان طول كتاب ٢٠ سم وطول قلم ١٢ سم، فالكتاب أطول من القلم بـ:",
-          "correctAnswer": "٨ سم",
-          "options": [
-            "٦ سم",
-            "٧ سم",
-            "٨ سم",
-            "١٠ سم"
-          ],
-          "difficultyLevel": 3,
-          "subSkill": "application"
-        },
-        {
-          "type": "ORDERING",
-          "questionText": "رتّب من الأقصر إلى الأطول: قلم، كتاب، طاولة، باب",
-          "correctAnswer": "قلم، كتاب، طاولة، باب",
-          "options": [
-            "كتاب",
-            "قلم",
-            "باب",
-            "طاولة"
-          ],
-          "difficultyLevel": 2,
-          "subSkill": "application"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "المتر يساوي ١٠٠ سنتيمتر",
-          "correctAnswer": "صح",
-          "options": null,
-          "difficultyLevel": 2,
-          "subSkill": "comprehension"
-        }
-      ],
-      "imageUrls": []
-    },
-    {
       "title": "الوزن والسعة",
-      "orderIndex": 7,
+      "orderIndex": 11,
       "content": "نتعلم المقارنة: ثقيل وخفيف. السعة: ممتلئ وفارغ.",
       "objectives": "مقارنة الأوزان والسعات",
       "questions": [
@@ -666,8 +1411,8 @@
           "questionText": "أيهما أثقل: الكتاب أم الريشة؟",
           "correctAnswer": "الكتاب",
           "options": [
-            "الكتاب",
             "الريشة",
+            "الكتاب",
             "متساويان",
             "لا أعرف"
           ],
@@ -696,9 +1441,9 @@
           "correctAnswer": "بطيخة",
           "options": [
             "تفاحة",
-            "بطيخة",
             "كلاهما متساوٍ",
-            "لا يمكن المقارنة"
+            "لا يمكن المقارنة",
+            "بطيخة"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -732,10 +1477,10 @@
           "questionText": "أي إناء يستوعب ماءً أكثر: كأس صغير أم إبريق كبير؟",
           "correctAnswer": "إبريق كبير",
           "options": [
-            "كأس صغير",
-            "إبريق كبير",
+            "الكأس فقط",
             "متساويان",
-            "الكأس فقط"
+            "كأس صغير",
+            "إبريق كبير"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -765,117 +1510,8 @@
       "imageUrls": []
     },
     {
-      "title": "الوقت والساعة",
-      "orderIndex": 8,
-      "content": "نتعلم قراءة الساعة: الساعة الكاملة. عقرب الساعات وعقرب الدقائق.",
-      "objectives": "قراءة الساعة عند الساعات الكاملة",
-      "questions": [
-        {
-          "type": "MCQ",
-          "questionText": "عندما يشير العقرب الصغير إلى ٣ والكبير إلى ١٢، كم الساعة؟",
-          "correctAnswer": "الثالثة",
-          "options": [
-            "الثالثة",
-            "الثانية عشرة",
-            "السادسة",
-            "التاسعة"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "recognition"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "العقرب الصغير يشير إلى الساعات",
-          "correctAnswer": "صح",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "في أي ساعة تذهب إلى المدرسة؟",
-          "correctAnswer": "السابعة",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "كم ساعة في اليوم؟",
-          "correctAnswer": "٢٤",
-          "options": [
-            "١٢",
-            "٢٤",
-            "٦٠",
-            "٧"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "recognition"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "الساعة فيها عقربان: عقرب الساعات وعقرب الدقائق",
-          "correctAnswer": "صح",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "كم دقيقة في الساعة الواحدة؟",
-          "correctAnswer": "٦٠",
-          "options": null,
-          "difficultyLevel": 2,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "FILL_BLANK",
-          "questionText": "أكمل: عقرب الساعات أقصر من عقرب ___",
-          "correctAnswer": "الدقائق",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "إذا كانت الساعة الآن ٣ وبعد ساعتين، كم ستكون؟",
-          "correctAnswer": "٥",
-          "options": [
-            "٤",
-            "٥",
-            "٦",
-            "٧"
-          ],
-          "difficultyLevel": 2,
-          "subSkill": "application"
-        },
-        {
-          "type": "ORDERING",
-          "questionText": "رتّب أوقات اليوم بالترتيب: ظهراً، صباحاً، ليلاً، مساءً",
-          "correctAnswer": "صباحاً، ظهراً، مساءً، ليلاً",
-          "options": [
-            "ظهراً",
-            "صباحاً",
-            "ليلاً",
-            "مساءً"
-          ],
-          "difficultyLevel": 3,
-          "subSkill": "application"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "نوم الأطفال يكون عادة في الليل",
-          "correctAnswer": "صح",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        }
-      ],
-      "imageUrls": []
-    },
-    {
       "title": "النقود",
-      "orderIndex": 9,
+      "orderIndex": 12,
       "content": "نتعلم النقود: نصف شيكل، شيكل، ٥ شواكل، ١٠ شواكل.",
       "objectives": "التعرف على فئات النقود واستخدامها",
       "questions": [
@@ -884,10 +1520,10 @@
           "questionText": "كم شيكل = ١٠ قطع نصف شيكل؟",
           "correctAnswer": "٥",
           "options": [
-            "٣",
-            "٥",
             "١٠",
-            "٢٠"
+            "٢٠",
+            "٣",
+            "٥"
           ],
           "difficultyLevel": 2,
           "subSkill": "recognition"
@@ -913,8 +1549,8 @@
           "questionText": "كم قرشاً في الشيكل الواحد؟",
           "correctAnswer": "١٠٠",
           "options": [
-            "١٠",
             "٥٠",
+            "١٠",
             "١٠٠",
             "١٠٠٠"
           ],
@@ -950,10 +1586,10 @@
           "questionText": "اشترى أحمد لعبة بـ ١٠ شواكل ودفتراً بـ ٤ شواكل. كم دفع؟",
           "correctAnswer": "١٤",
           "options": [
-            "١٣",
-            "١٤",
             "١٥",
-            "١٦"
+            "١٣",
+            "١٦",
+            "١٤"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -963,10 +1599,10 @@
           "questionText": "أعطى الأب ابنه ٢٠ شيكلاً، فاشترى الابن قميصاً بـ ١٢ شيكلاً وحلوى بـ ٣ شواكل. كم بقي معه؟",
           "correctAnswer": "٥",
           "options": [
+            "٧",
             "٤",
-            "٥",
             "٦",
-            "٧"
+            "٥"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -989,7 +1625,7 @@
     },
     {
       "title": "مسائل كلامية",
-      "orderIndex": 10,
+      "orderIndex": 13,
       "content": "نحل مسائل حسابية من الحياة اليومية: أحمد معه ٥ تفاحات أكل ٢، كم بقي؟",
       "objectives": "حل مسائل كلامية في الجمع والطرح",
       "questions": [
@@ -999,8 +1635,8 @@
           "correctAnswer": "٤",
           "options": [
             "٢",
-            "٣",
             "٤",
+            "٣",
             "٥"
           ],
           "difficultyLevel": 1,
@@ -1027,10 +1663,10 @@
           "questionText": "في حديقة ٧ زهور حمراء و٥ زهور صفراء. كم زهرة في الحديقة؟",
           "correctAnswer": "١٢",
           "options": [
-            "١٠",
-            "١١",
+            "١٣",
             "١٢",
-            "١٣"
+            "١١",
+            "١٠"
           ],
           "difficultyLevel": 1,
           "subSkill": "application"
@@ -1064,10 +1700,10 @@
           "questionText": "في مزرعة ٨ دجاجات و٤ ديوك. كم طيراً في المزرعة؟",
           "correctAnswer": "١٢",
           "options": [
+            "١٤",
             "١١",
-            "١٢",
             "١٣",
-            "١٤"
+            "١٢"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -1077,10 +1713,10 @@
           "questionText": "اشترت أمي ٦ بيضات صباحاً و٧ بيضات مساءً. ثم استعملت ٤ بيضات في الطبخ. كم بقي؟",
           "correctAnswer": "٩",
           "options": [
-            "٧",
             "٨",
+            "١٠",
             "٩",
-            "١٠"
+            "٧"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -1098,7 +1734,7 @@
     },
     {
       "title": "مراجعة نهائية",
-      "orderIndex": 11,
+      "orderIndex": 14,
       "content": "مراجعة شاملة لجميع المواضيع: الجمع والطرح ضمن ٢٠، الأشكال، القياس، الوقت، النقود.",
       "objectives": "مراجعة نهائية شاملة",
       "questions": [
@@ -1107,10 +1743,10 @@
           "questionText": "١٢ + ٧ = ؟",
           "correctAnswer": "١٩",
           "options": [
-            "١٧",
+            "٢٠",
             "١٨",
             "١٩",
-            "٢٠"
+            "١٧"
           ],
           "difficultyLevel": 2,
           "subSkill": "recognition"
@@ -1136,10 +1772,10 @@
           "questionText": "ما ناتج: ١٠ + ٦؟",
           "correctAnswer": "١٦",
           "options": [
-            "١٤",
             "١٥",
             "١٦",
-            "١٧"
+            "١٧",
+            "١٤"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -1173,10 +1809,10 @@
           "questionText": "كم متراً تقريباً يبلغ ارتفاع الباب العادي؟",
           "correctAnswer": "٢ متر",
           "options": [
+            "١٠ أمتار",
             "٢٠ سم",
             "٥٠ سم",
-            "٢ متر",
-            "١٠ أمتار"
+            "٢ متر"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -1200,17 +1836,37 @@
           "questionText": "مزرعة فيها ١٠ خراف. ولدت ٣ منها صغاراً، وبيع ٢ منها. كم خروفاً بقي في المزرعة؟",
           "correctAnswer": "١١",
           "options": [
-            "٩",
             "١٠",
-            "١١",
-            "١٢"
+            "١٢",
+            "٩",
+            "١١"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف العمليات: جمع أم طرح؟",
+          "correctAnswer": "جمع=٣+٢,جمع=٥+٥,طرح=٧-٤,طرح=٩-٦",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "جمع",
+              "طرح"
+            ],
+            "tokens": [
+              "٣+٢",
+              "٧-٤",
+              "٥+٥",
+              "٩-٦"
+            ]
+          }
         }
       ],
       "imageUrls": []
     }
   ],
-  "totalLessons": 11
+  "totalLessons": 14
 }

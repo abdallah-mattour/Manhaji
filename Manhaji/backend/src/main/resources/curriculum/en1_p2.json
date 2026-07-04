@@ -3,1072 +3,1770 @@
   "subjectCode": "en",
   "gradeLevel": 1,
   "semester": 2,
+  "totalLessons": 11,
   "lessons": [
     {
-      "title": "My House (Unit 10)",
+      "title": "Let's play! (Unit 10)",
       "orderIndex": 1,
-      "content": "House rooms: bedroom, kitchen, bathroom, living room, garden. I sleep in the bedroom.",
-      "objectives": "Learn house and room vocabulary",
-      "questions": [
-        {
-          "type": "MCQ",
-          "questionText": "Where do you sleep?",
-          "correctAnswer": "Bedroom",
-          "options": [
-            "Kitchen",
-            "Bedroom",
-            "Bathroom",
-            "Garden"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "recognition"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "A kitchen is where we cook.",
-          "correctAnswer": "True",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "Where do plants and flowers grow outside a house?",
-          "correctAnswer": "Garden",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "FILL_BLANK",
-          "questionText": "Complete: We sleep in the ___ at night",
-          "correctAnswer": "bedroom",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "PRONUNCIATION",
-          "questionText": "Say the word: Home",
-          "correctAnswer": "Home",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "pronunciation"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "Where do we sleep in a house?",
-          "correctAnswer": "Bedroom",
-          "options": [
-            "Kitchen",
-            "Bedroom",
-            "Garden",
-            "Garage"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "recognition"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "We cook food in the kitchen",
-          "correctAnswer": "True",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "FILL_BLANK",
-          "questionText": "Complete: We watch TV in the ___ room",
-          "correctAnswer": "living",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "PRONUNCIATION",
-          "questionText": "Say the word: House",
-          "correctAnswer": "House",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "pronunciation"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "What do we call a space inside a house, like a bedroom?",
-          "correctAnswer": "Room",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "ORDERING",
-          "questionText": "Put words in order: my, This, is, house",
-          "correctAnswer": "This, is, my, house",
-          "options": [
-            "my",
-            "This",
-            "is",
-            "house"
-          ],
-          "difficultyLevel": 2,
-          "subSkill": "application"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "Which room would you go to for a bath?",
-          "correctAnswer": "Bathroom",
-          "options": [
-            "Bedroom",
-            "Kitchen",
-            "Bathroom",
-            "Living room"
-          ],
-          "difficultyLevel": 3,
-          "subSkill": "application"
-        }
+      "content": "Toy words: ball, doll, yo-yo, kite, balloon, skates. Where's my ball? Here! There!",
+      "objectives": "Name toys and say where something is",
+      "imageUrls": [
+        "assets/openmoji/kite.png"
       ],
-      "imageUrls": []
-    },
-    {
-      "title": "Clothes (Unit 11)",
-      "orderIndex": 2,
-      "content": "Clothes: shirt, pants, dress, shoes, hat, socks. I wear a shirt. She wears a dress.",
-      "objectives": "Learn clothing vocabulary",
       "questions": [
         {
           "type": "MCQ",
-          "questionText": "We wear a ___ on the top half of our body.",
-          "correctAnswer": "Shirt",
-          "options": [
-            "Shirt",
-            "Pants",
-            "Dress",
-            "Shoes"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "recognition"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "We wear shoes on our feet.",
-          "correctAnswer": "True",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "What do you wear on your feet?",
-          "correctAnswer": "Shoes",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "FILL_BLANK",
-          "questionText": "Complete: I wear ___ on my hands when it is cold (covering for hands)",
-          "correctAnswer": "gloves",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "PRONUNCIATION",
-          "questionText": "Say the word: Shoes",
-          "correctAnswer": "Shoes",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "pronunciation"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "We wear a coat in cold weather",
-          "correctAnswer": "True",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "FILL_BLANK",
-          "questionText": "Complete: I wear a ___ on my head",
-          "correctAnswer": "hat",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "PRONUNCIATION",
-          "questionText": "Say the word: Shirt",
-          "correctAnswer": "Shirt",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "pronunciation"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "What clothing has buttons and we wear it on top?",
-          "correctAnswer": "Shirt",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "Which clothing keeps you warmest?",
-          "correctAnswer": "Coat",
-          "options": [
-            "T-shirt",
-            "Coat",
-            "Shorts",
-            "Sandals"
-          ],
-          "difficultyLevel": 2,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "Which clothing matches summer best?",
-          "correctAnswer": "Shorts",
-          "options": [
-            "Coat",
-            "Boots",
-            "Shorts",
-            "Mittens"
-          ],
-          "difficultyLevel": 3,
-          "subSkill": "application"
-        }
-      ],
-      "imageUrls": []
-    },
-    {
-      "title": "Numbers 6-10 (Unit 12)",
-      "orderIndex": 3,
-      "content": "Numbers: six, seven, eight, nine, ten. How many books? There are ten books.",
-      "objectives": "Learn numbers 6-10 in English",
-      "questions": [
-        {
-          "type": "MCQ",
-          "questionText": "What number is 'eight'?",
-          "correctAnswer": "8",
-          "options": [
-            "6",
-            "7",
-            "8",
-            "9"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "recognition"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "Ten is bigger than five.",
-          "correctAnswer": "True",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "Write the English word for 7.",
-          "correctAnswer": "Seven",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "FILL_BLANK",
-          "questionText": "Complete: ___ + 2 = 10 (write the number word)",
-          "correctAnswer": "eight",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "PRONUNCIATION",
-          "questionText": "Say the word: Seven",
-          "correctAnswer": "Seven",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "pronunciation"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "How do we say the number 7 in English?",
-          "correctAnswer": "Seven",
-          "options": [
-            "Six",
-            "Seven",
-            "Eight",
-            "Nine"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "recognition"
-        },
-        {
-          "type": "FILL_BLANK",
-          "questionText": "Complete: Six, ___, eight, nine, ten",
-          "correctAnswer": "seven",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "'Ten' comes after 'nine'",
-          "correctAnswer": "True",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "PRONUNCIATION",
-          "questionText": "Say the word: Eight",
-          "correctAnswer": "Eight",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "pronunciation"
-        },
-        {
-          "type": "ORDERING",
-          "questionText": "Put in order: ten, six, eight, seven, nine",
-          "correctAnswer": "six, seven, eight, nine, ten",
-          "options": [
-            "ten",
-            "six",
-            "eight",
-            "seven",
-            "nine"
-          ],
-          "difficultyLevel": 2,
-          "subSkill": "application"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "Six plus four equals (in English):",
-          "correctAnswer": "Ten",
-          "options": [
-            "Eight",
-            "Nine",
-            "Ten",
-            "Eleven"
-          ],
-          "difficultyLevel": 3,
-          "subSkill": "application"
-        }
-      ],
-      "imageUrls": []
-    },
-    {
-      "title": "Toys (Unit 13)",
-      "orderIndex": 4,
-      "content": "Toys: ball, doll, car, teddy bear, kite. I have a ball. This is my toy car.",
-      "objectives": "Learn toy vocabulary",
-      "questions": [
-        {
-          "type": "MCQ",
-          "questionText": "What round toy do we kick or throw?",
-          "correctAnswer": "Ball",
-          "options": [
-            "Ball",
-            "Doll",
-            "Car",
-            "Kite"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "recognition"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "A doll looks like a little person.",
-          "correctAnswer": "True",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "What flies in the sky?",
+          "questionText": "Which toy flies in the sky on a string?",
           "correctAnswer": "Kite",
+          "options": [
+            "Doll",
+            "Kite",
+            "Ball",
+            "Skates"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "What do you ask when you cannot find your ball?",
+          "correctAnswer": "Where's my ball?",
+          "options": [
+            "Who's this?",
+            "Where's my ball?",
+            "What's this?",
+            "What colour?"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "We answer 'Here!' when the toy is near us.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "A balloon is a heavy toy.",
+          "correctAnswer": "False",
           "options": null,
           "difficultyLevel": 1,
-          "subSkill": "production"
+          "subSkill": "comprehension"
         },
         {
           "type": "FILL_BLANK",
-          "questionText": "Complete: I fly a ___ in the wind (toy on a string)",
+          "questionText": "Complete: Where's my ___? There!",
           "correctAnswer": "kite",
           "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I play with my ___ and my doll.",
+          "correctAnswer": "ball",
+          "options": null,
           "difficultyLevel": 1,
           "subSkill": "production"
         },
         {
+          "type": "SHORT_ANSWER",
+          "questionText": "Write the toy that goes up and down on a string.",
+          "correctAnswer": "yo-yo",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Order the words: my / Where's / doll / ?",
+          "correctAnswer": "Where's, my, doll, ?",
+          "options": [
+            "my",
+            "Where's",
+            "doll",
+            "?"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows the balloon?",
+          "correctAnswer": "Balloon",
+          "options": [
+            "Teddy bear",
+            "Balloon",
+            "Ball",
+            "Kite"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/teddy_bear.png",
+            "assets/openmoji/balloon.png",
+            "assets/openmoji/soccer_ball.png",
+            "assets/openmoji/kite.png"
+          ]
+        },
+        {
+          "type": "IMAGE_MATCH",
+          "questionText": "Match each toy word to its picture",
+          "correctAnswer": "1=a,2=b,3=c",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recognition",
+          "pairs": {
+            "left": [
+              {
+                "id": "1",
+                "text": "Ball"
+              },
+              {
+                "id": "2",
+                "text": "Kite"
+              },
+              {
+                "id": "3",
+                "text": "Balloon"
+              }
+            ],
+            "right": [
+              {
+                "id": "b",
+                "image": "assets/openmoji/kite.png"
+              },
+              {
+                "id": "c",
+                "image": "assets/openmoji/balloon.png"
+              },
+              {
+                "id": "a",
+                "image": "assets/openmoji/soccer_ball.png"
+              }
+            ]
+          }
+        },
+        {
           "type": "PRONUNCIATION",
-          "questionText": "Say the word: Ball",
-          "correctAnswer": "Ball",
+          "questionText": "Balloon",
+          "correctAnswer": "Balloon",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "pronunciation"
         },
         {
-          "type": "MCQ",
-          "questionText": "Which toy is round and we kick or throw it?",
-          "correctAnswer": "Ball",
+          "type": "LISTEN_CHOOSE",
+          "questionText": "Doll",
+          "correctAnswer": "Doll",
           "options": [
-            "Doll",
             "Ball",
+            "Skates",
+            "Kite",
+            "Doll"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "READING",
+          "questionText": "Where's my ball? Here it is",
+          "correctAnswer": "Where's my ball? Here it is",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "reading"
+        }
+      ]
+    },
+    {
+      "title": "Transport (Unit 11)",
+      "orderIndex": 2,
+      "content": "Transport words: car, bus, bike, van, taxi. How many taxis? Five taxis.",
+      "objectives": "Name transport and count vehicles",
+      "imageUrls": [
+        "assets/openmoji/bus.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "Which one takes many children to school together?",
+          "correctAnswer": "Bus",
+          "options": [
+            "Taxi",
+            "Bike",
+            "Van",
+            "Bus"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Which one has two wheels and pedals?",
+          "correctAnswer": "Bike",
+          "options": [
+            "Van",
+            "Bus",
             "Car",
-            "Kite"
+            "Bike"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
         },
         {
           "type": "TRUE_FALSE",
-          "questionText": "A doll is a toy",
+          "questionText": "A taxi takes people from place to place.",
           "correctAnswer": "True",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "comprehension"
         },
         {
+          "type": "TRUE_FALSE",
+          "questionText": "A van is smaller than a bike.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
           "type": "FILL_BLANK",
-          "questionText": "Complete: I play with a toy ___ on the road (vehicle)",
+          "questionText": "Complete: How many taxis? ___ taxis.",
+          "correctAnswer": "Five",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: My dad drives a ___.",
           "correctAnswer": "car",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "production"
         },
         {
+          "type": "SHORT_ANSWER",
+          "questionText": "Write the transport word that rhymes with 'man'.",
+          "correctAnswer": "van",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Order the words: many / How / buses / ?",
+          "correctAnswer": "How, many, buses, ?",
+          "options": [
+            "many",
+            "How",
+            "buses",
+            "?"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows the bus?",
+          "correctAnswer": "Bus",
+          "options": [
+            "Car",
+            "Bike",
+            "Bus",
+            "Train"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/car.png",
+            "assets/openmoji/bicycle.png",
+            "assets/openmoji/bus.png",
+            "assets/openmoji/train.png"
+          ]
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "Sort them: has two wheels or four wheels?",
+          "correctAnswer": "Two wheels=Bike,Two wheels=Motorbike,Four wheels=Car,Four wheels=Van",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "Two wheels",
+              "Four wheels"
+            ],
+            "tokens": [
+              "Bike",
+              "Car",
+              "Motorbike",
+              "Van"
+            ]
+          }
+        },
+        {
           "type": "PRONUNCIATION",
-          "questionText": "Say the word: Toy",
-          "correctAnswer": "Toy",
+          "questionText": "Taxi",
+          "correctAnswer": "Taxi",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "pronunciation"
         },
         {
-          "type": "SHORT_ANSWER",
-          "questionText": "What do children play with for fun?",
-          "correctAnswer": "Toy",
-          "options": null,
+          "type": "LISTEN_CHOOSE",
+          "questionText": "Bus",
+          "correctAnswer": "Bus",
+          "options": [
+            "Taxi",
+            "Bus",
+            "Car",
+            "Bike"
+          ],
           "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "Which toy flies in the wind?",
-          "correctAnswer": "Kite",
-          "options": [
-            "Ball",
-            "Doll",
-            "Kite",
-            "Car"
-          ],
-          "difficultyLevel": 2,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "If three children share two balls equally, how many children do not have a ball?",
-          "correctAnswer": "One",
-          "options": [
-            "Zero",
-            "One",
-            "Two",
-            "Three"
-          ],
-          "difficultyLevel": 3,
-          "subSkill": "application"
+          "subSkill": "recognition",
+          "optionImages": [
+            null,
+            "assets/openmoji/bus.png",
+            "assets/openmoji/car.png",
+            "assets/openmoji/bicycle.png"
+          ]
         }
-      ],
-      "imageUrls": []
+      ]
     },
     {
-      "title": "Weather (Unit 14)",
-      "orderIndex": 5,
-      "content": "Weather: sunny, rainy, cloudy, windy, hot, cold. It is sunny today. It is cold.",
-      "objectives": "Learn weather vocabulary",
+      "title": "Colours (Unit 12)",
+      "orderIndex": 3,
+      "content": "Colour words: red, green, white, blue, black, yellow, umbrella. What colour? Red and black.",
+      "objectives": "Identify colours and say what colour something is",
+      "imageUrls": [
+        "assets/openmoji/rainbow.png"
+      ],
       "questions": [
         {
           "type": "MCQ",
-          "questionText": "When the sun shines, it is:",
-          "correctAnswer": "Sunny",
-          "options": [
-            "Rainy",
-            "Sunny",
-            "Cloudy",
-            "Windy"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "recognition"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "On a rainy day, water falls from the sky.",
-          "correctAnswer": "True",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "What is the weather like when it snows?",
-          "correctAnswer": "Cold",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "FILL_BLANK",
-          "questionText": "Complete: It is very hot in ___ (the season)",
-          "correctAnswer": "summer",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "PRONUNCIATION",
-          "questionText": "Say the word: Sun",
-          "correctAnswer": "Sun",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "pronunciation"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "What weather is it when the sun is shining?",
-          "correctAnswer": "Sunny",
-          "options": [
-            "Rainy",
-            "Snowy",
-            "Sunny",
-            "Cloudy"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "recognition"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "We use an umbrella when it rains",
-          "correctAnswer": "True",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "FILL_BLANK",
-          "questionText": "Complete: In winter it is very ___",
-          "correctAnswer": "cold",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "PRONUNCIATION",
-          "questionText": "Say the word: Rain",
-          "correctAnswer": "Rain",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "pronunciation"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "How does it feel outside in summer?",
-          "correctAnswer": "Hot",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "When it snows, the ground becomes:",
-          "correctAnswer": "White",
+          "questionText": "What colour is the sky on a sunny day?",
+          "correctAnswer": "Blue",
           "options": [
             "Red",
+            "Green",
+            "Black",
+            "Blue"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "What colour is snow?",
+          "correctAnswer": "White",
+          "options": [
+            "Blue",
             "Green",
             "Yellow",
             "White"
           ],
-          "difficultyLevel": 2,
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "Grass is green.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
           "subSkill": "comprehension"
         },
         {
-          "type": "MCQ",
-          "questionText": "Which clothes do we wear in HOT weather?",
-          "correctAnswer": "T-shirt and shorts",
+          "type": "TRUE_FALSE",
+          "questionText": "The sun looks black in the sky.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: What colour? Red and ___. (the darkest colour)",
+          "correctAnswer": "black",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: A banana is ___.",
+          "correctAnswer": "yellow",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Write the colour of a tomato.",
+          "correctAnswer": "red",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Order the words: colour / What / ?",
+          "correctAnswer": "What, colour, ?",
           "options": [
-            "Coat and boots",
-            "T-shirt and shorts",
-            "Hat and gloves",
-            "Scarf and mittens"
+            "colour",
+            "What",
+            "?"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which circle is the GREEN one?",
+          "correctAnswer": "Green",
+          "options": [
+            "Blue",
+            "Green",
+            "Yellow",
+            "Red"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/blue.png",
+            "assets/openmoji/green.png",
+            "assets/openmoji/yellow.png",
+            "assets/openmoji/red.png"
+          ]
+        },
+        {
+          "type": "IMAGE_MATCH",
+          "questionText": "Match the colour word to the right circle",
+          "correctAnswer": "1=a,2=b,3=c",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recognition",
+          "pairs": {
+            "left": [
+              {
+                "id": "1",
+                "text": "White"
+              },
+              {
+                "id": "2",
+                "text": "Black"
+              },
+              {
+                "id": "3",
+                "text": "Blue"
+              }
+            ],
+            "right": [
+              {
+                "id": "b",
+                "image": "assets/openmoji/circle_black.png"
+              },
+              {
+                "id": "a",
+                "image": "assets/openmoji/circle_white.png"
+              },
+              {
+                "id": "c",
+                "image": "assets/openmoji/circle_blue.png"
+              }
+            ]
+          }
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Yellow",
+          "correctAnswer": "Yellow",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "LISTEN_CHOOSE",
+          "questionText": "White",
+          "correctAnswer": "White",
+          "options": [
+            "Black",
+            "Green",
+            "White",
+            "Red"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/circle_black.png",
+            "assets/openmoji/square_green.png",
+            "assets/openmoji/circle_white.png",
+            "assets/openmoji/circle_red.png"
+          ]
+        },
+        {
+          "type": "MCQ",
+          "questionText": "An umbrella is red AND black. How many colours is that?",
+          "correctAnswer": "Two",
+          "options": [
+            "Four",
+            "Two",
+            "Three",
+            "One"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
         }
-      ],
-      "imageUrls": []
+      ]
     },
     {
-      "title": "Fruits & Vegetables (Unit 15)",
-      "orderIndex": 6,
-      "content": "Fruits: orange, grape, strawberry. Vegetables: tomato, cucumber, carrot. I like oranges.",
-      "objectives": "Learn fruit and vegetable vocabulary",
+      "title": "My clothes (Unit 13)",
+      "orderIndex": 4,
+      "content": "Clothes words: t-shirt, shoes, shorts, jeans, dress, skirt. A red skirt, blue jeans.",
+      "objectives": "Identify clothes and describe them with colours",
+      "imageUrls": [
+        "assets/openmoji/shirt.png"
+      ],
       "questions": [
         {
           "type": "MCQ",
-          "questionText": "Which fruit is round and orange in color?",
-          "correctAnswer": "Orange",
+          "questionText": "What do you wear on your feet?",
+          "correctAnswer": "Shoes",
+          "options": [
+            "Dress",
+            "Skirt",
+            "T-shirt",
+            "Shoes"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Jeans are usually ...",
+          "correctAnswer": "Blue",
+          "options": [
+            "White",
+            "Pink",
+            "Yellow",
+            "Blue"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "A dress is a piece of clothing.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "We wear shorts on our head.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: Sara wears a red ___. (it spins when she turns)",
+          "correctAnswer": "skirt",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: In summer I wear a ___-shirt.",
+          "correctAnswer": "t",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Write the clothes word for short trousers.",
+          "correctAnswer": "shorts",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Order the words: jeans / blue / my",
+          "correctAnswer": "my, blue, jeans",
+          "options": [
+            "jeans",
+            "blue",
+            "my"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows the dress?",
+          "correctAnswer": "Dress",
+          "options": [
+            "Jeans",
+            "Shoes",
+            "T-shirt",
+            "Dress"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/jeans.png",
+            "assets/openmoji/shoe.png",
+            "assets/openmoji/shirt.png",
+            "assets/openmoji/dress.png"
+          ]
+        },
+        {
+          "type": "IMAGE_MATCH",
+          "questionText": "Match each clothes word to its picture",
+          "correctAnswer": "1=a,2=b,3=c",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recognition",
+          "pairs": {
+            "left": [
+              {
+                "id": "1",
+                "text": "T-shirt"
+              },
+              {
+                "id": "2",
+                "text": "Shoes"
+              },
+              {
+                "id": "3",
+                "text": "Jeans"
+              }
+            ],
+            "right": [
+              {
+                "id": "b",
+                "image": "assets/openmoji/shoe.png"
+              },
+              {
+                "id": "a",
+                "image": "assets/openmoji/shirt.png"
+              },
+              {
+                "id": "c",
+                "image": "assets/openmoji/jeans.png"
+              }
+            ]
+          }
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Shoes",
+          "correctAnswer": "Shoes",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "LISTEN_CHOOSE",
+          "questionText": "Dress",
+          "correctAnswer": "Dress",
+          "options": [
+            "Shoes",
+            "Skirt",
+            "Dress",
+            "Shorts"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        }
+      ]
+    },
+    {
+      "title": "Revision: Units 10-13 (Unit 14)",
+      "orderIndex": 5,
+      "content": "Revision of toys, transport, colours and clothes.",
+      "objectives": "Revise the language of Units 10-13",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "Pick the TOY word.",
+          "correctAnswer": "Yo-yo",
+          "options": [
+            "Skirt",
+            "Taxi",
+            "White",
+            "Yo-yo"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Pick the TRANSPORT word.",
+          "correctAnswer": "Van",
+          "options": [
+            "Doll",
+            "Green",
+            "Shorts",
+            "Van"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Pick the CLOTHES word.",
+          "correctAnswer": "Skirt",
+          "options": [
+            "Black",
+            "Bus",
+            "Kite",
+            "Skirt"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'What colour?' asks about the name of a toy.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I ride a blue ___ to school. (two wheels)",
+          "correctAnswer": "bike",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Write the colour of the night sky.",
+          "correctAnswer": "black",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Order the words: skirt / a / red",
+          "correctAnswer": "a, red, skirt",
+          "options": [
+            "skirt",
+            "a",
+            "red"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "Sort the words: toys or clothes?",
+          "correctAnswer": "Toys=Kite,Toys=Doll,Clothes=Dress,Clothes=Shorts",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "Toys",
+              "Clothes"
+            ],
+            "tokens": [
+              "Kite",
+              "Dress",
+              "Doll",
+              "Shorts"
+            ]
+          }
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows something we WEAR?",
+          "correctAnswer": "Shoes",
+          "options": [
+            "Kite",
+            "Bus",
+            "Shoes",
+            "Balloon"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/kite.png",
+            "assets/openmoji/bus.png",
+            "assets/openmoji/shoe.png",
+            "assets/openmoji/balloon.png"
+          ]
+        },
+        {
+          "type": "READING",
+          "questionText": "My kite is red and blue",
+          "correctAnswer": "My kite is red and blue",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "reading"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Skates",
+          "correctAnswer": "Skates",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "LISTEN_CHOOSE",
+          "questionText": "Kite",
+          "correctAnswer": "Kite",
+          "options": [
+            "Skates",
+            "White",
+            "Bike",
+            "Kite"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        }
+      ]
+    },
+    {
+      "title": "My bedroom (Unit 15)",
+      "orderIndex": 6,
+      "content": "Bedroom words: bed, table, chair, box, window, door. It's in / on / under the bed.",
+      "objectives": "Name bedroom things and say where something is",
+      "imageUrls": [
+        "assets/openmoji/bed.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "Where do you sleep at night?",
+          "correctAnswer": "Bed",
+          "options": [
+            "Box",
+            "Chair",
+            "Bed",
+            "Table"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "The ball is NOT on the bed. It is ___ the bed.",
+          "correctAnswer": "under",
+          "options": [
+            "happy",
+            "big",
+            "under",
+            "blue"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "We open the window to get fresh air.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "We sit on the door.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: The doll is in the ___. (we keep toys inside it)",
+          "correctAnswer": "box",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I sit on my ___.",
+          "correctAnswer": "chair",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Write the word for the thing you walk through to enter a room.",
+          "correctAnswer": "door",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Order the words: on / It's / the / bed",
+          "correctAnswer": "It's, on, the, bed",
+          "options": [
+            "on",
+            "It's",
+            "the",
+            "bed"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows the chair?",
+          "correctAnswer": "Chair",
+          "options": [
+            "Key",
+            "Door",
+            "Bed",
+            "Chair"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/key.png",
+            "assets/openmoji/door.png",
+            "assets/openmoji/bed.png",
+            "assets/openmoji/chair.png"
+          ]
+        },
+        {
+          "type": "IMAGE_MATCH",
+          "questionText": "Match each bedroom word to its picture",
+          "correctAnswer": "1=a,2=b,3=c",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recognition",
+          "pairs": {
+            "left": [
+              {
+                "id": "1",
+                "text": "Bed"
+              },
+              {
+                "id": "2",
+                "text": "Door"
+              },
+              {
+                "id": "3",
+                "text": "Chair"
+              }
+            ],
+            "right": [
+              {
+                "id": "b",
+                "image": "assets/openmoji/door.png"
+              },
+              {
+                "id": "a",
+                "image": "assets/openmoji/bed.png"
+              },
+              {
+                "id": "c",
+                "image": "assets/openmoji/chair.png"
+              }
+            ]
+          }
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Window",
+          "correctAnswer": "Window",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "LISTEN_CHOOSE",
+          "questionText": "Bed",
+          "correctAnswer": "Bed",
+          "options": [
+            "Box",
+            "Bed",
+            "Door",
+            "Table"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        }
+      ]
+    },
+    {
+      "title": "In my country (Unit 16)",
+      "orderIndex": 7,
+      "content": "Things that grow in Palestine: orange, lemon, grape, apple, banana, fig, olive. It's (very) big / small.",
+      "objectives": "Name fruits that grow in Palestine and describe size",
+      "imageUrls": [
+        "assets/openmoji/olive.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "Which fruit is yellow and sour?",
+          "correctAnswer": "Lemon",
+          "options": [
+            "Grape",
+            "Olive",
+            "Lemon",
+            "Fig"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Which small green or purple fruit grows in bunches?",
+          "correctAnswer": "Grape",
           "options": [
             "Orange",
             "Apple",
             "Grape",
             "Banana"
           ],
-          "difficultyLevel": 1,
-          "subSkill": "recognition"
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
         },
         {
           "type": "TRUE_FALSE",
-          "questionText": "A carrot is a vegetable.",
+          "questionText": "Olives grow in Palestine.",
           "correctAnswer": "True",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "A watermelon is very small.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: The elephant is very ___.",
+          "correctAnswer": "big",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: An ___ tree gives us oil. (a Palestinian tree)",
+          "correctAnswer": "olive",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
         },
         {
           "type": "SHORT_ANSWER",
-          "questionText": "Which long green vegetable do we put in salad?",
-          "correctAnswer": "Cucumber",
+          "questionText": "Write the long yellow fruit monkeys love.",
+          "correctAnswer": "banana",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "production"
         },
         {
-          "type": "FILL_BLANK",
-          "questionText": "Complete: A ___ is orange and crunchy (vegetable rabbits like)",
-          "correctAnswer": "carrot",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
+          "type": "ORDERING",
+          "questionText": "Order the words: very / It's / big",
+          "correctAnswer": "It's, very, big",
+          "options": [
+            "very",
+            "It's",
+            "big"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
         },
         {
-          "type": "PRONUNCIATION",
-          "questionText": "Say the word: Orange",
-          "correctAnswer": "Orange",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "pronunciation"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "Which is a vegetable?",
-          "correctAnswer": "Carrot",
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows the lemon?",
+          "correctAnswer": "Lemon",
           "options": [
             "Apple",
-            "Banana",
-            "Carrot",
-            "Orange"
+            "Orange",
+            "Grapes",
+            "Lemon"
           ],
           "difficultyLevel": 1,
-          "subSkill": "recognition"
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/apple.png",
+            "assets/openmoji/orange.png",
+            "assets/openmoji/grapes.png",
+            "assets/openmoji/lemon.png"
+          ]
         },
         {
-          "type": "TRUE_FALSE",
-          "questionText": "Strawberry is a fruit",
-          "correctAnswer": "True",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "FILL_BLANK",
-          "questionText": "Complete: An ___ is a red or green round fruit",
-          "correctAnswer": "apple",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "PRONUNCIATION",
-          "questionText": "Say the word: Tomato",
-          "correctAnswer": "Tomato",
+          "type": "DRAG_DROP",
+          "questionText": "Sort the fruits: big or small?",
+          "correctAnswer": "Big=Watermelon,Big=Melon,Small=Grape,Small=Olive",
           "options": null,
           "difficultyLevel": 2,
-          "subSkill": "pronunciation"
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "Big",
+              "Small"
+            ],
+            "tokens": [
+              "Watermelon",
+              "Grape",
+              "Melon",
+              "Olive"
+            ]
+          }
         },
         {
-          "type": "SHORT_ANSWER",
-          "questionText": "Which fruit gives us juice that is orange in color?",
+          "type": "PRONUNCIATION",
+          "questionText": "Orange",
           "correctAnswer": "Orange",
           "options": null,
           "difficultyLevel": 1,
-          "subSkill": "production"
+          "subSkill": "pronunciation"
         },
         {
-          "type": "MCQ",
-          "questionText": "Which is yellow and curved?",
-          "correctAnswer": "Banana",
+          "type": "LISTEN_CHOOSE",
+          "questionText": "Grapes",
+          "correctAnswer": "Grapes",
           "options": [
-            "Apple",
             "Banana",
-            "Tomato",
-            "Grape"
+            "Lemon",
+            "Apple",
+            "Grapes"
           ],
           "difficultyLevel": 1,
-          "subSkill": "recognition"
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/banana.png",
+            "assets/openmoji/lemon.png",
+            "assets/openmoji/apple.png",
+            "assets/openmoji/grapes.png"
+          ]
         },
         {
-          "type": "MCQ",
-          "questionText": "Which is NOT a fruit?",
-          "correctAnswer": "Potato",
-          "options": [
-            "Apple",
-            "Banana",
-            "Potato",
-            "Grape"
-          ],
+          "type": "READING",
+          "questionText": "The olive tree is very big",
+          "correctAnswer": "The olive tree is very big",
+          "options": null,
           "difficultyLevel": 3,
-          "subSkill": "application"
+          "subSkill": "reading"
         }
-      ],
-      "imageUrls": []
+      ]
     },
     {
-      "title": "Actions (Unit 16)",
-      "orderIndex": 7,
-      "content": "Actions: run, jump, walk, sit, stand, read, write. I can run. She can jump.",
-      "objectives": "Learn action verbs",
+      "title": "My friends (Unit 17)",
+      "orderIndex": 8,
+      "content": "This is my friend. I'm short. He's / She's tall. Stand up. Sit down. Jump up and down.",
+      "objectives": "Introduce a friend, describe height, follow instructions",
+      "imageUrls": [
+        "assets/openmoji/boy.png"
+      ],
       "questions": [
         {
           "type": "MCQ",
-          "questionText": "What do we do when we move fast on our feet?",
-          "correctAnswer": "Run",
+          "questionText": "How do you introduce your friend?",
+          "correctAnswer": "This is my friend.",
           "options": [
-            "Run",
-            "Walk",
+            "Where's my ball?",
+            "What colour?",
+            "This is my friend.",
+            "How many taxis?"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "The opposite of 'tall' is ...",
+          "correctAnswer": "short",
+          "options": [
+            "happy",
+            "fast",
+            "short",
+            "big"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Stand up' means get on your feet.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Sit down' and 'stand up' mean the same thing.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: He's tall. She's ___.",
+          "correctAnswer": "short",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: Jump up and ___!",
+          "correctAnswer": "down",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Write the instruction the teacher says when you should sit. (two words)",
+          "correctAnswer": "sit down",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Order the words: my / is / This / friend",
+          "correctAnswer": "This, is, my, friend",
+          "options": [
+            "my",
+            "is",
+            "This",
+            "friend"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Order the actions as the teacher says them: Jump up / Stand up / Sit down",
+          "correctAnswer": "Stand up, Jump up, Sit down",
+          "options": [
+            "Jump up",
+            "Stand up",
+            "Sit down"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Friend",
+          "correctAnswer": "Friend",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "LISTEN_CHOOSE",
+          "questionText": "Jump",
+          "correctAnswer": "Jump",
+          "options": [
+            "Stand",
             "Sit",
+            "Run",
             "Jump"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
         },
         {
-          "type": "TRUE_FALSE",
-          "questionText": "When we jump, our feet go up.",
-          "correctAnswer": "True",
+          "type": "READING",
+          "questionText": "This is my friend and she is tall",
+          "correctAnswer": "This is my friend and she is tall",
           "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "What do we do with a pencil on paper?",
-          "correctAnswer": "Write",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "FILL_BLANK",
-          "questionText": "Complete: I ___ at night before bed (close my eyes)",
-          "correctAnswer": "sleep",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "PRONUNCIATION",
-          "questionText": "Say the word: Run",
-          "correctAnswer": "Run",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "pronunciation"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "What action do we do with our legs?",
-          "correctAnswer": "Run",
-          "options": [
-            "Eat",
-            "Read",
-            "Run",
-            "Sleep"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "recognition"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "We use a book to read",
-          "correctAnswer": "True",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "FILL_BLANK",
-          "questionText": "Complete: I ___ water when I am thirsty",
-          "correctAnswer": "drink",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "PRONUNCIATION",
-          "questionText": "Say the word: Jump",
-          "correctAnswer": "Jump",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "pronunciation"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "What do we do at lunch with our food?",
-          "correctAnswer": "Eat",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "ORDERING",
-          "questionText": "Put words in order: I, run, fast, can",
-          "correctAnswer": "I, can, run, fast",
-          "options": [
-            "I",
-            "run",
-            "fast",
-            "can"
-          ],
-          "difficultyLevel": 2,
-          "subSkill": "application"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "Which action belongs in a swimming pool?",
-          "correctAnswer": "Swim",
-          "options": [
-            "Run",
-            "Swim",
-            "Sleep",
-            "Read"
-          ],
           "difficultyLevel": 3,
-          "subSkill": "application"
+          "subSkill": "reading"
         }
-      ],
-      "imageUrls": []
+      ]
     },
     {
-      "title": "My Day (Unit 17)",
-      "orderIndex": 8,
-      "content": "Daily routine: wake up, eat breakfast, go to school, play, sleep. In the morning, I wake up.",
-      "objectives": "Learn daily routine vocabulary",
-      "questions": [
-        {
-          "type": "MCQ",
-          "questionText": "What do you do first in the morning?",
-          "correctAnswer": "Wake up",
-          "options": [
-            "Wake up",
-            "Sleep",
-            "Play",
-            "Eat lunch"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "recognition"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "We eat breakfast in the morning.",
-          "correctAnswer": "True",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "Where do you go in the morning?",
-          "correctAnswer": "School",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "FILL_BLANK",
-          "questionText": "Complete: I eat ___ at noon (the midday meal)",
-          "correctAnswer": "lunch",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "PRONUNCIATION",
-          "questionText": "Say the word: Morning",
-          "correctAnswer": "Morning",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "pronunciation"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "What do we do at night?",
-          "correctAnswer": "Sleep",
-          "options": [
-            "Eat breakfast",
-            "Sleep",
-            "Go to school",
-            "Play"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "recognition"
-        },
-        {
-          "type": "FILL_BLANK",
-          "questionText": "Complete: I brush my ___ before bed",
-          "correctAnswer": "teeth",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "When the sky is dark and stars are out, it is ___.",
-          "correctAnswer": "Night",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "ORDERING",
-          "questionText": "Order daily activities: lunch, breakfast, dinner",
-          "correctAnswer": "breakfast, lunch, dinner",
-          "options": [
-            "lunch",
-            "breakfast",
-            "dinner"
-          ],
-          "difficultyLevel": 2,
-          "subSkill": "application"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "Which activity is FIRST in a typical school day?",
-          "correctAnswer": "Wake up",
-          "options": [
-            "Sleep",
-            "Have lunch",
-            "Wake up",
-            "Go home"
-          ],
-          "difficultyLevel": 3,
-          "subSkill": "application"
-        }
-      ],
-      "imageUrls": []
-    },
-    {
-      "title": "Review (Unit 18)",
+      "title": "Revision: Units 15-17 (Unit 18)",
       "orderIndex": 9,
-      "content": "Review all vocabulary from Units 10-17: house, clothes, numbers, toys, weather, food, actions, daily routine.",
-      "objectives": "Review all learned vocabulary from semester 2",
+      "content": "Revision of bedroom words, Palestinian fruits and describing friends.",
+      "objectives": "Revise the language of Units 15-17",
+      "imageUrls": [],
       "questions": [
         {
           "type": "MCQ",
-          "questionText": "Where do we cook?",
-          "correctAnswer": "Kitchen",
+          "questionText": "Pick the BEDROOM word.",
+          "correctAnswer": "Window",
           "options": [
-            "Bedroom",
-            "Kitchen",
-            "Garden",
-            "Bathroom"
+            "Grape",
+            "Friend",
+            "Tall",
+            "Window"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "Cold is the opposite of hot.",
-          "correctAnswer": "True",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "Say three numbers in English",
-          "correctAnswer": "One two three",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "PRONUNCIATION",
-          "questionText": "Say the word: Water",
-          "correctAnswer": "Water",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "pronunciation"
         },
         {
           "type": "MCQ",
-          "questionText": "How many days are in one week?",
-          "correctAnswer": "Seven",
+          "questionText": "Pick the FRUIT word.",
+          "correctAnswer": "Fig",
           "options": [
-            "Five",
-            "Six",
-            "Seven",
-            "Eight"
+            "Chair",
+            "Fig",
+            "Short",
+            "Door"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
         },
         {
-          "type": "FILL_BLANK",
-          "questionText": "Complete: I wear ___ on my feet",
-          "correctAnswer": "shoes",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
+          "type": "MCQ",
+          "questionText": "Where can the cat be? Choose the PLACE phrase.",
+          "correctAnswer": "under the table",
+          "options": [
+            "jump up",
+            "very tall",
+            "my friend",
+            "under the table"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
         },
         {
           "type": "TRUE_FALSE",
-          "questionText": "A bedroom is where we sleep",
+          "questionText": "Bananas and oranges grow on trees.",
           "correctAnswer": "True",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "comprehension"
         },
         {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: My friend is not short, he is ___.",
+          "correctAnswer": "tall",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Write the fruit we press to make Palestinian oil.",
+          "correctAnswer": "olive",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
           "type": "ORDERING",
-          "questionText": "Put words in order: I, an, eat, apple",
-          "correctAnswer": "I, eat, an, apple",
+          "questionText": "Order the words: the / in / box / It's",
+          "correctAnswer": "It's, in, the, box",
           "options": [
-            "I",
-            "an",
-            "eat",
-            "apple"
+            "the",
+            "in",
+            "box",
+            "It's"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
         },
         {
+          "type": "DRAG_DROP",
+          "questionText": "Sort the words: bedroom or fruit?",
+          "correctAnswer": "Bedroom=Window,Bedroom=Table,Fruit=Fig,Fruit=Lemon",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "Bedroom",
+              "Fruit"
+            ],
+            "tokens": [
+              "Window",
+              "Fig",
+              "Table",
+              "Lemon"
+            ]
+          }
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows something that GROWS in Palestine?",
+          "correctAnswer": "Olive",
+          "options": [
+            "Kite",
+            "Olive",
+            "Chair",
+            "Bus"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/kite.png",
+            "assets/openmoji/olive.png",
+            "assets/openmoji/chair.png",
+            "assets/openmoji/bus.png"
+          ]
+        },
+        {
+          "type": "READING",
+          "questionText": "My bed is big and my box is small",
+          "correctAnswer": "My bed is big and my box is small",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "reading"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Banana",
+          "correctAnswer": "Banana",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "LISTEN_CHOOSE",
+          "questionText": "Apple",
+          "correctAnswer": "Apple",
+          "options": [
+            "Lemon",
+            "Fig",
+            "Olive",
+            "Apple"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/lemon.png",
+            null,
+            "assets/openmoji/olive.png",
+            "assets/openmoji/apple.png"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "English Alphabet (O-T)",
+      "orderIndex": 10,
+      "content": "Letters O P Q R S T. Sample words: Orange, Pen, Queen, Rabbit, Sun, Tree.",
+      "objectives": "Learn the third group of six letters (O-T), recognize their shapes, hear their sounds, and write them.",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "Which letter does the word 'Sun' start with?",
+          "correctAnswer": "S",
+          "options": [
+            "O",
+            "T",
+            "P",
+            "S"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Which letter looks like a circle?",
+          "correctAnswer": "O",
+          "options": [
+            "P",
+            "Q",
+            "T",
+            "O"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Which letter sounds like /t/ as in 'Tree'?",
+          "correctAnswer": "T",
+          "options": [
+            "Q",
+            "P",
+            "S",
+            "T"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "Q is followed by R in the English alphabet",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
           "type": "SHORT_ANSWER",
-          "questionText": "Where do students go to learn?",
-          "correctAnswer": "School",
+          "questionText": "What letter comes between O and Q?",
+          "correctAnswer": "P",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "production"
         },
         {
-          "type": "MCQ",
-          "questionText": "If today is Monday, what day comes next?",
-          "correctAnswer": "Tuesday",
+          "type": "SHORT_ANSWER",
+          "questionText": "Write the first letter of the word 'Rabbit'",
+          "correctAnswer": "R",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: O, P, Q, ___, S, T",
+          "correctAnswer": "R",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put the letters in alphabet order: T, P, R, O, S",
+          "correctAnswer": "O, P, R, S, T",
           "options": [
-            "Sunday",
-            "Tuesday",
-            "Friday",
-            "Saturday"
+            "T",
+            "P",
+            "R",
+            "O",
+            "S"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say the letter: Q",
+          "correctAnswer": "Q",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say the letter: R",
+          "correctAnswer": "R",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "Trace the letter O",
+          "correctAnswer": "O",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "handwriting"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "Trace the letter P",
+          "correctAnswer": "P",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "handwriting"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "Trace the letter S",
+          "correctAnswer": "S",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "handwriting"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "Trace the letter t (lowercase)",
+          "correctAnswer": "t",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "handwriting"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Which TWO letters look most alike: O, P, Q?",
+          "correctAnswer": "O and Q",
+          "options": [
+            "P and Q",
+            "O and P",
+            "All look the same",
+            "O and Q"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "English Alphabet (U-Z)",
+      "orderIndex": 11,
+      "content": "Letters U V W X Y Z. Sample words: Umbrella, Van, Water, Box, Yellow, Zoo.",
+      "objectives": "Learn the last six letters (U-Z), recognize their shapes, hear their sounds, and write them.",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "Which letter is the LAST in the English alphabet?",
+          "correctAnswer": "Z",
+          "options": [
+            "X",
+            "Y",
+            "Z",
+            "W"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Which letter does the word 'Zoo' start with?",
+          "correctAnswer": "Z",
+          "options": [
+            "W",
+            "Z",
+            "X",
+            "Y"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Which letter sounds like /w/ as in 'Water'?",
+          "correctAnswer": "W",
+          "options": [
+            "V",
+            "W",
+            "U",
+            "X"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "There are 26 letters in the English alphabet",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What letter comes after V?",
+          "correctAnswer": "W",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Write the first letter of the word 'Yellow'",
+          "correctAnswer": "Y",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: U, V, W, X, ___, Z",
+          "correctAnswer": "Y",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put the letters in alphabet order: Z, V, X, U, W, Y",
+          "correctAnswer": "U, V, W, X, Y, Z",
+          "options": [
+            "Z",
+            "V",
+            "X",
+            "U",
+            "W",
+            "Y"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say the letter: W",
+          "correctAnswer": "W",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say the letter: Y",
+          "correctAnswer": "Y",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "Trace the letter V",
+          "correctAnswer": "V",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "handwriting"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "Trace the letter X",
+          "correctAnswer": "X",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "handwriting"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "Trace the letter Y",
+          "correctAnswer": "Y",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "handwriting"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "Trace the letter z (lowercase)",
+          "correctAnswer": "z",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "handwriting"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "If we sing the alphabet song, which letter do we sing JUST BEFORE Z?",
+          "correctAnswer": "Y",
+          "options": [
+            "X",
+            "Y",
+            "U",
+            "W"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -1076,6 +1774,5 @@
       ],
       "imageUrls": []
     }
-  ],
-  "totalLessons": 9
+  ]
 }

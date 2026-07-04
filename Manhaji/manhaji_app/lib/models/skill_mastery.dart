@@ -64,5 +64,6 @@ class SkillScore {
     'recitation': 'التلاوة',
     'memorization': 'الحفظ',
     'handwriting': 'الكتابة',
+    'reading': 'القراءة',
   };
 }

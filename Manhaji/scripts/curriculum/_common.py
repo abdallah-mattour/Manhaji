@@ -67,19 +67,22 @@ SUBJECT_NAMES: dict[str, str] = {
     "re": "التربية الإسلامية",
 }
 
-#: The seven question types accepted by `QuestionType.valueOf(...)` in the
-#: backend's `DataSeeder`. Mirrors `entity/enums/QuestionType.java`.
+#: Question types accepted by `QuestionType.valueOf(...)` in the backend's
+#: `DataSeeder`. Mirrors `entity/enums/QuestionType.java`.
+#: 2026-07: extended with the tier-1/2/4 interactive types (IMAGE_MCQ,
+#: LISTEN_CHOOSE, IMAGE_MATCH, DRAG_DROP, READING).
 QUESTION_TYPES: frozenset[str] = frozenset({
     "MCQ", "TRUE_FALSE", "SHORT_ANSWER", "FILL_BLANK",
     "ORDERING", "PRONUNCIATION", "TRACING",
+    "IMAGE_MCQ", "LISTEN_CHOOSE", "IMAGE_MATCH", "DRAG_DROP", "READING",
 })
 
-#: Allowed `subSkill` values per spec §6. None lets the audit derive the tag
-#: from the question type.
+#: Allowed `subSkill` values per spec §6 (+ `reading`, added with the
+#: READING type in 2026-07).
 VALID_SUB_SKILLS: frozenset[str] = frozenset({
     "recognition", "production", "pronunciation", "handwriting",
     "comprehension", "computation", "application",
-    "memorization", "recitation",
+    "memorization", "recitation", "reading",
 })
 
 #: Default sub-skill mapping (type → tag), per spec §6. Religion subject has
@@ -94,7 +97,18 @@ DEFAULT_SUB_SKILL_BY_TYPE: dict[str, str] = {
     "ORDERING":       "application",
     "PRONUNCIATION":  "pronunciation",
     "TRACING":        "handwriting",
+    "IMAGE_MCQ":      "recognition",
+    "LISTEN_CHOOSE":  "recognition",
+    "IMAGE_MATCH":    "application",
+    "DRAG_DROP":      "application",
+    "READING":        "reading",
 }
+
+#: Bundled Flutter asset path for an OpenMoji illustration. The audit's
+#: media-existence warning verifies these against
+#: `manhaji_app/assets/openmoji/` — see the library's ATTRIBUTION.txt.
+def omoji(name: str) -> str:
+    return f"assets/openmoji/{name}.png"
 
 
 # ----------------------------------------------------------------------------
@@ -106,26 +120,40 @@ def q(qtype: str,
       answer: str,
       options: Optional[list[str]] = None,
       diff: int = 1,
-      sub: Optional[str] = None) -> dict[str, Any]:
+      sub: Optional[str] = None,
+      *,
+      option_images: Optional[list[Optional[str]]] = None,
+      pairs: Optional[dict[str, Any]] = None,
+      image_url: Optional[str] = None) -> dict[str, Any]:
     """Compact question builder used by every build script.
 
-    The returned dict matches the JSON schema in spec §9 exactly (same five
-    fields, same order). Audit rules R1, R3-R7, R10, R14, RU enforce shape.
+    The returned dict matches the JSON schema in spec §9 (base six fields in
+    the canonical order; media fields appended only when supplied). Audit
+    rules R1, R3-R7, R10, R14, RU enforce shape.
 
     Args:
         qtype: One of `QUESTION_TYPES`.
-        text: Student-visible prompt (≤ 500 chars).
-        answer: Correct answer. For MCQ must appear in `options`. For
-                TRUE_FALSE must be one of `{صح, خطأ, True, False}`. For
-                ORDERING is the comma-separated correct order.
-        options: For MCQ (3-5 items) and ORDERING (3-6 items). Must be None
-                 for SHORT_ANSWER / FILL_BLANK / TRUE_FALSE / PRONUNCIATION /
-                 TRACING — the audit flags non-null options on those types.
+        text: Student-visible prompt (≤ 500 chars). For READING this IS the
+              read-aloud passage (and `answer` duplicates it for scoring).
+        answer: Correct answer. For MCQ/IMAGE_MCQ/LISTEN_CHOOSE must appear
+                in `options`. For TRUE_FALSE one of `{صح, خطأ, True, False}`.
+                For ORDERING the comma-separated correct order. For
+                IMAGE_MATCH / DRAG_DROP the "left=right,..." /
+                "target=token,..." mapping.
+        options: For MCQ-family (3-5 items) and ORDERING (3-6 items). Must be
+                 None for SHORT_ANSWER / FILL_BLANK / TRUE_FALSE /
+                 PRONUNCIATION / TRACING / READING.
         diff: 1, 2, or 3 (per spec §5). Each lesson needs ≥1 difficulty-3.
         sub: One of `VALID_SUB_SKILLS`. Pass None to let the audit derive
              from `qtype` via `DEFAULT_SUB_SKILL_BY_TYPE`.
+        option_images: IMAGE_MCQ/LISTEN_CHOOSE — picture per option, parallel
+                       to `options` (entries may be None → text fallback).
+                       Use `omoji("apple")` for bundled OpenMoji paths.
+        pairs: IMAGE_MATCH — `{"left": [{id,text,image?}], "right": [...]}`;
+               DRAG_DROP — `{"targets": [...], "tokens": [...]}`.
+        image_url: Optional illustration above the prompt (any type).
     """
-    return {
+    out: dict[str, Any] = {
         "type": qtype,
         "questionText": text,
         "correctAnswer": answer,
@@ -133,6 +161,13 @@ def q(qtype: str,
         "difficultyLevel": diff,
         "subSkill": sub,
     }
+    if option_images is not None:
+        out["optionImages"] = option_images
+    if pairs is not None:
+        out["pairs"] = pairs
+    if image_url is not None:
+        out["imageUrl"] = image_url
+    return out
 
 
 # ----------------------------------------------------------------------------

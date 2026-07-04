@@ -16,10 +16,10 @@
           "questionText": "What do you ask to know someone's name?",
           "correctAnswer": "What's your name?",
           "options": [
+            "Who's that?",
             "What's your name?",
-            "How old are you?",
             "Where are you?",
-            "Who's that?"
+            "How old are you?"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -29,10 +29,10 @@
           "questionText": "How do you reply when someone asks 'How old are you?' and you are 8?",
           "correctAnswer": "I'm eight",
           "options": [
-            "I'm seven",
-            "I'm eight",
+            "My name is eight",
             "I'm nine",
-            "My name is eight"
+            "I'm seven",
+            "I'm eight"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -42,10 +42,10 @@
           "questionText": "Salwa is 7 years old. How do you say her age?",
           "correctAnswer": "She's seven",
           "options": [
+            "They're seven",
             "He's seven",
-            "She's seven",
             "It's seven",
-            "They're seven"
+            "She's seven"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -140,13 +140,21 @@
           "questionText": "A new student joins the class. What is the best thing to say first?",
           "correctAnswer": "Hi, what's your name?",
           "options": [
-            "Goodbye",
-            "Hi, what's your name?",
+            "I don't know",
             "Be quiet!",
-            "I don't know"
+            "Hi, what's your name?",
+            "Goodbye"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "READING",
+          "questionText": "Hello, my name is Omar",
+          "correctAnswer": "Hello, my name is Omar",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
         }
       ],
       "imageUrls": []
@@ -162,10 +170,10 @@
           "questionText": "What white food do we cook and eat with chicken or meat?",
           "correctAnswer": "rice",
           "options": [
-            "rice",
+            "chicken",
             "meat",
             "fish",
-            "chicken"
+            "rice"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -175,10 +183,10 @@
           "questionText": "What is the famous Palestinian dessert?",
           "correctAnswer": "kunafeh",
           "options": [
+            "rice",
             "chocolate",
-            "kunafeh",
             "salad",
-            "rice"
+            "kunafeh"
           ],
           "difficultyLevel": 2,
           "subSkill": "recognition"
@@ -188,10 +196,10 @@
           "questionText": "How do you ask about Sami's favourite food?",
           "correctAnswer": "What does he like?",
           "options": [
-            "What does she like?",
-            "What does he like?",
             "What do you like?",
-            "What is your name?"
+            "What does she like?",
+            "What is your name?",
+            "What does he like?"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -286,16 +294,37 @@
           "questionText": "Tala likes salad and fish. Sami doesn't like fish. What does Sami like?",
           "correctAnswer": "He likes salad",
           "options": [
-            "He likes fish",
-            "He likes salad",
+            "We don't know",
             "He likes everything",
-            "We don't know"
+            "He likes fish",
+            "He likes salad"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows an egg?",
+          "correctAnswer": "Egg",
+          "options": [
+            "Cheese",
+            "Egg",
+            "Bread",
+            "Rice"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/cheese.png",
+            "assets/openmoji/egg.png",
+            "assets/openmoji/bread.png",
+            "assets/openmoji/rice.png"
+          ]
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/cheese.png"
+      ]
     },
     {
       "title": "In the garden (Unit 3)",
@@ -308,10 +337,10 @@
           "questionText": "Which insect makes honey?",
           "correctAnswer": "bee",
           "options": [
-            "bird",
-            "butterfly",
+            "tree",
             "bee",
-            "tree"
+            "butterfly",
+            "bird"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -321,10 +350,10 @@
           "questionText": "Which one can fly and has colourful wings?",
           "correctAnswer": "butterfly",
           "options": [
-            "tree",
-            "butterfly",
             "flower",
-            "stone"
+            "butterfly",
+            "stone",
+            "tree"
           ],
           "difficultyLevel": 2,
           "subSkill": "recognition"
@@ -334,10 +363,10 @@
           "questionText": "A bird ___ two legs.",
           "correctAnswer": "has",
           "options": [
+            "do",
             "is",
-            "has",
             "have",
-            "do"
+            "has"
           ],
           "difficultyLevel": 2,
           "subSkill": "production"
@@ -434,16 +463,37 @@
           "questionText": "Look in a garden. Which of these would you NOT expect to see?",
           "correctAnswer": "fish",
           "options": [
+            "tree",
             "bee",
             "flower",
-            "tree",
             "fish"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
+        },
+        {
+          "type": "LISTEN_CHOOSE",
+          "questionText": "Butterfly",
+          "correctAnswer": "Butterfly",
+          "options": [
+            "Frog",
+            "Bird",
+            "Bee",
+            "Butterfly"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/frog.png",
+            "assets/openmoji/bird.png",
+            "assets/openmoji/bee.png",
+            "assets/openmoji/butterfly.png"
+          ]
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/butterfly.png"
+      ]
     },
     {
       "title": "My body (Unit 4)",
@@ -456,9 +506,9 @@
           "questionText": "Which body part do you use to see?",
           "correctAnswer": "eye",
           "options": [
+            "hair",
             "ear",
             "eye",
-            "hair",
             "shoulder"
           ],
           "difficultyLevel": 1,
@@ -469,10 +519,10 @@
           "questionText": "Which body part do you use to hear?",
           "correctAnswer": "ear",
           "options": [
-            "ear",
-            "eye",
             "hair",
-            "shoulder"
+            "ear",
+            "shoulder",
+            "eye"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -483,9 +533,9 @@
           "correctAnswer": "has",
           "options": [
             "have",
-            "has",
+            "having",
             "is",
-            "having"
+            "has"
           ],
           "difficultyLevel": 2,
           "subSkill": "production"
@@ -580,16 +630,59 @@
           "questionText": "Your teacher says: 'Touch your hair'. What do you do?",
           "correctAnswer": "I put my hand on my head",
           "options": [
-            "I put my hand on my head",
-            "I close my eyes",
+            "I clap my hands",
             "I sit down",
-            "I clap my hands"
+            "I close my eyes",
+            "I put my hand on my head"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MATCH",
+          "questionText": "Match each body word to its picture",
+          "correctAnswer": "1=a,2=b,3=c",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recognition",
+          "pairs": {
+            "left": [
+              {
+                "id": "1",
+                "text": "Tooth"
+              },
+              {
+                "id": "2",
+                "text": "Foot"
+              },
+              {
+                "id": "3",
+                "text": "Hand"
+              }
+            ],
+            "right": [
+              {
+                "id": "b",
+                "text": "",
+                "image": "assets/openmoji/foot.png"
+              },
+              {
+                "id": "c",
+                "text": "",
+                "image": "assets/openmoji/hand.png"
+              },
+              {
+                "id": "a",
+                "text": "",
+                "image": "assets/openmoji/tooth.png"
+              }
+            ]
+          }
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/hand.png"
+      ]
     },
     {
       "title": "Revision Units 1-4 (Unit 5)",
@@ -602,10 +695,10 @@
           "questionText": "Choose the correct greeting in the morning.",
           "correctAnswer": "Good morning",
           "options": [
-            "Good morning",
             "Good night",
-            "Goodbye",
-            "Be quiet"
+            "Be quiet",
+            "Good morning",
+            "Goodbye"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -615,8 +708,8 @@
           "questionText": "Which of these is food, NOT a garden item?",
           "correctAnswer": "chicken",
           "options": [
-            "bee",
             "flower",
+            "bee",
             "chicken",
             "tree"
           ],
@@ -628,10 +721,10 @@
           "questionText": "She has a butterfly. Pick the correct rewrite as a question.",
           "correctAnswer": "Does she have a butterfly?",
           "options": [
-            "She does have a butterfly?",
             "Have she a butterfly?",
-            "Does she have a butterfly?",
-            "She a butterfly has?"
+            "She a butterfly has?",
+            "She does have a butterfly?",
+            "Does she have a butterfly?"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -718,10 +811,10 @@
           "questionText": "I am 8. My friend Adam is 7. Who is older?",
           "correctAnswer": "I am older",
           "options": [
-            "Adam is older",
-            "I am older",
             "We are the same age",
-            "I don't know"
+            "I am older",
+            "I don't know",
+            "Adam is older"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -740,10 +833,10 @@
           "questionText": "Which action means to push up off the ground with your feet?",
           "correctAnswer": "jump",
           "options": [
-            "clap",
-            "jump",
+            "open",
             "hop",
-            "open"
+            "clap",
+            "jump"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -753,10 +846,10 @@
           "questionText": "Your teacher says 'Clap'. What do you do?",
           "correctAnswer": "I hit my hands together",
           "options": [
-            "I hit my hands together",
             "I close my eyes",
-            "I stand still",
-            "I sit on the floor"
+            "I sit on the floor",
+            "I hit my hands together",
+            "I stand still"
           ],
           "difficultyLevel": 1,
           "subSkill": "application"
@@ -766,10 +859,10 @@
           "questionText": "How do you tell a friend NOT to sit down?",
           "correctAnswer": "Don't sit down.",
           "options": [
-            "Sit down.",
-            "Don't sit down.",
             "Please sit.",
-            "I sit down."
+            "I sit down.",
+            "Sit down.",
+            "Don't sit down."
           ],
           "difficultyLevel": 2,
           "subSkill": "production"
@@ -866,8 +959,8 @@
           "options": [
             "Jump!",
             "Please be quiet.",
-            "Open the door.",
-            "Clap your hands."
+            "Clap your hands.",
+            "Open the door."
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -886,10 +979,10 @@
           "questionText": "What do you use to call your friends?",
           "correctAnswer": "telephone",
           "options": [
-            "sofa",
-            "telephone",
+            "TV",
             "rug",
-            "TV"
+            "sofa",
+            "telephone"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -900,8 +993,8 @@
           "correctAnswer": "on the sofa",
           "options": [
             "under the rug",
-            "on the sofa",
             "in the telephone",
+            "on the sofa",
             "on the TV"
           ],
           "difficultyLevel": 2,
@@ -912,10 +1005,10 @@
           "questionText": "The cat is ___ the table (she sits on top).",
           "correctAnswer": "on",
           "options": [
-            "in",
-            "on",
             "under",
-            "next to"
+            "next to",
+            "on",
+            "in"
           ],
           "difficultyLevel": 1,
           "subSkill": "production"
@@ -1012,16 +1105,38 @@
           "questionText": "Your book is missing. Your mum says 'Look under the sofa'. What do you do?",
           "correctAnswer": "I look below the sofa",
           "options": [
-            "I look on top of the sofa",
+            "I sit on the sofa",
             "I look below the sofa",
             "I look inside the TV",
-            "I sit on the sofa"
+            "I look on top of the sofa"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "Sort the things: bedroom or kitchen?",
+          "correctAnswer": "Bedroom=Bed,Bedroom=Teddy bear,Kitchen=Cheese,Kitchen=Soup",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "Bedroom",
+              "Kitchen"
+            ],
+            "tokens": [
+              "Bed",
+              "Cheese",
+              "Teddy bear",
+              "Soup"
+            ]
+          }
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/house.png"
+      ]
     },
     {
       "title": "My town (Unit 8)",
@@ -1035,9 +1150,9 @@
           "correctAnswer": "mosque",
           "options": [
             "shop",
-            "mosque",
+            "school",
             "park",
-            "school"
+            "mosque"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1047,10 +1162,10 @@
           "questionText": "Where do children play games and run?",
           "correctAnswer": "playground",
           "options": [
-            "shop",
-            "playground",
             "church",
-            "house"
+            "playground",
+            "house",
+            "shop"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1060,10 +1175,10 @@
           "questionText": "The library is ___ the school (right beside it).",
           "correctAnswer": "next to",
           "options": [
+            "under",
             "between",
-            "next to",
             "in",
-            "under"
+            "next to"
           ],
           "difficultyLevel": 2,
           "subSkill": "production"
@@ -1160,16 +1275,37 @@
           "questionText": "On the map, the park is between two places. Which sentence is correct?",
           "correctAnswer": "The park is between the church and the school.",
           "options": [
-            "The park is in the church.",
-            "The park is between the church and the school.",
             "The park is under the school.",
+            "The park is between the church and the school.",
+            "The park is in the church.",
             "The park is on the playground."
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows a school?",
+          "correctAnswer": "School",
+          "options": [
+            "House",
+            "Mosque",
+            "School",
+            "Ship"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/house.png",
+            "assets/openmoji/mosque.png",
+            "assets/openmoji/school.png",
+            "assets/openmoji/ship.png"
+          ]
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/school.png"
+      ]
     },
     {
       "title": "Revision Units 6-8 (Unit 9)",
@@ -1195,10 +1331,10 @@
           "questionText": "Which item is in a living room, NOT in a town?",
           "correctAnswer": "sofa",
           "options": [
-            "mosque",
-            "sofa",
             "playground",
-            "shop"
+            "sofa",
+            "shop",
+            "mosque"
           ],
           "difficultyLevel": 2,
           "subSkill": "recognition"
@@ -1208,10 +1344,10 @@
           "questionText": "The ball is ___ the rug (above it).",
           "correctAnswer": "on",
           "options": [
-            "on",
-            "in",
             "under",
-            "between"
+            "on",
+            "between",
+            "in"
           ],
           "difficultyLevel": 1,
           "subSkill": "production"
@@ -1298,13 +1434,21 @@
           "questionText": "Sami is in the park with his sister, between the mosque and the school. Which sentence is true?",
           "correctAnswer": "Sami is between the mosque and the school.",
           "options": [
-            "Sami is in the school.",
+            "Sami is under the park.",
             "Sami is in the mosque.",
             "Sami is between the mosque and the school.",
-            "Sami is under the park."
+            "Sami is in the school."
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "READING",
+          "questionText": "I can jump and run in the garden",
+          "correctAnswer": "I can jump and run in the garden",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "reading"
         }
       ],
       "imageUrls": []

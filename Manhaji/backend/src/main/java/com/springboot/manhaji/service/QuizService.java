@@ -768,10 +768,39 @@ public class QuizService {
         progressRepository.save(progress);
     }
 
+    /** Interactive types added after the original seed (tiers 1/2/4). */
+    private static final java.util.Set<QuestionType> MEDIA_TYPES = java.util.Set.of(
+            QuestionType.IMAGE_MCQ, QuestionType.LISTEN_CHOOSE,
+            QuestionType.IMAGE_MATCH, QuestionType.DRAG_DROP, QuestionType.READING);
+
     private QuizResponse buildQuizResponse(Quiz quiz) {
-        // Sort questions by ID to preserve insertion (textbook) order
-        List<QuestionResponse> questionResponses = quiz.getQuestions().stream()
+        // Base order: by ID (insertion/textbook order). The media types were
+        // backfilled later, so their ids are the highest — a plain id sort
+        // clumps ALL of them at the very end of the quiz where a student
+        // rarely arrives. Interleave instead (2026-07-04): one media question
+        // after every two classic ones. Deterministic, so the quiz order is
+        // stable across requests.
+        List<Question> sorted = quiz.getQuestions().stream()
                 .sorted((a, b) -> Long.compare(a.getId(), b.getId()))
+                .toList();
+        List<Question> classic = new ArrayList<>();
+        List<Question> media = new ArrayList<>();
+        for (Question question : sorted) {
+            (MEDIA_TYPES.contains(question.getType()) ? media : classic).add(question);
+        }
+        List<Question> mixed = new ArrayList<>(sorted.size());
+        int mediaIdx = 0;
+        for (int i = 0; i < classic.size(); i++) {
+            mixed.add(classic.get(i));
+            if (i % 2 == 1 && mediaIdx < media.size()) {
+                mixed.add(media.get(mediaIdx++));
+            }
+        }
+        while (mediaIdx < media.size()) {
+            mixed.add(media.get(mediaIdx++));
+        }
+
+        List<QuestionResponse> questionResponses = mixed.stream()
                 .map(this::buildQuestionResponse)
                 .toList();
 

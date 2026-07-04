@@ -95,6 +95,7 @@ class QuestionAuditTest {
         Audit audit = new Audit();
         // Cross-file state: question text by subject (for duplicate detection).
         Map<String, Map<String, String>> textBySubject = new HashMap<>();
+        Map<String, Map<String, String>> normalizedBySubject = new HashMap<>();
 
         for (File jsonFile : jsonFiles) {
             Map<String, Object> root = MAPPER.readValue(jsonFile, MAP_TYPE);
@@ -110,6 +111,8 @@ class QuestionAuditTest {
 
             Map<String, String> seenInSubject =
                     textBySubject.computeIfAbsent(subject, k -> new HashMap<>());
+            Map<String, String> seenNormalized =
+                    normalizedBySubject.computeIfAbsent(subject, k -> new HashMap<>());
 
             for (Map<String, Object> lesson : lessons) {
                 String lessonTitle = String.valueOf(lesson.get("title"));
@@ -162,6 +165,22 @@ class QuestionAuditTest {
                     qIdx++;
                     String qTag = tag + " #" + qIdx;
                     auditQuestion(q, qTag, subject, seenInSubject, audit);
+
+                    // R10b (warning): NEAR-duplicate stems — same text after
+                    // stripping punctuation/case/"Complete:" — read as the
+                    // same question to a child even when R10's exact match
+                    // passes ("Five comes after four." vs "'Five' comes after
+                    // 'four'"). Added 2026-07-04 after such twins shipped.
+                    String norm = normalizeStem(stringOrNull(q.get("questionText")));
+                    if (norm != null && !norm.isBlank()) {
+                        String prior = seenNormalized.get(norm);
+                        if (prior != null && !prior.equals(qTag)) {
+                            audit.warning("R10b — near-duplicate questionText (normalized)",
+                                    qTag + " ≈ " + prior);
+                        } else {
+                            seenNormalized.put(norm, qTag);
+                        }
+                    }
                 }
             }
         }
@@ -462,6 +481,19 @@ class QuestionAuditTest {
             case "READING" -> "reading";
             default -> "unknown";
         };
+    }
+
+    /**
+     * Normalized stem for R10b near-duplicate detection: lowercase, drop the
+     * "Complete:" prefix, strip everything except letters/digits (Arabic
+     * included), collapse whitespace.
+     */
+    private static String normalizeStem(String text) {
+        if (text == null) return null;
+        String t = text.toLowerCase(Locale.ROOT).trim();
+        t = t.replaceFirst("^complete:\\s*", "");
+        t = t.replaceAll("[^\\p{L}\\p{N} ]", "");
+        return t.replaceAll("\\s+", " ").trim();
     }
 
     private static String stringOrNull(Object o) {

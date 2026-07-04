@@ -16,9 +16,9 @@
           "correctAnswer": "٣",
           "options": [
             "١",
-            "٢",
             "٣",
-            "٤"
+            "٤",
+            "٢"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -44,10 +44,10 @@
           "questionText": "رتّب: أي عدد يأتي بعد ٤؟",
           "correctAnswer": "٥",
           "options": [
-            "٣",
+            "٢",
             "٥",
-            "٦",
-            "٢"
+            "٣",
+            "٦"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -69,9 +69,9 @@
           "questionText": "أي عدد بين ١ و ٣؟",
           "correctAnswer": "٢",
           "options": [
+            "٥",
             "٤",
             "٢",
-            "٥",
             "٠"
           ],
           "difficultyLevel": 1,
@@ -106,16 +106,37 @@
           "questionText": "أكبر عدد بين ١، ٤، ٢، ٣ هو؟",
           "correctAnswer": "٤",
           "options": [
+            "٣",
             "١",
             "٢",
-            "٣",
             "٤"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "أيُّ صورةٍ تُمثِّل العدد ثلاثة؟",
+          "correctAnswer": "٣",
+          "options": [
+            "١",
+            "٣",
+            "٢",
+            "٥"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/one.png",
+            "assets/openmoji/three.png",
+            "assets/openmoji/two.png",
+            "assets/openmoji/five.png"
+          ]
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/five.png"
+      ]
     },
     {
       "title": "الأعداد ٦-٩",
@@ -129,9 +150,9 @@
           "correctAnswer": "٨",
           "options": [
             "٦",
+            "٩",
             "٧",
-            "٨",
-            "٩"
+            "٨"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -157,10 +178,10 @@
           "questionText": "كم نجمة؟ ⭐⭐⭐⭐⭐⭐",
           "correctAnswer": "٦",
           "options": [
-            "٥",
-            "٦",
             "٧",
-            "٨"
+            "٨",
+            "٦",
+            "٥"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -191,10 +212,10 @@
           "questionText": "أي عدد يأتي قبل ٧ مباشرة؟",
           "correctAnswer": "٦",
           "options": [
+            "٨",
             "٥",
             "٦",
-            "٧",
-            "٨"
+            "٧"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -222,6 +243,25 @@
           "options": null,
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة العدد سبعة",
+          "correctAnswer": "٧",
+          "options": [
+            "٦",
+            "٧",
+            "٨",
+            "٩"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/six.png",
+            "assets/openmoji/seven.png",
+            "assets/openmoji/eight.png",
+            "assets/openmoji/nine.png"
+          ]
         }
       ],
       "imageUrls": []
@@ -275,9 +315,9 @@
           "correctAnswer": "٤",
           "options": [
             "٠",
+            "٢",
             "٤",
-            "٨",
-            "٢"
+            "٨"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -313,11 +353,30 @@
           "options": [
             "٣",
             "١",
-            "٠",
-            "٢"
+            "٢",
+            "٠"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "أين صورة العدد صفر؟",
+          "correctAnswer": "٠",
+          "options": [
+            "١",
+            "٨",
+            "١٠",
+            "٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/one.png",
+            "assets/openmoji/eight.png",
+            "assets/openmoji/ten.png",
+            "assets/openmoji/zero.png"
+          ]
         }
       ],
       "imageUrls": []
@@ -333,10 +392,10 @@
           "questionText": "أي عدد أكبر: ٥ أم ٣؟",
           "correctAnswer": "٥",
           "options": [
-            "٣",
-            "٥",
+            "لا أعرف",
             "متساويان",
-            "لا أعرف"
+            "٣",
+            "٥"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -362,10 +421,10 @@
           "questionText": "أي عدد أصغر: ١ أم ٨؟",
           "correctAnswer": "١",
           "options": [
-            "١",
-            "٨",
             "متساويان",
-            "٠"
+            "٨",
+            "٠",
+            "١"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -396,10 +455,10 @@
           "questionText": "أي علامة تناسب: ٧ ___ ٣ ؟",
           "correctAnswer": ">",
           "options": [
-            ">",
             "<",
             "=",
-            "+"
+            "+",
+            ">"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -425,13 +484,33 @@
           "questionText": "إذا كان أحمد عنده ٧ كرات وعمر عنده ٤ كرات، أيهما أكثر؟",
           "correctAnswer": "أحمد",
           "options": [
-            "أحمد",
             "عمر",
-            "كلاهما متساوٍ",
-            "لا يمكن المعرفة"
+            "أحمد",
+            "لا يمكن المعرفة",
+            "كلاهما متساوٍ"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الأعداد: أصغر من ٥ أم أكبر من ٥؟",
+          "correctAnswer": "أصغر من ٥=٢,أصغر من ٥=٣,أكبر من ٥=٧,أكبر من ٥=٩",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "أصغر من ٥",
+              "أكبر من ٥"
+            ],
+            "tokens": [
+              "٢",
+              "٧",
+              "٣",
+              "٩"
+            ]
+          }
         }
       ],
       "imageUrls": []
@@ -447,10 +526,10 @@
           "questionText": "رتّب تصاعدياً: ٥، ٢، ٨",
           "correctAnswer": "٢، ٥، ٨",
           "options": [
+            "٢، ٨، ٥",
             "٨، ٥، ٢",
-            "٢، ٥، ٨",
             "٥، ٢، ٨",
-            "٢، ٨، ٥"
+            "٢، ٥، ٨"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -490,9 +569,9 @@
           "correctAnswer": "٧",
           "options": [
             "٥",
-            "٧",
             "٨",
-            "٩"
+            "٩",
+            "٧"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -541,8 +620,8 @@
           "correctAnswer": "٥",
           "options": [
             "١",
-            "٣",
             "٥",
+            "٣",
             "٧"
           ],
           "difficultyLevel": 3,
@@ -552,8 +631,300 @@
       "imageUrls": []
     },
     {
-      "title": "مكونات الأعداد",
+      "title": "العدد التالي والعدد السابق",
       "orderIndex": 6,
+      "content": "العدد التالي هو العدد الذي يأتي بعد العدد مباشرة، والعدد السابق هو الذي يأتي قبله مباشرة ضمن الأعداد من ١ إلى ٩.",
+      "objectives": "إيجاد العدد التالي والعدد السابق لعدد معطى ضمن ٩",
+      "imageUrls": [
+        "assets/openmoji/four.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما العدد التالي للعدد ٤؟",
+          "correctAnswer": "٥",
+          "options": [
+            "٦",
+            "٣",
+            "٥",
+            "٧"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ما العدد السابق للعدد ٧؟",
+          "correctAnswer": "٦",
+          "options": [
+            "٩",
+            "٨",
+            "٦",
+            "٥"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "عدده التالي ٩ وعدده السابق ٧، فما هو؟",
+          "correctAnswer": "٨",
+          "options": [
+            "٩",
+            "٨",
+            "٧",
+            "٦"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد التالي للعدد ٥ هو ٦.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد السابق للعدد ٣ هو ٤.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: العدد التالي للعدد ٨ هو ___.",
+          "correctAnswer": "٩",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: العدد السابق للعدد ٢ هو ___.",
+          "correctAnswer": "١",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب العدد الذي يقع بين ٥ و ٧.",
+          "correctAnswer": "٦",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: العدد السابق للعدد ٣، العدد ٣، العدد التالي للعدد ٣",
+          "correctAnswer": "٢، ٣، ٤",
+          "options": [
+            "٣",
+            "٢",
+            "٤"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة العدد التالي للعدد ٥",
+          "correctAnswer": "٦",
+          "options": [
+            "٥",
+            "٧",
+            "٦",
+            "٤"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/five.png",
+            "assets/openmoji/seven.png",
+            "assets/openmoji/six.png",
+            "assets/openmoji/four.png"
+          ]
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الأعداد بالنسبة للعدد ٥: سابق أم تالٍ؟",
+          "correctAnswer": "سابق للعدد ٥=٣,سابق للعدد ٥=٤,تالٍ للعدد ٥=٦,تالٍ للعدد ٥=٧",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "سابق للعدد ٥",
+              "تالٍ للعدد ٥"
+            ],
+            "tokens": [
+              "٣",
+              "٦",
+              "٤",
+              "٧"
+            ]
+          }
+        },
+        {
+          "type": "TRACING",
+          "questionText": "اكتب العدد التالي للعدد ٦ بخط جميل",
+          "correctAnswer": "٧",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "handwriting"
+        }
+      ]
+    },
+    {
+      "title": "العدد الترتيبي",
+      "orderIndex": 7,
+      "content": "نستخدم الأعداد الترتيبية لبيان موقع الشيء: الأول، الثاني، الثالث، الرابع، الخامس.",
+      "objectives": "استخدام الأعداد الترتيبية من الأول إلى الخامس",
+      "imageUrls": [
+        "assets/openmoji/one.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "وقف أحمد بعد الطفل الأول مباشرة في الصف، فما ترتيبه؟",
+          "correctAnswer": "الثاني",
+          "options": [
+            "الثالث",
+            "الأول",
+            "الخامس",
+            "الثاني"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ما الترتيب الذي يأتي بعد الثالث مباشرة؟",
+          "correctAnswer": "الرابع",
+          "options": [
+            "الثاني",
+            "الرابع",
+            "الأول",
+            "الخامس"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في سباق الجري وصل سامر قبل الجميع، فما ترتيبه؟",
+          "correctAnswer": "الأول",
+          "options": [
+            "الثالث",
+            "الأول",
+            "الرابع",
+            "الأخير"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الخامس يأتي بعد الرابع.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الترتيب الثاني يعني آخر الصف.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل الترتيب: الأول، الثاني، ___، الرابع.",
+          "correctAnswer": "الثالث",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب الترتيب الذي يقع بين الرابع والسادس؟",
+          "correctAnswer": "الخامس",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الكلمات الترتيبية: الثالث، الأول، الثاني",
+          "correctAnswer": "الأول، الثاني، الثالث",
+          "options": [
+            "الثالث",
+            "الأول",
+            "الثاني"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "خمسة أطفال في صف، رنا قبل الأخير مباشرة، فما ترتيبها؟",
+          "correctAnswer": "الرابعة",
+          "options": [
+            "الثانية",
+            "الثالثة",
+            "الخامسة",
+            "الرابعة"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف: من الأعداد الترتيبية أم من أعداد العدّ؟",
+          "correctAnswer": "أعداد ترتيبية=الأول,أعداد ترتيبية=الثالث,أعداد العدّ=٤,أعداد العدّ=٧",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "أعداد ترتيبية",
+              "أعداد العدّ"
+            ],
+            "tokens": [
+              "الأول",
+              "٤",
+              "الثالث",
+              "٧"
+            ]
+          }
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "الأَوَّل",
+          "correctAnswer": "الأَوَّل",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: يقف اللاعب ___ في بداية الصف قبل الجميع.",
+          "correctAnswer": "الأول",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        }
+      ]
+    },
+    {
+      "title": "مكونات الأعداد",
+      "orderIndex": 8,
       "content": "كل عدد يتكون من أعداد أصغر. مثلاً: ٥ = ٢ + ٣ أو ٥ = ١ + ٤",
       "objectives": "تحليل الأعداد إلى مكوناتها",
       "questions": [
@@ -564,8 +935,8 @@
           "options": [
             "١",
             "٢",
-            "٣",
-            "٤"
+            "٤",
+            "٣"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -591,8 +962,8 @@
           "questionText": "٧ = ٤ + ؟",
           "correctAnswer": "٣",
           "options": [
-            "١",
             "٢",
+            "١",
             "٣",
             "٤"
           ],
@@ -649,10 +1020,10 @@
           "questionText": "أي طريقة لا تساوي ٨؟",
           "correctAnswer": "٣ + ٤",
           "options": [
-            "٤ + ٤",
-            "٥ + ٣",
             "٦ + ٢",
-            "٣ + ٤"
+            "٥ + ٣",
+            "٣ + ٤",
+            "٤ + ٤"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -662,7 +1033,7 @@
     },
     {
       "title": "الجمع ضمن ٥",
-      "orderIndex": 7,
+      "orderIndex": 9,
       "content": "نتعلم عملية الجمع. الجمع يعني نضيف: ٢ + ١ = ٣. نجمع أعداداً نتيجتها ٥ أو أقل.",
       "objectives": "إجراء عمليات جمع بسيطة ضمن العدد 5",
       "questions": [
@@ -671,10 +1042,10 @@
           "questionText": "٢ + ١ = ؟",
           "correctAnswer": "٣",
           "options": [
-            "١",
+            "٤",
             "٢",
-            "٣",
-            "٤"
+            "١",
+            "٣"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -701,9 +1072,9 @@
           "correctAnswer": "٢",
           "options": [
             "١",
-            "٢",
+            "٠",
             "٣",
-            "٠"
+            "٢"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -771,7 +1142,7 @@
     },
     {
       "title": "الجمع ضمن ٩",
-      "orderIndex": 8,
+      "orderIndex": 10,
       "content": "نجمع أعداداً أكبر نتيجتها ٩ أو أقل: ٤ + ٣ = ٧، ٥ + ٤ = ٩",
       "objectives": "إجراء عمليات جمع ضمن العدد 9",
       "questions": [
@@ -780,10 +1151,10 @@
           "questionText": "٤ + ٣ = ؟",
           "correctAnswer": "٧",
           "options": [
-            "٥",
-            "٦",
+            "٨",
             "٧",
-            "٨"
+            "٥",
+            "٦"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -809,10 +1180,10 @@
           "questionText": "٢ + ٥ = ؟",
           "correctAnswer": "٧",
           "options": [
-            "٥",
             "٦",
-            "٧",
-            "٨"
+            "٥",
+            "٨",
+            "٧"
           ],
           "difficultyLevel": 2,
           "subSkill": "recognition"
@@ -830,10 +1201,10 @@
           "questionText": "٤ + ٤ = ؟",
           "correctAnswer": "٨",
           "options": [
+            "٦",
             "٧",
-            "٨",
             "٩",
-            "٦"
+            "٨"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -867,10 +1238,10 @@
           "questionText": "هند جمعت ٢ + ٣ ثم أضافت ٤. ما الناتج؟",
           "correctAnswer": "٩",
           "options": [
-            "٧",
-            "٨",
+            "١٠",
             "٩",
-            "١٠"
+            "٨",
+            "٧"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -880,7 +1251,7 @@
     },
     {
       "title": "الطرح ضمن ٥",
-      "orderIndex": 9,
+      "orderIndex": 11,
       "content": "نتعلم عملية الطرح. الطرح يعني نأخذ: ٥ - ٢ = ٣. نطرح أعداداً من ٥ أو أقل.",
       "objectives": "إجراء عمليات طرح بسيطة ضمن العدد 5",
       "questions": [
@@ -889,10 +1260,10 @@
           "questionText": "٥ - ٢ = ؟",
           "correctAnswer": "٣",
           "options": [
-            "١",
+            "٤",
             "٢",
             "٣",
-            "٤"
+            "١"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -918,9 +1289,9 @@
           "questionText": "٥ - ٥ = ؟",
           "correctAnswer": "٠",
           "options": [
+            "٥",
             "٠",
             "١",
-            "٥",
             "١٠"
           ],
           "difficultyLevel": 1,
@@ -963,10 +1334,10 @@
           "questionText": "كان عند سامي ٥ بالونات، انفجر ٢ منها. كم بقي؟",
           "correctAnswer": "٣",
           "options": [
-            "٢",
-            "٣",
             "٤",
-            "٥"
+            "٥",
+            "٢",
+            "٣"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -976,7 +1347,7 @@
     },
     {
       "title": "الطرح ضمن ٩",
-      "orderIndex": 10,
+      "orderIndex": 12,
       "content": "نطرح أعداداً أكبر: ٩ - ٣ = ٦، ٨ - ٥ = ٣",
       "objectives": "إجراء عمليات طرح ضمن العدد 9",
       "questions": [
@@ -985,10 +1356,10 @@
           "questionText": "٩ - ٣ = ؟",
           "correctAnswer": "٦",
           "options": [
-            "٤",
+            "٧",
             "٥",
-            "٦",
-            "٧"
+            "٤",
+            "٦"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1014,10 +1385,10 @@
           "questionText": "٦ - ٢ = ؟",
           "correctAnswer": "٤",
           "options": [
-            "٢",
+            "٥",
             "٣",
-            "٤",
-            "٥"
+            "٢",
+            "٤"
           ],
           "difficultyLevel": 2,
           "subSkill": "recognition"
@@ -1036,9 +1407,9 @@
           "correctAnswer": "٥",
           "options": [
             "٣",
+            "٦",
             "٤",
-            "٥",
-            "٦"
+            "٥"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -1085,7 +1456,7 @@
     },
     {
       "title": "مراجعة الجمع والطرح",
-      "orderIndex": 11,
+      "orderIndex": 13,
       "content": "مراجعة شاملة لعمليات الجمع والطرح ضمن ٩.",
       "objectives": "مراجعة الجمع والطرح",
       "questions": [
@@ -1094,10 +1465,10 @@
           "questionText": "٣ + ٤ = ؟",
           "correctAnswer": "٧",
           "options": [
-            "٥",
             "٦",
-            "٧",
-            "٨"
+            "٨",
+            "٥",
+            "٧"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1131,10 +1502,10 @@
           "questionText": "٦ + ٣ = ؟",
           "correctAnswer": "٩",
           "options": [
-            "٧",
-            "٨",
+            "١٠",
             "٩",
-            "١٠"
+            "٧",
+            "٨"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -1144,10 +1515,10 @@
           "questionText": "٩ - ٢ = ؟",
           "correctAnswer": "٧",
           "options": [
+            "٩",
             "٦",
-            "٧",
             "٨",
-            "٩"
+            "٧"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -1194,7 +1565,7 @@
     },
     {
       "title": "العدد ١٠",
-      "orderIndex": 12,
+      "orderIndex": 14,
       "content": "العدد ١٠ يتكون من رقمين: ١ و ٠. هو أول عدد من خانتين.",
       "objectives": "التعرف على العدد 10 ومكوناته",
       "questions": [
@@ -1204,9 +1575,9 @@
           "correctAnswer": "٥",
           "options": [
             "٣",
+            "٦",
             "٤",
-            "٥",
-            "٦"
+            "٥"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1232,9 +1603,9 @@
           "questionText": "كم وحدة في العدد ١٠؟",
           "correctAnswer": "صفر وحدة وعشرة آحاد",
           "options": [
+            "عشر آحاد وعشر عشرات",
             "وحدة واحدة فقط",
             "صفر وحدة وعشرة آحاد",
-            "عشر آحاد وعشر عشرات",
             "خمس وحدات"
           ],
           "difficultyLevel": 2,
@@ -1278,19 +1649,62 @@
           "correctAnswer": "٧ + ٣",
           "options": [
             "٨ + ١",
-            "٧ + ٣",
+            "٥ + ٤",
             "٦ + ٣",
-            "٥ + ٤"
+            "٧ + ٣"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MATCH",
+          "questionText": "صِل اسم العدد بصورته",
+          "correctAnswer": "1=a,2=b,3=c",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recognition",
+          "pairs": {
+            "left": [
+              {
+                "id": "1",
+                "text": "عشرة"
+              },
+              {
+                "id": "2",
+                "text": "خمسة"
+              },
+              {
+                "id": "3",
+                "text": "صفر"
+              }
+            ],
+            "right": [
+              {
+                "id": "c",
+                "text": "",
+                "image": "assets/openmoji/zero.png"
+              },
+              {
+                "id": "b",
+                "text": "",
+                "image": "assets/openmoji/five.png"
+              },
+              {
+                "id": "a",
+                "text": "",
+                "image": "assets/openmoji/ten.png"
+              }
+            ]
+          }
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/ten.png"
+      ]
     },
     {
       "title": "الأعداد ١١-١٥",
-      "orderIndex": 13,
+      "orderIndex": 15,
       "content": "نتعلم الأعداد: ١١ أحد عشر، ١٢ اثنا عشر، ١٣ ثلاثة عشر، ١٤ أربعة عشر، ١٥ خمسة عشر.",
       "objectives": "التعرف على الأعداد 11-15",
       "questions": [
@@ -1300,9 +1714,9 @@
           "correctAnswer": "١٣",
           "options": [
             "١١",
-            "١٣",
+            "١٥",
             "١٤",
-            "١٥"
+            "١٣"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1341,10 +1755,10 @@
           "questionText": "أي عدد يأتي بين ١٢ و ١٤؟",
           "correctAnswer": "١٣",
           "options": [
-            "١١",
             "١٢",
-            "١٣",
-            "١٥"
+            "١٥",
+            "١١",
+            "١٣"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1387,9 +1801,9 @@
           "correctAnswer": "١٤ أكبر بـ ١",
           "options": [
             "متساويان",
-            "١٣ أكبر بـ ١",
             "١٤ أكبر بـ ١",
-            "١٤ أكبر بـ ٢"
+            "١٤ أكبر بـ ٢",
+            "١٣ أكبر بـ ١"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -1399,7 +1813,7 @@
     },
     {
       "title": "الأعداد ١٦-٢٠",
-      "orderIndex": 14,
+      "orderIndex": 16,
       "content": "نتعلم الأعداد: ١٦ ستة عشر، ١٧ سبعة عشر، ١٨ ثمانية عشر، ١٩ تسعة عشر، ٢٠ عشرون.",
       "objectives": "التعرف على الأعداد 16-20",
       "questions": [
@@ -1409,8 +1823,8 @@
           "correctAnswer": "٢٠",
           "options": [
             "١٨",
-            "٢٠",
             "٢١",
+            "٢٠",
             "١٧"
           ],
           "difficultyLevel": 1,
@@ -1437,10 +1851,10 @@
           "questionText": "كم عدداً من ١ إلى ٢٠؟",
           "correctAnswer": "٢٠",
           "options": [
-            "١٠",
+            "٩",
             "١٥",
             "٢٠",
-            "٩"
+            "١٠"
           ],
           "difficultyLevel": 2,
           "subSkill": "recognition"
@@ -1463,9 +1877,9 @@
           "questionText": "ما العدد الذي يأتي بعد ١٩؟",
           "correctAnswer": "٢٠",
           "options": [
-            "١٨",
-            "٢٠",
             "٢١",
+            "٢٠",
+            "١٨",
             "١٧"
           ],
           "difficultyLevel": 1,
@@ -1508,8 +1922,8 @@
           "questionText": "إذا أضفنا ٤ إلى ١٦ فما الناتج؟",
           "correctAnswer": "٢٠",
           "options": [
-            "١٨",
             "١٩",
+            "١٨",
             "٢٠",
             "٢١"
           ],
@@ -1520,8 +1934,247 @@
       "imageUrls": []
     },
     {
+      "title": "القياس والطول",
+      "orderIndex": 17,
+      "content": "نقيس الأطوال: طويل وقصير. نستخدم وحدات غير رسمية (مشابك، مكعبات) للقياس.",
+      "objectives": "مقارنة الأطوال واستخدام القياس غير الرسمي",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أيهما أطول: القلم أم الممحاة؟",
+          "correctAnswer": "القلم",
+          "options": [
+            "لا أعرف",
+            "الممحاة",
+            "متساويان",
+            "القلم"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يمكننا قياس الأشياء بالمشابك",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما عكس كلمة طويل؟",
+          "correctAnswer": "قصير",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أي وحدة نستخدمها لقياس الطول الكبير كطول الغرفة؟",
+          "correctAnswer": "المتر",
+          "options": [
+            "الكيلومتر",
+            "السنتيمتر",
+            "الجرام",
+            "المتر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "السنتيمتر أصغر من المتر",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الأداة التي نستخدمها لقياس الطول؟",
+          "correctAnswer": "المسطرة",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: لقياس طول قلم نستخدم ___",
+          "correctAnswer": "السنتيمتر",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "إذا كان طول كتاب ٢٠ سم وطول قلم ١٢ سم، فالكتاب أطول من القلم بـ:",
+          "correctAnswer": "٨ سم",
+          "options": [
+            "٧ سم",
+            "٨ سم",
+            "١٠ سم",
+            "٦ سم"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب من الأقصر إلى الأطول: قلم، كتاب، طاولة، باب",
+          "correctAnswer": "قلم، كتاب، طاولة، باب",
+          "options": [
+            "كتاب",
+            "قلم",
+            "باب",
+            "طاولة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "المتر يساوي ١٠٠ سنتيمتر",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "الوقت والساعة",
+      "orderIndex": 18,
+      "content": "نتعلم قراءة الساعة: الساعة الكاملة. عقرب الساعات وعقرب الدقائق.",
+      "objectives": "قراءة الساعة عند الساعات الكاملة",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "عندما يشير العقرب الصغير إلى ٣ والكبير إلى ١٢، كم الساعة؟",
+          "correctAnswer": "الثالثة",
+          "options": [
+            "الثانية عشرة",
+            "التاسعة",
+            "الثالثة",
+            "السادسة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العقرب الصغير يشير إلى الساعات",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "في أي ساعة تذهب إلى المدرسة؟",
+          "correctAnswer": "السابعة",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كم ساعة في اليوم؟",
+          "correctAnswer": "٢٤",
+          "options": [
+            "٧",
+            "٢٤",
+            "٦٠",
+            "١٢"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الساعة فيها عقربان: عقرب الساعات وعقرب الدقائق",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كم دقيقة في الساعة الواحدة؟",
+          "correctAnswer": "٦٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: عقرب الساعات أقصر من عقرب ___",
+          "correctAnswer": "الدقائق",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "إذا كانت الساعة الآن ٣ وبعد ساعتين، كم ستكون؟",
+          "correctAnswer": "٥",
+          "options": [
+            "٤",
+            "٥",
+            "٦",
+            "٧"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أوقات اليوم بالترتيب: ظهراً، صباحاً، ليلاً، مساءً",
+          "correctAnswer": "صباحاً، ظهراً، مساءً، ليلاً",
+          "options": [
+            "ظهراً",
+            "صباحاً",
+            "ليلاً",
+            "مساءً"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "نوم الأطفال يكون عادة في الليل",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "أي صورة تدل على الساعة؟",
+          "correctAnswer": "ساعة",
+          "options": [
+            "مصباح",
+            "هاتف",
+            "مفتاح",
+            "ساعة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/bulb.png",
+            "assets/openmoji/phone.png",
+            "assets/openmoji/key.png",
+            "assets/openmoji/clock.png"
+          ]
+        }
+      ],
+      "imageUrls": [
+        "assets/openmoji/clock.png"
+      ]
+    },
+    {
       "title": "مراجعة شاملة",
-      "orderIndex": 15,
+      "orderIndex": 19,
       "content": "مراجعة نهائية: الأعداد ٠-٢٠، الجمع والطرح ضمن ٩، المقارنة والترتيب.",
       "objectives": "مراجعة شاملة لمحتوى الفصل الأول",
       "questions": [
@@ -1530,8 +2183,8 @@
           "questionText": "٥ + ٣ = ؟",
           "correctAnswer": "٨",
           "options": [
-            "٦",
             "٧",
+            "٦",
             "٨",
             "٩"
           ],
@@ -1559,10 +2212,10 @@
           "questionText": "ما ناتج ٧ + ٣؟",
           "correctAnswer": "١٠",
           "options": [
-            "٩",
-            "١٠",
             "١١",
-            "١٢"
+            "١٢",
+            "٩",
+            "١٠"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -1610,17 +2263,37 @@
           "questionText": "اشترى عمر ٦ أقلام ووالده اشترى ٤ أقلام أخرى. كم قلماً معهما الآن؟",
           "correctAnswer": "١٠",
           "options": [
-            "٨",
-            "٩",
+            "١١",
             "١٠",
-            "١١"
+            "٩",
+            "٨"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف نواتج العمليات: تساوي ٥ أم تساوي ١٠؟",
+          "correctAnswer": "تساوي ٥=٢+٣,تساوي ٥=١+٤,تساوي ١٠=٦+٤,تساوي ١٠=٥+٥",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "تساوي ٥",
+              "تساوي ١٠"
+            ],
+            "tokens": [
+              "٢+٣",
+              "٦+٤",
+              "١+٤",
+              "٥+٥"
+            ]
+          }
         }
       ],
       "imageUrls": []
     }
   ],
-  "totalLessons": 15
+  "totalLessons": 19
 }

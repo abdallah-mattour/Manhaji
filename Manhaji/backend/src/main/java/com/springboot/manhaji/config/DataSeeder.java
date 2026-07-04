@@ -32,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -52,6 +53,7 @@ public class DataSeeder implements CommandLineRunner {
     private final AdminRepository adminRepository;
     private final ParentRepository parentRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JdbcTemplate jdbcTemplate;
 
     /**
      * When {@code true}, the seeder wipes all curriculum data (subjects, lessons,
@@ -79,6 +81,30 @@ public class DataSeeder implements CommandLineRunner {
             seedHardcodedData();
             ensureHardcodedSubjects();
         }
+
+        // English-purity self-heal (2026-07-04): dev databases seeded before
+        // the "remove Arabic from English subject" cleanup still carry (a) the
+        // legacy hardcoded "اللغة الإنجليزية" subject whose questions mix Arabic
+        // into English stems, and (b) orphaned pre-cleanup rows under the
+        // canonical "English" subject. The backfill only ADDS rows, so those
+        // never healed on their own. Purge both on every boot (no-op when clean).
+        purgeLegacyEnglishData();
+
+        // Book-alignment self-heal (2026-07-04): subjects are being rebuilt
+        // to mirror the real Palestinian textbooks (English G1 units, math G1
+        // unit order/renames, Arabic story lessons, ...), so lessons/questions
+        // that are no longer in the JSON are stale (old unit names, superseded
+        // stem wordings — the "same question appears many times" bug). Remove
+        // any curriculum row the canonical JSON doesn't contain.
+        // NOTE: this makes the JSON the single source of truth for ALL seeded
+        // subjects — teacher-authored additions to seeded lessons would be
+        // removed too (acceptable for the demo dataset).
+        purgeOrphanCurriculumContent();
+
+        // Fairness self-heal (2026-07-04): a few authored ORDERING questions
+        // shipped with options already in the correct order — the child could
+        // just press "check". Rotate those rows so the puzzle is real.
+        healPresolvedOrderingQuestions();
 
         // Always generate quizzes for lessons that have questions but no quiz,
         // and attach backfilled questions to quizzes that already exist.
@@ -423,6 +449,7 @@ public class DataSeeder implements CommandLineRunner {
                                          List<Map<String, Object>> jsonLessons) {
         if (existingLessons == null || existingLessons.isEmpty() || jsonLessons == null) return;
         Map<String, List<String>> jsonImagesByTitle = new java.util.HashMap<>();
+        Map<String, Integer> jsonOrderByTitle = new java.util.HashMap<>();
         java.util.Set<String> jsonTitles = new java.util.HashSet<>();
         for (Map<String, Object> ld : jsonLessons) {
             Object t = ld.get("title");
@@ -432,6 +459,9 @@ public class DataSeeder implements CommandLineRunner {
             if (imgs instanceof List<?> list && !list.isEmpty()) {
                 jsonImagesByTitle.put(t.toString(),
                         list.stream().map(Object::toString).toList());
+            }
+            if (ld.get("orderIndex") instanceof Integer oi) {
+                jsonOrderByTitle.put(t.toString(), oi);
             }
         }
 
@@ -449,6 +479,14 @@ public class DataSeeder implements CommandLineRunner {
             boolean changed = false;
             if (lesson.getSemesterNumber() == null) {
                 lesson.setSemesterNumber(semester);
+                changed = true;
+            }
+
+            // Keep display order in sync with the JSON (e.g. the English
+            // alphabet lessons moved behind the book units, 2026-07-04).
+            Integer jsonOrder = jsonOrderByTitle.get(lesson.getTitle());
+            if (jsonOrder != null && !jsonOrder.equals(lesson.getOrderIndex())) {
+                lesson.setOrderIndex(jsonOrder);
                 changed = true;
             }
 
@@ -576,6 +614,278 @@ public class DataSeeder implements CommandLineRunner {
         }
 
         questionRepository.save(q);
+    }
+
+    // =================== English purity self-heal ===================
+
+    /**
+     * Removes English-subject data that must not exist (2026-07-04):
+     * <ol>
+     *   <li>The legacy hardcoded "اللغة الإنجليزية" subject — a duplicate of the
+     *       canonical JSON "English" subject whose hardcoded questions mixed
+     *       Arabic into English stems ("How do you say 'مرحباً' in English?").
+     *       Deleted wholesale, dependents first.</li>
+     *   <li>Any question under a canonical "English" subject whose stem,
+     *       options, or answer still contains Arabic script — orphans left in
+     *       old dev DBs from before the JSON cleanup (the backfill inserted
+     *       the English replacements but never removed the Arabic originals).</li>
+     * </ol>
+     * Idempotent: a clean database matches nothing and nothing is touched.
+     */
+    private void purgeLegacyEnglishData() {
+        try {
+            // ---- (1) legacy duplicate subject, dependents-first ----
+            List<Long> subjectIds = queryIds(
+                    "SELECT id FROM subjects WHERE name = 'اللغة الإنجليزية'");
+            if (!subjectIds.isEmpty()) {
+                String sin = joinIds(subjectIds);
+                List<Long> lessonIds = queryIds(
+                        "SELECT id FROM lessons WHERE subject_id IN (" + sin + ")");
+                String lin = joinIds(lessonIds);
+                List<Long> quizIds = lessonIds.isEmpty()
+                        ? queryIds("SELECT id FROM quizzes WHERE subject_id IN (" + sin + ")")
+                        : queryIds("SELECT id FROM quizzes WHERE subject_id IN (" + sin + ")"
+                                + " OR lesson_id IN (" + lin + ")");
+                if (!quizIds.isEmpty()) {
+                    String qin = joinIds(quizIds);
+                    List<Long> attemptIds = queryIds(
+                            "SELECT id FROM attempts WHERE quiz_id IN (" + qin + ")");
+                    if (!attemptIds.isEmpty()) {
+                        String ain = joinIds(attemptIds);
+                        jdbcTemplate.update("DELETE FROM student_responses WHERE attempt_id IN (" + ain + ")");
+                        jdbcTemplate.update("DELETE FROM attempts WHERE id IN (" + ain + ")");
+                    }
+                    jdbcTemplate.update("DELETE FROM quiz_questions WHERE quiz_id IN (" + qin + ")");
+                    jdbcTemplate.update("DELETE FROM quizzes WHERE id IN (" + qin + ")");
+                }
+                if (!lessonIds.isEmpty()) {
+                    List<Long> questionIds = queryIds(
+                            "SELECT id FROM questions WHERE lesson_id IN (" + lin + ")");
+                    if (!questionIds.isEmpty()) {
+                        String qqin = joinIds(questionIds);
+                        jdbcTemplate.update("DELETE FROM student_responses WHERE question_id IN (" + qqin + ")");
+                        jdbcTemplate.update("DELETE FROM quiz_questions WHERE question_id IN (" + qqin + ")");
+                        jdbcTemplate.update("DELETE FROM questions WHERE id IN (" + qqin + ")");
+                    }
+                    jdbcTemplate.update("DELETE FROM progress WHERE lesson_id IN (" + lin + ")");
+                    jdbcTemplate.update("DELETE FROM lessons WHERE id IN (" + lin + ")");
+                }
+                jdbcTemplate.update("DELETE FROM skill_mastery WHERE subject_id IN (" + sin + ")");
+                jdbcTemplate.update("DELETE FROM subjects WHERE id IN (" + sin + ")");
+                log.info("Purged legacy duplicate English subject (اللغة الإنجليزية): "
+                        + "{} lesson(s), {} quiz(zes)", lessonIds.size(), quizIds.size());
+            }
+
+            // ---- (2) Arabic-contaminated rows under canonical English ----
+            List<Map<String, Object>> rows = jdbcTemplate.queryForList(
+                    "SELECT q.id, q.question_text, q.options, q.correct_answer "
+                    + "FROM questions q "
+                    + "JOIN lessons l ON q.lesson_id = l.id "
+                    + "JOIN subjects s ON l.subject_id = s.id "
+                    + "WHERE s.name = 'English'");
+            List<Long> contaminated = new ArrayList<>();
+            for (Map<String, Object> row : rows) {
+                String blob = String.valueOf(row.get("question_text")) + " "
+                        + String.valueOf(row.get("options")) + " "
+                        + String.valueOf(row.get("correct_answer"));
+                if (containsArabicScript(blob)) {
+                    contaminated.add(((Number) row.get("id")).longValue());
+                }
+            }
+            if (!contaminated.isEmpty()) {
+                String cin = joinIds(contaminated);
+                jdbcTemplate.update("DELETE FROM student_responses WHERE question_id IN (" + cin + ")");
+                jdbcTemplate.update("DELETE FROM quiz_questions WHERE question_id IN (" + cin + ")");
+                jdbcTemplate.update("DELETE FROM questions WHERE id IN (" + cin + ")");
+                log.info("Purged {} Arabic-contaminated question(s) from the English subject", contaminated.size());
+            }
+        } catch (Exception e) {
+            // Never block boot on the sweep — log and continue.
+            log.warn("English-purity sweep failed (continuing): {}", e.getMessage());
+        }
+    }
+
+    /**
+     * Deletes seeded-subject lessons and questions that the canonical
+     * curriculum JSON no longer contains (see call site for rationale).
+     * Lessons match by (subject, gradeLevel, semester, title); questions by
+     * (lesson, type, questionText). Dependents are removed first. Subjects
+     * that have no JSON files are never touched.
+     */
+    @SuppressWarnings("unchecked")
+    private void purgeOrphanCurriculumContent() {
+        try {
+            // Canonical content from the classpath JSONs:
+            // key "<subject>|<grade>|<semester>|<lessonTitle>" → "TYPE|questionText" set.
+            Map<String, java.util.Set<String>> canonical = new java.util.HashMap<>();
+            java.util.Set<String> seededSubjects = new java.util.HashSet<>();
+            PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+            for (Resource resource : resolver.getResources("classpath:curriculum/*.json")) {
+                try (InputStream in = resource.getInputStream()) {
+                    Map<String, Object> curriculum = objectMapper.readValue(in, Map.class);
+                    String subjectName = String.valueOf(curriculum.get("subject"));
+                    int grade = (Integer) curriculum.get("gradeLevel");
+                    int semester = (Integer) curriculum.getOrDefault("semester", 1);
+                    seededSubjects.add(subjectName);
+                    List<Map<String, Object>> lessons =
+                            (List<Map<String, Object>>) curriculum.get("lessons");
+                    if (lessons == null) continue;
+                    for (Map<String, Object> lessonData : lessons) {
+                        String key = subjectName + "|" + grade + "|" + semester
+                                + "|" + lessonData.get("title");
+                        java.util.Set<String> qKeys = canonical
+                                .computeIfAbsent(key, k -> new java.util.HashSet<>());
+                        List<Map<String, Object>> questions =
+                                (List<Map<String, Object>>) lessonData.get("questions");
+                        if (questions == null) continue;
+                        for (Map<String, Object> qData : questions) {
+                            qKeys.add(qData.get("type") + "|" + qData.get("questionText"));
+                        }
+                    }
+                }
+            }
+            if (canonical.isEmpty()) return;
+
+            // Walk lessons of seeded subjects in the DB.
+            List<Map<String, Object>> lessonRows = jdbcTemplate.queryForList(
+                    "SELECT l.id, l.title, l.grade_level, l.semester_number, s.name AS subject_name "
+                    + "FROM lessons l JOIN subjects s ON l.subject_id = s.id");
+            List<Long> orphanLessonIds = new ArrayList<>();
+            List<Long> orphanQuestionIds = new ArrayList<>();
+            for (Map<String, Object> row : lessonRows) {
+                if (!seededSubjects.contains(String.valueOf(row.get("subject_name")))) {
+                    continue; // subject not managed by JSON — never touch
+                }
+                long lessonId = ((Number) row.get("id")).longValue();
+                String key = row.get("subject_name") + "|" + row.get("grade_level")
+                        + "|" + row.get("semester_number") + "|" + row.get("title");
+                java.util.Set<String> qKeys = canonical.get(key);
+                if (qKeys == null) {
+                    orphanLessonIds.add(lessonId);
+                    continue;
+                }
+                List<Map<String, Object>> qRows = jdbcTemplate.queryForList(
+                        "SELECT id, type, question_text FROM questions WHERE lesson_id = " + lessonId);
+                for (Map<String, Object> qRow : qRows) {
+                    if (!qKeys.contains(qRow.get("type") + "|" + qRow.get("question_text"))) {
+                        orphanQuestionIds.add(((Number) qRow.get("id")).longValue());
+                    }
+                }
+            }
+
+            // Orphan lessons: their questions are orphans too.
+            if (!orphanLessonIds.isEmpty()) {
+                String lin = joinIds(orphanLessonIds);
+                orphanQuestionIds.addAll(queryIds(
+                        "SELECT id FROM questions WHERE lesson_id IN (" + lin + ")"));
+            }
+            if (!orphanQuestionIds.isEmpty()) {
+                String qin = joinIds(orphanQuestionIds);
+                jdbcTemplate.update("DELETE FROM student_responses WHERE question_id IN (" + qin + ")");
+                jdbcTemplate.update("DELETE FROM quiz_questions WHERE question_id IN (" + qin + ")");
+                jdbcTemplate.update("DELETE FROM questions WHERE id IN (" + qin + ")");
+            }
+            if (!orphanLessonIds.isEmpty()) {
+                String lin = joinIds(orphanLessonIds);
+                List<Long> quizIds = queryIds("SELECT id FROM quizzes WHERE lesson_id IN (" + lin + ")");
+                if (!quizIds.isEmpty()) {
+                    String qzin = joinIds(quizIds);
+                    List<Long> attemptIds = queryIds("SELECT id FROM attempts WHERE quiz_id IN (" + qzin + ")");
+                    if (!attemptIds.isEmpty()) {
+                        String ain = joinIds(attemptIds);
+                        jdbcTemplate.update("DELETE FROM student_responses WHERE attempt_id IN (" + ain + ")");
+                        jdbcTemplate.update("DELETE FROM attempts WHERE id IN (" + ain + ")");
+                    }
+                    jdbcTemplate.update("DELETE FROM quiz_questions WHERE quiz_id IN (" + qzin + ")");
+                    jdbcTemplate.update("DELETE FROM quizzes WHERE id IN (" + qzin + ")");
+                }
+                jdbcTemplate.update("DELETE FROM progress WHERE lesson_id IN (" + lin + ")");
+                jdbcTemplate.update("DELETE FROM lessons WHERE id IN (" + lin + ")");
+            }
+            if (!orphanLessonIds.isEmpty() || !orphanQuestionIds.isEmpty()) {
+                log.info("Book-alignment purge: removed {} stale lesson(s) and {} stale question(s)",
+                        orphanLessonIds.size(), orphanQuestionIds.size());
+            }
+        } catch (Exception e) {
+            log.warn("Curriculum orphan purge failed (continuing): {}", e.getMessage());
+        }
+    }
+
+    private List<Long> queryIds(String sql) {
+        return jdbcTemplate.queryForList(sql, Long.class);
+    }
+
+    private static String joinIds(List<Long> ids) {
+        StringBuilder sb = new StringBuilder();
+        for (Long id : ids) {
+            if (sb.length() > 0) sb.append(',');
+            sb.append(id);
+        }
+        return sb.toString();
+    }
+
+    private static boolean containsArabicScript(String text) {
+        if (text == null) return false;
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            if (c >= 0x0600 && c <= 0x06FF) return true;
+        }
+        return false;
+    }
+
+    /**
+     * ORDERING rows whose stored options already match the correct-answer
+     * sequence present a pre-solved puzzle. Rotate the options by one so the
+     * student actually has to reorder. Idempotent — after the rotation the
+     * sequences differ and the row is never touched again. (The JSON files
+     * carry the same fix via the enrichment script's fairness pass; this
+     * heals rows that were seeded before it.)
+     */
+    private void healPresolvedOrderingQuestions() {
+        try {
+            List<Map<String, Object>> rows = jdbcTemplate.queryForList(
+                    "SELECT id, options, correct_answer FROM questions WHERE type = 'ORDERING'");
+            int healed = 0;
+            for (Map<String, Object> row : rows) {
+                String optionsJson = String.valueOf(row.get("options"));
+                String correct = String.valueOf(row.get("correct_answer"));
+                List<String> options;
+                try {
+                    options = objectMapper.readValue(optionsJson,
+                            new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {});
+                } catch (Exception parse) {
+                    continue;
+                }
+                if (options == null || options.size() < 2) continue;
+
+                List<String> answerSeq = new ArrayList<>();
+                for (String part : correct.split("[،,]")) {
+                    answerSeq.add(part.replaceAll("\\s+", ""));
+                }
+                List<String> optionSeq = new ArrayList<>();
+                for (String o : options) {
+                    optionSeq.add(o == null ? "" : o.replaceAll("\\s+", ""));
+                }
+                if (!optionSeq.equals(answerSeq)) continue;
+
+                // Pre-solved — rotate by one (guaranteed different order).
+                List<String> rotated = new ArrayList<>(options.subList(1, options.size()));
+                rotated.add(options.get(0));
+                try {
+                    jdbcTemplate.update("UPDATE questions SET options = ? WHERE id = ?",
+                            objectMapper.writeValueAsString(rotated), row.get("id"));
+                    healed++;
+                } catch (Exception write) {
+                    log.warn("Could not heal pre-solved ORDERING question {}: {}",
+                            row.get("id"), write.getMessage());
+                }
+            }
+            if (healed > 0) {
+                log.info("Healed {} pre-solved ORDERING question(s) (options rotated)", healed);
+            }
+        } catch (Exception e) {
+            log.warn("Pre-solved ORDERING sweep failed (continuing): {}", e.getMessage());
+        }
     }
 
     // =================== Quiz Generation ===================

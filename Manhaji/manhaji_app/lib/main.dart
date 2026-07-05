@@ -11,6 +11,7 @@ import 'providers/learning_provider.dart';
 import 'providers/parent_provider.dart';
 import 'providers/question_bank_provider.dart';
 import 'providers/report_provider.dart';
+import 'providers/student_settings_provider.dart';
 import 'providers/teacher_provider.dart';
 import 'services/admin_service.dart';
 import 'services/api_service.dart';
@@ -101,6 +102,11 @@ class ManhajiApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) =>
               AuthProvider(services.authService, services.localStorage),
+        ),
+        // Student-scoped local preferences (Silent Mode). Registered app-wide
+        // like the other providers, but only student screens consume it.
+        ChangeNotifierProvider(
+          create: (_) => StudentSettingsProvider(services.localStorage),
         ),
         ChangeNotifierProvider(
           create: (_) => LessonProvider(services.lessonService),

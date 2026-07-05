@@ -8,10 +8,13 @@ import com.springboot.manhaji.entity.TeacherAssignment;
 import com.springboot.manhaji.entity.enums.Role;
 import com.springboot.manhaji.exception.GlobalExceptionHandler;
 import com.springboot.manhaji.infrastructure.TestMessages;
+import com.springboot.manhaji.dto.response.TeacherMistakeAnalyticsResponse;
+import com.springboot.manhaji.dto.response.TeacherMistakeSummaryResponse;
 import com.springboot.manhaji.repository.AttemptRepository;
 import com.springboot.manhaji.repository.LessonRepository;
 import com.springboot.manhaji.repository.ProgressRepository;
 import com.springboot.manhaji.repository.QuestionRepository;
+import com.springboot.manhaji.repository.StudentResponseRepository;
 import com.springboot.manhaji.repository.StudentRepository;
 import com.springboot.manhaji.repository.SubjectRepository;
 import com.springboot.manhaji.repository.TeacherAssignmentRepository;
@@ -25,14 +28,17 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.lang.reflect.Method;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -49,6 +55,7 @@ class TeacherControllerTest {
     @Mock private StudentRepository studentRepository;
     @Mock private ProgressRepository progressRepository;
     @Mock private AttemptRepository attemptRepository;
+    @Mock private StudentResponseRepository studentResponseRepository;
     @Mock private SubjectRepository subjectRepository;
     @Mock private LessonRepository lessonRepository;
     @Mock private QuestionRepository questionRepository;
@@ -65,6 +72,7 @@ class TeacherControllerTest {
                 studentRepository,
                 progressRepository,
                 attemptRepository,
+                studentResponseRepository,
                 subjectRepository,
                 questionRepository,
                 new QuestionBankMapper(),
@@ -98,6 +106,51 @@ class TeacherControllerTest {
                 .andExpect(jsonPath("$.success").value(true));
 
         verify(mockedTeacherService).getQuestionsForSubject(10L, 5L, null, null);
+    }
+
+    @Test
+    @DisplayName("mistake analytics endpoint binds optional filters")
+    void mistakeAnalyticsEndpointBindsOptionalFilters() throws Exception {
+        TeacherService mockedTeacherService = org.mockito.Mockito.mock(TeacherService.class);
+        MockMvc controllerOnlyMockMvc = MockMvcBuilders
+                .standaloneSetup(new TeacherController(mockedTeacherService))
+                .build();
+        when(mockedTeacherService.getMistakeAnalytics(10L, 100L, 200L, 1L, 25))
+                .thenReturn(TeacherMistakeAnalyticsResponse.builder()
+                        .summary(TeacherMistakeSummaryResponse.builder()
+                                .totalMistakes(0)
+                                .affectedStudents(0)
+                                .build())
+                        .mistakes(List.of())
+                        .build());
+
+        controllerOnlyMockMvc.perform(get("/api/teacher/analytics/mistakes")
+                        .param("subjectId", "100")
+                        .param("lessonId", "200")
+                        .param("studentId", "1")
+                        .param("limit", "25")
+                        .principal(teacherPrincipal()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true));
+
+        verify(mockedTeacherService).getMistakeAnalytics(10L, 100L, 200L, 1L, 25);
+    }
+
+    @Test
+    @DisplayName("mistake analytics endpoint requires TEACHER role")
+    void mistakeAnalyticsEndpointRequiresTeacherRole() throws Exception {
+        Method method = TeacherController.class.getMethod(
+                "getMistakeAnalytics",
+                org.springframework.security.core.Authentication.class,
+                Long.class,
+                Long.class,
+                Long.class,
+                Integer.class);
+
+        PreAuthorize annotation = method.getAnnotation(PreAuthorize.class);
+
+        assertThat(annotation).isNotNull();
+        assertThat(annotation.value()).isEqualTo("hasRole('TEACHER')");
     }
 
     @Test

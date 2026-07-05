@@ -8,10 +8,15 @@ import com.springboot.manhaji.dto.response.StudentDetailResponse;
 import com.springboot.manhaji.dto.response.SubjectMasterySummary;
 import com.springboot.manhaji.dto.response.SubjectSummary;
 import com.springboot.manhaji.dto.response.TeacherDashboardResponse;
+import com.springboot.manhaji.dto.response.TeacherMistakeAnalyticsResponse;
+import com.springboot.manhaji.dto.response.TeacherMistakeRowResponse;
+import com.springboot.manhaji.dto.response.TeacherMistakeSummaryResponse;
 import com.springboot.manhaji.entity.Attempt;
+import com.springboot.manhaji.entity.Lesson;
 import com.springboot.manhaji.entity.Progress;
 import com.springboot.manhaji.entity.Question;
 import com.springboot.manhaji.entity.Student;
+import com.springboot.manhaji.entity.StudentResponse;
 import com.springboot.manhaji.entity.Subject;
 import com.springboot.manhaji.entity.Teacher;
 import com.springboot.manhaji.entity.TeacherAssignment;
@@ -21,6 +26,7 @@ import com.springboot.manhaji.repository.AttemptRepository;
 import com.springboot.manhaji.repository.ProgressRepository;
 import com.springboot.manhaji.repository.QuestionRepository;
 import com.springboot.manhaji.repository.StudentRepository;
+import com.springboot.manhaji.repository.StudentResponseRepository;
 import com.springboot.manhaji.repository.SubjectRepository;
 import com.springboot.manhaji.repository.TeacherAssignmentRepository;
 import com.springboot.manhaji.repository.TeacherRepository;
@@ -34,6 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -51,6 +58,7 @@ public class TeacherService {
     private final StudentRepository studentRepository;
     private final ProgressRepository progressRepository;
     private final AttemptRepository attemptRepository;
+    private final StudentResponseRepository studentResponseRepository;
     private final SubjectRepository subjectRepository;
     private final QuestionRepository questionRepository;
     private final QuestionBankMapper questionBankMapper;
@@ -188,6 +196,96 @@ public class TeacherService {
                 .build();
     }
 
+    public TeacherMistakeAnalyticsResponse getMistakeAnalytics(
+            Long teacherId,
+            Long subjectId,
+            Long lessonId,
+            Long studentId,
+            Integer limit) {
+        Teacher teacher = teacherRepository.findById(teacherId)
+                .orElseThrow(() -> new ResourceNotFoundException("Teacher", teacherId));
+
+        List<TeacherAssignment> assignments = loadActiveAssignments(teacher);
+        List<AssignmentScope> scopes = buildScopes(teacher, assignments);
+        if (scopes.isEmpty()) {
+            return emptyMistakeAnalytics();
+        }
+
+        List<Long> scopedSubjectIds = subjectIdsForScopes(scopes);
+        if (subjectId != null && !scopedSubjectIds.contains(subjectId)) {
+            return emptyMistakeAnalytics();
+        }
+
+        List<Student> visibleStudents = loadStudentsForTeacher(scopes);
+        if (visibleStudents.isEmpty()) {
+            return emptyMistakeAnalytics();
+        }
+
+        Set<Long> visibleStudentIds = visibleStudents.stream()
+                .map(Student::getId)
+                .collect(Collectors.toSet());
+        if (studentId != null && !visibleStudentIds.contains(studentId)) {
+            return emptyMistakeAnalytics();
+        }
+
+        List<Long> queryStudentIds = studentId == null
+                ? visibleStudents.stream().map(Student::getId).toList()
+                : List.of(studentId);
+        List<Long> querySubjectIds = subjectId == null ? scopedSubjectIds : List.of(subjectId);
+
+        List<StudentResponse> scopedResponses = studentResponseRepository
+                .findIncorrectByStudentIdsAndSubjectIds(
+                        queryStudentIds, querySubjectIds, subjectId, lessonId, studentId)
+                .stream()
+                .filter(response -> responseMatchesExactScope(response, scopes))
+                .filter(response -> lessonId == null
+                        || lessonId.equals(lessonIdFor(response)))
+                .filter(response -> subjectId == null
+                        || subjectId.equals(subjectIdFor(response)))
+                .filter(response -> studentId == null
+                        || studentId.equals(studentIdFor(response)))
+                .toList();
+
+        Map<Long, Set<Long>> studentsByQuestion = new HashMap<>();
+        for (StudentResponse response : scopedResponses) {
+            Long questionId = questionIdFor(response);
+            Long rowStudentId = studentIdFor(response);
+            if (questionId != null && rowStudentId != null) {
+                studentsByQuestion
+                        .computeIfAbsent(questionId, ignored -> new HashSet<>())
+                        .add(rowStudentId);
+            }
+        }
+
+        Map<MistakeKey, MistakeAccumulator> grouped = new LinkedHashMap<>();
+        for (StudentResponse response : scopedResponses) {
+            MistakeKey key = new MistakeKey(
+                    studentIdFor(response),
+                    questionIdFor(response),
+                    normalizedAnswerKey(studentAnswerFor(response)));
+            grouped.computeIfAbsent(key, ignored -> new MistakeAccumulator(response))
+                    .add(response);
+        }
+
+        int rowLimit = sanitizeLimit(limit);
+        List<TeacherMistakeRowResponse> rows = grouped.values().stream()
+                .map(accumulator -> accumulator.toResponse(studentsByQuestion))
+                .sorted(Comparator
+                        .comparing(
+                                TeacherMistakeRowResponse::getLastMistakeAt,
+                                Comparator.nullsLast(Comparator.reverseOrder()))
+                        .thenComparing(
+                                TeacherMistakeRowResponse::getMistakeCount,
+                                Comparator.reverseOrder()))
+                .limit(rowLimit)
+                .toList();
+
+        return TeacherMistakeAnalyticsResponse.builder()
+                .summary(buildMistakeSummary(scopedResponses))
+                .mistakes(rows)
+                .build();
+    }
+
     // ==================== Question Bank (FR-9) ====================
 
     /**
@@ -252,6 +350,16 @@ public class TeacherService {
 
     private List<TeacherAssignment> loadActiveAssignments(Teacher teacher) {
         return teacherAssignmentRepository.findActiveByTeacherIdWithSubject(teacher.getId());
+    }
+
+    private TeacherMistakeAnalyticsResponse emptyMistakeAnalytics() {
+        return TeacherMistakeAnalyticsResponse.builder()
+                .summary(TeacherMistakeSummaryResponse.builder()
+                        .totalMistakes(0)
+                        .affectedStudents(0)
+                        .build())
+                .mistakes(Collections.emptyList())
+                .build();
     }
 
     private boolean isAssignedSubject(Teacher teacher, Long subjectId) {
@@ -339,6 +447,181 @@ public class TeacherService {
         return progress.getLesson().getSubject().getId();
     }
 
+    private boolean responseMatchesExactScope(
+            StudentResponse response,
+            List<AssignmentScope> scopes) {
+        Student student = studentFor(response);
+        Long responseSubjectId = subjectIdFor(response);
+        if (student == null || responseSubjectId == null) {
+            return false;
+        }
+        return scopes.stream().anyMatch(scope ->
+                responseSubjectId.equals(scope.subjectId()) && scope.matches(student));
+    }
+
+    private TeacherMistakeSummaryResponse buildMistakeSummary(
+            List<StudentResponse> responses) {
+        if (responses.isEmpty()) {
+            return TeacherMistakeSummaryResponse.builder()
+                    .totalMistakes(0)
+                    .affectedStudents(0)
+                    .build();
+        }
+
+        Set<Long> affectedStudents = responses.stream()
+                .map(this::studentIdFor)
+                .filter(id -> id != null)
+                .collect(Collectors.toSet());
+
+        Map<Long, CountedLabel> lessons = new LinkedHashMap<>();
+        Map<Long, CountedLabel> questions = new LinkedHashMap<>();
+        for (StudentResponse response : responses) {
+            Long lessonId = lessonIdFor(response);
+            if (lessonId != null) {
+                lessons.computeIfAbsent(
+                        lessonId,
+                        ignored -> new CountedLabel(lessonId, lessonTitleFor(response)))
+                        .increment();
+            }
+            Long questionId = questionIdFor(response);
+            if (questionId != null) {
+                questions.computeIfAbsent(
+                        questionId,
+                        ignored -> new CountedLabel(questionId, questionTextFor(response)))
+                        .increment();
+            }
+        }
+
+        CountedLabel topLesson = mostCommon(lessons);
+        CountedLabel topQuestion = mostCommon(questions);
+
+        return TeacherMistakeSummaryResponse.builder()
+                .totalMistakes(responses.size())
+                .affectedStudents(affectedStudents.size())
+                .mostMistakenLessonId(topLesson == null ? null : topLesson.id())
+                .mostMistakenLessonTitle(topLesson == null ? null : topLesson.label())
+                .mostMistakenQuestionId(topQuestion == null ? null : topQuestion.id())
+                .mostMistakenQuestionText(topQuestion == null ? null : topQuestion.label())
+                .build();
+    }
+
+    private CountedLabel mostCommon(Map<Long, CountedLabel> counts) {
+        return counts.values().stream()
+                .max(Comparator
+                        .comparingLong(CountedLabel::count)
+                        .thenComparing(CountedLabel::id, Comparator.nullsLast(Comparator.reverseOrder())))
+                .orElse(null);
+    }
+
+    private int sanitizeLimit(Integer limit) {
+        if (limit == null) {
+            return 100;
+        }
+        return Math.max(1, Math.min(limit, 500));
+    }
+
+    private String normalizedAnswerKey(String answer) {
+        if (answer == null) {
+            return "";
+        }
+        return answer.trim();
+    }
+
+    private Student studentFor(StudentResponse response) {
+        if (response == null || response.getAttempt() == null) {
+            return null;
+        }
+        return response.getAttempt().getStudent();
+    }
+
+    private Long studentIdFor(StudentResponse response) {
+        Student student = studentFor(response);
+        return student == null ? null : student.getId();
+    }
+
+    private String studentNameFor(StudentResponse response) {
+        Student student = studentFor(response);
+        return student == null ? null : student.getFullName();
+    }
+
+    private Question questionFor(StudentResponse response) {
+        return response == null ? null : response.getQuestion();
+    }
+
+    private Long questionIdFor(StudentResponse response) {
+        Question question = questionFor(response);
+        return question == null ? null : question.getId();
+    }
+
+    private String questionTextFor(StudentResponse response) {
+        Question question = questionFor(response);
+        return question == null ? null : question.getQuestionText();
+    }
+
+    private String correctAnswerFor(StudentResponse response) {
+        Question question = questionFor(response);
+        return question == null ? null : question.getCorrectAnswer();
+    }
+
+    private Lesson lessonFor(StudentResponse response) {
+        Question question = questionFor(response);
+        return question == null ? null : question.getLesson();
+    }
+
+    private Long lessonIdFor(StudentResponse response) {
+        Lesson lesson = lessonFor(response);
+        return lesson == null ? null : lesson.getId();
+    }
+
+    private String lessonTitleFor(StudentResponse response) {
+        Lesson lesson = lessonFor(response);
+        return lesson == null ? null : lesson.getTitle();
+    }
+
+    private Long subjectIdFor(StudentResponse response) {
+        Lesson lesson = lessonFor(response);
+        if (lesson == null || lesson.getSubject() == null) {
+            return null;
+        }
+        return lesson.getSubject().getId();
+    }
+
+    private String subjectNameFor(StudentResponse response) {
+        Lesson lesson = lessonFor(response);
+        if (lesson == null || lesson.getSubject() == null) {
+            return null;
+        }
+        return lesson.getSubject().getName();
+    }
+
+    private LocalDateTime mistakeTimeFor(StudentResponse response) {
+        if (response == null || response.getAttempt() == null) {
+            return null;
+        }
+        Attempt attempt = response.getAttempt();
+        return attempt.getSubmittedAt() == null
+                ? attempt.getCreatedAt()
+                : attempt.getSubmittedAt();
+    }
+
+    private String studentAnswerFor(StudentResponse response) {
+        if (response == null) {
+            return null;
+        }
+        if (response.getEvaluatedText() != null
+                && !response.getEvaluatedText().isBlank()) {
+            return response.getEvaluatedText();
+        }
+        if (response.getSpokenText() != null
+                && !response.getSpokenText().isBlank()) {
+            return response.getSpokenText();
+        }
+        if (response.getAudioRef() != null && !response.getAudioRef().isBlank()) {
+            return response.getAudioRef();
+        }
+        return null;
+    }
+
     private List<Subject> subjectsForScopes(
             List<TeacherAssignment> assignments,
             List<AssignmentScope> scopes) {
@@ -372,6 +655,79 @@ public class TeacherService {
                 .averageMastery(ProgressMetrics.round2(metrics.averageMastery(progressRecords)))
                 .lastLoginAt(student.getLastLoginAt())
                 .build();
+    }
+
+    private record MistakeKey(Long studentId, Long questionId, String studentAnswer) {
+    }
+
+    private final class MistakeAccumulator {
+        private final StudentResponse first;
+        private long count = 0;
+        private LocalDateTime lastMistakeAt;
+
+        private MistakeAccumulator(StudentResponse first) {
+            this.first = first;
+        }
+
+        private void add(StudentResponse response) {
+            count++;
+            LocalDateTime candidate = mistakeTimeFor(response);
+            if (candidate != null
+                    && (lastMistakeAt == null || candidate.isAfter(lastMistakeAt))) {
+                lastMistakeAt = candidate;
+            }
+        }
+
+        private TeacherMistakeRowResponse toResponse(
+                Map<Long, Set<Long>> studentsByQuestion) {
+            Long questionId = questionIdFor(first);
+            int affectedForQuestion = questionId == null
+                    ? 0
+                    : studentsByQuestion.getOrDefault(questionId, Collections.emptySet()).size();
+            return TeacherMistakeRowResponse.builder()
+                    .studentId(studentIdFor(first))
+                    .studentName(studentNameFor(first))
+                    .subjectId(subjectIdFor(first))
+                    .subjectName(subjectNameFor(first))
+                    .lessonId(lessonIdFor(first))
+                    .lessonTitle(lessonTitleFor(first))
+                    .questionId(questionId)
+                    .questionText(questionTextFor(first))
+                    .studentAnswer(studentAnswerFor(first))
+                    .correctAnswer(correctAnswerFor(first))
+                    .mistakeCount(count)
+                    .lastMistakeAt(lastMistakeAt)
+                    .commonMistake(affectedForQuestion > 1)
+                    .affectedStudentsForQuestion(affectedForQuestion)
+                    .build();
+        }
+    }
+
+    private static final class CountedLabel {
+        private final Long id;
+        private final String label;
+        private long count = 0;
+
+        private CountedLabel(Long id, String label) {
+            this.id = id;
+            this.label = label;
+        }
+
+        private Long id() {
+            return id;
+        }
+
+        private String label() {
+            return label;
+        }
+
+        private long count() {
+            return count;
+        }
+
+        private void increment() {
+            count++;
+        }
     }
 
     private record AssignmentScope(Integer gradeLevel, Long schoolId, Long subjectId) {

@@ -5,6 +5,7 @@ import com.springboot.manhaji.dto.response.QuestionBankResponse;
 import com.springboot.manhaji.dto.response.StudentDetailResponse;
 import com.springboot.manhaji.dto.response.SubjectSummary;
 import com.springboot.manhaji.dto.response.TeacherDashboardResponse;
+import com.springboot.manhaji.dto.response.TeacherMistakeAnalyticsResponse;
 import com.springboot.manhaji.entity.*;
 import com.springboot.manhaji.entity.enums.AttemptStatus;
 import com.springboot.manhaji.entity.enums.CompletionStatus;
@@ -41,6 +42,7 @@ class TeacherServiceTest {
     @Mock private StudentRepository studentRepository;
     @Mock private ProgressRepository progressRepository;
     @Mock private AttemptRepository attemptRepository;
+    @Mock private StudentResponseRepository studentResponseRepository;
     @Mock private SubjectRepository subjectRepository;
     @Mock private LessonRepository lessonRepository;
     @Mock private QuestionRepository questionRepository;
@@ -59,7 +61,7 @@ class TeacherServiceTest {
         teacherService = new TeacherService(
                 teacherRepository, teacherAssignmentRepository,
                 studentRepository, progressRepository, attemptRepository,
-                subjectRepository, questionRepository, questionBankMapper,
+                studentResponseRepository, subjectRepository, questionRepository, questionBankMapper,
                 metrics, TestMessages.create());
 
         school = new School();
@@ -304,6 +306,122 @@ class TeacherServiceTest {
         }
     }
 
+    // ==================== Mistake Analytics Tests ====================
+
+    @Nested
+    @DisplayName("getMistakeAnalytics()")
+    class GetMistakeAnalyticsTests {
+
+        @Test
+        @DisplayName("teacher sees only mistakes in assigned subject")
+        void teacherSeesOnlyAssignedSubjectMistakes() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+            Subject math = createSubject(300L, "Math", 1);
+            Lesson arabicLesson = createLesson(200L, arabic, "Arabic Lesson", 1);
+            Lesson mathLesson = createLesson(300L, math, "Math Lesson", 1);
+            Question arabicQuestion = createQuestion(500L, arabicLesson, "Arabic Q", 1);
+            Question mathQuestion = createQuestion(700L, mathLesson, "Math Q", 1);
+            StudentResponse firstArabicMistake = createMistakeResponse(
+                    1L, student1, arabicQuestion, "B", LocalDateTime.now().minusDays(2));
+            StudentResponse secondArabicMistake = createMistakeResponse(
+                    2L, student2, arabicQuestion, "C", LocalDateTime.now().minusDays(1));
+            StudentResponse leakedMathMistake = createMistakeResponse(
+                    3L, student1, mathQuestion, "9", LocalDateTime.now());
+
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+            when(studentRepository.findBySchoolIdInAndGradeLevelIn(List.of(7L), List.of(1)))
+                    .thenReturn(List.of(student1, student2));
+            when(studentResponseRepository.findIncorrectByStudentIdsAndSubjectIds(
+                    List.of(1L, 2L), List.of(100L), null, null, null))
+                    .thenReturn(List.of(firstArabicMistake, secondArabicMistake, leakedMathMistake));
+
+            TeacherMistakeAnalyticsResponse response = teacherService
+                    .getMistakeAnalytics(10L, null, null, null, null);
+
+            assertThat(response.getSummary().getTotalMistakes()).isEqualTo(2);
+            assertThat(response.getSummary().getAffectedStudents()).isEqualTo(2);
+            assertThat(response.getSummary().getMostMistakenLessonTitle()).isEqualTo("Arabic Lesson");
+            assertThat(response.getSummary().getMostMistakenQuestionText()).isEqualTo("Arabic Q");
+            assertThat(response.getMistakes()).hasSize(2);
+            assertThat(response.getMistakes())
+                    .allMatch(row -> row.getSubjectId().equals(100L));
+            assertThat(response.getMistakes())
+                    .allMatch(row -> row.isCommonMistake());
+            assertThat(response.getMistakes())
+                    .extracting("subjectName")
+                    .doesNotContain("Math");
+        }
+
+        @Test
+        @DisplayName("teacher cannot see unrelated subject mistakes")
+        void teacherCannotSeeUnrelatedSubjectMistakes() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+
+            TeacherMistakeAnalyticsResponse response = teacherService
+                    .getMistakeAnalytics(10L, 300L, null, null, null);
+
+            assertThat(response.getSummary().getTotalMistakes()).isZero();
+            assertThat(response.getMistakes()).isEmpty();
+            verifyNoInteractions(studentRepository, studentResponseRepository);
+        }
+
+        @Test
+        @DisplayName("teacher with no assignments gets empty analytics")
+        void teacherWithNoAssignmentsGetsEmptyAnalytics() {
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of());
+
+            TeacherMistakeAnalyticsResponse response = teacherService
+                    .getMistakeAnalytics(10L, null, null, null, null);
+
+            assertThat(response.getSummary().getTotalMistakes()).isZero();
+            assertThat(response.getSummary().getAffectedStudents()).isZero();
+            assertThat(response.getMistakes()).isEmpty();
+            verifyNoInteractions(studentRepository, studentResponseRepository);
+        }
+
+        @Test
+        @DisplayName("filters by subject, lesson, student, and limit")
+        void filtersBySubjectLessonStudentAndLimit() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+            Lesson lesson1 = createLesson(200L, arabic, "Lesson 1", 1);
+            Lesson lesson2 = createLesson(201L, arabic, "Lesson 2", 2);
+            Question lesson1Question = createQuestion(500L, lesson1, "Q1", 1);
+            Question lesson2Question = createQuestion(501L, lesson2, "Q2", 1);
+            StudentResponse matching = createMistakeResponse(
+                    1L, student1, lesson1Question, "B", LocalDateTime.now().minusHours(1));
+            StudentResponse otherStudent = createMistakeResponse(
+                    2L, student2, lesson1Question, "C", LocalDateTime.now().minusHours(2));
+            StudentResponse otherLesson = createMistakeResponse(
+                    3L, student1, lesson2Question, "D", LocalDateTime.now());
+
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+            when(studentRepository.findBySchoolIdInAndGradeLevelIn(List.of(7L), List.of(1)))
+                    .thenReturn(List.of(student1, student2));
+            when(studentResponseRepository.findIncorrectByStudentIdsAndSubjectIds(
+                    List.of(1L), List.of(100L), 100L, 200L, 1L))
+                    .thenReturn(List.of(matching, otherStudent, otherLesson));
+
+            TeacherMistakeAnalyticsResponse response = teacherService
+                    .getMistakeAnalytics(10L, 100L, 200L, 1L, 1);
+
+            assertThat(response.getSummary().getTotalMistakes()).isEqualTo(1);
+            assertThat(response.getMistakes()).hasSize(1);
+            assertThat(response.getMistakes().get(0).getStudentId()).isEqualTo(1L);
+            assertThat(response.getMistakes().get(0).getLessonId()).isEqualTo(200L);
+            assertThat(response.getMistakes().get(0).getQuestionText()).isEqualTo("Q1");
+        }
+    }
+
     // ==================== Question Bank Tests (FR-9) ====================
 
     @Nested
@@ -541,5 +659,28 @@ class TeacherServiceTest {
         a.setStatus(status);
         a.setScore(score);
         return a;
+    }
+
+    private StudentResponse createMistakeResponse(
+            Long id,
+            Student student,
+            Question question,
+            String answer,
+            LocalDateTime submittedAt) {
+        Attempt attempt = new Attempt();
+        attempt.setId(1000L + id);
+        attempt.setStudent(student);
+        attempt.setStatus(AttemptStatus.GRADED);
+        attempt.setCreatedAt(submittedAt.minusMinutes(5));
+        attempt.setSubmittedAt(submittedAt);
+
+        StudentResponse response = new StudentResponse();
+        response.setId(id);
+        response.setAttempt(attempt);
+        response.setQuestion(question);
+        response.setIsCorrect(false);
+        response.setEvaluatedText(answer);
+        response.setFeedback("wrong");
+        return response;
     }
 }

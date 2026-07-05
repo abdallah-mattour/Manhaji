@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:manhaji_app/models/question_bank.dart';
 import 'package:manhaji_app/models/teacher_dashboard.dart';
+import 'package:manhaji_app/models/teacher_mistake_analytics.dart';
 import 'package:manhaji_app/providers/teacher_provider.dart';
 import 'package:manhaji_app/services/api_service.dart';
 import 'package:manhaji_app/services/local_storage_service.dart';
@@ -15,6 +16,7 @@ class MockTeacherService extends TeacherService {
   List<ClassStudentSummary>? studentsResult;
   List<SubjectSummary>? assignedSubjectsResult;
   StudentDetail? studentDetailResult;
+  TeacherMistakeAnalytics? mistakeAnalyticsResult;
   Exception? errorToThrow;
 
   MockTeacherService() : super(ApiService(FakeLocalStorage()));
@@ -41,6 +43,17 @@ class MockTeacherService extends TeacherService {
   Future<StudentDetail> getStudentDetail(int studentId) async {
     if (errorToThrow != null) throw errorToThrow!;
     return studentDetailResult!;
+  }
+
+  @override
+  Future<TeacherMistakeAnalytics> getMistakeAnalytics({
+    int? subjectId,
+    int? lessonId,
+    int? studentId,
+    int? limit,
+  }) async {
+    if (errorToThrow != null) throw errorToThrow!;
+    return mistakeAnalyticsResult!;
   }
 }
 
@@ -230,6 +243,57 @@ void main() {
         expect(provider.assignedSubjects, isNull);
         expect(provider.error, 'حدث خطأ غير متوقع');
         expect(provider.isLoading, false);
+      });
+    });
+
+    group('loadMistakeAnalytics()', () {
+      test('should load mistake analytics successfully', () async {
+        mockService.mistakeAnalyticsResult = const TeacherMistakeAnalytics(
+          summary: TeacherMistakeSummary(
+            totalMistakes: 2,
+            affectedStudents: 1,
+            mostMistakenLessonTitle: 'حرف الراء',
+            mostMistakenQuestionText: 'اختر الكلمة الصحيحة',
+          ),
+          mistakes: [
+            TeacherMistakeRow(
+              studentId: 1,
+              studentName: 'ليان أحمد',
+              subjectId: 10,
+              subjectName: 'اللغة العربية',
+              lessonId: 20,
+              lessonTitle: 'حرف الراء',
+              questionId: 30,
+              questionText: 'اختر الكلمة الصحيحة',
+              studentAnswer: 'باب',
+              correctAnswer: 'رمان',
+              mistakeCount: 2,
+              commonMistake: false,
+              affectedStudentsForQuestion: 1,
+            ),
+          ],
+        );
+
+        await provider.loadMistakeAnalytics();
+
+        expect(provider.mistakeAnalytics, isNotNull);
+        expect(provider.mistakeAnalytics!.summary.totalMistakes, 2);
+        expect(
+          provider.mistakeAnalytics!.mistakes.first.studentName,
+          'ليان أحمد',
+        );
+        expect(provider.isMistakeAnalyticsLoading, false);
+        expect(provider.mistakeAnalyticsError, isNull);
+      });
+
+      test('should set mistake analytics error on failure', () async {
+        mockService.errorToThrow = Exception('Server error');
+
+        await provider.loadMistakeAnalytics();
+
+        expect(provider.mistakeAnalytics, isNull);
+        expect(provider.isMistakeAnalyticsLoading, false);
+        expect(provider.mistakeAnalyticsError, 'حدث خطأ غير متوقع');
       });
     });
   });

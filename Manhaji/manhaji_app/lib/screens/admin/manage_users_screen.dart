@@ -74,6 +74,17 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> {
     }
   }
 
+  Future<void> _openParentChildren(UserSummary user) async {
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (_) => _ParentChildrenDialog(parent: user),
+    );
+    if (result == true && mounted) {
+      _snack('تمّ تحديث ربط الأبناء');
+      await _refreshUsers();
+    }
+  }
+
   Future<void> _confirmDelete(UserSummary user) async {
     final confirmed = await showDialog<bool>(
       context: context,
@@ -198,9 +209,24 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> {
                           _UsersTablePanel(
                             users: filtered,
                             totalUsers: users.length,
+                            // Client-side count from the already-loaded list:
+                            // students carry parentId in their summaries.
+                            parentChildrenCounts: {
+                              for (final parent in users.where(
+                                (u) => u.role == 'PARENT',
+                              ))
+                                parent.userId: users
+                                    .where(
+                                      (u) =>
+                                          u.role == 'STUDENT' &&
+                                          u.parentId == parent.userId,
+                                    )
+                                    .length,
+                            },
                             onEdit: _openEditForm,
                             onDelete: _confirmDelete,
                             onManageAssignments: _openTeacherAssignments,
+                            onManageChildren: _openParentChildren,
                           ),
                         ],
                       ),
@@ -518,16 +544,20 @@ class _UsersTablePanel extends StatelessWidget {
   const _UsersTablePanel({
     required this.users,
     required this.totalUsers,
+    required this.parentChildrenCounts,
     required this.onEdit,
     required this.onDelete,
     required this.onManageAssignments,
+    required this.onManageChildren,
   });
 
   final List<UserSummary> users;
   final int totalUsers;
+  final Map<int, int> parentChildrenCounts;
   final void Function(UserSummary user) onEdit;
   final void Function(UserSummary user) onDelete;
   final void Function(UserSummary user) onManageAssignments;
+  final void Function(UserSummary user) onManageChildren;
 
   @override
   Widget build(BuildContext context) {
@@ -548,9 +578,11 @@ class _UsersTablePanel extends StatelessWidget {
                       for (final user in users)
                         _UserCard(
                           user: user,
+                          childrenCount: parentChildrenCounts[user.userId],
                           onEdit: onEdit,
                           onDelete: onDelete,
                           onManageAssignments: onManageAssignments,
+                          onManageChildren: onManageChildren,
                         ),
                     ],
                   );
@@ -562,9 +594,11 @@ class _UsersTablePanel extends StatelessWidget {
                     for (final user in users)
                       _UsersTableRow(
                         user: user,
+                        childrenCount: parentChildrenCounts[user.userId],
                         onEdit: onEdit,
                         onDelete: onDelete,
                         onManageAssignments: onManageAssignments,
+                        onManageChildren: onManageChildren,
                       ),
                   ],
                 );
@@ -605,15 +639,19 @@ class _UsersTableHeader extends StatelessWidget {
 class _UsersTableRow extends StatelessWidget {
   const _UsersTableRow({
     required this.user,
+    required this.childrenCount,
     required this.onEdit,
     required this.onDelete,
     required this.onManageAssignments,
+    required this.onManageChildren,
   });
 
   final UserSummary user;
+  final int? childrenCount;
   final void Function(UserSummary user) onEdit;
   final void Function(UserSummary user) onDelete;
   final void Function(UserSummary user) onManageAssignments;
+  final void Function(UserSummary user) onManageChildren;
 
   @override
   Widget build(BuildContext context) {
@@ -636,7 +674,7 @@ class _UsersTableRow extends StatelessWidget {
             ),
           ),
           Expanded(flex: 3, child: _CellText(_contactLabel(user))),
-          Expanded(flex: 2, child: _CellText(_detailLabel(user))),
+          Expanded(flex: 2, child: _CellText(_detailLabel(user, childrenCount: childrenCount))),
           SizedBox(
             width: 86,
             child: _StatusBadge(
@@ -653,6 +691,7 @@ class _UsersTableRow extends StatelessWidget {
               onEdit: onEdit,
               onDelete: onDelete,
               onManageAssignments: onManageAssignments,
+              onManageChildren: onManageChildren,
             ),
           ),
         ],
@@ -664,15 +703,19 @@ class _UsersTableRow extends StatelessWidget {
 class _UserCard extends StatelessWidget {
   const _UserCard({
     required this.user,
+    required this.childrenCount,
     required this.onEdit,
     required this.onDelete,
     required this.onManageAssignments,
+    required this.onManageChildren,
   });
 
   final UserSummary user;
+  final int? childrenCount;
   final void Function(UserSummary user) onEdit;
   final void Function(UserSummary user) onDelete;
   final void Function(UserSummary user) onManageAssignments;
+  final void Function(UserSummary user) onManageChildren;
 
   @override
   Widget build(BuildContext context) {
@@ -707,13 +750,14 @@ class _UserCard extends StatelessWidget {
           const SizedBox(height: AppTheme.space2),
           _CellText(_contactLabel(user)),
           const SizedBox(height: AppTheme.space1),
-          _CellText(_detailLabel(user)),
+          _CellText(_detailLabel(user, childrenCount: childrenCount)),
           const SizedBox(height: AppTheme.space3),
           _UserActions(
             user: user,
             onEdit: onEdit,
             onDelete: onDelete,
             onManageAssignments: onManageAssignments,
+            onManageChildren: onManageChildren,
           ),
         ],
       ),
@@ -727,12 +771,14 @@ class _UserActions extends StatelessWidget {
     required this.onEdit,
     required this.onDelete,
     required this.onManageAssignments,
+    required this.onManageChildren,
   });
 
   final UserSummary user;
   final void Function(UserSummary user) onEdit;
   final void Function(UserSummary user) onDelete;
   final void Function(UserSummary user) onManageAssignments;
+  final void Function(UserSummary user) onManageChildren;
 
   @override
   Widget build(BuildContext context) {
@@ -755,6 +801,22 @@ class _UserActions extends StatelessWidget {
             icon: const Icon(Icons.menu_book_rounded, size: 18),
             label: const Text(
               'إدارة المواد',
+              style: TextStyle(
+                fontFamily: 'Cairo',
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ),
+        if (user.role == 'PARENT')
+          TextButton.icon(
+            style: TextButton.styleFrom(
+              minimumSize: const Size(120, 42),
+              foregroundColor: AppTheme.primaryOrangeDeep,
+            ),
+            onPressed: () => onManageChildren(user),
+            icon: const Icon(Icons.family_restroom_rounded, size: 18),
+            label: const Text(
+              'إدارة الأبناء',
               style: TextStyle(
                 fontFamily: 'Cairo',
                 fontWeight: FontWeight.w800,
@@ -1941,7 +2003,7 @@ String _contactLabel(UserSummary user) {
   return 'غير متوفر';
 }
 
-String _detailLabel(UserSummary user) {
+String _detailLabel(UserSummary user, {int? childrenCount}) {
   return switch (user.role) {
     'STUDENT' =>
       user.gradeLevel == null
@@ -1953,7 +2015,12 @@ String _detailLabel(UserSummary user) {
                 ? user.department!.trim()
                 : 'المواد من إدارة المواد')
           : 'الصف المخصص: ${_gradeLabel(user.assignedGrade!)}',
-    'PARENT' => 'ولي أمر',
+    'PARENT' =>
+      childrenCount == null
+          ? 'ولي أمر'
+          : childrenCount == 0
+              ? 'لا يوجد أبناء مرتبطون'
+              : 'الأبناء المرتبطون: $childrenCount',
     _ => 'غير متوفر',
   };
 }
@@ -1988,4 +2055,414 @@ String _roleLabel(String role) {
     'ADMIN' => 'مشرف',
     _ => role,
   };
+}
+
+/// Phase 8B — Admin parent↔children linking. Works on the current schema
+/// (students.parent_id: one parent per student) and reuses the existing
+/// server-validated endpoint PUT /api/admin/students/{id}/link-parent for
+/// each link/unlink — no linking by names, ids only.
+class _ParentChildrenDialog extends StatefulWidget {
+  const _ParentChildrenDialog({required this.parent});
+
+  final UserSummary parent;
+
+  @override
+  State<_ParentChildrenDialog> createState() => _ParentChildrenDialogState();
+}
+
+class _ParentChildrenDialogState extends State<_ParentChildrenDialog> {
+  final Set<int> _selectedIds = <int>{};
+  final Set<int> _originalIds = <int>{};
+  final TextEditingController _searchController = TextEditingController();
+  bool _initialized = false;
+  bool _saving = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _init();
+    });
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _init() async {
+    final provider = context.read<AdminProvider>();
+    if (provider.users == null) {
+      await provider.loadUsers();
+    }
+    if (!mounted) return;
+    final linked = (provider.users ?? const <UserSummary>[])
+        .where(
+          (u) => u.role == 'STUDENT' && u.parentId == widget.parent.userId,
+        )
+        .map((u) => u.userId);
+    setState(() {
+      _originalIds
+        ..clear()
+        ..addAll(linked);
+      _selectedIds
+        ..clear()
+        ..addAll(linked);
+      _initialized = true;
+    });
+  }
+
+  Future<void> _save() async {
+    final provider = context.read<AdminProvider>();
+    final toUnlink = _originalIds.difference(_selectedIds);
+    final toLink = _selectedIds.difference(_originalIds);
+
+    if (toUnlink.isEmpty && toLink.isEmpty) {
+      Navigator.pop(context, false);
+      return;
+    }
+
+    setState(() => _saving = true);
+    for (final studentId in toUnlink) {
+      final ok = await provider.linkStudentToParent(studentId, null);
+      if (!ok) {
+        if (mounted) {
+          setState(() => _saving = false);
+          _showSnack(provider.error ?? 'فشل حفظ الربط');
+        }
+        return;
+      }
+    }
+    for (final studentId in toLink) {
+      final ok = await provider.linkStudentToParent(
+        studentId,
+        widget.parent.userId,
+      );
+      if (!ok) {
+        if (mounted) {
+          setState(() => _saving = false);
+          _showSnack(provider.error ?? 'فشل حفظ الربط');
+        }
+        return;
+      }
+    }
+    if (!mounted) return;
+    Navigator.pop(context, true);
+  }
+
+  void _toggle(UserSummary student) {
+    setState(() {
+      if (_selectedIds.contains(student.userId)) {
+        _selectedIds.remove(student.userId);
+      } else {
+        _selectedIds.add(student.userId);
+      }
+    });
+  }
+
+  void _showSnack(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message, style: const TextStyle(fontFamily: 'Cairo')),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final provider = context.watch<AdminProvider>();
+    final users = provider.users ?? const <UserSummary>[];
+    final students =
+        users.where((u) => u.role == 'STUDENT').toList(growable: false);
+    final parentsById = {
+      for (final u in users.where((u) => u.role == 'PARENT')) u.userId: u,
+    };
+    final query = _searchController.text.trim();
+    final results = query.isEmpty
+        ? students
+        : students
+              .where(
+                (s) =>
+                    s.fullName.contains(query) ||
+                    (s.email ?? '').contains(query),
+              )
+              .toList(growable: false);
+    final linkedNow = students
+        .where((s) => _selectedIds.contains(s.userId))
+        .toList(growable: false);
+
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Dialog(
+        insetPadding: const EdgeInsets.all(AppTheme.space5),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 760, maxHeight: 760),
+          child: Column(
+            children: [
+              _DialogHeader(
+                title: 'إدارة الأبناء',
+                subtitle: widget.parent.fullName,
+                onClose: () => Navigator.pop(context, false),
+              ),
+              Expanded(
+                child: !_initialized
+                    ? const Center(child: CircularProgressIndicator())
+                    : SingleChildScrollView(
+                        padding: const EdgeInsets.all(AppTheme.space5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(AppTheme.space3),
+                              decoration: BoxDecoration(
+                                color: AppTheme.primaryBlue.withValues(
+                                  alpha: 0.08,
+                                ),
+                                borderRadius: BorderRadius.circular(
+                                  AppTheme.radiusM,
+                                ),
+                              ),
+                              child: const Row(
+                                children: [
+                                  Icon(
+                                    Icons.info_outline_rounded,
+                                    size: 18,
+                                    color: AppTheme.primaryBlue,
+                                  ),
+                                  SizedBox(width: AppTheme.space2),
+                                  Expanded(
+                                    child: Text(
+                                      'كل طالب يمكن ربطه بولي أمر واحد فقط حاليًا',
+                                      style: TextStyle(
+                                        fontFamily: 'Cairo',
+                                        fontSize: 12.5,
+                                        fontWeight: FontWeight.w700,
+                                        color: AppTheme.textDark,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: AppTheme.space4),
+                            const Text(
+                              'الأبناء المرتبطون',
+                              style: TextStyle(
+                                fontFamily: 'Cairo',
+                                fontSize: 15,
+                                fontWeight: FontWeight.w900,
+                                color: AppTheme.textDark,
+                              ),
+                            ),
+                            const SizedBox(height: AppTheme.space2),
+                            if (linkedNow.isEmpty)
+                              const Text(
+                                'لا يوجد أبناء مرتبطون',
+                                style: TextStyle(
+                                  fontFamily: 'Cairo',
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w700,
+                                  color: AppTheme.textGray,
+                                ),
+                              )
+                            else
+                              Wrap(
+                                spacing: AppTheme.space2,
+                                runSpacing: AppTheme.space2,
+                                children: [
+                                  for (final child in linkedNow)
+                                    InputChip(
+                                      label: Text(
+                                        child.fullName,
+                                        style: const TextStyle(
+                                          fontFamily: 'Cairo',
+                                          fontSize: 12.5,
+                                          fontWeight: FontWeight.w800,
+                                        ),
+                                      ),
+                                      onDeleted: _saving
+                                          ? null
+                                          : () => _toggle(child),
+                                    ),
+                                ],
+                              ),
+                            const SizedBox(height: AppTheme.space5),
+                            TextField(
+                              controller: _searchController,
+                              onChanged: (_) => setState(() {}),
+                              style: const TextStyle(fontFamily: 'Cairo'),
+                              decoration: InputDecoration(
+                                labelText: 'البحث عن طالب',
+                                labelStyle:
+                                    const TextStyle(fontFamily: 'Cairo'),
+                                prefixIcon:
+                                    const Icon(Icons.search_rounded),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    AppTheme.radiusM,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: AppTheme.space4),
+                            if (results.isEmpty)
+                              const Text(
+                                'لا توجد نتائج مطابقة',
+                                style: TextStyle(
+                                  fontFamily: 'Cairo',
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w700,
+                                  color: AppTheme.textGray,
+                                ),
+                              )
+                            else
+                              for (final student in results)
+                                _StudentLinkTile(
+                                  student: student,
+                                  currentParent: student.parentId == null
+                                      ? null
+                                      : parentsById[student.parentId!],
+                                  managedParentId: widget.parent.userId,
+                                  selected:
+                                      _selectedIds.contains(student.userId),
+                                  enabled: !_saving,
+                                  onToggle: () => _toggle(student),
+                                ),
+                          ],
+                        ),
+                      ),
+              ),
+              _DialogActions(
+                primaryLabel: 'حفظ الربط',
+                isBusy: _saving || provider.isMutating,
+                onCancel: () => Navigator.pop(context, false),
+                onSubmit: _save,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _StudentLinkTile extends StatelessWidget {
+  const _StudentLinkTile({
+    required this.student,
+    required this.currentParent,
+    required this.managedParentId,
+    required this.selected,
+    required this.enabled,
+    required this.onToggle,
+  });
+
+  final UserSummary student;
+  final UserSummary? currentParent;
+  final int managedParentId;
+  final bool selected;
+  final bool enabled;
+  final VoidCallback onToggle;
+
+  @override
+  Widget build(BuildContext context) {
+    // Current DB link (pre-save) — distinguishes same-named students and
+    // makes reassignment explicit before the admin confirms it.
+    final String statusLabel;
+    final Color statusColor;
+    if (student.parentId == null) {
+      statusLabel = 'غير مرتبط';
+      statusColor = AppTheme.textGray;
+    } else if (student.parentId == managedParentId) {
+      statusLabel = 'مرتبط حاليًا بـ هذا الحساب';
+      statusColor = AppTheme.primaryGreen;
+    } else {
+      statusLabel =
+          'مرتبط حاليًا بـ ${currentParent?.fullName ?? 'ولي أمر آخر'}';
+      statusColor = AppTheme.primaryOrange;
+    }
+
+    final grade = student.gradeLevel;
+    final details = [
+      if (student.email?.trim().isNotEmpty == true) student.email!.trim(),
+      if (grade != null) 'الصف $grade',
+    ].join(' • ');
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: AppTheme.space2),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppTheme.space3,
+        vertical: AppTheme.space2,
+      ),
+      decoration: BoxDecoration(
+        color: selected
+            ? AppTheme.primaryGreen.withValues(alpha: 0.06)
+            : AppTheme.surfaceSubtle,
+        borderRadius: BorderRadius.circular(AppTheme.radiusM),
+        border: Border.all(
+          color: selected
+              ? AppTheme.primaryGreen.withValues(alpha: 0.35)
+              : AppTheme.surfaceMuted,
+        ),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  student.fullName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontFamily: 'Cairo',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w900,
+                    color: AppTheme.textDark,
+                  ),
+                ),
+                if (details.isNotEmpty)
+                  Text(
+                    details,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontFamily: 'Cairo',
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: AppTheme.textGray,
+                    ),
+                  ),
+                const SizedBox(height: 2),
+                Text(
+                  statusLabel,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontFamily: 'Cairo',
+                    fontSize: 11.5,
+                    fontWeight: FontWeight.w800,
+                    color: statusColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: AppTheme.space2),
+          IconButton.filledTonal(
+            tooltip: selected ? 'إزالة الربط' : 'ربط بهذا الحساب',
+            icon: Icon(
+              selected
+                  ? Icons.person_remove_rounded
+                  : Icons.person_add_rounded,
+            ),
+            color: selected ? AppTheme.primaryRed : AppTheme.primaryGreen,
+            onPressed: enabled ? onToggle : null,
+          ),
+        ],
+      ),
+    );
+  }
 }

@@ -28,6 +28,28 @@ class FakeAdminService extends AdminService {
   List<TeacherAssignmentPayload>? receivedSavedAssignments;
   int createCalls = 0;
 
+  /// Phase 8B — recorded (studentId, parentId) link/unlink calls.
+  final List<(int, int?)> linkCalls = [];
+
+  @override
+  Future<UserSummary> linkStudentToParent(int studentId, int? parentId) async {
+    linkCalls.add((studentId, parentId));
+    final index = users.indexWhere((u) => u.userId == studentId);
+    final student = users[index];
+    final updated = UserSummary(
+      userId: student.userId,
+      fullName: student.fullName,
+      email: student.email,
+      phone: student.phone,
+      role: student.role,
+      isActive: student.isActive,
+      gradeLevel: student.gradeLevel,
+      parentId: parentId,
+    );
+    users[index] = updated;
+    return updated;
+  }
+
   @override
   Future<AdminStats> getStats() async {
     return AdminStats(
@@ -169,6 +191,64 @@ FakeAdminService _service() {
   );
 }
 
+
+FakeAdminService _linkService() {
+  return FakeAdminService(
+    users: [
+      UserSummary(
+        userId: 1,
+        fullName: 'سارة أحمد',
+        email: 'sara@example.com',
+        role: 'STUDENT',
+        isActive: true,
+        gradeLevel: 1,
+        parentId: 3, // linked to the managed parent
+      ),
+      UserSummary(
+        userId: 3,
+        fullName: 'أحمد - ولي أمر سارة',
+        email: 'parent.sara@example.com',
+        role: 'PARENT',
+        isActive: true,
+      ),
+      UserSummary(
+        userId: 4,
+        fullName: 'حسن - ولي أمر كريم',
+        email: 'parent.kareem@example.com',
+        role: 'PARENT',
+        isActive: true,
+      ),
+      UserSummary(
+        userId: 5,
+        fullName: 'كريم حسن',
+        email: 'kareem@example.com',
+        role: 'STUDENT',
+        isActive: true,
+        gradeLevel: 1,
+        parentId: 4, // linked to ANOTHER parent
+      ),
+      UserSummary(
+        userId: 6,
+        fullName: 'يوسف سمير',
+        email: 'yousef@example.com',
+        role: 'STUDENT',
+        isActive: true,
+        gradeLevel: 1,
+        // unlinked
+      ),
+      UserSummary(
+        userId: 7,
+        fullName: 'ولي أمر بلا أبناء',
+        email: 'parent.empty@example.com',
+        role: 'PARENT',
+        isActive: true,
+      ),
+    ],
+    subjects: const [],
+    assignments: const [],
+  );
+}
+
 void main() {
   setUp(() {
     TestWidgetsFlutterBinding.ensureInitialized();
@@ -256,5 +336,156 @@ void main() {
     expect(find.text('إدارة مواد المعلم'), findsOneWidget);
     expect(find.text('المواد المخصصة'), findsOneWidget);
     expect(find.text('الرياضيات - الصف 2'), findsOneWidget);
+  });
+
+  testWidgets('parent rows show إدارة الأبناء with linked-children counts', (
+    tester,
+  ) async {
+    setDesktopSize(tester);
+    await tester.pumpWidget(_wrap(_linkService()));
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('إدارة الأبناء').first);
+    await tester.pumpAndSettle();
+
+    expect(find.text('إدارة الأبناء'), findsNWidgets(3)); // 3 parents
+    expect(find.text('الأبناء المرتبطون: 1'), findsNWidgets(2));
+    expect(find.text('لا يوجد أبناء مرتبطون'), findsOneWidget); // empty parent
+  });
+
+  testWidgets(
+    'parent children dialog shows linked child and distinguishes candidates',
+    (tester) async {
+      setDesktopSize(tester);
+      await tester.pumpWidget(_wrap(_linkService()));
+      await tester.pumpAndSettle();
+
+      await tester.ensureVisible(find.text('إدارة الأبناء').first);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('إدارة الأبناء').first);
+      await tester.pumpAndSettle();
+
+      final dialog = find.byType(Dialog);
+      expect(
+        find.descendant(
+          of: dialog,
+          matching:
+              find.text('كل طالب يمكن ربطه بولي أمر واحد فقط حاليًا'),
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(of: dialog, matching: find.text('الأبناء المرتبطون')),
+        findsOneWidget,
+      );
+      // Linked child appears as a removable chip AND as a result tile.
+      expect(
+        find.descendant(of: dialog, matching: find.text('سارة أحمد')),
+        findsAtLeastNWidgets(1),
+      );
+      // Distinguishing current-parent statuses:
+      expect(
+        find.descendant(of: dialog, matching: find.text('غير مرتبط')),
+        findsOneWidget, // يوسف
+      );
+      expect(
+        find.descendant(
+          of: dialog,
+          matching: find.text('مرتبط حاليًا بـ حسن - ولي أمر كريم'),
+        ),
+        findsOneWidget, // كريم
+      );
+
+      // Search filters candidates.
+      await tester.enterText(
+        find.descendant(of: dialog, matching: find.byType(TextField)),
+        'يوسف',
+      );
+      await tester.pumpAndSettle();
+      expect(
+        find.descendant(of: dialog, matching: find.text('كريم حسن')),
+        findsNothing,
+      );
+      expect(
+        find.descendant(of: dialog, matching: find.text('يوسف سمير')),
+        findsOneWidget,
+      );
+    },
+  );
+
+  testWidgets('parent with no children shows the empty state in the dialog', (
+    tester,
+  ) async {
+    setDesktopSize(tester);
+    await tester.pumpWidget(_wrap(_linkService()));
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('إدارة الأبناء').last);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('إدارة الأبناء').last); // ولي أمر بلا أبناء
+    await tester.pumpAndSettle();
+
+    expect(
+      find.descendant(
+        of: find.byType(Dialog),
+        matching: find.text('لا يوجد أبناء مرتبطون'),
+      ),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('saving link changes calls unlink then link with real ids', (
+    tester,
+  ) async {
+    setDesktopSize(tester);
+    final service = _linkService();
+    await tester.pumpWidget(_wrap(service));
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('إدارة الأبناء').first);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('إدارة الأبناء').first); // ولي أمر سارة (id 3)
+    await tester.pumpAndSettle();
+
+    final dialog = find.byType(Dialog);
+
+    // Remove سارة via her result tile's remove toggle (search narrows to her
+    // tile so exactly one remove icon is present).
+    await tester.enterText(
+      find.descendant(of: dialog, matching: find.byType(TextField)),
+      'سارة',
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.descendant(
+        of: dialog,
+        matching: find.byIcon(Icons.person_remove_rounded),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    // Search for يوسف and add him.
+    await tester.enterText(
+      find.descendant(of: dialog, matching: find.byType(TextField)),
+      'يوسف',
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.descendant(
+        of: dialog,
+        matching: find.byIcon(Icons.person_add_rounded),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    await tester.tap(
+      find.descendant(of: dialog, matching: find.text('حفظ الربط')),
+    );
+    await tester.pumpAndSettle();
+
+    // Unlink removed student first, then link the added one — by id only.
+    expect(service.linkCalls, [(1, null), (6, 3)]);
+    expect(find.byType(Dialog), findsNothing); // dialog closed
+    expect(find.text('تمّ تحديث ربط الأبناء'), findsOneWidget); // snack
   });
 }

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.Customizer;
@@ -21,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
@@ -52,6 +54,7 @@ public class SecurityConfig {
                         .requestMatchers("/app", "/app/**").permitAll()
                         .requestMatchers("/assets/**", "/icons/**", "/canvaskit/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/teacher/analytics/**").hasRole("TEACHER")
                         .requestMatchers("/api/teacher/**").hasAnyRole("TEACHER", "ADMIN")
                         .requestMatchers("/api/parent/**").hasAnyRole("PARENT", "ADMIN")
                         // Audit-4 fix H3 (2026-05-15): previously the rule below

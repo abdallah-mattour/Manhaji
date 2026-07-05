@@ -7,6 +7,7 @@ import '../../constants/strings.dart';
 import '../../models/learning_step.dart';
 import '../../models/quiz.dart';
 import '../../providers/learning_provider.dart';
+import '../../providers/student_settings_provider.dart';
 import '../../services/audio_service.dart';
 import '../../services/local_storage_service.dart';
 import '../../services/tts_service.dart';
@@ -134,14 +135,19 @@ class _LearningScreenState extends State<LearningScreen>
     if (idx == _lastSpokenStepIndex) return;
     _lastSpokenStepIndex = idx;
 
+    // Phase 8A — الوضع الصامت gates AUTOMATIC playback only. The manual
+    // speaker button and pronunciation target playback stay untouched.
+    final autoAudio =
+        context.read<StudentSettingsProvider>().autoAudioEnabled;
+
     final teaching = step.teachingData;
     final question = step.question;
     if (step.isTeaching && teaching != null) {
-      tts.speakText(teaching.content);
+      if (autoAudio) tts.speakText(teaching.content);
     } else if (step.isQuestion && question != null) {
       // Show a first-time tip for novel AI question types before TTS kicks in.
       _maybeShowOnboarding(question.type);
-      tts.speakQuestion(question.id, question.questionText);
+      if (autoAudio) tts.speakQuestion(question.id, question.questionText);
     }
   }
 
@@ -754,15 +760,19 @@ class _LearningScreenState extends State<LearningScreen>
     final tracker = provider.currentTracker;
     final isCorrect = tracker?.lastResult?.isCorrect == true;
     final isRetrying = provider.phase == LearningPhase.stepRetry;
+    // Phase 8A — الوضع الصامت mutes the automatic verdict voice lines only;
+    // haptics, confetti and the shake animation stay (they're not audio).
+    final autoAudio =
+        context.read<StudentSettingsProvider>().autoAudioEnabled;
 
     if (isCorrect) {
       HapticFeedback.mediumImpact();
       _confettiController.play();
-      _ttsService?.speakText('أحسنت!');
+      if (autoAudio) _ttsService?.speakText('أحسنت!');
     } else {
       HapticFeedback.heavyImpact();
       _shakeController.forward(from: 0);
-      if (isRetrying) {
+      if (isRetrying && autoAudio) {
         _ttsService?.speakText('حاول مرة أخرى');
       }
     }

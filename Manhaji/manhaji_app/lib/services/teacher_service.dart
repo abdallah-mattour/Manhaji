@@ -1,6 +1,7 @@
 import '../config/api_config.dart';
 import '../models/question_bank.dart';
 import '../models/teacher_dashboard.dart';
+import '../models/teacher_mistake_analytics.dart';
 import 'api_service.dart';
 
 class TeacherService {
@@ -22,6 +23,26 @@ class TeacherService {
   Future<StudentDetail> getStudentDetail(int studentId) async {
     final response = await _api.get('${ApiConfig.teacherStudents}/$studentId');
     return StudentDetail.fromJson(response['data'] ?? {});
+  }
+
+  Future<TeacherMistakeAnalytics> getMistakeAnalytics({
+    int? subjectId,
+    int? lessonId,
+    int? studentId,
+    int? limit,
+  }) async {
+    final params = <String, dynamic>{};
+    if (subjectId != null) params['subjectId'] = subjectId;
+    if (lessonId != null) params['lessonId'] = lessonId;
+    if (studentId != null) params['studentId'] = studentId;
+    if (limit != null) params['limit'] = limit;
+    final response = await _api.get(
+      ApiConfig.teacherMistakes,
+      queryParams: params.isEmpty ? null : params,
+    );
+    return TeacherMistakeAnalytics.fromJson(
+      (response['data'] as Map<String, dynamic>?) ?? const {},
+    );
   }
 
   // ===== Question Bank (FR-9) =====

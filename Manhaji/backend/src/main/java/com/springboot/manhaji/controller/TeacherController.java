@@ -6,9 +6,11 @@ import com.springboot.manhaji.dto.response.QuestionBankResponse;
 import com.springboot.manhaji.dto.response.StudentDetailResponse;
 import com.springboot.manhaji.dto.response.SubjectSummary;
 import com.springboot.manhaji.dto.response.TeacherDashboardResponse;
+import com.springboot.manhaji.dto.response.TeacherMistakeAnalyticsResponse;
 import com.springboot.manhaji.service.TeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,6 +45,19 @@ public class TeacherController {
             @PathVariable("studentId") Long studentId) {
         Long teacherId = (Long) authentication.getPrincipal();
         return ResponseEntity.ok(ApiResponse.success(teacherService.getStudentDetail(teacherId, studentId)));
+    }
+
+    @GetMapping("/analytics/mistakes")
+    @PreAuthorize("hasRole('TEACHER')")
+    public ResponseEntity<ApiResponse<TeacherMistakeAnalyticsResponse>> getMistakeAnalytics(
+            Authentication authentication,
+            @RequestParam(name = "subjectId", required = false) Long subjectId,
+            @RequestParam(name = "lessonId", required = false) Long lessonId,
+            @RequestParam(name = "studentId", required = false) Long studentId,
+            @RequestParam(name = "limit", required = false) Integer limit) {
+        Long teacherId = (Long) authentication.getPrincipal();
+        return ResponseEntity.ok(ApiResponse.success(teacherService.getMistakeAnalytics(
+                teacherId, subjectId, lessonId, studentId, limit)));
     }
 
     // ==================== Question Bank (FR-9) ====================

@@ -108,4 +108,15 @@ class LocalStorageService {
       _prefs?.setBool(_kSeenPronunciationTip, true);
   Future<void> markTracingTipSeen() async =>
       _prefs?.setBool(_kSeenTracingTip, true);
+
+  // Phase 8A — Student "الوضع الصامت": when true, learning screens skip
+  // AUTOMATIC audio playback (TTS on step change, verdict sounds). Manual
+  // speaker buttons and voice answers are never affected. Defaults to OFF.
+  static const _kStudentSilentMode = 'student_silent_mode';
+
+  bool get isSilentModeEnabled =>
+      _prefs?.getBool(_kStudentSilentMode) ?? false;
+
+  Future<void> setSilentModeEnabled(bool enabled) async =>
+      _prefs?.setBool(_kStudentSilentMode, enabled);
 }

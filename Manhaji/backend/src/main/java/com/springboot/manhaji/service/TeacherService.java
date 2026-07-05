@@ -24,6 +24,7 @@ import com.springboot.manhaji.entity.StudentResponse;
 import com.springboot.manhaji.entity.Subject;
 import com.springboot.manhaji.entity.Teacher;
 import com.springboot.manhaji.entity.TeacherAssignment;
+import com.springboot.manhaji.entity.enums.QuizStatus;
 import com.springboot.manhaji.entity.enums.QuizType;
 import com.springboot.manhaji.exception.BadRequestException;
 import com.springboot.manhaji.exception.ResourceNotFoundException;
@@ -397,9 +398,11 @@ public class TeacherService {
         quiz.setTitle(title);
         quiz.setGamified(false);
         quiz.setGeneratedFromLesson(false);
-        quiz.setQuizType(QuizType.LESSON);
+        quiz.setQuizType(QuizType.TEACHER_ASSIGNED);
         quiz.setLesson(null);
         quiz.setSubject(subject);
+        quiz.setCreatedByTeacher(teacher);
+        quiz.setStatus(QuizStatus.DRAFT);
         quiz.setGeneratedForStudentId(null);
         quiz.setQuestions(new ArrayList<>(questions));
 

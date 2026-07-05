@@ -13,6 +13,7 @@ import com.springboot.manhaji.entity.*;
 import com.springboot.manhaji.entity.enums.AttemptStatus;
 import com.springboot.manhaji.entity.enums.CompletionStatus;
 import com.springboot.manhaji.entity.enums.QuestionType;
+import com.springboot.manhaji.entity.enums.QuizStatus;
 import com.springboot.manhaji.entity.enums.QuizType;
 import com.springboot.manhaji.entity.enums.Role;
 import com.springboot.manhaji.exception.BadRequestException;
@@ -637,7 +638,9 @@ class TeacherServiceTest {
             assertThat(saved.getTitle()).isEqualTo("اختبار قصير");
             assertThat(saved.getSubject()).isSameAs(arabic);
             assertThat(saved.getLesson()).isNull();
-            assertThat(saved.getQuizType()).isEqualTo(QuizType.LESSON);
+            assertThat(saved.getQuizType()).isEqualTo(QuizType.TEACHER_ASSIGNED);
+            assertThat(saved.getCreatedByTeacher()).isSameAs(teacher);
+            assertThat(saved.getStatus()).isEqualTo(QuizStatus.DRAFT);
             assertThat(saved.getGeneratedForStudentId()).isNull();
             assertThat(saved.getQuestions()).extracting(Question::getId)
                     .containsExactly(500L, 501L);

@@ -159,6 +159,9 @@ public class QuizService {
     public AttemptResponse startAttempt(Long quizId, Long studentId) {
         Quiz quiz = quizRepository.findById(quizId)
                 .orElseThrow(() -> new ResourceNotFoundException("Quiz", quizId));
+        if (isTeacherManagedQuiz(quiz)) {
+            throw new BadRequestException("لا يمكن بدء هذا الاختبار من هذا المسار.");
+        }
 
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Student", studentId));
@@ -202,6 +205,24 @@ public class QuizService {
                 .pointsEarned(0)
                 .answers(new ArrayList<>())
                 .build();
+    }
+
+    private boolean isTeacherManagedQuiz(Quiz quiz) {
+        if (quiz.getCreatedByTeacher() != null) {
+            return true;
+        }
+        if (quiz.getQuizType() == QuizType.TEACHER_ASSIGNED) {
+            return true;
+        }
+        if (quiz.getStatus() != null) {
+            return true;
+        }
+        if (quiz.getAssignments() != null && !quiz.getAssignments().isEmpty()) {
+            return true;
+        }
+        return quiz.getGeneratedForStudentId() == null
+                && quiz.getLesson() == null
+                && quiz.getSubject() != null;
     }
 
     /**

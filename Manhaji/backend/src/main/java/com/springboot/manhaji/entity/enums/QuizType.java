@@ -17,5 +17,6 @@ package com.springboot.manhaji.entity.enums;
  */
 public enum QuizType {
     LESSON,
-    PERSONALIZED
+    PERSONALIZED,
+    TEACHER_ASSIGNED
 }

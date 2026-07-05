@@ -11,6 +11,8 @@ import com.springboot.manhaji.entity.*;
 import com.springboot.manhaji.entity.enums.AttemptStatus;
 import com.springboot.manhaji.entity.enums.CompletionStatus;
 import com.springboot.manhaji.entity.enums.QuestionType;
+import com.springboot.manhaji.entity.enums.QuizStatus;
+import com.springboot.manhaji.entity.enums.QuizType;
 import com.springboot.manhaji.exception.BadRequestException;
 import com.springboot.manhaji.exception.ResourceNotFoundException;
 import com.springboot.manhaji.repository.*;
@@ -178,6 +180,10 @@ class QuizServiceTest {
             assertThat(response.getStatus()).isEqualTo("IN_PROGRESS");
             assertThat(response.getTotalQuestions()).isEqualTo(2);
             assertThat(response.getCorrectAnswers()).isZero();
+
+            ArgumentCaptor<Attempt> attemptCaptor = ArgumentCaptor.forClass(Attempt.class);
+            verify(attemptRepository).save(attemptCaptor.capture());
+            assertThat(attemptCaptor.getValue().getQuizAssignment()).isNull();
         }
 
         @Test
@@ -199,6 +205,102 @@ class QuizServiceTest {
 
             assertThat(response.getAttemptId()).isEqualTo(5L);
             verify(attemptRepository, never()).save(any()); // should not create new
+        }
+
+        @Test
+        @DisplayName("personalized quiz still starts through generic start")
+        void personalizedQuizStillStarts() {
+            Quiz personalized = new Quiz();
+            personalized.setId(99L);
+            personalized.setTitle("تحدَّ نفسك");
+            personalized.setQuizType(QuizType.PERSONALIZED);
+            personalized.setSubject(testSubject);
+            personalized.setGeneratedForStudentId(1L);
+            personalized.setLesson(null);
+            personalized.setQuestions(testQuiz.getQuestions());
+
+            when(quizRepository.findById(99L)).thenReturn(Optional.of(personalized));
+            when(studentRepository.findById(1L)).thenReturn(Optional.of(testStudent));
+            when(attemptRepository.findByStudentIdAndQuizIdAndStatus(1L, 99L, AttemptStatus.IN_PROGRESS))
+                    .thenReturn(Optional.empty());
+            when(attemptRepository.save(any())).thenAnswer(inv -> {
+                Attempt a = inv.getArgument(0);
+                a.setId(21L);
+                return a;
+            });
+
+            AttemptResponse response = quizService.startAttempt(99L, 1L);
+
+            assertThat(response.getAttemptId()).isEqualTo(21L);
+            assertThat(response.getQuizId()).isEqualTo(99L);
+            assertThat(response.getStatus()).isEqualTo("IN_PROGRESS");
+        }
+
+        @Test
+        @DisplayName("teacher-created draft quiz cannot start through generic start")
+        void teacherDraftQuizCannotStartThroughGenericStart() {
+            Teacher teacher = new Teacher();
+            teacher.setId(44L);
+            Quiz teacherQuiz = new Quiz();
+            teacherQuiz.setId(88L);
+            teacherQuiz.setTitle("اختبار المعلم");
+            teacherQuiz.setQuizType(QuizType.TEACHER_ASSIGNED);
+            teacherQuiz.setCreatedByTeacher(teacher);
+            teacherQuiz.setStatus(QuizStatus.DRAFT);
+            teacherQuiz.setSubject(testSubject);
+            teacherQuiz.setLesson(null);
+            teacherQuiz.setQuestions(testQuiz.getQuestions());
+
+            when(quizRepository.findById(88L)).thenReturn(Optional.of(teacherQuiz));
+
+            assertThatThrownBy(() -> quizService.startAttempt(88L, 1L))
+                    .isInstanceOf(BadRequestException.class)
+                    .hasMessageContaining("لا يمكن بدء هذا الاختبار");
+            verifyNoInteractions(studentRepository);
+            verify(attemptRepository, never()).save(any());
+        }
+
+        @Test
+        @DisplayName("subject-only teacher quiz shape cannot start through generic start")
+        void subjectOnlyTeacherQuizShapeCannotStartThroughGenericStart() {
+            Quiz subjectOnly = new Quiz();
+            subjectOnly.setId(89L);
+            subjectOnly.setTitle("اختبار محفوظ");
+            subjectOnly.setQuizType(QuizType.LESSON);
+            subjectOnly.setSubject(testSubject);
+            subjectOnly.setLesson(null);
+            subjectOnly.setGeneratedForStudentId(null);
+            subjectOnly.setQuestions(testQuiz.getQuestions());
+
+            when(quizRepository.findById(89L)).thenReturn(Optional.of(subjectOnly));
+
+            assertThatThrownBy(() -> quizService.startAttempt(89L, 1L))
+                    .isInstanceOf(BadRequestException.class);
+            verifyNoInteractions(studentRepository);
+            verify(attemptRepository, never()).save(any());
+        }
+
+        @Test
+        @DisplayName("quiz with assignment records cannot start through generic start")
+        void assignedQuizCannotStartThroughGenericStart() {
+            Quiz assignedQuiz = new Quiz();
+            assignedQuiz.setId(90L);
+            assignedQuiz.setTitle("اختبار منشور");
+            assignedQuiz.setQuizType(QuizType.LESSON);
+            assignedQuiz.setLesson(testLesson);
+            assignedQuiz.setQuestions(testQuiz.getQuestions());
+
+            QuizAssignment assignment = new QuizAssignment();
+            assignment.setId(12L);
+            assignment.setQuiz(assignedQuiz);
+            assignedQuiz.setAssignments(List.of(assignment));
+
+            when(quizRepository.findById(90L)).thenReturn(Optional.of(assignedQuiz));
+
+            assertThatThrownBy(() -> quizService.startAttempt(90L, 1L))
+                    .isInstanceOf(BadRequestException.class);
+            verifyNoInteractions(studentRepository);
+            verify(attemptRepository, never()).save(any());
         }
     }
 

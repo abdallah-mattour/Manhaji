@@ -80,11 +80,24 @@ class LearningProvider extends ChangeNotifier {
   int get totalStars => _totalStars;
   int get maxPossibleStars => _maxPossibleStars;
   Map<int, QuestionTracker> get trackers => _trackers;
-  bool get isInRetryRound => _phase == LearningPhase.retryRound;
+  bool get isInRetryRound => _phase == LearningPhase.retryRound || _retryActive;
   int get retryQueueLength => _retryQueue.length;
 
+  /// True while the retry round is in progress regardless of phase.
+  /// submitAnswer flips the phase to stepFeedback between retry questions,
+  /// but the round stays active until the queue is fully consumed. Derived
+  /// from state (main steps exhausted + queue not consumed) so it cannot go
+  /// stale — this is what lets [currentStep] and [nextStep] keep resolving
+  /// the retry question during retry feedback (previously the round
+  /// dead-ended there: no tracker, no Next button, and nextStep restarted
+  /// the queue instead of advancing it).
+  bool get _retryActive =>
+      _steps.isNotEmpty &&
+      _currentStepIndex >= _steps.length &&
+      _retryIndex < _retryQueue.length;
+
   LearningStep? get currentStep {
-    if (_phase == LearningPhase.retryRound) {
+    if (_phase == LearningPhase.retryRound || _retryActive) {
       if (_retryIndex < _retryQueue.length && _currentQuiz != null) {
         final qId = _retryQueue[_retryIndex];
         final question = _currentQuiz!.questions.cast<Question?>().firstWhere(
@@ -429,7 +442,10 @@ class LearningProvider extends ChangeNotifier {
 
   // Move to next step
   void nextStep() {
-    if (_phase == LearningPhase.retryRound) {
+    // Retry round: match on _retryActive (not just the phase) — after a
+    // retry answer the phase is stepFeedback, and taking the main-round
+    // branch from there used to restart the queue instead of advancing it.
+    if (_phase == LearningPhase.retryRound || _retryActive) {
       _retryIndex++;
       if (_retryIndex >= _retryQueue.length) {
         _completeLesson();
@@ -442,8 +458,10 @@ class LearningProvider extends ChangeNotifier {
 
     _currentStepIndex++;
     if (_currentStepIndex >= _steps.length) {
-      // Main round done — check for retry queue
-      if (_retryQueue.isNotEmpty) {
+      // Main round done — enter the retry round exactly once. The
+      // _retryIndex guard keeps a consumed queue from re-initializing
+      // (which would reset attemptCounts and loop the round forever).
+      if (_retryQueue.isNotEmpty && _retryIndex < _retryQueue.length) {
         _phase = LearningPhase.retryRound;
         _retryIndex = 0;
         for (final qId in _retryQueue) {

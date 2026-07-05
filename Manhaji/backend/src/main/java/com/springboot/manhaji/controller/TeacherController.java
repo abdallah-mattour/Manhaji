@@ -1,5 +1,6 @@
 package com.springboot.manhaji.controller;
 
+import com.springboot.manhaji.dto.request.TeacherQuizCreateRequest;
 import com.springboot.manhaji.dto.response.ApiResponse;
 import com.springboot.manhaji.dto.response.ClassStudentSummary;
 import com.springboot.manhaji.dto.response.QuestionBankResponse;
@@ -7,6 +8,9 @@ import com.springboot.manhaji.dto.response.StudentDetailResponse;
 import com.springboot.manhaji.dto.response.SubjectSummary;
 import com.springboot.manhaji.dto.response.TeacherDashboardResponse;
 import com.springboot.manhaji.dto.response.TeacherMistakeAnalyticsResponse;
+import com.springboot.manhaji.dto.response.TeacherQuizDetailResponse;
+import com.springboot.manhaji.dto.response.TeacherQuizSummaryResponse;
+import jakarta.validation.Valid;
 import com.springboot.manhaji.service.TeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +18,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -78,5 +84,33 @@ public class TeacherController {
         Long teacherId = (Long) authentication.getPrincipal();
         return ResponseEntity.ok(ApiResponse.success(
                 teacherService.getQuestionsForSubject(teacherId, subjectId, difficulty, lessonId)));
+    }
+
+    // ==================== Teacher Quiz Creation (Phase 8D) ====================
+
+    @GetMapping("/quizzes")
+    @PreAuthorize("hasRole('TEACHER')")
+    public ResponseEntity<ApiResponse<List<TeacherQuizSummaryResponse>>> getTeacherQuizzes(
+            Authentication authentication) {
+        Long teacherId = (Long) authentication.getPrincipal();
+        return ResponseEntity.ok(ApiResponse.success(teacherService.getTeacherQuizzes(teacherId)));
+    }
+
+    @PostMapping("/quizzes")
+    @PreAuthorize("hasRole('TEACHER')")
+    public ResponseEntity<ApiResponse<TeacherQuizDetailResponse>> createTeacherQuiz(
+            Authentication authentication,
+            @Valid @RequestBody TeacherQuizCreateRequest request) {
+        Long teacherId = (Long) authentication.getPrincipal();
+        return ResponseEntity.ok(ApiResponse.success(teacherService.createTeacherQuiz(teacherId, request)));
+    }
+
+    @GetMapping("/quizzes/{quizId}")
+    @PreAuthorize("hasRole('TEACHER')")
+    public ResponseEntity<ApiResponse<TeacherQuizDetailResponse>> getTeacherQuiz(
+            Authentication authentication,
+            @PathVariable("quizId") Long quizId) {
+        Long teacherId = (Long) authentication.getPrincipal();
+        return ResponseEntity.ok(ApiResponse.success(teacherService.getTeacherQuiz(teacherId, quizId)));
     }
 }

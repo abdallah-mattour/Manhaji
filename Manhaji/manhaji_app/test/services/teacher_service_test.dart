@@ -10,8 +10,11 @@ class FakeApiService extends ApiService {
   FakeApiService() : super(FakeLocalStorage());
 
   final Map<String, Map<String, dynamic>> getResponses = {};
+  final Map<String, Map<String, dynamic>> postResponses = {};
   final List<String> getPaths = [];
   final List<Map<String, dynamic>?> getQueryParams = [];
+  final List<String> postPaths = [];
+  final List<Map<String, dynamic>?> postData = [];
 
   @override
   Future<Map<String, dynamic>> get(
@@ -21,6 +24,16 @@ class FakeApiService extends ApiService {
     getPaths.add(path);
     getQueryParams.add(queryParams);
     return getResponses[path] ?? const {'data': null};
+  }
+
+  @override
+  Future<Map<String, dynamic>> post(
+    String path, {
+    Map<String, dynamic>? data,
+  }) async {
+    postPaths.add(path);
+    postData.add(data);
+    return postResponses[path] ?? const {'data': null};
   }
 }
 
@@ -87,5 +100,56 @@ void main() {
         expect(analytics.mistakes.first.commonMistake, isTrue);
       },
     );
+  });
+
+  group('TeacherService quizzes', () {
+    test('loads teacher quizzes and creates with expected payload', () async {
+      api.getResponses[ApiConfig.teacherQuizzes] = {
+        'data': [
+          {
+            'id': 44,
+            'title': 'اختبار الحروف',
+            'subjectId': 10,
+            'subjectName': 'اللغة العربية',
+            'lessonId': 20,
+            'lessonTitle': 'حرف الراء',
+            'questionCount': 2,
+            'createdAt': '2026-07-05T10:00:00',
+          },
+        ],
+      };
+      api.postResponses[ApiConfig.teacherQuizzes] = {
+        'data': {
+          'id': 45,
+          'title': 'اختبار جديد',
+          'subjectId': 10,
+          'subjectName': 'اللغة العربية',
+          'lessonId': 20,
+          'lessonTitle': 'حرف الراء',
+          'questionCount': 2,
+          'questions': [],
+        },
+      };
+
+      final quizzes = await service.getTeacherQuizzes();
+      final created = await service.createTeacherQuiz(
+        title: 'اختبار جديد',
+        subjectId: 10,
+        lessonId: 20,
+        questionIds: [30, 31],
+      );
+
+      expect(api.getPaths.last, ApiConfig.teacherQuizzes);
+      expect(quizzes.single.title, 'اختبار الحروف');
+      expect(api.postPaths, [ApiConfig.teacherQuizzes]);
+      expect(api.postData.single, {
+        'title': 'اختبار جديد',
+        'subjectId': 10,
+        'lessonId': 20,
+        'questionIds': [30, 31],
+      });
+      expect(created.id, 45);
+      expect(created.subjectName, 'اللغة العربية');
+    });
   });
 }

@@ -82,6 +82,7 @@ class ApiConfig {
   static const String teacherStudents = '/teacher/students';
   static const String teacherSubjects = '/teacher/subjects';
   static const String teacherMistakes = '/teacher/analytics/mistakes';
+  static const String teacherQuizzes = '/teacher/quizzes';
 
   // Admin
   static const String adminStats = '/admin/stats';

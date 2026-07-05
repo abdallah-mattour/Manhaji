@@ -1,5 +1,6 @@
 package com.springboot.manhaji.service;
 
+import com.springboot.manhaji.dto.request.TeacherQuizCreateRequest;
 import com.springboot.manhaji.dto.response.ClassStudentSummary;
 import com.springboot.manhaji.dto.response.LessonSummary;
 import com.springboot.manhaji.dto.response.QuestionBankItem;
@@ -11,20 +12,26 @@ import com.springboot.manhaji.dto.response.TeacherDashboardResponse;
 import com.springboot.manhaji.dto.response.TeacherMistakeAnalyticsResponse;
 import com.springboot.manhaji.dto.response.TeacherMistakeRowResponse;
 import com.springboot.manhaji.dto.response.TeacherMistakeSummaryResponse;
+import com.springboot.manhaji.dto.response.TeacherQuizDetailResponse;
+import com.springboot.manhaji.dto.response.TeacherQuizSummaryResponse;
 import com.springboot.manhaji.entity.Attempt;
 import com.springboot.manhaji.entity.Lesson;
 import com.springboot.manhaji.entity.Progress;
 import com.springboot.manhaji.entity.Question;
+import com.springboot.manhaji.entity.Quiz;
 import com.springboot.manhaji.entity.Student;
 import com.springboot.manhaji.entity.StudentResponse;
 import com.springboot.manhaji.entity.Subject;
 import com.springboot.manhaji.entity.Teacher;
 import com.springboot.manhaji.entity.TeacherAssignment;
+import com.springboot.manhaji.entity.enums.QuizType;
+import com.springboot.manhaji.exception.BadRequestException;
 import com.springboot.manhaji.exception.ResourceNotFoundException;
 import com.springboot.manhaji.exception.UnauthorizedException;
 import com.springboot.manhaji.repository.AttemptRepository;
 import com.springboot.manhaji.repository.ProgressRepository;
 import com.springboot.manhaji.repository.QuestionRepository;
+import com.springboot.manhaji.repository.QuizRepository;
 import com.springboot.manhaji.repository.StudentRepository;
 import com.springboot.manhaji.repository.StudentResponseRepository;
 import com.springboot.manhaji.repository.SubjectRepository;
@@ -38,11 +45,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -61,6 +70,7 @@ public class TeacherService {
     private final StudentResponseRepository studentResponseRepository;
     private final SubjectRepository subjectRepository;
     private final QuestionRepository questionRepository;
+    private final QuizRepository quizRepository;
     private final QuestionBankMapper questionBankMapper;
     private final ProgressMetrics metrics;
     private final Messages messages;
@@ -348,6 +358,74 @@ public class TeacherService {
                 .build();
     }
 
+    // ==================== Teacher Quiz Creation (Phase 8D) ====================
+
+    public List<TeacherQuizSummaryResponse> getTeacherQuizzes(Long teacherId) {
+        Teacher teacher = teacherRepository.findById(teacherId)
+                .orElseThrow(() -> new ResourceNotFoundException("Teacher", teacherId));
+        List<Long> subjectIds = assignedSubjectIds(loadActiveAssignments(teacher));
+        if (subjectIds.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return quizRepository.findTeacherVisibleBySubjectIds(subjectIds).stream()
+                .filter(quiz -> quiz.getGeneratedForStudentId() == null)
+                .filter(quiz -> subjectIds.contains(subjectIdFor(quiz)))
+                .map(this::toTeacherQuizSummary)
+                .toList();
+    }
+
+    @Transactional
+    public TeacherQuizDetailResponse createTeacherQuiz(
+            Long teacherId,
+            TeacherQuizCreateRequest request) {
+        if (request == null) {
+            throw new BadRequestException("Quiz request is required");
+        }
+        String title = request.getTitle() == null ? "" : request.getTitle().trim();
+        if (title.isBlank()) {
+            throw new BadRequestException("Quiz title is required");
+        }
+
+        Teacher teacher = teacherRepository.findById(teacherId)
+                .orElseThrow(() -> new ResourceNotFoundException("Teacher", teacherId));
+        List<TeacherAssignment> assignments = loadActiveAssignments(teacher);
+        Subject subject = requireAssignedSubject(assignments, request.getSubjectId());
+        List<Question> questions = validateTeacherQuizQuestions(request, subject.getId());
+
+        Quiz quiz = new Quiz();
+        quiz.setTitle(title);
+        quiz.setGamified(false);
+        quiz.setGeneratedFromLesson(false);
+        quiz.setQuizType(QuizType.LESSON);
+        quiz.setLesson(null);
+        quiz.setSubject(subject);
+        quiz.setGeneratedForStudentId(null);
+        quiz.setQuestions(new ArrayList<>(questions));
+
+        return toTeacherQuizDetail(quizRepository.save(quiz));
+    }
+
+    public TeacherQuizDetailResponse getTeacherQuiz(Long teacherId, Long quizId) {
+        Teacher teacher = teacherRepository.findById(teacherId)
+                .orElseThrow(() -> new ResourceNotFoundException("Teacher", teacherId));
+        List<Long> subjectIds = assignedSubjectIds(loadActiveAssignments(teacher));
+        if (subjectIds.isEmpty()) {
+            throw new UnauthorizedException(messages.get("error.teacher.subjectNotAssigned"));
+        }
+
+        Quiz quiz = quizRepository.findByIdWithTeacherDetails(quizId)
+                .orElseThrow(() -> new ResourceNotFoundException("Quiz", quizId));
+        Long subjectId = subjectIdFor(quiz);
+        if (quiz.getGeneratedForStudentId() != null
+                || subjectId == null
+                || !subjectIds.contains(subjectId)) {
+            throw new UnauthorizedException(messages.get("error.teacher.subjectNotAssigned"));
+        }
+
+        return toTeacherQuizDetail(quiz);
+    }
+
     private List<TeacherAssignment> loadActiveAssignments(Teacher teacher) {
         return teacherAssignmentRepository.findActiveByTeacherIdWithSubject(teacher.getId());
     }
@@ -366,6 +444,170 @@ public class TeacherService {
         return loadActiveAssignments(teacher).stream()
                 .map(TeacherAssignment::getSubject)
                 .anyMatch(subject -> subject != null && subjectId.equals(subject.getId()));
+    }
+
+    private List<Long> assignedSubjectIds(List<TeacherAssignment> assignments) {
+        return assignments.stream()
+                .map(TeacherAssignment::getSubject)
+                .filter(subject -> subject != null && subject.getId() != null)
+                .map(Subject::getId)
+                .distinct()
+                .toList();
+    }
+
+    private Subject requireAssignedSubject(
+            List<TeacherAssignment> assignments,
+            Long subjectId) {
+        if (assignments.isEmpty() || subjectId == null) {
+            throw new UnauthorizedException(messages.get("error.teacher.subjectNotAssigned"));
+        }
+        return assignments.stream()
+                .map(TeacherAssignment::getSubject)
+                .filter(subject -> subject != null && subjectId.equals(subject.getId()))
+                .findFirst()
+                .orElseThrow(() -> new UnauthorizedException(
+                        messages.get("error.teacher.subjectNotAssigned")));
+    }
+
+    private List<Question> validateTeacherQuizQuestions(
+            TeacherQuizCreateRequest request,
+            Long subjectId) {
+        List<Long> requested = request.getQuestionIds();
+        if (requested == null || requested.isEmpty()) {
+            throw new BadRequestException("Question ids are required");
+        }
+        for (Long questionId : requested) {
+            if (questionId == null) {
+                throw new BadRequestException("Question ids are required");
+            }
+        }
+
+        List<Long> uniqueIds = new ArrayList<>(new LinkedHashSet<>(requested));
+        Map<Long, Question> foundById = questionRepository.findAllById(uniqueIds)
+                .stream()
+                .collect(Collectors.toMap(
+                        Question::getId,
+                        question -> question,
+                        (first, ignored) -> first));
+        List<Long> missing = uniqueIds.stream()
+                .filter(id -> !foundById.containsKey(id))
+                .toList();
+        if (!missing.isEmpty()) {
+            throw new BadRequestException("Invalid question ids: " + missing);
+        }
+
+        List<Question> ordered = uniqueIds.stream()
+                .map(foundById::get)
+                .toList();
+        for (Question question : ordered) {
+            if (!subjectId.equals(subjectIdFor(question))) {
+                throw new UnauthorizedException(messages.get("error.teacher.subjectNotAssigned"));
+            }
+            Long lessonId = request.getLessonId();
+            if (lessonId != null && !lessonId.equals(lessonIdFor(question))) {
+                throw new BadRequestException("Question does not belong to selected lesson");
+            }
+        }
+        return ordered;
+    }
+
+    private TeacherQuizSummaryResponse toTeacherQuizSummary(Quiz quiz) {
+        Subject subject = subjectFor(quiz);
+        Lesson lesson = lessonFor(quiz);
+        return TeacherQuizSummaryResponse.builder()
+                .id(quiz.getId())
+                .title(quiz.getTitle())
+                .subjectId(subject == null ? null : subject.getId())
+                .subjectName(subject == null ? null : subject.getName())
+                .lessonId(lesson == null ? null : lesson.getId())
+                .lessonTitle(lesson == null ? null : lesson.getTitle())
+                .questionCount(quiz.getQuestions() == null ? 0 : quiz.getQuestions().size())
+                .createdAt(quiz.getCreatedAt())
+                .build();
+    }
+
+    private TeacherQuizDetailResponse toTeacherQuizDetail(Quiz quiz) {
+        TeacherQuizSummaryResponse summary = toTeacherQuizSummary(quiz);
+        List<QuestionBankItem> questions = quiz.getQuestions() == null
+                ? Collections.emptyList()
+                : quiz.getQuestions().stream()
+                        .sorted(Comparator.comparing(
+                                Question::getId,
+                                Comparator.nullsLast(Comparator.naturalOrder())))
+                        .map(questionBankMapper::toQuestionItem)
+                        .toList();
+        return TeacherQuizDetailResponse.builder()
+                .id(summary.getId())
+                .title(summary.getTitle())
+                .subjectId(summary.getSubjectId())
+                .subjectName(summary.getSubjectName())
+                .lessonId(summary.getLessonId())
+                .lessonTitle(summary.getLessonTitle())
+                .questionCount(summary.getQuestionCount())
+                .createdAt(summary.getCreatedAt())
+                .questions(questions)
+                .build();
+    }
+
+    private Subject subjectFor(Quiz quiz) {
+        if (quiz.getSubject() != null) {
+            return quiz.getSubject();
+        }
+        if (quiz.getLesson() != null && quiz.getLesson().getSubject() != null) {
+            return quiz.getLesson().getSubject();
+        }
+        if (quiz.getQuestions() == null) {
+            return null;
+        }
+        return quiz.getQuestions().stream()
+                .map(this::subjectFor)
+                .filter(subject -> subject != null)
+                .findFirst()
+                .orElse(null);
+    }
+
+    private Subject subjectFor(Question question) {
+        if (question == null || question.getLesson() == null) {
+            return null;
+        }
+        return question.getLesson().getSubject();
+    }
+
+    private Long subjectIdFor(Quiz quiz) {
+        Subject subject = subjectFor(quiz);
+        return subject == null ? null : subject.getId();
+    }
+
+    private Long subjectIdFor(Question question) {
+        Subject subject = subjectFor(question);
+        return subject == null ? null : subject.getId();
+    }
+
+    private Lesson lessonFor(Quiz quiz) {
+        if (quiz.getLesson() != null) {
+            return quiz.getLesson();
+        }
+        if (quiz.getQuestions() == null || quiz.getQuestions().isEmpty()) {
+            return null;
+        }
+        Lesson firstLesson = null;
+        for (Question question : quiz.getQuestions()) {
+            Lesson lesson = question.getLesson();
+            if (lesson == null) {
+                return null;
+            }
+            if (firstLesson == null) {
+                firstLesson = lesson;
+            } else if (!firstLesson.getId().equals(lesson.getId())) {
+                return null;
+            }
+        }
+        return firstLesson;
+    }
+
+    private Long lessonIdFor(Question question) {
+        Lesson lesson = question == null ? null : question.getLesson();
+        return lesson == null ? null : lesson.getId();
     }
 
     private List<Student> loadStudentsForTeacher(List<AssignmentScope> scopes) {

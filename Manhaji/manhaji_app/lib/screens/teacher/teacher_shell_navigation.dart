@@ -26,6 +26,11 @@ List<StaffShellItem> teacherShellItems(BuildContext context) {
       icon: Icons.analytics_rounded,
       route: AppRoutes.teacherMistakes,
     ),
+    const StaffShellItem(
+      label: 'الاختبارات',
+      icon: Icons.assignment_turned_in_rounded,
+      route: AppRoutes.teacherQuizzes,
+    ),
     StaffShellItem(
       label: 'بنك الأسئلة',
       icon: Icons.quiz_rounded,

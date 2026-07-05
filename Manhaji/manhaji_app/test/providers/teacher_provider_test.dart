@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:manhaji_app/models/question_bank.dart';
 import 'package:manhaji_app/models/teacher_dashboard.dart';
 import 'package:manhaji_app/models/teacher_mistake_analytics.dart';
+import 'package:manhaji_app/models/teacher_quiz.dart';
 import 'package:manhaji_app/providers/teacher_provider.dart';
 import 'package:manhaji_app/services/api_service.dart';
 import 'package:manhaji_app/services/local_storage_service.dart';
@@ -17,6 +18,13 @@ class MockTeacherService extends TeacherService {
   List<SubjectSummary>? assignedSubjectsResult;
   StudentDetail? studentDetailResult;
   TeacherMistakeAnalytics? mistakeAnalyticsResult;
+  List<TeacherQuizSummary>? teacherQuizzesResult;
+  QuestionBankResponse? quizQuestionBankResult;
+  TeacherQuizDetail? createdQuizResult;
+  String? lastCreatedTitle;
+  int? lastCreatedSubjectId;
+  int? lastCreatedLessonId;
+  List<int>? lastCreatedQuestionIds;
   Exception? errorToThrow;
 
   MockTeacherService() : super(ApiService(FakeLocalStorage()));
@@ -54,6 +62,37 @@ class MockTeacherService extends TeacherService {
   }) async {
     if (errorToThrow != null) throw errorToThrow!;
     return mistakeAnalyticsResult!;
+  }
+
+  @override
+  Future<List<TeacherQuizSummary>> getTeacherQuizzes() async {
+    if (errorToThrow != null) throw errorToThrow!;
+    return teacherQuizzesResult!;
+  }
+
+  @override
+  Future<QuestionBankResponse> getQuestionsForSubject(
+    int subjectId, {
+    int? difficulty,
+    int? lessonId,
+  }) async {
+    if (errorToThrow != null) throw errorToThrow!;
+    return quizQuestionBankResult!;
+  }
+
+  @override
+  Future<TeacherQuizDetail> createTeacherQuiz({
+    required String title,
+    required int subjectId,
+    int? lessonId,
+    required List<int> questionIds,
+  }) async {
+    if (errorToThrow != null) throw errorToThrow!;
+    lastCreatedTitle = title;
+    lastCreatedSubjectId = subjectId;
+    lastCreatedLessonId = lessonId;
+    lastCreatedQuestionIds = questionIds;
+    return createdQuizResult!;
   }
 }
 
@@ -294,6 +333,109 @@ void main() {
         expect(provider.mistakeAnalytics, isNull);
         expect(provider.isMistakeAnalyticsLoading, false);
         expect(provider.mistakeAnalyticsError, 'حدث خطأ غير متوقع');
+      });
+    });
+
+    group('teacher quizzes', () {
+      test('should load teacher quizzes successfully', () async {
+        mockService.teacherQuizzesResult = const [
+          TeacherQuizSummary(
+            id: 44,
+            title: 'اختبار الحروف',
+            subjectId: 10,
+            subjectName: 'اللغة العربية',
+            lessonId: 20,
+            lessonTitle: 'حرف الراء',
+            questionCount: 2,
+            createdAt: '2026-07-05T10:00:00',
+          ),
+        ];
+
+        await provider.loadTeacherQuizzes();
+
+        expect(provider.teacherQuizzes, hasLength(1));
+        expect(provider.teacherQuizzes!.single.title, 'اختبار الحروف');
+        expect(provider.isTeacherQuizzesLoading, false);
+        expect(provider.teacherQuizzesError, isNull);
+      });
+
+      test('should load quiz question bank for selected subject', () async {
+        mockService.quizQuestionBankResult = QuestionBankResponse(
+          subjectId: 10,
+          subjectName: 'اللغة العربية',
+          gradeLevel: 1,
+          lessons: [
+            LessonSummary(
+              id: 20,
+              title: 'حرف الراء',
+              orderIndex: 1,
+              questionCount: 1,
+            ),
+          ],
+          questions: [
+            QuestionBankItem(
+              id: 30,
+              type: 'MCQ',
+              questionText: 'اختر الكلمة الصحيحة',
+              correctAnswer: 'رمان',
+              options: const ['رمان', 'باب'],
+              difficultyLevel: 1,
+              lessonId: 20,
+              lessonTitle: 'حرف الراء',
+            ),
+          ],
+          totalQuestionsInSubject: 1,
+        );
+
+        await provider.loadQuizQuestionBank(10);
+
+        expect(provider.quizQuestionBank, isNotNull);
+        expect(provider.quizQuestionBank!.questions.single.id, 30);
+        expect(provider.isQuizQuestionBankLoading, false);
+        expect(provider.quizQuestionBankError, isNull);
+      });
+
+      test('should create quiz and send expected payload', () async {
+        mockService.createdQuizResult = const TeacherQuizDetail(
+          id: 45,
+          title: 'اختبار جديد',
+          subjectId: 10,
+          subjectName: 'اللغة العربية',
+          lessonId: 20,
+          lessonTitle: 'حرف الراء',
+          questionCount: 2,
+          questions: [],
+        );
+
+        final ok = await provider.createTeacherQuiz(
+          title: 'اختبار جديد',
+          subjectId: 10,
+          lessonId: 20,
+          questionIds: [30, 31],
+        );
+
+        expect(ok, isTrue);
+        expect(mockService.lastCreatedTitle, 'اختبار جديد');
+        expect(mockService.lastCreatedSubjectId, 10);
+        expect(mockService.lastCreatedLessonId, 20);
+        expect(mockService.lastCreatedQuestionIds, [30, 31]);
+        expect(provider.teacherQuizzes!.single.id, 45);
+        expect(provider.isCreatingTeacherQuiz, false);
+        expect(provider.createTeacherQuizError, isNull);
+      });
+
+      test('should set quiz creation error on failure', () async {
+        mockService.errorToThrow = Exception('Server error');
+
+        final ok = await provider.createTeacherQuiz(
+          title: 'اختبار جديد',
+          subjectId: 10,
+          questionIds: [30],
+        );
+
+        expect(ok, isFalse);
+        expect(provider.createTeacherQuizError, 'حدث خطأ غير متوقع');
+        expect(provider.isCreatingTeacherQuiz, false);
       });
     });
   });

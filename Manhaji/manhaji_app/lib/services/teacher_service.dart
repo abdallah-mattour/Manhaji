@@ -2,6 +2,7 @@ import '../config/api_config.dart';
 import '../models/question_bank.dart';
 import '../models/teacher_dashboard.dart';
 import '../models/teacher_mistake_analytics.dart';
+import '../models/teacher_quiz.dart';
 import 'api_service.dart';
 
 class TeacherService {
@@ -68,6 +69,43 @@ class TeacherService {
       queryParams: params.isEmpty ? null : params,
     );
     return QuestionBankResponse.fromJson(
+      (response['data'] as Map<String, dynamic>?) ?? const {},
+    );
+  }
+
+  // ===== Teacher Quizzes (Phase 8D) =====
+
+  Future<List<TeacherQuizSummary>> getTeacherQuizzes() async {
+    final response = await _api.get(ApiConfig.teacherQuizzes);
+    final list = response['data'] as List? ?? [];
+    return list
+        .map((q) => TeacherQuizSummary.fromJson(q as Map<String, dynamic>))
+        .toList();
+  }
+
+  Future<TeacherQuizDetail> getTeacherQuiz(int quizId) async {
+    final response = await _api.get('${ApiConfig.teacherQuizzes}/$quizId');
+    return TeacherQuizDetail.fromJson(
+      (response['data'] as Map<String, dynamic>?) ?? const {},
+    );
+  }
+
+  Future<TeacherQuizDetail> createTeacherQuiz({
+    required String title,
+    required int subjectId,
+    int? lessonId,
+    required List<int> questionIds,
+  }) async {
+    final data = <String, dynamic>{
+      'title': title,
+      'subjectId': subjectId,
+      'questionIds': questionIds,
+    };
+    if (lessonId != null) {
+      data['lessonId'] = lessonId;
+    }
+    final response = await _api.post(ApiConfig.teacherQuizzes, data: data);
+    return TeacherQuizDetail.fromJson(
       (response['data'] as Map<String, dynamic>?) ?? const {},
     );
   }

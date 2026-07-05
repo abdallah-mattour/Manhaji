@@ -20,6 +20,7 @@ import '../screens/teacher/class_students_screen.dart';
 import '../screens/teacher/student_detail_screen.dart';
 import '../screens/teacher/teacher_dashboard_screen.dart';
 import '../screens/teacher/teacher_mistake_analytics_screen.dart';
+import '../screens/teacher/teacher_quizzes_screen.dart';
 import '../screens/teacher/teacher_settings_screen.dart';
 import '../screens/teacher/teacher_subjects_screen.dart';
 import '../utils/role_platform_policy.dart';
@@ -48,6 +49,7 @@ class AppRoutes {
   static const String classStudents = '/teacher/students';
   static const String teacherSubjects = '/teacher/subjects';
   static const String teacherMistakes = '/teacher/mistakes';
+  static const String teacherQuizzes = '/teacher/quizzes';
   static const String teacherSettings = '/teacher/settings';
   static const String teacherStudentDetail = '/teacher/student-detail';
 
@@ -134,6 +136,10 @@ class AppRoutes {
     teacherMistakes: (_) => const RoleGuard(
       allowedRoles: ['TEACHER'],
       child: TeacherMistakeAnalyticsScreen(),
+    ),
+    teacherQuizzes: (_) => const RoleGuard(
+      allowedRoles: ['TEACHER'],
+      child: TeacherQuizzesScreen(),
     ),
     teacherSettings: (_) => const RoleGuard(
       allowedRoles: ['TEACHER'],

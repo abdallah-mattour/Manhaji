@@ -55,6 +55,7 @@ public class SecurityConfig {
                         .requestMatchers("/assets/**", "/icons/**", "/canvaskit/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/teacher/analytics/**").hasRole("TEACHER")
+                        .requestMatchers("/api/teacher/quizzes/**").hasRole("TEACHER")
                         .requestMatchers("/api/teacher/**").hasAnyRole("TEACHER", "ADMIN")
                         .requestMatchers("/api/parent/**").hasAnyRole("PARENT", "ADMIN")
                         // Audit-4 fix H3 (2026-05-15): previously the rule below

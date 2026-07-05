@@ -1,16 +1,21 @@
 package com.springboot.manhaji.service;
 
+import com.springboot.manhaji.dto.request.TeacherQuizCreateRequest;
 import com.springboot.manhaji.dto.response.ClassStudentSummary;
 import com.springboot.manhaji.dto.response.QuestionBankResponse;
 import com.springboot.manhaji.dto.response.StudentDetailResponse;
 import com.springboot.manhaji.dto.response.SubjectSummary;
 import com.springboot.manhaji.dto.response.TeacherDashboardResponse;
 import com.springboot.manhaji.dto.response.TeacherMistakeAnalyticsResponse;
+import com.springboot.manhaji.dto.response.TeacherQuizDetailResponse;
+import com.springboot.manhaji.dto.response.TeacherQuizSummaryResponse;
 import com.springboot.manhaji.entity.*;
 import com.springboot.manhaji.entity.enums.AttemptStatus;
 import com.springboot.manhaji.entity.enums.CompletionStatus;
 import com.springboot.manhaji.entity.enums.QuestionType;
+import com.springboot.manhaji.entity.enums.QuizType;
 import com.springboot.manhaji.entity.enums.Role;
+import com.springboot.manhaji.exception.BadRequestException;
 import com.springboot.manhaji.exception.ResourceNotFoundException;
 import com.springboot.manhaji.exception.UnauthorizedException;
 import com.springboot.manhaji.repository.*;
@@ -22,6 +27,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -46,6 +52,7 @@ class TeacherServiceTest {
     @Mock private SubjectRepository subjectRepository;
     @Mock private LessonRepository lessonRepository;
     @Mock private QuestionRepository questionRepository;
+    @Mock private QuizRepository quizRepository;
 
     private TeacherService teacherService;
 
@@ -61,8 +68,8 @@ class TeacherServiceTest {
         teacherService = new TeacherService(
                 teacherRepository, teacherAssignmentRepository,
                 studentRepository, progressRepository, attemptRepository,
-                studentResponseRepository, subjectRepository, questionRepository, questionBankMapper,
-                metrics, TestMessages.create());
+                studentResponseRepository, subjectRepository, questionRepository, quizRepository,
+                questionBankMapper, metrics, TestMessages.create());
 
         school = new School();
         school.setId(7L);
@@ -588,6 +595,158 @@ class TeacherServiceTest {
             verify(questionRepository, never()).findAllBySubjectIdWithLesson(anyLong());
             verify(teacherAssignmentRepository, never())
                     .existsActiveByTeacherIdAndSubjectId(anyLong(), anyLong());
+        }
+    }
+
+    // ==================== Teacher Quiz Creation Tests (Phase 8D) ====================
+
+    @Nested
+    @DisplayName("teacher quizzes")
+    class TeacherQuizzesTests {
+
+        @Test
+        @DisplayName("teacher can create quiz for assigned subject")
+        void teacherCanCreateQuizForAssignedSubject() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+            Lesson lesson = createLesson(200L, arabic, "Lesson 1", 1);
+            Question q1 = createQuestion(500L, lesson, "Q1", 1);
+            Question q2 = createQuestion(501L, lesson, "Q2", 2);
+            TeacherQuizCreateRequest request = new TeacherQuizCreateRequest(
+                    " اختبار قصير ",
+                    100L,
+                    200L,
+                    List.of(500L, 501L));
+
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+            when(questionRepository.findAllById(List.of(500L, 501L)))
+                    .thenReturn(List.of(q1, q2));
+            when(quizRepository.save(any(Quiz.class))).thenAnswer(invocation -> {
+                Quiz quiz = invocation.getArgument(0);
+                quiz.setId(900L);
+                quiz.setCreatedAt(LocalDateTime.of(2026, 7, 5, 10, 0));
+                return quiz;
+            });
+
+            TeacherQuizDetailResponse response = teacherService.createTeacherQuiz(10L, request);
+
+            ArgumentCaptor<Quiz> captor = ArgumentCaptor.forClass(Quiz.class);
+            verify(quizRepository).save(captor.capture());
+            Quiz saved = captor.getValue();
+            assertThat(saved.getTitle()).isEqualTo("اختبار قصير");
+            assertThat(saved.getSubject()).isSameAs(arabic);
+            assertThat(saved.getLesson()).isNull();
+            assertThat(saved.getQuizType()).isEqualTo(QuizType.LESSON);
+            assertThat(saved.getGeneratedForStudentId()).isNull();
+            assertThat(saved.getQuestions()).extracting(Question::getId)
+                    .containsExactly(500L, 501L);
+
+            assertThat(response.getId()).isEqualTo(900L);
+            assertThat(response.getSubjectId()).isEqualTo(100L);
+            assertThat(response.getLessonId()).isEqualTo(200L);
+            assertThat(response.getQuestionCount()).isEqualTo(2);
+            assertThat(response.getQuestions()).hasSize(2);
+        }
+
+        @Test
+        @DisplayName("teacher cannot create quiz for unassigned subject")
+        void teacherCannotCreateQuizForUnassignedSubject() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+            TeacherQuizCreateRequest request = new TeacherQuizCreateRequest(
+                    "Math quiz",
+                    300L,
+                    null,
+                    List.of(500L));
+
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+
+            assertThatThrownBy(() -> teacherService.createTeacherQuiz(10L, request))
+                    .isInstanceOf(UnauthorizedException.class);
+            verifyNoInteractions(questionRepository, quizRepository);
+        }
+
+        @Test
+        @DisplayName("teacher cannot include question from unrelated subject")
+        void teacherCannotIncludeQuestionFromUnrelatedSubject() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+            Subject math = createSubject(300L, "Math", 1);
+            Lesson arabicLesson = createLesson(200L, arabic, "Arabic Lesson", 1);
+            Lesson mathLesson = createLesson(700L, math, "Math Lesson", 1);
+            Question arabicQuestion = createQuestion(500L, arabicLesson, "Arabic Q", 1);
+            Question mathQuestion = createQuestion(900L, mathLesson, "Math Q", 1);
+            TeacherQuizCreateRequest request = new TeacherQuizCreateRequest(
+                    "Mixed quiz",
+                    100L,
+                    null,
+                    List.of(500L, 900L));
+
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+            when(questionRepository.findAllById(List.of(500L, 900L)))
+                    .thenReturn(List.of(arabicQuestion, mathQuestion));
+
+            assertThatThrownBy(() -> teacherService.createTeacherQuiz(10L, request))
+                    .isInstanceOf(UnauthorizedException.class);
+            verify(quizRepository, never()).save(any());
+        }
+
+        @Test
+        @DisplayName("teacher with no assignment cannot create quiz")
+        void teacherWithNoAssignmentCannotCreateQuiz() {
+            TeacherQuizCreateRequest request = new TeacherQuizCreateRequest(
+                    "Quiz",
+                    100L,
+                    null,
+                    List.of(500L));
+
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of());
+
+            assertThatThrownBy(() -> teacherService.createTeacherQuiz(10L, request))
+                    .isInstanceOf(UnauthorizedException.class);
+            verifyNoInteractions(questionRepository, quizRepository);
+        }
+
+        @Test
+        @DisplayName("invalid question ids are rejected")
+        void invalidQuestionIdsAreRejected() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+            Lesson lesson = createLesson(200L, arabic, "Lesson 1", 1);
+            Question q1 = createQuestion(500L, lesson, "Q1", 1);
+            TeacherQuizCreateRequest request = new TeacherQuizCreateRequest(
+                    "Quiz",
+                    100L,
+                    null,
+                    List.of(500L, 999L));
+
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+            when(questionRepository.findAllById(List.of(500L, 999L)))
+                    .thenReturn(List.of(q1));
+
+            assertThatThrownBy(() -> teacherService.createTeacherQuiz(10L, request))
+                    .isInstanceOf(BadRequestException.class)
+                    .hasMessageContaining("Invalid question ids");
+            verify(quizRepository, never()).save(any());
+        }
+
+        @Test
+        @DisplayName("teacher with no assignments gets empty quiz list")
+        void teacherWithNoAssignmentsGetsEmptyQuizList() {
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of());
+
+            List<TeacherQuizSummaryResponse> quizzes = teacherService.getTeacherQuizzes(10L);
+
+            assertThat(quizzes).isEmpty();
+            verifyNoInteractions(quizRepository);
         }
     }
 

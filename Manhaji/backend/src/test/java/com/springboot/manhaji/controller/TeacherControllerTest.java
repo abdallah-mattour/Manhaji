@@ -14,6 +14,7 @@ import com.springboot.manhaji.repository.AttemptRepository;
 import com.springboot.manhaji.repository.LessonRepository;
 import com.springboot.manhaji.repository.ProgressRepository;
 import com.springboot.manhaji.repository.QuestionRepository;
+import com.springboot.manhaji.repository.QuizRepository;
 import com.springboot.manhaji.repository.StudentResponseRepository;
 import com.springboot.manhaji.repository.StudentRepository;
 import com.springboot.manhaji.repository.SubjectRepository;
@@ -30,6 +31,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -40,10 +42,12 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -59,6 +63,7 @@ class TeacherControllerTest {
     @Mock private SubjectRepository subjectRepository;
     @Mock private LessonRepository lessonRepository;
     @Mock private QuestionRepository questionRepository;
+    @Mock private QuizRepository quizRepository;
 
     private MockMvc mockMvc;
     private Teacher teacher;
@@ -75,6 +80,7 @@ class TeacherControllerTest {
                 studentResponseRepository,
                 subjectRepository,
                 questionRepository,
+                quizRepository,
                 new QuestionBankMapper(),
                 new ProgressMetrics(subjectRepository, lessonRepository),
                 TestMessages.create());
@@ -151,6 +157,70 @@ class TeacherControllerTest {
 
         assertThat(annotation).isNotNull();
         assertThat(annotation.value()).isEqualTo("hasRole('TEACHER')");
+    }
+
+    @Test
+    @DisplayName("teacher quiz endpoints bind requests")
+    void teacherQuizEndpointsBindRequests() throws Exception {
+        TeacherService mockedTeacherService = org.mockito.Mockito.mock(TeacherService.class);
+        MockMvc controllerOnlyMockMvc = MockMvcBuilders
+                .standaloneSetup(new TeacherController(mockedTeacherService))
+                .build();
+
+        controllerOnlyMockMvc.perform(get("/api/teacher/quizzes")
+                        .principal(teacherPrincipal()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true));
+
+        controllerOnlyMockMvc.perform(post("/api/teacher/quizzes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "title": "اختبار قصير",
+                                  "subjectId": 5,
+                                  "lessonId": 7,
+                                  "questionIds": [10, 11]
+                                }
+                                """)
+                        .principal(teacherPrincipal()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true));
+
+        controllerOnlyMockMvc.perform(get("/api/teacher/quizzes/99")
+                        .principal(teacherPrincipal()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true));
+
+        verify(mockedTeacherService).getTeacherQuizzes(10L);
+        verify(mockedTeacherService).createTeacherQuiz(
+                org.mockito.ArgumentMatchers.eq(10L),
+                argThat(request -> request.getSubjectId().equals(5L)
+                        && request.getLessonId().equals(7L)
+                        && request.getQuestionIds().equals(List.of(10L, 11L))));
+        verify(mockedTeacherService).getTeacherQuiz(10L, 99L);
+    }
+
+    @Test
+    @DisplayName("teacher quiz endpoints require TEACHER role")
+    void teacherQuizEndpointsRequireTeacherRole() throws Exception {
+        Method listMethod = TeacherController.class.getMethod(
+                "getTeacherQuizzes",
+                org.springframework.security.core.Authentication.class);
+        Method createMethod = TeacherController.class.getMethod(
+                "createTeacherQuiz",
+                org.springframework.security.core.Authentication.class,
+                com.springboot.manhaji.dto.request.TeacherQuizCreateRequest.class);
+        Method detailMethod = TeacherController.class.getMethod(
+                "getTeacherQuiz",
+                org.springframework.security.core.Authentication.class,
+                Long.class);
+
+        assertThat(listMethod.getAnnotation(PreAuthorize.class).value())
+                .isEqualTo("hasRole('TEACHER')");
+        assertThat(createMethod.getAnnotation(PreAuthorize.class).value())
+                .isEqualTo("hasRole('TEACHER')");
+        assertThat(detailMethod.getAnnotation(PreAuthorize.class).value())
+                .isEqualTo("hasRole('TEACHER')");
     }
 
     @Test

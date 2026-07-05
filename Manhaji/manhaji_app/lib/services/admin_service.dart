@@ -1,5 +1,6 @@
 import '../config/api_config.dart';
 import '../models/admin_stats.dart';
+import '../models/admin_teacher_assignment.dart';
 import '../models/question_bank.dart';
 import 'api_service.dart';
 
@@ -14,8 +15,7 @@ class AdminService {
   }
 
   Future<List<UserSummary>> getUsers({String? role}) async {
-    final Map<String, dynamic>? params =
-        role != null ? {'role': role} : null;
+    final Map<String, dynamic>? params = role != null ? {'role': role} : null;
     final response = await _api.get(ApiConfig.adminUsers, queryParams: params);
     final list = response['data'] as List? ?? [];
     return list.map((u) => UserSummary.fromJson(u)).toList();
@@ -32,6 +32,7 @@ class AdminService {
     int? gradeLevel,
     String? department,
     int? assignedGrade,
+    List<TeacherAssignmentPayload>? teacherAssignments,
   }) async {
     final Map<String, dynamic> body = {
       'fullName': fullName,
@@ -42,6 +43,10 @@ class AdminService {
       'gradeLevel': ?gradeLevel,
       if (department != null && department.isNotEmpty) 'department': department,
       'assignedGrade': ?assignedGrade,
+      if (teacherAssignments != null)
+        'teacherAssignments': teacherAssignments
+            .map((item) => item.toJson())
+            .toList(),
     };
     final response = await _api.post(ApiConfig.adminUsers, data: body);
     return UserSummary.fromJson(
@@ -72,8 +77,10 @@ class AdminService {
       'department': ?department,
       'assignedGrade': ?assignedGrade,
     };
-    final response =
-        await _api.put('${ApiConfig.adminUsers}/$userId', data: body);
+    final response = await _api.put(
+      '${ApiConfig.adminUsers}/$userId',
+      data: body,
+    );
     return UserSummary.fromJson(
       (response['data'] as Map<String, dynamic>?) ?? const {},
     );
@@ -91,6 +98,40 @@ class AdminService {
     return UserSummary.fromJson(
       (response['data'] as Map<String, dynamic>?) ?? const {},
     );
+  }
+
+  Future<List<AdminTeacherAssignment>> getTeacherAssignments(
+    int teacherId,
+  ) async {
+    final response = await _api.get(
+      ApiConfig.adminTeacherAssignments(teacherId),
+    );
+    final list = response['data'] as List? ?? [];
+    return list
+        .map(
+          (item) => AdminTeacherAssignment.fromJson(
+            Map<String, dynamic>.from(item as Map),
+          ),
+        )
+        .toList();
+  }
+
+  Future<List<AdminTeacherAssignment>> updateTeacherAssignments(
+    int teacherId,
+    List<TeacherAssignmentPayload> assignments,
+  ) async {
+    final response = await _api.putRaw(
+      ApiConfig.adminTeacherAssignments(teacherId),
+      data: assignments.map((item) => item.toJson()).toList(),
+    );
+    final list = response['data'] as List? ?? [];
+    return list
+        .map(
+          (item) => AdminTeacherAssignment.fromJson(
+            Map<String, dynamic>.from(item as Map),
+          ),
+        )
+        .toList();
   }
 
   // ===== Question Bank (FR-9, unrestricted) =====

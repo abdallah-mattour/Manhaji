@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../app/routes.dart';
 import '../../app/theme.dart';
 import '../../models/question_bank.dart';
 import '../../providers/question_bank_provider.dart';
@@ -158,10 +159,10 @@ class _QuestionBankSubjectsScreenState
         final cols = width > 1100
             ? 4
             : width > 780
-                ? 3
-                : width > 500
-                    ? 2
-                    : 1;
+            ? 3
+            : width > 500
+            ? 2
+            : 1;
         return SliverGrid(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: cols,
@@ -210,8 +211,10 @@ class _QuestionBankSubjectsScreenState
                   ),
                   const Spacer(),
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: AppTheme.primaryGreen.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(20),
@@ -276,10 +279,8 @@ class _QuestionBankSubjectsScreenState
     provider.resetForSubject(s.id);
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => QuestionBankQuestionsScreen(
-          subject: s,
-          asAdmin: widget.asAdmin,
-        ),
+        builder: (_) =>
+            QuestionBankQuestionsScreen(subject: s, asAdmin: widget.asAdmin),
       ),
     );
   }
@@ -341,8 +342,11 @@ class _QuestionBankSubjectsScreenState
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.cloud_off_rounded,
-                size: 64, color: AppTheme.primaryRed),
+            const Icon(
+              Icons.cloud_off_rounded,
+              size: 64,
+              color: AppTheme.primaryRed,
+            ),
             const SizedBox(height: 12),
             Text(
               msg,
@@ -361,6 +365,7 @@ class _QuestionBankSubjectsScreenState
                 'إعادة المحاولة',
                 style: TextStyle(fontFamily: 'Cairo'),
               ),
+              style: ElevatedButton.styleFrom(minimumSize: const Size(180, 52)),
             ),
           ],
         ),
@@ -380,10 +385,9 @@ extension QuestionBankRoutes on BuildContext {
   }
 
   void openAdminQuestionBank() {
-    Navigator.of(this).push(
-      MaterialPageRoute(
-        builder: (_) => const QuestionBankSubjectsScreen(asAdmin: true),
-      ),
-    );
+    // Phase 5G: the admin flow moved to the shell-based named route so the
+    // sidebar stays visible with a proper active state. The teacher flow
+    // above is intentionally unchanged.
+    Navigator.of(this).pushNamed(AppRoutes.adminQuestionBank);
   }
 }

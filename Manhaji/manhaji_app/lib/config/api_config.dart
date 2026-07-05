@@ -9,12 +9,10 @@ class ApiConfig {
 
   static String get baseUrl {
     if (_apiBaseUrl.isNotEmpty) return _apiBaseUrl;
-    if (!kIsWeb) return 'http://10.0.2.2:8080/api';
-
-    final uri = Uri.base;
-    final servedByBackend =
-        uri.host == 'localhost' && (uri.hasPort ? uri.port == 8080 : false);
-    return servedByBackend ? '/api' : 'http://localhost:8080/api';
+    if (kIsWeb) {
+      return _isServedByBackend ? '/api' : 'http://localhost:8080/api';
+    }
+    return '$_nativeServerUrl/api';
   }
 
   static String get serverUrl {
@@ -23,12 +21,24 @@ class ApiConfig {
           ? _apiBaseUrl.substring(0, _apiBaseUrl.length - 4)
           : _apiBaseUrl;
     }
-    if (!kIsWeb) return 'http://10.0.2.2:8080';
+    if (kIsWeb) return _isServedByBackend ? '' : 'http://localhost:8080';
+    return _nativeServerUrl;
+  }
 
+  static bool get _isServedByBackend {
     final uri = Uri.base;
-    final servedByBackend =
-        uri.host == 'localhost' && (uri.hasPort ? uri.port == 8080 : false);
-    return servedByBackend ? '' : 'http://localhost:8080';
+    return uri.host == 'localhost' && uri.hasPort && uri.port == 8080;
+  }
+
+  static String get _nativeServerUrl {
+    return switch (defaultTargetPlatform) {
+      TargetPlatform.android => 'http://10.0.2.2:8080',
+      TargetPlatform.iOS ||
+      TargetPlatform.macOS ||
+      TargetPlatform.linux ||
+      TargetPlatform.windows => 'http://127.0.0.1:8080',
+      TargetPlatform.fuchsia => 'http://127.0.0.1:8080',
+    };
   }
 
   /// Resolves a backend-relative path like `/uploads/images/...` into a full URL.
@@ -46,6 +56,8 @@ class ApiConfig {
   static const String loginPhone = '/auth/login/phone';
   static const String refreshToken = '/auth/refresh';
   static const String me = '/auth/me';
+  static const String changePassword = '/auth/change-password';
+  static const String updateProfile = '/auth/profile';
 
   // Lessons
   static const String subjects = '/lessons/subjects';
@@ -76,6 +88,8 @@ class ApiConfig {
   static const String adminSubjects = '/admin/subjects';
   static String adminLinkParent(int studentId) =>
       '/admin/students/$studentId/link-parent';
+  static String adminTeacherAssignments(int teacherId) =>
+      '/admin/teachers/$teacherId/assignments';
 
   // Parent
   static const String parentDashboard = '/parent/dashboard';

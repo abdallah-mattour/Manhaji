@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:manhaji_app/models/question_bank.dart';
 import 'package:manhaji_app/models/teacher_dashboard.dart';
 import 'package:manhaji_app/providers/teacher_provider.dart';
 import 'package:manhaji_app/services/api_service.dart';
@@ -12,6 +13,7 @@ class FakeLocalStorage extends Fake implements LocalStorageService {}
 class MockTeacherService extends TeacherService {
   TeacherDashboard? dashboardResult;
   List<ClassStudentSummary>? studentsResult;
+  List<SubjectSummary>? assignedSubjectsResult;
   StudentDetail? studentDetailResult;
   Exception? errorToThrow;
 
@@ -27,6 +29,12 @@ class MockTeacherService extends TeacherService {
   Future<List<ClassStudentSummary>> getStudents() async {
     if (errorToThrow != null) throw errorToThrow!;
     return studentsResult!;
+  }
+
+  @override
+  Future<List<SubjectSummary>> getAssignedSubjects() async {
+    if (errorToThrow != null) throw errorToThrow!;
+    return assignedSubjectsResult!;
   }
 
   @override
@@ -183,6 +191,45 @@ void main() {
 
         expect(provider.studentDetail!.studentId, 2);
         expect(provider.studentDetail!.fullName, 'Second');
+      });
+    });
+
+    group('loadAssignedSubjects()', () {
+      test('should load assigned subjects list', () async {
+        mockService.assignedSubjectsResult = [
+          SubjectSummary(
+            id: 1,
+            name: 'اللغة العربية',
+            gradeLevel: 1,
+            lessonCount: 8,
+            questionCount: 40,
+          ),
+          SubjectSummary(
+            id: 2,
+            name: 'اللغة العربية',
+            gradeLevel: 2,
+            lessonCount: 7,
+            questionCount: 36,
+          ),
+        ];
+
+        await provider.loadAssignedSubjects();
+
+        expect(provider.assignedSubjects, hasLength(2));
+        expect(provider.assignedSubjects!.first.gradeLevel, 1);
+        expect(provider.assignedSubjects!.last.gradeLevel, 2);
+        expect(provider.isLoading, false);
+        expect(provider.error, isNull);
+      });
+
+      test('should set error when loading assigned subjects fails', () async {
+        mockService.errorToThrow = Exception('Server error');
+
+        await provider.loadAssignedSubjects();
+
+        expect(provider.assignedSubjects, isNull);
+        expect(provider.error, 'حدث خطأ غير متوقع');
+        expect(provider.isLoading, false);
       });
     });
   });

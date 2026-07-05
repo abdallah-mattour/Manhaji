@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hakeem the owl — celebrating pose (wings up, big eyes, sparkles around). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <ellipse cx="120" cy="220" rx="56" ry="6" fill="#1A1F36" opacity="0.10"/>
+
+  <!-- sparkles around the owl -->
+  <g fill="#FFC107">
+    <path d="M30 50 L34 60 L44 64 L34 68 L30 78 L26 68 L16 64 L26 60 Z"/>
+    <path d="M210 30 L213 38 L221 41 L213 44 L210 52 L207 44 L199 41 L207 38 Z"/>
+    <path d="M50 180 L52 186 L58 188 L52 190 L50 196 L48 190 L42 188 L48 186 Z"/>
+    <path d="M214 168 L217 176 L225 179 L217 182 L214 190 L211 182 L203 179 L211 176 Z"/>
+  </g>
+
+  <path d="M70 60 Q72 30 92 50 Q88 60 80 70 Z" fill="#1976D2"/>
+  <path d="M170 60 Q168 30 148 50 Q152 60 160 70 Z" fill="#1976D2"/>
+
+  <ellipse cx="120" cy="120" rx="78" ry="86" fill="#2196F3"/>
+  <path d="M60 80 Q120 30 180 80 Q150 60 120 60 Q90 60 60 80 Z" fill="#42A5F5" opacity="0.65"/>
+  <ellipse cx="120" cy="150" rx="48" ry="50" fill="#E3F2FD"/>
+
+  <path d="M100 140 Q120 152 140 140" stroke="#BBDEFB" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M96 158 Q120 172 144 158" stroke="#BBDEFB" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M104 174 Q120 184 136 174" stroke="#BBDEFB" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- both wings raised up in victory -->
+  <path d="M50 100 Q22 50 38 30 Q60 50 68 90 Q72 120 60 130 Q40 120 50 100 Z" fill="#1976D2"/>
+  <path d="M190 100 Q218 50 202 30 Q180 50 172 90 Q168 120 180 130 Q200 120 190 100 Z" fill="#1976D2"/>
+
+  <!-- big excited eyes (large pupils) -->
+  <circle cx="90" cy="105" r="28" fill="#FFFFFF"/>
+  <circle cx="150" cy="105" r="28" fill="#FFFFFF"/>
+  <circle cx="90" cy="105" r="28" fill="none" stroke="#BBDEFB" stroke-width="1.5"/>
+  <circle cx="150" cy="105" r="28" fill="none" stroke="#BBDEFB" stroke-width="1.5"/>
+  <circle cx="92" cy="106" r="14" fill="#2D3436"/>
+  <circle cx="148" cy="106" r="14" fill="#2D3436"/>
+  <!-- starburst highlight (instead of round) -->
+  <circle cx="96" cy="100" r="5" fill="#FFFFFF"/>
+  <circle cx="152" cy="100" r="5" fill="#FFFFFF"/>
+
+  <!-- blush -->
+  <ellipse cx="72" cy="124" rx="9" ry="6" fill="#F8BBD0" opacity="0.75"/>
+  <ellipse cx="168" cy="124" rx="9" ry="6" fill="#F8BBD0" opacity="0.75"/>
+
+  <!-- beak -->
+  <path d="M120 132 L110 144 L130 144 Z" fill="#FFC107"/>
+  <path d="M120 132 L110 144 L130 144 Z" fill="none" stroke="#D97706" stroke-width="1"/>
+
+  <!-- open joyful mouth -->
+  <ellipse cx="120" cy="158" rx="11" ry="8" fill="#2D3436"/>
+  <ellipse cx="120" cy="162" rx="6" ry="3" fill="#EF4444"/>
+
+  <!-- feet -->
+  <path d="M98 200 L92 212 M98 200 L100 213 M98 200 L106 211" stroke="#FFC107" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M142 200 L136 212 M142 200 L140 213 M142 200 L148 211" stroke="#FFC107" stroke-width="3.5" stroke-linecap="round"/>
+</svg>

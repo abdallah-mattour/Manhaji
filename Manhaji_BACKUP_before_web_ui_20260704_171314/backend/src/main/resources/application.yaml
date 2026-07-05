@@ -1,0 +1,113 @@
+spring:
+  application:
+    name: Manhaji
+
+  # MySQL Database
+  # Set MANHAJI_DB_PASSWORD in the environment when MySQL has a password.
+  # The default is empty for local MySQL installs where root has no password.
+  datasource:
+    url: ${MANHAJI_DB_URL:jdbc:mysql://localhost:3306/manhaji_db?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&useUnicode=true}
+    username: ${MANHAJI_DB_USERNAME:root}
+    password: ${MANHAJI_DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # JPA / Hibernate
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+
+  # File Upload
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+# Server
+server:
+  port: ${MANHAJI_SERVER_PORT:${PORT:8080}}
+
+# JWT Configuration
+# Audit fix S1 (2026-04-29): the signing secret must NEVER be committed to source.
+# Set MANHAJI_JWT_SECRET in the environment (Base64-encoded ≥256-bit random key).
+# The default value below ONLY works for local dev — it is intentionally unsuitable
+# for any deployment outside the developer's laptop.
+# Generate a production secret with: openssl rand -base64 32
+app:
+  jwt:
+    secret: ${MANHAJI_JWT_SECRET:bWFuaGFqaS1kZXYtb25seS1zZWNyZXQtY2hhbmdlLWluLXByb2R1Y3Rpb24tcGxlYXNlLW5vdy0xMjM=}
+    access-token-expiration: 86400000    # 24 hours
+    refresh-token-expiration: 604800000  # 7 days
+
+  # AI Service API Keys (set via environment variables in production)
+  ai:
+    gemini:
+      api-key: ${GEMINI_API_KEY:not-set}
+      model: gemini-2.5-flash
+    whisper:
+      api-key: unused  # Transcription now uses Gemini instead of OpenAI Whisper
+    google-tts:
+      api-key: ${GOOGLE_TTS_API_KEY:not-set}
+    # Active TTS provider — "edge" (free, no key, recommended) or "google".
+    tts-provider: ${MANHAJI_TTS_PROVIDER:edge}
+    edge-tts:
+      # Override if `python` isn't on PATH. Examples:
+      #   Windows MSYS: /c/Python313/python
+      #   Linux/macOS:  python3
+      python-path: ${MANHAJI_PYTHON:python}
+      # Levantine female (Jordanian) — closest to Palestinian Arabic.
+      # Alternatives worth A/B-ing: ar-EG-SalmaNeural (Egyptian female),
+      # ar-JO-TaimNeural (Jordanian male), ar-SA-ZariyahNeural (Saudi female).
+      voice-arabic: ${MANHAJI_TTS_VOICE_AR:ar-JO-SanaNeural}
+      # Microsoft's flagship warm-teacher US female voice. Alternatives:
+      # en-US-JennyNeural (younger), en-GB-SoniaNeural (textbook British).
+      voice-english: ${MANHAJI_TTS_VOICE_EN:en-US-AriaNeural}
+      timeout-seconds: 20
+
+  # File Storage
+  storage:
+    upload-dir: ./uploads
+    audio-dir: ./uploads/audio
+    image-dir: ./uploads/images
+
+  # Quiz scoring / progression
+  quiz:
+    points-per-correct: 10
+    mastery-threshold: 80.0
+    completion-threshold: 50.0
+    max-hint-level: 3
+
+  # Bayesian Knowledge Tracing — per-skill mastery model that powers the
+  # personalized "Challenge Me" quiz + the skills radar. Standard K-12 BKT
+  # defaults (Corbett & Anderson 1995); exposed as config so they can be
+  # calibrated without a rebuild. guess-by-type is inlined as defaults in
+  # BktConfigProperties (MCQ 0.25, TRUE_FALSE 0.50, FILL_BLANK 0.10, else 0.05).
+  bkt:
+    p-init: 0.30          # P(L0) — prior that a skill is already mastered
+    p-transit: 0.15       # P(T) — chance of learning between opportunities
+    p-slip: 0.10          # P(S) — a master answers wrong
+    p-guess-default: 0.05 # fallback guess for unlisted question types
+    mastery-threshold: 0.95
+
+# Curriculum re-seeding — set MANHAJI_CURRICULUM_RESEED=true in the
+# environment ONCE, boot, then unset (or set false). Wipes
+# subjects/lessons/questions/quizzes/attempts/responses and re-imports
+# from /resources/curriculum/*.json.
+#
+# Audit-3 fix (2026-05-15): the flag used to default to true via yaml-only
+# config and could be accidentally committed in the wrong state — a footgun
+# that wipes all dev data on next boot. Now it MUST be set via env var,
+# and the default is always false.
+manhaji:
+  curriculum:
+    reseed: ${MANHAJI_CURRICULUM_RESEED:false}
+
+# Logging
+logging:
+  level:
+    com.springboot.manhaji: DEBUG
+    org.hibernate.SQL: DEBUG

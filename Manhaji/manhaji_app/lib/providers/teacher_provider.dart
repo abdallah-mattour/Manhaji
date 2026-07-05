@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../models/question_bank.dart';
 import '../models/teacher_dashboard.dart';
 import '../services/teacher_service.dart';
 import '../utils/error_handler.dart';
@@ -10,12 +11,14 @@ class TeacherProvider extends ChangeNotifier {
 
   TeacherDashboard? _dashboard;
   List<ClassStudentSummary>? _students;
+  List<SubjectSummary>? _assignedSubjects;
   StudentDetail? _studentDetail;
   bool _isLoading = false;
   String? _error;
 
   TeacherDashboard? get dashboard => _dashboard;
   List<ClassStudentSummary>? get students => _students;
+  List<SubjectSummary>? get assignedSubjects => _assignedSubjects;
   StudentDetail? get studentDetail => _studentDetail;
   bool get isLoading => _isLoading;
   String? get error => _error;
@@ -40,6 +43,20 @@ class TeacherProvider extends ChangeNotifier {
     notifyListeners();
     try {
       _students = await _service.getStudents();
+    } catch (e) {
+      _error = extractError(e);
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> loadAssignedSubjects() async {
+    _isLoading = true;
+    _error = null;
+    notifyListeners();
+    try {
+      _assignedSubjects = await _service.getAssignedSubjects();
     } catch (e) {
       _error = extractError(e);
     } finally {

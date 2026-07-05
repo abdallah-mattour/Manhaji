@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Manhaji mascot: Hakeem the owl — idle pose.
+
+  Brand-aligned palette (AppTheme.primaryBlue/Green family):
+    Body   : #2196F3 (primaryBlue), with soft #BBDEFB tummy patch
+    Belly  : #E3F2FD (subjectLightColors[0])
+    Eyes   : #FFFFFF white sclera, #2D3436 pupil, #FFFFFF highlight dot
+    Beak   : #FFC107 (primaryYellow)
+    Feet   : #FFC107 (primaryYellow)
+    Branch : transparent — none in idle pose
+
+  ViewBox is 240x240. Mascot occupies ~80% of frame, centered.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <!-- soft drop shadow under the owl -->
+  <ellipse cx="120" cy="220" rx="56" ry="6" fill="#1A1F36" opacity="0.10"/>
+
+  <!-- ear tufts (drawn first so body covers them at base) -->
+  <path d="M70 60 Q72 30 92 50 Q88 60 80 70 Z" fill="#1976D2"/>
+  <path d="M170 60 Q168 30 148 50 Q152 60 160 70 Z" fill="#1976D2"/>
+
+  <!-- main body (round oval — head and body merged) -->
+  <ellipse cx="120" cy="120" rx="78" ry="86" fill="#2196F3"/>
+
+  <!-- subtle highlight crest -->
+  <path d="M60 80 Q120 30 180 80 Q150 60 120 60 Q90 60 60 80 Z" fill="#42A5F5" opacity="0.65"/>
+
+  <!-- belly patch -->
+  <ellipse cx="120" cy="150" rx="48" ry="50" fill="#E3F2FD"/>
+
+  <!-- belly feather lines -->
+  <path d="M100 140 Q120 152 140 140" stroke="#BBDEFB" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M96 158 Q120 172 144 158" stroke="#BBDEFB" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M104 174 Q120 184 136 174" stroke="#BBDEFB" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- left wing -->
+  <path d="M44 116 Q34 152 56 188 Q70 174 70 144 Q66 124 44 116 Z" fill="#1976D2"/>
+  <!-- right wing -->
+  <path d="M196 116 Q206 152 184 188 Q170 174 170 144 Q174 124 196 116 Z" fill="#1976D2"/>
+
+  <!-- eye rings (outer face circles) -->
+  <circle cx="90" cy="105" r="28" fill="#FFFFFF"/>
+  <circle cx="150" cy="105" r="28" fill="#FFFFFF"/>
+  <!-- thin outline on rings -->
+  <circle cx="90" cy="105" r="28" fill="none" stroke="#BBDEFB" stroke-width="1.5"/>
+  <circle cx="150" cy="105" r="28" fill="none" stroke="#BBDEFB" stroke-width="1.5"/>
+
+  <!-- pupils (dark) -->
+  <circle cx="92" cy="106" r="12" fill="#2D3436"/>
+  <circle cx="148" cy="106" r="12" fill="#2D3436"/>
+  <!-- pupil highlight (life in the eyes) -->
+  <circle cx="96" cy="102" r="4" fill="#FFFFFF"/>
+  <circle cx="152" cy="102" r="4" fill="#FFFFFF"/>
+  <!-- secondary tiny highlight -->
+  <circle cx="89" cy="110" r="1.6" fill="#FFFFFF"/>
+  <circle cx="145" cy="110" r="1.6" fill="#FFFFFF"/>
+
+  <!-- beak (small triangle pointing down) -->
+  <path d="M120 132 L110 144 L130 144 Z" fill="#FFC107"/>
+  <path d="M120 132 L110 144 L130 144 Z" fill="none" stroke="#D97706" stroke-width="1"/>
+
+  <!-- gentle smile under beak -->
+  <path d="M108 150 Q120 158 132 150" stroke="#2D3436" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+  <!-- feet -->
+  <path d="M98 200 L92 212 M98 200 L100 213 M98 200 L106 211" stroke="#FFC107" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M142 200 L136 212 M142 200 L140 213 M142 200 L148 211" stroke="#FFC107" stroke-width="3.5" stroke-linecap="round"/>
+</svg>

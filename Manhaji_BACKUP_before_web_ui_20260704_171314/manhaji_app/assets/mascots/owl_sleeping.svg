@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hakeem the owl — sleeping pose (eyes closed, ZZZ floating). For splash + loading. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <ellipse cx="120" cy="220" rx="56" ry="6" fill="#1A1F36" opacity="0.10"/>
+
+  <path d="M70 60 Q72 30 92 50 Q88 60 80 70 Z" fill="#1976D2"/>
+  <path d="M170 60 Q168 30 148 50 Q152 60 160 70 Z" fill="#1976D2"/>
+
+  <ellipse cx="120" cy="120" rx="78" ry="86" fill="#2196F3"/>
+  <path d="M60 80 Q120 30 180 80 Q150 60 120 60 Q90 60 60 80 Z" fill="#42A5F5" opacity="0.65"/>
+  <ellipse cx="120" cy="150" rx="48" ry="50" fill="#E3F2FD"/>
+
+  <path d="M100 140 Q120 152 140 140" stroke="#BBDEFB" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M96 158 Q120 172 144 158" stroke="#BBDEFB" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M104 174 Q120 184 136 174" stroke="#BBDEFB" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- wings tucked tight -->
+  <path d="M44 116 Q34 152 56 188 Q70 174 70 144 Q66 124 44 116 Z" fill="#1976D2"/>
+  <path d="M196 116 Q206 152 184 188 Q170 174 170 144 Q174 124 196 116 Z" fill="#1976D2"/>
+
+  <!-- closed eyes (downward curves — sleeping) -->
+  <circle cx="90" cy="105" r="28" fill="#FFFFFF"/>
+  <circle cx="150" cy="105" r="28" fill="#FFFFFF"/>
+  <circle cx="90" cy="105" r="28" fill="none" stroke="#BBDEFB" stroke-width="1.5"/>
+  <circle cx="150" cy="105" r="28" fill="none" stroke="#BBDEFB" stroke-width="1.5"/>
+  <path d="M74 110 Q90 122 106 110" stroke="#2D3436" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M134 110 Q150 122 166 110" stroke="#2D3436" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+  <!-- beak -->
+  <path d="M120 132 L110 144 L130 144 Z" fill="#FFC107"/>
+  <path d="M120 132 L110 144 L130 144 Z" fill="none" stroke="#D97706" stroke-width="1"/>
+
+  <!-- relaxed mouth (slight smile, content) -->
+  <path d="M114 154 Q120 158 126 154" stroke="#2D3436" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+  <!-- feet -->
+  <path d="M98 200 L92 212 M98 200 L100 213 M98 200 L106 211" stroke="#FFC107" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M142 200 L136 212 M142 200 L140 213 M142 200 L148 211" stroke="#FFC107" stroke-width="3.5" stroke-linecap="round"/>
+
+  <!-- floating Z's (ascending in size + tilt) -->
+  <text x="170" y="76" font-family="Cairo, sans-serif" font-size="22" font-weight="800" fill="#1976D2" transform="rotate(-8 170 76)">z</text>
+  <text x="186" y="58" font-family="Cairo, sans-serif" font-size="28" font-weight="800" fill="#1976D2" transform="rotate(-12 186 58)">Z</text>
+  <text x="204" y="38" font-family="Cairo, sans-serif" font-size="36" font-weight="800" fill="#1976D2" transform="rotate(-16 204 38)">Z</text>
+</svg>

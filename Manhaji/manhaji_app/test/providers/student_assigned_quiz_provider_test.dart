@@ -42,6 +42,19 @@ StudentAssignedQuizSummary _summary() => const StudentAssignedQuizSummary(
   canStart: true,
 );
 
+StudentAssignedQuizDetail _detail() => const StudentAssignedQuizDetail(
+  assignmentId: 70,
+  quizId: 44,
+  title: 'اختبار الحروف',
+  subjectName: 'اللغة العربية',
+  questionCount: 0,
+  status: 'ASSIGNED',
+  attemptsUsed: 0,
+  maxAttempts: 1,
+  canStart: true,
+  questions: [],
+);
+
 void main() {
   test('loads assigned quizzes successfully', () async {
     final service = FakeQuizService()..quizzes = [_summary()];
@@ -63,5 +76,27 @@ void main() {
     expect(provider.isLoading, isFalse);
     expect(provider.assignedQuizzes, isEmpty);
     expect(provider.errorMessage, 'حدث خطأ غير متوقع');
+  });
+
+  test('loads assigned quiz detail successfully', () async {
+    final service = FakeQuizService()..detail = _detail();
+    final provider = StudentAssignedQuizProvider(service);
+
+    final detail = await provider.loadAssignedQuizDetail(70);
+
+    expect(provider.isDetailLoading, isFalse);
+    expect(provider.detailErrorMessage, isNull);
+    expect(detail!.assignmentId, 70);
+  });
+
+  test('handles assigned quiz detail errors safely', () async {
+    final service = FakeQuizService()..throwOnDetail = true;
+    final provider = StudentAssignedQuizProvider(service);
+
+    final detail = await provider.loadAssignedQuizDetail(70);
+
+    expect(detail, isNull);
+    expect(provider.isDetailLoading, isFalse);
+    expect(provider.detailErrorMessage, 'حدث خطأ غير متوقع');
   });
 }

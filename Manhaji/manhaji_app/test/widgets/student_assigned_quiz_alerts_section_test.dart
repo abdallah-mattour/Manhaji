@@ -80,8 +80,8 @@ void main() {
     expect(find.text('تنبيهات الاختبارات'), findsOneWidget);
     expect(find.text('انتهى وقت اختبار "اختبار منتهي"'), findsOneWidget);
     expect(find.text('اختبار "اختبار قريب" ينتهي قريبًا'), findsOneWidget);
-    expect(find.text('اختبار جديد: اختبار جديد'), findsOneWidget);
-    expect(find.text('+1 تنبيهات أخرى'), findsOneWidget);
+    expect(find.text('اختبار جديد: اختبار جديد'), findsNothing);
+    expect(find.text('+2 تنبيهات أخرى'), findsOneWidget);
     expect(find.text('اختبار جديد: اختبار آخر'), findsNothing);
   });
 
@@ -100,6 +100,35 @@ void main() {
 
     expect(find.text('تنبيهات الاختبارات'), findsNothing);
     expect(find.byType(TextButton), findsNothing);
+  });
+
+  testWidgets('max attempts alert shows clear non-actionable state', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      _wrap(
+        StudentAssignedQuizAlertsSection(
+          quizzes: [
+            _quiz(
+              title: 'اختبار محاولات',
+              attemptsUsed: 2,
+              maxAttempts: 2,
+              canStart: false,
+            ),
+          ],
+          now: now,
+          onAction: (_) async {},
+        ),
+      ),
+    );
+
+    expect(find.text('تنبيهات الاختبارات'), findsOneWidget);
+    expect(find.text('استُخدمت جميع المحاولات'), findsOneWidget);
+    expect(find.text('لاختبار "اختبار محاولات"'), findsOneWidget);
+    expect(
+      find.byKey(const ValueKey('assigned_quiz_alert_action_70')),
+      findsNothing,
+    );
   });
 
   testWidgets('safe alert action passes assignment quiz to assigned flow', (

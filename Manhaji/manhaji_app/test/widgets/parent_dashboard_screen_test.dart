@@ -50,6 +50,7 @@ ParentDashboard _dashboard({bool withChildren = true}) {
             ChildSummary(
               studentId: 131,
               fullName: 'ليان أحمد',
+              avatarId: 'avatar-star',
               gradeLevel: 1,
               totalPoints: 460,
               currentStreak: 3,
@@ -156,7 +157,14 @@ void main() {
 
     // Children cards from provider data (first card is above the fold).
     expect(find.text('ليان أحمد'), findsOneWidget);
+    expect(
+      find.byKey(const ValueKey('account-avatar-avatar-star')),
+      findsOneWidget,
+    );
     expect(find.text('عرض التفاصيل'), findsAtLeastNWidgets(1));
+    await _scrollTo(tester, find.text('كريم حسن'));
+    expect(find.text('كريم حسن'), findsOneWidget);
+    expect(find.text('طالب غير مرتبط'), findsNothing);
 
     // Analytics summary renders.
     await _scrollTo(tester, find.text('لمحة تحليلية'));
@@ -173,7 +181,8 @@ void main() {
     expect(find.text('الإشعارات والتنبيهات'), findsNothing);
 
     // Backend-driven recommendation renders.
-    await _scrollTo(tester, find.text('توصيات منزلية'));
+    await _scrollTo(tester, find.text('اقتراحات مبنية على البيانات'));
+    expect(find.text('مؤشرات مساعدة وليست حكمًا نهائيًا'), findsOneWidget);
     await _scrollTo(tester, find.text('تدريب يومي قصير'));
     expect(find.text('تدريب يومي قصير'), findsOneWidget);
   });

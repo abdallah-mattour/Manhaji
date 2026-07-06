@@ -150,10 +150,10 @@ class _ChildDetailsContent extends StatelessWidget {
         const SizedBox(height: 10),
         _QuizPerformanceSummary(student: student),
         const SizedBox(height: 22),
-        // ④ الإرشاد
+        // ④ اقتراحات المتابعة
         const _SectionTitle(
-          title: 'الإرشاد',
-          subtitle: 'توصيات منزلية وتقارير مبنية على بيانات الخادم',
+          title: 'اقتراحات مبنية على البيانات',
+          subtitle: 'مؤشرات مساعدة وليست حكمًا نهائيًا',
         ),
         const SizedBox(height: 10),
         _ParentRecommendations(recommendations: student.recommendations),
@@ -703,9 +703,9 @@ class _ParentRecommendations extends StatelessWidget {
     if (recommendations.isEmpty) {
       return const _EmptyInfoCard(
         icon: Icons.home_work_rounded,
-        title: 'لا توجد توصيات حالياً',
+        title: 'لا توجد اقتراحات حالياً',
         message:
-            'طفلك يسير بشكل جيد! ستظهر توصيات هنا عند الحاجة لمتابعة إضافية.',
+            'طفلك يسير بشكل جيد! ستظهر مؤشرات مساعدة هنا عند الحاجة لمتابعة إضافية.',
       );
     }
 

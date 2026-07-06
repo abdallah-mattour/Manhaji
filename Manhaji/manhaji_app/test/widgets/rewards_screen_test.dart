@@ -96,6 +96,11 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('متجر المكافآت'), findsAtLeastNWidgets(1));
+    expect(
+      find.text('المكافآت شكلية فقط ولا تؤثر على الدرجات أو الإجابات'),
+      findsOneWidget,
+    );
+    expect(find.text('المكافأة المختارة'), findsOneWidget);
     expect(find.text('الصور الرمزية'), findsOneWidget);
     await _scrollTo(tester, find.text('الإطارات'));
     expect(find.text('الإطارات'), findsOneWidget);
@@ -150,6 +155,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(storage.selectedRewardId, 'avatar-reader');
+    expect(find.text('قارئ صغير'), findsNWidgets(2));
     expect(
       find.descendant(
         of: find.byKey(const ValueKey('reward-card-avatar-reader')),
@@ -157,5 +163,7 @@ void main() {
       ),
       findsOneWidget,
     );
+    expect(find.text('محفوظة وستظهر في أماكن مدعومة لاحقًا'), findsOneWidget);
+    expect(find.text('اختر مكافأة شكلية من القائمة'), findsNothing);
   });
 }

@@ -111,4 +111,80 @@ void main() {
     );
     expect(button.onPressed, isNull);
   });
+
+  testWidgets('closed quiz disables start and shows closed status', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      _wrap(
+        StudentAssignedQuizzesSection(
+          quizzes: [_quiz(status: 'CLOSED', canStart: false)],
+          isLoading: false,
+          errorMessage: null,
+          onRetry: () {},
+          onStart: (_) async {},
+          now: DateTime(2026, 7, 6, 10),
+        ),
+      ),
+    );
+
+    expect(find.text('مغلق'), findsOneWidget);
+    expect(find.text('غير متاح'), findsOneWidget);
+    final button = tester.widget<FilledButton>(
+      find.byKey(const ValueKey('assigned_quiz_start_70')),
+    );
+    expect(button.onPressed, isNull);
+  });
+
+  testWidgets('max attempts used disables start and shows attempt state', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      _wrap(
+        StudentAssignedQuizzesSection(
+          quizzes: [_quiz(attemptsUsed: 2, maxAttempts: 2, canStart: false)],
+          isLoading: false,
+          errorMessage: null,
+          onRetry: () {},
+          onStart: (_) async {},
+          now: DateTime(2026, 7, 6, 10),
+        ),
+      ),
+    );
+
+    expect(find.text('المحاولات: 2 / 2'), findsOneWidget);
+    expect(find.text('مكتمل'), findsOneWidget);
+    expect(find.text('غير متاح'), findsOneWidget);
+    final button = tester.widget<FilledButton>(
+      find.byKey(const ValueKey('assigned_quiz_start_70')),
+    );
+    expect(button.onPressed, isNull);
+  });
+
+  testWidgets('compact mode keeps action info without repeating deadline', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      _wrap(
+        StudentAssignedQuizzesSection(
+          quizzes: [_quiz()],
+          isLoading: false,
+          errorMessage: null,
+          onRetry: () {},
+          onStart: (_) async {},
+          now: DateTime(2026, 7, 6, 10),
+          compact: true,
+        ),
+      ),
+    );
+
+    expect(find.text('اختبار الحروف'), findsOneWidget);
+    expect(find.text('3 سؤال'), findsOneWidget);
+    expect(find.text('المحاولات: 0 / 2'), findsOneWidget);
+    expect(find.text('ينتهي خلال 23 ساعة'), findsNothing);
+    expect(
+      find.byKey(const ValueKey('assigned_quiz_start_70')),
+      findsOneWidget,
+    );
+  });
 }

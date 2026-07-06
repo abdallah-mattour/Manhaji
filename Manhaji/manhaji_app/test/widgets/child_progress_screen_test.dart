@@ -14,12 +14,17 @@ import 'package:provider/provider.dart';
 class FakeLocalStorage extends Fake implements LocalStorageService {}
 
 class FakeParentService extends ParentApiService {
-  FakeParentService(this.detail) : super(ApiService(FakeLocalStorage()));
+  FakeParentService(this.detail, {this.detailError})
+    : super(ApiService(FakeLocalStorage()));
 
   final StudentDetail detail;
+  final Object? detailError;
 
   @override
-  Future<StudentDetail> getChildDetail(int childId) async => detail;
+  Future<StudentDetail> getChildDetail(int childId) async {
+    if (detailError != null) throw detailError!;
+    return detail;
+  }
 }
 
 StudentDetail _detail({bool withData = true}) {
@@ -169,8 +174,9 @@ void main() {
       await _scrollTo(tester, find.text('اختبار حرف الراء'));
       expect(find.text('اختبار حرف الراء'), findsOneWidget);
 
-      // ④ الإرشاد — recommendations + reports under one group.
-      await _scrollTo(tester, find.text('الإرشاد'));
+      // ④ اقتراحات المتابعة — recommendations + reports under one group.
+      await _scrollTo(tester, find.text('اقتراحات مبنية على البيانات'));
+      expect(find.text('مؤشرات مساعدة وليست حكمًا نهائيًا'), findsOneWidget);
       await _scrollTo(tester, find.text('تدريب يومي قصير'));
       expect(find.text('تدريب يومي قصير'), findsOneWidget);
       await _scrollTo(tester, find.text('وضع جيد'));
@@ -192,6 +198,30 @@ void main() {
     expect(find.text('رجوع'), findsOneWidget);
   });
 
+  testWidgets('unlinked child detail failure renders a safe error state', (
+    tester,
+  ) async {
+    _useMobile(tester);
+
+    await tester.pumpWidget(
+      _wrap(
+        service: FakeParentService(
+          _detail(),
+          detailError: ApiException(
+            'هذا الطفل غير مرتبط بحسابك',
+            statusCode: 403,
+          ),
+        ),
+        args: const ChildProgressArgs(999),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('هذا الطفل غير مرتبط بحسابك'), findsOneWidget);
+    expect(find.text('إعادة المحاولة'), findsOneWidget);
+    expect(find.text('ليان أحمد'), findsNothing);
+  });
+
   testWidgets('empty subjects/recommendations/reports render Arabic states', (
     tester,
   ) async {
@@ -211,8 +241,8 @@ void main() {
     await _scrollTo(tester, find.text('لا توجد اختبارات حديثة بعد'));
     expect(find.text('لا توجد اختبارات حديثة بعد'), findsOneWidget);
 
-    await _scrollTo(tester, find.text('لا توجد توصيات حالياً'));
-    expect(find.text('لا توجد توصيات حالياً'), findsOneWidget);
+    await _scrollTo(tester, find.text('لا توجد اقتراحات حالياً'));
+    expect(find.text('لا توجد اقتراحات حالياً'), findsOneWidget);
 
     await _scrollTo(tester, find.text('لا توجد تقارير بعد'));
     expect(find.text('لا توجد تقارير بعد'), findsOneWidget);

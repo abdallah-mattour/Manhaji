@@ -160,7 +160,7 @@ class _RewardsSummaryCard extends StatelessWidget {
           ),
           const SizedBox(height: AppTheme.space4),
           const Text(
-            'النجوم تُستخدم لفتح مكافآت شكلية ولا تؤثر على الدرجات',
+            'المكافآت شكلية فقط ولا تؤثر على الدرجات أو الإجابات',
             style: TextStyle(
               fontFamily: 'Cairo',
               fontSize: 13,
@@ -256,7 +256,7 @@ class _ActiveRewardCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'المكافأة المستخدمة',
+                  'المكافأة المختارة',
                   style: TextStyle(
                     fontFamily: 'Cairo',
                     fontSize: 14,
@@ -272,6 +272,18 @@ class _ActiveRewardCard extends StatelessWidget {
                     fontSize: 17,
                     fontWeight: FontWeight.w900,
                     color: AppTheme.textDark,
+                  ),
+                ),
+                const SizedBox(height: AppTheme.space1),
+                Text(
+                  selectedReward == null
+                      ? 'اختر مكافأة شكلية من القائمة'
+                      : 'محفوظة وستظهر في أماكن مدعومة لاحقًا',
+                  style: const TextStyle(
+                    fontFamily: 'Cairo',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: AppTheme.textGray,
                   ),
                 ),
               ],

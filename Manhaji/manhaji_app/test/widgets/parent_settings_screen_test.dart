@@ -183,6 +183,37 @@ void main() {
     expect(find.text('تم تحديث الصورة الرمزية'), findsOneWidget);
   });
 
+  testWidgets('profile dialog updates parent name successfully', (
+    tester,
+  ) async {
+    _useMobile(tester);
+    final storage = FakeLocalStorage();
+    final service = FakeAuthService(storage);
+
+    await tester.pumpWidget(_wrap(storage, authService: service));
+    await tester.pump();
+    await tester.pumpAndSettle();
+
+    final profileAction = find.byKey(
+      const ValueKey('parent-settings-edit-profile-action'),
+    );
+    await tester.ensureVisible(profileAction);
+    await tester.tap(profileAction);
+    await tester.pumpAndSettle();
+
+    await tester.enterText(
+      find.byKey(const ValueKey('account-profile-name-field')),
+      'أم ليان المحدثة',
+    );
+    await tester.tap(find.byKey(const ValueKey('account-profile-save-button')));
+    await tester.pumpAndSettle();
+
+    expect(service.updatedName, 'أم ليان المحدثة');
+    expect(service.updatedAvatarId, 'avatar-book');
+    expect(storage.savedAvatarId, 'avatar-book');
+    expect(find.text('تم تحديث الملف الشخصي بنجاح'), findsOneWidget);
+  });
+
   testWidgets('password dialog validates mismatched confirmation', (
     tester,
   ) async {
@@ -220,5 +251,42 @@ void main() {
 
     expect(find.text('كلمتا المرور غير متطابقتين'), findsOneWidget);
     expect(service.passwordChangeCalls, 0);
+  });
+
+  testWidgets('password dialog changes password successfully', (tester) async {
+    _useMobile(tester);
+    final storage = FakeLocalStorage();
+    final service = FakeAuthService(storage);
+
+    await tester.pumpWidget(_wrap(storage, authService: service));
+    await tester.pump();
+    await tester.pumpAndSettle();
+
+    final passwordAction = find.byKey(
+      const ValueKey('parent-settings-change-password-action'),
+    );
+    await tester.ensureVisible(passwordAction);
+    await tester.tap(passwordAction);
+    await tester.pumpAndSettle();
+
+    await tester.enterText(
+      find.byKey(const ValueKey('account-current-password-field')),
+      'old-password',
+    );
+    await tester.enterText(
+      find.byKey(const ValueKey('account-new-password-field')),
+      'new-password',
+    );
+    await tester.enterText(
+      find.byKey(const ValueKey('account-confirm-password-field')),
+      'new-password',
+    );
+    await tester.tap(
+      find.byKey(const ValueKey('account-password-save-button')),
+    );
+    await tester.pumpAndSettle();
+
+    expect(service.passwordChangeCalls, 1);
+    expect(find.text('تم تغيير كلمة المرور بنجاح'), findsOneWidget);
   });
 }

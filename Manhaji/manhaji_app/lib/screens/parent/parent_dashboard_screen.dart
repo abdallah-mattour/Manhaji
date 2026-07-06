@@ -5,6 +5,7 @@ import '../../app/routes.dart';
 import '../../app/theme.dart';
 import '../../models/parent_dashboard.dart';
 import '../../providers/parent_provider.dart';
+import '../../widgets/account_profile_actions.dart';
 import '../../widgets/error_state.dart';
 import '../../widgets/loading_state.dart';
 import '../../widgets/vibrant_background.dart';
@@ -126,7 +127,7 @@ class _ParentDashboardContent extends StatelessWidget {
           // twice — merged into one follow-up section below.
           const _SectionTitle(
             title: 'متابعة وتنبيهات',
-            subtitle: 'تنبيهات مبنية على أداء الأطفال من بيانات الخادم',
+            subtitle: 'تنبيهات مبنية على نشاط الأطفال ونتائجهم',
           ),
           const SizedBox(height: 10),
           _FollowUpSection(alerts: dashboard.alerts),
@@ -137,7 +138,10 @@ class _ParentDashboardContent extends StatelessWidget {
             activities: dashboard.recentActivityAcrossChildren,
           ),
           const SizedBox(height: 22),
-          const _SectionTitle(title: 'توصيات منزلية'),
+          const _SectionTitle(
+            title: 'اقتراحات مبنية على البيانات',
+            subtitle: 'مؤشرات مساعدة وليست حكمًا نهائيًا',
+          ),
           const SizedBox(height: 10),
           _HomeRecommendations(recommendations: dashboard.recommendations),
         ],
@@ -227,18 +231,14 @@ class _ChildOverviewCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              CircleAvatar(
-                radius: 32,
-                backgroundColor: AppTheme.primaryGreen.withValues(alpha: 0.12),
-                child: Text(
-                  _initial(child.fullName),
-                  style: const TextStyle(
-                    fontFamily: 'Cairo',
-                    fontSize: 25,
-                    fontWeight: FontWeight.w900,
-                    color: AppTheme.primaryGreen,
-                  ),
-                ),
+              AccountAvatar(
+                avatarId: child.avatarId,
+                fallbackLabel: child.fullName.trim().isEmpty
+                    ? 'طفل'
+                    : child.fullName,
+                size: 64,
+                fallbackColor: AppTheme.primaryGreen,
+                borderRadius: AppTheme.radiusPill,
               ),
               const SizedBox(width: 14),
               Expanded(
@@ -959,11 +959,6 @@ BoxDecoration _cardDecoration() {
   );
 }
 
-String _initial(String value) {
-  final trimmed = value.trim();
-  return trimmed.isEmpty ? '؟' : trimmed.substring(0, 1);
-}
-
 double _lessonProgress(
   int completed,
   int total, {
@@ -1114,9 +1109,9 @@ class _HomeRecommendations extends StatelessWidget {
     if (recommendations.isEmpty) {
       return const _DashboardDataPlaceholder(
         icon: Icons.home_work_rounded,
-        title: 'لا توجد توصيات حالياً',
+        title: 'لا توجد اقتراحات حالياً',
         message:
-            'أطفالك يسيرون بشكل جيد! ستظهر التوصيات هنا عند الحاجة لمتابعة إضافية.',
+            'أطفالك يسيرون بشكل جيد! ستظهر مؤشرات مساعدة هنا عند الحاجة لمتابعة إضافية.',
       );
     }
 

@@ -8,12 +8,14 @@ class StudentAssignedQuizAlertsSection extends StatelessWidget {
   final List<StudentAssignedQuizSummary> quizzes;
   final Future<void> Function(StudentAssignedQuizSummary quiz) onAction;
   final DateTime? now;
+  final int maxVisibleAlerts;
 
   const StudentAssignedQuizAlertsSection({
     super.key,
     required this.quizzes,
     required this.onAction,
     this.now,
+    this.maxVisibleAlerts = 2,
   });
 
   @override
@@ -21,7 +23,8 @@ class StudentAssignedQuizAlertsSection extends StatelessWidget {
     final alerts = buildStudentAssignedQuizAlerts(quizzes, now: now);
     if (alerts.isEmpty) return const SizedBox.shrink();
 
-    final visible = alerts.take(3).toList();
+    final visibleLimit = maxVisibleAlerts < 1 ? 1 : maxVisibleAlerts;
+    final visible = alerts.take(visibleLimit).toList();
     final hiddenCount = alerts.length - visible.length;
 
     return Padding(

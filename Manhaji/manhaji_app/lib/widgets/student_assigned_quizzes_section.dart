@@ -10,6 +10,7 @@ class StudentAssignedQuizzesSection extends StatelessWidget {
   final VoidCallback onRetry;
   final Future<void> Function(StudentAssignedQuizSummary quiz) onStart;
   final DateTime? now;
+  final bool compact;
 
   const StudentAssignedQuizzesSection({
     super.key,
@@ -19,15 +20,16 @@ class StudentAssignedQuizzesSection extends StatelessWidget {
     required this.onRetry,
     required this.onStart,
     this.now,
+    this.compact = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final currentTime = now ?? DateTime.now();
     return Padding(
-      padding: const EdgeInsets.fromLTRB(
+      padding: EdgeInsets.fromLTRB(
         AppTheme.space5,
-        AppTheme.space5,
+        compact ? AppTheme.space3 : AppTheme.space5,
         AppTheme.space5,
         AppTheme.space3,
       ),
@@ -37,8 +39,8 @@ class StudentAssignedQuizzesSection extends StatelessWidget {
           Row(
             children: [
               Container(
-                width: 44,
-                height: 44,
+                width: compact ? 38 : 44,
+                height: compact ? 38 : 44,
                 decoration: BoxDecoration(
                   color: AppTheme.primaryBlue.withValues(alpha: 0.14),
                   borderRadius: BorderRadius.circular(AppTheme.radiusM),
@@ -49,12 +51,12 @@ class StudentAssignedQuizzesSection extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: AppTheme.space3),
-              const Expanded(
+              Expanded(
                 child: Text(
                   'اختبارات المعلم',
                   style: TextStyle(
                     fontFamily: 'Cairo',
-                    fontSize: 22,
+                    fontSize: compact ? 18 : 22,
                     fontWeight: FontWeight.w900,
                     color: AppTheme.textDark,
                   ),
@@ -77,6 +79,7 @@ class StudentAssignedQuizzesSection extends StatelessWidget {
                     quiz: quiz,
                     now: currentTime,
                     onStart: onStart,
+                    compact: compact,
                   ),
                   const SizedBox(height: AppTheme.space3),
                 ],
@@ -94,11 +97,13 @@ class _AssignedQuizCard extends StatefulWidget {
   final StudentAssignedQuizSummary quiz;
   final DateTime now;
   final Future<void> Function(StudentAssignedQuizSummary quiz) onStart;
+  final bool compact;
 
   const _AssignedQuizCard({
     required this.quiz,
     required this.now,
     required this.onStart,
+    required this.compact,
   });
 
   @override
@@ -119,10 +124,14 @@ class _AssignedQuizCardState extends State<_AssignedQuizCard> {
 
     return Container(
       key: ValueKey('assigned_quiz_card_${quiz.assignmentId}'),
-      padding: const EdgeInsets.all(AppTheme.space4),
+      padding: EdgeInsets.all(
+        widget.compact ? AppTheme.space3 : AppTheme.space4,
+      ),
       decoration: BoxDecoration(
         color: AppTheme.cardWhite,
-        borderRadius: BorderRadius.circular(AppTheme.radiusXL),
+        borderRadius: BorderRadius.circular(
+          widget.compact ? AppTheme.radiusL : AppTheme.radiusXL,
+        ),
         border: Border.all(color: AppTheme.surfaceMuted, width: 2),
         boxShadow: [
           BoxShadow(color: AppTheme.surfaceMuted, offset: const Offset(0, 4)),
@@ -135,8 +144,8 @@ class _AssignedQuizCardState extends State<_AssignedQuizCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                width: 52,
-                height: 52,
+                width: widget.compact ? 44 : 52,
+                height: widget.compact ? 44 : 52,
                 decoration: BoxDecoration(
                   color: AppTheme.primaryTerracotta.withValues(alpha: 0.14),
                   borderRadius: BorderRadius.circular(AppTheme.radiusM),
@@ -156,9 +165,9 @@ class _AssignedQuizCardState extends State<_AssignedQuizCard> {
                       quiz.title.isEmpty ? 'اختبار بدون عنوان' : quiz.title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Cairo',
-                        fontSize: 17,
+                        fontSize: widget.compact ? 15 : 17,
                         fontWeight: FontWeight.w900,
                         color: AppTheme.textDark,
                         height: 1.25,
@@ -171,7 +180,7 @@ class _AssignedQuizCardState extends State<_AssignedQuizCard> {
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontFamily: 'Cairo',
-                        fontSize: 13,
+                        fontSize: 12,
                         fontWeight: FontWeight.w700,
                         color: AppTheme.textGray,
                       ),
@@ -183,7 +192,7 @@ class _AssignedQuizCardState extends State<_AssignedQuizCard> {
               _StatusPill(label: status, color: statusColor),
             ],
           ),
-          const SizedBox(height: AppTheme.space4),
+          SizedBox(height: widget.compact ? AppTheme.space3 : AppTheme.space4),
           Wrap(
             spacing: AppTheme.space2,
             runSpacing: AppTheme.space2,
@@ -192,17 +201,18 @@ class _AssignedQuizCardState extends State<_AssignedQuizCard> {
                 icon: Icons.help_outline_rounded,
                 label: '${quiz.questionCount} سؤال',
               ),
-              _InfoPill(
-                icon: Icons.schedule_rounded,
-                label: _deadlineLabel(quiz, widget.now),
-              ),
+              if (!widget.compact)
+                _InfoPill(
+                  icon: Icons.schedule_rounded,
+                  label: _deadlineLabel(quiz, widget.now),
+                ),
               _InfoPill(
                 icon: Icons.replay_rounded,
                 label: _attemptsLabel(quiz),
               ),
             ],
           ),
-          const SizedBox(height: AppTheme.space4),
+          SizedBox(height: widget.compact ? AppTheme.space3 : AppTheme.space4),
           FilledButton.icon(
             key: ValueKey('assigned_quiz_start_${quiz.assignmentId}'),
             onPressed: startEnabled && !_isStarting ? _start : null,
@@ -215,7 +225,7 @@ class _AssignedQuizCardState extends State<_AssignedQuizCard> {
                 : const Icon(Icons.play_arrow_rounded),
             label: Text(startEnabled ? 'ابدأ الاختبار' : 'غير متاح'),
             style: FilledButton.styleFrom(
-              minimumSize: const Size(double.infinity, 48),
+              minimumSize: Size(double.infinity, widget.compact ? 44 : 48),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppTheme.radiusPill),
               ),

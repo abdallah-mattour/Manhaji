@@ -210,6 +210,11 @@ class _LearningScreenState extends State<LearningScreen>
                           builder: (_) => LearningCompletionScreen(
                             lessonTitle: widget.lessonTitle,
                             lessonId: widget.lessonId,
+                            mode: widget.assignedQuiz != null
+                                ? LearningCompletionMode.assignedQuiz
+                                : widget.personalizedQuiz != null
+                                ? LearningCompletionMode.personalized
+                                : LearningCompletionMode.lesson,
                           ),
                         ),
                       );

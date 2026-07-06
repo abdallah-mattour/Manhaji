@@ -5,6 +5,7 @@ import '../../app/routes.dart';
 import '../../app/theme.dart';
 import '../../config/api_config.dart';
 import '../../models/student_assigned_quiz.dart';
+import '../../models/student_assigned_quiz_alert.dart';
 import '../../models/subject.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/lesson_provider.dart';
@@ -106,48 +107,19 @@ class _HomeScreenState extends State<HomeScreen> {
                           dashboard.currentStreak,
                         ),
                       ),
-                      SliverToBoxAdapter(child: _buildStatsRow()),
-                      SliverToBoxAdapter(
-                        child: _RewardsEntryCard(
-                          points: dashboard.totalPoints,
-                          streak: dashboard.currentStreak,
-                          onTap: () =>
-                              Navigator.pushNamed(context, AppRoutes.rewards),
-                        ),
-                      ),
-                      // Daily-goal progress card — overall lessons completed vs
-                      // total across all subjects, with a warm progress bar.
-                      if (dashboard.subjects.isNotEmpty)
-                        SliverToBoxAdapter(
-                          child: _DailyGoalCard(
-                            completed: dashboard.subjects.fold<int>(
-                              0,
-                              (sum, s) => sum + s.completedLessons,
-                            ),
-                            total: dashboard.subjects.fold<int>(
-                              0,
-                              (sum, s) => sum + s.totalLessons,
-                            ),
-                          ),
-                        ),
-                      // Knowledge Tracing "Challenge Me" — personalized adaptive
-                      // quiz entry point. Only shown when the student has
-                      // subjects to be challenged on.
-                      if (dashboard.subjects.isNotEmpty)
-                        SliverToBoxAdapter(
-                          child: _ChallengeMeBanner(
-                            onTap: () =>
-                                _openChallengePicker(dashboard.subjects),
-                          ),
-                        ),
                       SliverToBoxAdapter(
                         child: Consumer<StudentAssignedQuizProvider>(
                           builder: (context, assignedProvider, _) {
+                            final hasQuizAlerts =
+                                buildStudentAssignedQuizAlerts(
+                                  assignedProvider.assignedQuizzes,
+                                ).isNotEmpty;
                             return Column(
                               children: [
                                 StudentAssignedQuizAlertsSection(
                                   quizzes: assignedProvider.assignedQuizzes,
                                   onAction: _startAssignedQuiz,
+                                  maxVisibleAlerts: 2,
                                 ),
                                 StudentAssignedQuizzesSection(
                                   quizzes: assignedProvider.assignedQuizzes,
@@ -155,12 +127,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                   errorMessage: assignedProvider.errorMessage,
                                   onRetry: assignedProvider.loadAssignedQuizzes,
                                   onStart: _startAssignedQuiz,
+                                  compact: hasQuizAlerts,
                                 ),
                               ],
                             );
                           },
                         ),
                       ),
+                      SliverToBoxAdapter(child: _buildStatsRow()),
                       // Section header removed as it's now part of _buildStatsRow/Header style
                       if (dashboard.subjects.isEmpty)
                         // Defensive empty state — without this the user just
@@ -213,6 +187,39 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               );
                             }, childCount: dashboard.subjects.length),
+                          ),
+                        ),
+                      SliverToBoxAdapter(
+                        child: _RewardsEntryCard(
+                          points: dashboard.totalPoints,
+                          streak: dashboard.currentStreak,
+                          onTap: () =>
+                              Navigator.pushNamed(context, AppRoutes.rewards),
+                        ),
+                      ),
+                      // Daily-goal progress card — overall lessons completed vs
+                      // total across all subjects, with a warm progress bar.
+                      if (dashboard.subjects.isNotEmpty)
+                        SliverToBoxAdapter(
+                          child: _DailyGoalCard(
+                            completed: dashboard.subjects.fold<int>(
+                              0,
+                              (sum, s) => sum + s.completedLessons,
+                            ),
+                            total: dashboard.subjects.fold<int>(
+                              0,
+                              (sum, s) => sum + s.totalLessons,
+                            ),
+                          ),
+                        ),
+                      // Knowledge Tracing "Challenge Me" — personalized adaptive
+                      // quiz entry point. Only shown when the student has
+                      // subjects to be challenged on.
+                      if (dashboard.subjects.isNotEmpty)
+                        SliverToBoxAdapter(
+                          child: _ChallengeMeBanner(
+                            onTap: () =>
+                                _openChallengePicker(dashboard.subjects),
                           ),
                         ),
                       const SliverToBoxAdapter(child: SizedBox(height: 24)),
@@ -530,18 +537,18 @@ class _RewardsEntryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+      padding: const EdgeInsets.fromLTRB(16, 10, 16, 8),
       child: Material(
         color: AppTheme.cardWhite,
-        borderRadius: BorderRadius.circular(AppTheme.radiusXL),
+        borderRadius: BorderRadius.circular(AppTheme.radiusL),
         child: InkWell(
           key: const ValueKey('student-rewards-entry-card'),
           onTap: onTap,
-          borderRadius: BorderRadius.circular(AppTheme.radiusXL),
+          borderRadius: BorderRadius.circular(AppTheme.radiusL),
           child: Container(
-            padding: const EdgeInsets.all(AppTheme.space5),
+            padding: const EdgeInsets.all(AppTheme.space4),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(AppTheme.radiusXL),
+              borderRadius: BorderRadius.circular(AppTheme.radiusL),
               border: Border.all(
                 color: AppTheme.primaryYellow.withValues(alpha: 0.45),
                 width: 1.5,
@@ -551,8 +558,8 @@ class _RewardsEntryCard extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  width: 58,
-                  height: 58,
+                  width: 46,
+                  height: 46,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: AppTheme.primaryYellow.withValues(alpha: 0.18),
@@ -561,10 +568,10 @@ class _RewardsEntryCard extends StatelessWidget {
                   child: const Icon(
                     Icons.redeem_rounded,
                     color: AppTheme.primaryYellowDeep,
-                    size: 32,
+                    size: 27,
                   ),
                 ),
-                const SizedBox(width: AppTheme.space4),
+                const SizedBox(width: AppTheme.space3),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -573,7 +580,7 @@ class _RewardsEntryCard extends StatelessWidget {
                         'متجر المكافآت',
                         style: TextStyle(
                           fontFamily: 'Cairo',
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: FontWeight.w900,
                           color: AppTheme.textDark,
                         ),
@@ -588,7 +595,7 @@ class _RewardsEntryCard extends StatelessWidget {
                           color: AppTheme.textGray,
                         ),
                       ),
-                      const SizedBox(height: AppTheme.space3),
+                      const SizedBox(height: AppTheme.space2),
                       Wrap(
                         spacing: AppTheme.space2,
                         runSpacing: AppTheme.space2,

@@ -69,10 +69,12 @@ class AuthService {
     required String fullName,
     String? email,
     String? phone,
+    String? avatarId,
   }) async {
     final body = <String, dynamic>{'fullName': fullName};
     if (email != null) body['email'] = email;
     if (phone != null) body['phone'] = phone;
+    if (avatarId != null) body['avatarId'] = avatarId;
     final response = await _api.patch(ApiConfig.updateProfile, data: body);
     return _readAuthResponse(response);
   }

@@ -22,6 +22,9 @@ import java.util.List;
 @NoArgsConstructor
 public class Parent extends User {
 
+    @Column
+    private String avatarId;
+
     /**
      * Audit fix (2026-05-15): cascade was previously {@code CascadeType.ALL},
      * which meant deleting a parent account also deleted every child and all

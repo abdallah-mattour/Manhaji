@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:manhaji_app/models/pronunciation_score.dart';
 import 'package:manhaji_app/models/quiz.dart';
 import 'package:manhaji_app/models/learning_step.dart';
+import 'package:manhaji_app/models/student_assigned_quiz.dart';
 import 'package:manhaji_app/providers/learning_provider.dart';
 import 'package:manhaji_app/services/api_service.dart';
 import 'package:manhaji_app/services/local_storage_service.dart';
@@ -30,6 +31,8 @@ class FakeQuizService extends QuizApiService {
 
   int regularQuizCalls = 0;
   int adaptiveQuizCalls = 0;
+  final List<int> genericStartCalls = [];
+  final List<int> assignedStartCalls = [];
   final List<Map<String, Object?>> submittedAnswers = [];
   final List<Map<String, Object?>> tracingSubmissions = [];
 
@@ -49,10 +52,26 @@ class FakeQuizService extends QuizApiService {
 
   @override
   Future<AttemptResult> startAttempt(int quizId) async {
+    genericStartCalls.add(quizId);
     if (throwOnStart) throw Exception('start boom');
     return AttemptResult(
       attemptId: 555,
       quizId: quizId,
+      status: 'IN_PROGRESS',
+      totalQuestions: quiz.questions.length,
+      correctAnswers: 0,
+      pointsEarned: 0,
+      answers: const [],
+    );
+  }
+
+  @override
+  Future<AttemptResult> startAssignedQuizAttempt(int assignmentId) async {
+    assignedStartCalls.add(assignmentId);
+    if (throwOnStart) throw Exception('assigned start boom');
+    return AttemptResult(
+      attemptId: 777,
+      quizId: quiz.id,
       status: 'IN_PROGRESS',
       totalQuestions: quiz.questions.length,
       correctAnswers: 0,
@@ -150,6 +169,19 @@ Quiz _quiz({int questionCount = 2}) => Quiz(
   lessonObjectives: 'نتعرف على حرف الراء',
 );
 
+StudentAssignedQuizDetail _assignedQuiz() => StudentAssignedQuizDetail(
+  assignmentId: 70,
+  quizId: 42,
+  title: 'اختبار المعلم',
+  subjectName: 'اللغة العربية',
+  questionCount: 2,
+  status: 'ASSIGNED',
+  attemptsUsed: 0,
+  maxAttempts: 1,
+  canStart: true,
+  questions: [_question(1), _question(2)],
+);
+
 PronunciationScore _pronunciation({
   required int questionId,
   required int score,
@@ -196,26 +228,28 @@ void main() {
     });
 
     group('startLesson', () {
-      test('success loads quiz, starts attempt, builds steps and trackers',
-          () async {
-        final service = FakeQuizService(_quiz());
-        final provider = LearningProvider(service);
+      test(
+        'success loads quiz, starts attempt, builds steps and trackers',
+        () async {
+          final service = FakeQuizService(_quiz());
+          final provider = LearningProvider(service);
 
-        await provider.startLesson(7);
+          await provider.startLesson(7);
 
-        expect(provider.phase, LearningPhase.teachingIntro);
-        expect(provider.currentQuiz!.id, 42);
-        expect(provider.currentAttemptId, 555);
-        // Empty lessonContent => intro + 2 questions, no woven cards.
-        expect(provider.totalSteps, 3);
-        expect(provider.steps.first.type, LearningStepType.teachingIntro);
-        expect(provider.questionCount, 2);
-        expect(provider.trackers.length, 2);
-        expect(provider.maxPossibleStars, 6); // 2 questions x 3 stars
-        expect(service.regularQuizCalls, 1);
-        expect(service.adaptiveQuizCalls, 0);
-        expect(provider.errorMessage, isNull);
-      });
+          expect(provider.phase, LearningPhase.teachingIntro);
+          expect(provider.currentQuiz!.id, 42);
+          expect(provider.currentAttemptId, 555);
+          // Empty lessonContent => intro + 2 questions, no woven cards.
+          expect(provider.totalSteps, 3);
+          expect(provider.steps.first.type, LearningStepType.teachingIntro);
+          expect(provider.questionCount, 2);
+          expect(provider.trackers.length, 2);
+          expect(provider.maxPossibleStars, 6); // 2 questions x 3 stars
+          expect(service.regularQuizCalls, 1);
+          expect(service.adaptiveQuizCalls, 0);
+          expect(provider.errorMessage, isNull);
+        },
+      );
 
       test('practice mode fetches the adaptive quiz endpoint', () async {
         final service = FakeQuizService(_quiz());
@@ -294,25 +328,46 @@ void main() {
       });
     });
 
-    group('submitAnswer', () {
-      test('correct on first attempt earns 3 stars and enters feedback',
-          () async {
-        final service = FakeQuizService(_quiz())..verdicts = {1: true};
-        final provider = await _atFirstQuestion(service);
+    group('startAssignedQuiz', () {
+      test('uses assignment endpoint and builds question-only steps', () async {
+        final service = FakeQuizService(_quiz());
+        final provider = LearningProvider(service);
 
-        await provider.submitAnswer('أ');
+        await provider.startAssignedQuiz(_assignedQuiz());
 
-        final tracker = provider.trackers[1]!;
-        expect(tracker.attemptCount, 1);
-        expect(tracker.everCorrect, isTrue);
-        expect(tracker.starsEarned, 3);
-        expect(tracker.lastResult!.isCorrect, isTrue);
-        expect(provider.totalStars, 3);
-        expect(provider.phase, LearningPhase.stepFeedback);
-        expect(provider.isSubmitting, false);
-        expect(service.submittedAnswers.single['questionId'], 1);
-        expect(service.submittedAnswers.single['attemptId'], 555);
+        expect(service.assignedStartCalls, [70]);
+        expect(service.genericStartCalls, isEmpty);
+        expect(provider.currentAttemptId, 777);
+        expect(provider.phase, LearningPhase.stepActive);
+        expect(provider.totalSteps, 2);
+        expect(
+          provider.steps.every((s) => s.type == LearningStepType.question),
+          isTrue,
+        );
       });
+    });
+
+    group('submitAnswer', () {
+      test(
+        'correct on first attempt earns 3 stars and enters feedback',
+        () async {
+          final service = FakeQuizService(_quiz())..verdicts = {1: true};
+          final provider = await _atFirstQuestion(service);
+
+          await provider.submitAnswer('أ');
+
+          final tracker = provider.trackers[1]!;
+          expect(tracker.attemptCount, 1);
+          expect(tracker.everCorrect, isTrue);
+          expect(tracker.starsEarned, 3);
+          expect(tracker.lastResult!.isCorrect, isTrue);
+          expect(provider.totalStars, 3);
+          expect(provider.phase, LearningPhase.stepFeedback);
+          expect(provider.isSubmitting, false);
+          expect(service.submittedAnswers.single['questionId'], 1);
+          expect(service.submittedAnswers.single['attemptId'], 555);
+        },
+      );
 
       test('first wrong answer opens the retry phase without stars', () async {
         final service = FakeQuizService(_quiz()); // all verdicts wrong
@@ -358,32 +413,37 @@ void main() {
         expect(provider.phase, LearningPhase.stepFeedback);
       });
 
-      test('service failure keeps the step active with an error message',
-          () async {
-        final service = FakeQuizService(_quiz())..throwOnSubmit = true;
-        final provider = await _atFirstQuestion(service);
+      test(
+        'service failure keeps the step active with an error message',
+        () async {
+          final service = FakeQuizService(_quiz())..throwOnSubmit = true;
+          final provider = await _atFirstQuestion(service);
 
-        await provider.submitAnswer('أ');
+          await provider.submitAnswer('أ');
 
-        expect(provider.phase, LearningPhase.stepActive);
-        expect(provider.errorMessage, 'حدث خطأ غير متوقع');
-        expect(provider.isSubmitting, false);
-        expect(provider.trackers[1]!.lastResult, isNull);
-      });
+          expect(provider.phase, LearningPhase.stepActive);
+          expect(provider.errorMessage, 'حدث خطأ غير متوقع');
+          expect(provider.isSubmitting, false);
+          expect(provider.trackers[1]!.lastResult, isNull);
+        },
+      );
 
-      test('malformed/empty backend payload is treated as a safe wrong answer',
-          () async {
-        final service = FakeQuizService(_quiz())..returnMalformedResult = true;
-        final provider = await _atFirstQuestion(service);
+      test(
+        'malformed/empty backend payload is treated as a safe wrong answer',
+        () async {
+          final service = FakeQuizService(_quiz())
+            ..returnMalformedResult = true;
+          final provider = await _atFirstQuestion(service);
 
-        await provider.submitAnswer('أ');
+          await provider.submitAnswer('أ');
 
-        // SubmitAnswerResult.fromJson({}) defaults to isCorrect=false.
-        expect(provider.phase, LearningPhase.stepRetry);
-        expect(provider.trackers[1]!.lastResult, isNotNull);
-        expect(provider.trackers[1]!.lastResult!.isCorrect, isFalse);
-        expect(provider.errorMessage, isNull);
-      });
+          // SubmitAnswerResult.fromJson({}) defaults to isCorrect=false.
+          expect(provider.phase, LearningPhase.stepRetry);
+          expect(provider.trackers[1]!.lastResult, isNotNull);
+          expect(provider.trackers[1]!.lastResult!.isCorrect, isFalse);
+          expect(provider.errorMessage, isNull);
+        },
+      );
     });
 
     group('retry round', () {
@@ -437,24 +497,26 @@ void main() {
     });
 
     group('completion', () {
-      test('all-correct run completes with full stars and result data',
-          () async {
-        final service = FakeQuizService(_quiz())
-          ..verdicts = {1: true, 2: true};
-        final provider = await _atFirstQuestion(service);
+      test(
+        'all-correct run completes with full stars and result data',
+        () async {
+          final service = FakeQuizService(_quiz())
+            ..verdicts = {1: true, 2: true};
+          final provider = await _atFirstQuestion(service);
 
-        await provider.submitAnswer('أ');
-        provider.nextStep();
-        await provider.submitAnswer('أ');
-        provider.nextStep(); // last step -> completes
-        await _flush();
+          await provider.submitAnswer('أ');
+          provider.nextStep();
+          await provider.submitAnswer('أ');
+          provider.nextStep(); // last step -> completes
+          await _flush();
 
-        expect(provider.phase, LearningPhase.completed);
-        expect(provider.totalStars, 6);
-        expect(provider.attemptResult, isNotNull);
-        expect(provider.attemptResult!.status, 'GRADED');
-        expect(provider.attemptResult!.attemptId, 555);
-      });
+          expect(provider.phase, LearningPhase.completed);
+          expect(provider.totalStars, 6);
+          expect(provider.attemptResult, isNotNull);
+          expect(provider.attemptResult!.status, 'GRADED');
+          expect(provider.attemptResult!.attemptId, 555);
+        },
+      );
 
       test('every question gets at least one star at completion', () async {
         // Q1 correct, Q2 wrong twice then wrong again in retry round would
@@ -481,24 +543,26 @@ void main() {
         expect(provider.totalStars, 4); // 3 + 1
       });
 
-      test('completeAttempt failure still lands on completed with an error',
-          () async {
-        final service = FakeQuizService(_quiz())
-          ..verdicts = {1: true, 2: true}
-          ..throwOnComplete = true;
-        final provider = await _atFirstQuestion(service);
+      test(
+        'completeAttempt failure still lands on completed with an error',
+        () async {
+          final service = FakeQuizService(_quiz())
+            ..verdicts = {1: true, 2: true}
+            ..throwOnComplete = true;
+          final provider = await _atFirstQuestion(service);
 
-        await provider.submitAnswer('أ');
-        provider.nextStep();
-        await provider.submitAnswer('أ');
-        provider.nextStep();
-        await _flush();
+          await provider.submitAnswer('أ');
+          provider.nextStep();
+          await provider.submitAnswer('أ');
+          provider.nextStep();
+          await _flush();
 
-        expect(provider.phase, LearningPhase.completed);
-        expect(provider.errorMessage, isNotNull);
-        expect(provider.attemptResult, isNull);
-        expect(provider.totalStars, 6); // state not corrupted
-      });
+          expect(provider.phase, LearningPhase.completed);
+          expect(provider.errorMessage, isNotNull);
+          expect(provider.attemptResult, isNull);
+          expect(provider.totalStars, 6); // state not corrupted
+        },
+      );
     });
 
     group('pronunciation', () {
@@ -521,24 +585,26 @@ void main() {
         expect(provider.phase, LearningPhase.stepFeedback);
       });
 
-      test('second-attempt correct pronunciation is capped at 2 stars',
-          () async {
-        final service = FakeQuizService(_quiz());
-        final provider = await _atFirstQuestion(service);
+      test(
+        'second-attempt correct pronunciation is capped at 2 stars',
+        () async {
+          final service = FakeQuizService(_quiz());
+          final provider = await _atFirstQuestion(service);
 
-        provider.applyPronunciationResult(
-          _pronunciation(questionId: 1, score: 40, feedback: 'حاول مرة أخرى'),
-        );
-        expect(provider.phase, LearningPhase.stepRetry);
+          provider.applyPronunciationResult(
+            _pronunciation(questionId: 1, score: 40, feedback: 'حاول مرة أخرى'),
+          );
+          expect(provider.phase, LearningPhase.stepRetry);
 
-        provider.retryCurrentQuestion();
-        provider.applyPronunciationResult(
-          _pronunciation(questionId: 1, score: 95),
-        );
+          provider.retryCurrentQuestion();
+          provider.applyPronunciationResult(
+            _pronunciation(questionId: 1, score: 95),
+          );
 
-        expect(provider.trackers[1]!.starsEarned, 2); // capped
-        expect(provider.phase, LearningPhase.stepFeedback);
-      });
+          expect(provider.trackers[1]!.starsEarned, 2); // capped
+          expect(provider.phase, LearningPhase.stepFeedback);
+        },
+      );
 
       test('unavailable-service zero score degrades to the retry path without '
           'crashing', () async {
@@ -570,41 +636,45 @@ void main() {
     });
 
     group('tracing', () {
-      test('successful tracing persists to backend and earns given stars',
-          () async {
-        final service = FakeQuizService(_quiz());
-        final provider = await _atFirstQuestion(service);
+      test(
+        'successful tracing persists to backend and earns given stars',
+        () async {
+          final service = FakeQuizService(_quiz());
+          final provider = await _atFirstQuestion(service);
 
-        await provider.applyTracingResult(
-          score: 85,
-          stars: 3,
-          feedback: 'ممتاز',
-        );
+          await provider.applyTracingResult(
+            score: 85,
+            stars: 3,
+            feedback: 'ممتاز',
+          );
 
-        final tracker = provider.trackers[1]!;
-        expect(tracker.starsEarned, 3);
-        expect(tracker.lastTracingScore, 85);
-        expect(tracker.lastResult!.isCorrect, isTrue);
-        expect(provider.phase, LearningPhase.stepFeedback);
-        expect(service.tracingSubmissions.single['questionId'], 1);
-        expect(service.tracingSubmissions.single['score'], 85);
-      });
+          final tracker = provider.trackers[1]!;
+          expect(tracker.starsEarned, 3);
+          expect(tracker.lastTracingScore, 85);
+          expect(tracker.lastResult!.isCorrect, isTrue);
+          expect(provider.phase, LearningPhase.stepFeedback);
+          expect(service.tracingSubmissions.single['questionId'], 1);
+          expect(service.tracingSubmissions.single['score'], 85);
+        },
+      );
 
-      test('tracing persistence failure is non-fatal and keeps the flow',
-          () async {
-        final service = FakeQuizService(_quiz())..throwOnTracing = true;
-        final provider = await _atFirstQuestion(service);
+      test(
+        'tracing persistence failure is non-fatal and keeps the flow',
+        () async {
+          final service = FakeQuizService(_quiz())..throwOnTracing = true;
+          final provider = await _atFirstQuestion(service);
 
-        await provider.applyTracingResult(
-          score: 85,
-          stars: 3,
-          feedback: 'ممتاز',
-        );
+          await provider.applyTracingResult(
+            score: 85,
+            stars: 3,
+            feedback: 'ممتاز',
+          );
 
-        expect(provider.phase, LearningPhase.stepFeedback);
-        expect(provider.trackers[1]!.starsEarned, 3);
-        expect(provider.errorMessage, isNull);
-      });
+          expect(provider.phase, LearningPhase.stepFeedback);
+          expect(provider.trackers[1]!.starsEarned, 3);
+          expect(provider.errorMessage, isNull);
+        },
+      );
 
       test('low tracing score follows the retry path', () async {
         final service = FakeQuizService(_quiz());

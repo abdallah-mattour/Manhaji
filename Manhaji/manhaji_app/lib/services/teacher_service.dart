@@ -109,4 +109,54 @@ class TeacherService {
       (response['data'] as Map<String, dynamic>?) ?? const {},
     );
   }
+
+  Future<TeacherQuizAssignment> publishQuizAssignment({
+    required int quizId,
+    required int gradeLevel,
+    DateTime? dueAt,
+    int? maxAttempts,
+    List<int>? studentIds,
+  }) async {
+    final data = <String, dynamic>{'gradeLevel': gradeLevel};
+    if (dueAt != null) {
+      data['dueAt'] = dueAt.toIso8601String();
+    }
+    if (maxAttempts != null) {
+      data['maxAttempts'] = maxAttempts;
+    }
+    if (studentIds != null && studentIds.isNotEmpty) {
+      data['studentIds'] = studentIds;
+    }
+
+    final response = await _api.post(
+      ApiConfig.teacherQuizAssignments(quizId),
+      data: data,
+    );
+    return TeacherQuizAssignment.fromJson(
+      (response['data'] as Map<String, dynamic>?) ?? const {},
+    );
+  }
+
+  Future<List<TeacherQuizAssignment>> getQuizAssignments(int quizId) async {
+    final response = await _api.get(ApiConfig.teacherQuizAssignments(quizId));
+    final list = response['data'] as List? ?? [];
+    return list
+        .map(
+          (assignment) => TeacherQuizAssignment.fromJson(
+            assignment as Map<String, dynamic>,
+          ),
+        )
+        .toList();
+  }
+
+  Future<TeacherAssignmentResults> getAssignmentResults(
+    int assignmentId,
+  ) async {
+    final response = await _api.get(
+      ApiConfig.teacherAssignmentResults(assignmentId),
+    );
+    return TeacherAssignmentResults.fromJson(
+      (response['data'] as Map<String, dynamic>?) ?? const {},
+    );
+  }
 }

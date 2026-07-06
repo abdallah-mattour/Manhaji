@@ -7,7 +7,6 @@ import com.springboot.manhaji.dto.request.RegisterRequest;
 import com.springboot.manhaji.dto.request.UpdateProfileRequest;
 import com.springboot.manhaji.dto.response.ApiResponse;
 import com.springboot.manhaji.dto.response.AuthResponse;
-import com.springboot.manhaji.entity.User;
 import com.springboot.manhaji.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -61,14 +60,7 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ApiResponse.error("Not authenticated"));
         }
         Long userId = (Long) authentication.getPrincipal();
-        User user = authService.getCurrentUser(userId);
-        AuthResponse response = AuthResponse.builder()
-                .userId(user.getId())
-                .fullName(user.getFullName())
-                .email(user.getEmail())
-                .phone(user.getPhone())
-                .role(user.getRole())
-                .build();
+        AuthResponse response = authService.getCurrentProfile(userId);
         return ResponseEntity.ok(ApiResponse.success(response));
     }
 

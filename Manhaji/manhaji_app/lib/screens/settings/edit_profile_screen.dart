@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../app/theme.dart';
 import '../../providers/auth_provider.dart';
+import '../../widgets/account_profile_actions.dart';
 import '../../widgets/duolingo_button.dart';
 import '../../widgets/vibrant_background.dart';
 
@@ -17,6 +18,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   late final TextEditingController _nameController;
   late final TextEditingController _emailController;
   late final TextEditingController _phoneController;
+  late final String? _initialAvatarId;
+  String? _selectedAvatarId;
 
   @override
   void initState() {
@@ -25,6 +28,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _nameController = TextEditingController(text: auth.userName ?? '');
     _emailController = TextEditingController(text: auth.userEmail ?? '');
     _phoneController = TextEditingController(text: auth.userPhone ?? '');
+    _initialAvatarId = auth.userAvatarId;
+    _selectedAvatarId = auth.userAvatarId;
   }
 
   @override
@@ -55,23 +60,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
 
     final auth = context.read<AuthProvider>();
+    final previousName = auth.userName?.trim() ?? '';
+    final previousPhone = auth.userPhone?.trim() ?? '';
+    final avatarChanged = _selectedAvatarId != _initialAvatarId;
     final success = await auth.updateProfile(
       fullName: _nameController.text.trim(),
-      email: email.isEmpty ? null : email,
       phone: phone.isEmpty ? null : phone,
+      avatarId: _selectedAvatarId,
     );
 
     if (!mounted) return;
 
     if (success) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text(
-            'تم تحديث الملف الشخصي بنجاح ✓',
-            style: TextStyle(fontFamily: 'Cairo'),
+            avatarChanged &&
+                    _nameController.text.trim() == previousName &&
+                    phone == previousPhone
+                ? 'تم تحديث الصورة الرمزية'
+                : 'تم تحديث الملف الشخصي بنجاح',
+            style: const TextStyle(fontFamily: 'Cairo'),
           ),
           backgroundColor: AppTheme.primaryGreen,
-          duration: Duration(seconds: 2),
+          duration: const Duration(seconds: 2),
         ),
       );
       Navigator.pop(context);
@@ -112,7 +124,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   const SizedBox(height: 8),
                   _ProfileField(
                     controller: _nameController,
-                    label: 'الاسم الكامل',
+                    label: 'الاسم',
                     icon: Icons.person_outline_rounded,
                     keyboardType: TextInputType.name,
                     validator: (v) {
@@ -129,12 +141,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     icon: Icons.email_outlined,
                     keyboardType: TextInputType.emailAddress,
                     ltr: true,
+                    readOnly: true,
                     validator: (v) {
-                      if (v == null || v.trim().isEmpty) return null;
-                      final emailRegex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
-                      if (!emailRegex.hasMatch(v.trim())) {
-                        return 'أدخل بريدًا إلكترونيًا صحيحًا';
-                      }
                       return null;
                     },
                   ),
@@ -152,6 +160,35 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         return 'أدخل رقم هاتف صحيحًا (7-15 رقمًا)';
                       }
                       return null;
+                    },
+                  ),
+                  const SizedBox(height: 24),
+                  const Text(
+                    'الصورة الرمزية',
+                    style: TextStyle(
+                      fontFamily: 'Cairo',
+                      fontSize: 15,
+                      fontWeight: FontWeight.w900,
+                      color: AppTheme.textDark,
+                    ),
+                  ),
+                  const SizedBox(height: AppTheme.space1),
+                  const Text(
+                    'اختر صورة رمزية',
+                    style: TextStyle(
+                      fontFamily: 'Cairo',
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: AppTheme.textGray,
+                    ),
+                  ),
+                  const SizedBox(height: AppTheme.space3),
+                  AccountAvatarPicker(
+                    selectedAvatarId: _selectedAvatarId,
+                    onChanged: (avatarId) {
+                      setState(() {
+                        _selectedAvatarId = avatarId;
+                      });
                     },
                   ),
                   const SizedBox(height: 32),
@@ -176,6 +213,7 @@ class _ProfileField extends StatelessWidget {
   final IconData icon;
   final TextInputType keyboardType;
   final bool ltr;
+  final bool readOnly;
   final String? Function(String?) validator;
 
   const _ProfileField({
@@ -184,6 +222,7 @@ class _ProfileField extends StatelessWidget {
     required this.icon,
     required this.keyboardType,
     this.ltr = false,
+    this.readOnly = false,
     required this.validator,
   });
 
@@ -192,6 +231,7 @@ class _ProfileField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
+      readOnly: readOnly,
       validator: validator,
       textDirection: ltr ? TextDirection.ltr : TextDirection.rtl,
       style: const TextStyle(fontFamily: 'Cairo', fontSize: 15),

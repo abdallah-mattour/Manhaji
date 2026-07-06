@@ -115,6 +115,7 @@ void main() {
             'lessonTitle': 'حرف الراء',
             'questionCount': 2,
             'createdAt': '2026-07-05T10:00:00',
+            'status': 'DRAFT',
           },
         ],
       };
@@ -127,6 +128,7 @@ void main() {
           'lessonId': 20,
           'lessonTitle': 'حرف الراء',
           'questionCount': 2,
+          'status': 'DRAFT',
           'questions': [],
         },
       };
@@ -141,6 +143,7 @@ void main() {
 
       expect(api.getPaths.last, ApiConfig.teacherQuizzes);
       expect(quizzes.single.title, 'اختبار الحروف');
+      expect(quizzes.single.status, 'DRAFT');
       expect(api.postPaths, [ApiConfig.teacherQuizzes]);
       expect(api.postData.single, {
         'title': 'اختبار جديد',
@@ -150,6 +153,83 @@ void main() {
       });
       expect(created.id, 45);
       expect(created.subjectName, 'اللغة العربية');
+      expect(created.status, 'DRAFT');
+    });
+
+    test('publishes assignment with assign-to-all payload', () async {
+      final dueAt = DateTime(2026, 7, 7, 10);
+      final path = ApiConfig.teacherQuizAssignments(45);
+      api.postResponses[path] = {
+        'data': {
+          'assignmentId': 70,
+          'quizId': 45,
+          'quizTitle': 'اختبار جديد',
+          'subjectId': 10,
+          'subjectName': 'اللغة العربية',
+          'gradeLevel': 1,
+          'status': 'PUBLISHED',
+          'publishedAt': '2026-07-06T10:00:00',
+          'dueAt': '2026-07-07T10:00:00',
+          'maxAttempts': 2,
+          'assignedCount': 12,
+        },
+      };
+
+      final assignment = await service.publishQuizAssignment(
+        quizId: 45,
+        gradeLevel: 1,
+        dueAt: dueAt,
+        maxAttempts: 2,
+      );
+
+      expect(api.postPaths, [path]);
+      expect(api.postData.single, {
+        'gradeLevel': 1,
+        'dueAt': dueAt.toIso8601String(),
+        'maxAttempts': 2,
+      });
+      expect(assignment.assignmentId, 70);
+      expect(assignment.assignedCount, 12);
+    });
+
+    test('loads assignments and result summary', () async {
+      final assignmentsPath = ApiConfig.teacherQuizAssignments(45);
+      final resultsPath = ApiConfig.teacherAssignmentResults(70);
+      api.getResponses[assignmentsPath] = {
+        'data': [
+          {
+            'assignmentId': 70,
+            'quizId': 45,
+            'quizTitle': 'اختبار جديد',
+            'subjectName': 'اللغة العربية',
+            'gradeLevel': 1,
+            'status': 'PUBLISHED',
+            'publishedAt': '2026-07-06T10:00:00',
+            'dueAt': '2026-07-07T10:00:00',
+            'maxAttempts': 1,
+            'assignedCount': 8,
+          },
+        ],
+      };
+      api.getResponses[resultsPath] = {
+        'data': {
+          'assignmentId': 70,
+          'quizId': 45,
+          'quizTitle': 'اختبار جديد',
+          'assignedCount': 8,
+          'completedCount': 3,
+          'averageScore': 84.5,
+          'recentAttempts': [],
+        },
+      };
+
+      final assignments = await service.getQuizAssignments(45);
+      final results = await service.getAssignmentResults(70);
+
+      expect(api.getPaths, [assignmentsPath, resultsPath]);
+      expect(assignments.single.assignmentId, 70);
+      expect(results.completedCount, 3);
+      expect(results.averageScore, 84.5);
     });
   });
 }

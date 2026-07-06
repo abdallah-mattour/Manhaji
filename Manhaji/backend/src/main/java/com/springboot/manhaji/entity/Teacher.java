@@ -20,6 +20,9 @@ import lombok.*;
 public class Teacher extends User {
 
     @Column
+    private String avatarId;
+
+    @Column
     private String department;
 
     @Column

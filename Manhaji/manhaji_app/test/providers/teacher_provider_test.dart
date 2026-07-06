@@ -21,10 +21,18 @@ class MockTeacherService extends TeacherService {
   List<TeacherQuizSummary>? teacherQuizzesResult;
   QuestionBankResponse? quizQuestionBankResult;
   TeacherQuizDetail? createdQuizResult;
+  TeacherQuizAssignment? publishedAssignmentResult;
+  List<TeacherQuizAssignment>? quizAssignmentsResult;
+  TeacherAssignmentResults? assignmentResultsResult;
   String? lastCreatedTitle;
   int? lastCreatedSubjectId;
   int? lastCreatedLessonId;
   List<int>? lastCreatedQuestionIds;
+  int? lastPublishedQuizId;
+  int? lastPublishedGradeLevel;
+  DateTime? lastPublishedDueAt;
+  int? lastPublishedMaxAttempts;
+  List<int>? lastPublishedStudentIds;
   Exception? errorToThrow;
 
   MockTeacherService() : super(ApiService(FakeLocalStorage()));
@@ -93,6 +101,37 @@ class MockTeacherService extends TeacherService {
     lastCreatedLessonId = lessonId;
     lastCreatedQuestionIds = questionIds;
     return createdQuizResult!;
+  }
+
+  @override
+  Future<TeacherQuizAssignment> publishQuizAssignment({
+    required int quizId,
+    required int gradeLevel,
+    DateTime? dueAt,
+    int? maxAttempts,
+    List<int>? studentIds,
+  }) async {
+    if (errorToThrow != null) throw errorToThrow!;
+    lastPublishedQuizId = quizId;
+    lastPublishedGradeLevel = gradeLevel;
+    lastPublishedDueAt = dueAt;
+    lastPublishedMaxAttempts = maxAttempts;
+    lastPublishedStudentIds = studentIds;
+    return publishedAssignmentResult!;
+  }
+
+  @override
+  Future<List<TeacherQuizAssignment>> getQuizAssignments(int quizId) async {
+    if (errorToThrow != null) throw errorToThrow!;
+    return quizAssignmentsResult!;
+  }
+
+  @override
+  Future<TeacherAssignmentResults> getAssignmentResults(
+    int assignmentId,
+  ) async {
+    if (errorToThrow != null) throw errorToThrow!;
+    return assignmentResultsResult!;
   }
 }
 
@@ -436,6 +475,67 @@ void main() {
         expect(ok, isFalse);
         expect(provider.createTeacherQuizError, 'حدث خطأ غير متوقع');
         expect(provider.isCreatingTeacherQuiz, false);
+      });
+
+      test('should publish quiz assignment and refresh quizzes', () async {
+        final dueAt = DateTime(2026, 7, 7, 10);
+        mockService.teacherQuizzesResult = const [
+          TeacherQuizSummary(
+            id: 45,
+            title: 'اختبار جديد',
+            subjectId: 10,
+            subjectName: 'اللغة العربية',
+            questionCount: 2,
+            status: 'PUBLISHED',
+          ),
+        ];
+        mockService.publishedAssignmentResult = const TeacherQuizAssignment(
+          assignmentId: 70,
+          quizId: 45,
+          quizTitle: 'اختبار جديد',
+          subjectId: 10,
+          subjectName: 'اللغة العربية',
+          gradeLevel: 1,
+          status: 'PUBLISHED',
+          maxAttempts: 2,
+          assignedCount: 12,
+        );
+
+        final ok = await provider.publishTeacherQuiz(
+          quizId: 45,
+          gradeLevel: 1,
+          dueAt: dueAt,
+          maxAttempts: 2,
+        );
+
+        expect(ok, isTrue);
+        expect(mockService.lastPublishedQuizId, 45);
+        expect(mockService.lastPublishedGradeLevel, 1);
+        expect(mockService.lastPublishedDueAt, dueAt);
+        expect(mockService.lastPublishedMaxAttempts, 2);
+        expect(mockService.lastPublishedStudentIds, isNull);
+        expect(provider.quizAssignmentsFor(45)!.single.assignmentId, 70);
+        expect(provider.teacherQuizzes!.single.status, 'PUBLISHED');
+        expect(provider.isPublishingTeacherQuiz, false);
+        expect(provider.publishTeacherQuizError, isNull);
+      });
+
+      test('should load assignment results', () async {
+        mockService.assignmentResultsResult = const TeacherAssignmentResults(
+          assignmentId: 70,
+          quizId: 45,
+          quizTitle: 'اختبار جديد',
+          assignedCount: 8,
+          completedCount: 3,
+          averageScore: 91.5,
+          recentAttempts: [],
+        );
+
+        await provider.loadAssignmentResults(70);
+
+        expect(provider.assignmentResultsFor(70)!.completedCount, 3);
+        expect(provider.assignmentResultsFor(70)!.averageScore, 91.5);
+        expect(provider.isLoadingAssignmentResults(70), false);
       });
     });
   });

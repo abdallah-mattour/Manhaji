@@ -17,4 +17,7 @@ public class UpdateProfileRequest {
     @Pattern(regexp = "^\\+?[0-9]{7,15}$",
              message = "Phone must be 7-15 digits, optional leading +")
     private String phone;
+
+    @Size(max = 64, message = "Avatar id must be 64 characters or fewer")
+    private String avatarId;
 }

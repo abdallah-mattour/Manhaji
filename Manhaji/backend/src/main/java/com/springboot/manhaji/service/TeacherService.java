@@ -526,6 +526,7 @@ public class TeacherService {
                 .lessonTitle(lesson == null ? null : lesson.getTitle())
                 .questionCount(quiz.getQuestions() == null ? 0 : quiz.getQuestions().size())
                 .createdAt(quiz.getCreatedAt())
+                .status(statusFor(quiz))
                 .build();
     }
 
@@ -548,8 +549,13 @@ public class TeacherService {
                 .lessonTitle(summary.getLessonTitle())
                 .questionCount(summary.getQuestionCount())
                 .createdAt(summary.getCreatedAt())
+                .status(summary.getStatus())
                 .questions(questions)
                 .build();
+    }
+
+    private QuizStatus statusFor(Quiz quiz) {
+        return quiz.getStatus() == null ? QuizStatus.DRAFT : quiz.getStatus();
     }
 
     private Subject subjectFor(Quiz quiz) {

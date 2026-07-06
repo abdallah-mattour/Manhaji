@@ -27,6 +27,9 @@ class FakeLocalStorage extends Fake implements LocalStorageService {
 
   @override
   int? getGradeLevel() => null;
+
+  @override
+  String? getUserAvatarId() => null;
 }
 
 class FakeParentService extends ParentApiService {

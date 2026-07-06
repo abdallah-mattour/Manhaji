@@ -3,6 +3,7 @@ import '../app/theme.dart';
 import '../models/pronunciation_score.dart';
 import '../models/quiz.dart';
 import '../models/learning_step.dart';
+import '../models/student_assigned_quiz.dart';
 import '../services/quiz_service.dart';
 import '../utils/app_log.dart';
 import '../utils/error_handler.dart';
@@ -30,10 +31,10 @@ class QuestionTracker {
   int? lastTracingScore;
 
   QuestionTracker({required this.questionId})
-      : attemptCount = 0,
-        everCorrect = false,
-        starsEarned = 0,
-        inRetryRound = false;
+    : attemptCount = 0,
+      everCorrect = false,
+      starsEarned = 0,
+      inRetryRound = false;
 }
 
 class LearningProvider extends ChangeNotifier {
@@ -101,9 +102,9 @@ class LearningProvider extends ChangeNotifier {
       if (_retryIndex < _retryQueue.length && _currentQuiz != null) {
         final qId = _retryQueue[_retryIndex];
         final question = _currentQuiz!.questions.cast<Question?>().firstWhere(
-              (q) => q!.id == qId,
-              orElse: () => null,
-            );
+          (q) => q!.id == qId,
+          orElse: () => null,
+        );
         if (question == null) return null;
         return LearningStep(
           type: LearningStepType.question,
@@ -203,6 +204,35 @@ class LearningProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Teacher-assigned quiz delivery starts through assignment authorization,
+  /// never through the generic quiz-id attempt endpoint.
+  Future<void> startAssignedQuiz(StudentAssignedQuizDetail assignedQuiz) async {
+    _phase = LearningPhase.loading;
+    _errorMessage = null;
+    _resetState();
+    notifyListeners();
+
+    try {
+      _currentQuiz = assignedQuiz.toQuiz();
+      final attempt = await _quizService.startAssignedQuizAttempt(
+        assignedQuiz.assignmentId,
+      );
+      _currentAttemptId = attempt.attemptId;
+
+      _buildQuestionOnlySteps();
+      _maxPossibleStars = _currentQuiz!.questions.length * 3;
+      for (final q in _currentQuiz!.questions) {
+        _trackers[q.id] = QuestionTracker(questionId: q.id);
+      }
+
+      _phase = LearningPhase.stepActive;
+    } catch (e) {
+      _errorMessage = extractError(e);
+      _phase = LearningPhase.error;
+    }
+    notifyListeners();
+  }
+
   /// Build steps with NO teaching cards — every step is a question. Used by
   /// the personalized challenge, which has no lesson narrative to weave in.
   void _buildQuestionOnlySteps() {
@@ -210,11 +240,13 @@ class LearningProvider extends ChangeNotifier {
     int stepIdx = 0;
     final questions = _currentQuiz?.questions ?? [];
     for (final q in questions) {
-      _steps.add(LearningStep(
-        type: LearningStepType.question,
-        question: q,
-        stepIndex: stepIdx++,
-      ));
+      _steps.add(
+        LearningStep(
+          type: LearningStepType.question,
+          question: q,
+          stepIndex: stepIdx++,
+        ),
+      );
     }
   }
 
@@ -261,9 +293,11 @@ class LearningProvider extends ChangeNotifier {
         answer: answer,
       );
       tracker.lastResult = result;
-      _log.i('submitAnswer id=${question.id} verdict='
-          '${result.isCorrect ? "correct" : "wrong"} '
-          'in ${stopwatch.elapsedMilliseconds}ms');
+      _log.i(
+        'submitAnswer id=${question.id} verdict='
+        '${result.isCorrect ? "correct" : "wrong"} '
+        'in ${stopwatch.elapsedMilliseconds}ms',
+      );
 
       if (result.isCorrect) {
         tracker.everCorrect = true;
@@ -291,8 +325,11 @@ class LearningProvider extends ChangeNotifier {
         _phase = LearningPhase.stepFeedback;
       }
     } catch (e) {
-      _log.e('submitAnswer id=${question.id} failed after '
-          '${stopwatch.elapsedMilliseconds}ms', e);
+      _log.e(
+        'submitAnswer id=${question.id} failed after '
+        '${stopwatch.elapsedMilliseconds}ms',
+        e,
+      );
       _errorMessage = extractError(e);
       _phase = LearningPhase.stepActive;
     } finally {
@@ -525,17 +562,19 @@ class LearningProvider extends ChangeNotifier {
 
     // Step 0: Teaching intro
     final introContent = objectives.isNotEmpty ? objectives : content;
-    _steps.add(LearningStep(
-      type: LearningStepType.teachingIntro,
-      teachingData: TeachingCardData(
-        title: title.replaceFirst('اختبار: ', ''),
-        content: introContent,
-        emoji: '📚',
-        accentColor: AppTheme.primaryBlue,
-        imageUrl: nextImage(),
+    _steps.add(
+      LearningStep(
+        type: LearningStepType.teachingIntro,
+        teachingData: TeachingCardData(
+          title: title.replaceFirst('اختبار: ', ''),
+          content: introContent,
+          emoji: '📚',
+          accentColor: AppTheme.primaryBlue,
+          imageUrl: nextImage(),
+        ),
+        stepIndex: stepIdx++,
       ),
-      stepIndex: stepIdx++,
-    ));
+    );
 
     // Split content into sentences for teaching cards
     final sentences = _splitIntoSentences(content);
@@ -564,27 +603,31 @@ class LearningProvider extends ChangeNotifier {
         if (matchIdx != -1) {
           usedSentences.add(matchIdx);
           final ci = teachingCardsInserted % 3;
-          _steps.add(LearningStep(
-            type: LearningStepType.teachingCard,
-            teachingData: TeachingCardData(
-              title: cardTitles[ci],
-              content: sentences[matchIdx],
-              emoji: cardEmojis[ci],
-              accentColor: cardColors[ci],
-              imageUrl: nextImage(),
+          _steps.add(
+            LearningStep(
+              type: LearningStepType.teachingCard,
+              teachingData: TeachingCardData(
+                title: cardTitles[ci],
+                content: sentences[matchIdx],
+                emoji: cardEmojis[ci],
+                accentColor: cardColors[ci],
+                imageUrl: nextImage(),
+              ),
+              stepIndex: stepIdx++,
             ),
-            stepIndex: stepIdx++,
-          ));
+          );
           teachingCardsInserted++;
         }
       }
 
       // Add the question step
-      _steps.add(LearningStep(
-        type: LearningStepType.question,
-        question: questions[qi],
-        stepIndex: stepIdx++,
-      ));
+      _steps.add(
+        LearningStep(
+          type: LearningStepType.question,
+          question: questions[qi],
+          stepIndex: stepIdx++,
+        ),
+      );
     }
   }
 
@@ -605,9 +648,31 @@ class LearningProvider extends ChangeNotifier {
   ) {
     // Arabic stop words to skip during matching
     const stopWords = {
-      'من', 'في', 'هل', 'ما', 'أي', 'هو', 'هي', 'إلى', 'على',
-      'عن', 'لا', 'أن', 'هذا', 'هذه', 'ذلك', 'تلك', 'كل', 'بعض',
-      'كان', 'يكون', 'الذي', 'التي', 'التالية', 'يلي', 'مما',
+      'من',
+      'في',
+      'هل',
+      'ما',
+      'أي',
+      'هو',
+      'هي',
+      'إلى',
+      'على',
+      'عن',
+      'لا',
+      'أن',
+      'هذا',
+      'هذه',
+      'ذلك',
+      'تلك',
+      'كل',
+      'بعض',
+      'كان',
+      'يكون',
+      'الذي',
+      'التي',
+      'التالية',
+      'يلي',
+      'مما',
     };
 
     final qWords = questionText

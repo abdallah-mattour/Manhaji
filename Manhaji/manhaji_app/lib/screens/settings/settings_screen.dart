@@ -4,6 +4,7 @@ import '../../app/routes.dart';
 import '../../app/theme.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/student_settings_provider.dart';
+import '../../widgets/account_profile_actions.dart';
 import '../../widgets/student_bottom_nav.dart';
 import '../../widgets/vibrant_background.dart';
 import '../../widgets/duolingo_button.dart';
@@ -41,16 +42,16 @@ class SettingsScreen extends StatelessWidget {
                 borderColor: AppTheme.primaryGreen,
                 onTap: () => Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (_) => const ProfileScreen()),
+                  MaterialPageRoute(builder: (_) => const ProfileScreen()),
                 ),
                 child: Row(
                   children: [
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundColor: AppTheme.primaryGreen.withValues(alpha: 0.1),
-                      child: const Icon(Icons.person,
-                          size: 35, color: AppTheme.primaryGreen),
+                    AccountAvatar(
+                      avatarId: auth.userAvatarId,
+                      fallbackLabel: auth.userName ?? 'طالب',
+                      size: 60,
+                      fallbackColor: AppTheme.primaryGreen,
+                      borderRadius: AppTheme.radiusPill,
                     ),
                     const SizedBox(width: 16),
                     Expanded(
@@ -67,7 +68,9 @@ class SettingsScreen extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            auth.userRole == 'STUDENT' ? 'طالب' : auth.userRole ?? '',
+                            auth.userRole == 'STUDENT'
+                                ? 'طالب'
+                                : auth.userRole ?? '',
                             style: const TextStyle(
                               fontFamily: 'Cairo',
                               color: AppTheme.textGray,
@@ -91,7 +94,8 @@ class SettingsScreen extends StatelessWidget {
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (_) => const ChangePasswordScreen()),
+                    builder: (_) => const ChangePasswordScreen(),
+                  ),
                 ),
               ),
               _buildSettingTile(
@@ -100,7 +104,8 @@ class SettingsScreen extends StatelessWidget {
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (_) => const NotificationsScreen()),
+                    builder: (_) => const NotificationsScreen(),
+                  ),
                 ),
               ),
               _buildSettingTile(
@@ -117,8 +122,9 @@ class SettingsScreen extends StatelessWidget {
               DuolingoButton(
                 onPressed: () {
                   context.read<AuthProvider>().logout();
-                  Navigator.of(context)
-                      .pushNamedAndRemoveUntil(AppRoutes.login, (_) => false);
+                  Navigator.of(
+                    context,
+                  ).pushNamedAndRemoveUntil(AppRoutes.login, (_) => false);
                 },
                 color: AppTheme.primaryRed,
                 text: 'تسجيل الخروج',
@@ -142,11 +148,19 @@ class SettingsScreen extends StatelessWidget {
         borderRadius: AppTheme.radiusM,
         child: ListTile(
           leading: Icon(icon, color: AppTheme.primaryGreen),
-          title: Text(title,
-              style: const TextStyle(fontFamily: 'Cairo', fontSize: 16, fontWeight: FontWeight.bold)),
+          title: Text(
+            title,
+            style: const TextStyle(
+              fontFamily: 'Cairo',
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           trailing: const Icon(Icons.arrow_back_ios, size: 16),
           onTap: onTap,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ),
       ),
     );

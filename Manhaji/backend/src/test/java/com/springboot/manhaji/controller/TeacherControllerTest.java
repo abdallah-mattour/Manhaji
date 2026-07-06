@@ -6,10 +6,13 @@ import com.springboot.manhaji.entity.Subject;
 import com.springboot.manhaji.entity.Teacher;
 import com.springboot.manhaji.entity.TeacherAssignment;
 import com.springboot.manhaji.entity.enums.Role;
+import com.springboot.manhaji.entity.enums.QuizStatus;
 import com.springboot.manhaji.exception.GlobalExceptionHandler;
 import com.springboot.manhaji.infrastructure.TestMessages;
 import com.springboot.manhaji.dto.response.TeacherMistakeAnalyticsResponse;
 import com.springboot.manhaji.dto.response.TeacherMistakeSummaryResponse;
+import com.springboot.manhaji.dto.response.TeacherQuizDetailResponse;
+import com.springboot.manhaji.dto.response.TeacherQuizSummaryResponse;
 import com.springboot.manhaji.repository.AttemptRepository;
 import com.springboot.manhaji.repository.LessonRepository;
 import com.springboot.manhaji.repository.ProgressRepository;
@@ -198,6 +201,39 @@ class TeacherControllerTest {
                         && request.getLessonId().equals(7L)
                         && request.getQuestionIds().equals(List.of(10L, 11L))));
         verify(mockedTeacherService).getTeacherQuiz(10L, 99L);
+    }
+
+    @Test
+    @DisplayName("teacher quiz responses include status")
+    void teacherQuizResponsesIncludeStatus() throws Exception {
+        TeacherService mockedTeacherService = org.mockito.Mockito.mock(TeacherService.class);
+        MockMvc controllerOnlyMockMvc = MockMvcBuilders
+                .standaloneSetup(new TeacherController(mockedTeacherService))
+                .build();
+
+        when(mockedTeacherService.getTeacherQuizzes(10L))
+                .thenReturn(List.of(TeacherQuizSummaryResponse.builder()
+                        .id(44L)
+                        .title("اختبار الحروف")
+                        .status(QuizStatus.DRAFT)
+                        .build()));
+        when(mockedTeacherService.getTeacherQuiz(10L, 44L))
+                .thenReturn(TeacherQuizDetailResponse.builder()
+                        .id(44L)
+                        .title("اختبار الحروف")
+                        .status(QuizStatus.PUBLISHED)
+                        .questions(List.of())
+                        .build());
+
+        controllerOnlyMockMvc.perform(get("/api/teacher/quizzes")
+                        .principal(teacherPrincipal()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data[0].status").value("DRAFT"));
+
+        controllerOnlyMockMvc.perform(get("/api/teacher/quizzes/44")
+                        .principal(teacherPrincipal()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.status").value("PUBLISHED"));
     }
 
     @Test

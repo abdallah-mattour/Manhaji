@@ -66,6 +66,11 @@ class ApiConfig {
 
   // Student
   static const String dashboard = '/student/dashboard';
+  static const String studentAssignedQuizzes = '/student/assigned-quizzes';
+  static String studentAssignedQuiz(int assignmentId) =>
+      '$studentAssignedQuizzes/$assignmentId';
+  static String startAssignedQuizAttempt(int assignmentId) =>
+      '$studentAssignedQuizzes/$assignmentId/attempt/start';
 
   // Quiz
   static const String quizByLesson = '/quiz/lesson';
@@ -83,6 +88,10 @@ class ApiConfig {
   static const String teacherSubjects = '/teacher/subjects';
   static const String teacherMistakes = '/teacher/analytics/mistakes';
   static const String teacherQuizzes = '/teacher/quizzes';
+  static String teacherQuizAssignments(int quizId) =>
+      '$teacherQuizzes/$quizId/assignments';
+  static String teacherAssignmentResults(int assignmentId) =>
+      '/teacher/assignments/$assignmentId/results';
 
   // Admin
   static const String adminStats = '/admin/stats';

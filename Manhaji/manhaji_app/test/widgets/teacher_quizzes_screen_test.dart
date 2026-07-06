@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:manhaji_app/app/theme.dart';
 import 'package:manhaji_app/models/question_bank.dart';
+import 'package:manhaji_app/models/teacher_dashboard.dart';
 import 'package:manhaji_app/models/teacher_quiz.dart';
 import 'package:manhaji_app/providers/teacher_provider.dart';
 import 'package:manhaji_app/screens/teacher/teacher_quizzes_screen.dart';
@@ -22,16 +23,29 @@ class FakeTeacherService extends TeacherService {
   final List<TeacherQuizSummary> quizzes;
   final List<SubjectSummary> subjects;
   final QuestionBankResponse questionBank;
+  final List<ClassStudentSummary> students = const [];
+  final Map<int, List<TeacherQuizAssignment>> assignments = {};
 
   int? requestedSubjectId;
   String? createdTitle;
   int? createdSubjectId;
   int? createdLessonId;
   List<int>? createdQuestionIds;
+  int? publishedQuizId;
+  int? publishedGradeLevel;
+  DateTime? publishedDueAt;
+  int? publishedMaxAttempts;
+  List<int>? publishedStudentIds;
+  bool throwOnPublish = false;
 
   @override
   Future<List<TeacherQuizSummary>> getTeacherQuizzes() async {
     return quizzes;
+  }
+
+  @override
+  Future<List<ClassStudentSummary>> getStudents() async {
+    return students;
   }
 
   @override
@@ -68,7 +82,59 @@ class FakeTeacherService extends TeacherService {
       lessonId: lessonId,
       lessonTitle: 'حرف الراء',
       questionCount: questionIds.length,
+      status: 'DRAFT',
       questions: const [],
+    );
+  }
+
+  @override
+  Future<TeacherQuizAssignment> publishQuizAssignment({
+    required int quizId,
+    required int gradeLevel,
+    DateTime? dueAt,
+    int? maxAttempts,
+    List<int>? studentIds,
+  }) async {
+    if (throwOnPublish) throw Exception('publish failed');
+    publishedQuizId = quizId;
+    publishedGradeLevel = gradeLevel;
+    publishedDueAt = dueAt;
+    publishedMaxAttempts = maxAttempts;
+    publishedStudentIds = studentIds;
+    final assignment = TeacherQuizAssignment(
+      assignmentId: 70,
+      quizId: quizId,
+      quizTitle: 'اختبار جديد',
+      subjectId: 10,
+      subjectName: 'اللغة العربية',
+      gradeLevel: gradeLevel,
+      status: 'PUBLISHED',
+      publishedAt: '2026-07-06T10:00:00',
+      dueAt: dueAt?.toIso8601String(),
+      maxAttempts: maxAttempts,
+      assignedCount: 12,
+    );
+    assignments[quizId] = [assignment];
+    return assignment;
+  }
+
+  @override
+  Future<List<TeacherQuizAssignment>> getQuizAssignments(int quizId) async {
+    return assignments[quizId] ?? const [];
+  }
+
+  @override
+  Future<TeacherAssignmentResults> getAssignmentResults(
+    int assignmentId,
+  ) async {
+    return TeacherAssignmentResults(
+      assignmentId: assignmentId,
+      quizId: 44,
+      quizTitle: 'اختبار الحروف',
+      assignedCount: 12,
+      completedCount: 5,
+      averageScore: 82,
+      recentAttempts: const [],
     );
   }
 }
@@ -132,6 +198,18 @@ QuestionBankResponse _questionBank({bool empty = false}) {
 }
 
 void main() {
+  TeacherQuizSummary buildQuiz({String? status = 'DRAFT'}) {
+    return TeacherQuizSummary(
+      id: 44,
+      title: 'اختبار الحروف',
+      subjectId: 10,
+      subjectName: 'اللغة العربية',
+      questionCount: 2,
+      createdAt: '2026-07-05T10:00:00',
+      status: status,
+    );
+  }
+
   testWidgets('teacher quizzes page renders action and empty state', (
     tester,
   ) async {
@@ -214,5 +292,152 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('لا توجد أسئلة متاحة لهذه المادة'), findsOneWidget);
+  });
+
+  testWidgets('draft quiz renders publish action', (tester) async {
+    _useDesktop(tester);
+    final service = FakeTeacherService(
+      quizzes: [buildQuiz(status: 'DRAFT')],
+      subjects: [_subject()],
+      questionBank: _questionBank(),
+    );
+
+    await tester.pumpWidget(_wrap(service));
+    await tester.pumpAndSettle();
+
+    expect(find.text('مسودة'), findsOneWidget);
+    expect(find.byKey(const Key('teacher_quiz_publish_44')), findsOneWidget);
+  });
+
+  testWidgets('published quiz hides draft-only publish action', (tester) async {
+    _useDesktop(tester);
+    final service = FakeTeacherService(
+      quizzes: [buildQuiz(status: 'PUBLISHED')],
+      subjects: [_subject()],
+      questionBank: _questionBank(),
+    );
+
+    await tester.pumpWidget(_wrap(service));
+    await tester.pumpAndSettle();
+
+    expect(find.text('منشور'), findsOneWidget);
+    expect(find.byKey(const Key('teacher_quiz_publish_44')), findsNothing);
+    expect(
+      find.byKey(const Key('teacher_quiz_assignments_44')),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('archived quiz hides draft-only publish action', (tester) async {
+    _useDesktop(tester);
+    final service = FakeTeacherService(
+      quizzes: [buildQuiz(status: 'ARCHIVED')],
+      subjects: [_subject()],
+      questionBank: _questionBank(),
+    );
+
+    await tester.pumpWidget(_wrap(service));
+    await tester.pumpAndSettle();
+
+    expect(find.text('مؤرشف'), findsOneWidget);
+    expect(find.byKey(const Key('teacher_quiz_publish_44')), findsNothing);
+    expect(
+      find.byKey(const Key('teacher_quiz_assignments_44')),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('publish dialog renders Arabic labels', (tester) async {
+    _useDesktop(tester);
+    final service = FakeTeacherService(
+      quizzes: [buildQuiz(status: 'DRAFT')],
+      subjects: [_subject()],
+      questionBank: _questionBank(),
+    );
+
+    await tester.pumpWidget(_wrap(service));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('teacher_quiz_publish_44')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('نشر الاختبار للطلاب'), findsOneWidget);
+    expect(find.text('كل الطلاب المتاحين'), findsOneWidget);
+    expect(
+      find.text(
+        'سيتم تعيين الاختبار لجميع الطلاب المتاحين ضمن نطاق المادة والصف',
+      ),
+      findsOneWidget,
+    );
+    expect(find.text('خلال 24 ساعة'), findsOneWidget);
+    expect(find.text('خلال 48 ساعة'), findsOneWidget);
+    expect(find.text('تاريخ مخصص'), findsOneWidget);
+  });
+
+  testWidgets('publish dialog sends assign-to-all payload and shows success', (
+    tester,
+  ) async {
+    _useDesktop(tester);
+    final service = FakeTeacherService(
+      quizzes: [buildQuiz(status: 'DRAFT')],
+      subjects: [_subject()],
+      questionBank: _questionBank(),
+    );
+
+    await tester.pumpWidget(_wrap(service));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('teacher_quiz_publish_44')));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(const Key('teacher_quiz_publish_submit')));
+    await tester.pumpAndSettle();
+
+    expect(service.publishedQuizId, 44);
+    expect(service.publishedGradeLevel, 1);
+    expect(service.publishedMaxAttempts, 1);
+    expect(service.publishedStudentIds, isNull);
+    expect(service.publishedDueAt, isNotNull);
+    expect(find.text('تم نشر الاختبار بنجاح'), findsOneWidget);
+  });
+
+  testWidgets('assignments dialog displays assignment metadata and results', (
+    tester,
+  ) async {
+    _useDesktop(tester);
+    final service = FakeTeacherService(
+      quizzes: [buildQuiz(status: 'PUBLISHED')],
+      subjects: [_subject()],
+      questionBank: _questionBank(),
+    );
+    service.assignments[44] = const [
+      TeacherQuizAssignment(
+        assignmentId: 70,
+        quizId: 44,
+        quizTitle: 'اختبار الحروف',
+        subjectId: 10,
+        subjectName: 'اللغة العربية',
+        gradeLevel: 1,
+        status: 'PUBLISHED',
+        publishedAt: '2026-07-06T10:00:00',
+        dueAt: '2026-07-07T10:00:00',
+        maxAttempts: 2,
+        assignedCount: 12,
+      ),
+    ];
+
+    await tester.pumpWidget(_wrap(service));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('teacher_quiz_assignments_44')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('تعيينات الاختبار'), findsOneWidget);
+    expect(find.text('12 طالب'), findsOneWidget);
+    expect(find.text('المحاولات: 2'), findsOneWidget);
+
+    await tester.tap(find.text('عرض النتائج'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('عدد الطلاب 12'), findsOneWidget);
+    expect(find.text('المكتملون 5'), findsOneWidget);
+    expect(find.text('متوسط النتيجة 82.0%'), findsOneWidget);
   });
 }

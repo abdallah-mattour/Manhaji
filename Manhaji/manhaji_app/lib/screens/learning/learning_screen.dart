@@ -6,6 +6,7 @@ import '../../app/theme.dart';
 import '../../constants/strings.dart';
 import '../../models/learning_step.dart';
 import '../../models/quiz.dart';
+import '../../models/student_assigned_quiz.dart';
 import '../../providers/learning_provider.dart';
 import '../../providers/student_settings_provider.dart';
 import '../../services/audio_service.dart';
@@ -42,12 +43,17 @@ class LearningScreen extends StatefulWidget {
   /// this mode and the teaching-intro phase is skipped.
   final Quiz? personalizedQuiz;
 
+  /// Teacher-assigned quiz detail loaded through the assignment endpoint.
+  /// Starts through assignmentId authorization and uses question-only steps.
+  final StudentAssignedQuizDetail? assignedQuiz;
+
   const LearningScreen({
     super.key,
     required this.lessonId,
     required this.lessonTitle,
     this.practiceMode = false,
     this.personalizedQuiz,
+    this.assignedQuiz,
   });
 
   @override
@@ -76,22 +82,25 @@ class _LearningScreenState extends State<LearningScreen>
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
-    _shakeAnimation = TweenSequence<double>([
-      TweenSequenceItem(tween: Tween(begin: 0, end: 10), weight: 25),
-      TweenSequenceItem(tween: Tween(begin: 10, end: -10), weight: 25),
-      TweenSequenceItem(tween: Tween(begin: -10, end: 6), weight: 25),
-      TweenSequenceItem(tween: Tween(begin: 6, end: 0), weight: 25),
-    ]).animate(CurvedAnimation(
-      parent: _shakeController,
-      curve: Curves.easeInOut,
-    ));
+    _shakeAnimation =
+        TweenSequence<double>([
+          TweenSequenceItem(tween: Tween(begin: 0, end: 10), weight: 25),
+          TweenSequenceItem(tween: Tween(begin: 10, end: -10), weight: 25),
+          TweenSequenceItem(tween: Tween(begin: -10, end: 6), weight: 25),
+          TweenSequenceItem(tween: Tween(begin: 6, end: 0), weight: 25),
+        ]).animate(
+          CurvedAnimation(parent: _shakeController, curve: Curves.easeInOut),
+        );
 
-    _confettiController =
-        ConfettiController(duration: const Duration(seconds: 1));
+    _confettiController = ConfettiController(
+      duration: const Duration(seconds: 1),
+    );
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = context.read<LearningProvider>();
-      if (widget.personalizedQuiz != null) {
+      if (widget.assignedQuiz != null) {
+        provider.startAssignedQuiz(widget.assignedQuiz!);
+      } else if (widget.personalizedQuiz != null) {
         // Challenge Me: play the already-generated cross-subject quiz.
         provider.startPersonalizedQuiz(widget.personalizedQuiz!);
       } else {
@@ -137,8 +146,7 @@ class _LearningScreenState extends State<LearningScreen>
 
     // Phase 8A — الوضع الصامت gates AUTOMATIC playback only. The manual
     // speaker button and pronunciation target playback stay untouched.
-    final autoAudio =
-        context.read<StudentSettingsProvider>().autoAudioEnabled;
+    final autoAudio = context.read<StudentSettingsProvider>().autoAudioEnabled;
 
     final teaching = step.teachingData;
     final question = step.question;
@@ -279,12 +287,20 @@ class _LearningScreenState extends State<LearningScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.error_outline, size: 64, color: AppTheme.textLight),
+            const Icon(
+              Icons.error_outline,
+              size: 64,
+              color: AppTheme.textLight,
+            ),
             const SizedBox(height: 16),
-            Text(message,
-                textAlign: TextAlign.center,
-                style:
-                    const TextStyle(fontFamily: 'Cairo', color: AppTheme.textGray)),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontFamily: 'Cairo',
+                color: AppTheme.textGray,
+              ),
+            ),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
@@ -298,7 +314,9 @@ class _LearningScreenState extends State<LearningScreen>
 
   Widget _buildTopBar(LearningProvider provider) {
     // Duolingo-style thin progress bar at the very top
-    final progress = provider.steps.isEmpty ? 0.0 : provider.currentStepIndex / provider.steps.length;
+    final progress = provider.steps.isEmpty
+        ? 0.0
+        : provider.currentStepIndex / provider.steps.length;
 
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
@@ -436,7 +454,8 @@ class _LearningScreenState extends State<LearningScreen>
         question: question,
         lastScore: tracker?.lastPronunciationScore,
         isAnswered: isAnswered,
-        isProcessing: provider.phase == LearningPhase.stepFeedback &&
+        isProcessing:
+            provider.phase == LearningPhase.stepFeedback &&
             tracker?.lastPronunciationScore == null,
         onRecordingComplete: (audioPath) =>
             _handlePronunciationAnswer(provider, audioPath),
@@ -453,10 +472,10 @@ class _LearningScreenState extends State<LearningScreen>
               stars: lastScore >= 90
                   ? 3
                   : lastScore >= 75
-                      ? 2
-                      : lastScore >= 60
-                          ? 1
-                          : 0,
+                  ? 2
+                  : lastScore >= 60
+                  ? 1
+                  : 0,
               rating: tracker?.lastResult?.feedback ?? '',
               feedback: tracker?.lastResult?.feedback ?? '',
             );
@@ -515,7 +534,9 @@ class _LearningScreenState extends State<LearningScreen>
   }
 
   Future<void> _handleTracingResult(
-      LearningProvider provider, TracingResult result) async {
+    LearningProvider provider,
+    TracingResult result,
+  ) async {
     await provider.applyTracingResult(
       score: result.score,
       stars: result.stars,
@@ -526,7 +547,9 @@ class _LearningScreenState extends State<LearningScreen>
   }
 
   Future<void> _handlePronunciationAnswer(
-      LearningProvider provider, String audioPath) async {
+    LearningProvider provider,
+    String audioPath,
+  ) async {
     final attemptId = provider.currentAttemptId;
     final question = provider.currentStep?.question;
     if (attemptId == null || question == null) {
@@ -572,7 +595,9 @@ class _LearningScreenState extends State<LearningScreen>
   }
 
   Future<void> _handleVoiceAnswer(
-      LearningProvider provider, String audioPath) async {
+    LearningProvider provider,
+    String audioPath,
+  ) async {
     final attemptId = provider.currentAttemptId;
     final question = provider.currentStep?.question;
     if (attemptId == null || question == null) return;
@@ -627,16 +652,25 @@ class _LearningScreenState extends State<LearningScreen>
     return AnimatedContainer(
       duration: AppTheme.motionBase,
       curve: Curves.easeOutQuart,
-      padding: EdgeInsets.fromLTRB(24, 24, 24, 24 + MediaQuery.of(context).padding.bottom),
+      padding: EdgeInsets.fromLTRB(
+        24,
+        24,
+        24,
+        24 + MediaQuery.of(context).padding.bottom,
+      ),
       decoration: BoxDecoration(
         color: !showVerdictColors
             ? Colors.white
-            : (result.isCorrect ? AppTheme.successContainer : AppTheme.errorContainer),
+            : (result.isCorrect
+                  ? AppTheme.successContainer
+                  : AppTheme.errorContainer),
         border: Border(
           top: BorderSide(
             color: !showVerdictColors
                 ? AppTheme.surfaceSubtle
-                : (result.isCorrect ? AppTheme.primaryGreen : AppTheme.primaryRed),
+                : (result.isCorrect
+                      ? AppTheme.primaryGreen
+                      : AppTheme.primaryRed),
             width: 2,
           ),
         ),
@@ -666,7 +700,9 @@ class _LearningScreenState extends State<LearningScreen>
                     fontFamily: 'Cairo',
                     fontSize: 22,
                     fontWeight: FontWeight.w900,
-                    color: result.isCorrect ? AppTheme.primaryGreenDeep : AppTheme.primaryRedDeep,
+                    color: result.isCorrect
+                        ? AppTheme.primaryGreenDeep
+                        : AppTheme.primaryRedDeep,
                   ),
                 ),
               ],
@@ -762,8 +798,7 @@ class _LearningScreenState extends State<LearningScreen>
     final isRetrying = provider.phase == LearningPhase.stepRetry;
     // Phase 8A — الوضع الصامت mutes the automatic verdict voice lines only;
     // haptics, confetti and the shake animation stay (they're not audio).
-    final autoAudio =
-        context.read<StudentSettingsProvider>().autoAudioEnabled;
+    final autoAudio = context.read<StudentSettingsProvider>().autoAudioEnabled;
 
     if (isCorrect) {
       HapticFeedback.mediumImpact();
@@ -776,7 +811,6 @@ class _LearningScreenState extends State<LearningScreen>
         _ttsService?.speakText('حاول مرة أخرى');
       }
     }
-
   }
 
   void _goNext(LearningProvider provider) {
@@ -796,8 +830,10 @@ class _LearningScreenState extends State<LearningScreen>
     setState(() => _isLoadingHint = true);
     try {
       final audioService = context.read<AudioApiService>();
-      final result =
-          await audioService.getHint(questionId, level: _hintLevel + 1);
+      final result = await audioService.getHint(
+        questionId,
+        level: _hintLevel + 1,
+      );
       setState(() {
         _currentHint = result['hint']?.toString();
         _hintLevel = (result['hintLevel'] as num?)?.toInt() ?? _hintLevel + 1;
@@ -819,19 +855,27 @@ class _LearningScreenState extends State<LearningScreen>
       builder: (ctx) => Directionality(
         textDirection: TextDirection.rtl,
         child: AlertDialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          title: const Text('الخروج من الدرس',
-              style:
-                  TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.bold)),
-          content: const Text('هل تريد الخروج؟ سيتم فقدان تقدمك.',
-              style: TextStyle(fontFamily: 'Cairo')),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          title: const Text(
+            'الخروج من الدرس',
+            style: TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.bold),
+          ),
+          content: const Text(
+            'هل تريد الخروج؟ سيتم فقدان تقدمك.',
+            style: TextStyle(fontFamily: 'Cairo'),
+          ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx),
-              child: const Text(AppStrings.actionContinue,
-                  style: TextStyle(
-                      fontFamily: 'Cairo', color: AppTheme.primaryGreen)),
+              child: const Text(
+                AppStrings.actionContinue,
+                style: TextStyle(
+                  fontFamily: 'Cairo',
+                  color: AppTheme.primaryGreen,
+                ),
+              ),
             ),
             ElevatedButton(
               onPressed: () {
@@ -840,14 +884,16 @@ class _LearningScreenState extends State<LearningScreen>
                 Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(
-                  backgroundColor: AppTheme.primaryRed),
-              child: const Text(AppStrings.actionExit,
-                  style: TextStyle(fontFamily: 'Cairo')),
+                backgroundColor: AppTheme.primaryRed,
+              ),
+              child: const Text(
+                AppStrings.actionExit,
+                style: TextStyle(fontFamily: 'Cairo'),
+              ),
             ),
           ],
         ),
       ),
     );
   }
-
 }

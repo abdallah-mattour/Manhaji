@@ -29,6 +29,9 @@ class FakeLocalStorage extends Fake implements LocalStorageService {
   int? getGradeLevel() => 1;
 
   @override
+  String? getUserAvatarId() => 'avatar-star';
+
+  @override
   bool get isSilentModeEnabled => silent;
 
   @override
@@ -67,6 +70,10 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('الوضع الصامت'), findsOneWidget);
+      expect(
+        find.byKey(const ValueKey('account-avatar-avatar-star')),
+        findsOneWidget,
+      );
       expect(
         find.text('إيقاف التشغيل التلقائي للصوت أثناء الدراسة'),
         findsOneWidget,

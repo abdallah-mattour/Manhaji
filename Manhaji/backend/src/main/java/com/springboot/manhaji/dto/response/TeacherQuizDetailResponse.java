@@ -1,5 +1,6 @@
 package com.springboot.manhaji.dto.response;
 
+import com.springboot.manhaji.entity.enums.QuizStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,5 +22,6 @@ public class TeacherQuizDetailResponse {
     private String lessonTitle;
     private Integer questionCount;
     private LocalDateTime createdAt;
+    private QuizStatus status;
     private List<QuestionBankItem> questions;
 }

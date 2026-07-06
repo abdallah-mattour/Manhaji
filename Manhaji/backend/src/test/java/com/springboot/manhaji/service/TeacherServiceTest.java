@@ -649,6 +649,7 @@ class TeacherServiceTest {
             assertThat(response.getSubjectId()).isEqualTo(100L);
             assertThat(response.getLessonId()).isEqualTo(200L);
             assertThat(response.getQuestionCount()).isEqualTo(2);
+            assertThat(response.getStatus()).isEqualTo(QuizStatus.DRAFT);
             assertThat(response.getQuestions()).hasSize(2);
         }
 
@@ -750,6 +751,60 @@ class TeacherServiceTest {
 
             assertThat(quizzes).isEmpty();
             verifyNoInteractions(quizRepository);
+        }
+
+        @Test
+        @DisplayName("teacher quiz list includes status and defaults legacy null to draft")
+        void teacherQuizListIncludesStatusAndDefaultsLegacyNullToDraft() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+            Quiz legacyQuiz = new Quiz();
+            legacyQuiz.setId(900L);
+            legacyQuiz.setTitle("Legacy teacher quiz");
+            legacyQuiz.setSubject(arabic);
+            legacyQuiz.setStatus(null);
+
+            Quiz archivedQuiz = new Quiz();
+            archivedQuiz.setId(901L);
+            archivedQuiz.setTitle("Archived teacher quiz");
+            archivedQuiz.setSubject(arabic);
+            archivedQuiz.setStatus(QuizStatus.ARCHIVED);
+
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+            when(quizRepository.findTeacherVisibleBySubjectIds(List.of(100L)))
+                    .thenReturn(List.of(legacyQuiz, archivedQuiz));
+
+            List<TeacherQuizSummaryResponse> quizzes = teacherService.getTeacherQuizzes(10L);
+
+            assertThat(quizzes).extracting(TeacherQuizSummaryResponse::getStatus)
+                    .containsExactly(QuizStatus.DRAFT, QuizStatus.ARCHIVED);
+            assertThat(legacyQuiz.getStatus()).isNull();
+        }
+
+        @Test
+        @DisplayName("teacher quiz detail includes status")
+        void teacherQuizDetailIncludesStatus() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+            Lesson lesson = createLesson(200L, arabic, "Lesson 1", 1);
+            Question q1 = createQuestion(500L, lesson, "Q1", 1);
+            Quiz quiz = new Quiz();
+            quiz.setId(900L);
+            quiz.setTitle("Published teacher quiz");
+            quiz.setSubject(arabic);
+            quiz.setStatus(QuizStatus.PUBLISHED);
+            quiz.setQuestions(new ArrayList<>(List.of(q1)));
+
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+            when(quizRepository.findByIdWithTeacherDetails(900L))
+                    .thenReturn(Optional.of(quiz));
+
+            TeacherQuizDetailResponse response = teacherService.getTeacherQuiz(10L, 900L);
+
+            assertThat(response.getStatus()).isEqualTo(QuizStatus.PUBLISHED);
+            assertThat(response.getQuestions()).hasSize(1);
         }
     }
 

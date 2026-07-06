@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../app/routes.dart';
 import '../../app/theme.dart';
 import '../../providers/auth_provider.dart';
+import '../../widgets/account_profile_actions.dart';
 import '../../widgets/staff_web_shell.dart';
 import 'admin_shell_navigation.dart';
 
@@ -119,7 +120,11 @@ class _SettingsBody extends StatelessWidget {
                     children: [
                       _ProfilePanel(auth: auth),
                       const SizedBox(height: AppTheme.space5),
-                      const _ComingSoonPanel(),
+                      AccountSettingsActions(
+                        keyPrefix: 'admin-settings',
+                        padding: const EdgeInsets.all(AppTheme.space6),
+                        decoration: _panelDecoration(),
+                      ),
                       const SizedBox(height: AppTheme.space5),
                       _LogoutPanel(
                         isLoggingOut: isLoggingOut,
@@ -161,23 +166,10 @@ class _ProfilePanel extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
-                width: 58,
-                height: 58,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: AppTheme.primaryPurple.withValues(alpha: 0.12),
-                  borderRadius: BorderRadius.circular(AppTheme.radiusM),
-                ),
-                child: Text(
-                  name.isNotEmpty ? name[0] : 'م',
-                  style: const TextStyle(
-                    fontFamily: 'Cairo',
-                    fontSize: 24,
-                    fontWeight: FontWeight.w900,
-                    color: AppTheme.primaryPurple,
-                  ),
-                ),
+              AccountAvatar(
+                avatarId: auth.userAvatarId,
+                fallbackLabel: name,
+                fallbackColor: AppTheme.primaryPurple,
               ),
               const SizedBox(width: AppTheme.space4),
               Expanded(
@@ -381,94 +373,6 @@ class _LogoutPanel extends StatelessWidget {
             ],
           );
         },
-      ),
-    );
-  }
-}
-
-class _ComingSoonPanel extends StatelessWidget {
-  const _ComingSoonPanel();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(AppTheme.space6),
-      decoration: _panelDecoration(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: const [
-          Text(
-            'إدارة الحساب',
-            style: TextStyle(
-              fontFamily: 'Cairo',
-              fontSize: 18,
-              fontWeight: FontWeight.w900,
-              color: AppTheme.textDark,
-            ),
-          ),
-          SizedBox(height: AppTheme.space4),
-          _DisabledSettingTile(
-            icon: Icons.edit_rounded,
-            title: 'تعديل الملف الشخصي',
-            subtitle: 'قريبًا',
-          ),
-          SizedBox(height: AppTheme.space3),
-          _DisabledSettingTile(
-            icon: Icons.lock_reset_rounded,
-            title: 'تغيير كلمة المرور',
-            subtitle: 'قريبًا',
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _DisabledSettingTile extends StatelessWidget {
-  const _DisabledSettingTile({
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-  });
-
-  final IconData icon;
-  final String title;
-  final String subtitle;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(AppTheme.space4),
-      decoration: BoxDecoration(
-        color: AppTheme.surfaceSubtle,
-        borderRadius: BorderRadius.circular(AppTheme.radiusM),
-        border: Border.all(color: AppTheme.surfaceMuted),
-      ),
-      child: Row(
-        children: [
-          Icon(icon, color: AppTheme.textLight),
-          const SizedBox(width: AppTheme.space3),
-          Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(
-                fontFamily: 'Cairo',
-                fontSize: 14,
-                fontWeight: FontWeight.w900,
-                color: AppTheme.textGray,
-              ),
-            ),
-          ),
-          Text(
-            subtitle,
-            style: const TextStyle(
-              fontFamily: 'Cairo',
-              fontSize: 12,
-              fontWeight: FontWeight.w800,
-              color: AppTheme.textLight,
-            ),
-          ),
-        ],
       ),
     );
   }

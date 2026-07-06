@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../app/routes.dart';
 import '../../app/theme.dart';
 import '../../providers/auth_provider.dart';
+import '../../widgets/account_profile_actions.dart';
 import '../../widgets/vibrant_background.dart';
 
 class ParentSettingsScreen extends StatefulWidget {
@@ -70,7 +71,10 @@ class _ParentSettingsScreenState extends State<ParentSettingsScreen> {
                 children: [
                   _ProfileCard(auth: auth),
                   const SizedBox(height: AppTheme.space4),
-                  const _AccountActionsCard(),
+                  AccountSettingsActions(
+                    keyPrefix: 'parent-settings',
+                    decoration: _cardDecoration(),
+                  ),
                   const SizedBox(height: AppTheme.space4),
                   _LogoutCard(isLoggingOut: _isLoggingOut, onLogout: _logout),
                 ],
@@ -102,23 +106,10 @@ class _ProfileCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
-                width: 58,
-                height: 58,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: AppTheme.primaryGreen.withValues(alpha: 0.12),
-                  borderRadius: BorderRadius.circular(AppTheme.radiusM),
-                ),
-                child: Text(
-                  name == _fallbackText ? 'و' : name.characters.first,
-                  style: const TextStyle(
-                    fontFamily: 'Cairo',
-                    fontSize: 24,
-                    fontWeight: FontWeight.w900,
-                    color: AppTheme.primaryGreen,
-                  ),
-                ),
+              AccountAvatar(
+                avatarId: auth.userAvatarId,
+                fallbackLabel: name == _fallbackText ? 'ولي أمر' : name,
+                fallbackColor: AppTheme.primaryGreen,
               ),
               const SizedBox(width: AppTheme.space4),
               const Expanded(
@@ -208,87 +199,6 @@ class _ProfileRow extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class _AccountActionsCard extends StatelessWidget {
-  const _AccountActionsCard();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(AppTheme.space5),
-      decoration: _cardDecoration(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: const [
-          Text(
-            'إدارة الحساب',
-            style: TextStyle(
-              fontFamily: 'Cairo',
-              fontSize: 18,
-              fontWeight: FontWeight.w900,
-              color: AppTheme.textDark,
-            ),
-          ),
-          SizedBox(height: AppTheme.space4),
-          _DisabledActionCard(
-            icon: Icons.edit_rounded,
-            title: 'تعديل الملف الشخصي',
-          ),
-          SizedBox(height: AppTheme.space3),
-          _DisabledActionCard(
-            icon: Icons.lock_reset_rounded,
-            title: 'تغيير كلمة المرور',
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _DisabledActionCard extends StatelessWidget {
-  const _DisabledActionCard({required this.icon, required this.title});
-
-  final IconData icon;
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(AppTheme.space4),
-      decoration: BoxDecoration(
-        color: AppTheme.surfaceSubtle,
-        borderRadius: BorderRadius.circular(AppTheme.radiusM),
-        border: Border.all(color: AppTheme.surfaceMuted),
-      ),
-      child: Row(
-        children: [
-          Icon(icon, color: AppTheme.textLight),
-          const SizedBox(width: AppTheme.space3),
-          Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(
-                fontFamily: 'Cairo',
-                fontSize: 14,
-                fontWeight: FontWeight.w900,
-                color: AppTheme.textGray,
-              ),
-            ),
-          ),
-          const Text(
-            'قريبًا',
-            style: TextStyle(
-              fontFamily: 'Cairo',
-              fontSize: 12,
-              fontWeight: FontWeight.w800,
-              color: AppTheme.textLight,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

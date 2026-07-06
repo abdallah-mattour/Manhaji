@@ -18,6 +18,7 @@ class AuthProvider extends ChangeNotifier {
   // Profile fields — populated by fetchProfile() via GET /auth/me.
   String? _userEmail;
   String? _userPhone;
+  String? _userAvatarId;
   bool _isProfileLoading = false;
   String? _profileError;
 
@@ -26,6 +27,7 @@ class AuthProvider extends ChangeNotifier {
     _userName = _storage.getUserName();
     _userRole = _storage.getUserRole();
     _userId = _storage.getUserId();
+    _userAvatarId = _storage.getUserAvatarId();
   }
 
   bool get isLoading => _isLoading;
@@ -36,6 +38,7 @@ class AuthProvider extends ChangeNotifier {
   int? get userId => _userId;
   String? get userEmail => _userEmail;
   String? get userPhone => _userPhone;
+  String? get userAvatarId => _userAvatarId;
   int? get userGradeLevel => _storage.getGradeLevel();
   bool get isProfileLoading => _isProfileLoading;
   String? get profileError => _profileError;
@@ -126,6 +129,7 @@ class AuthProvider extends ChangeNotifier {
     _userId = null;
     _userEmail = null;
     _userPhone = null;
+    _userAvatarId = null;
     notifyListeners();
   }
 
@@ -136,6 +140,7 @@ class AuthProvider extends ChangeNotifier {
       role: response.role,
       name: response.fullName,
       gradeLevel: response.gradeLevel,
+      avatarId: response.avatarId,
     );
     _isLoggedIn = true;
     _userName = response.fullName;
@@ -143,6 +148,7 @@ class AuthProvider extends ChangeNotifier {
     _userId = response.userId;
     _userEmail = response.email;
     _userPhone = response.phone;
+    _userAvatarId = response.avatarId;
   }
 
   Future<bool> changePassword({
@@ -172,6 +178,7 @@ class AuthProvider extends ChangeNotifier {
     required String fullName,
     String? email,
     String? phone,
+    String? avatarId,
   }) async {
     _isLoading = true;
     _errorMessage = null;
@@ -182,17 +189,11 @@ class AuthProvider extends ChangeNotifier {
         fullName: fullName,
         email: email,
         phone: phone,
+        avatarId: avatarId,
       );
       _applyProfile(response);
       _userName ??= fullName;
-      if (_userId != null && _userRole != null) {
-        await _storage.saveUserInfo(
-          userId: _userId!,
-          role: _userRole!,
-          name: _userName ?? fullName,
-          gradeLevel: _storage.getGradeLevel(),
-        );
-      }
+      await _persistLocalUserInfo(fallbackName: fullName);
       return true;
     } catch (e) {
       _errorMessage = extractError(e);
@@ -214,6 +215,7 @@ class AuthProvider extends ChangeNotifier {
     try {
       final response = await _authService.getCurrentUser();
       _applyProfile(response);
+      await _persistLocalUserInfo();
       _profileError = null;
     } catch (e) {
       _profileError = extractError(e);
@@ -229,5 +231,21 @@ class AuthProvider extends ChangeNotifier {
     _userRole = response.role.isEmpty ? _userRole : response.role;
     _userEmail = response.email;
     _userPhone = response.phone;
+    _userAvatarId = response.avatarId;
+  }
+
+  Future<void> _persistLocalUserInfo({String? fallbackName}) async {
+    if (_userId == null || _userRole == null) return;
+    final name = _userName?.trim().isNotEmpty == true
+        ? _userName!
+        : fallbackName;
+    if (name == null || name.trim().isEmpty) return;
+    await _storage.saveUserInfo(
+      userId: _userId!,
+      role: _userRole!,
+      name: name,
+      gradeLevel: _storage.getGradeLevel(),
+      avatarId: _userAvatarId,
+    );
   }
 }

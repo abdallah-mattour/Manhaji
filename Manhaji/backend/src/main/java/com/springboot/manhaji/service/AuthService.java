@@ -158,6 +158,10 @@ public class AuthService {
                 .orElseThrow(() -> new ResourceNotFoundException("User", userId));
     }
 
+    public AuthResponse getCurrentProfile(Long userId) {
+        return buildProfileResponse(getCurrentUser(userId));
+    }
+
     @Transactional
     public AuthResponse updateProfile(Long userId, UpdateProfileRequest request) {
         User user = userRepository.findById(userId)
@@ -183,24 +187,16 @@ public class AuthService {
             user.setPhone(request.getPhone());
         }
 
+        if (request.getAvatarId() != null) {
+            setAvatarId(user, request.getAvatarId());
+        }
+
         if (user.getEmail() == null && user.getPhone() == null) {
             throw new BadRequestException(messages.get("error.auth.emailOrPhoneRequired"));
         }
 
         User saved = userRepository.save(user);
-
-        AuthResponse.AuthResponseBuilder builder = AuthResponse.builder()
-                .userId(saved.getId())
-                .fullName(saved.getFullName())
-                .email(saved.getEmail())
-                .phone(saved.getPhone())
-                .role(saved.getRole());
-
-        if (saved instanceof Student student) {
-            builder.gradeLevel(student.getGradeLevel());
-        }
-
-        return builder.build();
+        return buildProfileResponse(saved);
     }
 
     @Transactional
@@ -240,19 +236,62 @@ public class AuthService {
         String accessToken = jwtService.generateAccessToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
 
-        AuthResponse.AuthResponseBuilder builder = AuthResponse.builder()
+        return baseAuthResponse(user)
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                .build();
+    }
+
+    private AuthResponse buildProfileResponse(User user) {
+        return baseAuthResponse(user).build();
+    }
+
+    private AuthResponse.AuthResponseBuilder baseAuthResponse(User user) {
+        AuthResponse.AuthResponseBuilder builder = AuthResponse.builder()
                 .userId(user.getId())
                 .fullName(user.getFullName())
                 .email(user.getEmail())
                 .phone(user.getPhone())
-                .role(user.getRole());
+                .role(user.getRole())
+                .avatarId(getAvatarId(user));
 
         if (user instanceof Student student) {
             builder.gradeLevel(student.getGradeLevel());
         }
 
-        return builder.build();
+        return builder;
+    }
+
+    private String getAvatarId(User user) {
+        if (user instanceof Student student) {
+            return student.getAvatarId();
+        }
+        if (user instanceof Teacher teacher) {
+            return teacher.getAvatarId();
+        }
+        if (user instanceof Parent parent) {
+            return parent.getAvatarId();
+        }
+        if (user instanceof Admin admin) {
+            return admin.getAvatarId();
+        }
+        return null;
+    }
+
+    private void setAvatarId(User user, String avatarId) {
+        String normalized = avatarId.trim();
+        if (normalized.isEmpty()) {
+            normalized = null;
+        }
+
+        if (user instanceof Student student) {
+            student.setAvatarId(normalized);
+        } else if (user instanceof Teacher teacher) {
+            teacher.setAvatarId(normalized);
+        } else if (user instanceof Parent parent) {
+            parent.setAvatarId(normalized);
+        } else if (user instanceof Admin admin) {
+            admin.setAvatarId(normalized);
+        }
     }
 }

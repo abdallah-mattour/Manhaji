@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../app/theme.dart';
 import '../../providers/auth_provider.dart';
+import '../../widgets/account_profile_actions.dart';
 import '../../widgets/duolingo_card.dart';
 import '../../widgets/error_state.dart';
 import '../../widgets/loading_state.dart';
@@ -26,17 +27,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   String _roleLabel(String? role) => switch (role) {
-        'TEACHER' => 'معلم',
-        'ADMIN' => 'مدير',
-        'PARENT' => 'ولي أمر',
-        _ => 'طالب',
-      };
+    'TEACHER' => 'معلم',
+    'ADMIN' => 'مدير',
+    'PARENT' => 'ولي أمر',
+    _ => 'طالب',
+  };
 
   String? _gradeLevelLabel(int? level) {
     if (level == null) return null;
     const labels = [
-      '', 'الأول', 'الثاني', 'الثالث', 'الرابع',
-      'الخامس', 'السادس', 'السابع', 'الثامن', 'التاسع', 'العاشر',
+      '',
+      'الأول',
+      'الثاني',
+      'الثالث',
+      'الرابع',
+      'الخامس',
+      'السادس',
+      'السابع',
+      'الثامن',
+      'التاسع',
+      'العاشر',
     ];
     if (level >= 1 && level < labels.length) return 'الصف ${labels[level]}';
     return 'الصف $level';
@@ -74,12 +84,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: loading
               ? const LoadingState()
               : hasError
-                  ? ErrorState(
-                      message: auth.profileError!,
-                      onRetry: () => auth.fetchProfile(),
-                      retryLabel: 'إعادة المحاولة',
-                    )
-                  : _buildProfile(auth),
+              ? ErrorState(
+                  message: auth.profileError!,
+                  onRetry: () => auth.fetchProfile(),
+                  retryLabel: 'إعادة المحاولة',
+                )
+              : _buildProfile(auth),
         ),
       ),
     );
@@ -93,14 +103,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Center(
           child: Column(
             children: [
-              CircleAvatar(
-                radius: 44,
-                backgroundColor: AppTheme.primaryGreen.withValues(alpha: 0.12),
-                child: const Icon(
-                  Icons.person_rounded,
-                  size: 50,
-                  color: AppTheme.primaryGreen,
-                ),
+              AccountAvatar(
+                avatarId: auth.userAvatarId,
+                fallbackLabel: auth.userName ?? 'طالب',
+                size: 88,
+                fallbackColor: AppTheme.primaryGreen,
+                borderRadius: AppTheme.radiusPill,
               ),
               const SizedBox(height: 14),
               Text(
@@ -202,8 +210,7 @@ class _InfoRow extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   value,
-                  textDirection:
-                      ltr ? TextDirection.ltr : TextDirection.rtl,
+                  textDirection: ltr ? TextDirection.ltr : TextDirection.rtl,
                   style: const TextStyle(
                     fontFamily: 'Cairo',
                     fontSize: 15,

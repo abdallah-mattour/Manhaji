@@ -16,6 +16,12 @@ public interface AttemptRepository extends JpaRepository<Attempt, Long> {
     List<Attempt> findByStudentIdAndQuizId(Long studentId, Long quizId);
     Optional<Attempt> findByStudentIdAndQuizIdAndStatus(Long studentId, Long quizId, AttemptStatus status);
     List<Attempt> findByStudentIdAndStatus(Long studentId, AttemptStatus status);
+    Optional<Attempt> findByStudentIdAndQuizAssignmentIdAndStatus(
+            Long studentId,
+            Long quizAssignmentId,
+            AttemptStatus status);
+    long countByStudentIdAndQuizAssignmentId(Long studentId, Long quizAssignmentId);
+    List<Attempt> findByQuizAssignmentIdOrderByCreatedAtDesc(Long quizAssignmentId);
 
     @Query("""
             SELECT a FROM Attempt a

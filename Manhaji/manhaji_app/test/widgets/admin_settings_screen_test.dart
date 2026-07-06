@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 
 class FakeLocalStorage extends Fake implements LocalStorageService {
   bool cleared = false;
+  String? savedAvatarId;
 
   @override
   bool get isLoggedIn => !cleared;
@@ -27,6 +28,20 @@ class FakeLocalStorage extends Fake implements LocalStorageService {
 
   @override
   int? getGradeLevel() => null;
+
+  @override
+  String? getUserAvatarId() => 'avatar-palette';
+
+  @override
+  Future<void> saveUserInfo({
+    required int userId,
+    required String role,
+    required String name,
+    int? gradeLevel,
+    String? avatarId,
+  }) async {
+    savedAvatarId = avatarId;
+  }
 
   @override
   Future<void> clearAll() async {
@@ -46,6 +61,7 @@ class FakeAuthService extends AuthService {
       fullName: 'مدير النظام',
       email: 'admin@example.com',
       role: 'ADMIN',
+      avatarId: 'avatar-palette',
     );
   }
 }
@@ -77,8 +93,13 @@ void main() {
     expect(find.text('admin@example.com'), findsOneWidget);
     expect(find.text('مشرف'), findsOneWidget);
     expect(find.text('تعديل الملف الشخصي'), findsOneWidget);
+    expect(find.text('الصورة الرمزية'), findsOneWidget);
     expect(find.text('تغيير كلمة المرور'), findsOneWidget);
-    expect(find.text('قريبًا'), findsNWidgets(2));
+    expect(find.text('قريبًا'), findsNothing);
+    expect(
+      find.byKey(const ValueKey('account-avatar-avatar-palette')),
+      findsOneWidget,
+    );
     expect(
       find.byKey(const ValueKey('admin-settings-logout-button')),
       findsOneWidget,

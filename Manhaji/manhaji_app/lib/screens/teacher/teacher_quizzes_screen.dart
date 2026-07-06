@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../app/routes.dart';
 import '../../app/theme.dart';
 import '../../models/question_bank.dart';
+import '../../models/teacher_dashboard.dart';
 import '../../models/teacher_quiz.dart';
 import '../../providers/teacher_provider.dart';
 import '../../widgets/error_state.dart';
@@ -226,6 +227,12 @@ class _QuizCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<TeacherProvider>();
+    final assignments = provider.quizAssignmentsFor(quiz.id);
+    final hasAssignments = assignments?.isNotEmpty ?? false;
+    final status = _effectiveStatus(quiz, hasAssignments);
+    final canPublish = status == _QuizUiStatus.draft;
+
     return Container(
       padding: const EdgeInsets.all(AppTheme.space5),
       decoration: _panelDecoration(),
@@ -268,6 +275,8 @@ class _QuizCard extends StatelessWidget {
                   ],
                 ),
               ),
+              const SizedBox(width: AppTheme.space2),
+              _StatusChip(status: status),
             ],
           ),
           const SizedBox(height: AppTheme.space4),
@@ -279,7 +288,6 @@ class _QuizCard extends StatelessWidget {
                 icon: Icons.help_outline_rounded,
                 label: '${quiz.questionCount} سؤال',
               ),
-              _InfoChip(icon: Icons.verified_rounded, label: 'محفوظ'),
               if (quiz.lessonTitle != null && quiz.lessonTitle!.isNotBlank)
                 _InfoChip(
                   icon: Icons.menu_book_rounded,
@@ -297,7 +305,61 @@ class _QuizCard extends StatelessWidget {
               color: AppTheme.textLight,
             ),
           ),
+          const SizedBox(height: AppTheme.space4),
+          Wrap(
+            alignment: WrapAlignment.end,
+            spacing: AppTheme.space2,
+            runSpacing: AppTheme.space2,
+            children: [
+              if (canPublish)
+                FilledButton.icon(
+                  key: Key('teacher_quiz_publish_${quiz.id}'),
+                  onPressed: () => _openPublishDialog(context),
+                  icon: const Icon(Icons.publish_rounded),
+                  label: const Text('نشر / تعيين'),
+                ),
+              OutlinedButton.icon(
+                key: Key('teacher_quiz_assignments_${quiz.id}'),
+                onPressed: () => _openAssignmentsDialog(context),
+                icon: const Icon(Icons.groups_rounded),
+                label: const Text('التعيينات'),
+              ),
+            ],
+          ),
         ],
+      ),
+    );
+  }
+
+  _QuizUiStatus _effectiveStatus(
+    TeacherQuizSummary quiz,
+    bool hasLoadedAssignments,
+  ) {
+    if (quiz.isArchived) return _QuizUiStatus.archived;
+    if (quiz.isPublished || hasLoadedAssignments) {
+      return _QuizUiStatus.published;
+    }
+    return _QuizUiStatus.draft;
+  }
+
+  void _openPublishDialog(BuildContext context) {
+    final provider = context.read<TeacherProvider>();
+    showDialog<void>(
+      context: context,
+      builder: (_) => ChangeNotifierProvider.value(
+        value: provider,
+        child: _PublishQuizDialog(quiz: quiz),
+      ),
+    );
+  }
+
+  void _openAssignmentsDialog(BuildContext context) {
+    final provider = context.read<TeacherProvider>();
+    showDialog<void>(
+      context: context,
+      builder: (_) => ChangeNotifierProvider.value(
+        value: provider,
+        child: _QuizAssignmentsDialog(quiz: quiz),
       ),
     );
   }
@@ -489,6 +551,904 @@ class _CreateTeacherQuizDialogState extends State<_CreateTeacherQuizDialog> {
     );
     if (!mounted) return;
     if (ok) Navigator.of(context).pop();
+  }
+}
+
+enum _AssignmentMode { allVisible, selectedStudents }
+
+enum _DeadlineChoice { hours24, hours48, custom }
+
+class _PublishQuizDialog extends StatefulWidget {
+  const _PublishQuizDialog({required this.quiz});
+
+  final TeacherQuizSummary quiz;
+
+  @override
+  State<_PublishQuizDialog> createState() => _PublishQuizDialogState();
+}
+
+class _PublishQuizDialogState extends State<_PublishQuizDialog> {
+  final TextEditingController _maxAttemptsController = TextEditingController(
+    text: '1',
+  );
+  final Set<int> _selectedStudentIds = <int>{};
+  _AssignmentMode _mode = _AssignmentMode.allVisible;
+  _DeadlineChoice _deadline = _DeadlineChoice.hours24;
+  DateTime? _customDueAt;
+  String? _localError;
+
+  @override
+  void dispose() {
+    _maxAttemptsController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Dialog(
+        insetPadding: const EdgeInsets.all(AppTheme.space5),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 680, maxHeight: 760),
+          child: Consumer<TeacherProvider>(
+            builder: (context, provider, _) {
+              final subject = _subjectForQuiz(
+                provider.assignedSubjects ?? const [],
+                widget.quiz,
+              );
+              final gradeLevel = subject?.gradeLevel;
+              final students = _studentsForGrade(
+                provider.students ?? const [],
+                gradeLevel,
+              );
+              final canPublish =
+                  !provider.isPublishingTeacherQuiz &&
+                  gradeLevel != null &&
+                  _validMaxAttempts != null &&
+                  (_mode == _AssignmentMode.allVisible ||
+                      _selectedStudentIds.isNotEmpty) &&
+                  (_deadline != _DeadlineChoice.custom || _customDueAt != null);
+
+              return Column(
+                children: [
+                  _PublishDialogHeader(
+                    onClose: () => Navigator.of(context).pop(),
+                  ),
+                  Expanded(
+                    child: ListView(
+                      padding: const EdgeInsets.all(AppTheme.space5),
+                      children: [
+                        _PublishQuizSummary(
+                          quiz: widget.quiz,
+                          gradeLevel: gradeLevel,
+                        ),
+                        const SizedBox(height: AppTheme.space4),
+                        _PublishSection(
+                          title: 'طريقة التعيين',
+                          child: Column(
+                            children: [
+                              _ChoiceTile<_AssignmentMode>(
+                                key: const Key('teacher_quiz_assign_all_radio'),
+                                value: _AssignmentMode.allVisible,
+                                selected: _mode == _AssignmentMode.allVisible,
+                                enabled: !provider.isPublishingTeacherQuiz,
+                                onSelected: _setMode,
+                                title: 'كل الطلاب المتاحين',
+                                subtitle:
+                                    'سيتم تعيين الاختبار لجميع الطلاب المتاحين ضمن نطاق المادة والصف',
+                              ),
+                              _ChoiceTile<_AssignmentMode>(
+                                key: const Key(
+                                  'teacher_quiz_assign_selected_radio',
+                                ),
+                                value: _AssignmentMode.selectedStudents,
+                                selected:
+                                    _mode == _AssignmentMode.selectedStudents,
+                                enabled: !provider.isPublishingTeacherQuiz,
+                                onSelected: _setMode,
+                                title: 'طلاب محددون',
+                                subtitle: 'اختر من الطلاب المتاحين لهذا المعلم',
+                              ),
+                              if (_mode == _AssignmentMode.selectedStudents)
+                                _StudentSelectionPanel(
+                                  isLoading:
+                                      provider.isLoading &&
+                                      provider.students == null,
+                                  error: provider.error,
+                                  students: students,
+                                  selectedIds: _selectedStudentIds,
+                                  onToggle: _toggleStudent,
+                                ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: AppTheme.space4),
+                        _PublishSection(
+                          title: 'موعد التسليم',
+                          child: Column(
+                            children: [
+                              _ChoiceTile<_DeadlineChoice>(
+                                key: const Key('teacher_quiz_due_24_radio'),
+                                value: _DeadlineChoice.hours24,
+                                selected: _deadline == _DeadlineChoice.hours24,
+                                enabled: !provider.isPublishingTeacherQuiz,
+                                onSelected: _setDeadline,
+                                title: 'خلال 24 ساعة',
+                              ),
+                              _ChoiceTile<_DeadlineChoice>(
+                                key: const Key('teacher_quiz_due_48_radio'),
+                                value: _DeadlineChoice.hours48,
+                                selected: _deadline == _DeadlineChoice.hours48,
+                                enabled: !provider.isPublishingTeacherQuiz,
+                                onSelected: _setDeadline,
+                                title: 'خلال 48 ساعة',
+                              ),
+                              _ChoiceTile<_DeadlineChoice>(
+                                key: const Key('teacher_quiz_due_custom_radio'),
+                                value: _DeadlineChoice.custom,
+                                selected: _deadline == _DeadlineChoice.custom,
+                                enabled: !provider.isPublishingTeacherQuiz,
+                                onSelected: _setDeadline,
+                                title: 'تاريخ مخصص',
+                              ),
+                              if (_deadline == _DeadlineChoice.custom)
+                                Align(
+                                  alignment: AlignmentDirectional.centerStart,
+                                  child: OutlinedButton.icon(
+                                    key: const Key(
+                                      'teacher_quiz_custom_due_button',
+                                    ),
+                                    onPressed: provider.isPublishingTeacherQuiz
+                                        ? null
+                                        : _pickCustomDueDate,
+                                    icon: const Icon(
+                                      Icons.calendar_month_rounded,
+                                    ),
+                                    label: Text(
+                                      _customDueAt == null
+                                          ? 'اختيار التاريخ'
+                                          : _formatDate(
+                                              _customDueAt!.toIso8601String(),
+                                            ),
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: AppTheme.space4),
+                        _PublishSection(
+                          title: 'عدد المحاولات',
+                          child: TextField(
+                            key: const Key('teacher_quiz_max_attempts_field'),
+                            controller: _maxAttemptsController,
+                            enabled: !provider.isPublishingTeacherQuiz,
+                            keyboardType: TextInputType.number,
+                            onChanged: (_) =>
+                                setState(() => _localError = null),
+                            decoration: const InputDecoration(
+                              labelText: 'الحد الأقصى للمحاولات',
+                              prefixIcon: Icon(Icons.repeat_rounded),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  _PublishDialogActions(
+                    canPublish: canPublish,
+                    isPublishing: provider.isPublishingTeacherQuiz,
+                    error: _localError ?? provider.publishTeacherQuizError,
+                    onCancel: () => Navigator.of(context).pop(),
+                    onPublish: () => _publish(provider, gradeLevel),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  int? get _validMaxAttempts {
+    final value = int.tryParse(_maxAttemptsController.text.trim());
+    if (value == null || value <= 0) return null;
+    return value;
+  }
+
+  DateTime? get _dueAt {
+    final now = DateTime.now();
+    return switch (_deadline) {
+      _DeadlineChoice.hours24 => now.add(const Duration(hours: 24)),
+      _DeadlineChoice.hours48 => now.add(const Duration(hours: 48)),
+      _DeadlineChoice.custom => _customDueAt,
+    };
+  }
+
+  void _setMode(_AssignmentMode? value) {
+    if (value == null) return;
+    setState(() {
+      _mode = value;
+      _localError = null;
+    });
+    if (value == _AssignmentMode.selectedStudents) {
+      context.read<TeacherProvider>().loadStudents();
+    }
+  }
+
+  void _setDeadline(_DeadlineChoice? value) {
+    if (value == null) return;
+    setState(() {
+      _deadline = value;
+      _localError = null;
+    });
+  }
+
+  void _toggleStudent(int studentId) {
+    setState(() {
+      if (_selectedStudentIds.contains(studentId)) {
+        _selectedStudentIds.remove(studentId);
+      } else {
+        _selectedStudentIds.add(studentId);
+      }
+      _localError = null;
+    });
+  }
+
+  Future<void> _pickCustomDueDate() async {
+    final now = DateTime.now();
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: now.add(const Duration(days: 1)),
+      firstDate: now,
+      lastDate: now.add(const Duration(days: 365)),
+    );
+    if (!mounted || picked == null) return;
+    setState(() {
+      _customDueAt = DateTime(picked.year, picked.month, picked.day, 23, 59);
+      _localError = null;
+    });
+  }
+
+  Future<void> _publish(TeacherProvider provider, int? gradeLevel) async {
+    if (gradeLevel == null) {
+      setState(() => _localError = 'تعذر تحديد صف المادة لهذا الاختبار');
+      return;
+    }
+    final maxAttempts = _validMaxAttempts;
+    if (maxAttempts == null) {
+      setState(() => _localError = 'أدخل عدد محاولات صحيح');
+      return;
+    }
+    if (_mode == _AssignmentMode.selectedStudents &&
+        _selectedStudentIds.isEmpty) {
+      setState(() => _localError = 'اختر طالبًا واحدًا على الأقل');
+      return;
+    }
+    final dueAt = _dueAt;
+    if (dueAt == null) {
+      setState(() => _localError = 'اختر موعد التسليم');
+      return;
+    }
+
+    final messenger = ScaffoldMessenger.of(context);
+    final navigator = Navigator.of(context);
+    final ok = await provider.publishTeacherQuiz(
+      quizId: widget.quiz.id,
+      gradeLevel: gradeLevel,
+      dueAt: dueAt,
+      maxAttempts: maxAttempts,
+      studentIds: _mode == _AssignmentMode.selectedStudents
+          ? _selectedStudentIds.toList()
+          : null,
+    );
+    if (!mounted) return;
+    if (ok) {
+      navigator.pop();
+      messenger.showSnackBar(
+        const SnackBar(content: Text('تم نشر الاختبار بنجاح')),
+      );
+    }
+  }
+}
+
+class _PublishDialogHeader extends StatelessWidget {
+  const _PublishDialogHeader({required this.onClose});
+
+  final VoidCallback onClose;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppTheme.space5,
+        vertical: AppTheme.space4,
+      ),
+      decoration: const BoxDecoration(
+        border: Border(bottom: BorderSide(color: AppTheme.surfaceMuted)),
+      ),
+      child: Row(
+        children: [
+          const Expanded(
+            child: Text(
+              'نشر الاختبار للطلاب',
+              style: TextStyle(
+                fontFamily: 'Cairo',
+                fontSize: 20,
+                fontWeight: FontWeight.w900,
+                color: AppTheme.textDark,
+              ),
+            ),
+          ),
+          IconButton(
+            tooltip: 'إغلاق',
+            onPressed: onClose,
+            icon: const Icon(Icons.close_rounded),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PublishQuizSummary extends StatelessWidget {
+  const _PublishQuizSummary({required this.quiz, required this.gradeLevel});
+
+  final TeacherQuizSummary quiz;
+  final int? gradeLevel;
+
+  @override
+  Widget build(BuildContext context) {
+    final grade = gradeLevel;
+    return Container(
+      padding: const EdgeInsets.all(AppTheme.space4),
+      decoration: BoxDecoration(
+        color: AppTheme.surfaceSubtle,
+        borderRadius: BorderRadius.circular(AppTheme.radiusM),
+        border: Border.all(color: AppTheme.surfaceMuted),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            quiz.title.isEmpty ? 'اختبار بدون عنوان' : quiz.title,
+            style: const TextStyle(
+              fontFamily: 'Cairo',
+              fontSize: 16,
+              fontWeight: FontWeight.w900,
+              color: AppTheme.textDark,
+            ),
+          ),
+          const SizedBox(height: AppTheme.space2),
+          Wrap(
+            spacing: AppTheme.space2,
+            runSpacing: AppTheme.space2,
+            children: [
+              _InfoChip(
+                icon: Icons.menu_book_rounded,
+                label: _fallback(quiz.subjectName),
+              ),
+              _InfoChip(
+                icon: Icons.school_rounded,
+                label: grade == null ? 'الصف غير متوفر' : _gradeLabel(grade),
+              ),
+              _InfoChip(
+                icon: Icons.help_outline_rounded,
+                label: '${quiz.questionCount} سؤال',
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PublishSection extends StatelessWidget {
+  const _PublishSection({required this.title, required this.child});
+
+  final String title;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(AppTheme.space4),
+      decoration: _panelDecoration(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontFamily: 'Cairo',
+              fontSize: 15,
+              fontWeight: FontWeight.w900,
+              color: AppTheme.textDark,
+            ),
+          ),
+          const SizedBox(height: AppTheme.space3),
+          child,
+        ],
+      ),
+    );
+  }
+}
+
+class _ChoiceTile<T> extends StatelessWidget {
+  const _ChoiceTile({
+    super.key,
+    required this.value,
+    required this.selected,
+    required this.enabled,
+    required this.onSelected,
+    required this.title,
+    this.subtitle,
+  });
+
+  final T value;
+  final bool selected;
+  final bool enabled;
+  final ValueChanged<T?> onSelected;
+  final String title;
+  final String? subtitle;
+
+  @override
+  Widget build(BuildContext context) {
+    final color = selected ? AppTheme.primaryTerracotta : AppTheme.textGray;
+    return InkWell(
+      onTap: enabled ? () => onSelected(value) : null,
+      borderRadius: BorderRadius.circular(AppTheme.radiusM),
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppTheme.space3,
+          vertical: AppTheme.space2,
+        ),
+        decoration: BoxDecoration(
+          color: selected
+              ? AppTheme.primaryTerracotta.withValues(alpha: 0.08)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(AppTheme.radiusM),
+          border: Border.all(
+            color: selected
+                ? AppTheme.primaryTerracotta.withValues(alpha: 0.35)
+                : Colors.transparent,
+          ),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(
+              selected
+                  ? Icons.radio_button_checked_rounded
+                  : Icons.radio_button_off_rounded,
+              color: enabled ? color : AppTheme.textLight,
+            ),
+            const SizedBox(width: AppTheme.space3),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontFamily: 'Cairo',
+                      fontWeight: FontWeight.w900,
+                      color: enabled ? AppTheme.textDark : AppTheme.textLight,
+                    ),
+                  ),
+                  if (subtitle != null) ...[
+                    const SizedBox(height: AppTheme.space1),
+                    Text(
+                      subtitle!,
+                      style: TextStyle(
+                        fontFamily: 'Cairo',
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: enabled ? AppTheme.textGray : AppTheme.textLight,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _StudentSelectionPanel extends StatelessWidget {
+  const _StudentSelectionPanel({
+    required this.isLoading,
+    required this.error,
+    required this.students,
+    required this.selectedIds,
+    required this.onToggle,
+  });
+
+  final bool isLoading;
+  final String? error;
+  final List<ClassStudentSummary> students;
+  final Set<int> selectedIds;
+  final ValueChanged<int> onToggle;
+
+  @override
+  Widget build(BuildContext context) {
+    if (isLoading) {
+      return const Padding(
+        padding: EdgeInsets.all(AppTheme.space4),
+        child: Center(child: CircularProgressIndicator()),
+      );
+    }
+    if (error != null) {
+      return Padding(
+        padding: const EdgeInsets.all(AppTheme.space3),
+        child: Text(
+          error!,
+          style: const TextStyle(
+            fontFamily: 'Cairo',
+            fontWeight: FontWeight.w700,
+            color: AppTheme.error,
+          ),
+        ),
+      );
+    }
+    if (students.isEmpty) {
+      return const Padding(
+        padding: EdgeInsets.all(AppTheme.space3),
+        child: Text(
+          'لا توجد بيانات طلاب متاحة لهذا الصف',
+          style: TextStyle(
+            fontFamily: 'Cairo',
+            fontWeight: FontWeight.w700,
+            color: AppTheme.textGray,
+          ),
+        ),
+      );
+    }
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxHeight: 220),
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: students.length,
+        itemBuilder: (context, index) {
+          final student = students[index];
+          return CheckboxListTile(
+            value: selectedIds.contains(student.studentId),
+            onChanged: (_) => onToggle(student.studentId),
+            title: Text(student.fullName),
+            subtitle: Text(_gradeLabel(student.gradeLevel)),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _PublishDialogActions extends StatelessWidget {
+  const _PublishDialogActions({
+    required this.canPublish,
+    required this.isPublishing,
+    required this.error,
+    required this.onCancel,
+    required this.onPublish,
+  });
+
+  final bool canPublish;
+  final bool isPublishing;
+  final String? error;
+  final VoidCallback onCancel;
+  final VoidCallback onPublish;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(AppTheme.space4),
+      decoration: const BoxDecoration(
+        border: Border(top: BorderSide(color: AppTheme.surfaceMuted)),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              error ?? '',
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontFamily: 'Cairo',
+                fontWeight: FontWeight.w700,
+                color: AppTheme.error,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: isPublishing ? null : onCancel,
+            child: const Text('إلغاء'),
+          ),
+          const SizedBox(width: AppTheme.space3),
+          FilledButton.icon(
+            key: const Key('teacher_quiz_publish_submit'),
+            onPressed: canPublish ? onPublish : null,
+            icon: isPublishing
+                ? const SizedBox(
+                    width: 18,
+                    height: 18,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : const Icon(Icons.publish_rounded),
+            label: Text(isPublishing ? 'جار النشر' : 'نشر الاختبار'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _QuizAssignmentsDialog extends StatefulWidget {
+  const _QuizAssignmentsDialog({required this.quiz});
+
+  final TeacherQuizSummary quiz;
+
+  @override
+  State<_QuizAssignmentsDialog> createState() => _QuizAssignmentsDialogState();
+}
+
+class _QuizAssignmentsDialogState extends State<_QuizAssignmentsDialog> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      context.read<TeacherProvider>().loadQuizAssignments(widget.quiz.id);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Dialog(
+        insetPadding: const EdgeInsets.all(AppTheme.space5),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 760, maxHeight: 720),
+          child: Consumer<TeacherProvider>(
+            builder: (context, provider, _) {
+              final isLoading = provider.isLoadingQuizAssignments(
+                widget.quiz.id,
+              );
+              final error = provider.quizAssignmentsErrorFor(widget.quiz.id);
+              final assignments =
+                  provider.quizAssignmentsFor(widget.quiz.id) ??
+                  const <TeacherQuizAssignment>[];
+
+              return Column(
+                children: [
+                  _AssignmentsDialogHeader(
+                    title: widget.quiz.title,
+                    onClose: () => Navigator.of(context).pop(),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(AppTheme.space5),
+                      child: _AssignmentsBody(
+                        isLoading: isLoading,
+                        error: error,
+                        assignments: assignments,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _AssignmentsDialogHeader extends StatelessWidget {
+  const _AssignmentsDialogHeader({required this.title, required this.onClose});
+
+  final String title;
+  final VoidCallback onClose;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppTheme.space5,
+        vertical: AppTheme.space4,
+      ),
+      decoration: const BoxDecoration(
+        border: Border(bottom: BorderSide(color: AppTheme.surfaceMuted)),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'تعيينات الاختبار',
+                  style: TextStyle(
+                    fontFamily: 'Cairo',
+                    fontSize: 20,
+                    fontWeight: FontWeight.w900,
+                    color: AppTheme.textDark,
+                  ),
+                ),
+                const SizedBox(height: AppTheme.space1),
+                Text(
+                  title.isEmpty ? 'اختبار بدون عنوان' : title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontFamily: 'Cairo',
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: AppTheme.textGray,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          IconButton(
+            tooltip: 'إغلاق',
+            onPressed: onClose,
+            icon: const Icon(Icons.close_rounded),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _AssignmentsBody extends StatelessWidget {
+  const _AssignmentsBody({
+    required this.isLoading,
+    required this.error,
+    required this.assignments,
+  });
+
+  final bool isLoading;
+  final String? error;
+  final List<TeacherQuizAssignment> assignments;
+
+  @override
+  Widget build(BuildContext context) {
+    if (isLoading && assignments.isEmpty) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    if (error != null && assignments.isEmpty) {
+      return _InlineEmptyState(
+        icon: Icons.error_outline_rounded,
+        message: error!,
+      );
+    }
+    if (assignments.isEmpty) {
+      return const _InlineEmptyState(
+        icon: Icons.inbox_rounded,
+        message: 'لا توجد تعيينات لهذا الاختبار',
+      );
+    }
+    return ListView.separated(
+      itemCount: assignments.length,
+      separatorBuilder: (context, index) =>
+          const SizedBox(height: AppTheme.space4),
+      itemBuilder: (context, index) {
+        return _AssignmentCard(assignment: assignments[index]);
+      },
+    );
+  }
+}
+
+class _AssignmentCard extends StatelessWidget {
+  const _AssignmentCard({required this.assignment});
+
+  final TeacherQuizAssignment assignment;
+
+  @override
+  Widget build(BuildContext context) {
+    final provider = context.watch<TeacherProvider>();
+    final results = provider.assignmentResultsFor(assignment.assignmentId);
+    final isLoadingResults = provider.isLoadingAssignmentResults(
+      assignment.assignmentId,
+    );
+    final resultsError = provider.assignmentResultsErrorFor(
+      assignment.assignmentId,
+    );
+
+    return Container(
+      padding: const EdgeInsets.all(AppTheme.space4),
+      decoration: _panelDecoration(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Wrap(
+            spacing: AppTheme.space2,
+            runSpacing: AppTheme.space2,
+            children: [
+              _InfoChip(
+                icon: Icons.group_rounded,
+                label: '${assignment.assignedCount} طالب',
+              ),
+              _InfoChip(
+                icon: Icons.publish_rounded,
+                label: 'نشر: ${_formatDate(assignment.publishedAt)}',
+              ),
+              _InfoChip(
+                icon: Icons.event_rounded,
+                label: 'التسليم: ${_formatDate(assignment.dueAt)}',
+              ),
+              _InfoChip(
+                icon: Icons.repeat_rounded,
+                label: 'المحاولات: ${assignment.maxAttempts ?? 1}',
+              ),
+              _InfoChip(
+                icon: Icons.verified_rounded,
+                label: _assignmentStatusLabel(assignment.status),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppTheme.space3),
+          Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: OutlinedButton.icon(
+              onPressed: isLoadingResults
+                  ? null
+                  : () => context.read<TeacherProvider>().loadAssignmentResults(
+                      assignment.assignmentId,
+                    ),
+              icon: isLoadingResults
+                  ? const SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Icon(Icons.analytics_rounded),
+              label: const Text('عرض النتائج'),
+            ),
+          ),
+          if (resultsError != null) ...[
+            const SizedBox(height: AppTheme.space2),
+            Text(
+              resultsError,
+              style: const TextStyle(
+                fontFamily: 'Cairo',
+                fontWeight: FontWeight.w700,
+                color: AppTheme.error,
+              ),
+            ),
+          ],
+          if (results != null) ...[
+            const SizedBox(height: AppTheme.space3),
+            Wrap(
+              spacing: AppTheme.space2,
+              runSpacing: AppTheme.space2,
+              children: [
+                _InfoChip(
+                  icon: Icons.groups_rounded,
+                  label: 'عدد الطلاب ${results.assignedCount}',
+                ),
+                _InfoChip(
+                  icon: Icons.check_circle_rounded,
+                  label: 'المكتملون ${results.completedCount}',
+                ),
+                _InfoChip(
+                  icon: Icons.percent_rounded,
+                  label: 'متوسط النتيجة ${_scoreLabel(results.averageScore)}',
+                ),
+              ],
+            ),
+          ],
+        ],
+      ),
+    );
   }
 }
 
@@ -1014,6 +1974,62 @@ class _InlineEmptyState extends StatelessWidget {
   }
 }
 
+enum _QuizUiStatus { draft, published, archived }
+
+class _StatusChip extends StatelessWidget {
+  const _StatusChip({required this.status});
+
+  final _QuizUiStatus status;
+
+  @override
+  Widget build(BuildContext context) {
+    final (label, color, icon) = switch (status) {
+      _QuizUiStatus.draft => (
+        'مسودة',
+        AppTheme.primaryOrange,
+        Icons.edit_note_rounded,
+      ),
+      _QuizUiStatus.published => (
+        'منشور',
+        AppTheme.primaryGreen,
+        Icons.verified_rounded,
+      ),
+      _QuizUiStatus.archived => (
+        'مؤرشف',
+        AppTheme.textGray,
+        Icons.archive_rounded,
+      ),
+    };
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppTheme.space3,
+        vertical: AppTheme.space2,
+      ),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.10),
+        borderRadius: BorderRadius.circular(AppTheme.radiusPill),
+        border: Border.all(color: color.withValues(alpha: 0.28)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 16, color: color),
+          const SizedBox(width: AppTheme.space1),
+          Text(
+            label,
+            style: TextStyle(
+              fontFamily: 'Cairo',
+              fontSize: 12,
+              fontWeight: FontWeight.w900,
+              color: color,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _InfoChip extends StatelessWidget {
   const _InfoChip({required this.icon, required this.label});
 
@@ -1100,6 +2116,37 @@ String _formatDate(String? value) {
 }
 
 String _two(int value) => value.toString().padLeft(2, '0');
+
+SubjectSummary? _subjectForQuiz(
+  List<SubjectSummary> subjects,
+  TeacherQuizSummary quiz,
+) {
+  for (final subject in subjects) {
+    if (subject.id == quiz.subjectId) return subject;
+  }
+  return null;
+}
+
+List<ClassStudentSummary> _studentsForGrade(
+  List<ClassStudentSummary> students,
+  int? gradeLevel,
+) {
+  if (gradeLevel == null) return students;
+  return students.where((student) => student.gradeLevel == gradeLevel).toList();
+}
+
+String _assignmentStatusLabel(String status) {
+  return switch (status.toUpperCase()) {
+    'PUBLISHED' => 'منشور',
+    'CLOSED' => 'مغلق',
+    _ => status,
+  };
+}
+
+String _scoreLabel(double? value) {
+  if (value == null) return 'غير متوفر';
+  return '${value.toStringAsFixed(1)}%';
+}
 
 String _questionTypeLabel(String type) {
   return switch (type) {

@@ -6,4 +6,5 @@ class AppConstants {
   static const String userRoleKey = 'user_role';
   static const String userNameKey = 'user_name';
   static const String gradeKey = 'grade_level';
+  static const String avatarIdKey = 'avatar_id';
 }

@@ -10,6 +10,7 @@ class FakeApiService extends ApiService {
   final Map<String, Map<String, dynamic>> getResponses = {};
   final Map<String, Map<String, dynamic>> postResponses = {};
   final Map<String, Map<String, dynamic>> patchResponses = {};
+  final List<Map<String, dynamic>> patchPayloads = [];
   final List<String> putCalls = [];
 
   FakeApiService() : super(FakeLocalStorage());
@@ -35,6 +36,7 @@ class FakeApiService extends ApiService {
     String path, {
     Map<String, dynamic>? data,
   }) async {
+    patchPayloads.add({'path': path, 'data': data ?? const {}});
     return patchResponses[path] ?? const {'data': null};
   }
 
@@ -102,6 +104,7 @@ void main() {
             'fullName': 'طالب',
             'email': 'student@test.com',
             'role': 'STUDENT',
+            'avatarId': 'avatar-book',
           },
         };
 
@@ -110,6 +113,7 @@ void main() {
         expect(response.hasTokens, false);
         expect(response.userId, 9);
         expect(response.email, 'student@test.com');
+        expect(response.avatarId, 'avatar-book');
       },
     );
 
@@ -120,16 +124,29 @@ void main() {
           'fullName': 'اسم جديد',
           'phone': '0590000000',
           'role': 'STUDENT',
+          'avatarId': 'avatar-star',
         },
       };
 
       final response = await service.updateProfile(
         fullName: 'اسم جديد',
         phone: '0590000000',
+        avatarId: 'avatar-star',
       );
 
       expect(response.fullName, 'اسم جديد');
       expect(response.phone, '0590000000');
+      expect(response.avatarId, 'avatar-star');
+      expect(api.patchPayloads, [
+        {
+          'path': ApiConfig.updateProfile,
+          'data': {
+            'fullName': 'اسم جديد',
+            'phone': '0590000000',
+            'avatarId': 'avatar-star',
+          },
+        },
+      ]);
     });
 
     test('changePassword calls the configured endpoint', () async {

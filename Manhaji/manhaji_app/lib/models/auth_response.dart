@@ -37,6 +37,7 @@ class AuthResponse {
   final String? phone;
   final String role;
   final int? gradeLevel;
+  final String? avatarId;
 
   AuthResponse({
     required this.accessToken,
@@ -47,6 +48,7 @@ class AuthResponse {
     this.phone,
     required this.role,
     this.gradeLevel,
+    this.avatarId,
   });
 
   bool get hasTokens => accessToken.isNotEmpty && refreshToken.isNotEmpty;
@@ -64,6 +66,7 @@ class AuthResponse {
       gradeLevel: data.containsKey('gradeLevel')
           ? _asInt(data['gradeLevel'])
           : null,
+      avatarId: _asOptionalString(data['avatarId']),
     );
   }
 }

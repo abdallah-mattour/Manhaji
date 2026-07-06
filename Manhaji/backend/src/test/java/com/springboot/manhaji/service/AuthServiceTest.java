@@ -624,6 +624,77 @@ class AuthServiceTest {
         }
 
         @Test
+        @DisplayName("should update student avatarId when provided")
+        void updateStudentAvatarId() {
+            Student student = new Student();
+            student.setId(11L);
+            student.setFullName("طالبة");
+            student.setEmail("student-avatar@test.com");
+            student.setRole(Role.STUDENT);
+            student.setGradeLevel(2);
+
+            when(userRepository.findById(11L)).thenReturn(Optional.of(student));
+            when(userRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+            UpdateProfileRequest request = new UpdateProfileRequest();
+            request.setFullName("طالبة");
+            request.setAvatarId("avatar-book");
+
+            AuthResponse response = authService.updateProfile(11L, request);
+
+            assertThat(response.getAvatarId()).isEqualTo("avatar-book");
+            assertThat(response.getGradeLevel()).isEqualTo(2);
+            verify(userRepository).save(argThat(u ->
+                    u instanceof Student saved && "avatar-book".equals(saved.getAvatarId())));
+        }
+
+        @Test
+        @DisplayName("should update teacher avatarId without changing role")
+        void updateTeacherAvatarId() {
+            Teacher teacher = new Teacher();
+            teacher.setId(12L);
+            teacher.setFullName("معلمة");
+            teacher.setEmail("teacher-avatar@test.com");
+            teacher.setRole(Role.TEACHER);
+
+            when(userRepository.findById(12L)).thenReturn(Optional.of(teacher));
+            when(userRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+            UpdateProfileRequest request = new UpdateProfileRequest();
+            request.setAvatarId("avatar-star");
+
+            AuthResponse response = authService.updateProfile(12L, request);
+
+            assertThat(response.getRole()).isEqualTo(Role.TEACHER);
+            assertThat(response.getAvatarId()).isEqualTo("avatar-star");
+            verify(userRepository).save(argThat(u ->
+                    u instanceof Teacher saved && "avatar-star".equals(saved.getAvatarId())));
+        }
+
+        @Test
+        @DisplayName("blank avatarId clears safely to null")
+        void blankAvatarClearsToNull() {
+            Parent parent = new Parent();
+            parent.setId(13L);
+            parent.setFullName("ولي أمر");
+            parent.setEmail("parent-avatar@test.com");
+            parent.setRole(Role.PARENT);
+            parent.setAvatarId("avatar-old");
+
+            when(userRepository.findById(13L)).thenReturn(Optional.of(parent));
+            when(userRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+            UpdateProfileRequest request = new UpdateProfileRequest();
+            request.setAvatarId("   ");
+
+            AuthResponse response = authService.updateProfile(13L, request);
+
+            assertThat(response.getAvatarId()).isNull();
+            verify(userRepository).save(argThat(u ->
+                    u instanceof Parent saved && saved.getAvatarId() == null));
+        }
+
+        @Test
         @DisplayName("should update email when provided and not a duplicate")
         void updateEmail() {
             Student student = new Student();
@@ -770,6 +841,26 @@ class AuthServiceTest {
 
             assertThatThrownBy(() -> authService.getCurrentUser(999L))
                     .isInstanceOf(ResourceNotFoundException.class);
+        }
+
+        @Test
+        @DisplayName("getCurrentProfile includes avatarId for existing users")
+        void getCurrentProfileIncludesAvatarId() {
+            Teacher teacher = new Teacher();
+            teacher.setId(2L);
+            teacher.setFullName("معلم");
+            teacher.setEmail("teacher@test.com");
+            teacher.setRole(Role.TEACHER);
+            teacher.setAvatarId("avatar-olive");
+
+            when(userRepository.findById(2L)).thenReturn(Optional.of(teacher));
+
+            AuthResponse response = authService.getCurrentProfile(2L);
+
+            assertThat(response.getFullName()).isEqualTo("معلم");
+            assertThat(response.getAvatarId()).isEqualTo("avatar-olive");
+            assertThat(response.getAccessToken()).isNull();
+            assertThat(response.getRefreshToken()).isNull();
         }
     }
 }

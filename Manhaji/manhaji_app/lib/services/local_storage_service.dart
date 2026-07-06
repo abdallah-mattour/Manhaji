@@ -38,11 +38,16 @@ class LocalStorageService {
     final legacyRefresh = _prefs?.getString(AppConstants.refreshTokenKey);
     if (legacyAccess == null && legacyRefresh == null) return;
     if (legacyAccess != null) {
-      await _secureStorage.write(key: AppConstants.tokenKey, value: legacyAccess);
+      await _secureStorage.write(
+        key: AppConstants.tokenKey,
+        value: legacyAccess,
+      );
     }
     if (legacyRefresh != null) {
       await _secureStorage.write(
-          key: AppConstants.refreshTokenKey, value: legacyRefresh);
+        key: AppConstants.refreshTokenKey,
+        value: legacyRefresh,
+      );
     }
     await _prefs?.remove(AppConstants.tokenKey);
     await _prefs?.remove(AppConstants.refreshTokenKey);
@@ -51,7 +56,9 @@ class LocalStorageService {
   Future<void> saveTokens(String accessToken, String refreshToken) async {
     await _secureStorage.write(key: AppConstants.tokenKey, value: accessToken);
     await _secureStorage.write(
-        key: AppConstants.refreshTokenKey, value: refreshToken);
+      key: AppConstants.refreshTokenKey,
+      value: refreshToken,
+    );
     _hasToken = true;
   }
 
@@ -68,6 +75,7 @@ class LocalStorageService {
     required String role,
     required String name,
     int? gradeLevel,
+    String? avatarId,
   }) async {
     await _prefs?.setInt(AppConstants.userIdKey, userId);
     await _prefs?.setString(AppConstants.userRoleKey, role);
@@ -75,12 +83,19 @@ class LocalStorageService {
     if (gradeLevel != null) {
       await _prefs?.setInt(AppConstants.gradeKey, gradeLevel);
     }
+    final normalizedAvatar = avatarId?.trim();
+    if (normalizedAvatar != null && normalizedAvatar.isNotEmpty) {
+      await _prefs?.setString(AppConstants.avatarIdKey, normalizedAvatar);
+    } else {
+      await _prefs?.remove(AppConstants.avatarIdKey);
+    }
   }
 
   int? getUserId() => _prefs?.getInt(AppConstants.userIdKey);
   String? getUserRole() => _prefs?.getString(AppConstants.userRoleKey);
   String? getUserName() => _prefs?.getString(AppConstants.userNameKey);
   int? getGradeLevel() => _prefs?.getInt(AppConstants.gradeKey);
+  String? getUserAvatarId() => _prefs?.getString(AppConstants.avatarIdKey);
 
   /// Wipe auth state on logout. Onboarding tip flags survive — there's no
   /// reason to re-show "اضغط الميكروفون" every time a kid logs out.
@@ -91,6 +106,7 @@ class LocalStorageService {
     await _prefs?.remove(AppConstants.userRoleKey);
     await _prefs?.remove(AppConstants.userNameKey);
     await _prefs?.remove(AppConstants.gradeKey);
+    await _prefs?.remove(AppConstants.avatarIdKey);
     _hasToken = false;
   }
 
@@ -114,8 +130,7 @@ class LocalStorageService {
   // speaker buttons and voice answers are never affected. Defaults to OFF.
   static const _kStudentSilentMode = 'student_silent_mode';
 
-  bool get isSilentModeEnabled =>
-      _prefs?.getBool(_kStudentSilentMode) ?? false;
+  bool get isSilentModeEnabled => _prefs?.getBool(_kStudentSilentMode) ?? false;
 
   Future<void> setSilentModeEnabled(bool enabled) async =>
       _prefs?.setBool(_kStudentSilentMode, enabled);

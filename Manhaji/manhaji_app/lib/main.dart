@@ -11,6 +11,7 @@ import 'providers/learning_provider.dart';
 import 'providers/parent_provider.dart';
 import 'providers/question_bank_provider.dart';
 import 'providers/report_provider.dart';
+import 'providers/student_assigned_quiz_provider.dart';
 import 'providers/student_settings_provider.dart';
 import 'providers/teacher_provider.dart';
 import 'services/admin_service.dart';
@@ -115,6 +116,9 @@ class ManhajiApp extends StatelessWidget {
           create: (_) => LearningProvider(services.quizService),
         ),
         ChangeNotifierProvider(
+          create: (_) => StudentAssignedQuizProvider(services.quizService),
+        ),
+        ChangeNotifierProvider(
           create: (_) => ProgressProvider(services.progressService),
         ),
         Provider<AudioApiService>.value(value: services.audioService),
@@ -146,8 +150,9 @@ class ManhajiApp extends StatelessWidget {
         theme: AppTheme.lightTheme,
         locale: const Locale('ar'),
         routes: AppRoutes.routes,
-        initialRoute:
-            kScreenshotMode ? AppRoutes.previewMenu : AppRoutes.splash,
+        initialRoute: kScreenshotMode
+            ? AppRoutes.previewMenu
+            : AppRoutes.splash,
       ),
     );
   }

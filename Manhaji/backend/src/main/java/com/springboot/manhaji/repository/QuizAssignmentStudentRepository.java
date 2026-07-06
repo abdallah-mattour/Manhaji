@@ -14,7 +14,9 @@ public interface QuizAssignmentStudentRepository extends JpaRepository<QuizAssig
     Optional<QuizAssignmentStudent> findByQuizAssignmentIdAndStudentId(
             Long quizAssignmentId,
             Long studentId);
+    List<QuizAssignmentStudent> findByStudentId(Long studentId);
     List<QuizAssignmentStudent> findByStudentIdAndStatus(
             Long studentId,
             QuizAssignmentStudentStatus status);
+    long countByQuizAssignmentId(Long quizAssignmentId);
 }

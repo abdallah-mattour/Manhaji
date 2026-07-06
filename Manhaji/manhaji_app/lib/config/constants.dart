@@ -7,4 +7,5 @@ class AppConstants {
   static const String userNameKey = 'user_name';
   static const String gradeKey = 'grade_level';
   static const String avatarIdKey = 'avatar_id';
+  static const String selectedRewardIdKey = 'selected_reward_id';
 }

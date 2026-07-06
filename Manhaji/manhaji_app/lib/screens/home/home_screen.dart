@@ -107,6 +107,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       SliverToBoxAdapter(child: _buildStatsRow()),
+                      SliverToBoxAdapter(
+                        child: _RewardsEntryCard(
+                          points: dashboard.totalPoints,
+                          streak: dashboard.currentStreak,
+                          onTap: () =>
+                              Navigator.pushNamed(context, AppRoutes.rewards),
+                        ),
+                      ),
                       // Daily-goal progress card — overall lessons completed vs
                       // total across all subjects, with a warm progress bar.
                       if (dashboard.subjects.isNotEmpty)
@@ -503,6 +511,155 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _RewardsEntryCard extends StatelessWidget {
+  const _RewardsEntryCard({
+    required this.points,
+    required this.streak,
+    required this.onTap,
+  });
+
+  final int points;
+  final int streak;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+      child: Material(
+        color: AppTheme.cardWhite,
+        borderRadius: BorderRadius.circular(AppTheme.radiusXL),
+        child: InkWell(
+          key: const ValueKey('student-rewards-entry-card'),
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(AppTheme.radiusXL),
+          child: Container(
+            padding: const EdgeInsets.all(AppTheme.space5),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(AppTheme.radiusXL),
+              border: Border.all(
+                color: AppTheme.primaryYellow.withValues(alpha: 0.45),
+                width: 1.5,
+              ),
+              boxShadow: AppTheme.elevationLow,
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 58,
+                  height: 58,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: AppTheme.primaryYellow.withValues(alpha: 0.18),
+                    borderRadius: BorderRadius.circular(AppTheme.radiusM),
+                  ),
+                  child: const Icon(
+                    Icons.redeem_rounded,
+                    color: AppTheme.primaryYellowDeep,
+                    size: 32,
+                  ),
+                ),
+                const SizedBox(width: AppTheme.space4),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'متجر المكافآت',
+                        style: TextStyle(
+                          fontFamily: 'Cairo',
+                          fontSize: 18,
+                          fontWeight: FontWeight.w900,
+                          color: AppTheme.textDark,
+                        ),
+                      ),
+                      const SizedBox(height: AppTheme.space1),
+                      const Text(
+                        'استخدم نجومك لفتح مكافآت شكلية',
+                        style: TextStyle(
+                          fontFamily: 'Cairo',
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: AppTheme.textGray,
+                        ),
+                      ),
+                      const SizedBox(height: AppTheme.space3),
+                      Wrap(
+                        spacing: AppTheme.space2,
+                        runSpacing: AppTheme.space2,
+                        children: [
+                          _MiniRewardStat(
+                            icon: Icons.star_rounded,
+                            label: '$points نجمة',
+                            color: AppTheme.primaryYellowDeep,
+                          ),
+                          _MiniRewardStat(
+                            icon: Icons.local_fire_department_rounded,
+                            label: '$streak يوم',
+                            color: AppTheme.primaryOrange,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: AppTheme.space3),
+                const Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  size: 18,
+                  color: AppTheme.textGray,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _MiniRewardStat extends StatelessWidget {
+  const _MiniRewardStat({
+    required this.icon,
+    required this.label,
+    required this.color,
+  });
+
+  final IconData icon;
+  final String label;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppTheme.space2,
+        vertical: AppTheme.space1,
+      ),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(AppTheme.radiusPill),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 15, color: color),
+          const SizedBox(width: AppTheme.space1),
+          Text(
+            label,
+            style: TextStyle(
+              fontFamily: 'Cairo',
+              fontSize: 11,
+              fontWeight: FontWeight.w900,
+              color: color,
+            ),
+          ),
+        ],
       ),
     );
   }

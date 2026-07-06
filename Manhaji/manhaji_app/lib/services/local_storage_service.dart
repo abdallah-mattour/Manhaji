@@ -96,6 +96,17 @@ class LocalStorageService {
   String? getUserName() => _prefs?.getString(AppConstants.userNameKey);
   int? getGradeLevel() => _prefs?.getInt(AppConstants.gradeKey);
   String? getUserAvatarId() => _prefs?.getString(AppConstants.avatarIdKey);
+  String? getSelectedRewardId() =>
+      _prefs?.getString(AppConstants.selectedRewardIdKey);
+
+  Future<void> setSelectedRewardId(String rewardId) async {
+    final normalized = rewardId.trim();
+    if (normalized.isEmpty) {
+      await _prefs?.remove(AppConstants.selectedRewardIdKey);
+      return;
+    }
+    await _prefs?.setString(AppConstants.selectedRewardIdKey, normalized);
+  }
 
   /// Wipe auth state on logout. Onboarding tip flags survive — there's no
   /// reason to re-show "اضغط الميكروفون" every time a kid logs out.
@@ -107,6 +118,7 @@ class LocalStorageService {
     await _prefs?.remove(AppConstants.userNameKey);
     await _prefs?.remove(AppConstants.gradeKey);
     await _prefs?.remove(AppConstants.avatarIdKey);
+    await _prefs?.remove(AppConstants.selectedRewardIdKey);
     _hasToken = false;
   }
 

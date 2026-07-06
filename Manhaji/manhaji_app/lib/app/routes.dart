@@ -15,6 +15,7 @@ import '../screens/auth/login_screen.dart';
 import '../screens/auth/register_screen.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/progress/progress_screen.dart';
+import '../screens/rewards/rewards_screen.dart';
 import '../screens/settings/settings_screen.dart';
 import '../screens/teacher/class_students_screen.dart';
 import '../screens/teacher/student_detail_screen.dart';
@@ -43,6 +44,7 @@ class AppRoutes {
   static const String quizResult = '/quiz-result';
   static const String progress = '/progress';
   static const String settings = '/settings';
+  static const String rewards = '/rewards';
 
   // Teacher
   static const String teacherDashboard = '/teacher';
@@ -115,6 +117,8 @@ class AppRoutes {
         const RoleGuard(allowedRoles: ['STUDENT'], child: ProgressScreen()),
     settings: (_) =>
         const RoleGuard(allowedRoles: ['STUDENT'], child: SettingsScreen()),
+    rewards: (_) =>
+        const RoleGuard(allowedRoles: ['STUDENT'], child: RewardsScreen()),
     aiReports: (_) =>
         const RoleGuard(allowedRoles: ['STUDENT'], child: AiReportsScreen()),
     leaderboard: (_) =>

@@ -127,6 +127,7 @@ class _AdminDashboardContent extends StatelessWidget {
         stats.totalAdmins;
     final activeUsers = users?.where((user) => user.isActive).length;
     final inactiveUsers = users == null ? null : users!.length - activeUsers!;
+    final quality = _DataQualitySummary.fromUsers(users);
 
     return ListView(
       physics: const AlwaysScrollableScrollPhysics(),
@@ -152,7 +153,19 @@ class _AdminDashboardContent extends StatelessWidget {
                 ),
                 const SizedBox(height: AppTheme.space4),
                 _MetricsGrid(cards: _metricCards(context, stats, totalUsers)),
-                const SizedBox(height: AppTheme.space6),
+                const SizedBox(height: AppTheme.space5),
+                const _SectionHeading(
+                  title: 'جودة البيانات',
+                  subtitle: 'تنبيهات مشتقة من قائمة المستخدمين المحملة فقط.',
+                ),
+                const SizedBox(height: AppTheme.space4),
+                _DataQualityGrid(
+                  summary: quality,
+                  onOpenUsers: () => Navigator.of(
+                    context,
+                  ).pushNamed(AppRoutes.adminManageUsers),
+                ),
+                const SizedBox(height: AppTheme.space5),
                 _DashboardColumns(
                   primary: _RecentUsersPanel(
                     users: users,
@@ -161,6 +174,10 @@ class _AdminDashboardContent extends StatelessWidget {
                     onRetry: onRefresh,
                   ),
                   insights: [
+                    _RoleDistributionPanel(
+                      stats: stats,
+                      totalUsers: totalUsers,
+                    ),
                     _AccountStatusPanel(
                       totalUsers: totalUsers,
                       activeUsers: activeUsers,
@@ -382,6 +399,292 @@ class _MetricsGrid extends StatelessWidget {
   }
 }
 
+class _DataQualitySummary {
+  const _DataQualitySummary({
+    required this.isAvailable,
+    this.parentsWithoutChildren,
+    this.studentsWithoutParent,
+    this.teachersWithoutMaterials,
+  });
+
+  final bool isAvailable;
+  final int? parentsWithoutChildren;
+  final int? studentsWithoutParent;
+  final int? teachersWithoutMaterials;
+
+  factory _DataQualitySummary.fromUsers(List<UserSummary>? users) {
+    if (users == null) {
+      return const _DataQualitySummary(isAvailable: false);
+    }
+
+    final parentIdsWithChildren = users
+        .where((user) => user.role == 'STUDENT' && user.parentId != null)
+        .map((user) => user.parentId!)
+        .toSet();
+    final parents = users.where((user) => user.role == 'PARENT');
+    final students = users.where((user) => user.role == 'STUDENT');
+    final teachers = users.where((user) => user.role == 'TEACHER');
+
+    return _DataQualitySummary(
+      isAvailable: true,
+      parentsWithoutChildren: parents
+          .where((parent) => !parentIdsWithChildren.contains(parent.userId))
+          .length,
+      studentsWithoutParent: students
+          .where((student) => student.parentId == null)
+          .length,
+      teachersWithoutMaterials: teachers.where((teacher) {
+        final department = teacher.department?.trim() ?? '';
+        return teacher.assignedGrade == null && department.isEmpty;
+      }).length,
+    );
+  }
+}
+
+class _DataQualityGrid extends StatelessWidget {
+  const _DataQualityGrid({required this.summary, required this.onOpenUsers});
+
+  final _DataQualitySummary summary;
+  final VoidCallback onOpenUsers;
+
+  @override
+  Widget build(BuildContext context) {
+    final cards = [
+      _DataQualityCard(
+        key: const ValueKey('admin-quality-parents-without-children'),
+        title: 'أولياء بلا أبناء',
+        value: summary.parentsWithoutChildren,
+        unavailable: !summary.isAvailable,
+        icon: Icons.family_restroom_rounded,
+        color: AppTheme.primaryOrange,
+        onTap: onOpenUsers,
+      ),
+      _DataQualityCard(
+        key: const ValueKey('admin-quality-students-without-parent'),
+        title: 'طلاب بلا ولي أمر',
+        value: summary.studentsWithoutParent,
+        unavailable: !summary.isAvailable,
+        icon: Icons.person_off_rounded,
+        color: AppTheme.primaryRed,
+        onTap: onOpenUsers,
+      ),
+      _DataQualityCard(
+        key: const ValueKey('admin-quality-teachers-without-materials'),
+        title: 'معلمون بلا مواد',
+        value: summary.teachersWithoutMaterials,
+        unavailable: !summary.isAvailable,
+        icon: Icons.school_outlined,
+        color: AppTheme.primaryBlue,
+        onTap: onOpenUsers,
+      ),
+    ];
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.maxWidth;
+        final columns = width >= 900
+            ? 3
+            : width >= 560
+            ? 2
+            : 1;
+        const gap = AppTheme.space4;
+        final itemWidth = (width - gap * (columns - 1)) / columns;
+        return Wrap(
+          spacing: gap,
+          runSpacing: gap,
+          children: [
+            for (final card in cards) SizedBox(width: itemWidth, child: card),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _DataQualityCard extends StatelessWidget {
+  const _DataQualityCard({
+    super.key,
+    required this.title,
+    required this.value,
+    required this.unavailable,
+    required this.icon,
+    required this.color,
+    required this.onTap,
+  });
+
+  final String title;
+  final int? value;
+  final bool unavailable;
+  final IconData icon;
+  final Color color;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: AppTheme.cardWhite,
+      borderRadius: BorderRadius.circular(AppTheme.radiusM),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(AppTheme.radiusM),
+        child: Container(
+          padding: const EdgeInsets.all(AppTheme.space5),
+          decoration: _panelDecoration(),
+          child: Row(
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.10),
+                  borderRadius: BorderRadius.circular(AppTheme.radiusM),
+                ),
+                child: Icon(icon, color: color, size: 22),
+              ),
+              const SizedBox(width: AppTheme.space3),
+              Expanded(
+                child: Text(
+                  title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontFamily: 'Cairo',
+                    fontSize: 13,
+                    fontWeight: FontWeight.w900,
+                    color: AppTheme.textDark,
+                  ),
+                ),
+              ),
+              const SizedBox(width: AppTheme.space3),
+              Text(
+                unavailable ? 'غير متوفر' : '${value ?? 0}',
+                style: TextStyle(
+                  fontFamily: 'Cairo',
+                  fontSize: unavailable ? 13 : 22,
+                  fontWeight: FontWeight.w900,
+                  color: unavailable ? AppTheme.textGray : color,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _RoleDistributionPanel extends StatelessWidget {
+  const _RoleDistributionPanel({required this.stats, required this.totalUsers});
+
+  final AdminStats stats;
+  final int totalUsers;
+
+  @override
+  Widget build(BuildContext context) {
+    final rows = [
+      _RoleDistributionRowData(
+        label: 'الطلاب',
+        value: stats.totalStudents,
+        color: AppTheme.primaryBlue,
+      ),
+      _RoleDistributionRowData(
+        label: 'المعلمون',
+        value: stats.totalTeachers,
+        color: AppTheme.primaryGreen,
+      ),
+      _RoleDistributionRowData(
+        label: 'أولياء الأمور',
+        value: stats.totalParents,
+        color: AppTheme.primaryOrange,
+      ),
+      _RoleDistributionRowData(
+        label: 'المشرفون',
+        value: stats.totalAdmins,
+        color: AppTheme.primaryPurple,
+      ),
+    ];
+
+    return _Panel(
+      title: 'توزيع المستخدمين حسب الدور',
+      subtitle: 'مشتق من إحصاءات لوحة التحكم.',
+      child: Column(
+        children: [
+          for (final row in rows)
+            _RoleDistributionRow(
+              data: row,
+              ratio: totalUsers == 0 ? 0 : row.value / totalUsers,
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class _RoleDistributionRowData {
+  const _RoleDistributionRowData({
+    required this.label,
+    required this.value,
+    required this.color,
+  });
+
+  final String label;
+  final int value;
+  final Color color;
+}
+
+class _RoleDistributionRow extends StatelessWidget {
+  const _RoleDistributionRow({required this.data, required this.ratio});
+
+  final _RoleDistributionRowData data;
+  final double ratio;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppTheme.space3),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  data.label,
+                  style: const TextStyle(
+                    fontFamily: 'Cairo',
+                    fontSize: 13,
+                    fontWeight: FontWeight.w800,
+                    color: AppTheme.textGray,
+                  ),
+                ),
+              ),
+              Text(
+                '${data.value}',
+                style: const TextStyle(
+                  fontFamily: 'Cairo',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w900,
+                  color: AppTheme.textDark,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppTheme.space2),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(AppTheme.radiusPill),
+            child: LinearProgressIndicator(
+              value: ratio.clamp(0.0, 1.0).toDouble(),
+              minHeight: 8,
+              backgroundColor: data.color.withValues(alpha: 0.10),
+              valueColor: AlwaysStoppedAnimation<Color>(data.color),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _DashboardColumns extends StatelessWidget {
   const _DashboardColumns({required this.primary, required this.insights});
 
@@ -446,8 +749,8 @@ class _RecentUsersPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _Panel(
-      title: 'آخر المستخدمين',
-      subtitle: 'قائمة مختصرة من الحسابات المحملة من الخادم.',
+      title: 'آخر المستخدمين المضافين',
+      subtitle: 'مرتبة حسب تاريخ الإنشاء عندما يكون متاحاً.',
       trailing: users == null
           ? null
           : _StatusBadge(
@@ -479,7 +782,7 @@ class _RecentUsersPanel extends StatelessWidget {
       );
     }
 
-    final list = users ?? const [];
+    final list = _sortUsersByCreatedAt(users ?? const []);
     if (list.isEmpty) {
       return const _InlineState(
         icon: Icons.people_outline_rounded,
@@ -526,6 +829,19 @@ class _RecentUsersPanel extends StatelessWidget {
       ],
     );
   }
+}
+
+List<UserSummary> _sortUsersByCreatedAt(List<UserSummary> users) {
+  final sorted = users.toList(growable: false);
+  sorted.sort((a, b) {
+    final aDate = DateTime.tryParse(a.createdAt ?? '');
+    final bDate = DateTime.tryParse(b.createdAt ?? '');
+    if (aDate == null && bDate == null) return 0;
+    if (aDate == null) return 1;
+    if (bDate == null) return -1;
+    return bDate.compareTo(aDate);
+  });
+  return sorted;
 }
 
 class _UsersTable extends StatelessWidget {
@@ -590,9 +906,7 @@ class _UserTableRow extends StatelessWidget {
         color: striped
             ? AppTheme.surfaceSubtle.withValues(alpha: 0.55)
             : Colors.transparent,
-        border: const Border(
-          bottom: BorderSide(color: AppTheme.surfaceSubtle),
-        ),
+        border: const Border(bottom: BorderSide(color: AppTheme.surfaceSubtle)),
       ),
       child: Row(
         children: [

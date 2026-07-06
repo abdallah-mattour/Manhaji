@@ -12,6 +12,7 @@ import 'providers/parent_provider.dart';
 import 'providers/question_bank_provider.dart';
 import 'providers/report_provider.dart';
 import 'providers/student_assigned_quiz_provider.dart';
+import 'providers/student_rewards_provider.dart';
 import 'providers/student_settings_provider.dart';
 import 'providers/teacher_provider.dart';
 import 'services/admin_service.dart';
@@ -108,6 +109,9 @@ class ManhajiApp extends StatelessWidget {
         // like the other providers, but only student screens consume it.
         ChangeNotifierProvider(
           create: (_) => StudentSettingsProvider(services.localStorage),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => StudentRewardsProvider(services.localStorage),
         ),
         ChangeNotifierProvider(
           create: (_) => LessonProvider(services.lessonService),

@@ -46,7 +46,9 @@ FakeAdminService _service() {
         email: 'sara@example.com',
         role: 'STUDENT',
         isActive: true,
+        parentId: 3,
         lastLoginAt: '2026-07-04T09:15:00',
+        createdAt: '2026-07-01T09:15:00',
       ),
       UserSummary(
         userId: 2,
@@ -54,6 +56,31 @@ FakeAdminService _service() {
         email: 'teacher@example.com',
         role: 'TEACHER',
         isActive: false,
+        createdAt: '2026-07-02T10:30:00',
+      ),
+      UserSummary(
+        userId: 3,
+        fullName: 'أم سارة',
+        email: 'parent@example.com',
+        role: 'PARENT',
+        isActive: true,
+        createdAt: '2026-07-03T08:00:00',
+      ),
+      UserSummary(
+        userId: 4,
+        fullName: 'ولي بلا أبناء',
+        email: 'orphan-parent@example.com',
+        role: 'PARENT',
+        isActive: true,
+        createdAt: '2026-07-05T08:00:00',
+      ),
+      UserSummary(
+        userId: 5,
+        fullName: 'طالب بلا ولي',
+        email: 'student-no-parent@example.com',
+        role: 'STUDENT',
+        isActive: true,
+        createdAt: '2026-07-06T08:00:00',
       ),
     ],
   );
@@ -116,8 +143,39 @@ void main() {
     expect(find.text('إجراءات سريعة'), findsNothing);
     expect(find.byTooltip('تحديث البيانات'), findsOneWidget);
 
+    // Data-quality panels are derived from loaded users only.
+    expect(find.text('جودة البيانات'), findsOneWidget);
+    expect(find.text('أولياء بلا أبناء'), findsOneWidget);
+    expect(find.text('طلاب بلا ولي أمر'), findsOneWidget);
+    expect(find.text('معلمون بلا مواد'), findsOneWidget);
+    expect(
+      find.descendant(
+        of: find.byKey(
+          const ValueKey('admin-quality-parents-without-children'),
+        ),
+        matching: find.text('1'),
+      ),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(
+        of: find.byKey(const ValueKey('admin-quality-students-without-parent')),
+        matching: find.text('1'),
+      ),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(
+        of: find.byKey(
+          const ValueKey('admin-quality-teachers-without-materials'),
+        ),
+        matching: find.text('1'),
+      ),
+      findsOneWidget,
+    );
+
     // Recent users table with view-all footer.
-    expect(find.text('آخر المستخدمين'), findsOneWidget);
+    expect(find.text('آخر المستخدمين المضافين'), findsOneWidget);
     expect(find.text('سارة أحمد'), findsOneWidget);
     expect(find.text('sara@example.com'), findsOneWidget);
     expect(find.text('أستاذ خالد'), findsOneWidget);
@@ -128,6 +186,7 @@ void main() {
     );
 
     // Insight panels.
+    expect(find.text('توزيع المستخدمين حسب الدور'), findsOneWidget);
     expect(find.text('حالة الحسابات'), findsOneWidget);
     expect(find.text('نسبة الحسابات النشطة'), findsOneWidget);
     expect(find.text('ملخص المحتوى والتفاعل'), findsOneWidget);

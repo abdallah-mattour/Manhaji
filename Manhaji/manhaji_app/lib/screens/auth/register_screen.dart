@@ -21,6 +21,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _passwordController = TextEditingController();
   int _selectedGrade = 1;
   bool _obscurePassword = true;
+  bool _consentGiven = false;
+  bool _showConsentError = false;
 
   @override
   void dispose() {
@@ -33,6 +35,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Future<void> _register() async {
     if (!_formKey.currentState!.validate()) return;
+
+    // Parental consent to the privacy policy + terms is mandatory.
+    if (!_consentGiven) {
+      setState(() => _showConsentError = true);
+      return;
+    }
 
     final auth = context.read<AuthProvider>();
     final success = await auth.register(
@@ -48,6 +56,79 @@ class _RegisterScreenState extends State<RegisterScreen> {
       Navigator.of(context)
           .pushReplacementNamed(AppRoutes.homeForRole(role));
     }
+  }
+
+  Widget _buildConsent() {
+    const linkStyle = TextStyle(
+      fontFamily: 'Cairo',
+      fontSize: 13,
+      fontWeight: FontWeight.w800,
+      color: AppTheme.primaryGreen,
+      decoration: TextDecoration.underline,
+      decorationColor: AppTheme.primaryGreen,
+    );
+    const plainStyle = TextStyle(
+      fontFamily: 'Cairo',
+      fontSize: 13,
+      fontWeight: FontWeight.w600,
+      color: AppTheme.textGray,
+    );
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 28,
+              height: 28,
+              child: Checkbox(
+                value: _consentGiven,
+                activeColor: AppTheme.primaryGreen,
+                onChanged: (v) => setState(() {
+                  _consentGiven = v ?? false;
+                  if (_consentGiven) _showConsentError = false;
+                }),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  const Text('أوافق بصفتي وليّ الأمر على ', style: plainStyle),
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(
+                        context, AppRoutes.privacyPolicy),
+                    child: const Text('سياسة الخصوصية', style: linkStyle),
+                  ),
+                  const Text(' و', style: plainStyle),
+                  GestureDetector(
+                    onTap: () =>
+                        Navigator.pushNamed(context, AppRoutes.terms),
+                    child: const Text('شروط الاستخدام', style: linkStyle),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        if (_showConsentError)
+          const Padding(
+            padding: EdgeInsets.only(top: 4, right: 36),
+            child: Text(
+              'يجب الموافقة على السياسة والشروط للمتابعة',
+              style: TextStyle(
+                fontFamily: 'Cairo',
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: AppTheme.error,
+              ),
+            ),
+          ),
+      ],
+    );
   }
 
   @override
@@ -231,6 +312,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                     const SizedBox(height: 24),
+
+                    _buildConsent(),
+                    const SizedBox(height: 8),
 
                     Consumer<AuthProvider>(
                       builder: (context, auth, _) {

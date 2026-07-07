@@ -445,4 +445,73 @@ class AuthServiceTest {
                     .isInstanceOf(ResourceNotFoundException.class);
         }
     }
+
+    // ==================== changePassword Tests ====================
+
+    @Nested
+    @DisplayName("changePassword()")
+    class ChangePasswordTests {
+
+        @Test
+        @DisplayName("should re-encode and save the new password when current is correct")
+        void changePasswordSuccess() {
+            Student student = new Student();
+            student.setId(1L);
+            student.setPasswordHash("old_hash");
+
+            com.springboot.manhaji.dto.request.ChangePasswordRequest request =
+                    new com.springboot.manhaji.dto.request.ChangePasswordRequest();
+            request.setCurrentPassword("old_pass");
+            request.setNewPassword("new_pass123");
+
+            when(userRepository.findById(1L)).thenReturn(Optional.of(student));
+            when(passwordEncoder.matches("old_pass", "old_hash")).thenReturn(true);
+            when(passwordEncoder.encode("new_pass123")).thenReturn("new_hash");
+
+            authService.changePassword(1L, request);
+
+            ArgumentCaptor<Student> captor = ArgumentCaptor.forClass(Student.class);
+            verify(userRepository).save(captor.capture());
+            assertThat(captor.getValue().getPasswordHash()).isEqualTo("new_hash");
+        }
+
+        @Test
+        @DisplayName("should reject wrong current password with BadRequest and never save")
+        void changePasswordWrongCurrent() {
+            Student student = new Student();
+            student.setId(1L);
+            student.setPasswordHash("old_hash");
+
+            com.springboot.manhaji.dto.request.ChangePasswordRequest request =
+                    new com.springboot.manhaji.dto.request.ChangePasswordRequest();
+            request.setCurrentPassword("wrong_pass");
+            request.setNewPassword("new_pass123");
+
+            when(userRepository.findById(1L)).thenReturn(Optional.of(student));
+            when(passwordEncoder.matches("wrong_pass", "old_hash")).thenReturn(false);
+
+            // Must be BadRequest (400), NOT Unauthorized (401): the Dio interceptor
+            // auto-refreshes on 401 and would hide the error from the user.
+            assertThatThrownBy(() -> authService.changePassword(1L, request))
+                    .isInstanceOf(BadRequestException.class)
+                    .hasMessageContaining("كلمة المرور"); // UTF-8 loads correctly, not mojibake
+            verify(userRepository, never()).save(any());
+            verify(passwordEncoder, never()).encode(any());
+        }
+
+        @Test
+        @DisplayName("should throw NotFound for an unknown user id")
+        void changePasswordUnknownUser() {
+            com.springboot.manhaji.dto.request.ChangePasswordRequest request =
+                    new com.springboot.manhaji.dto.request.ChangePasswordRequest();
+            request.setCurrentPassword("any");
+            request.setNewPassword("new_pass123");
+
+            when(userRepository.findById(42L)).thenReturn(Optional.empty());
+
+            assertThatThrownBy(() -> authService.changePassword(42L, request))
+                    .isInstanceOf(ResourceNotFoundException.class);
+            verify(userRepository, never()).save(any());
+        }
+    }
 }

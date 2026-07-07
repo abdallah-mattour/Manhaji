@@ -1,5 +1,6 @@
 package com.springboot.manhaji.controller;
 
+import com.springboot.manhaji.dto.request.ChangePasswordRequest;
 import com.springboot.manhaji.dto.request.LoginRequest;
 import com.springboot.manhaji.dto.request.PhoneLoginRequest;
 import com.springboot.manhaji.dto.request.RegisterRequest;
@@ -68,5 +69,22 @@ public class AuthController {
                 .role(user.getRole())
                 .build();
         return ResponseEntity.ok(ApiResponse.success(response));
+    }
+
+    /**
+     * Change the caller's own password. {@code /api/auth/**} is {@code permitAll}
+     * in SecurityConfig, so — exactly like {@link #me} — we must null-check the
+     * Authentication ourselves rather than relying on the security layer to 401.
+     */
+    @PutMapping("/password")
+    public ResponseEntity<ApiResponse<Void>> changePassword(
+            @Valid @RequestBody ChangePasswordRequest request,
+            Authentication authentication) {
+        if (authentication == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ApiResponse.error("Not authenticated"));
+        }
+        Long userId = (Long) authentication.getPrincipal();
+        authService.changePassword(userId, request);
+        return ResponseEntity.ok(ApiResponse.success("Password changed successfully", null));
     }
 }

@@ -13,7 +13,12 @@ import '../screens/auth/login_screen.dart';
 import '../screens/auth/register_screen.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/progress/progress_screen.dart';
+import '../screens/settings/about_screen.dart';
+import '../screens/settings/change_password_screen.dart';
+import '../screens/settings/privacy_policy_screen.dart';
+import '../screens/settings/profile_screen.dart';
 import '../screens/settings/settings_screen.dart';
+import '../screens/settings/terms_screen.dart';
 import '../screens/teacher/class_students_screen.dart';
 import '../screens/teacher/student_detail_screen.dart';
 import '../screens/teacher/teacher_dashboard_screen.dart';
@@ -29,6 +34,14 @@ class AppRoutes {
   static const String quizResult = '/quiz-result';
   static const String progress = '/progress';
   static const String settings = '/settings';
+  static const String profile = '/settings/profile';
+  static const String changePassword = '/settings/change-password';
+
+  // Legal / about — top-level so the register screen can open the policy
+  // pages before the user is authenticated.
+  static const String about = '/about';
+  static const String privacyPolicy = '/privacy-policy';
+  static const String terms = '/terms';
 
   // Teacher
   static const String teacherDashboard = '/teacher';
@@ -81,6 +94,11 @@ class AppRoutes {
         home: (_) => const HomeScreen(),
         progress: (_) => const ProgressScreen(),
         settings: (_) => const SettingsScreen(),
+        profile: (_) => const ProfileScreen(),
+        changePassword: (_) => const ChangePasswordScreen(),
+        about: (_) => const AboutScreen(),
+        privacyPolicy: (_) => const PrivacyPolicyScreen(),
+        terms: (_) => const TermsScreen(),
         teacherDashboard: (_) => const TeacherDashboardScreen(),
         classStudents: (_) => const ClassStudentsScreen(),
         teacherStudentDetail: (_) => const StudentDetailScreen(),

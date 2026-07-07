@@ -1,6 +1,7 @@
 package com.springboot.manhaji.service;
 
 import com.springboot.manhaji.config.JwtService;
+import com.springboot.manhaji.dto.request.ChangePasswordRequest;
 import com.springboot.manhaji.dto.request.LoginRequest;
 import com.springboot.manhaji.dto.request.PhoneLoginRequest;
 import com.springboot.manhaji.dto.request.RegisterRequest;
@@ -142,6 +143,34 @@ public class AuthService {
     public User getCurrentUser(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", userId));
+    }
+
+    /**
+     * Change the caller's own password (2026-07-07). Verifies the supplied
+     * current password against the stored hash, then re-encodes and persists
+     * the new one.
+     *
+     * <p>Wrong current password throws {@link BadRequestException} (HTTP 400),
+     * deliberately NOT {@link UnauthorizedException} (401): the Flutter Dio
+     * interceptor (api_service.dart) treats every 401 as an expired access
+     * token and silently auto-refreshes, which would swallow the error and the
+     * user would never see "current password is wrong".
+     *
+     * <p>JWTs are stateless with no server-side revocation, so existing tokens
+     * stay valid after a password change — the session is intentionally kept
+     * and the user is not logged out.
+     */
+    @Transactional
+    public void changePassword(Long userId, ChangePasswordRequest request) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", userId));
+
+        if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPasswordHash())) {
+            throw new BadRequestException(messages.get("error.auth.wrongCurrentPassword"));
+        }
+
+        user.setPasswordHash(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);
     }
 
     private User createUserByRole(RegisterRequest request) {

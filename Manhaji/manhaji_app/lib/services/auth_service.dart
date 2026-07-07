@@ -51,4 +51,17 @@ class AuthService {
     final response = await _api.get(ApiConfig.me);
     return (response['data'] as Map<String, dynamic>?) ?? {};
   }
+
+  /// Change the signed-in user's password. On a wrong current password the
+  /// backend returns 400 with an Arabic message which [ApiService] surfaces as
+  /// an [ApiException]; the provider passes it through [extractError].
+  Future<void> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    await _api.put(ApiConfig.changePassword, data: {
+      'currentPassword': currentPassword,
+      'newPassword': newPassword,
+    });
+  }
 }

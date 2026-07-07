@@ -23,6 +23,7 @@ class ApiConfig {
   static const String loginPhone = '/auth/login/phone';
   static const String refreshToken = '/auth/refresh';
   static const String me = '/auth/me';
+  static const String changePassword = '/auth/password';
 
   // Lessons
   static const String subjects = '/lessons/subjects';

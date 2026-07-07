@@ -1,5 +1,7 @@
 class AppConstants {
   static const String appName = 'منهجي';
+  // App version shown on the About screen. Hardcoded — no package_info_plus dep.
+  static const String appVersion = '1.0.0';
   static const String tokenKey = 'access_token';
   static const String refreshTokenKey = 'refresh_token';
   static const String userIdKey = 'user_id';

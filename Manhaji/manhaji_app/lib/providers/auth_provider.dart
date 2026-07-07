@@ -29,6 +29,18 @@ class AuthProvider extends ChangeNotifier {
   String? get userRole => _userRole;
   int? get userId => _userId;
 
+  /// `/auth/me` doesn't return the grade level, so it's read from the prefs
+  /// snapshot saved at login. Null for parents/teachers/admins.
+  int? get gradeLevel => _storage.getGradeLevel();
+
+  /// Clear a stale error banner before the user re-enters a form (e.g. the
+  /// change-password screen shares [_errorMessage] with the auth flows).
+  void clearError() {
+    if (_errorMessage == null) return;
+    _errorMessage = null;
+    notifyListeners();
+  }
+
   Future<bool> register({
     required String fullName,
     required String email,
@@ -104,6 +116,46 @@ class AuthProvider extends ChangeNotifier {
     } finally {
       _isLoading = false;
       notifyListeners();
+    }
+  }
+
+  /// Change the signed-in user's password. Mirrors the register/login
+  /// loading+error pattern. Returns true on success; on failure [errorMessage]
+  /// holds the backend's Arabic message (e.g. wrong current password). The JWT
+  /// session is intentionally kept — the backend doesn't revoke tokens.
+  Future<bool> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    _isLoading = true;
+    _errorMessage = null;
+    notifyListeners();
+
+    try {
+      await _authService.changePassword(
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+      );
+      return true;
+    } catch (e) {
+      _errorMessage = extractError(e);
+      return false;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  /// Fetch the current user's account details (name, email, phone, role) from
+  /// `/auth/me` on demand. Deliberately NOT persisted to prefs — keeping email
+  /// and phone off disk means less PII at rest. Returns an empty map on error.
+  Future<Map<String, dynamic>> fetchProfile() async {
+    try {
+      return await _authService.getCurrentUser();
+    } catch (e) {
+      _errorMessage = extractError(e);
+      notifyListeners();
+      return {};
     }
   }
 

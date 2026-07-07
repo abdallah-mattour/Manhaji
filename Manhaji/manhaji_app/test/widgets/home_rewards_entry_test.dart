@@ -95,15 +95,21 @@ Question _question(int id) => Question(
 
 StudentAssignedQuizSummary _assignedQuizSummary({
   int assignmentId = 70,
-  String dueAt = '2026-07-07T09:00:00',
+  String? dueAt,
 }) {
+  // Time-relative default: due in 8 hours, so the quiz is always in the
+  // "ending soon" window (<24h) and startable. A hardcoded date here
+  // expired once the calendar caught up and silently flipped the fixture
+  // into the expired state.
   return StudentAssignedQuizSummary(
     assignmentId: assignmentId,
     quizId: 44,
     title: 'اختبار الحروف',
     subjectName: 'اللغة العربية',
     questionCount: 2,
-    dueAt: dueAt,
+    dueAt:
+        dueAt ??
+        DateTime.now().add(const Duration(hours: 8)).toIso8601String(),
     status: 'ASSIGNED',
     attemptsUsed: 0,
     maxAttempts: 1,

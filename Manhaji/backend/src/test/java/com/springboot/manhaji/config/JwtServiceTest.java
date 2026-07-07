@@ -6,7 +6,6 @@ import com.springboot.manhaji.entity.enums.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Base64;
 
@@ -31,10 +30,8 @@ class JwtServiceTest {
 
     @BeforeEach
     void setUp() {
-        jwtService = new JwtService();
-        ReflectionTestUtils.setField(jwtService, "secretKey", VALID_BASE64_SECRET);
-        ReflectionTestUtils.setField(jwtService, "accessTokenExpiration", 60_000L);
-        ReflectionTestUtils.setField(jwtService, "refreshTokenExpiration", 60_000L);
+        JwtProperties jwtProperties = createJwtProperties(VALID_BASE64_SECRET);
+        jwtService = new JwtService(jwtProperties);
     }
 
     @Test
@@ -69,7 +66,7 @@ class JwtServiceTest {
                 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17,
                 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1
         });
-        ReflectionTestUtils.setField(jwtService, "secretKey", differentSecret);
+        jwtService = new JwtService(createJwtProperties(differentSecret));
 
         // Validating the old token with the new secret must fail.
         assertThat(jwtService.isTokenValid(token)).isFalse();
@@ -114,5 +111,13 @@ class JwtServiceTest {
         // A refresh token cannot pass the access check, even though it's
         // signed correctly and unexpired.
         assertThat(jwtService.isAccessToken(refreshToken)).isFalse();
+    }
+
+    private static JwtProperties createJwtProperties(String secret) {
+        JwtProperties jwtProperties = new JwtProperties();
+        jwtProperties.setSecret(secret);
+        jwtProperties.setAccessTokenExpiration(60_000L);
+        jwtProperties.setRefreshTokenExpiration(60_000L);
+        return jwtProperties;
     }
 }

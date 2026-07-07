@@ -11,6 +11,13 @@ class TeacherQuizSummary {
   final String? createdAt;
   final String? status;
 
+  /// Backend-computed publish eligibility: true only for a draft
+  /// TEACHER_ASSIGNED quiz owned by the logged-in teacher.
+  final bool canPublish;
+
+  /// Reason code when [canPublish] is false: LEGACY_QUIZ, NOT_OWNER, NOT_DRAFT.
+  final String? publishBlockedReason;
+
   const TeacherQuizSummary({
     required this.id,
     required this.title,
@@ -21,6 +28,8 @@ class TeacherQuizSummary {
     required this.questionCount,
     this.createdAt,
     this.status,
+    this.canPublish = false,
+    this.publishBlockedReason,
   });
 
   factory TeacherQuizSummary.fromJson(Map<String, dynamic> json) {
@@ -34,6 +43,8 @@ class TeacherQuizSummary {
       questionCount: (json['questionCount'] as num?)?.toInt() ?? 0,
       createdAt: json['createdAt']?.toString(),
       status: json['status']?.toString(),
+      canPublish: json['canPublish'] == true,
+      publishBlockedReason: json['publishBlockedReason']?.toString(),
     );
   }
 
@@ -59,6 +70,8 @@ class TeacherQuizDetail extends TeacherQuizSummary {
     required super.questionCount,
     super.createdAt,
     super.status,
+    super.canPublish,
+    super.publishBlockedReason,
     required this.questions,
   });
 
@@ -73,6 +86,8 @@ class TeacherQuizDetail extends TeacherQuizSummary {
       questionCount: (json['questionCount'] as num?)?.toInt() ?? 0,
       createdAt: json['createdAt']?.toString(),
       status: json['status']?.toString(),
+      canPublish: json['canPublish'] == true,
+      publishBlockedReason: json['publishBlockedReason']?.toString(),
       questions:
           (json['questions'] as List?)
               ?.map((q) => QuestionBankItem.fromJson(q as Map<String, dynamic>))

@@ -650,6 +650,8 @@ class TeacherServiceTest {
             assertThat(response.getLessonId()).isEqualTo(200L);
             assertThat(response.getQuestionCount()).isEqualTo(2);
             assertThat(response.getStatus()).isEqualTo(QuizStatus.DRAFT);
+            assertThat(response.isCanPublish()).isTrue();
+            assertThat(response.getPublishBlockedReason()).isNull();
             assertThat(response.getQuestions()).hasSize(2);
         }
 
@@ -780,6 +782,50 @@ class TeacherServiceTest {
             assertThat(quizzes).extracting(TeacherQuizSummaryResponse::getStatus)
                     .containsExactly(QuizStatus.DRAFT, QuizStatus.ARCHIVED);
             assertThat(legacyQuiz.getStatus()).isNull();
+            assertThat(quizzes).allSatisfy(summary -> {
+                assertThat(summary.isCanPublish()).isFalse();
+                assertThat(summary.getPublishBlockedReason())
+                        .isEqualTo(TeacherService.PUBLISH_BLOCKED_LEGACY);
+            });
+        }
+
+        @Test
+        @DisplayName("owned draft teacher quiz is publishable, other-owner draft is not")
+        void ownedDraftTeacherQuizIsPublishableOtherOwnerDraftIsNot() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+            Teacher otherTeacher = new Teacher();
+            otherTeacher.setId(77L);
+
+            Quiz ownedDraft = new Quiz();
+            ownedDraft.setId(910L);
+            ownedDraft.setTitle("Owned draft");
+            ownedDraft.setSubject(arabic);
+            ownedDraft.setStatus(QuizStatus.DRAFT);
+            ownedDraft.setQuizType(QuizType.TEACHER_ASSIGNED);
+            ownedDraft.setCreatedByTeacher(teacher);
+
+            Quiz foreignDraft = new Quiz();
+            foreignDraft.setId(911L);
+            foreignDraft.setTitle("Foreign draft");
+            foreignDraft.setSubject(arabic);
+            foreignDraft.setStatus(QuizStatus.DRAFT);
+            foreignDraft.setQuizType(QuizType.TEACHER_ASSIGNED);
+            foreignDraft.setCreatedByTeacher(otherTeacher);
+
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+            when(quizRepository.findTeacherVisibleBySubjectIds(List.of(100L)))
+                    .thenReturn(List.of(ownedDraft, foreignDraft));
+
+            List<TeacherQuizSummaryResponse> quizzes = teacherService.getTeacherQuizzes(10L);
+
+            assertThat(quizzes).hasSize(2);
+            assertThat(quizzes.get(0).isCanPublish()).isTrue();
+            assertThat(quizzes.get(0).getPublishBlockedReason()).isNull();
+            assertThat(quizzes.get(1).isCanPublish()).isFalse();
+            assertThat(quizzes.get(1).getPublishBlockedReason())
+                    .isEqualTo(TeacherService.PUBLISH_BLOCKED_NOT_OWNER);
         }
 
         @Test
@@ -793,6 +839,8 @@ class TeacherServiceTest {
             quiz.setTitle("Published teacher quiz");
             quiz.setSubject(arabic);
             quiz.setStatus(QuizStatus.PUBLISHED);
+            quiz.setQuizType(QuizType.TEACHER_ASSIGNED);
+            quiz.setCreatedByTeacher(teacher);
             quiz.setQuestions(new ArrayList<>(List.of(q1)));
 
             when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
@@ -804,6 +852,9 @@ class TeacherServiceTest {
             TeacherQuizDetailResponse response = teacherService.getTeacherQuiz(10L, 900L);
 
             assertThat(response.getStatus()).isEqualTo(QuizStatus.PUBLISHED);
+            assertThat(response.isCanPublish()).isFalse();
+            assertThat(response.getPublishBlockedReason())
+                    .isEqualTo(TeacherService.PUBLISH_BLOCKED_NOT_DRAFT);
             assertThat(response.getQuestions()).hasSize(1);
         }
     }

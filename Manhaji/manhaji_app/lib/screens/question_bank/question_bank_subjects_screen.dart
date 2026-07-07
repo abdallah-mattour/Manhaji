@@ -147,7 +147,7 @@ class _QuestionBankSubjectsScreenState
       ),
       selected: selected,
       selectedColor: AppTheme.primaryGreen,
-      backgroundColor: Colors.grey.shade100,
+      backgroundColor: AppTheme.surfaceSubtle,
       onSelected: (_) => onSelected(),
     );
   }
@@ -321,7 +321,7 @@ class _QuestionBankSubjectsScreenState
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(Icons.inbox_rounded, size: 72, color: Colors.grey.shade400),
+        Icon(Icons.inbox_rounded, size: 72, color: AppTheme.textLight),
         const SizedBox(height: 12),
         const Text(
           'لا توجد مواد حاليًا',

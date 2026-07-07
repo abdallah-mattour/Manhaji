@@ -231,7 +231,17 @@ class _QuizCard extends StatelessWidget {
     final assignments = provider.quizAssignmentsFor(quiz.id);
     final hasAssignments = assignments?.isNotEmpty ?? false;
     final status = _effectiveStatus(quiz, hasAssignments);
-    final canPublish = status == _QuizUiStatus.draft;
+    // Publish only when the backend says this teacher owns the draft; a
+    // draft-looking quiz can be a legacy lesson quiz or another teacher's.
+    final canPublish = status == _QuizUiStatus.draft && quiz.canPublish;
+    final blockedNote = status == _QuizUiStatus.draft && !quiz.canPublish
+        ? _publishBlockedMessage(quiz.publishBlockedReason)
+        : null;
+    // Assignments endpoint also requires ownership — hide it for quizzes
+    // this teacher does not own to avoid a guaranteed 403.
+    final isForeignQuiz =
+        quiz.publishBlockedReason == 'LEGACY_QUIZ' ||
+        quiz.publishBlockedReason == 'NOT_OWNER';
 
     return Container(
       padding: const EdgeInsets.all(AppTheme.space5),
@@ -306,6 +316,33 @@ class _QuizCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: AppTheme.space4),
+          if (blockedNote != null) ...[
+            Row(
+              key: Key('teacher_quiz_blocked_note_${quiz.id}'),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(
+                  Icons.info_outline_rounded,
+                  size: 16,
+                  color: AppTheme.textGray,
+                ),
+                const SizedBox(width: AppTheme.space2),
+                Expanded(
+                  child: Text(
+                    blockedNote,
+                    style: const TextStyle(
+                      fontFamily: 'Cairo',
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: AppTheme.textGray,
+                      height: 1.4,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: AppTheme.space3),
+          ],
           Wrap(
             alignment: WrapAlignment.end,
             spacing: AppTheme.space2,
@@ -318,17 +355,25 @@ class _QuizCard extends StatelessWidget {
                   icon: const Icon(Icons.publish_rounded),
                   label: const Text('نشر / تعيين'),
                 ),
-              OutlinedButton.icon(
-                key: Key('teacher_quiz_assignments_${quiz.id}'),
-                onPressed: () => _openAssignmentsDialog(context),
-                icon: const Icon(Icons.groups_rounded),
-                label: const Text('التعيينات'),
-              ),
+              if (!isForeignQuiz)
+                OutlinedButton.icon(
+                  key: Key('teacher_quiz_assignments_${quiz.id}'),
+                  onPressed: () => _openAssignmentsDialog(context),
+                  icon: const Icon(Icons.groups_rounded),
+                  label: const Text('التعيينات'),
+                ),
             ],
           ),
         ],
       ),
     );
+  }
+
+  String _publishBlockedMessage(String? reason) {
+    return switch (reason) {
+      'LEGACY_QUIZ' => 'هذا اختبار قديم، أنشئ نسخة جديدة لنشره للطلاب',
+      _ => 'غير قابل للنشر من هذا الحساب',
+    };
   }
 
   _QuizUiStatus _effectiveStatus(
@@ -381,6 +426,8 @@ class _CreateTeacherQuizDialogState extends State<_CreateTeacherQuizDialog> {
   int? _subjectId;
   int? _lessonId;
   String _query = '';
+  int _randomCount = 10;
+  String? _randomError;
 
   @override
   void dispose() {
@@ -442,6 +489,15 @@ class _CreateTeacherQuizDialogState extends State<_CreateTeacherQuizDialog> {
                               ? null
                               : () =>
                                     provider.loadQuizQuestionBank(_subjectId!),
+                          randomCount: _randomCount,
+                          onRandomCountChanged: (count) => setState(() {
+                            _randomCount = count;
+                            _randomError = null;
+                          }),
+                          onRandomSelect: questions.isEmpty
+                              ? null
+                              : () => _randomSelect(questions),
+                          randomError: _randomError,
                         );
                         final selected = _SelectedQuestionsPanel(
                           questions: _selectedQuestions.values.toList(),
@@ -515,11 +571,65 @@ class _CreateTeacherQuizDialogState extends State<_CreateTeacherQuizDialog> {
       _selectedQuestionIds.clear();
       _selectedQuestions.clear();
       _query = '';
+      _randomError = null;
       _searchController.clear();
     });
     if (value != null) {
       provider.loadQuizQuestionBank(value);
     }
+  }
+
+  Future<void> _randomSelect(List<QuestionBankItem> visible) async {
+    if (visible.isEmpty) return;
+    if (_randomCount > visible.length) {
+      setState(() => _randomError = 'عدد الأسئلة المتاحة أقل من العدد المطلوب');
+      return;
+    }
+    if (_selectedQuestionIds.isNotEmpty) {
+      final confirmed = await _confirmReplaceSelection();
+      if (confirmed != true || !mounted) return;
+    }
+    final shuffled = List<QuestionBankItem>.of(visible)..shuffle();
+    final picked = shuffled.take(_randomCount);
+    setState(() {
+      _randomError = null;
+      _selectedQuestionIds.clear();
+      _selectedQuestions.clear();
+      for (final question in picked) {
+        _selectedQuestionIds.add(question.id);
+        _selectedQuestions[question.id] = question;
+      }
+    });
+  }
+
+  Future<bool?> _confirmReplaceSelection() {
+    return showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => Directionality(
+        textDirection: TextDirection.rtl,
+        child: AlertDialog(
+          title: const Text(
+            'استبدال الأسئلة المختارة؟',
+            style: TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.w900),
+          ),
+          content: const Text(
+            'سيتم استبدال الأسئلة المختارة حالياً بأسئلة عشوائية جديدة',
+            style: TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.w700),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(false),
+              child: const Text('إلغاء'),
+            ),
+            FilledButton(
+              key: const Key('teacher_quiz_random_replace_confirm'),
+              onPressed: () => Navigator.of(dialogContext).pop(true),
+              child: const Text('استبدال'),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   void _toggleQuestion(QuestionBankItem question) {
@@ -1622,7 +1732,13 @@ class _QuestionPickerPanel extends StatelessWidget {
     required this.selectedQuestionIds,
     required this.onToggle,
     required this.onRetry,
+    required this.randomCount,
+    required this.onRandomCountChanged,
+    required this.onRandomSelect,
+    required this.randomError,
   });
+
+  static const List<int> _randomCountChoices = [5, 10, 15, 20];
 
   final bool isLoading;
   final String? error;
@@ -1631,6 +1747,10 @@ class _QuestionPickerPanel extends StatelessWidget {
   final Set<int> selectedQuestionIds;
   final ValueChanged<QuestionBankItem> onToggle;
   final VoidCallback? onRetry;
+  final int randomCount;
+  final ValueChanged<int> onRandomCountChanged;
+  final VoidCallback? onRandomSelect;
+  final String? randomError;
 
   @override
   Widget build(BuildContext context) {
@@ -1649,10 +1769,70 @@ class _QuestionPickerPanel extends StatelessWidget {
               color: AppTheme.textDark,
             ),
           ),
+          if (subjectSelected) ...[
+            const SizedBox(height: AppTheme.space3),
+            _buildRandomControls(),
+          ],
           const SizedBox(height: AppTheme.space3),
-          SizedBox(height: 430, child: _buildBody(context)),
+          // The random controls take vertical space, so the list shrinks to
+          // keep the panel inside the dialog's bounded height.
+          SizedBox(
+            height: subjectSelected ? 310 : 430,
+            child: _buildBody(context),
+          ),
         ],
       ),
+    );
+  }
+
+  Widget _buildRandomControls() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Wrap(
+          spacing: AppTheme.space2,
+          runSpacing: AppTheme.space2,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            for (final count in _randomCountChoices)
+              ChoiceChip(
+                key: Key('teacher_quiz_random_count_$count'),
+                label: Text('$count'),
+                selected: randomCount == count,
+                onSelected: (_) => onRandomCountChanged(count),
+              ),
+            OutlinedButton.icon(
+              key: const Key('teacher_quiz_random_button'),
+              onPressed: onRandomSelect,
+              icon: const Icon(Icons.shuffle_rounded),
+              label: const Text('اختيار عشوائي'),
+            ),
+          ],
+        ),
+        const SizedBox(height: AppTheme.space2),
+        const Text(
+          'يتم الاختيار من الأسئلة المعروضة حسب المادة والدرس',
+          style: TextStyle(
+            fontFamily: 'Cairo',
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+            color: AppTheme.textGray,
+          ),
+        ),
+        if (randomError != null) ...[
+          const SizedBox(height: AppTheme.space2),
+          Text(
+            randomError!,
+            key: const Key('teacher_quiz_random_error'),
+            style: const TextStyle(
+              fontFamily: 'Cairo',
+              fontSize: 12,
+              fontWeight: FontWeight.w800,
+              color: AppTheme.primaryRed,
+            ),
+          ),
+        ],
+      ],
     );
   }
 

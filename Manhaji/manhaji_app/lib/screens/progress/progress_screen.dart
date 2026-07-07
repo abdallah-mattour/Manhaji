@@ -306,7 +306,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                         borderRadius: BorderRadius.circular(4),
                         child: LinearProgressIndicator(
                           value: subject.progressPercent,
-                          backgroundColor: Colors.grey.shade200,
+                          backgroundColor: AppTheme.surfaceMuted,
                           valueColor: AlwaysStoppedAnimation(color),
                           minHeight: 6,
                         ),

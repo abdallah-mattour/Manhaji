@@ -86,8 +86,8 @@ class _QuestionBankQuestionsScreenState
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
+        color: AppTheme.cardWhite,
+        border: Border(bottom: BorderSide(color: AppTheme.surfaceMuted)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -215,7 +215,7 @@ class _QuestionBankQuestionsScreenState
       ),
       selected: selected,
       selectedColor: AppTheme.primaryGreen,
-      backgroundColor: Colors.grey.shade100,
+      backgroundColor: AppTheme.surfaceSubtle,
       onSelected: (_) => provider.setDifficulty(value, asAdmin: widget.asAdmin),
     );
   }
@@ -227,7 +227,7 @@ class _QuestionBankQuestionsScreenState
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
-        color: Colors.grey.shade100,
+        color: AppTheme.surfaceSubtle,
         borderRadius: BorderRadius.circular(10),
       ),
       child: DropdownButtonHideUnderline(
@@ -352,7 +352,7 @@ class _QuestionBankQuestionsScreenState
             Icon(
               Icons.filter_alt_off_rounded,
               size: 64,
-              color: Colors.grey.shade400,
+              color: AppTheme.textLight,
             ),
             const SizedBox(height: 12),
             const Text(

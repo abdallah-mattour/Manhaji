@@ -24,8 +24,12 @@
 backend/.gradle/
 backend/build/
 backend/local.properties
+backend/src/main/resources/application-local.properties
+backend/src/main/resources/application-*.local.properties
+backend/.env
 backend/out/
 backend/bin/
+.env
 
 # =========================
 # Flutter (manhaji_app)

@@ -63,6 +63,12 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class TeacherService {
 
+    // Publish-eligibility reason codes surfaced to the teacher UI. The
+    // Flutter client maps these to Arabic copy; keep values stable.
+    static final String PUBLISH_BLOCKED_LEGACY = "LEGACY_QUIZ";
+    static final String PUBLISH_BLOCKED_NOT_OWNER = "NOT_OWNER";
+    static final String PUBLISH_BLOCKED_NOT_DRAFT = "NOT_DRAFT";
+
     private final TeacherRepository teacherRepository;
     private final TeacherAssignmentRepository teacherAssignmentRepository;
     private final StudentRepository studentRepository;
@@ -372,7 +378,7 @@ public class TeacherService {
         return quizRepository.findTeacherVisibleBySubjectIds(subjectIds).stream()
                 .filter(quiz -> quiz.getGeneratedForStudentId() == null)
                 .filter(quiz -> subjectIds.contains(subjectIdFor(quiz)))
-                .map(this::toTeacherQuizSummary)
+                .map(quiz -> toTeacherQuizSummary(quiz, teacherId))
                 .toList();
     }
 
@@ -406,7 +412,7 @@ public class TeacherService {
         quiz.setGeneratedForStudentId(null);
         quiz.setQuestions(new ArrayList<>(questions));
 
-        return toTeacherQuizDetail(quizRepository.save(quiz));
+        return toTeacherQuizDetail(quizRepository.save(quiz), teacherId);
     }
 
     public TeacherQuizDetailResponse getTeacherQuiz(Long teacherId, Long quizId) {
@@ -426,7 +432,7 @@ public class TeacherService {
             throw new UnauthorizedException(messages.get("error.teacher.subjectNotAssigned"));
         }
 
-        return toTeacherQuizDetail(quiz);
+        return toTeacherQuizDetail(quiz, teacherId);
     }
 
     private List<TeacherAssignment> loadActiveAssignments(Teacher teacher) {
@@ -514,9 +520,10 @@ public class TeacherService {
         return ordered;
     }
 
-    private TeacherQuizSummaryResponse toTeacherQuizSummary(Quiz quiz) {
+    private TeacherQuizSummaryResponse toTeacherQuizSummary(Quiz quiz, Long teacherId) {
         Subject subject = subjectFor(quiz);
         Lesson lesson = lessonFor(quiz);
+        String publishBlockedReason = publishBlockedReasonFor(quiz, teacherId);
         return TeacherQuizSummaryResponse.builder()
                 .id(quiz.getId())
                 .title(quiz.getTitle())
@@ -527,11 +534,34 @@ public class TeacherService {
                 .questionCount(quiz.getQuestions() == null ? 0 : quiz.getQuestions().size())
                 .createdAt(quiz.getCreatedAt())
                 .status(statusFor(quiz))
+                .canPublish(publishBlockedReason == null)
+                .publishBlockedReason(publishBlockedReason)
                 .build();
     }
 
-    private TeacherQuizDetailResponse toTeacherQuizDetail(Quiz quiz) {
-        TeacherQuizSummaryResponse summary = toTeacherQuizSummary(quiz);
+    /**
+     * Mirrors {@link QuizAssignmentService}'s publish authorization
+     * (requireOwnedDraftTeacherQuiz) so the UI can hide the publish action
+     * instead of surfacing a 403. Callers already restrict quizzes to the
+     * teacher's assigned subjects, so subject scope needs no reason code here.
+     */
+    private String publishBlockedReasonFor(Quiz quiz, Long teacherId) {
+        if (quiz.getCreatedByTeacher() == null
+                || quiz.getCreatedByTeacher().getId() == null
+                || quiz.getQuizType() != QuizType.TEACHER_ASSIGNED) {
+            return PUBLISH_BLOCKED_LEGACY;
+        }
+        if (!quiz.getCreatedByTeacher().getId().equals(teacherId)) {
+            return PUBLISH_BLOCKED_NOT_OWNER;
+        }
+        if (quiz.getStatus() != QuizStatus.DRAFT) {
+            return PUBLISH_BLOCKED_NOT_DRAFT;
+        }
+        return null;
+    }
+
+    private TeacherQuizDetailResponse toTeacherQuizDetail(Quiz quiz, Long teacherId) {
+        TeacherQuizSummaryResponse summary = toTeacherQuizSummary(quiz, teacherId);
         List<QuestionBankItem> questions = quiz.getQuestions() == null
                 ? Collections.emptyList()
                 : quiz.getQuestions().stream()
@@ -550,6 +580,8 @@ public class TeacherService {
                 .questionCount(summary.getQuestionCount())
                 .createdAt(summary.getCreatedAt())
                 .status(summary.getStatus())
+                .canPublish(summary.isCanPublish())
+                .publishBlockedReason(summary.getPublishBlockedReason())
                 .questions(questions)
                 .build();
     }

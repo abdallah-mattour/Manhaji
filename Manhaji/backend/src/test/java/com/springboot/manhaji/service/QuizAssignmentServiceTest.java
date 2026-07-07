@@ -175,6 +175,39 @@ class QuizAssignmentServiceTest {
     }
 
     @Test
+    @DisplayName("non-owner teacher cannot publish another teacher's draft quiz")
+    void nonOwnerTeacherCannotPublishAnotherTeachersDraftQuiz() {
+        Teacher otherTeacher = new Teacher();
+        otherTeacher.setId(11L);
+        otherTeacher.setSchool(school);
+        when(teacherRepository.findById(11L)).thenReturn(Optional.of(otherTeacher));
+        when(quizRepository.findByIdWithTeacherDetails(50L)).thenReturn(Optional.of(draftQuiz));
+
+        assertThatThrownBy(() -> service.publishAssignment(
+                11L,
+                50L,
+                new TeacherQuizAssignmentRequest(1, 7L, null, null, null)))
+                .isInstanceOf(UnauthorizedException.class);
+        verify(quizAssignmentRepository, never()).save(any());
+        assertThat(draftQuiz.getStatus()).isEqualTo(QuizStatus.DRAFT);
+    }
+
+    @Test
+    @DisplayName("already published quiz cannot be published again")
+    void alreadyPublishedQuizCannotBePublishedAgain() {
+        Quiz publishedQuiz = teacherQuiz(52L, arabic, QuizStatus.PUBLISHED);
+        when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+        when(quizRepository.findByIdWithTeacherDetails(52L)).thenReturn(Optional.of(publishedQuiz));
+
+        assertThatThrownBy(() -> service.publishAssignment(
+                10L,
+                52L,
+                new TeacherQuizAssignmentRequest(1, 7L, null, null, null)))
+                .isInstanceOf(BadRequestException.class);
+        verify(quizAssignmentRepository, never()).save(any());
+    }
+
+    @Test
     @DisplayName("teacher cannot assign unrelated student")
     void teacherCannotAssignUnrelatedStudent() {
         stubTeacherScope(arabic);

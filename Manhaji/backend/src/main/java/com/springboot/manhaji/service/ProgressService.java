@@ -193,7 +193,7 @@ public class ProgressService {
                 .forEach(a -> activities.add(RecentActivityResponse.builder()
                         .type("QUIZ_COMPLETED")
                         .title(a.getQuiz().getTitle())
-                        .subjectName(a.getQuiz().getLesson().getSubject().getName())
+                        .subjectName(resolveQuizSubjectName(a.getQuiz()))
                         .score(a.getScore())
                         .timestamp(a.getSubmittedAt())
                         .build()));
@@ -203,5 +203,22 @@ public class ProgressService {
                 Comparator.nullsLast(Comparator.reverseOrder())));
 
         return activities.size() > 10 ? activities.subList(0, 10) : activities;
+    }
+
+    /**
+     * TEACHER_ASSIGNED quizzes carry the subject directly and have no lesson,
+     * so quiz.getLesson() must never be dereferenced unconditionally here.
+     */
+    private String resolveQuizSubjectName(Quiz quiz) {
+        if (quiz == null) {
+            return null;
+        }
+        if (quiz.getSubject() != null) {
+            return quiz.getSubject().getName();
+        }
+        if (quiz.getLesson() != null && quiz.getLesson().getSubject() != null) {
+            return quiz.getLesson().getSubject().getName();
+        }
+        return null;
     }
 }

@@ -22,4 +22,6 @@ public class TeacherQuizSummaryResponse {
     private Integer questionCount;
     private LocalDateTime createdAt;
     private QuizStatus status;
+    private boolean canPublish;
+    private String publishBlockedReason;
 }

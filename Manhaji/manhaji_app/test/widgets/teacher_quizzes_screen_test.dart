@@ -166,7 +166,8 @@ SubjectSummary _subject() {
   );
 }
 
-QuestionBankResponse _questionBank({bool empty = false}) {
+QuestionBankResponse _questionBank({bool empty = false, int count = 1}) {
+  final questionCount = empty ? 0 : count;
   return QuestionBankResponse(
     subjectId: 10,
     subjectName: 'اللغة العربية',
@@ -176,29 +177,32 @@ QuestionBankResponse _questionBank({bool empty = false}) {
         id: 20,
         title: 'حرف الراء',
         orderIndex: 1,
-        questionCount: empty ? 0 : 1,
+        questionCount: questionCount,
       ),
     ],
-    questions: empty
-        ? const []
-        : [
-            QuestionBankItem(
-              id: 30,
-              type: 'MCQ',
-              questionText: 'اختر الكلمة الصحيحة',
-              correctAnswer: 'رمان',
-              options: const ['رمان', 'باب'],
-              difficultyLevel: 1,
-              lessonId: 20,
-              lessonTitle: 'حرف الراء',
-            ),
-          ],
-    totalQuestionsInSubject: empty ? 0 : 1,
+    questions: [
+      for (var i = 0; i < questionCount; i++)
+        QuestionBankItem(
+          id: 30 + i,
+          type: 'MCQ',
+          questionText: i == 0 ? 'اختر الكلمة الصحيحة' : 'سؤال رقم ${30 + i}',
+          correctAnswer: 'رمان',
+          options: const ['رمان', 'باب'],
+          difficultyLevel: 1,
+          lessonId: 20,
+          lessonTitle: 'حرف الراء',
+        ),
+    ],
+    totalQuestionsInSubject: questionCount,
   );
 }
 
 void main() {
-  TeacherQuizSummary buildQuiz({String? status = 'DRAFT'}) {
+  TeacherQuizSummary buildQuiz({
+    String? status = 'DRAFT',
+    bool canPublish = true,
+    String? publishBlockedReason,
+  }) {
     return TeacherQuizSummary(
       id: 44,
       title: 'اختبار الحروف',
@@ -207,6 +211,8 @@ void main() {
       questionCount: 2,
       createdAt: '2026-07-05T10:00:00',
       status: status,
+      canPublish: canPublish,
+      publishBlockedReason: publishBlockedReason,
     );
   }
 
@@ -309,10 +315,70 @@ void main() {
     expect(find.byKey(const Key('teacher_quiz_publish_44')), findsOneWidget);
   });
 
+  testWidgets('legacy draft quiz hides publish and shows Arabic blocked note', (
+    tester,
+  ) async {
+    _useDesktop(tester);
+    final service = FakeTeacherService(
+      quizzes: [
+        buildQuiz(
+          status: 'DRAFT',
+          canPublish: false,
+          publishBlockedReason: 'LEGACY_QUIZ',
+        ),
+      ],
+      subjects: [_subject()],
+      questionBank: _questionBank(),
+    );
+
+    await tester.pumpWidget(_wrap(service));
+    await tester.pumpAndSettle();
+
+    expect(find.text('مسودة'), findsOneWidget);
+    expect(find.byKey(const Key('teacher_quiz_publish_44')), findsNothing);
+    expect(
+      find.text('هذا اختبار قديم، أنشئ نسخة جديدة لنشره للطلاب'),
+      findsOneWidget,
+    );
+    // Assignments button is also hidden: the endpoint requires ownership.
+    expect(find.byKey(const Key('teacher_quiz_assignments_44')), findsNothing);
+    expect(service.publishedQuizId, isNull);
+  });
+
+  testWidgets('non-owner draft quiz shows account blocked note', (
+    tester,
+  ) async {
+    _useDesktop(tester);
+    final service = FakeTeacherService(
+      quizzes: [
+        buildQuiz(
+          status: 'DRAFT',
+          canPublish: false,
+          publishBlockedReason: 'NOT_OWNER',
+        ),
+      ],
+      subjects: [_subject()],
+      questionBank: _questionBank(),
+    );
+
+    await tester.pumpWidget(_wrap(service));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('teacher_quiz_publish_44')), findsNothing);
+    expect(find.text('غير قابل للنشر من هذا الحساب'), findsOneWidget);
+    expect(service.publishedQuizId, isNull);
+  });
+
   testWidgets('published quiz hides draft-only publish action', (tester) async {
     _useDesktop(tester);
     final service = FakeTeacherService(
-      quizzes: [buildQuiz(status: 'PUBLISHED')],
+      quizzes: [
+        buildQuiz(
+          status: 'PUBLISHED',
+          canPublish: false,
+          publishBlockedReason: 'NOT_DRAFT',
+        ),
+      ],
       subjects: [_subject()],
       questionBank: _questionBank(),
     );
@@ -331,7 +397,13 @@ void main() {
   testWidgets('archived quiz hides draft-only publish action', (tester) async {
     _useDesktop(tester);
     final service = FakeTeacherService(
-      quizzes: [buildQuiz(status: 'ARCHIVED')],
+      quizzes: [
+        buildQuiz(
+          status: 'ARCHIVED',
+          canPublish: false,
+          publishBlockedReason: 'NOT_DRAFT',
+        ),
+      ],
       subjects: [_subject()],
       questionBank: _questionBank(),
     );
@@ -439,5 +511,101 @@ void main() {
     expect(find.text('عدد الطلاب 12'), findsOneWidget);
     expect(find.text('المكتملون 5'), findsOneWidget);
     expect(find.text('متوسط النتيجة 82.0%'), findsOneWidget);
+  });
+
+  Future<void> openDialogAndPickSubject(WidgetTester tester) async {
+    await tester.tap(find.text('إنشاء اختبار جديد').first);
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('teacher_quiz_subject_dropdown')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('اللغة العربية - الصف الأول').last);
+    await tester.pumpAndSettle();
+  }
+
+  testWidgets('random selection picks exactly the requested question count', (
+    tester,
+  ) async {
+    _useDesktop(tester);
+    final service = FakeTeacherService(
+      quizzes: const [],
+      subjects: [_subject()],
+      questionBank: _questionBank(count: 12),
+    );
+
+    await tester.pumpWidget(_wrap(service));
+    await tester.pumpAndSettle();
+    await openDialogAndPickSubject(tester);
+
+    expect(find.byKey(const Key('teacher_quiz_random_button')), findsOneWidget);
+    expect(
+      find.text('يتم الاختيار من الأسئلة المعروضة حسب المادة والدرس'),
+      findsOneWidget,
+    );
+
+    await tester.tap(find.byKey(const Key('teacher_quiz_random_count_10')));
+    await tester.pump();
+    await tester.tap(find.byKey(const Key('teacher_quiz_random_button')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('الأسئلة المختارة (10)'), findsOneWidget);
+    expect(find.byKey(const Key('teacher_quiz_random_error')), findsNothing);
+  });
+
+  testWidgets('random selection above available count shows Arabic validation', (
+    tester,
+  ) async {
+    _useDesktop(tester);
+    final service = FakeTeacherService(
+      quizzes: const [],
+      subjects: [_subject()],
+      questionBank: _questionBank(count: 3),
+    );
+
+    await tester.pumpWidget(_wrap(service));
+    await tester.pumpAndSettle();
+    await openDialogAndPickSubject(tester);
+
+    await tester.tap(find.byKey(const Key('teacher_quiz_random_count_10')));
+    await tester.pump();
+    await tester.tap(find.byKey(const Key('teacher_quiz_random_button')));
+    await tester.pumpAndSettle();
+
+    expect(
+      find.text('عدد الأسئلة المتاحة أقل من العدد المطلوب'),
+      findsOneWidget,
+    );
+    expect(find.text('الأسئلة المختارة (0)'), findsOneWidget);
+  });
+
+  testWidgets('random selection replaces manual picks after confirmation', (
+    tester,
+  ) async {
+    _useDesktop(tester);
+    final service = FakeTeacherService(
+      quizzes: const [],
+      subjects: [_subject()],
+      questionBank: _questionBank(count: 8),
+    );
+
+    await tester.pumpWidget(_wrap(service));
+    await tester.pumpAndSettle();
+    await openDialogAndPickSubject(tester);
+
+    await tester.tap(find.byTooltip('إضافة السؤال').first);
+    await tester.pump();
+    expect(find.text('الأسئلة المختارة (1)'), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('teacher_quiz_random_count_5')));
+    await tester.pump();
+    await tester.tap(find.byKey(const Key('teacher_quiz_random_button')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('استبدال الأسئلة المختارة؟'), findsOneWidget);
+    await tester.tap(
+      find.byKey(const Key('teacher_quiz_random_replace_confirm')),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('الأسئلة المختارة (5)'), findsOneWidget);
   });
 }

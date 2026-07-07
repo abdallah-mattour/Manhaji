@@ -22,9 +22,9 @@ class QuestionPreviewCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 14),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppTheme.cardWhite,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(color: AppTheme.surfaceMuted),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.03),
@@ -196,19 +196,19 @@ class QuestionPreviewCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: isCorrect
             ? AppTheme.primaryGreen.withValues(alpha: 0.08)
-            : Colors.grey.shade50,
+            : AppTheme.surfaceSubtle,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
           color: isCorrect
               ? AppTheme.primaryGreen.withValues(alpha: 0.45)
-              : Colors.grey.shade200,
+              : AppTheme.surfaceMuted,
         ),
       ),
       child: Row(
         children: [
           Icon(
             isCorrect ? Icons.check_circle_rounded : Icons.circle_outlined,
-            color: isCorrect ? AppTheme.primaryGreen : Colors.grey.shade400,
+            color: isCorrect ? AppTheme.primaryGreen : AppTheme.textLight,
             size: 20,
           ),
           const SizedBox(width: 10),
@@ -248,12 +248,12 @@ class QuestionPreviewCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: isCorrect
               ? AppTheme.primaryGreen.withValues(alpha: 0.08)
-              : Colors.grey.shade50,
+              : AppTheme.surfaceSubtle,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
             color: isCorrect
                 ? AppTheme.primaryGreen.withValues(alpha: 0.45)
-                : Colors.grey.shade200,
+                : AppTheme.surfaceMuted,
           ),
         ),
         child: Row(

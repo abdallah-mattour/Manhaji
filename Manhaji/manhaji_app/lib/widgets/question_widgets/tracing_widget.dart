@@ -140,9 +140,39 @@ class _TracingWidgetState extends State<TracingWidget> {
     );
   }
 
+  /// The glyphs the child actually traces. Older items put just the letter
+  /// in `questionText` ("ب"), newer ones wrap it in a prompt ("اكتب العدد ٤٧"
+  /// or "اكتب العدد ١٥ بخط جميل") — drawing the WHOLE prompt overflowed the
+  /// canvas and showed a meaningless fragment. Extract the real target:
+  /// a digit run wins, then text after a colon, then the prompt stripped of
+  /// scaffold words, then the raw text.
+  String get _traceTarget {
+    final text = widget.question.questionText.trim();
+    final digits = RegExp(r'[٠-٩0-9]+')
+        .allMatches(text)
+        .map((m) => m.group(0)!)
+        .join();
+    if (digits.isNotEmpty) return digits;
+    if (text.contains(':')) {
+      final after = text.split(':').last.trim();
+      if (after.isNotEmpty) return after;
+    }
+    const scaffold = {
+      'اكتب', 'ارسم', 'تتبع', 'تتبّع', 'العدد', 'الرقم', 'الحرف', 'حرف',
+      'كلمة', 'بخط', 'جميل', 'جميلة',
+      'Trace', 'Write', 'trace', 'write', 'the', 'letter', 'number', 'word',
+    };
+    final words = text
+        .split(RegExp(r'\s+'))
+        .where((w) => !scaffold.contains(w))
+        .toList();
+    if (words.isNotEmpty && words.length <= 2) return words.join(' ');
+    return text;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final target = widget.question.questionText;
+    final target = _traceTarget;
     return Column(
       children: [
         Text(
@@ -166,24 +196,32 @@ class _TracingWidgetState extends State<TracingWidget> {
         ),
         const SizedBox(height: 12),
         if (!widget.isAnswered)
+          // The app theme gives buttons `minimumSize: Size(double.infinity, 56)`.
+          // Inside a Row that minimum demands infinite width and the whole
+          // learning screen fails to lay out (every TRACING question rendered
+          // as a blank page). Expanded bounds each button to its share of the
+          // row, which also gives the child two big equal tap targets.
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              OutlinedButton.icon(
-                onPressed: _strokes.isEmpty ? null : _clear,
-                icon: const Icon(Icons.refresh_rounded),
-                label: Text(widget.english ? 'Clear' : 'مسح',
-                    style: const TextStyle(fontFamily: 'Cairo')),
+              Expanded(
+                child: OutlinedButton.icon(
+                  onPressed: _strokes.isEmpty ? null : _clear,
+                  icon: const Icon(Icons.refresh_rounded),
+                  label: Text(widget.english ? 'Clear' : 'مسح',
+                      style: const TextStyle(fontFamily: 'Cairo')),
+                ),
               ),
               const SizedBox(width: 12),
-              ElevatedButton.icon(
-                onPressed: _strokes.isEmpty ? null : _submit,
-                icon: const Icon(Icons.check_rounded),
-                label: Text(widget.english ? 'Check' : 'تحقق',
-                    style: const TextStyle(fontFamily: 'Cairo')),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppTheme.primaryGreen,
-                  foregroundColor: Colors.white,
+              Expanded(
+                child: ElevatedButton.icon(
+                  onPressed: _strokes.isEmpty ? null : _submit,
+                  icon: const Icon(Icons.check_rounded),
+                  label: Text(widget.english ? 'Check' : 'تحقق',
+                      style: const TextStyle(fontFamily: 'Cairo')),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppTheme.primaryGreen,
+                    foregroundColor: Colors.white,
+                  ),
                 ),
               ),
             ],
@@ -259,19 +297,27 @@ class _TemplatePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final template = TextPainter(
-      text: TextSpan(
-        text: target,
-        style: TextStyle(
-          fontFamily: 'Cairo',
-          fontSize: size.height * 0.75,
-          fontWeight: FontWeight.w300,
-          color: AppTheme.primaryBlue.withValues(alpha: 0.18),
-        ),
-      ),
-      textAlign: TextAlign.center,
-      textDirection: TextDirection.rtl,
-    )..layout(maxWidth: size.width);
+    TextPainter templateFor(double fontSize) => TextPainter(
+          text: TextSpan(
+            text: target,
+            style: TextStyle(
+              fontFamily: 'Cairo',
+              fontSize: fontSize,
+              fontWeight: FontWeight.w300,
+              color: AppTheme.primaryBlue.withValues(alpha: 0.18),
+            ),
+          ),
+          textAlign: TextAlign.center,
+          textDirection: TextDirection.rtl,
+        )..layout();
+
+    // Fit multi-glyph targets ("٤٧", "٢٠") inside the canvas: start at 75%
+    // of the height and shrink once if the glyphs overflow the width.
+    var template = templateFor(size.height * 0.75);
+    if (template.width > size.width * 0.9) {
+      template = templateFor(
+          size.height * 0.75 * (size.width * 0.9 / template.width));
+    }
     template.paint(
       canvas,
       Offset(

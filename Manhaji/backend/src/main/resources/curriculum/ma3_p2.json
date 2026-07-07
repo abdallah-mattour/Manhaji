@@ -1,0 +1,3550 @@
+{
+  "subject": "الرياضيات",
+  "subjectCode": "ma",
+  "gradeLevel": 3,
+  "semester": 2,
+  "totalLessons": 30,
+  "lessons": [
+    {
+      "title": "تقريب الأعداد إلى أقرب ألف",
+      "content": "نقرّب العدد إلى أقرب ألف بالنظر إلى رقم المئات: بلغ عدد خلايا النحل في فلسطين نحو ٧٠ ألف خلية بعد التقريب.",
+      "objectives": "تقريب الأعداد الكبيرة إلى أقرب ألف",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "العدد ٣٤٦٠ مقرّباً إلى أقرب ألف هو:",
+          "correctAnswer": "٣٠٠٠",
+          "options": [
+            "٤٠٠٠",
+            "٣٥٠٠",
+            "٢٠٠٠",
+            "٣٠٠٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "العدد ٥٧٢٠ مقرّباً إلى أقرب ألف هو:",
+          "correctAnswer": "٦٠٠٠",
+          "options": [
+            "٥٧٠٠",
+            "٥٠٠٠",
+            "٧٠٠٠",
+            "٦٠٠٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "العدد ١٢٥٠٠ مقرّباً إلى أقرب ألف هو:",
+          "correctAnswer": "١٣٠٠٠",
+          "options": [
+            "١٢٠٠٠",
+            "١٣٠٠٠",
+            "١٤٠٠٠",
+            "١٢٥٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ٨٣٠٠ مقرّباً إلى أقرب ألف يساوي ٨٠٠٠.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "عند التقريب إلى أقرب ألف ننظر إلى رقم الآحاد.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: العدد ٦٨٠٠ مقرّباً إلى أقرب ألف هو ___.",
+          "correctAnswer": "٧٠٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "قرّب العدد ٤٤٩٩ إلى أقرب ألف.",
+          "correctAnswer": "٤٠٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بلغ عدد خلايا النحل الحديثة في محافظةٍ ما ٦٨٥٤٠ خلية. العدد مقرّباً إلى أقرب ألف هو:",
+          "correctAnswer": "٦٩٠٠٠",
+          "options": [
+            "٧٠٠٠٠",
+            "٦٨٥٠٠",
+            "٦٩٠٠٠",
+            "٦٨٠٠٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "إذا كان رقم المئات ٥ فأكثر فإننا نقرّب إلى:",
+          "correctAnswer": "الألف الأعلى",
+          "options": [
+            "الألف الأدنى",
+            "لا نقرّب",
+            "المئة الأقرب",
+            "الألف الأعلى"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الأعداد حسب تقريبها إلى أقرب ألف: ٢٠٠٠ أم ٣٠٠٠؟",
+          "correctAnswer": "يقرب إلى ٢٠٠٠=٢٣٠٠,يقرب إلى ٢٠٠٠=١٨٠٠,يقرب إلى ٣٠٠٠=٢٧٠٠,يقرب إلى ٣٠٠٠=٣٢٠٠",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "يقرب إلى ٢٠٠٠",
+              "يقرب إلى ٣٠٠٠"
+            ],
+            "tokens": [
+              "٢٣٠٠",
+              "٢٧٠٠",
+              "١٨٠٠",
+              "٣٢٠٠"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 1
+    },
+    {
+      "title": "جمع عددين ضمن ٩٩٩٩٩",
+      "content": "نجمع الأعداد الكبيرة عمودياً منزلة منزلة مع الحمل عند الحاجة، كما نجمع أعداد السيارات المسجلة عبر السنوات.",
+      "objectives": "إيجاد ناتج جمع عددين ضمن ٩٩٩٩٩",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٢٣٤٥٠ + ١٢٣٢٠ =",
+          "correctAnswer": "٣٥٧٧٠",
+          "options": [
+            "٣٥٧٦٠",
+            "٣٥٧٧٠",
+            "٣٥٦٧٠",
+            "٣٤٧٧٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٤٥٦٧٨ + ٢٣٤٥٦ =",
+          "correctAnswer": "٦٩١٣٤",
+          "options": [
+            "٦٩١٢٤",
+            "٦٩١٣٤",
+            "٦٩٢٣٤",
+            "٦٨١٣٤"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٥٠٠٠٠ + ٢٥٠٠٠ =",
+          "correctAnswer": "٧٥٠٠٠",
+          "options": [
+            "٨٥٠٠٠",
+            "٥٥٠٠٠",
+            "٧٠٠٠٠",
+            "٧٥٠٠٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "١٢٥٠٠ + ١٢٥٠٠ = ٢٥٠٠٠",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٤٩٩٩٩ + ١ = ٤٩٩٩٨",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٣٣٠٠٠ + ___ = ٦٠٠٠٠.",
+          "correctAnswer": "٢٧٠٠٠",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أجد ناتج الجمع: ٢١٤٣٢ + ١٣٢٤٥.",
+          "correctAnswer": "٣٤٦٧٧",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "سُجّلت في عامٍ ٢٤٥٠٠ سيارة وفي العام التالي ١٨٣٠٠ سيارة. كم سيارة سُجّلت في العامين؟",
+          "correctAnswer": "٤٢٨٠٠",
+          "options": [
+            "٤٢٧٠٠",
+            "٤١٨٠٠",
+            "٤٢٨٠٠",
+            "٤٣٨٠٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب نواتج الجمع تصاعدياً: ١٠٠٠٠+٥٠٠٠، ٢٠٠٠٠+١٠٠٠، ١٠٠٠٠+٢٠٠٠",
+          "correctAnswer": "١٠٠٠٠+٢٠٠٠، ١٠٠٠٠+٥٠٠٠، ٢٠٠٠٠+١٠٠٠",
+          "options": [
+            "١٠٠٠٠+٥٠٠٠",
+            "٢٠٠٠٠+١٠٠٠",
+            "١٠٠٠٠+٢٠٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يمكن تبديل ترتيب العددين في الجمع دون أن يتغير الناتج.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 2
+    },
+    {
+      "title": "طرح عددين ضمن ٩٩٩٩٩",
+      "content": "نطرح الأعداد الكبيرة عمودياً مع الاستلاف عند الحاجة، ونتحقق من الناتج بالجمع.",
+      "objectives": "إيجاد ناتج طرح عددين ضمن ٩٩٩٩٩",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٥٦٧٨٠ − ٢٣٤٥٠ =",
+          "correctAnswer": "٣٣٣٣٠",
+          "options": [
+            "٣٣٣٤٠",
+            "٣٣٣٣٠",
+            "٣٢٣٣٠",
+            "٣٣٤٣٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٧٠٠٠٠ − ٢٥٠٠٠ =",
+          "correctAnswer": "٤٥٠٠٠",
+          "options": [
+            "٣٥٠٠٠",
+            "٥٥٠٠٠",
+            "٤٥٠٠٠",
+            "٤٠٠٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٤٢٣٥٦ − ١٢٣٤٥ =",
+          "correctAnswer": "٣٠٠١١",
+          "options": [
+            "٣٠١١١",
+            "٣٠٠١١",
+            "٣١٠١١",
+            "٢٩٠١١"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٥٠٠٠٠ − ١ = ٤٩٩٩٩",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "ناتج الطرح دائماً أكبر من المطروح منه.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٨٠٠٠٠ − ٣٥٠٠٠ = ___.",
+          "correctAnswer": "٤٥٠٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أجد ناتج الطرح: ٦٥٤٣٢ − ٢٣٤٢١.",
+          "correctAnswer": "٤٢٠١١",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "عددٌ إذا طُرح منه ١٥٠٠٠ كان الناتج ٢٠٠٠٠. ما العدد؟",
+          "correctAnswer": "٣٥٠٠٠",
+          "options": [
+            "٣٠٠٠٠",
+            "٥٠٠٠",
+            "٢٥٠٠٠",
+            "٣٥٠٠٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "زار متحفاً في سنة ٤٦٢٠٠ زائر، وفي السنة التالية ٣٩٥٠٠ زائر. كم نقص عدد الزوار؟",
+          "correctAnswer": "٦٧٠٠",
+          "options": [
+            "٧٧٠٠",
+            "٦٧٠٠",
+            "٦٦٠٠",
+            "٥٧٠٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "نتحقق من ناتج الطرح بجمع الناتج مع المطروح.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 3
+    },
+    {
+      "title": "مراجعة الوحدة السادسة (الجمع والطرح ضمن ٩٩٩٩٩)",
+      "content": "نراجع التقريب والجمع والطرح ضمن ٩٩٩٩٩ ونحل مسائل حياتية مثل مساعدة ليلى في الوصول إلى منزل جدتها.",
+      "objectives": "توظيف مهارات الوحدة السادسة مجتمعة",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ١٥٥٠٠ + ٤٥٠٠ =",
+          "correctAnswer": "٢٠٠٠٠",
+          "options": [
+            "١٩٠٠٠",
+            "٢١٠٠٠",
+            "١٩٥٠٠",
+            "٢٠٠٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٩٠٠٠٠ − ٤٥٥٠٠ =",
+          "correctAnswer": "٤٤٥٠٠",
+          "options": [
+            "٤٤٠٠٠",
+            "٤٥٥٠٠",
+            "٥٤٥٠٠",
+            "٤٤٥٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "العدد ٢٩٧٠٠ مقرّباً إلى أقرب ألف هو:",
+          "correctAnswer": "٣٠٠٠٠",
+          "options": [
+            "٢٨٠٠٠",
+            "٢٩٠٠٠",
+            "٣٠٠٠٠",
+            "٢٩٧٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "١١١١١ + ٢٢٢٢٢ = ٣٣٣٣٣",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٦٠٠٠٠ − ٣٠٠٠٠ = ٢٠٠٠٠",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل النمط: ١٥٠٠٠، ٢٠٠٠٠، ٢٥٠٠٠، ___.",
+          "correctAnswer": "٣٠٠٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أنا عدد مكوّن من خمس منازل، إذا أضفتَ إليّ ١٠٠٠ صرتُ ٢١٠٠٠. من أنا؟",
+          "correctAnswer": "٢٠٠٠٠",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب خطوات التحقق من الطرح: أجمع الناتج مع المطروح، أجد ناتج الطرح، أقارن بالمطروح منه",
+          "correctAnswer": "أجد ناتج الطرح، أجمع الناتج مع المطروح، أقارن بالمطروح منه",
+          "options": [
+            "أجمع الناتج مع المطروح",
+            "أجد ناتج الطرح",
+            "أقارن بالمطروح منه"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "قطفت عائلةٌ ١٢٤٠٠ كيلوغرام من الزيتون في موسم، و٩٨٠٠ كيلوغرام في الموسم التالي. كم كيلوغراماً قطفت في الموسمين؟",
+          "correctAnswer": "٢٢٢٠٠",
+          "options": [
+            "٢٣٢٠٠",
+            "٢١٢٠٠",
+            "٢٢١٠٠",
+            "٢٢٢٠٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "التقدير بالتقريب يساعدنا على معرفة معقولية الناتج.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 4
+    },
+    {
+      "title": "حقائق الضرب للعدد ٢",
+      "content": "نبني حقائق الضرب للعدد ٢ بالجمع المتكرر والعد القفزي: كل ناتج يزيد عن سابقه بمقدار ٢.",
+      "objectives": "استنتاج حقائق الضرب للعدد ٢ وتوظيفها",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٢ × ٦ =",
+          "correctAnswer": "١٢",
+          "options": [
+            "١٤",
+            "١٠",
+            "١٢",
+            "١٦"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٢ × ٨ =",
+          "correctAnswer": "١٦",
+          "options": [
+            "٢٠",
+            "١٦",
+            "١٨",
+            "١٤"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ناتج ضرب ٢ في ١٠ يساوي:",
+          "correctAnswer": "٢٠",
+          "options": [
+            "١٠",
+            "٤٠",
+            "٣٠",
+            "٢٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٢ × ٤ = ٨",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٢ × ٩ = ٢٠",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل جملة الضرب: ٢ × ___ = ١٤.",
+          "correctAnswer": "٧",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أتابع العد القفزي بالعدد ٢: ٦، ٨، ١٠، ___.",
+          "correctAnswer": "١٢",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أجد ناتج الضرب: ٢ × ٩.",
+          "correctAnswer": "١٨",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب النواتج تصاعدياً: ٢×٤، ٢×٢، ٢×٦",
+          "correctAnswer": "٢×٢، ٢×٤، ٢×٦",
+          "options": [
+            "٢×٤",
+            "٢×٢",
+            "٢×٦"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "شاهدت سحر في حديقة الحيوان ٧ أرانب. كم عيناً لهذه الأرانب معاً؟",
+          "correctAnswer": "١٤",
+          "options": [
+            "١٨",
+            "١٦",
+            "١٤",
+            "١٢"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 5
+    },
+    {
+      "title": "حقائق الضرب للعدد ٣",
+      "content": "نبني حقائق الضرب للعدد ٣ بالجمع المتكرر والعد القفزي: كل ناتج يزيد عن سابقه بمقدار ٣.",
+      "objectives": "استنتاج حقائق الضرب للعدد ٣ وتوظيفها",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٣ × ٥ =",
+          "correctAnswer": "١٥",
+          "options": [
+            "١٢",
+            "٢١",
+            "١٥",
+            "١٨"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٣ × ٧ =",
+          "correctAnswer": "٢١",
+          "options": [
+            "١٨",
+            "٢١",
+            "٢٧",
+            "٢٤"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ناتج ضرب ٣ في ١٠ يساوي:",
+          "correctAnswer": "٣٠",
+          "options": [
+            "٢٠",
+            "٤٠",
+            "٥٠",
+            "٣٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٣ × ٦ = ١٨",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٣ × ٨ = ٢٧",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل جملة الضرب: ٣ × ___ = ١٢.",
+          "correctAnswer": "٤",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أتابع العد القفزي بالعدد ٣: ٦، ٩، ١٢، ___.",
+          "correctAnswer": "١٥",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أجد ناتج الضرب: ٣ × ٨.",
+          "correctAnswer": "٢٤",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب النواتج تصاعدياً: ٣×٤، ٣×٢، ٣×٦",
+          "correctAnswer": "٣×٢، ٣×٤، ٣×٦",
+          "options": [
+            "٣×٤",
+            "٣×٢",
+            "٣×٦"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "تقطف تُقى كل يوم ٣ برتقالات. كم برتقالة تقطف في ٦ أيام؟",
+          "correctAnswer": "١٨",
+          "options": [
+            "٢٤",
+            "١٨",
+            "٢١",
+            "١٥"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 6
+    },
+    {
+      "title": "حقائق الضرب للعدد ٤",
+      "content": "نبني حقائق الضرب للعدد ٤ بالجمع المتكرر والعد القفزي: كل ناتج يزيد عن سابقه بمقدار ٤.",
+      "objectives": "استنتاج حقائق الضرب للعدد ٤ وتوظيفها",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٤ × ٣ =",
+          "correctAnswer": "١٢",
+          "options": [
+            "١٦",
+            "٢٠",
+            "٨",
+            "١٢"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٤ × ٩ =",
+          "correctAnswer": "٣٦",
+          "options": [
+            "٣٢",
+            "٣٦",
+            "٤٤",
+            "٤٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ناتج ضرب ٤ في ١٠ يساوي:",
+          "correctAnswer": "٤٠",
+          "options": [
+            "٦٠",
+            "٤٠",
+            "٥٠",
+            "٣٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٤ × ٥ = ٢٠",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٤ × ٧ = ٣٢",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل جملة الضرب: ٤ × ___ = ٢٤.",
+          "correctAnswer": "٦",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أتابع العد القفزي بالعدد ٤: ١٦، ٢٠، ٢٤، ___.",
+          "correctAnswer": "٢٨",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أجد ناتج الضرب: ٤ × ٧.",
+          "correctAnswer": "٢٨",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب النواتج تصاعدياً: ٤×٤، ٤×٢، ٤×٦",
+          "correctAnswer": "٤×٢، ٤×٤، ٤×٦",
+          "options": [
+            "٤×٤",
+            "٤×٢",
+            "٤×٦"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "لكل سيارة ٤ أبواب. كم باباً لـ ٨ سيارات؟",
+          "correctAnswer": "٣٢",
+          "options": [
+            "٣٦",
+            "٣٢",
+            "٤٠",
+            "٢٨"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 7
+    },
+    {
+      "title": "حقائق الضرب للعدد ٥",
+      "content": "نبني حقائق الضرب للعدد ٥ بالجمع المتكرر والعد القفزي: كل ناتج يزيد عن سابقه بمقدار ٥.",
+      "objectives": "استنتاج حقائق الضرب للعدد ٥ وتوظيفها",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٥ × ٤ =",
+          "correctAnswer": "٢٠",
+          "options": [
+            "١٥",
+            "٢٠",
+            "٣٠",
+            "٢٥"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٥ × ٨ =",
+          "correctAnswer": "٤٠",
+          "options": [
+            "٥٠",
+            "٤٥",
+            "٤٠",
+            "٣٥"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ناتج ضرب ٥ في ١٠ يساوي:",
+          "correctAnswer": "٥٠",
+          "options": [
+            "٤٠",
+            "٧٠",
+            "٥٠",
+            "٦٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٥ × ٧ = ٣٥",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٥ × ٦ = ٣٥",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل جملة الضرب: ٥ × ___ = ٤٥.",
+          "correctAnswer": "٩",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أتابع العد القفزي بالعدد ٥: ١٥، ٢٠، ٢٥، ___.",
+          "correctAnswer": "٣٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أجد ناتج الضرب: ٥ × ٦.",
+          "correctAnswer": "٣٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب النواتج تصاعدياً: ٥×٤، ٥×٢، ٥×٦",
+          "correctAnswer": "٥×٢، ٥×٤، ٥×٦",
+          "options": [
+            "٥×٤",
+            "٥×٢",
+            "٥×٦"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "تقطف عائلة أبي أمجد كل يوم ٥ أشجار زيتون. كم شجرة تقطف في ٧ أيام؟",
+          "correctAnswer": "٣٥",
+          "options": [
+            "٣٠",
+            "٤٥",
+            "٤٠",
+            "٣٥"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 8
+    },
+    {
+      "title": "خصائص عملية الضرب",
+      "content": "الخاصية التبديلية: ٣ × ٥ = ٥ × ٣. الضرب في ١ يعطي العدد نفسه، والضرب في صفر يعطي صفراً.",
+      "objectives": "استنتاج خصائص عملية الضرب وتوظيفها",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بحسب الخاصية التبديلية: ٤ × ٧ = ",
+          "correctAnswer": "٧ × ٤",
+          "options": [
+            "٤ × ٤",
+            "٧ − ٤",
+            "٧ × ٤",
+            "٤ + ٧"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ناتج ضرب أي عدد في ١ يساوي:",
+          "correctAnswer": "العدد نفسه",
+          "options": [
+            "صفراً",
+            "واحداً",
+            "العدد نفسه",
+            "ضعف العدد"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ناتج ضرب أي عدد في صفر يساوي:",
+          "correctAnswer": "صفراً",
+          "options": [
+            "واحداً",
+            "صفراً",
+            "العدد نفسه",
+            "عشرة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٦ × ٩ = ٩ × ٦",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٨ × ٠ = ٨",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل بحسب الخاصية التبديلية: ٥ × ٨ = ٨ × ___.",
+          "correctAnswer": "٥",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما ناتج ضرب العدد ٥٣ في العدد ١؟",
+          "correctAnswer": "٥٣",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب النواتج تصاعدياً: ٧×١، ٧×٠، ٧×٢",
+          "correctAnswer": "٧×٠، ٧×١، ٧×٢",
+          "options": [
+            "٧×١",
+            "٧×٠",
+            "٧×٢"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "اشترى معاذ ٣ علب ألوان في كل علبة ٦ أقلام، واشترت رنا ٦ علب في كل علبة ٣ أقلام. من معه أقلام أكثر؟",
+          "correctAnswer": "متساويان",
+          "options": [
+            "لا يمكن المعرفة",
+            "رنا",
+            "معاذ",
+            "متساويان"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف النواتج: يساوي صفراً أم يساوي العدد نفسه؟",
+          "correctAnswer": "يساوي صفراً=٩ × ٠,يساوي صفراً=٠ × ٤,يساوي العدد نفسه=٩ × ١,يساوي العدد نفسه=١ × ٤",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "يساوي صفراً",
+              "يساوي العدد نفسه"
+            ],
+            "tokens": [
+              "٩ × ٠",
+              "٩ × ١",
+              "٠ × ٤",
+              "١ × ٤"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 9
+    },
+    {
+      "title": "حقائق الضرب للعدد ٦",
+      "content": "نبني حقائق الضرب للعدد ٦ بالجمع المتكرر والعد القفزي: كل ناتج يزيد عن سابقه بمقدار ٦.",
+      "objectives": "استنتاج حقائق الضرب للعدد ٦ وتوظيفها",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٦ × ٣ =",
+          "correctAnswer": "١٨",
+          "options": [
+            "١٢",
+            "٢٤",
+            "٣٠",
+            "١٨"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٦ × ٧ =",
+          "correctAnswer": "٤٢",
+          "options": [
+            "٣٦",
+            "٥٤",
+            "٤٨",
+            "٤٢"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ناتج ضرب ٦ في ١٠ يساوي:",
+          "correctAnswer": "٦٠",
+          "options": [
+            "٨٠",
+            "٥٠",
+            "٧٠",
+            "٦٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٦ × ٤ = ٢٤",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٦ × ٩ = ٦٠",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل جملة الضرب: ٦ × ___ = ٤٨.",
+          "correctAnswer": "٨",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أتابع العد القفزي بالعدد ٦: ١٢، ١٨، ٢٤، ___.",
+          "correctAnswer": "٣٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أجد ناتج الضرب: ٦ × ٩.",
+          "correctAnswer": "٥٤",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب النواتج تصاعدياً: ٦×٤، ٦×٢، ٦×٦",
+          "correctAnswer": "٦×٢، ٦×٤، ٦×٦",
+          "options": [
+            "٦×٤",
+            "٦×٢",
+            "٦×٦"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "للدعسوقة ٦ أرجل. كم رجلاً لـ ٥ دعسوقات؟",
+          "correctAnswer": "٣٠",
+          "options": [
+            "٤٢",
+            "٣٠",
+            "٣٦",
+            "٢٤"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 10
+    },
+    {
+      "title": "حقائق الضرب للعدد ٧",
+      "content": "نبني حقائق الضرب للعدد ٧ بالجمع المتكرر والعد القفزي: كل ناتج يزيد عن سابقه بمقدار ٧.",
+      "objectives": "استنتاج حقائق الضرب للعدد ٧ وتوظيفها",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٧ × ٤ =",
+          "correctAnswer": "٢٨",
+          "options": [
+            "٤٢",
+            "٢١",
+            "٣٥",
+            "٢٨"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٧ × ٦ =",
+          "correctAnswer": "٤٢",
+          "options": [
+            "٣٥",
+            "٤٩",
+            "٤٢",
+            "٥٦"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ناتج ضرب ٧ في ١٠ يساوي:",
+          "correctAnswer": "٧٠",
+          "options": [
+            "٦٠",
+            "٨٠",
+            "٩٠",
+            "٧٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٧ × ٨ = ٥٦",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٧ × ٥ = ٤٢",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل جملة الضرب: ٧ × ___ = ٢١.",
+          "correctAnswer": "٣",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أتابع العد القفزي بالعدد ٧: ١٤، ٢١، ٢٨، ___.",
+          "correctAnswer": "٣٥",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أجد ناتج الضرب: ٧ × ٥.",
+          "correctAnswer": "٣٥",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب النواتج تصاعدياً: ٧×٤، ٧×٢، ٧×٦",
+          "correctAnswer": "٧×٢، ٧×٤، ٧×٦",
+          "options": [
+            "٧×٤",
+            "٧×٢",
+            "٧×٦"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في الأسبوع ٧ أيام. كم يوماً في ٤ أسابيع؟",
+          "correctAnswer": "٢٨",
+          "options": [
+            "٣٥",
+            "٢١",
+            "٤٢",
+            "٢٨"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 11
+    },
+    {
+      "title": "حقائق الضرب للعدد ٨",
+      "content": "نبني حقائق الضرب للعدد ٨ بالجمع المتكرر والعد القفزي: كل ناتج يزيد عن سابقه بمقدار ٨.",
+      "objectives": "استنتاج حقائق الضرب للعدد ٨ وتوظيفها",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٨ × ٣ =",
+          "correctAnswer": "٢٤",
+          "options": [
+            "١٦",
+            "٣٢",
+            "٤٠",
+            "٢٤"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٨ × ٦ =",
+          "correctAnswer": "٤٨",
+          "options": [
+            "٥٦",
+            "٤٠",
+            "٤٨",
+            "٦٤"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ناتج ضرب ٨ في ١٠ يساوي:",
+          "correctAnswer": "٨٠",
+          "options": [
+            "١٠٠",
+            "٨٠",
+            "٧٠",
+            "٩٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٨ × ٧ = ٥٦",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٨ × ٤ = ٤٠",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل جملة الضرب: ٨ × ___ = ٤٠.",
+          "correctAnswer": "٥",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أتابع العد القفزي بالعدد ٨: ١٦، ٢٤، ٣٢، ___.",
+          "correctAnswer": "٤٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أجد ناتج الضرب: ٨ × ٤.",
+          "correctAnswer": "٣٢",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب النواتج تصاعدياً: ٨×٤، ٨×٢، ٨×٦",
+          "correctAnswer": "٨×٢، ٨×٤، ٨×٦",
+          "options": [
+            "٨×٤",
+            "٨×٢",
+            "٨×٦"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "للأخطبوط ٨ أذرع. كم ذراعاً لـ ٦ أخطبوطات؟",
+          "correctAnswer": "٤٨",
+          "options": [
+            "٦٤",
+            "٤٠",
+            "٤٨",
+            "٥٦"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 12
+    },
+    {
+      "title": "حقائق الضرب للعدد ٩",
+      "content": "نبني حقائق الضرب للعدد ٩ بالجمع المتكرر والعد القفزي: كل ناتج يزيد عن سابقه بمقدار ٩.",
+      "objectives": "استنتاج حقائق الضرب للعدد ٩ وتوظيفها",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٩ × ٤ =",
+          "correctAnswer": "٣٦",
+          "options": [
+            "٢٧",
+            "٤٥",
+            "٣٦",
+            "٥٤"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٩ × ٧ =",
+          "correctAnswer": "٦٣",
+          "options": [
+            "٥٤",
+            "٧٢",
+            "٦٣",
+            "٨١"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ناتج ضرب ٩ في ١٠ يساوي:",
+          "correctAnswer": "٩٠",
+          "options": [
+            "٨٠",
+            "١١٠",
+            "١٠٠",
+            "٩٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٩ × ٣ = ٢٧",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٩ × ٦ = ٦٣",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل جملة الضرب: ٩ × ___ = ٧٢.",
+          "correctAnswer": "٨",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أتابع العد القفزي بالعدد ٩: ١٨، ٢٧، ٣٦، ___.",
+          "correctAnswer": "٤٥",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أجد ناتج الضرب: ٩ × ٦.",
+          "correctAnswer": "٥٤",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب النواتج تصاعدياً: ٩×٤، ٩×٢، ٩×٦",
+          "correctAnswer": "٩×٢، ٩×٤، ٩×٦",
+          "options": [
+            "٩×٤",
+            "٩×٢",
+            "٩×٦"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "وضع أصدقاء محمد على كل شريط ٩ بالونات في حفلة ميلاده. كم بالوناً على ٥ أشرطة؟",
+          "correctAnswer": "٤٥",
+          "options": [
+            "٥٤",
+            "٦٣",
+            "٣٦",
+            "٤٥"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 13
+    },
+    {
+      "title": "الضرب في العشرات والمئات",
+      "content": "لضرب عدد في العشرات أو المئات نضرب في الرقم ثم نضيف الأصفار: ٣ × ٤٠ = ١٢٠، و٣ × ٤٠٠ = ١٢٠٠.",
+      "objectives": "إيجاد ناتج الضرب في العشرات والمئات",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٣ × ٤٠ =",
+          "correctAnswer": "١٢٠",
+          "options": [
+            "١٢",
+            "١٢٠",
+            "١٢٠٠",
+            "٤٣"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٥ × ٦٠ =",
+          "correctAnswer": "٣٠٠",
+          "options": [
+            "٣٠٠٠",
+            "٣٠٠",
+            "٣٠",
+            "٦٥"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٤ × ٢٠٠ =",
+          "correctAnswer": "٨٠٠",
+          "options": [
+            "٨٠٠٠",
+            "٨٠",
+            "٨٠٠",
+            "٢٤٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٧ × ١٠٠ = ٧٠٠",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٦ × ٣٠ = ١٨٠٠",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٢ × ٥٠٠ = ___.",
+          "correctAnswer": "١٠٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أجد ناتج الضرب: ٨ × ٩٠.",
+          "correctAnswer": "٧٢٠",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "يتدرّب جهاد على كرة القدم ٣ مرات أسبوعياً، مدة كل تدريب ٦٠ دقيقة. كم دقيقة يتدرّب في الأسبوع؟",
+          "correctAnswer": "١٨٠",
+          "options": [
+            "٢٤٠",
+            "٦٣",
+            "١٢٠",
+            "١٨٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "فندق مكوّن من ٤ طوابق، في كل طابق ٢٠ غرفة. كم غرفة في الفندق؟",
+          "correctAnswer": "٨٠",
+          "options": [
+            "٢٤",
+            "٦٠",
+            "١٠٠",
+            "٨٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب النواتج تصاعدياً: ٢×٣٠٠، ٢×٣٠، ٢×٣",
+          "correctAnswer": "٢×٣، ٢×٣٠، ٢×٣٠٠",
+          "options": [
+            "٢×٣٠٠",
+            "٢×٣٠",
+            "٢×٣"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 14
+    },
+    {
+      "title": "مراجعة الوحدة السابعة (الضرب)",
+      "content": "نراجع حقائق الضرب من ٢ إلى ٩ وخصائص عملية الضرب والضرب في العشرات والمئات.",
+      "objectives": "توظيف حقائق الضرب مجتمعة في حل المسائل",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٦ × ٨ =",
+          "correctAnswer": "٤٨",
+          "options": [
+            "٥٤",
+            "٤٢",
+            "٤٨",
+            "٥٦"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٩ × ٩ =",
+          "correctAnswer": "٨١",
+          "options": [
+            "٧٢",
+            "٨١",
+            "٩٠",
+            "٧٩"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٧ × ٨٠ =",
+          "correctAnswer": "٥٦٠",
+          "options": [
+            "٦٥٠",
+            "٥٦",
+            "٧٨٠",
+            "٥٦٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٧ × ٧ = ٤٩",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٨ × ٦ = ٥٤",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل جملة الضرب: ٩ × ___ = ٦٣.",
+          "correctAnswer": "٧",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أجد ناتج الضرب: ٦ × ٧.",
+          "correctAnswer": "٤٢",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب النواتج تنازلياً: ٦×٦، ٥×٩، ٧×٤",
+          "correctAnswer": "٥×٩، ٦×٦، ٧×٤",
+          "options": [
+            "٦×٦",
+            "٥×٩",
+            "٧×٤"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في مكتبة ٧ رفوف، على كل رف ٩ كتب. كم كتاباً في المكتبة؟",
+          "correctAnswer": "٦٣",
+          "options": [
+            "٥٦",
+            "٦٣",
+            "٧٢",
+            "١٦"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف جمل الضرب حسب ناتجها: ٢٤ أم ٣٦؟",
+          "correctAnswer": "الناتج ٢٤=٦ × ٤,الناتج ٢٤=٨ × ٣,الناتج ٣٦=٦ × ٦,الناتج ٣٦=٩ × ٤",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "الناتج ٢٤",
+              "الناتج ٣٦"
+            ],
+            "tokens": [
+              "٦ × ٤",
+              "٦ × ٦",
+              "٨ × ٣",
+              "٩ × ٤"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 15
+    },
+    {
+      "title": "مفهوم القسمة وعناصرها",
+      "content": "القسمة توزيع بالتساوي: وزّعت أم أحمد الكعك على أولادها الثلاثة بالتساوي في رحلتهم إلى القدس. عناصرها: المقسوم، المقسوم عليه، الناتج.",
+      "objectives": "التعرف إلى مفهوم القسمة وعناصرها",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "القسمة هي عملية:",
+          "correctAnswer": "توزيع بالتساوي",
+          "options": [
+            "مضاعفة",
+            "توزيع بالتساوي",
+            "جمع متكرر",
+            "طرح عدد واحد"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في الجملة ١٥ ÷ ٣ = ٥، العدد ١٥ يسمى:",
+          "correctAnswer": "المقسوم",
+          "options": [
+            "المقسوم عليه",
+            "ناتج القسمة",
+            "الباقي",
+            "المقسوم"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في الجملة ١٥ ÷ ٣ = ٥، العدد ٣ يسمى:",
+          "correctAnswer": "المقسوم عليه",
+          "options": [
+            "المقسوم",
+            "المقسوم عليه",
+            "ناتج القسمة",
+            "المضروب"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "القسمة عملية عكسية لعملية الضرب.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "عند التوزيع بالتساوي يأخذ بعض الأطفال أكثر من غيرهم.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: وزّعنا ١٢ كعكة على ٣ أولاد بالتساوي، فنصيب كل ولد ___ كعكات.",
+          "correctAnswer": "٤",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "وزّعت أم أحمد ٩ قطع فلافل على أولادها الثلاثة بالتساوي. كم قطعة لكل ولد؟",
+          "correctAnswer": "٣",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب عناصر جملة القسمة كما تُكتب: الناتج، المقسوم، المقسوم عليه",
+          "correctAnswer": "المقسوم، المقسوم عليه، الناتج",
+          "options": [
+            "الناتج",
+            "المقسوم",
+            "المقسوم عليه"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أي جملة قسمة تناسب: وزّعنا ٢٠ قلماً على ٥ طلاب بالتساوي؟",
+          "correctAnswer": "٢٠ ÷ ٥ = ٤",
+          "options": [
+            "٢٠ × ٥ = ١٠٠",
+            "٢٠ ÷ ٤ = ٥",
+            "٢٠ ÷ ٥ = ٤",
+            "٥ ÷ ٢٠ = ٤"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "جملة القسمة ١٨ ÷ ٦ = ٣ ترتبط بجملة الضرب ٦ × ٣ = ١٨.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 16
+    },
+    {
+      "title": "القسمة بالطرح المتكرر",
+      "content": "نجد ناتج القسمة بالطرح المتكرر على خط الأعداد: ١٨ ÷ ٣ تعني كم مرة نطرح ٣ من ١٨ حتى نصل إلى الصفر.",
+      "objectives": "إيجاد ناتج القسمة بالطرح المتكرر وخط الأعداد",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج القسمة: ١٨ ÷ ٣ =",
+          "correctAnswer": "٦",
+          "options": [
+            "٧",
+            "٥",
+            "٦",
+            "٤"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كم مرة نطرح العدد ٤ من العدد ٢٠ حتى نصل إلى الصفر؟",
+          "correctAnswer": "٥ مرات",
+          "options": [
+            "٣ مرات",
+            "٤ مرات",
+            "٥ مرات",
+            "٦ مرات"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج القسمة: ٢٤ ÷ ٦ =",
+          "correctAnswer": "٤",
+          "options": [
+            "٣",
+            "٦",
+            "٥",
+            "٤"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "١٦ ÷ ٤ تعني أننا نطرح ٤ من ١٦ أربعَ مرات حتى الصفر.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "ناتج ٢١ ÷ ٧ يساوي ٤.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٢٧ ÷ ٩ = ___.",
+          "correctAnswer": "٣",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أجد ناتج القسمة: ٣٠ ÷ ٥.",
+          "correctAnswer": "٦",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب خطوات القسمة بالطرح المتكرر: أعدّ مرات الطرح، أبدأ بالمقسوم، أطرح المقسوم عليه حتى الصفر",
+          "correctAnswer": "أبدأ بالمقسوم، أطرح المقسوم عليه حتى الصفر، أعدّ مرات الطرح",
+          "options": [
+            "أعدّ مرات الطرح",
+            "أبدأ بالمقسوم",
+            "أطرح المقسوم عليه حتى الصفر"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "يرتّب غسان في مطعم الأمانة في القدس ٢٤ صحناً على الطاولات، على كل طاولة ٨ صحون. كم طاولة يحتاج؟",
+          "correctAnswer": "٣",
+          "options": [
+            "٤",
+            "٨",
+            "٣",
+            "١٦"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يمكن تمثيل القسمة قفزات متساوية على خط الأعداد.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 17
+    },
+    {
+      "title": "القسمة بعائلة الحقائق",
+      "content": "نستخدم حقائق الضرب لإيجاد ناتج القسمة: بما أن ٦ × ٧ = ٤٢ فإن ٤٢ ÷ ٦ = ٧ و ٤٢ ÷ ٧ = ٦.",
+      "objectives": "إيجاد ناتج القسمة باستخدام حقائق الضرب المقابلة",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بما أن ٨ × ٥ = ٤٠ فإن ٤٠ ÷ ٨ =",
+          "correctAnswer": "٥",
+          "options": [
+            "٦",
+            "٥",
+            "٤",
+            "٨"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج القسمة: ٥٤ ÷ ٩ =",
+          "correctAnswer": "٦",
+          "options": [
+            "٨",
+            "٧",
+            "٦",
+            "٥"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج القسمة: ٤٩ ÷ ٧ =",
+          "correctAnswer": "٧",
+          "options": [
+            "٨",
+            "٦",
+            "٩",
+            "٧"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٦٤ ÷ ٨ = ٨",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٤٥ ÷ ٥ = ٨",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل عائلة الحقائق: ٧ × ٦ = ٤٢، إذن ٤٢ ÷ ٧ = ___.",
+          "correctAnswer": "٦",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أجد ناتج القسمة: ٧٢ ÷ ٩.",
+          "correctAnswer": "٨",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب نواتج القسمة تصاعدياً: ٣٦÷٦، ١٢÷٦، ٤٨÷٦",
+          "correctAnswer": "١٢÷٦، ٣٦÷٦، ٤٨÷٦",
+          "options": [
+            "٣٦÷٦",
+            "١٢÷٦",
+            "٤٨÷٦"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "وزّع مصنع بسكويت ٥٦ حبة مغلفة على علب، في كل علبة ٨ حبات. كم علبة استخدم؟",
+          "correctAnswer": "٧",
+          "options": [
+            "٩",
+            "٦",
+            "٨",
+            "٧"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "تحتاج آلاء لكل كأس عصير حبتي ليمون. إذا كان لديها ١٤ حبة فكم كأساً تعدّ؟",
+          "correctAnswer": "٧",
+          "options": [
+            "١٢",
+            "٦",
+            "٧",
+            "٢٨"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 18
+    },
+    {
+      "title": "مراجعة الوحدة الثامنة (القسمة)",
+      "content": "نراجع مفهوم القسمة وعناصرها وإيجاد الناتج بالطرح المتكرر وبعائلة الحقائق.",
+      "objectives": "توظيف مهارات القسمة مجتمعة",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج القسمة: ٨١ ÷ ٩ =",
+          "correctAnswer": "٩",
+          "options": [
+            "٧",
+            "٦",
+            "٩",
+            "٨"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج القسمة: ٣٥ ÷ ٧ =",
+          "correctAnswer": "٥",
+          "options": [
+            "٦",
+            "٧",
+            "٥",
+            "٤"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "العدد الذي إذا قسمناه على ١ بقي كما هو:",
+          "correctAnswer": "أي عدد",
+          "options": [
+            "لا يوجد",
+            "الصفر فقط",
+            "الواحد فقط",
+            "أي عدد"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٤٨ ÷ ٦ = ٨",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "ناتج قسمة العدد على نفسه يساوي صفراً.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٦٣ ÷ ___ = ٩.",
+          "correctAnswer": "٧",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أجد ناتج القسمة: ٤٠ ÷ ٥.",
+          "correctAnswer": "٨",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب خطوات حل مسألة قسمة: أكتب جملة القسمة، أفهم المطلوب، أجد الناتج بحقائق الضرب",
+          "correctAnswer": "أفهم المطلوب، أكتب جملة القسمة، أجد الناتج بحقائق الضرب",
+          "options": [
+            "أكتب جملة القسمة",
+            "أفهم المطلوب",
+            "أجد الناتج بحقائق الضرب"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "المواد الأساسية لخمس كعكات متماثلة تحتاج ٤٥ بيضة. كم بيضة لكل كعكة؟",
+          "correctAnswer": "٩",
+          "options": [
+            "٧",
+            "٩",
+            "١٠",
+            "٨"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف جمل القسمة حسب ناتجها: ٦ أم ٩؟",
+          "correctAnswer": "الناتج ٦=٣٦ ÷ ٦,الناتج ٦=٤٢ ÷ ٧,الناتج ٩=٧٢ ÷ ٨,الناتج ٩=٦٣ ÷ ٧",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "الناتج ٦",
+              "الناتج ٩"
+            ],
+            "tokens": [
+              "٣٦ ÷ ٦",
+              "٧٢ ÷ ٨",
+              "٤٢ ÷ ٧",
+              "٦٣ ÷ ٧"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 19
+    },
+    {
+      "title": "مفهوم الكسر",
+      "content": "الكسر جزء من كل مقسوم إلى أجزاء متساوية: تُقدّر مساحة صحراء النقب بنصف مساحة فلسطين، ونمثّل ذلك بالكسر ½.",
+      "objectives": "التعرف إلى مفهوم الكسر بسطاً ومقاماً",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "الكسر هو:",
+          "correctAnswer": "جزء من كل مقسوم بالتساوي",
+          "options": [
+            "عدد أكبر من الواحد",
+            "عملية جمع",
+            "عدد من خمس منازل",
+            "جزء من كل مقسوم بالتساوي"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في الكسر ¾ العدد ٤ يسمى:",
+          "correctAnswer": "المقام",
+          "options": [
+            "الباقي",
+            "الناتج",
+            "المقام",
+            "البسط"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في الكسر ¾ العدد ٣ يسمى:",
+          "correctAnswer": "البسط",
+          "options": [
+            "المقام",
+            "المقسوم",
+            "المضاعف",
+            "البسط"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يجب أن تكون أجزاء الكل متساوية حتى نسمّي الجزء كسراً.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الكسر ½ يعني ثلاثة أجزاء من أربعة.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: قسّمنا فطيرة إلى ٨ أجزاء متساوية وأكلنا جزءاً واحداً، فالجزء المأكول يمثّل الكسر ___.",
+          "correctAnswer": "⅛",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الكسر الذي يمثّل مساحة صحراء النقب من مساحة فلسطين؟",
+          "correctAnswer": "½",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب خطوات كتابة الكسر: أكتب عدد الأجزاء الكلية في المقام، أقسم الكل بالتساوي، أكتب عدد الأجزاء المظللة في البسط",
+          "correctAnswer": "أقسم الكل بالتساوي، أكتب عدد الأجزاء المظللة في البسط، أكتب عدد الأجزاء الكلية في المقام",
+          "options": [
+            "أكتب عدد الأجزاء الكلية في المقام",
+            "أقسم الكل بالتساوي",
+            "أكتب عدد الأجزاء المظللة في البسط"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "قُدّمت لمريم ووالدها بيتزا مقسّمة إلى ٤ قطع متساوية، فأكلت مريم قطعة واحدة. الكسر الذي يمثّل ما أكلته هو:",
+          "correctAnswer": "¼",
+          "options": [
+            "½",
+            "⅓",
+            "¾",
+            "¼"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في المثال السابق، الكسر الذي يمثّل ما أكله والدها (القطع الباقية) هو:",
+          "correctAnswer": "¾",
+          "options": [
+            "¼",
+            "¾",
+            "½",
+            "⅕"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 20
+    },
+    {
+      "title": "مقارنة الكسور",
+      "content": "نقارن الكسور باستخدام لوحة الكسور: كلما كبر المقام صغر الجزء، فالنصف أكبر من الثلث والثلث أكبر من الربع.",
+      "objectives": "المقارنة بين الكسور ذات البسط الواحد",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي الكسرين أكبر: ½ أم ⅓؟",
+          "correctAnswer": "½",
+          "options": [
+            "⅓",
+            "لا يمكن المقارنة",
+            "½",
+            "متساويان"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أي الكسور الآتية أصغر؟",
+          "correctAnswer": "⅒",
+          "options": [
+            "½",
+            "⅓",
+            "⅕",
+            "⅒"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كلما زاد مقام الكسر (والبسط واحد) فإن قيمة الكسر:",
+          "correctAnswer": "تصغر",
+          "options": [
+            "تتضاعف",
+            "تبقى كما هي",
+            "تكبر",
+            "تصغر"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الكسر ⅓ أكبر من الكسر ¼.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الكسر ⅛ أكبر من الكسر ½.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل بإشارة > أو <: ½ ___ ⅕.",
+          "correctAnswer": ">",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أيهما أصغر: ⅙ أم ⅑؟",
+          "correctAnswer": "⅑",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الكسور تصاعدياً: ½، ⅙، ¼",
+          "correctAnswer": "⅙، ¼، ½",
+          "options": [
+            "½",
+            "⅙",
+            "¼"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الكسور تنازلياً: ⅕، ⅓، ⅐",
+          "correctAnswer": "⅓، ⅕، ⅐",
+          "options": [
+            "⅕",
+            "⅓",
+            "⅐"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أكل سامر ⅓ فطيرة وأكل أخوه ¼ فطيرة مماثلة. من أكل أكثر؟",
+          "correctAnswer": "سامر",
+          "options": [
+            "لا يمكن المعرفة",
+            "متساويان",
+            "أخوه",
+            "سامر"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 21
+    },
+    {
+      "title": "تمثيل الكسور على خط الأعداد",
+      "content": "نمثّل الكسور على خط الأعداد بين ٠ و ١: نقسم المسافة إلى أجزاء متساوية بعدد المقام ونحدد موقع الكسر.",
+      "objectives": "تمثيل الكسور على خط الأعداد وقراءتها",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "لتمثيل الكسر ¼ على خط الأعداد نقسم المسافة بين ٠ و ١ إلى:",
+          "correctAnswer": "٤ أجزاء متساوية",
+          "options": [
+            "جزأين",
+            "٣ أجزاء متساوية",
+            "٥ أجزاء متساوية",
+            "٤ أجزاء متساوية"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الكسر الذي يقع في منتصف المسافة بين ٠ و ١ هو:",
+          "correctAnswer": "½",
+          "options": [
+            "⅓",
+            "¾",
+            "¼",
+            "½"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أي كسر يقع على خط الأعداد أقرب إلى الصفر؟",
+          "correctAnswer": "⅛",
+          "options": [
+            "¾",
+            "½",
+            "⅛",
+            "⅔"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الكسر ¾ يقع بين ½ و ١ على خط الأعداد.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "جميع الكسور التي مقامها أكبر من بسطها تقع بعد الواحد.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: الكسر الذي يقع في منتصف المسافة بين ٠ و ½ هو ___.",
+          "correctAnswer": "¼",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "إلى كم جزء نقسم المسافة بين ٠ و ١ لتمثيل الكسر ⅙؟",
+          "correctAnswer": "٦",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الكسور كما تظهر على خط الأعداد من اليمين بعد الصفر: ¾، ¼، ½",
+          "correctAnswer": "¼، ½، ¾",
+          "options": [
+            "¾",
+            "¼",
+            "½"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "على طاولة ندى ٦ كتب، منها كتابان للعلوم. الكسر الذي يمثّل كتب العلوم هو:",
+          "correctAnswer": "٢/٦",
+          "options": [
+            "٦/٢",
+            "١/٦",
+            "٢/٦",
+            "٤/٦"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يبدأ تمثيل الكسور على خط الأعداد من الصفر.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 22
+    },
+    {
+      "title": "مراجعة الوحدة التاسعة (الكسور)",
+      "content": "نراجع مفهوم الكسر بسطاً ومقاماً، ومقارنة الكسور، وتمثيلها على خط الأعداد.",
+      "objectives": "توظيف مهارات الكسور مجتمعة",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "الكسر الذي بسطه ١ ومقامه ٥ هو:",
+          "correctAnswer": "⅕",
+          "options": [
+            "٥",
+            "٥/١",
+            "⅚",
+            "⅕"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أكبر الكسور الآتية هو:",
+          "correctAnswer": "½",
+          "options": [
+            "⅛",
+            "⅓",
+            "½",
+            "⅕"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "قسّمنا كعكة إلى ٦ أجزاء متساوية وأخذ كل طفل جزءاً. كم طفلاً أخذوا الكعكة كاملة؟",
+          "correctAnswer": "٦",
+          "options": [
+            "٣",
+            "١٢",
+            "٥",
+            "٦"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الكسر ⅖ بسطه ٢ ومقامه ٥.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الكسر ¼ يقع على خط الأعداد بعد الكسر ¾.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل بإشارة > أو <: ⅓ ___ ⅙.",
+          "correctAnswer": ">",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب الكسر الذي يمثّل جزءاً واحداً من ثلاثة أجزاء متساوية.",
+          "correctAnswer": "⅓",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الكسور تصاعدياً: ⅓، ⅒، ½، ⅕",
+          "correctAnswer": "⅒، ⅕، ⅓، ½",
+          "options": [
+            "⅓",
+            "⅒",
+            "½",
+            "⅕"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "لوّنت رنا ٣ أجزاء من لوحة مقسّمة إلى ٨ أجزاء متساوية. الكسر الذي يمثّل الجزء الملوّن هو:",
+          "correctAnswer": "٣/٨",
+          "options": [
+            "٣/٥",
+            "٥/٨",
+            "٨/٣",
+            "٣/٨"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة الطعام الذي نقسمه عادة إلى أجزاء متساوية كالكسور",
+          "correctAnswer": "الفطيرة",
+          "options": [
+            "الأرز",
+            "الحليب",
+            "الشوربة",
+            "الفطيرة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/rice.png",
+            "assets/openmoji/milk.png",
+            "assets/openmoji/soup.png",
+            "assets/openmoji/flatbread.png"
+          ]
+        }
+      ],
+      "orderIndex": 23
+    },
+    {
+      "title": "المجسمات",
+      "content": "نتعرف المجسمات: المكعب ومتوازي المستطيلات والأسطوانة والكرة والمخروط، ونميز الوجه والحرف والرأس.",
+      "objectives": "التعرف إلى المجسمات وعناصرها",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "المجسم الذي جميع وجوهه مربعات متطابقة هو:",
+          "correctAnswer": "المكعب",
+          "options": [
+            "الأسطوانة",
+            "الكرة",
+            "المكعب",
+            "المخروط"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "عدد وجوه المكعب يساوي:",
+          "correctAnswer": "٦",
+          "options": [
+            "١٢",
+            "٤",
+            "٨",
+            "٦"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "المجسم الذي يشبه كرة القدم هو:",
+          "correctAnswer": "الكرة",
+          "options": [
+            "المكعب",
+            "متوازي المستطيلات",
+            "المخروط",
+            "الكرة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "علبة العصير الورقية تشبه متوازي المستطيلات.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "للكرة أوجه مستوية وأحرف.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: المجسم الذي يشبه قبعة المهرج المدببة هو ___.",
+          "correctAnswer": "المخروط",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما اسم المجسم الذي تشبهه علبة المشروبات المعدنية الأسطوانية؟",
+          "correctAnswer": "الأسطوانة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب خطوات وصف مجسم: أعدّ الأحرف، أعدّ الوجوه، أعدّ الرؤوس",
+          "correctAnswer": "أعدّ الوجوه، أعدّ الأحرف، أعدّ الرؤوس",
+          "options": [
+            "أعدّ الأحرف",
+            "أعدّ الوجوه",
+            "أعدّ الرؤوس"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر الجسم الذي يشبه الكرة",
+          "correctAnswer": "كرة القدم",
+          "options": [
+            "الباب",
+            "الكتاب",
+            "القلم",
+            "كرة القدم"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/door.png",
+            "assets/openmoji/book.png",
+            "assets/openmoji/pencil.png",
+            "assets/openmoji/soccer_ball.png"
+          ]
+        },
+        {
+          "type": "MCQ",
+          "questionText": "صندوق الهدايا الذي طوله أكبر من عرضه وارتفاعه يشبه:",
+          "correctAnswer": "متوازي المستطيلات",
+          "options": [
+            "الكرة",
+            "متوازي المستطيلات",
+            "الأسطوانة",
+            "المخروط"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 24
+    },
+    {
+      "title": "وحدات قياس الكتلة",
+      "content": "نقيس الكتلة بالكيلوغرام للأشياء الثقيلة وبالغرام للأشياء الخفيفة: الكيلوغرام الواحد يساوي ١٠٠٠ غرام.",
+      "objectives": "اختيار وحدة الكتلة المناسبة والتحويل بين الغرام والكيلوغرام",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "الكيلوغرام الواحد يساوي:",
+          "correctAnswer": "١٠٠٠ غرام",
+          "options": [
+            "١٠ غرامات",
+            "٥٠٠ غرام",
+            "١٠٠٠ غرام",
+            "١٠٠ غرام"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الوحدة المناسبة لقياس كتلة كيس الطحين الكبير هي:",
+          "correctAnswer": "الكيلوغرام",
+          "options": [
+            "الغرام",
+            "اللتر",
+            "الكيلوغرام",
+            "المتر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الوحدة المناسبة لقياس كتلة قلم الرصاص هي:",
+          "correctAnswer": "الغرام",
+          "options": [
+            "الساعة",
+            "الكيلوغرام",
+            "السنتيمتر",
+            "الغرام"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٢ كيلوغرام يساوي ٢٠٠٠ غرام.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كتلة التفاحة تقاس بالكيلوغرامات الكثيرة.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٣ كيلوغرامات = ___ غرام.",
+          "correctAnswer": "٣٠٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اشترت أم زيد ٥ كيلوغرامات أرز و٣ كيلوغرامات سكر. كم كيلوغراماً اشترت؟",
+          "correctAnswer": "٨",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأجسام من الأخف إلى الأثقل: كيس أسمنت، تفاحة، حقيبة مدرسية",
+          "correctAnswer": "تفاحة، حقيبة مدرسية، كيس أسمنت",
+          "options": [
+            "كيس أسمنت",
+            "تفاحة",
+            "حقيبة مدرسية"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "باع بائع الخضار ١٢ كيلوغرام بندورة صباحاً و٩ كيلوغرامات مساءً. كم كيلوغراماً باع في اليوم؟",
+          "correctAnswer": "٢١",
+          "options": [
+            "١٩",
+            "٢٣",
+            "١٨",
+            "٢١"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف: يقاس بالغرام أم بالكيلوغرام؟",
+          "correctAnswer": "بالغرام=المفتاح,بالغرام=قطعة البسكويت,بالكيلوغرام=كيس البطاطا,بالكيلوغرام=الطالب",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "بالغرام",
+              "بالكيلوغرام"
+            ],
+            "tokens": [
+              "المفتاح",
+              "كيس البطاطا",
+              "قطعة البسكويت",
+              "الطالب"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 25
+    },
+    {
+      "title": "قراءة الساعة والزمن",
+      "content": "نقرأ الساعة بالساعات والدقائق: الساعة الكاملة ٦٠ دقيقة، ونصفها ٣٠ دقيقة، وربعها ١٥ دقيقة، وثلثها ٢٠ دقيقة — مثل ساعة سوق المنارة الأثرية في نابلس.",
+      "objectives": "قراءة الساعة بالربع والثلث والنصف وحساب الزمن",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "نصف الساعة يساوي:",
+          "correctAnswer": "٣٠ دقيقة",
+          "options": [
+            "٢٠ دقيقة",
+            "٣٠ دقيقة",
+            "٦٠ دقيقة",
+            "١٥ دقيقة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ربع الساعة يساوي:",
+          "correctAnswer": "١٥ دقيقة",
+          "options": [
+            "٣٠ دقيقة",
+            "١٠ دقائق",
+            "٢٥ دقيقة",
+            "١٥ دقيقة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ثلث الساعة يساوي:",
+          "correctAnswer": "٢٠ دقيقة",
+          "options": [
+            "١٥ دقيقة",
+            "٤٠ دقيقة",
+            "٣٠ دقيقة",
+            "٢٠ دقيقة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الساعة ٢:١٥ تُقرأ: الثانية والربع.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الساعة ٤:٣٠ تُقرأ: الرابعة والثلث.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: الساعة الواحدة إلا ربعاً تعني ١٢ و ___ دقيقة.",
+          "correctAnswer": "٤٥",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كم دقيقة في الساعة الكاملة؟",
+          "correctAnswer": "٦٠",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأزمنة من الأقصر إلى الأطول: نصف ساعة، ربع ساعة، ساعة كاملة، ثلث ساعة",
+          "correctAnswer": "ربع ساعة، ثلث ساعة، نصف ساعة، ساعة كاملة",
+          "options": [
+            "نصف ساعة",
+            "ربع ساعة",
+            "ساعة كاملة",
+            "ثلث ساعة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "مواعيد عيادة الطبيب من الرابعة والنصف إلى السابعة والنصف مساءً. كم ساعة يستمر الدوام؟",
+          "correctAnswer": "٣ ساعات",
+          "options": [
+            "ساعة ونصف",
+            "٤ ساعات",
+            "٣ ساعات",
+            "ساعتين"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة الأداة التي نقرأ بها الوقت",
+          "correctAnswer": "الساعة",
+          "options": [
+            "الكرة",
+            "الكتاب",
+            "المفتاح",
+            "الساعة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/soccer_ball.png",
+            "assets/openmoji/book.png",
+            "assets/openmoji/key.png",
+            "assets/openmoji/clock.png"
+          ]
+        }
+      ],
+      "orderIndex": 26
+    },
+    {
+      "title": "وحدات قياس الطول",
+      "content": "نقيس الأطوال بالملمتر والسنتيمتر والمتر: سمك البسكويت بالملمتر، وطول القلم بالسنتيمتر، وطول الملعب بالمتر.",
+      "objectives": "اختيار وحدة الطول المناسبة (ملم، سم، م)",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "الوحدة المناسبة لقياس طول الملعب هي:",
+          "correctAnswer": "المتر",
+          "options": [
+            "الكيلوغرام",
+            "المتر",
+            "الملمتر",
+            "السنتيمتر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الوحدة المناسبة لقياس طول القلم هي:",
+          "correctAnswer": "السنتيمتر",
+          "options": [
+            "الغرام",
+            "الكيلومتر",
+            "المتر",
+            "السنتيمتر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الوحدة المناسبة لقياس سمك قطعة البسكويت هي:",
+          "correctAnswer": "الملمتر",
+          "options": [
+            "المتر",
+            "السنتيمتر",
+            "الملمتر",
+            "اللتر"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "المتر الواحد يساوي ١٠٠ سنتيمتر.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "نقيس طول النملة بالمتر.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: السنتيمتر الواحد يساوي ___ ملمترات.",
+          "correctAnswer": "١٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كم سنتيمتراً في مترين؟",
+          "correctAnswer": "٢٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب وحدات الطول من الأصغر إلى الأكبر: المتر، الملمتر، السنتيمتر",
+          "correctAnswer": "الملمتر، السنتيمتر، المتر",
+          "options": [
+            "المتر",
+            "الملمتر",
+            "السنتيمتر"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أنسب تقدير لطول طالب في الصف الثالث هو:",
+          "correctAnswer": "١٣٠ سنتيمتراً",
+          "options": [
+            "١٣ ملمتراً",
+            "١٣٠ متراً",
+            "١٣٠ سنتيمتراً",
+            "١٣ متراً"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف: يقاس بالسنتيمتر أم بالمتر؟",
+          "correctAnswer": "بالسنتيمتر=طول الكتاب,بالسنتيمتر=طول الممحاة,بالمتر=عرض الشارع,بالمتر=ارتفاع البناية",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "بالسنتيمتر",
+              "بالمتر"
+            ],
+            "tokens": [
+              "طول الكتاب",
+              "عرض الشارع",
+              "طول الممحاة",
+              "ارتفاع البناية"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 27
+    },
+    {
+      "title": "المحيط",
+      "content": "محيط الشكل هو مجموع أطوال أضلاعه: نجد محيط المستطيل والمربع والمثلث بجمع أطوال الأضلاع.",
+      "objectives": "إيجاد محيط الأشكال الهندسية بجمع أطوال الأضلاع",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "محيط الشكل يساوي:",
+          "correctAnswer": "مجموع أطوال أضلاعه",
+          "options": [
+            "عدد أضلاعه",
+            "طول ضلع واحد",
+            "مجموع أطوال أضلاعه",
+            "مساحته"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "محيط مربع طول ضلعه ٥ سم يساوي:",
+          "correctAnswer": "٢٠ سم",
+          "options": [
+            "١٥ سم",
+            "٢٥ سم",
+            "٢٠ سم",
+            "١٠ سم"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "محيط مستطيل طوله ٦ سم وعرضه ٤ سم يساوي:",
+          "correctAnswer": "٢٠ سم",
+          "options": [
+            "١٢ سم",
+            "٢٤ سم",
+            "١٠ سم",
+            "٢٠ سم"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "محيط مثلث أطوال أضلاعه ٣ و٤ و٥ سم يساوي ١٢ سم.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "لإيجاد محيط المربع نضرب طول ضلعه في ٣.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: محيط مربع طول ضلعه ٧ سم يساوي ___ سم.",
+          "correctAnswer": "٢٨",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أجد محيط مستطيل طوله ٨ سم وعرضه ٢ سم.",
+          "correctAnswer": "٢٠",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأشكال حسب محيطها تصاعدياً: مربع ضلعه ٦ سم، مثلث ضلعه ٤ سم، مستطيل ٥×٣ سم",
+          "correctAnswer": "مثلث ضلعه ٤ سم، مستطيل ٥×٣ سم، مربع ضلعه ٦ سم",
+          "options": [
+            "مربع ضلعه ٦ سم",
+            "مثلث ضلعه ٤ سم",
+            "مستطيل ٥×٣ سم"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "رسمت ساجدة صورة مربعة طول ضلعها ٩ سم وأرادت عمل إطار حولها. كم سنتيمتراً تحتاج للإطار؟",
+          "correctAnswer": "٣٦",
+          "options": [
+            "٨١",
+            "٣٦",
+            "٢٧",
+            "١٨"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يمكن إيجاد محيط أي شكل مغلق بجمع أطوال أضلاعه.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 28
+    },
+    {
+      "title": "المساحة",
+      "content": "المساحة هي عدد الوحدات المربعة التي تغطي الشكل: نعدّ المربعات على لوحة المربعات لنجد المساحة.",
+      "objectives": "إيجاد مساحة الأشكال بعدّ الوحدات المربعة",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "المساحة هي:",
+          "correctAnswer": "عدد الوحدات المربعة التي تغطي الشكل",
+          "options": [
+            "مجموع أطوال الأضلاع",
+            "عدد الزوايا",
+            "عدد الوحدات المربعة التي تغطي الشكل",
+            "طول الشكل"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "شكل يغطيه ١٢ مربعاً وحدةً، مساحته:",
+          "correctAnswer": "١٢ وحدة مربعة",
+          "options": [
+            "٦ وحدات مربعة",
+            "١٢ سم",
+            "٢٤ وحدة مربعة",
+            "١٢ وحدة مربعة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "مستطيل من المربعات: ٣ صفوف في كل صف ٥ مربعات. مساحته:",
+          "correctAnswer": "١٥ وحدة مربعة",
+          "options": [
+            "١٠ وحدات مربعة",
+            "١٥ وحدة مربعة",
+            "٨ وحدات مربعة",
+            "١٦ وحدة مربعة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "نقيس المساحة بالوحدات المربعة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "المحيط والمساحة اسمان لشيء واحد.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: مربع من ٤ صفوف في كل صف ٤ وحدات مربعة، مساحته ___ وحدة مربعة.",
+          "correctAnswer": "١٦",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أجد مساحة مستطيل من المربعات فيه صفان وفي كل صف ٧ وحدات.",
+          "correctAnswer": "١٤",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأشكال حسب مساحتها تصاعدياً: شكل من ٩ وحدات، شكل من ٤ وحدات، شكل من ٦ وحدات",
+          "correctAnswer": "شكل من ٤ وحدات، شكل من ٦ وحدات، شكل من ٩ وحدات",
+          "options": [
+            "شكل من ٩ وحدات",
+            "شكل من ٤ وحدات",
+            "شكل من ٦ وحدات"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بلاط غرفة على شكل مربعات: ٦ صفوف في كل صف ٦ بلاطات. كم بلاطة تغطي الغرفة؟",
+          "correctAnswer": "٣٦",
+          "options": [
+            "٢٤",
+            "٣٦",
+            "١٢",
+            "٣٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف: من مفاهيم المحيط أم المساحة؟",
+          "correctAnswer": "المحيط=مجموع أطوال الأضلاع,المحيط=طول السياج حول الحديقة,المساحة=عدد الوحدات المربعة,المساحة=عدد البلاطات التي تغطي الأرض",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "المحيط",
+              "المساحة"
+            ],
+            "tokens": [
+              "مجموع أطوال الأضلاع",
+              "عدد الوحدات المربعة",
+              "طول السياج حول الحديقة",
+              "عدد البلاطات التي تغطي الأرض"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 29
+    },
+    {
+      "title": "مراجعة الوحدة العاشرة (الهندسة والقياس ٢)",
+      "content": "نراجع المجسمات ووحدات قياس الكتلة والطول وقراءة الساعة والمحيط والمساحة.",
+      "objectives": "توظيف مهارات الهندسة والقياس مجتمعة",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "المجسم الذي له ٦ وجوه مربعة متطابقة هو:",
+          "correctAnswer": "المكعب",
+          "options": [
+            "المخروط",
+            "الكرة",
+            "المكعب",
+            "الأسطوانة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٥ كيلوغرامات تساوي:",
+          "correctAnswer": "٥٠٠٠ غرام",
+          "options": [
+            "٥٠ غراماً",
+            "٥٠٠٠ غرام",
+            "٥٠٠٠٠ غرام",
+            "٥٠٠ غرام"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "محيط مربع طول ضلعه ٣ سم يساوي:",
+          "correctAnswer": "١٢ سم",
+          "options": [
+            "٩ سم",
+            "٦ سم",
+            "٣ سم",
+            "١٢ سم"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الساعة ٦:٢٠ تُقرأ: السادسة والثلث.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "نقيس عرض الشارع بالملمتر.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: مساحة مستطيل من المربعات فيه ٣ صفوف في كل صف ٤ وحدات تساوي ___ وحدة مربعة.",
+          "correctAnswer": "١٢",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كم غراماً في نصف كيلوغرام؟",
+          "correctAnswer": "٥٠٠",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب وحدات الطول تنازلياً: السنتيمتر، المتر، الملمتر",
+          "correctAnswer": "المتر، السنتيمتر، الملمتر",
+          "options": [
+            "السنتيمتر",
+            "المتر",
+            "الملمتر"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ذهب محسن إلى العيادة الساعة الواحدة إلا ربعاً. أي ساعة رقمية تدل على ذلك؟",
+          "correctAnswer": "١٢:٤٥",
+          "options": [
+            "١٢:١٥",
+            "١:١٥",
+            "١٢:٤٥",
+            "١:٤٥"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر الجسم الذي يشبه المكعب أو متوازي المستطيلات",
+          "correctAnswer": "هدية مغلفة",
+          "options": [
+            "البرتقالة",
+            "القبعة",
+            "كرة السلة",
+            "هدية مغلفة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/orange.png",
+            "assets/openmoji/cap.png",
+            "assets/openmoji/basketball.png",
+            "assets/openmoji/gift.png"
+          ]
+        }
+      ],
+      "orderIndex": 30
+    }
+  ]
+}

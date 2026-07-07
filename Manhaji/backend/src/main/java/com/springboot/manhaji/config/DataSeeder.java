@@ -324,6 +324,30 @@ public class DataSeeder implements CommandLineRunner {
                     List<Map<String, Object>> lessons = (List<Map<String, Object>>) curriculum.get("lessons");
                     if (lessons == null) continue;
 
+                    // Book-restructure fix (2026-07-05): lessons carry a UNIQUE
+                    // (subject, semester, order_index) key. When a subject is
+                    // restructured (new lessons inserted mid-sequence, existing
+                    // ones reordered — the G1 math/religion rebuilds), surviving
+                    // DB rows still hold their OLD index, so inserting a new
+                    // lesson at its canonical index used to abort the whole file
+                    // with a duplicate-key error, boot after boot. Park all
+                    // existing rows of this subject+semester at +1000 first;
+                    // every surviving lesson is re-pointed at its canonical
+                    // index below (and the in-memory entities are synced so a
+                    // later Hibernate flush can't write a stale index back).
+                    if (!existingTitles.isEmpty()) {
+                        jdbcTemplate.update(
+                                "UPDATE lessons SET order_index = order_index + 1000 " +
+                                "WHERE subject_id = ? AND semester_number = ? AND order_index < 1000 " +
+                                "ORDER BY order_index DESC",
+                                subject.getId(), semester);
+                        for (Lesson l : existingLessons) {
+                            if (semester.equals(l.getSemesterNumber()) && l.getOrderIndex() < 1000) {
+                                l.setOrderIndex(l.getOrderIndex() + 1000);
+                            }
+                        }
+                    }
+
                     // 2026-07-03: the textbook page-scan auto-mapper
                     // (buildLessonImageMap) was REMOVED by product decision —
                     // the scanned book pages rendered too blurry on device.
@@ -340,12 +364,21 @@ public class DataSeeder implements CommandLineRunner {
                             // added to the JSON after the initial seed (e.g. the
                             // English PRONUNCIATION additions). Match on type +
                             // questionText so edits to existing questions don't
-                            // duplicate-insert.
+                            // duplicate-insert. Filter by semester too: a lesson
+                            // moved between semesters briefly exists in both.
                             Lesson existing = existingLessons.stream()
-                                    .filter(l -> title.equals(l.getTitle()))
+                                    .filter(l -> title.equals(l.getTitle())
+                                            && semester.equals(l.getSemesterNumber()))
                                     .findFirst().orElse(null);
                             if (existing != null) {
                                 newQuestions += backfillLessonQuestions(existing, lessonData);
+                                // Un-park: restore this lesson to its canonical
+                                // book position from the JSON.
+                                if (lessonData.get("orderIndex") instanceof Integer canonicalIdx
+                                        && !canonicalIdx.equals(existing.getOrderIndex())) {
+                                    existing.setOrderIndex(canonicalIdx);
+                                    lessonRepository.save(existing);
+                                }
                             }
                             continue;
                         }

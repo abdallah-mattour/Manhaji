@@ -1,0 +1,1941 @@
+{
+  "subject": "اللغة العربية",
+  "subjectCode": "ar",
+  "gradeLevel": 3,
+  "semester": 1,
+  "totalLessons": 15,
+  "lessons": [
+    {
+      "title": "ذهب الأرض",
+      "content": "يُحكى أن أخوين أرادا أن يتقاسما ثروة أبيهما بعد وفاته، وكانت الثروة ذهباً وأرضاً، فاختار الصغير الذهب وترك للكبير الأرض. بعد ثلاثة أعوام أخرج الكبير كيساً من خير أرضه، وقال لأخيه: هذا هو الذهب الحقيقي من تراب الأرض الطيبة.",
+      "objectives": "قراءة نص ذهب الأرض وفهم قيمة العمل والأرض",
+      "imageUrls": [
+        "assets/openmoji/seedling.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا اختار الأخ الصغير من الثروة؟",
+          "correctAnswer": "الذهب",
+          "options": [
+            "البيت",
+            "الأرض",
+            "الماشية",
+            "الذهب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا ترك الأخ الصغير لأخيه الكبير؟",
+          "correctAnswer": "الأرض",
+          "options": [
+            "الذهب",
+            "الأرض",
+            "المال",
+            "الكتب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كيف حصل الأخ الكبير على الخير الوفير؟",
+          "correctAnswer": "بزراعة الأرض والعناية بها",
+          "options": [
+            "بالانتظار",
+            "ببيع الأرض",
+            "بأخذ ذهب أخيه",
+            "بزراعة الأرض والعناية بها"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الأرض الطيبة إذا زرعناها واعتنينا بها أعطتنا خيراً وفيراً.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "عاد الأخ الكبير فقيراً بعد ثلاثة أعوام.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: الذهب الحقيقي هو خير ___ الطيبة.",
+          "correctAnswer": "الأرض",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما القيمة التي تعلّمناها من الأخ الكبير؟",
+          "correctAnswer": "العمل",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: عاد الكبير بالخير، مات الأب، اقتسم الأخوان الثروة",
+          "correctAnswer": "مات الأب، اقتسم الأخوان الثروة، عاد الكبير بالخير",
+          "options": [
+            "عاد الكبير بالخير",
+            "مات الأب",
+            "اقتسم الأخوان الثروة"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "الأَرْضُ الطَّيِّبَةُ",
+          "correctAnswer": "الأَرْضُ الطَّيِّبَةُ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "هَيّا نَعْمَلْ وَنَكْسَبْ رِزْقَنا مِنْ أَرْضِنا الطَّيِّبَةِ",
+          "correctAnswer": "هَيّا نَعْمَلْ وَنَكْسَبْ رِزْقَنا مِنْ أَرْضِنا الطَّيِّبَةِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة ما يدل على خير الأرض في القصة",
+          "correctAnswer": "الشتلة",
+          "options": [
+            "الكرة",
+            "المفتاح",
+            "الساعة",
+            "الشتلة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/soccer_ball.png",
+            "assets/openmoji/key.png",
+            "assets/openmoji/clock.png",
+            "assets/openmoji/seedling.png"
+          ]
+        }
+      ],
+      "orderIndex": 1
+    },
+    {
+      "title": "الأرنب والسلحفاة",
+      "content": "كان بيت السلحفاة قريباً من بيت الأرنب، وكان الأرنب يستهزئ بها ويناديها: يا بطيئة. تحدّت السلحفاة الأرنب في سباق، فانطلق الأرنب مسرعاً ثم لها وتوقف، أما السلحفاة فتابعت المشي ولم تتوقف حتى فازت، وندم الأرنب.",
+      "objectives": "قراءة نص الأرنب والسلحفاة وفهم قيمة المثابرة",
+      "imageUrls": [
+        "assets/openmoji/turtle.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بماذا كان الأرنب ينادي السلحفاة؟",
+          "correctAnswer": "يا بطيئة",
+          "options": [
+            "يا جارتي",
+            "يا صديقتي",
+            "يا سريعة",
+            "يا بطيئة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بماذا تحدّت السلحفاة الأرنب؟",
+          "correctAnswer": "بسباق",
+          "options": [
+            "بمسابقة رسم",
+            "بمسابقة قراءة",
+            "بلعبة كرة",
+            "بسباق"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "لماذا خسر الأرنب السباق؟",
+          "correctAnswer": "لأنه لها وتوقف عن السير",
+          "options": [
+            "لأنه اعتذر",
+            "لأنه نام في بيته",
+            "لأنه تعب",
+            "لأنه لها وتوقف عن السير"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "فازت السلحفاة في السباق لأنها لم تتوقف.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الاستهزاء بالآخرين صفة حسنة.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: تابعت السلحفاة ___ ولم تتوقف.",
+          "correctAnswer": "المشي",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الصفة التي جعلت السلحفاة تفوز؟",
+          "correctAnswer": "المثابرة",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: فازت السلحفاة، تحدّت السلحفاة الأرنب، بدأ السباق",
+          "correctAnswer": "تحدّت السلحفاة الأرنب، بدأ السباق، فازت السلحفاة",
+          "options": [
+            "فازت السلحفاة",
+            "تحدّت السلحفاة الأرنب",
+            "بدأ السباق"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "السُّلَحْفاةُ",
+          "correctAnswer": "السُّلَحْفاةُ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "تابَعَتِ السُّلَحْفاةُ المَشْيَ وَلَمْ تَتَوَقَّفْ حَتّى فازَتْ",
+          "correctAnswer": "تابَعَتِ السُّلَحْفاةُ المَشْيَ وَلَمْ تَتَوَقَّفْ حَتّى فازَتْ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة الحيوان الذي فاز في السباق",
+          "correctAnswer": "السلحفاة",
+          "options": [
+            "الأرنب",
+            "الضفدع",
+            "القط",
+            "السلحفاة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/rabbit.png",
+            "assets/openmoji/frog.png",
+            "assets/openmoji/cat.png",
+            "assets/openmoji/turtle.png"
+          ]
+        }
+      ],
+      "orderIndex": 2
+    },
+    {
+      "title": "الفأرة والثعبان",
+      "content": "دخل ثعبان جحر فأرة ورفض أن يخرج منه، ففكّرت الفأرة في حيلة: أسرعت إلى رجل نائم تحت شجرة، وأخذت تقفز على وجهه، فنهض غاضباً وطاردها حتى وصل إلى جحرها، فرأى الثعبان، فضربه بعصاه وقتله، فسُرّت الفأرة ودخلت بيتها مطمئنة.",
+      "objectives": "قراءة نص الفأرة والثعبان وفهم قيمة الذكاء والحيلة",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا فعل الثعبان في القصة؟",
+          "correctAnswer": "دخل جحر الفأرة ورفض الخروج",
+          "options": [
+            "نام تحت الشجرة",
+            "ساعد الفأرة",
+            "دخل جحر الفأرة ورفض الخروج",
+            "هرب من الرجل"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كيف استدرجت الفأرة الرجل إلى جحرها؟",
+          "correctAnswer": "قفزت على وجهه فطاردها",
+          "options": [
+            "بكت أمامه",
+            "نادته بصوت عالٍ",
+            "أعطته طعاماً",
+            "قفزت على وجهه فطاردها"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بماذا قتل الرجل الثعبان؟",
+          "correctAnswer": "بعصاه",
+          "options": [
+            "بحجر",
+            "بيده",
+            "بعصاه",
+            "بحبل"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "نجّت الفأرة نفسها بالذكاء والحيلة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "خرج الثعبان من الجحر بنفسه.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: فكّرت الفأرة في ___ لتنجو من الثعبان.",
+          "correctAnswer": "حيلة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الصفة التي أنقذت الفأرة؟",
+          "correctAnswer": "الذكاء",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: قتل الرجل الثعبان، دخل الثعبان الجحر، قفزت الفأرة على الرجل",
+          "correctAnswer": "دخل الثعبان الجحر، قفزت الفأرة على الرجل، قتل الرجل الثعبان",
+          "options": [
+            "قتل الرجل الثعبان",
+            "دخل الثعبان الجحر",
+            "قفزت الفأرة على الرجل"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "الفَأْرَةُ الذَّكِيَّةُ",
+          "correctAnswer": "الفَأْرَةُ الذَّكِيَّةُ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "دَخَلَتِ الفَأْرَةُ بَيْتَها سَعيدَةً مُطْمَئِنَّةً",
+          "correctAnswer": "دَخَلَتِ الفَأْرَةُ بَيْتَها سَعيدَةً مُطْمَئِنَّةً",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف صفات كل شخصية: للفأرة أم للثعبان؟",
+          "correctAnswer": "الفأرة=ذكية,الفأرة=صاحبة حيلة,الثعبان=معتدٍ,الثعبان=رفض الخروج",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "الفأرة",
+              "الثعبان"
+            ],
+            "tokens": [
+              "ذكية",
+              "معتدٍ",
+              "صاحبة حيلة",
+              "رفض الخروج"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 3
+    },
+    {
+      "title": "قريتنا نظيفة",
+      "content": "اقترحت سماح على طالبات صفها أن يقمن بحملة نظافة في القرية يوم الجمعة. انقسمن إلى مجموعات: مجموعة تنظّف الشارع، وأخرى تجمع النفايات، وثالثة تنقلها إلى مكانها المخصص. فصارت القرية نظيفة، وشكرتهن مديرة المدرسة وقدّمت لهن جوائز.",
+      "objectives": "قراءة نص قريتنا نظيفة وترسيخ قيمة النظافة والعمل الجماعي",
+      "imageUrls": [
+        "assets/openmoji/house.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "من اقترحت حملة النظافة؟",
+          "correctAnswer": "سماح",
+          "options": [
+            "المديرة",
+            "المعلمة",
+            "الأم",
+            "سماح"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في أي يوم قمن بحملة النظافة؟",
+          "correctAnswer": "يوم الجمعة",
+          "options": [
+            "يوم الاثنين",
+            "يوم السبت",
+            "يوم الأحد",
+            "يوم الجمعة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا فعلت المجموعة الثالثة؟",
+          "correctAnswer": "نقلت النفايات إلى مكانها المخصص",
+          "options": [
+            "زرعت الأشجار",
+            "نظّفت الشارع",
+            "نقلت النفايات إلى مكانها المخصص",
+            "جمعت النفايات"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "شكرت المديرة الطالبات وقدّمت لهن جوائز.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "عملت كل طالبة وحدها دون مجموعة.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: انقسمت الطالبات إلى ___ لتنظيف القرية.",
+          "correctAnswer": "مجموعات",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر عملاً واحداً تحافظ به على نظافة قريتك.",
+          "correctAnswer": "أرمي النفايات في مكانها",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: شكرتهن المديرة، اقترحت سماح الحملة، صارت القرية نظيفة",
+          "correctAnswer": "اقترحت سماح الحملة، صارت القرية نظيفة، شكرتهن المديرة",
+          "options": [
+            "شكرتهن المديرة",
+            "اقترحت سماح الحملة",
+            "صارت القرية نظيفة"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "قَرْيَتُنا نَظيفَةٌ",
+          "correctAnswer": "قَرْيَتُنا نَظيفَةٌ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "شَعَرَتِ الطّالِباتُ بِالسَّعادَةِ لِأَنَّ قَرْيَتَهُنَّ صارَتْ نَظيفَةً",
+          "correctAnswer": "شَعَرَتِ الطّالِباتُ بِالسَّعادَةِ لِأَنَّ قَرْيَتَهُنَّ صارَتْ نَظيفَةً",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف السلوك: يحافظ على النظافة أم يضرّ بها؟",
+          "correctAnswer": "يحافظ على النظافة=جمع النفايات,يحافظ على النظافة=تنظيف الشارع,يضرّ بها=رمي الأوراق أرضاً,يضرّ بها=إهمال الحديقة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "يحافظ على النظافة",
+              "يضرّ بها"
+            ],
+            "tokens": [
+              "جمع النفايات",
+              "رمي الأوراق أرضاً",
+              "تنظيف الشارع",
+              "إهمال الحديقة"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 4
+    },
+    {
+      "title": "دينا والقمر",
+      "content": "جلست دينا في حديقة بيتها تتأمّل القمر وتتحدّث إليه في خيالها. أخبرها القمر أن الإنسان ركب سفينة الفضاء وحطّ على سطحه. سمعها أخوها عمر فقال: لديك خيال واسع يا دينا. فتمنّت دينا أن تكون رائدة فضاء.",
+      "objectives": "قراءة نص دينا والقمر وتنمية الخيال والطموح العلمي",
+      "imageUrls": [
+        "assets/openmoji/moon.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أين جلست دينا تتأمّل القمر؟",
+          "correctAnswer": "في حديقة بيتها",
+          "options": [
+            "على الشاطئ",
+            "في المدرسة",
+            "في السوق",
+            "في حديقة بيتها"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بماذا وصف عمر أخته دينا؟",
+          "correctAnswer": "بأن لديها خيالاً واسعاً",
+          "options": [
+            "بأنها خائفة",
+            "بأنها كسولة",
+            "بأنها نائمة",
+            "بأن لديها خيالاً واسعاً"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا تمنّت دينا أن تكون؟",
+          "correctAnswer": "رائدة فضاء",
+          "options": [
+            "معلمة",
+            "رائدة فضاء",
+            "طبيبة",
+            "مهندسة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "ركب الإنسان سفينة الفضاء وحطّ على سطح القمر.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كانت دينا تتحدّث مع الشمس.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: تمنّت دينا أن تكون رائدة ___.",
+          "correctAnswer": "فضاء",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الوسيلة التي ركبها الإنسان ليصل إلى القمر؟",
+          "correctAnswer": "سفينة الفضاء",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: تمنّت أن تكون رائدة فضاء، جلست دينا تتأمّل القمر، سمعها أخوها عمر",
+          "correctAnswer": "جلست دينا تتأمّل القمر، سمعها أخوها عمر، تمنّت أن تكون رائدة فضاء",
+          "options": [
+            "تمنّت أن تكون رائدة فضاء",
+            "جلست دينا تتأمّل القمر",
+            "سمعها أخوها عمر"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "رائِدَةُ الفَضاءِ",
+          "correctAnswer": "رائِدَةُ الفَضاءِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "أَتَمَنّى أَنْ أَكونَ رائِدَةَ فَضاءٍ",
+          "correctAnswer": "أَتَمَنّى أَنْ أَكونَ رائِدَةَ فَضاءٍ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة ما كانت تتأمّله دينا في القصة",
+          "correctAnswer": "القمر",
+          "options": [
+            "الغيمة",
+            "النجمة",
+            "الشمس",
+            "القمر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/cloud.png",
+            "assets/openmoji/star.png",
+            "assets/openmoji/sun.png",
+            "assets/openmoji/moon.png"
+          ]
+        }
+      ],
+      "orderIndex": 5
+    },
+    {
+      "title": "العصفورة تبني عشها",
+      "content": "راقبت سناء عصفورة تطير من مكان إلى آخر وتجمع القش لتبني عشها، ثم باضت فيه. وبعد فترة رأت سناء عصفورين صغيرين، والأم تلتقط الحبّ بمنقارها وتطعمهما. فسألت سناء أمها: من علّم العصفورة بناء عشها وإطعام فراخها؟",
+      "objectives": "قراءة نص العصفورة تبني عشها والتأمل في إبداع الخالق",
+      "imageUrls": [
+        "assets/openmoji/bird.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا كانت العصفورة تجمع لتبني عشها؟",
+          "correctAnswer": "القش",
+          "options": [
+            "الرمل",
+            "الورق",
+            "الحجارة",
+            "القش"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بماذا تطعم العصفورة فراخها؟",
+          "correctAnswer": "بالحبّ",
+          "options": [
+            "بالماء",
+            "بالحلوى",
+            "بالعشب",
+            "بالحبّ"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من علّم العصفورة بناء عشها وإطعام فراخها؟",
+          "correctAnswer": "الله تعالى",
+          "options": [
+            "سناء",
+            "أمها",
+            "الفلاح",
+            "الله تعالى"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "باضت العصفورة في عشها بعد أن بنته.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "بنت العصفورة عشها من الحجارة.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: تلتقط العصفورة الحبّ ب___ها.",
+          "correctAnswer": "منقار",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "من الذي أعطى العصفورة القدرة على بناء عشها؟",
+          "correctAnswer": "الله",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: أطعمت الفراخ، جمعت القش، باضت في العش",
+          "correctAnswer": "جمعت القش، باضت في العش، أطعمت الفراخ",
+          "options": [
+            "أطعمت الفراخ",
+            "جمعت القش",
+            "باضت في العش"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "العُصْفورَةُ تَبْني عُشَّها",
+          "correctAnswer": "العُصْفورَةُ تَبْني عُشَّها",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "تَلْتَقِطُ العُصْفورَةُ الحَبَّ بِمِنْقارِها وَتُطْعِمُ فِراخَها",
+          "correctAnswer": "تَلْتَقِطُ العُصْفورَةُ الحَبَّ بِمِنْقارِها وَتُطْعِمُ فِراخَها",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة الطائر الذي بنى عشه في القصة",
+          "correctAnswer": "العصفورة",
+          "options": [
+            "الفراشة",
+            "النحلة",
+            "الضفدع",
+            "العصفورة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/butterfly.png",
+            "assets/openmoji/bee.png",
+            "assets/openmoji/frog.png",
+            "assets/openmoji/bird.png"
+          ]
+        }
+      ],
+      "orderIndex": 6
+    },
+    {
+      "title": "مكتبتي صديقتي",
+      "content": "سلمى مجدّة في دروسها وتحب القراءة. زارتها صديقتها علا وأهدتها كتاباً مصوّراً. أرتها سلمى مكتبتها المرتّبة: الكتب المصوّرة على رفّ، والقصص على رفّ آخر، وأدوات الرسم في زاوية، وجهاز حاسوب على الطاولة. فقضتا وقتاً ممتعاً بالقراءة.",
+      "objectives": "قراءة نص مكتبتي صديقتي وترسيخ حب القراءة والترتيب",
+      "imageUrls": [
+        "assets/openmoji/books.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا أهدت علا صديقتها سلمى؟",
+          "correctAnswer": "كتاباً مصوّراً",
+          "options": [
+            "قلماً",
+            "حقيبة",
+            "لعبة",
+            "كتاباً مصوّراً"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بماذا دُهشت علا عندما رأت مكتبة سلمى؟",
+          "correctAnswer": "بترتيب الكتب على الرفوف",
+          "options": [
+            "بحجم الغرفة",
+            "بلون الجدران",
+            "بكثرة الألعاب",
+            "بترتيب الكتب على الرفوف"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ما الصفة التي وُصفت بها سلمى؟",
+          "correctAnswer": "مجدّة تحب القراءة",
+          "options": [
+            "خجولة",
+            "لا تحب الكتب",
+            "كسولة",
+            "مجدّة تحب القراءة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كانت مكتبة سلمى مرتّبة على الرفوف.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "قضت الصديقتان وقتاً مملّاً.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: هدية علا كانت ___ مصوّراً.",
+          "correctAnswer": "كتاباً",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "لماذا نرتّب كتبنا على الرفوف؟",
+          "correctAnswer": "لنجدها بسهولة",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: أرتها مكتبتها، زارت علا سلمى، أهدتها كتاباً",
+          "correctAnswer": "زارت علا سلمى، أهدتها كتاباً، أرتها مكتبتها",
+          "options": [
+            "أرتها مكتبتها",
+            "زارت علا سلمى",
+            "أهدتها كتاباً"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "مَكْتَبَتي صَديقَتي",
+          "correctAnswer": "مَكْتَبَتي صَديقَتي",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "أَنا أُحِبُّ الكُتُبَ وَأَعْتَني بِمَكْتَبَتي",
+          "correctAnswer": "أَنا أُحِبُّ الكُتُبَ وَأَعْتَني بِمَكْتَبَتي",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة ما نجده في المكتبة",
+          "correctAnswer": "الكتب",
+          "options": [
+            "السيارة",
+            "الكرة",
+            "المفتاح",
+            "الكتب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/car.png",
+            "assets/openmoji/soccer_ball.png",
+            "assets/openmoji/key.png",
+            "assets/openmoji/books.png"
+          ]
+        }
+      ],
+      "orderIndex": 7
+    },
+    {
+      "title": "حذاء الحكيم",
+      "content": "كان حكيم يجري ليلحق بالقطار، وأثناء صعوده سقطت إحدى فردتي حذائه على السكة. فما كان منه إلا أن رمى الفردة الثانية بجوارها، فتعجّب أصدقاؤه. فقال: أحببت للفقير الذي سيجد الحذاء أن يجد فردتين فيستطيع الانتفاع بهما.",
+      "objectives": "قراءة نص حذاء الحكيم وترسيخ قيمة الإيثار والتفكير في الآخرين",
+      "imageUrls": [
+        "assets/openmoji/shoe.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "لماذا كان الحكيم يجري؟",
+          "correctAnswer": "ليلحق بالقطار",
+          "options": [
+            "ليمارس الرياضة",
+            "ليصل إلى بيته",
+            "ليلحق بالقطار",
+            "ليهرب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا فعل الحكيم عندما سقطت فردة حذائه؟",
+          "correctAnswer": "رمى الفردة الثانية بجوارها",
+          "options": [
+            "نزل من القطار",
+            "غضب",
+            "بكى",
+            "رمى الفردة الثانية بجوارها"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "لماذا رمى الحكيم الفردة الثانية؟",
+          "correctAnswer": "ليجد الفقير فردتين ينتفع بهما",
+          "options": [
+            "غضباً",
+            "لأنها قديمة",
+            "ليجد الفقير فردتين ينتفع بهما",
+            "لأنها ضيّقة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "فكّر الحكيم في الفقير الذي سيجد الحذاء.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "احتفظ الحكيم بالفردة الثانية لنفسه.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: أحببت للفقير أن يجد ___.",
+          "correctAnswer": "فردتين",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الخُلق الذي ظهر في تصرّف الحكيم؟",
+          "correctAnswer": "الإيثار",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: رمى الفردة الثانية، ركض ليلحق بالقطار، سقطت فردة حذائه",
+          "correctAnswer": "ركض ليلحق بالقطار، سقطت فردة حذائه، رمى الفردة الثانية",
+          "options": [
+            "رمى الفردة الثانية",
+            "ركض ليلحق بالقطار",
+            "سقطت فردة حذائه"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "حِذاءُ الحَكيمِ",
+          "correctAnswer": "حِذاءُ الحَكيمِ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "أَحْبَبْتُ لِلْفَقيرِ أَنْ يَجِدَ فَرْدَتَيْنِ فَيَنْتَفِعَ بِهِما",
+          "correctAnswer": "أَحْبَبْتُ لِلْفَقيرِ أَنْ يَجِدَ فَرْدَتَيْنِ فَيَنْتَفِعَ بِهِما",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "reading"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة ما سقط من الحكيم في القصة",
+          "correctAnswer": "الحذاء",
+          "options": [
+            "القبعة",
+            "الحقيبة",
+            "الحذاء",
+            "الكتاب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/cap.png",
+            "assets/openmoji/backpack.png",
+            "assets/openmoji/shoe.png",
+            "assets/openmoji/book.png"
+          ]
+        }
+      ],
+      "orderIndex": 8
+    },
+    {
+      "title": "الخبّاز",
+      "content": "طلبت أم باسم من ابنها أن يشتري خبزاً، فذهب باسم إلى المخبز، فرأى الخبّاز يرقّ العجين بسرعة ويرميه في بيت النار والعرق يقطر من جبينه. عاد باسم بالخبز الساخن وقال لوالده: عمل الخبّاز شاقّ. فأوصاه الوالد ألّا يرمي الخبز؛ فهو نعمة من الله يجب أن نحافظ عليها.",
+      "objectives": "قراءة نص الخبّاز وتقدير قيمة العمل والحفاظ على النعمة",
+      "imageUrls": [
+        "assets/openmoji/flatbread.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا طلبت أم باسم من ابنها؟",
+          "correctAnswer": "أن يشتري خبزاً",
+          "options": [
+            "أن يشتري حليباً",
+            "أن ينظّف البيت",
+            "أن يشتري خبزاً",
+            "أن يدرس"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كيف وصف باسم عمل الخبّاز؟",
+          "correctAnswer": "عمل شاقّ",
+          "options": [
+            "عمل قصير",
+            "عمل سهل",
+            "عمل ممل",
+            "عمل شاقّ"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بماذا أوصى الوالد ابنه؟",
+          "correctAnswer": "ألّا يرمي الخبز لأنه نعمة",
+          "options": [
+            "أن يأكل كثيراً",
+            "أن يعمل خبّازاً",
+            "ألّا يرمي الخبز لأنه نعمة",
+            "أن يشتري خبزاً كل يوم"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الخبز نعمة من الله يجب أن نحافظ عليها.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كان عمل الخبّاز سهلاً ومريحاً.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: الخبز ___ من الله يجب أن نحافظ عليها.",
+          "correctAnswer": "نعمة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا كان يقطر من جبين الخبّاز من شدّة العمل؟",
+          "correctAnswer": "العرق",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: أوصاه والده بالخبز، طلبت الأم الخبز، شاهد باسم الخبّاز",
+          "correctAnswer": "طلبت الأم الخبز، شاهد باسم الخبّاز، أوصاه والده بالخبز",
+          "options": [
+            "أوصاه والده بالخبز",
+            "طلبت الأم الخبز",
+            "شاهد باسم الخبّاز"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "الخُبْزُ نِعْمَةٌ",
+          "correctAnswer": "الخُبْزُ نِعْمَةٌ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "كانَ الخَبّازُ ماهِراً وَالعَرَقُ يَقْطُرُ مِنْ جَبينِهِ",
+          "correctAnswer": "كانَ الخَبّازُ ماهِراً وَالعَرَقُ يَقْطُرُ مِنْ جَبينِهِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة ما صنعه الخبّاز في القصة",
+          "correctAnswer": "الخبز",
+          "options": [
+            "الحليب",
+            "الجبنة",
+            "التفاح",
+            "الخبز"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/milk.png",
+            "assets/openmoji/cheese.png",
+            "assets/openmoji/apple.png",
+            "assets/openmoji/flatbread.png"
+          ]
+        }
+      ],
+      "orderIndex": 9
+    },
+    {
+      "title": "عاقبة الطمع",
+      "content": "بينما كانت النملة تسير إلى بيتها، اعترضت طريقها قطرة عسل، فتذوّقتها فوجدتها حلوة لذيذة. تركتها ثم لم تنسَ حلاوتها، فعادت إليها ودخلت في وسطها تلعق العسل بشراهة، وبعد أن شبعت أرادت الخروج فلم تقدر، فماتت في القطرة نتيجة طمعها.",
+      "objectives": "قراءة نص عاقبة الطمع وفهم أثر الطمع السيّئ",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا اعترض طريق النملة؟",
+          "correctAnswer": "قطرة عسل",
+          "options": [
+            "حبة قمح",
+            "قطرة ماء",
+            "ورقة شجر",
+            "قطرة عسل"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "لماذا عادت النملة إلى قطرة العسل؟",
+          "correctAnswer": "لأنها لم تنسَ حلاوتها",
+          "options": [
+            "لتحذّر النمل",
+            "لتنقلها إلى بيتها",
+            "لأنها لم تنسَ حلاوتها",
+            "لتنظّفها"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا كانت عاقبة طمع النملة؟",
+          "correctAnswer": "ماتت في القطرة",
+          "options": [
+            "أصبحت غنية",
+            "ماتت في القطرة",
+            "وصلت بيتها بسلام",
+            "شبعت وعادت"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "أدّى الطمع بالنملة إلى الهلاك.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "استطاعت النملة الخروج من قطرة العسل بسهولة.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ماتت النملة في القطرة نتيجة ___ها.",
+          "correctAnswer": "طمع",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الصفة السيّئة التي أهلكت النملة؟",
+          "correctAnswer": "الطمع",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: ماتت في القطرة، تذوّقت النملة العسل، عادت إليه بشراهة",
+          "correctAnswer": "تذوّقت النملة العسل، عادت إليه بشراهة، ماتت في القطرة",
+          "options": [
+            "ماتت في القطرة",
+            "تذوّقت النملة العسل",
+            "عادت إليه بشراهة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "عاقِبَةُ الطَّمَعِ",
+          "correctAnswer": "عاقِبَةُ الطَّمَعِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "ماتَتِ النَّمْلَةُ في القَطْرَةِ نَتيجَةَ طَمَعِها",
+          "correctAnswer": "ماتَتِ النَّمْلَةُ في القَطْرَةِ نَتيجَةَ طَمَعِها",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الصفات: محمودة أم مذمومة؟",
+          "correctAnswer": "محمودة=القناعة,محمودة=الاعتدال,مذمومة=الطمع,مذمومة=الشراهة",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "محمودة",
+              "مذمومة"
+            ],
+            "tokens": [
+              "القناعة",
+              "الطمع",
+              "الاعتدال",
+              "الشراهة"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 10
+    },
+    {
+      "title": "عروس البحر",
+      "content": "أنا يافا، عروس البحر، مدينة فلسطينية بناها الأجداد العرب القدماء قبل ستة آلاف عام على البحر المتوسط. في بيّاراتي تُزرع الحمضيات، وبرتقالي من أجود أنواع البرتقال في العالم. يشاهد السائح أحياءها القديمة، ويقضي وقتاً ممتعاً على شاطئها الجميل.",
+      "objectives": "قراءة نص عروس البحر والاعتزاز بمدينة يافا الفلسطينية",
+      "imageUrls": [
+        "assets/openmoji/sailboat.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما المدينة التي تتحدّث عن نفسها في القصة؟",
+          "correctAnswer": "يافا",
+          "options": [
+            "القدس",
+            "نابلس",
+            "غزة",
+            "يافا"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بماذا لُقّبت مدينة يافا؟",
+          "correctAnswer": "عروس البحر",
+          "options": [
+            "مدينة العلم",
+            "مدينة القمح",
+            "عاصمة فلسطين",
+            "عروس البحر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بم تشتهر يافا من المزروعات؟",
+          "correctAnswer": "البرتقال والحمضيات",
+          "options": [
+            "القمح",
+            "العنب",
+            "الزيتون",
+            "البرتقال والحمضيات"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يافا مدينة فلسطينية على البحر المتوسط.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يافا مدينة صحراوية بعيدة عن البحر.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: برتقال يافا من أجود أنواع ___ في العالم.",
+          "correctAnswer": "البرتقال",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "على أي بحر تقع مدينة يافا؟",
+          "correctAnswer": "البحر المتوسط",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: يزورها السائح، بناها الأجداد القدماء، صارت بوابة إلى العالم",
+          "correctAnswer": "بناها الأجداد القدماء، صارت بوابة إلى العالم، يزورها السائح",
+          "options": [
+            "يزورها السائح",
+            "بناها الأجداد القدماء",
+            "صارت بوابة إلى العالم"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "يافا عَروسُ البَحْرِ",
+          "correctAnswer": "يافا عَروسُ البَحْرِ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "أَنا يافا مَدينَةٌ فِلَسْطينِيَّةٌ عَلى البَحْرِ المُتَوَسِّطِ",
+          "correctAnswer": "أَنا يافا مَدينَةٌ فِلَسْطينِيَّةٌ عَلى البَحْرِ المُتَوَسِّطِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة الثمرة التي تشتهر بها يافا",
+          "correctAnswer": "البرتقال",
+          "options": [
+            "البطيخ",
+            "الجزر",
+            "الفراولة",
+            "البرتقال"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/watermelon.png",
+            "assets/openmoji/carrot.png",
+            "assets/openmoji/strawberry.png",
+            "assets/openmoji/orange.png"
+          ]
+        }
+      ],
+      "orderIndex": 11
+    },
+    {
+      "title": "الذئب ومالك الحزين",
+      "content": "اصطاد ذئب حيواناً، وأثناء أكله علقت عظمة في حلقه، فأخذ يبحث عمّن يخرجها مقابل جائزة. جاء طائر مالك الحزين، وأدخل رأسه ورقبته الطويلة في فم الذئب حتى أخرج العظمة. فطلب الجائزة، فقال الذئب: أعظم جائزة أنك أدخلت رأسك في فمي وأخرجته سالماً!",
+      "objectives": "قراءة نص الذئب ومالك الحزين وفهم عدم وضع الثقة في المخادع",
+      "imageUrls": [
+        "assets/openmoji/bird.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا علق في حلق الذئب؟",
+          "correctAnswer": "عظمة",
+          "options": [
+            "شوكة سمك",
+            "حبة",
+            "عظمة",
+            "حجر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من أخرج العظمة من حلق الذئب؟",
+          "correctAnswer": "مالك الحزين",
+          "options": [
+            "الثعلب",
+            "الأسد",
+            "الغراب",
+            "مالك الحزين"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ما الجائزة التي أعطاها الذئب لمالك الحزين؟",
+          "correctAnswer": "أنه أخرج رأسه سالماً",
+          "options": [
+            "طعاماً كثيراً",
+            "بيتاً",
+            "أنه أخرج رأسه سالماً",
+            "كيس ذهب"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "أخلف الذئب وعده ولم يعطِ مالكاً الحزين جائزة حقيقية.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "أعطى الذئب مالكاً الحزين جائزة كبيرة من الذهب.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: مدّ مالك الحزين رقبته ___ في فم الذئب.",
+          "correctAnswer": "الطويلة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أي طائر ساعد الذئب في القصة؟",
+          "correctAnswer": "مالك الحزين",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: طلب مالك الحزين جائزته، علقت العظمة في حلق الذئب، أخرج الطائر العظمة",
+          "correctAnswer": "علقت العظمة في حلق الذئب، أخرج الطائر العظمة، طلب مالك الحزين جائزته",
+          "options": [
+            "طلب مالك الحزين جائزته",
+            "علقت العظمة في حلق الذئب",
+            "أخرج الطائر العظمة"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "مالِكٌ الحَزينُ",
+          "correctAnswer": "مالِكٌ الحَزينُ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "أَدْخَلَ مالِكٌ الحَزينُ رَأْسَهُ في فَمِ الذِّئْبِ وَأَخْرَجَ العَظْمَ",
+          "correctAnswer": "أَدْخَلَ مالِكٌ الحَزينُ رَأْسَهُ في فَمِ الذِّئْبِ وَأَخْرَجَ العَظْمَ",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "reading"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة الطائر الذي ساعد الذئب",
+          "correctAnswer": "الطائر",
+          "options": [
+            "السلحفاة",
+            "القرد",
+            "الأسد",
+            "الطائر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/turtle.png",
+            "assets/openmoji/monkey.png",
+            "assets/openmoji/lion.png",
+            "assets/openmoji/bird.png"
+          ]
+        }
+      ],
+      "orderIndex": 12
+    },
+    {
+      "title": "المهر الصغير",
+      "content": "كان مهر صغير يعيش مع أمه في مزرعة جميلة ذات أشجار خضراء، وذات يوم شعر بالملل فقرّر الرحيل. رفضت أمه الفكرة، لكنه صمّم، فسارا معاً حتى أقبل الليل ولم يجدا مأوى، فباتا في العراء جائعين. فندم المهر على فعلته وقرّر العودة مع أمه إلى المزرعة.",
+      "objectives": "قراءة نص المهر الصغير وفهم قيمة طاعة الأم والقناعة",
+      "imageUrls": [
+        "assets/openmoji/horse.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "مع من كان يعيش المهر الصغير؟",
+          "correctAnswer": "مع أمه في المزرعة",
+          "options": [
+            "مع الفلاح",
+            "مع أصدقائه",
+            "وحده في الغابة",
+            "مع أمه في المزرعة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "لماذا قرّر المهر الرحيل عن المزرعة؟",
+          "correctAnswer": "لأنه شعر بالملل",
+          "options": [
+            "لأنه جائع",
+            "لأنه خائف",
+            "لأن أمه طردته",
+            "لأنه شعر بالملل"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا قرّر المهر بعد الليلة الصعبة؟",
+          "correctAnswer": "العودة مع أمه إلى المزرعة",
+          "options": [
+            "البحث عن مزرعة أخرى",
+            "البقاء في العراء",
+            "متابعة الرحيل",
+            "العودة مع أمه إلى المزرعة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "ندم المهر على رحيله عن المزرعة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "وجد المهر مأوى مريحاً في أول ليلة.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: بات المهر وأمه في ___ جائعين.",
+          "correctAnswer": "العراء",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا نتعلّم من ندم المهر؟",
+          "correctAnswer": "طاعة الأم",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: ندم المهر وعاد، شعر المهر بالملل، بات في العراء",
+          "correctAnswer": "شعر المهر بالملل، بات في العراء، ندم المهر وعاد",
+          "options": [
+            "ندم المهر وعاد",
+            "شعر المهر بالملل",
+            "بات في العراء"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "المُهْرُ الصَّغيرُ",
+          "correctAnswer": "المُهْرُ الصَّغيرُ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "نَدِمَ المُهْرُ عَلى فِعْلَتِهِ وَقَرَّرَ العَوْدَةَ مَعَ أُمِّهِ",
+          "correctAnswer": "نَدِمَ المُهْرُ عَلى فِعْلَتِهِ وَقَرَّرَ العَوْدَةَ مَعَ أُمِّهِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة الحيوان الصغير في القصة",
+          "correctAnswer": "المهر",
+          "options": [
+            "القط",
+            "المهر",
+            "الطائر",
+            "الأرنب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/cat.png",
+            "assets/openmoji/horse.png",
+            "assets/openmoji/bird.png",
+            "assets/openmoji/rabbit.png"
+          ]
+        }
+      ],
+      "orderIndex": 13
+    },
+    {
+      "title": "براء لا يستسلم",
+      "content": "براء طفل في العاشرة من عمره، أصيب بإعاقة شديدة في يديه بعد حادث قضيب حديد أثناء ترتيب بيتهم الجديد. تأثّر وحزن، لكنه اجتهد واهتمّ بدروسه، فنجح في الثانوية العامة والتحق بالجامعة وتخرّج فيها بتفوّق، وصار قصّة نجاح يُضرب بها المثل.",
+      "objectives": "قراءة نص براء لا يستسلم وترسيخ الإرادة وعدم اليأس",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كم كان عمر براء في بداية القصة؟",
+          "correctAnswer": "في العاشرة",
+          "options": [
+            "في الخامسة",
+            "في العشرين",
+            "في الخامسة عشرة",
+            "في العاشرة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ما الذي سبّب إعاقة براء في يديه؟",
+          "correctAnswer": "حادث قضيب حديد",
+          "options": [
+            "حادث سيارة",
+            "سقوط من شجرة",
+            "حادث قضيب حديد",
+            "مرض"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا فعل براء بعد إصابته؟",
+          "correctAnswer": "اجتهد واهتمّ بدروسه",
+          "options": [
+            "ترك المدرسة",
+            "اجتهد واهتمّ بدروسه",
+            "اعتزل الناس",
+            "استسلم لليأس"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "نجح براء وتخرّج من الجامعة بتفوّق.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "استسلم براء لإعاقته ولم يكمل تعليمه.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: صار براء قصّة ___ يُضرب بها المثل.",
+          "correctAnswer": "نجاح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الصفة التي جعلت براء ينجح رغم إعاقته؟",
+          "correctAnswer": "الإرادة",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: تخرّج من الجامعة، أصيب براء في يديه، اجتهد في دروسه",
+          "correctAnswer": "أصيب براء في يديه، اجتهد في دروسه، تخرّج من الجامعة",
+          "options": [
+            "تخرّج من الجامعة",
+            "أصيب براء في يديه",
+            "اجتهد في دروسه"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "الإِرادَةُ وَالنَّجاحُ",
+          "correctAnswer": "الإِرادَةُ وَالنَّجاحُ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "اجْتَهَدَ بَراءٌ وَنَجَحَ رَغْمَ إِعاقَتِهِ",
+          "correctAnswer": "اجْتَهَدَ بَراءٌ وَنَجَحَ رَغْمَ إِعاقَتِهِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف: صفات تؤدّي إلى النجاح أم إلى الفشل؟",
+          "correctAnswer": "تؤدّي إلى النجاح=الاجتهاد,تؤدّي إلى النجاح=الإصرار,تؤدّي إلى الفشل=اليأس,تؤدّي إلى الفشل=الكسل",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "تؤدّي إلى النجاح",
+              "تؤدّي إلى الفشل"
+            ],
+            "tokens": [
+              "الاجتهاد",
+              "اليأس",
+              "الإصرار",
+              "الكسل"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 14
+    },
+    {
+      "title": "من نوادر جحا",
+      "content": "ركب جحا حماره وذهب إلى السوق، فاشترى خضاراً وفواكه كثيرة ووضعها في سلّة كبيرة على ظهره وهو راكب الحمار. فسأله أحد المارّة: لماذا تُتعب نفسك وتحمل السلّة على ظهرك؟ ضعها أمامك. فقال جحا مازحاً: إن حماري ضعيف لا يحمل أنا والسلّة معاً!",
+      "objectives": "قراءة نص من نوادر جحا والتمييز بين المزاح والمنطق",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أين ذهب جحا راكباً حماره؟",
+          "correctAnswer": "إلى السوق",
+          "options": [
+            "إلى المدرسة",
+            "إلى المزرعة",
+            "إلى السوق",
+            "إلى البحر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أين وضع جحا السلّة؟",
+          "correctAnswer": "على ظهره",
+          "options": [
+            "أمامه على الحمار",
+            "في يده",
+            "على الأرض",
+            "على ظهره"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بم علّل جحا حمله السلّة على ظهره؟",
+          "correctAnswer": "بأن حماره ضعيف",
+          "options": [
+            "بأنها جميلة",
+            "بأنها خفيفة",
+            "بأنه يحبّها",
+            "بأن حماره ضعيف"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "قصة جحا فيها طرافة ومزاح.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كان تعليل جحا منطقياً وصحيحاً.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: قال جحا إن حماري ___ لا يحملني والسلّة معاً.",
+          "correctAnswer": "ضعيف",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما نوع قصص جحا عادةً؟",
+          "correctAnswer": "نوادر ومزاح",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: سأله المارّ، ذهب جحا إلى السوق، وضع السلّة على ظهره",
+          "correctAnswer": "ذهب جحا إلى السوق، وضع السلّة على ظهره، سأله المارّ",
+          "options": [
+            "سأله المارّ",
+            "ذهب جحا إلى السوق",
+            "وضع السلّة على ظهره"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "مِنْ نَوادِرِ جُحا",
+          "correctAnswer": "مِنْ نَوادِرِ جُحا",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "رَكِبَ جُحا حِمارَهُ وَذَهَبَ إِلى سوقِ المَدينَةِ",
+          "correctAnswer": "رَكِبَ جُحا حِمارَهُ وَذَهَبَ إِلى سوقِ المَدينَةِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف: من السوق أم من المدرسة؟",
+          "correctAnswer": "من السوق=خضار,من السوق=فواكه,من المدرسة=كتاب,من المدرسة=قلم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "من السوق",
+              "من المدرسة"
+            ],
+            "tokens": [
+              "خضار",
+              "كتاب",
+              "فواكه",
+              "قلم"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 15
+    }
+  ]
+}

@@ -427,6 +427,21 @@ class LearningProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Safety net (2026-07-05): if the UI ever finds itself in a step phase
+  /// with no step left to render (index past the end of the list), finish
+  /// the lesson instead of leaving the child on a blank page.
+  void finishIfStranded() {
+    const stepPhases = {
+      LearningPhase.stepActive,
+      LearningPhase.stepFeedback,
+      LearningPhase.stepRetry,
+      LearningPhase.retryRound,
+    };
+    if (stepPhases.contains(_phase) && currentStep == null) {
+      _completeLesson();
+    }
+  }
+
   // Move to next step
   void nextStep() {
     if (_phase == LearningPhase.retryRound) {
@@ -460,7 +475,19 @@ class LearningProvider extends ChangeNotifier {
   }
 
   Future<void> _completeLesson() async {
-    if (_currentAttemptId == null) return;
+    // Bug fix (2026-07-05): this used to `return` when the attempt id was
+    // null, leaving the phase stuck past the last question — the child saw a
+    // blank page instead of the celebration screen. Now we always finish
+    // locally; the server call is just skipped.
+    if (_currentAttemptId == null) {
+      for (final tracker in _trackers.values) {
+        if (tracker.starsEarned == 0) tracker.starsEarned = 1;
+      }
+      _recalcStars();
+      _phase = LearningPhase.completed;
+      notifyListeners();
+      return;
+    }
 
     _phase = LearningPhase.completing;
     notifyListeners();

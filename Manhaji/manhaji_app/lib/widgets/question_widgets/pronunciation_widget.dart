@@ -221,7 +221,7 @@ class _ScoreCard extends StatelessWidget {
               color: c,
             ),
           ),
-          if (score.transcribedText.isNotEmpty) ...[
+          if (score.displayTranscribed.isNotEmpty) ...[
             const SizedBox(height: 12),
             Container(
               width: double.infinity,
@@ -243,7 +243,7 @@ class _ScoreCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    score.transcribedText,
+                    score.displayTranscribed,
                     style: const TextStyle(
                       fontFamily: 'Cairo',
                       fontSize: 16,

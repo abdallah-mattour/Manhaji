@@ -1,0 +1,1942 @@
+{
+  "subject": "اللغة العربية",
+  "subjectCode": "ar",
+  "gradeLevel": 3,
+  "semester": 2,
+  "totalLessons": 15,
+  "lessons": [
+    {
+      "title": "حيفا والنورس",
+      "content": "حيفا بنت تعيش في بيت من الصفيح قرب البحر، تحب البحر وتحب جدّها الصياد الذي يصحبها بقاربه. ذات يوم أبحر جدّها بعيداً وقال: هناك حيفا أخرى تنتظرني خلف البحر، جميلة مثلك. فجلست حيفا على الرمل تنتظر عودته وتبكي، فسمعها طائر النورس وسألها عن سبب حزنها.",
+      "objectives": "قراءة نص حيفا والنورس والحنين إلى مدينة حيفا الفلسطينية",
+      "imageUrls": [
+        "assets/openmoji/bird.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أين كانت تعيش حيفا؟",
+          "correctAnswer": "في بيت من الصفيح قرب البحر",
+          "options": [
+            "في قصر كبير",
+            "في بيت من الصفيح قرب البحر",
+            "في الجبل",
+            "في الصحراء"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ما مهنة جدّ حيفا؟",
+          "correctAnswer": "صياد",
+          "options": [
+            "فلاح",
+            "صياد",
+            "طبيب",
+            "معلم"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من سمع بكاء حيفا وسألها عن حزنها؟",
+          "correctAnswer": "طائر النورس",
+          "options": [
+            "صديقتها",
+            "أمها",
+            "جدّها",
+            "طائر النورس"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "حيفا هي أيضاً اسم مدينة فلسطينية على البحر.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كانت حيفا تكره البحر والقارب.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: جلست حيفا على ___ تنتظر عودة جدّها.",
+          "correctAnswer": "الرمل",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أي طائر بحري سمع حيفا وهي تبكي؟",
+          "correctAnswer": "النورس",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: سمعها النورس، أبحر الجدّ بعيداً، جلست حيفا على الرمل",
+          "correctAnswer": "أبحر الجدّ بعيداً، جلست حيفا على الرمل، سمعها النورس",
+          "options": [
+            "سمعها النورس",
+            "أبحر الجدّ بعيداً",
+            "جلست حيفا على الرمل"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "حَيْفا وَالنَّوْرَسُ",
+          "correctAnswer": "حَيْفا وَالنَّوْرَسُ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "جَلَسَتْ حَيْفا عَلى الرَّمْلِ تَنْتَظِرُ عَوْدَةَ جَدِّها",
+          "correctAnswer": "جَلَسَتْ حَيْفا عَلى الرَّمْلِ تَنْتَظِرُ عَوْدَةَ جَدِّها",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة الطائر الذي كلّم حيفا",
+          "correctAnswer": "النورس",
+          "options": [
+            "الأرنب",
+            "النورس",
+            "القط",
+            "السلحفاة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/rabbit.png",
+            "assets/openmoji/bird.png",
+            "assets/openmoji/cat.png",
+            "assets/openmoji/turtle.png"
+          ]
+        }
+      ],
+      "orderIndex": 1
+    },
+    {
+      "title": "يوم الشجرة",
+      "content": "ذهب سليم وأخته عبير مع والديهما إلى المشتل في يوم الشجرة (الخامس عشر من كانون الثاني). اختار سليم شتلة زيتون فزرعها في الحقل، واختارت عبير وروداً زرعتها في الحديقة. اعتنيا بهما، وفي موسم القطاف أثمرت زيتونة سليم، ففرح كثيراً.",
+      "objectives": "قراءة نص يوم الشجرة وترسيخ حب الزراعة والعناية بالشجر",
+      "imageUrls": [
+        "assets/openmoji/olive.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "إلى أين ذهب سليم وعبير مع والديهما؟",
+          "correctAnswer": "إلى المشتل",
+          "options": [
+            "إلى السوق",
+            "إلى البحر",
+            "إلى المشتل",
+            "إلى المدرسة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ما الشتلة التي اختارها سليم؟",
+          "correctAnswer": "شتلة زيتون",
+          "options": [
+            "شتلة برتقال",
+            "شتلة زيتون",
+            "وردة",
+            "شتلة عنب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "متى يكون يوم الشجرة؟",
+          "correctAnswer": "الخامس عشر من كانون الثاني",
+          "options": [
+            "أول أيار",
+            "آخر رمضان",
+            "أول العام",
+            "الخامس عشر من كانون الثاني"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "أثمرت زيتونة سليم في موسم القطاف.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "زرع سليم وروداً في حديقة المنزل.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: زرع سليم ___ في الحقل.",
+          "correctAnswer": "الزيتونة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الشجرة المباركة التي تشتهر بها فلسطين؟",
+          "correctAnswer": "الزيتون",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: أثمرت الزيتونة، ذهبوا إلى المشتل، زرع سليم الشتلة",
+          "correctAnswer": "ذهبوا إلى المشتل، زرع سليم الشتلة، أثمرت الزيتونة",
+          "options": [
+            "أثمرت الزيتونة",
+            "ذهبوا إلى المشتل",
+            "زرع سليم الشتلة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "يَوْمُ الشَّجَرَةِ",
+          "correctAnswer": "يَوْمُ الشَّجَرَةِ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "زَرَعَ سَليمٌ شَتْلَةَ الزَّيْتونِ وَاعْتَنى بِها حَتّى أَثْمَرَتْ",
+          "correctAnswer": "زَرَعَ سَليمٌ شَتْلَةَ الزَّيْتونِ وَاعْتَنى بِها حَتّى أَثْمَرَتْ",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "reading"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة الشجرة التي زرعها سليم",
+          "correctAnswer": "الزيتون",
+          "options": [
+            "التفاح",
+            "الفراولة",
+            "الزيتون",
+            "الجزر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/apple.png",
+            "assets/openmoji/strawberry.png",
+            "assets/openmoji/olive.png",
+            "assets/openmoji/carrot.png"
+          ]
+        }
+      ],
+      "orderIndex": 2
+    },
+    {
+      "title": "الراعي والذئب",
+      "content": "عاش راعٍ اشتهر بالكذب والسخرية، فكان يصيح: النجدة! هاجم الذئب أغنامي، فيهبّ أهل القرية فلا يجدون ذئباً ويجدونه يضحك. كرّر ذلك مرّتين، وفي الثالثة هاجم الذئب غنمه حقاً، فصاح مستنجداً، لكنهم لم يصدّقوه، فأكل الذئب إحدى أغنامه. فندم الراعي واعتذر، فالكذب عاقبته وخيمة.",
+      "objectives": "قراءة نص الراعي والذئب وفهم عاقبة الكذب",
+      "imageUrls": [
+        "assets/openmoji/sheep.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بم اشتهر الراعي في القصة؟",
+          "correctAnswer": "بالكذب والسخرية",
+          "options": [
+            "بالشجاعة",
+            "بالكرم",
+            "بالصدق",
+            "بالكذب والسخرية"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "لماذا لم يصدّق الناس الراعي في المرة الأخيرة؟",
+          "correctAnswer": "لأنه كذب عليهم من قبل",
+          "options": [
+            "لأنهم مشغولون",
+            "لأنهم بعيدون",
+            "لأنهم نائمون",
+            "لأنه كذب عليهم من قبل"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا حدث لغنم الراعي في النهاية؟",
+          "correctAnswer": "أكل الذئب إحداها",
+          "options": [
+            "بقيت سالمة",
+            "أكل الذئب إحداها",
+            "باعها الراعي",
+            "هربت كلّها"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الكذب عاقبته وخيمة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "صدّق الناس الراعي في كل مرة نادى فيها.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ندم الراعي على ___ه واعتذر للناس.",
+          "correctAnswer": "كذب",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الصفة السيّئة التي عوقب عليها الراعي؟",
+          "correctAnswer": "الكذب",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: أكل الذئب غنمه، كذب الراعي مرّتين، لم يصدّقه الناس",
+          "correctAnswer": "كذب الراعي مرّتين، لم يصدّقه الناس، أكل الذئب غنمه",
+          "options": [
+            "أكل الذئب غنمه",
+            "كذب الراعي مرّتين",
+            "لم يصدّقه الناس"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "الرّاعي وَالذِّئْبُ",
+          "correctAnswer": "الرّاعي وَالذِّئْبُ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "الكَذِبُ عاقِبَتُهُ وَخيمَةٌ فَلا يُصَدَّقُ الكاذِبُ",
+          "correctAnswer": "الكَذِبُ عاقِبَتُهُ وَخيمَةٌ فَلا يُصَدَّقُ الكاذِبُ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة الحيوان الذي كان يرعاه الراعي",
+          "correctAnswer": "الأغنام",
+          "options": [
+            "القرد",
+            "الطائر",
+            "الأسد",
+            "الأغنام"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/monkey.png",
+            "assets/openmoji/bird.png",
+            "assets/openmoji/lion.png",
+            "assets/openmoji/sheep.png"
+          ]
+        }
+      ],
+      "orderIndex": 3
+    },
+    {
+      "title": "أحب أن أكون",
+      "content": "جلس الأصدقاء يتحدّثون عن مستقبلهم: قال فارس سأعمل في صيانة السيارات فهي هوايتي، وقالت سعاد سأكون مرشدة سياحية أحكي للناس قصة فلسطين وتاريخها، وقالت فاطمة سأكون شاعرة، وقال مسعود سأكون شرطيّ مرور أحافظ على نظام السير وسلامة الناس.",
+      "objectives": "قراءة نص أحب أن أكون والتفكير في المهن والمستقبل",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا يريد فارس أن يعمل؟",
+          "correctAnswer": "صيانة السيارات",
+          "options": [
+            "الطب",
+            "الزراعة",
+            "التدريس",
+            "صيانة السيارات"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا تريد سعاد أن تكون؟",
+          "correctAnswer": "مرشدة سياحية",
+          "options": [
+            "ممرضة",
+            "مرشدة سياحية",
+            "طبيبة",
+            "شاعرة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بماذا يحافظ شرطي المرور حسب القصة؟",
+          "correctAnswer": "على نظام السير وسلامة الناس",
+          "options": [
+            "على المستشفى",
+            "على المدرسة",
+            "على نظام السير وسلامة الناس",
+            "على المزرعة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "أرادت فاطمة أن تكون شاعرة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "قال فارس إن عمله ليس هوايته.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: تريد سعاد أن تحكي للناس قصة ___ وتاريخها.",
+          "correctAnswer": "فلسطين",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر مهنة تحب أن تعمل بها في المستقبل.",
+          "correctAnswer": "معلم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب حسب ورودهم في الحديث: مسعود، فارس، سعاد",
+          "correctAnswer": "فارس، سعاد، مسعود",
+          "options": [
+            "مسعود",
+            "فارس",
+            "سعاد"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "أُحِبُّ أَنْ أَكونَ",
+          "correctAnswer": "أُحِبُّ أَنْ أَكونَ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "سَأَكونُ مُرْشِدَةً سِياحِيَّةً أَحْكي لِلنّاسِ قِصَّةَ فِلَسْطينَ",
+          "correctAnswer": "سَأَكونُ مُرْشِدَةً سِياحِيَّةً أَحْكي لِلنّاسِ قِصَّةَ فِلَسْطينَ",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "reading"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف كل شخص بمهنته: من يعمل بالسيارات ومن يحمي نظام السير؟",
+          "correctAnswer": "صيانة السيارات=فارس,صيانة السيارات=إصلاح المحركات,شرطي المرور=مسعود,شرطي المرور=تنظيم السير",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "صيانة السيارات",
+              "شرطي المرور"
+            ],
+            "tokens": [
+              "فارس",
+              "مسعود",
+              "إصلاح المحركات",
+              "تنظيم السير"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 4
+    },
+    {
+      "title": "من أخلاقنا",
+      "content": "صعدت عجوز إلى الحافلة ووضعت حقيبتها على الرفّ بجهد، وبحثت عن مقعد فلم تجد، فوقف علي وقال: تفضّلي يا جدّتي، وجلست مكانه. وعندما وصلت الحافلة حمل علي حقيبتها إلى بيتها، فدعت له وقالت: بارك الله فيك. فقال: عوّدني والدي ومعلّمي أن أقدّم المساعدة لمن يحتاج.",
+      "objectives": "قراءة نص من أخلاقنا وترسيخ مساعدة المحتاج واحترام الكبير",
+      "imageUrls": [
+        "assets/openmoji/bus.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا فعل علي عندما لم تجد العجوز مقعداً؟",
+          "correctAnswer": "قام وأجلسها مكانه",
+          "options": [
+            "ضحك عليها",
+            "تجاهلها",
+            "نزل من الحافلة",
+            "قام وأجلسها مكانه"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا فعل علي عندما وصلت الحافلة؟",
+          "correctAnswer": "حمل حقيبة العجوز إلى بيتها",
+          "options": [
+            "ركض إلى بيته",
+            "حمل حقيبة العجوز إلى بيتها",
+            "نسي العجوز",
+            "طلب منها مالاً"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من علّم عليّاً تقديم المساعدة؟",
+          "correctAnswer": "والده ومعلّمه",
+          "options": [
+            "التلفاز",
+            "أصدقاؤه",
+            "والده ومعلّمه",
+            "الجيران"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "احترام الكبير ومساعدته من أخلاقنا الحسنة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "ترك علي العجوز واقفة دون مساعدة.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: قال علي تفضّلي يا ___ وأجلسها مكانه.",
+          "correctAnswer": "جدّتي",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الخُلق الذي ظهر في تصرّف علي؟",
+          "correctAnswer": "مساعدة المحتاج",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: حمل حقيبتها إلى بيتها، صعدت العجوز الحافلة، أجلسها علي مكانه",
+          "correctAnswer": "صعدت العجوز الحافلة، أجلسها علي مكانه، حمل حقيبتها إلى بيتها",
+          "options": [
+            "حمل حقيبتها إلى بيتها",
+            "صعدت العجوز الحافلة",
+            "أجلسها علي مكانه"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "مِنْ أَخْلاقِنا",
+          "correctAnswer": "مِنْ أَخْلاقِنا",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "أُقَدِّمُ المُساعَدَةَ لِمَنْ يَحْتاجُ إِلَيْها",
+          "correctAnswer": "أُقَدِّمُ المُساعَدَةَ لِمَنْ يَحْتاجُ إِلَيْها",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة ما صعدت إليه العجوز في القصة",
+          "correctAnswer": "الحافلة",
+          "options": [
+            "السفينة",
+            "الدرّاجة",
+            "الطائرة",
+            "الحافلة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/ship.png",
+            "assets/openmoji/bicycle.png",
+            "assets/openmoji/airplane.png",
+            "assets/openmoji/bus.png"
+          ]
+        }
+      ],
+      "orderIndex": 5
+    },
+    {
+      "title": "في ميناء غزة",
+      "content": "وصل سمير ووالده ميناء غزة، فدُهش سمير من حركة الصيادين النشطة: هذا يصلح شباكه، وهذا يجرّب قاربه، وآخر ينظّف مكان السمك، ومجموعة تشوي السمك. صعدا مركب أبي خليل في نزهة بحرية، واستمتع سمير بالبحر وغناء الصيادين وحديثهم عن أنواع السمك الغزّي.",
+      "objectives": "قراءة نص في ميناء غزة والتعرف إلى عمل الصيادين",
+      "imageUrls": [
+        "assets/openmoji/fish.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "إلى أين وصل سمير ووالده؟",
+          "correctAnswer": "ميناء غزة",
+          "options": [
+            "ميناء يافا",
+            "ميناء حيفا",
+            "البحر الميت",
+            "ميناء غزة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بم دُهش سمير في الميناء؟",
+          "correctAnswer": "بحركة الصيادين النشطة",
+          "options": [
+            "بهدوء المكان",
+            "بكبر السفن",
+            "بقلة الناس",
+            "بحركة الصيادين النشطة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "مركب من صعدا في النزهة البحرية؟",
+          "correctAnswer": "أبي خليل",
+          "options": [
+            "أبي علي",
+            "أبي سمير",
+            "أبي خالد",
+            "أبي خليل"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "استمتع سمير بالبحر وغناء الصيادين.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كان الميناء هادئاً خالياً من الصيادين.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: كان أحد الصيادين يصلح ___ه.",
+          "correctAnswer": "شباك",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر عملاً واحداً يقوم به الصيّاد في الميناء.",
+          "correctAnswer": "إصلاح الشباك",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: استمتعا بالنزهة، وصلا الميناء، صعدا المركب",
+          "correctAnswer": "وصلا الميناء، صعدا المركب، استمتعا بالنزهة",
+          "options": [
+            "استمتعا بالنزهة",
+            "وصلا الميناء",
+            "صعدا المركب"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "في ميناءِ غَزَّةَ",
+          "correctAnswer": "في ميناءِ غَزَّةَ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "دُهِشَ سَميرٌ مِنْ حَرَكَةِ الصَّيّادينَ النَّشِطَةِ في الميناءِ",
+          "correctAnswer": "دُهِشَ سَميرٌ مِنْ حَرَكَةِ الصَّيّادينَ النَّشِطَةِ في الميناءِ",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "reading"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة ما يصطاده الصيادون في الميناء",
+          "correctAnswer": "السمك",
+          "options": [
+            "العصفور",
+            "الأرنب",
+            "القط",
+            "السمك"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/bird.png",
+            "assets/openmoji/rabbit.png",
+            "assets/openmoji/cat.png",
+            "assets/openmoji/fish.png"
+          ]
+        }
+      ],
+      "orderIndex": 6
+    },
+    {
+      "title": "الغراب والثعلب",
+      "content": "وقف غراب على شجرة عالية وفي منقاره قطعة جبن. شعر الثعلب بالجوع وتمنّى لو يحصل على الجبن، ففكّر في حيلة وقال للغراب: صوتك جميل يا صديقي، هيّا غنِّ لنا. ففتح الغراب فمه ليغنّي، فسقطت قطعة الجبن، فالتقطها الثعلب وجرى فرحاً بها.",
+      "objectives": "قراءة نص الغراب والثعلب والحذر من مديح المخادعين",
+      "imageUrls": [
+        "assets/openmoji/cheese.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا كان في منقار الغراب؟",
+          "correctAnswer": "قطعة جبن",
+          "options": [
+            "قطعة خبز",
+            "قطعة جبن",
+            "ثمرة",
+            "حبة قمح"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كيف خدع الثعلب الغراب؟",
+          "correctAnswer": "مدح صوته وطلب منه أن يغنّي",
+          "options": [
+            "أعطاه طعاماً",
+            "هدّده",
+            "تسلّق الشجرة",
+            "مدح صوته وطلب منه أن يغنّي"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "لماذا سقطت قطعة الجبن؟",
+          "correctAnswer": "لأن الغراب فتح فمه ليغنّي",
+          "options": [
+            "لأن الريح هبّت",
+            "لأن الثعلب أخذها",
+            "لأن الغراب فتح فمه ليغنّي",
+            "لأنها ثقيلة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "خدع الثعلب الغراب بالمديح الكاذب.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "احتفظ الغراب بالجبن ولم يخسره.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: فتح الغراب فمه ليغنّي فسقطت قطعة ___.",
+          "correctAnswer": "الجبن",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما العبرة من قصة الغراب والثعلب؟",
+          "correctAnswer": "الحذر من المديح الكاذب",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: أخذ الثعلب الجبن، وقف الغراب على الشجرة، فتح فمه ليغنّي",
+          "correctAnswer": "وقف الغراب على الشجرة، فتح فمه ليغنّي، أخذ الثعلب الجبن",
+          "options": [
+            "أخذ الثعلب الجبن",
+            "وقف الغراب على الشجرة",
+            "فتح فمه ليغنّي"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "الغُرابُ وَالثَّعْلَبُ",
+          "correctAnswer": "الغُرابُ وَالثَّعْلَبُ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "فَتَحَ الغُرابُ فَمَهُ لِيُغَنّيَ فَسَقَطَتْ قِطْعَةُ الجُبْنِ",
+          "correctAnswer": "فَتَحَ الغُرابُ فَمَهُ لِيُغَنّيَ فَسَقَطَتْ قِطْعَةُ الجُبْنِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة ما سقط من منقار الغراب",
+          "correctAnswer": "الجبن",
+          "options": [
+            "الخبز",
+            "الجبن",
+            "التفاح",
+            "الحليب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/flatbread.png",
+            "assets/openmoji/cheese.png",
+            "assets/openmoji/apple.png",
+            "assets/openmoji/milk.png"
+          ]
+        }
+      ],
+      "orderIndex": 7
+    },
+    {
+      "title": "المبدعة الصغيرة",
+      "content": "عرين طالبة مجتهدة تحب الحاسوب، طلبت من والدها أن يلحقها بدورة متقدّمة فيه، فوافق. أتقنت عرين برامج الحاسوب، وعرضت على معلّمتها فكرة إنشاء موقع تعليمي خاص بالمدرسة، فشجّعتها المعلّمة، وبعد فترة تمّ إطلاق موقع المدرسة التعليمي، فسُرّت الطالبات.",
+      "objectives": "قراءة نص المبدعة الصغيرة وتشجيع الإبداع والتميّز",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا كانت تحب عرين؟",
+          "correctAnswer": "الحاسوب",
+          "options": [
+            "الرياضة",
+            "الحاسوب",
+            "الرسم",
+            "الطبخ"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ما الفكرة التي عرضتها عرين على معلّمتها؟",
+          "correctAnswer": "إنشاء موقع تعليمي للمدرسة",
+          "options": [
+            "شراء حواسيب",
+            "رحلة مدرسية",
+            "مسابقة رسم",
+            "إنشاء موقع تعليمي للمدرسة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بم طلبت عرين أن يلحقها والدها؟",
+          "correctAnswer": "بدورة متقدّمة في الحاسوب",
+          "options": [
+            "برحلة",
+            "بدورة متقدّمة في الحاسوب",
+            "بنادٍ رياضي",
+            "بمدرسة جديدة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "شجّعت المعلّمة عرين على فكرتها.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "فشلت عرين ولم تتقن برامج الحاسوب.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: أرادت عرين أن تتميّز وتكون ___.",
+          "correctAnswer": "مبدعة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الذي أُطلق نتيجة إبداع عرين؟",
+          "correctAnswer": "موقع المدرسة التعليمي",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: أُطلق موقع المدرسة، التحقت عرين بالدورة، عرضت فكرتها على المعلّمة",
+          "correctAnswer": "التحقت عرين بالدورة، عرضت فكرتها على المعلّمة، أُطلق موقع المدرسة",
+          "options": [
+            "أُطلق موقع المدرسة",
+            "التحقت عرين بالدورة",
+            "عرضت فكرتها على المعلّمة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "المُبْدِعَةُ الصَّغيرَةُ",
+          "correctAnswer": "المُبْدِعَةُ الصَّغيرَةُ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "أَتْقَنَتْ عَرينُ بَرامِجَ الحاسوبِ وَأَنْشَأَتْ مَوْقِعاً تَعْليمِيّاً",
+          "correctAnswer": "أَتْقَنَتْ عَرينُ بَرامِجَ الحاسوبِ وَأَنْشَأَتْ مَوْقِعاً تَعْليمِيّاً",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الصفات: تساعد على الإبداع أم تعيقه؟",
+          "correctAnswer": "تساعد على الإبداع=الاجتهاد,تساعد على الإبداع=المثابرة,تعيقه=الكسل,تعيقه=الاستسلام",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "تساعد على الإبداع",
+              "تعيقه"
+            ],
+            "tokens": [
+              "الاجتهاد",
+              "الكسل",
+              "المثابرة",
+              "الاستسلام"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 8
+    },
+    {
+      "title": "ذكاء القاضي إياس",
+      "content": "عثر رجل على كيس مليء بالنقود، فادّعى الفطائريّ وبائع القماش أنه له، واشتدّ الخلاف بينهما. ذهبا إلى القاضي إياس، فأمر بوعاء فيه ماء ساخن وألقى النقود فيه، فظهرت آثار الدهن. فقال للفطائريّ: النقود لك؛ لأنها احتفظت بآثار الدهن من يديك، وعاقب بائع القماش.",
+      "objectives": "قراءة نص ذكاء القاضي إياس وتقدير الفطنة في الحكم",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "على ماذا عثر الرجل في السوق؟",
+          "correctAnswer": "كيس مليء بالنقود",
+          "options": [
+            "قطعة ذهب",
+            "ساعة",
+            "كتاب",
+            "كيس مليء بالنقود"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كيف عرف القاضي صاحب النقود الحقيقي؟",
+          "correctAnswer": "بوضعها في ماء ساخن فظهر الدهن",
+          "options": [
+            "بالقرعة",
+            "بعدّ النقود",
+            "بوضعها في ماء ساخن فظهر الدهن",
+            "بسؤال الناس"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "لمن حكم القاضي بالنقود؟",
+          "correctAnswer": "للفطائريّ",
+          "options": [
+            "لبائع القماش",
+            "للرجل",
+            "لبيت المال",
+            "للفطائريّ"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "استعمل القاضي إياس ذكاءه ليعرف صاحب النقود.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كان بائع القماش صادقاً في ادّعائه.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ظهرت على النقود آثار ___ من يدي الفطائريّ.",
+          "correctAnswer": "الدهن",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الصفة التي اشتهر بها القاضي إياس؟",
+          "correctAnswer": "الذكاء",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: حكم القاضي للفطائريّ، اختلف الرجلان على النقود، ألقى القاضي النقود في الماء",
+          "correctAnswer": "اختلف الرجلان على النقود، ألقى القاضي النقود في الماء، حكم القاضي للفطائريّ",
+          "options": [
+            "حكم القاضي للفطائريّ",
+            "اختلف الرجلان على النقود",
+            "ألقى القاضي النقود في الماء"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "ذَكاءُ القاضي إِياسٍ",
+          "correctAnswer": "ذَكاءُ القاضي إِياسٍ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "عَرَفَ القاضي صاحِبَ النُّقودِ بِذَكائِهِ وَفِطْنَتِهِ",
+          "correctAnswer": "عَرَفَ القاضي صاحِبَ النُّقودِ بِذَكائِهِ وَفِطْنَتِهِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الصفات: يتّصف بها القاضي العادل أم لا يليق به؟",
+          "correctAnswer": "يتّصف بها القاضي العادل=الذكاء,يتّصف بها القاضي العادل=العدل,لا يليق به=الظلم,لا يليق به=التسرّع",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "يتّصف بها القاضي العادل",
+              "لا يليق به"
+            ],
+            "tokens": [
+              "الذكاء",
+              "الظلم",
+              "العدل",
+              "التسرّع"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 9
+    },
+    {
+      "title": "في حديقة الحيوان",
+      "content": "ذهبت تلميذات الصف الثالث في رحلة إلى حديقة الحيوانات، رحّب بهنّ الدليل. دُهشن عندما شاهدن الفيل الضخم، وأخبرهنّ الدليل أنه حيوان قوي، والقرود نشيطة ذكية تقلّد الإنسان وتأكل الفستق والموز، والكنغر يمشي قفزاً ويحمل صغاره في كيس على بطنه.",
+      "objectives": "قراءة نص في حديقة الحيوان والتعرف إلى صفات الحيوانات",
+      "imageUrls": [
+        "assets/openmoji/elephant.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي حيوان دُهشت التلميذات من ضخامته؟",
+          "correctAnswer": "الفيل",
+          "options": [
+            "الأرنب",
+            "القرد",
+            "الفيل",
+            "الكنغر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بم وصف الدليل القرود؟",
+          "correctAnswer": "نشيطة ذكية تقلّد الإنسان",
+          "options": [
+            "خطيرة",
+            "كسولة",
+            "بطيئة",
+            "نشيطة ذكية تقلّد الإنسان"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كيف يحمل الكنغر صغاره؟",
+          "correctAnswer": "في كيس على بطنه",
+          "options": [
+            "بين يديه",
+            "في فمه",
+            "في كيس على بطنه",
+            "على ظهره"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الكنغر يمشي قفزاً.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "القرود حيوانات بطيئة كسولة.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: القرود تأكل الفستق و___.",
+          "correctAnswer": "الموز",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أي حيوان يحمل صغاره في كيس على بطنه؟",
+          "correctAnswer": "الكنغر",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث الرحلة: شاهدن الكنغر، رحّب الدليل بالتلميذات، شاهدن الفيل",
+          "correctAnswer": "رحّب الدليل بالتلميذات، شاهدن الفيل، شاهدن الكنغر",
+          "options": [
+            "شاهدن الكنغر",
+            "رحّب الدليل بالتلميذات",
+            "شاهدن الفيل"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "في حَديقَةِ الحَيَوانِ",
+          "correctAnswer": "في حَديقَةِ الحَيَوانِ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "القُرودُ نَشيطَةٌ ذَكِيَّةٌ تُقَلِّدُ الإِنْسانَ",
+          "correctAnswer": "القُرودُ نَشيطَةٌ ذَكِيَّةٌ تُقَلِّدُ الإِنْسانَ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة الحيوان الضخم الذي دُهشت منه التلميذات",
+          "correctAnswer": "الفيل",
+          "options": [
+            "القط",
+            "الطائر",
+            "الأرنب",
+            "الفيل"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/cat.png",
+            "assets/openmoji/bird.png",
+            "assets/openmoji/rabbit.png",
+            "assets/openmoji/elephant.png"
+          ]
+        }
+      ],
+      "orderIndex": 10
+    },
+    {
+      "title": "قمح بلادي",
+      "content": "أحبّ سعيد أن يرافق أباه إلى حقول القمح ليشاهد الحصاد، فالموسم جيّد والخير وفير. خرج مع أبيه في الصباح الباكر، وشاهد الحصّادة تقصّ السنابل عن سيقانها وتفصل حبوب القمح الذهبية في أكياس، وتجمع القشّ في حزم منتظمة. ففرح سعيد برؤية المحصول.",
+      "objectives": "قراءة نص قمح بلادي وتقدير خير الأرض والزراعة",
+      "imageUrls": [
+        "assets/openmoji/corn.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "لماذا رافق سعيد أباه إلى الحقول؟",
+          "correctAnswer": "ليشاهد حصاد القمح",
+          "options": [
+            "ليلعب",
+            "ليشاهد حصاد القمح",
+            "ليجمع الأزهار",
+            "ليبيع القمح"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا تفعل الحصّادة بالسنابل؟",
+          "correctAnswer": "تقصّها وتفصل حبوب القمح",
+          "options": [
+            "تسقيها",
+            "تزرعها",
+            "تقصّها وتفصل حبوب القمح",
+            "تحرقها"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بم وُصف موسم القمح هذا العام؟",
+          "correctAnswer": "جيّد والخير وفير",
+          "options": [
+            "سيّئ",
+            "متأخر",
+            "جيّد والخير وفير",
+            "قليل المحصول"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "تجمع الحصّادة القشّ في حزم منتظمة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "خرج سعيد وأبوه إلى الحقل في منتصف الليل.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: تفصل الحصّادة حبوب القمح ___ في أكياس.",
+          "correctAnswer": "الذهبية",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "من أي حبوب نصنع الخبز في القصة؟",
+          "correctAnswer": "القمح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: شاهد الحصّادة تعمل، خرج مع أبيه للحقل، فرح برؤية المحصول",
+          "correctAnswer": "خرج مع أبيه للحقل، شاهد الحصّادة تعمل، فرح برؤية المحصول",
+          "options": [
+            "شاهد الحصّادة تعمل",
+            "خرج مع أبيه للحقل",
+            "فرح برؤية المحصول"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "قَمْحُ بِلادي",
+          "correctAnswer": "قَمْحُ بِلادي",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "تَفْصِلُ الحَصّادَةُ حُبوبَ القَمْحِ الذَّهَبِيَّةَ في أَكْياسٍ",
+          "correctAnswer": "تَفْصِلُ الحَصّادَةُ حُبوبَ القَمْحِ الذَّهَبِيَّةَ في أَكْياسٍ",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "reading"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة المحصول الذي نصنع منه الخبز",
+          "correctAnswer": "القمح",
+          "options": [
+            "التفاح",
+            "القمح",
+            "الجزر",
+            "البطيخ"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/apple.png",
+            "assets/openmoji/corn.png",
+            "assets/openmoji/carrot.png",
+            "assets/openmoji/watermelon.png"
+          ]
+        }
+      ],
+      "orderIndex": 11
+    },
+    {
+      "title": "طبيب الغابة",
+      "content": "كانت حيوانات الغابة تشكو من ملكها الأسد الذي يأكل الصغار. وذات يوم مرض الأسد، فرأى القرد فرصة، فغاب مدّة ثم عاد يلبس معطفاً أبيض وفي رقبته سمّاعة طبيب، ونادى: طبيب! ففحص الأسد وقال: مرضك في أسنانك، فلا بدّ من خلعها جميعها حتى تتعافى، وإلّا نستريح ونستريح منك الغابة.",
+      "objectives": "قراءة نص طبيب الغابة وفهم أثر الظلم على صاحبه",
+      "imageUrls": [
+        "assets/openmoji/lion.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ممّ كانت حيوانات الغابة تشكو؟",
+          "correctAnswer": "من الأسد الذي يأكل الصغار",
+          "options": [
+            "من الجوع",
+            "من القرد",
+            "من البرد",
+            "من الأسد الذي يأكل الصغار"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بماذا تنكّر القرد ليخدع الأسد؟",
+          "correctAnswer": "لبس معطف طبيب وسمّاعة",
+          "options": [
+            "حمل عصا",
+            "غطّى وجهه",
+            "لبس تاجاً",
+            "لبس معطف طبيب وسمّاعة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بم أخبر القرد الأسد عن مرضه؟",
+          "correctAnswer": "أن مرضه في أسنانه ويجب خلعها",
+          "options": [
+            "أنه بصحة جيدة",
+            "أنه جائع",
+            "أنه بردان",
+            "أن مرضه في أسنانه ويجب خلعها"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "أراد القرد أن يريح الغابة من ظلم الأسد.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كان الأسد ملكاً عادلاً رحيماً بالصغار.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: لبس القرد معطفاً أبيض وفي رقبته ___ طبيب.",
+          "correctAnswer": "سمّاعة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما العبرة من عقاب الأسد الظالم؟",
+          "correctAnswer": "الظلم عاقبته وخيمة",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: تنكّر القرد طبيباً، شكت الحيوانات من الأسد، مرض الأسد",
+          "correctAnswer": "شكت الحيوانات من الأسد، مرض الأسد، تنكّر القرد طبيباً",
+          "options": [
+            "تنكّر القرد طبيباً",
+            "شكت الحيوانات من الأسد",
+            "مرض الأسد"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "طَبيبُ الغابَةِ",
+          "correctAnswer": "طَبيبُ الغابَةِ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "لَبِسَ القِرْدُ مِعْطَفاً أَبْيَضَ وَفي رَقَبَتِهِ سَمّاعَةُ طَبيبٍ",
+          "correctAnswer": "لَبِسَ القِرْدُ مِعْطَفاً أَبْيَضَ وَفي رَقَبَتِهِ سَمّاعَةُ طَبيبٍ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة ملك الغابة في القصة",
+          "correctAnswer": "الأسد",
+          "options": [
+            "الفيل",
+            "الأسد",
+            "القرد",
+            "الطائر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/elephant.png",
+            "assets/openmoji/lion.png",
+            "assets/openmoji/monkey.png",
+            "assets/openmoji/bird.png"
+          ]
+        }
+      ],
+      "orderIndex": 12
+    },
+    {
+      "title": "زيارة إلى مدينة العنب",
+      "content": "سماح طالبة في كلية الزراعة، تلقّت دعوة لزيارة مهرجان العنب في جامعة الخليل. التقت صديقتها خلود التي يملك والدها كروم عنب. أُعجبت سماح بأنواع العنب الكثيرة وألوانه، وعلمت أنه يُزرع في الخليل نحو خمسة عشر صنفاً، ويُصنع منه الدبس والزبيب والمربّى.",
+      "objectives": "قراءة نص زيارة إلى مدينة العنب والاعتزاز بخيرات الخليل",
+      "imageUrls": [
+        "assets/openmoji/grapes.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي مهرجان زارته سماح؟",
+          "correctAnswer": "مهرجان العنب في الخليل",
+          "options": [
+            "مهرجان الزيتون",
+            "مهرجان العنب في الخليل",
+            "مهرجان البرتقال",
+            "مهرجان القمح"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا يملك والد خلود؟",
+          "correctAnswer": "كروم عنب",
+          "options": [
+            "مخبزاً",
+            "كروم عنب",
+            "مصنع ألبان",
+            "مكتبة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كم صنفاً من العنب يُزرع في الخليل تقريباً؟",
+          "correctAnswer": "خمسة عشر صنفاً",
+          "options": [
+            "مئة صنف",
+            "خمسة أصناف",
+            "صنفان",
+            "خمسة عشر صنفاً"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يُصنع من العنب الدبس والزبيب والمربّى.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "تشتهر مدينة الخليل بزراعة البرتقال.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: يُصنع من العنب الدبس و___ والمربّى.",
+          "correctAnswer": "الزبيب",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أي مدينة فلسطينية تشتهر بالعنب؟",
+          "correctAnswer": "الخليل",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: علمت بأصناف العنب، تلقّت سماح الدعوة، التقت صديقتها خلود",
+          "correctAnswer": "تلقّت سماح الدعوة، التقت صديقتها خلود، علمت بأصناف العنب",
+          "options": [
+            "علمت بأصناف العنب",
+            "تلقّت سماح الدعوة",
+            "التقت صديقتها خلود"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "مَدينَةُ العِنَبِ",
+          "correctAnswer": "مَدينَةُ العِنَبِ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "يُزْرَعُ في الخَليلِ أَصْنافٌ كَثيرَةٌ مِنَ العِنَبِ",
+          "correctAnswer": "يُزْرَعُ في الخَليلِ أَصْنافٌ كَثيرَةٌ مِنَ العِنَبِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة الثمرة التي تشتهر بها الخليل",
+          "correctAnswer": "العنب",
+          "options": [
+            "الليمون",
+            "البطيخ",
+            "التفاح",
+            "العنب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/lemon.png",
+            "assets/openmoji/watermelon.png",
+            "assets/openmoji/apple.png",
+            "assets/openmoji/grapes.png"
+          ]
+        }
+      ],
+      "orderIndex": 13
+    },
+    {
+      "title": "الصديق وقت الضيق",
+      "content": "كان رجل يسير مع أصدقائه قرب غابة فيها حيوانات مفترسة، فجأة ظهر لهم دبّ، فهرب أصدقاؤه وتركوه. احتار الرجل، ثم استلقى على الأرض بلا حركة وكتم أنفاسه. وصل إليه الدبّ وشمّه فظنّه ميتاً، فتركه وعاد. فسأله أصدقاؤه: ماذا همس الدبّ في أذنك؟ فقال: قال لي: الصديق وقت الضيق.",
+      "objectives": "قراءة نص الصديق وقت الضيق وفهم قيمة الصداقة الحقّة",
+      "imageUrls": [
+        "assets/openmoji/bear.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا فعل الأصدقاء عندما ظهر الدبّ؟",
+          "correctAnswer": "هربوا وتركوا صاحبهم",
+          "options": [
+            "نادوا النجدة",
+            "ساعدوا صاحبهم",
+            "حاربوا الدبّ",
+            "هربوا وتركوا صاحبهم"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كيف نجا الرجل من الدبّ؟",
+          "correctAnswer": "استلقى بلا حركة وكتم أنفاسه",
+          "options": [
+            "صرخ بقوة",
+            "تسلّق شجرة",
+            "ركض بسرعة",
+            "استلقى بلا حركة وكتم أنفاسه"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا قال الرجل إن الدبّ همس به؟",
+          "correctAnswer": "الصديق وقت الضيق",
+          "options": [
+            "عد إلى بيتك",
+            "لا تخف",
+            "اهرب بسرعة",
+            "الصديق وقت الضيق"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الصديق الحقّ هو من يقف معك وقت الشدّة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "بقي الأصدقاء مع صاحبهم وواجهوا الدبّ معاً.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: الصديق وقت ___.",
+          "correctAnswer": "الضيق",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما العبرة التي نتعلّمها من القصة؟",
+          "correctAnswer": "الصديق الحقيقي وقت الشدّة",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: تركه الدبّ وعاد، ظهر الدبّ فهرب الأصدقاء، استلقى الرجل بلا حركة",
+          "correctAnswer": "ظهر الدبّ فهرب الأصدقاء، استلقى الرجل بلا حركة، تركه الدبّ وعاد",
+          "options": [
+            "تركه الدبّ وعاد",
+            "ظهر الدبّ فهرب الأصدقاء",
+            "استلقى الرجل بلا حركة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "الصَّديقُ وَقْتَ الضّيقِ",
+          "correctAnswer": "الصَّديقُ وَقْتَ الضّيقِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "الصَّديقُ الحَقيقيُّ هُوَ مَنْ يَقِفُ مَعَكَ وَقْتَ الشِّدَّةِ",
+          "correctAnswer": "الصَّديقُ الحَقيقيُّ هُوَ مَنْ يَقِفُ مَعَكَ وَقْتَ الشِّدَّةِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة الحيوان الذي ظهر في القصة",
+          "correctAnswer": "الدبّ",
+          "options": [
+            "القط",
+            "الطائر",
+            "الأرنب",
+            "الدبّ"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/cat.png",
+            "assets/openmoji/bird.png",
+            "assets/openmoji/rabbit.png",
+            "assets/openmoji/bear.png"
+          ]
+        }
+      ],
+      "orderIndex": 14
+    },
+    {
+      "title": "أول فدائي في الإسلام",
+      "content": "حين تُذكر الشجاعة يقفز إلى الذهن علي بن أبي طالب -كرّم الله وجهه- أول من أسلم من الصبيان. ليلة الهجرة من مكة إلى المدينة، طلب النبي ﷺ من علي أن ينام في فراشه، والكفار حول البيت يريدون قتله. فنام علي في فراشه بشجاعة، وخرج النبي ﷺ بسلام، فنال علي لقب أول فدائي في الإسلام.",
+      "objectives": "قراءة نص أول فدائي في الإسلام والاقتداء بشجاعة علي رضي الله عنه",
+      "imageUrls": [
+        "assets/openmoji/star_crescent.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "من هو أول فدائي في الإسلام؟",
+          "correctAnswer": "علي بن أبي طالب",
+          "options": [
+            "خالد بن الوليد",
+            "أبو بكر الصديق",
+            "علي بن أبي طالب",
+            "عمر بن الخطاب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا طلب النبي ﷺ من علي ليلة الهجرة؟",
+          "correctAnswer": "أن ينام في فراشه",
+          "options": [
+            "أن يحرس الباب",
+            "أن يبقى في مكة",
+            "أن يهاجر معه",
+            "أن ينام في فراشه"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بم اشتهر علي بن أبي طالب في القصة؟",
+          "correctAnswer": "بالشجاعة",
+          "options": [
+            "بالزراعة",
+            "بالتجارة",
+            "بالشعر",
+            "بالشجاعة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "نام علي في فراش النبي ﷺ ليلة الهجرة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كان علي أكبر الصحابة سنّاً حين أسلم.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: نال علي لقب أول ___ في الإسلام.",
+          "correctAnswer": "فدائي",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الصفة التي اشتهر بها علي رضي الله عنه؟",
+          "correctAnswer": "الشجاعة",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: خرج النبي بسلام، طلب النبي من علي أن ينام في فراشه، نام علي في الفراش",
+          "correctAnswer": "طلب النبي من علي أن ينام في فراشه، نام علي في الفراش، خرج النبي بسلام",
+          "options": [
+            "خرج النبي بسلام",
+            "طلب النبي من علي أن ينام في فراشه",
+            "نام علي في الفراش"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "أَوَّلُ فِدائِيٍّ في الإِسْلامِ",
+          "correctAnswer": "أَوَّلُ فِدائِيٍّ في الإِسْلامِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "نامَ عَلِيٌّ في فِراشِ النَّبِيِّ بِشَجاعَةٍ لَيْلَةَ الهِجْرَةِ",
+          "correctAnswer": "نامَ عَلِيٌّ في فِراشِ النَّبِيِّ بِشَجاعَةٍ لَيْلَةَ الهِجْرَةِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الصفات: من صفات الأبطال أم من صفات الجبناء؟",
+          "correctAnswer": "من صفات الأبطال=الشجاعة,من صفات الأبطال=الفداء,من صفات الجبناء=الخوف,من صفات الجبناء=الهروب",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "من صفات الأبطال",
+              "من صفات الجبناء"
+            ],
+            "tokens": [
+              "الشجاعة",
+              "الخوف",
+              "الفداء",
+              "الهروب"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 15
+    }
+  ]
+}

@@ -79,4 +79,20 @@ class PronunciationScore {
     if (score >= 60) return 1;
     return 0;
   }
+
+  /// Child-safe transcript: empty when the backend leaked something technical
+  /// (raw/truncated JSON, code fences) instead of plain speech text, so the
+  /// "ما سمعناه" box simply hides rather than showing gibberish to a child.
+  String get displayTranscribed {
+    final t = transcribedText.trim();
+    if (t.isEmpty) return '';
+    if (t.contains('{') ||
+        t.contains('}') ||
+        t.contains('```') ||
+        t.contains('"transcribed"') ||
+        t.contains('phonemeErrors')) {
+      return '';
+    }
+    return t;
+  }
 }

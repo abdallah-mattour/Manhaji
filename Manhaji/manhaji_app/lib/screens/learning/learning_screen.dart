@@ -353,7 +353,14 @@ class _LearningScreenState extends State<LearningScreen>
 
   Widget _buildContent(LearningProvider provider) {
     final step = provider.currentStep;
-    if (step == null) return const SizedBox();
+    if (step == null) {
+      // Past the last question with nothing to show — finish the lesson so
+      // the celebration screen appears instead of a blank page.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) provider.finishIfStranded();
+      });
+      return _buildLoading(message: _english ? 'Great job!' : 'أحسنت!');
+    }
 
     final teaching = step.teachingData;
     final question = step.question;

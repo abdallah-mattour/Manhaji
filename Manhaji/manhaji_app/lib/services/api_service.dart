@@ -42,7 +42,21 @@ class ApiService {
         return handler.next(options);
       },
       onError: (error, handler) async {
-        if (error.response?.statusCode == 401) {
+        // A 401 on the credential endpoints (login / phone login / register /
+        // refresh) is a *business* response — wrong password or a dead refresh
+        // token — NOT an expired access token. Refreshing/clearing there is
+        // pointless and, worse, makes a bad-password login surface the
+        // "session expired" copy. Let those flow straight through so the real
+        // server message (e.g. "wrong email or password") reaches the UI.
+        const noRefreshPaths = [
+          ApiConfig.login,
+          ApiConfig.loginPhone,
+          ApiConfig.register,
+          ApiConfig.refreshToken,
+        ];
+        final isCredentialCall =
+            noRefreshPaths.contains(error.requestOptions.path);
+        if (error.response?.statusCode == 401 && !isCredentialCall) {
           _log.w('401 on ${error.requestOptions.path} — attempting refresh');
           final refreshed = await _tryRefreshToken();
           if (refreshed) {
@@ -84,17 +98,21 @@ class ApiService {
         msg = 'تعذّر الاتصال بالخادم. تحقّق من الإنترنت.';
         break;
       case DioExceptionType.badResponse:
+        // Server-supplied Arabic message wins whenever present — it's the most
+        // specific ("wrong email or password", "current password is wrong", …).
+        final data = err.response?.data;
+        final serverMsg = (data is Map && data['message'] is String)
+            ? (data['message'] as String).trim()
+            : null;
         if (status != null && status >= 500) {
           msg = 'حدث خطأ في الخادم. نحاول إصلاحه.';
+        } else if (serverMsg != null && serverMsg.isNotEmpty) {
+          msg = serverMsg;
         } else if (status == 401 || status == 403) {
+          // No message from the server (e.g. an expired token mid-session).
           msg = 'تحتاج لتسجيل الدخول من جديد.';
         } else {
-          // Try to pull server message; fall back to generic.
-          final data = err.response?.data;
-          final serverMsg = (data is Map && data['message'] is String)
-              ? data['message'] as String
-              : null;
-          msg = serverMsg ?? 'طلب غير صالح.';
+          msg = 'طلب غير صالح.';
         }
         break;
       case DioExceptionType.cancel:

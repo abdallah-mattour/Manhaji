@@ -1,0 +1,2727 @@
+{
+  "subject": "الرياضيات",
+  "subjectCode": "ma",
+  "gradeLevel": 4,
+  "semester": 1,
+  "totalLessons": 23,
+  "lessons": [
+    {
+      "title": "الأعداد ضمن ٩٩٩٩٩٩",
+      "content": "نقرأ الأعداد ونكتبها ضمن ستّ منازل: الآحاد والعشرات والمئات والألوف وعشرات الألوف ومئات الألوف.",
+      "objectives": "قراءة الأعداد وكتابتها ضمن ستّ منازل.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كم عدد منازل العدد ٤٥٦٧٨٩؟",
+          "correctAnswer": "ستّ منازل",
+          "options": [
+            "ستّ منازل",
+            "خمس منازل",
+            "سبع منازل",
+            "أربع منازل"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ما القيمة المنزلية للرقم ٧ في العدد ٧٤٥٢٣؟",
+          "correctAnswer": "سبعون ألفاً",
+          "options": [
+            "سبعون ألفاً",
+            "سبعة آلاف",
+            "سبعمئة",
+            "سبعة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كيف نكتب (ثلاثمئة وخمسة وعشرون ألفاً) بالأرقام؟",
+          "correctAnswer": "٣٢٥٠٠٠",
+          "options": [
+            "٣٢٥٠٠٠",
+            "٣٢٥٠٠",
+            "٣٢٥",
+            "٣٢٥٠٠٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ رقم في منزلة الآحاد في العدد ٦٣٨١٤٩؟",
+          "correctAnswer": "٩",
+          "options": [
+            "٩",
+            "٤",
+            "١",
+            "٦"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ٩٩٩٩٩٩ هو أكبر عدد من ستّ منازل.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: العدد الذي يلي ٥٩٩٩٩٩ هو ___.",
+          "correctAnswer": "٦٠٠٠٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب العدد: مئتان وأربعة آلاف وسبعة.",
+          "correctAnswer": "٢٠٤٠٠٧",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب تصاعدياً: ٣٢٠٠٠٠، ١٥٠٠٠٠، ٢٧٠٠٠٠",
+          "correctAnswer": "١٥٠٠٠٠، ٢٧٠٠٠٠، ٣٢٠٠٠٠",
+          "options": [
+            "٣٢٠٠٠٠",
+            "١٥٠٠٠٠",
+            "٢٧٠٠٠٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ما العدد الذي يسبق ٤٠٠٠٠٠ مباشرة؟",
+          "correctAnswer": "٣٩٩٩٩٩",
+          "options": [
+            "٣٩٩٩٩٩",
+            "٤٠٠٠٠١",
+            "٣٩٩٩٩٨",
+            "٤٠٠٠١٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كم مئة ألف في العدد ٧٠٠٠٠٠؟",
+          "correctAnswer": "سبع",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 1
+    },
+    {
+      "title": "الأعداد الكبيرة (الملايين)",
+      "content": "المليون = ألف ألف = ١٠٠٠٠٠٠. نقرأ الأعداد الكبيرة ونكتبها ضمن الملايين.",
+      "objectives": "قراءة الملايين وكتابتها.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كم صفراً في المليون؟",
+          "correctAnswer": "ستّة أصفار",
+          "options": [
+            "ستّة أصفار",
+            "خمسة أصفار",
+            "سبعة أصفار",
+            "أربعة أصفار"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "المليون يساوي:",
+          "correctAnswer": "ألف ألف",
+          "options": [
+            "ألف ألف",
+            "مئة ألف",
+            "عشرة آلاف",
+            "مئة مئة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كيف نكتب (ثلاثة ملايين) بالأرقام؟",
+          "correctAnswer": "٣٠٠٠٠٠٠",
+          "options": [
+            "٣٠٠٠٠٠٠",
+            "٣٠٠٠٠٠",
+            "٣٠٠٠٠",
+            "٣٠٠٠٠٠٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ما القيمة المنزلية للرقم ٥ في العدد ٥٢٣٠٠٠٠؟",
+          "correctAnswer": "خمسة ملايين",
+          "options": [
+            "خمسة ملايين",
+            "خمسمئة ألف",
+            "خمسون ألفاً",
+            "خمسة آلاف"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٢٠٠٠٠٠٠ تُقرأ: مليونان.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: عشرة ملايين تُكتب ___.",
+          "correctAnswer": "١٠٠٠٠٠٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كم مليوناً في العدد ٦٠٠٠٠٠٠؟",
+          "correctAnswer": "ستّة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب تنازلياً: ٤٠٠٠٠٠٠، ١٠٠٠٠٠٠، ٧٠٠٠٠٠٠",
+          "correctAnswer": "٧٠٠٠٠٠٠، ٤٠٠٠٠٠٠، ١٠٠٠٠٠٠",
+          "options": [
+            "٤٠٠٠٠٠٠",
+            "١٠٠٠٠٠٠",
+            "٧٠٠٠٠٠٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "العدد الذي يلي ٢٩٩٩٩٩٩ هو:",
+          "correctAnswer": "٣٠٠٠٠٠٠",
+          "options": [
+            "٣٠٠٠٠٠٠",
+            "٢٩٩٩٩٩٨",
+            "٣٠٠٠٠٠١",
+            "٢٩٩٩٩٩٩"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب بالأرقام: خمسة ملايين ومئتا ألف.",
+          "correctAnswer": "٥٢٠٠٠٠٠",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 2
+    },
+    {
+      "title": "القيمة المنزلية للأعداد الكبيرة",
+      "content": "لكلّ رقم في العدد قيمة منزلية حسب موقعه، ومجموع القيم المنزلية يساوي العدد.",
+      "objectives": "تحديد القيمة المنزلية للأرقام في الأعداد الكبيرة.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما القيمة المنزلية للرقم ٨ في العدد ٣٨٥٠٠٠؟",
+          "correctAnswer": "ثمانون ألفاً",
+          "options": [
+            "ثمانون ألفاً",
+            "ثمانية آلاف",
+            "ثمانمئة ألف",
+            "ثمانمئة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في العدد ٤٦٢: الرقم ٤ قيمته المنزلية:",
+          "correctAnswer": "أربعمئة",
+          "options": [
+            "أربعمئة",
+            "أربعون",
+            "أربعة",
+            "أربعة آلاف"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الأعداد يحوي الرقم ٩ في منزلة الألوف؟",
+          "correctAnswer": "٩٠٠٠",
+          "options": [
+            "٩٠٠٠",
+            "٩٠٠",
+            "٩٠",
+            "٩٠٠٠٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "العدد ٥٠٠٠٠ + ٣٠٠٠ + ٢٠٠ يساوي:",
+          "correctAnswer": "٥٣٢٠٠",
+          "options": [
+            "٥٣٢٠٠",
+            "٥٣٢٠",
+            "٥٣٠٢٠",
+            "٥٣٢٠٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "في العدد ٧٠٧ الرقمان ٧ لهما القيمة المنزلية نفسها.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: القيمة المنزلية للرقم ٦ في العدد ٦٠٠٠٠٠ هي ستّمئة ___.",
+          "correctAnswer": "ألف",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "حلّل العدد ٤٢٥ إلى قيمه المنزلية.",
+          "correctAnswer": "٤٠٠+٢٠+٥",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب المنازل من الأصغر: مئات، آحاد، عشرات",
+          "correctAnswer": "آحاد، عشرات، مئات",
+          "options": [
+            "مئات",
+            "آحاد",
+            "عشرات"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "مجموع القيم المنزلية في ٣٠٠+٤٠+٧ هو:",
+          "correctAnswer": "٣٤٧",
+          "options": [
+            "٣٤٧",
+            "٣٧٤",
+            "٣٤٠",
+            "٣٠٤٧"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما العدد الذي قيمه المنزلية ٢٠٠٠+٥٠٠+٦؟",
+          "correctAnswer": "٢٥٠٦",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 3
+    },
+    {
+      "title": "مقارنة الأعداد الكبيرة وترتيبها",
+      "content": "نقارن الأعداد بعدد منازلها ثم بالمنازل من اليسار، ونرتّبها تصاعدياً أو تنازلياً.",
+      "objectives": "مقارنة الأعداد الكبيرة وترتيبها.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الإشارتين تجعل العبارة صحيحة: ٤٥٠٠٠ __ ٤٦٠٠٠؟",
+          "correctAnswer": "<",
+          "options": [
+            "<",
+            ">",
+            "=",
+            "+"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الأعداد أكبر؟",
+          "correctAnswer": "٣٢٠٠٠٠",
+          "options": [
+            "٣٢٠٠٠٠",
+            "٢٩٩٩٩٩",
+            "٣١٩٩٩٩",
+            "٣٠٠٠٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الأعداد أصغر؟",
+          "correctAnswer": "١٠٠٠٠٠",
+          "options": [
+            "١٠٠٠٠٠",
+            "١١٠٠٠٠",
+            "٢٠٠٠٠٠",
+            "١٠١٠٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "العدد ٧٥٠٠٠ ___ العدد ٧٥٠٠٠.",
+          "correctAnswer": "يساوي",
+          "options": [
+            "يساوي",
+            "أكبر من",
+            "أصغر من",
+            "لا يقارن"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ذو المنازل الأكثر هو الأكبر دائماً بين عددين موجبين.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل بالإشارة المناسبة: ٩٠٠٠٠٠ ___ ٨٩٩٩٩٩ (أكبر من).",
+          "correctAnswer": ">",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أيّهما أكبر: ٥٦٧٨٩ أم ٥٦٨٠٠؟",
+          "correctAnswer": "٥٦٨٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب تصاعدياً: ٨٠٠٠٠، ١٢٠٠٠٠، ٩٥٠٠٠",
+          "correctAnswer": "٨٠٠٠٠، ٩٥٠٠٠، ١٢٠٠٠٠",
+          "options": [
+            "٨٠٠٠٠",
+            "١٢٠٠٠٠",
+            "٩٥٠٠٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب تنازلياً: ٢٠٠٠٠٠، ٥٠٠٠٠، ١١٠٠٠٠",
+          "correctAnswer": "٢٠٠٠٠٠، ١١٠٠٠٠، ٥٠٠٠٠",
+          "options": [
+            "٢٠٠٠٠٠",
+            "٥٠٠٠٠",
+            "١١٠٠٠٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بين ٤٩٩٩٩ و٥٠٠٠٠ العدد الأكبر هو:",
+          "correctAnswer": "٥٠٠٠٠",
+          "options": [
+            "٥٠٠٠٠",
+            "٤٩٩٩٩",
+            "متساويان",
+            "لا يوجد"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 4
+    },
+    {
+      "title": "الجمع ضمن الملايين دون حمل",
+      "content": "نجمع الأعداد الكبيرة منزلةً منزلةً من اليمين دون حمل عندما يكون مجموع كلّ منزلة أقلّ من عشرة.",
+      "objectives": "جمع الأعداد الكبيرة دون حمل.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "٣٢٠٠٠٠ + ٤٥٠٠٠٠ = ؟",
+          "correctAnswer": "٧٧٠٠٠٠",
+          "options": [
+            "٧٧٠٠٠٠",
+            "٧٦٠٠٠٠",
+            "٧٨٠٠٠٠",
+            "٧٧٥٠٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٢١٣٠٠٠ + ٤٥٦٠٠٠ = ؟",
+          "correctAnswer": "٦٦٩٠٠٠",
+          "options": [
+            "٦٦٩٠٠٠",
+            "٦٦٨٠٠٠",
+            "٦٧٩٠٠٠",
+            "٦٥٩٠٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "١٢٠٠٠٠٠ + ٣٤٠٠٠٠٠ = ؟",
+          "correctAnswer": "٤٦٠٠٠٠٠",
+          "options": [
+            "٤٦٠٠٠٠٠",
+            "٤٥٠٠٠٠٠",
+            "٤٧٠٠٠٠٠",
+            "٤٦٠٠٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ عملية جمع لا تحتاج إلى حمل؟",
+          "correctAnswer": "٣٤١ + ٢٥٧",
+          "options": [
+            "٣٤١ + ٢٥٧",
+            "٣٤٨ + ٢٥٧",
+            "١٩٩ + ١",
+            "٥٥ + ٤٥"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الجمع دون حمل يعني أنّ مجموع كلّ منزلة أقلّ من ١٠.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٥٠٠٠٠٠ + ٢٠٠٠٠٠ = ___.",
+          "correctAnswer": "٧٠٠٠٠٠",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اجمع: ١٣٠٠٠٠ + ٢٤٠٠٠٠.",
+          "correctAnswer": "٣٧٠٠٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب خطوات الجمع: اجمع الآحاد، اكتب الأعداد تحت بعضها، اجمع العشرات",
+          "correctAnswer": "اكتب الأعداد تحت بعضها، اجمع الآحاد، اجمع العشرات",
+          "options": [
+            "اجمع الآحاد",
+            "اكتب الأعداد تحت بعضها",
+            "اجمع العشرات"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٦٠٠٠٠٠ + ٣٠٠٠٠٠ = ؟",
+          "correctAnswer": "٩٠٠٠٠٠",
+          "options": [
+            "٩٠٠٠٠٠",
+            "٨٠٠٠٠٠",
+            "٩٥٠٠٠٠",
+            "٩٠٠٠٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "في مدرستين ٢٣٠٠٠٠ و٤٦٠٠٠٠ كتاب، كم كتاباً معاً؟",
+          "correctAnswer": "٦٩٠٠٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 5
+    },
+    {
+      "title": "الجمع ضمن الملايين مع حمل",
+      "content": "عندما يزيد مجموع منزلة على تسعة نحمل واحداً إلى المنزلة التالية.",
+      "objectives": "جمع الأعداد الكبيرة مع الحمل.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "١٥٦٠٠٠ + ٢٤٧٠٠٠ = ؟",
+          "correctAnswer": "٤٠٣٠٠٠",
+          "options": [
+            "٤٠٣٠٠٠",
+            "٣٩٣٠٠٠",
+            "٤١٣٠٠٠",
+            "٤٠٠٣٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٢٧٨ + ٣٥٦ = ؟",
+          "correctAnswer": "٦٣٤",
+          "options": [
+            "٦٣٤",
+            "٦٢٤",
+            "٦٤٤",
+            "٥٣٤"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٤٩٩٠٠٠ + ١٠٠٠ = ؟",
+          "correctAnswer": "٥٠٠٠٠٠",
+          "options": [
+            "٥٠٠٠٠٠",
+            "٤٩٩١٠٠",
+            "٥٠٩٠٠٠",
+            "٤٩٩٠٠١"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "متى نحمل واحداً إلى المنزلة التالية؟",
+          "correctAnswer": "عندما يزيد المجموع على ٩",
+          "options": [
+            "عندما يزيد المجموع على ٩",
+            "دائماً",
+            "عندما يكون المجموع صفراً",
+            "لا نحمل أبداً"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٨٥ + ٧ = ٩٢ فيها حمل من الآحاد إلى العشرات.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٩٩٩ + ١ = ___.",
+          "correctAnswer": "١٠٠٠",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اجمع: ٤٦٧٨ + ٢٣٥٦.",
+          "correctAnswer": "٧٠٣٤",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: ٩٠٠، ٨٩٩، ١٠٠١ تصاعدياً",
+          "correctAnswer": "٨٩٩، ٩٠٠، ١٠٠١",
+          "options": [
+            "٩٠٠",
+            "٨٩٩",
+            "١٠٠١"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٣٥٠٠٠٠ + ٣٥٠٠٠٠ = ؟",
+          "correctAnswer": "٧٠٠٠٠٠",
+          "options": [
+            "٧٠٠٠٠٠",
+            "٦٠٠٠٠٠",
+            "٧٥٠٠٠٠",
+            "٦٥٠٠٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "باع تاجر ٧٨٩٠٠ سلعة ثم ٦٥٧٠٠، كم باع معاً؟",
+          "correctAnswer": "١٤٤٦٠٠",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 6
+    },
+    {
+      "title": "الطرح ضمن الملايين دون استلاف",
+      "content": "نطرح الأعداد الكبيرة منزلةً منزلةً من اليمين دون استلاف عندما يكون رقم المطروح أصغر من أو يساوي رقم المطروح منه.",
+      "objectives": "طرح الأعداد الكبيرة دون استلاف.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "٧٥٠٠٠٠ − ٣٢٠٠٠٠ = ؟",
+          "correctAnswer": "٤٣٠٠٠٠",
+          "options": [
+            "٤٣٠٠٠٠",
+            "٤٢٠٠٠٠",
+            "٤٤٠٠٠٠",
+            "٣٣٠٠٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٦٨٩ − ٢٣٤ = ؟",
+          "correctAnswer": "٤٥٥",
+          "options": [
+            "٤٥٥",
+            "٤٥٦",
+            "٤٤٥",
+            "٥٥٥"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٩٠٠٠٠٠ − ٤٠٠٠٠٠ = ؟",
+          "correctAnswer": "٥٠٠٠٠٠",
+          "options": [
+            "٥٠٠٠٠٠",
+            "٤٠٠٠٠٠",
+            "٦٠٠٠٠٠",
+            "٥٥٠٠٠٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الطرح دون استلاف يعني:",
+          "correctAnswer": "كلّ رقم في المطروح ≤ ما يقابله",
+          "options": [
+            "كلّ رقم في المطروح ≤ ما يقابله",
+            "كلّ رقم أكبر",
+            "الأعداد متساوية",
+            "لا يوجد ناتج"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الطرح عملية عكسية للجمع.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٨٥٠ − ٥٠ = ___.",
+          "correctAnswer": "٨٠٠",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اطرح: ٥٦٧٨ − ٢٣٤٥.",
+          "correctAnswer": "٣٣٣٣",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب خطوات الطرح: اطرح المئات، اطرح الآحاد، اطرح العشرات",
+          "correctAnswer": "اطرح الآحاد، اطرح العشرات، اطرح المئات",
+          "options": [
+            "اطرح المئات",
+            "اطرح الآحاد",
+            "اطرح العشرات"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٤٥٠٠٠٠ − ٤٥٠٠٠٠ = ؟",
+          "correctAnswer": "٠",
+          "options": [
+            "٠",
+            "١",
+            "٤٥٠٠٠٠",
+            "٩٠٠٠٠٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "مع أحمد ٨٧٦٠٠ شيقل أنفق ٤٣٠٠٠، كم بقي؟",
+          "correctAnswer": "٤٤٦٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 7
+    },
+    {
+      "title": "الطرح ضمن الملايين مع استلاف",
+      "content": "عندما يكون رقم المطروح أكبر من رقم المطروح منه نستلف واحداً من المنزلة التالية.",
+      "objectives": "طرح الأعداد الكبيرة مع الاستلاف.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "٦٠٠٠٠٠ − ١٢٣٤٥٦ = ؟",
+          "correctAnswer": "٤٧٦٥٤٤",
+          "options": [
+            "٤٧٦٥٤٤",
+            "٤٧٧٥٤٤",
+            "٤٧٦٤٤٤",
+            "٥٧٦٥٤٤"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٥٠٠ − ٢٥٦ = ؟",
+          "correctAnswer": "٢٤٤",
+          "options": [
+            "٢٤٤",
+            "٢٥٤",
+            "٢٣٤",
+            "٣٤٤"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٣٠٠٠ − ١٥٦٧ = ؟",
+          "correctAnswer": "١٤٣٣",
+          "options": [
+            "١٤٣٣",
+            "١٥٣٣",
+            "١٤٤٣",
+            "٢٤٣٣"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "متى نستلف في الطرح؟",
+          "correctAnswer": "عندما يكون الرقم أصغر من الذي نطرحه",
+          "options": [
+            "عندما يكون الرقم أصغر من الذي نطرحه",
+            "دائماً",
+            "عندما يتساوى الرقمان",
+            "لا نستلف أبداً"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "في ٥٢ − ٨ نستلف من العشرات.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ١٠٠٠ − ١ = ___.",
+          "correctAnswer": "٩٩٩",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اطرح: ٨٠٠٠ − ٣٤٥٦.",
+          "correctAnswer": "٤٥٤٤",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب تصاعدياً نواتج: ٥−٣، ٩−٧، ١٠−٤",
+          "correctAnswer": "٩−٧، ٥−٣، ١٠−٤",
+          "options": [
+            "٥−٣",
+            "٩−٧",
+            "١٠−٤"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٧٠٠٠٠٠ − ٢٥٠٠٠٠ = ؟",
+          "correctAnswer": "٤٥٠٠٠٠",
+          "options": [
+            "٤٥٠٠٠٠",
+            "٥٥٠٠٠٠",
+            "٤٤٠٠٠٠",
+            "٤٥٥٠٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "في مكتبة ٥٠٠٠٠٠ كتاب أُعير منها ١٨٧٠٠٠، كم بقي؟",
+          "correctAnswer": "٣١٣٠٠٠",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 8
+    },
+    {
+      "title": "تقريب الأعداد",
+      "content": "نقرّب العدد إلى أقرب عشرة أو مئة أو ألف بالنظر إلى الرقم الذي على يمين المنزلة المطلوبة.",
+      "objectives": "تقريب الأعداد إلى منزلة محدّدة.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "قرّب ٤٧ إلى أقرب عشرة:",
+          "correctAnswer": "٥٠",
+          "options": [
+            "٥٠",
+            "٤٠",
+            "٤٧",
+            "٦٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "قرّب ٣٢٠ إلى أقرب مئة:",
+          "correctAnswer": "٣٠٠",
+          "options": [
+            "٣٠٠",
+            "٤٠٠",
+            "٣٢٠",
+            "٢٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "قرّب ٢٥٦٠ إلى أقرب ألف:",
+          "correctAnswer": "٣٠٠٠",
+          "options": [
+            "٣٠٠٠",
+            "٢٠٠٠",
+            "٢٥٠٠",
+            "٢٦٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "قرّب ٨٤ إلى أقرب عشرة:",
+          "correctAnswer": "٨٠",
+          "options": [
+            "٨٠",
+            "٩٠",
+            "٨٤",
+            "١٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "إذا كان رقم الآحاد ٥ أو أكثر نقرّب العشرة إلى الأعلى.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٦٩ مقرّباً إلى أقرب عشرة = ___.",
+          "correctAnswer": "٧٠",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "قرّب ٤٩٥٠ إلى أقرب ألف.",
+          "correctAnswer": "٥٠٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب النواتج بعد التقريب لأقرب عشرة: ٢٣→؟، ٤٨→؟، ٣١→؟ تصاعدياً",
+          "correctAnswer": "٢٠، ٣٠، ٥٠",
+          "options": [
+            "٢٠",
+            "٥٠",
+            "٣٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ عدد يقرّب إلى ٤٠٠ عند التقريب لأقرب مئة؟",
+          "correctAnswer": "٣٧٨",
+          "options": [
+            "٣٧٨",
+            "٤٥٢",
+            "٣٢٠",
+            "٤٥٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "قرّب ١٢٣٤ إلى أقرب مئة.",
+          "correctAnswer": "١٢٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 9
+    },
+    {
+      "title": "ضرب عدد في عدد من منزلتين",
+      "content": "نضرب العدد في آحاد ثم في عشرات العدد الآخر ونجمع النواتج.",
+      "objectives": "ضرب عدد في عدد من منزلتين.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "٦ × ١٢ = ؟",
+          "correctAnswer": "٧٢",
+          "options": [
+            "٧٢",
+            "٦٦",
+            "٧٨",
+            "٦٢"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٨ × ٢٥ = ؟",
+          "correctAnswer": "٢٠٠",
+          "options": [
+            "٢٠٠",
+            "١٦٠",
+            "٢١٠",
+            "١٨٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٧ × ٣٤ = ؟",
+          "correctAnswer": "٢٣٨",
+          "options": [
+            "٢٣٨",
+            "٢٢٨",
+            "٢٤٨",
+            "٢١٨"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٩ × ١١ = ؟",
+          "correctAnswer": "٩٩",
+          "options": [
+            "٩٩",
+            "٩٠",
+            "١٠٨",
+            "٨١"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الضرب جمع متكرّر.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٥ × ٢٠ = ___.",
+          "correctAnswer": "١٠٠",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ٤ × ٤٥.",
+          "correctAnswer": "١٨٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب النواتج تصاعدياً: ٣×١٠، ٢×١٥، ٥×٤",
+          "correctAnswer": "٢٠، ٣٠، ٣٠",
+          "options": [
+            "٢٠",
+            "٣٠",
+            "٣٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في صفٍّ ١٢ مقعداً، كم مقعداً في ٦ صفوف؟",
+          "correctAnswer": "٧٢",
+          "options": [
+            "٧٢",
+            "٦٠",
+            "٨٤",
+            "٧٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ٨ × ٣٧.",
+          "correctAnswer": "٢٩٦",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 10
+    },
+    {
+      "title": "ضرب عدد في عدد من ثلاث منازل",
+      "content": "نضرب العدد في آحاد وعشرات ومئات العدد الآخر ونجمع النواتج الجزئية.",
+      "objectives": "ضرب عدد في عدد من ثلاث منازل.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "٤ × ١٢٥ = ؟",
+          "correctAnswer": "٥٠٠",
+          "options": [
+            "٥٠٠",
+            "٤٥٠",
+            "٥٥٠",
+            "٤٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٣ × ٢٣٤ = ؟",
+          "correctAnswer": "٧٠٢",
+          "options": [
+            "٧٠٢",
+            "٦٩٢",
+            "٧١٢",
+            "٦٠٢"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٥ × ٢٠٠ = ؟",
+          "correctAnswer": "١٠٠٠",
+          "options": [
+            "١٠٠٠",
+            "١٠٠",
+            "١٠٠٠٠",
+            "٩٠٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٦ × ١٥٠ = ؟",
+          "correctAnswer": "٩٠٠",
+          "options": [
+            "٩٠٠",
+            "٨٠٠",
+            "٩٥٠",
+            "٦٥٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "ناتج ضرب عدد في ١٠٠ ينتهي بصفرين.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٢ × ٣٠٠ = ___.",
+          "correctAnswer": "٦٠٠",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ٧ × ١١١.",
+          "correctAnswer": "٧٧٧",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب النواتج تصاعدياً: ٢×١٠٠، ٣×١٠٠، ١×١٠٠",
+          "correctAnswer": "١٠٠، ٢٠٠، ٣٠٠",
+          "options": [
+            "٢٠٠",
+            "٣٠٠",
+            "١٠٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "علبة فيها ١٢٥ قلماً، كم قلماً في ٨ علب؟",
+          "correctAnswer": "١٠٠٠",
+          "options": [
+            "١٠٠٠",
+            "٩٠٠",
+            "١١٠٠",
+            "٨٠٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ٩ × ٢١٠.",
+          "correctAnswer": "١٨٩٠",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 11
+    },
+    {
+      "title": "القسمة على عدد من منزلة دون باقٍ",
+      "content": "القسمة توزيع بالتساوي، وهي عكس الضرب. نقسم دون باقٍ عندما يقبل العدد القسمة تماماً.",
+      "objectives": "قسمة الأعداد دون باقٍ.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "٤٨ ÷ ٦ = ؟",
+          "correctAnswer": "٨",
+          "options": [
+            "٨",
+            "٧",
+            "٩",
+            "٦"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٦٣ ÷ ٧ = ؟",
+          "correctAnswer": "٩",
+          "options": [
+            "٩",
+            "٨",
+            "٧",
+            "٦"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٩٦ ÷ ٨ = ؟",
+          "correctAnswer": "١٢",
+          "options": [
+            "١٢",
+            "١١",
+            "١٣",
+            "١٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "القسمة عملية عكسية لـ:",
+          "correctAnswer": "الضرب",
+          "options": [
+            "الضرب",
+            "الجمع",
+            "الطرح",
+            "التقريب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٢٥ ÷ ٥ = ٥ دون باقٍ.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٤٠ ÷ ٥ = ___.",
+          "correctAnswer": "٨",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ٧٢ ÷ ٩.",
+          "correctAnswer": "٨",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب النواتج تصاعدياً: ١٢÷٣، ٢٠÷٥، ١٨÷٦",
+          "correctAnswer": "٣، ٤، ٤",
+          "options": [
+            "٤",
+            "٤",
+            "٣"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "وُزّع ٥٤ تفاحة على ٦ أطفال بالتساوي، نصيب كلٍّ:",
+          "correctAnswer": "٩",
+          "options": [
+            "٩",
+            "٨",
+            "١٠",
+            "٧"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ١٠٠ ÷ ٤.",
+          "correctAnswer": "٢٥",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 12
+    },
+    {
+      "title": "القسمة على عدد من منزلة مع باقٍ",
+      "content": "أحياناً لا يقبل العدد القسمة تماماً فيبقى باقٍ أصغر من المقسوم عليه.",
+      "objectives": "قسمة الأعداد مع تحديد الباقي.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "٢٥ ÷ ٤ = ؟ (مع الباقي)",
+          "correctAnswer": "٦ والباقي ١",
+          "options": [
+            "٦ والباقي ١",
+            "٦ والباقي ٢",
+            "٥ والباقي ٥",
+            "٧ والباقي ٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٣٧ ÷ ٥ = ؟",
+          "correctAnswer": "٧ والباقي ٢",
+          "options": [
+            "٧ والباقي ٢",
+            "٦ والباقي ٧",
+            "٨ والباقي ٠",
+            "٧ والباقي ٣"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ما الباقي في ٢٩ ÷ ٦؟",
+          "correctAnswer": "٥",
+          "options": [
+            "٥",
+            "٤",
+            "٣",
+            "٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الباقي في القسمة يكون دائماً:",
+          "correctAnswer": "أصغر من المقسوم عليه",
+          "options": [
+            "أصغر من المقسوم عليه",
+            "أكبر من المقسوم عليه",
+            "يساوي المقسوم",
+            "صفراً دائماً"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٢٠ ÷ ٣ = ٦ والباقي ٢.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ١٧ ÷ ٥ = ٣ والباقي ___.",
+          "correctAnswer": "٢",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما ناتج ٤٣ ÷ ٦ والباقي؟",
+          "correctAnswer": "٧ والباقي ١",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب البواقي تصاعدياً: ١٠÷٣، ١١÷٥، ١٣÷٤",
+          "correctAnswer": "١، ١، ١",
+          "options": [
+            "١",
+            "١",
+            "١"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "وُزّع ٢٣ قلماً على ٤ طلاب بالتساوي، كم بقي؟",
+          "correctAnswer": "٣",
+          "options": [
+            "٣",
+            "٢",
+            "١",
+            "٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ٥٠ ÷ ٧ والباقي.",
+          "correctAnswer": "٧ والباقي ١",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 13
+    },
+    {
+      "title": "الكسور المتكافئة",
+      "content": "الكسور المتكافئة كسور مختلفة الصورة متساوية القيمة، نحصل عليها بضرب أو قسمة البسط والمقام في العدد نفسه.",
+      "objectives": "التعرّف إلى الكسور المتكافئة وإيجادها.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أيّ كسر يكافئ ١/٢؟",
+          "correctAnswer": "٢/٤",
+          "options": [
+            "٢/٤",
+            "١/٣",
+            "٢/٣",
+            "٣/٤"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ كسر يكافئ ٢/٣؟",
+          "correctAnswer": "٤/٦",
+          "options": [
+            "٤/٦",
+            "٣/٤",
+            "٢/٥",
+            "٣/٦"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "١/٢ = ؟ / ٨",
+          "correctAnswer": "٤",
+          "options": [
+            "٤",
+            "٢",
+            "٣",
+            "٦"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الكسر المتكافئ نحصل عليه بضرب البسط والمقام في:",
+          "correctAnswer": "العدد نفسه",
+          "options": [
+            "العدد نفسه",
+            "أعداد مختلفة",
+            "صفر",
+            "واحد فقط"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٣/٦ يكافئ ١/٢.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٢/٣ = ٦/___.",
+          "correctAnswer": "٩",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب كسراً يكافئ ١/٤.",
+          "correctAnswer": "٢/٨",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب تصاعدياً: ١/٢، ١/٤، ١/٣",
+          "correctAnswer": "١/٤، ١/٣، ١/٢",
+          "options": [
+            "١/٢",
+            "١/٤",
+            "١/٣"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الكسور غير مكافئ لـ ١/٢؟",
+          "correctAnswer": "٢/٥",
+          "options": [
+            "٢/٥",
+            "٣/٦",
+            "٤/٨",
+            "٥/١٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اختصر الكسر ٤/٨ إلى أبسط صورة.",
+          "correctAnswer": "١/٢",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 14
+    },
+    {
+      "title": "مقارنة الكسور",
+      "content": "نقارن الكسور المتساوية المقامات بالبسوط، والمختلفة المقامات بالتوحيد أو بالرسم.",
+      "objectives": "مقارنة الكسور وترتيبها.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الكسرين أكبر: ٣/٥ أم ٢/٥؟",
+          "correctAnswer": "٣/٥",
+          "options": [
+            "٣/٥",
+            "٢/٥",
+            "متساويان",
+            "لا يقارنان"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الكسرين أكبر: ١/٢ أم ١/٤؟",
+          "correctAnswer": "١/٢",
+          "options": [
+            "١/٢",
+            "١/٤",
+            "متساويان",
+            "لا يقارنان"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الكسور أصغر؟",
+          "correctAnswer": "١/٦",
+          "options": [
+            "١/٦",
+            "١/٢",
+            "١/٣",
+            "١/٤"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "عند تساوي المقامات يكون الكسر الأكبر صاحب البسط:",
+          "correctAnswer": "الأكبر",
+          "options": [
+            "الأكبر",
+            "الأصغر",
+            "الصفر",
+            "الواحد"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٥/٨ أكبر من ٣/٨.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل بالإشارة: ٤/٧ ___ ٦/٧ (أصغر من).",
+          "correctAnswer": "<",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أيّهما أكبر: ٢/٣ أم ١/٣؟",
+          "correctAnswer": "٢/٣",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب تصاعدياً: ٣/٧، ١/٧، ٥/٧",
+          "correctAnswer": "١/٧، ٣/٧، ٥/٧",
+          "options": [
+            "٣/٧",
+            "١/٧",
+            "٥/٧"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الكسور يساوي النصف؟",
+          "correctAnswer": "٣/٦",
+          "options": [
+            "٣/٦",
+            "٢/٦",
+            "٤/٦",
+            "٥/٦"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أكبر كسر بين ١/٥ و٤/٥ و٢/٥ هو؟",
+          "correctAnswer": "٤/٥",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 15
+    },
+    {
+      "title": "جمع الكسور وطرحها",
+      "content": "نجمع أو نطرح الكسور المتساوية المقامات بجمع أو طرح البسوط وإبقاء المقام كما هو.",
+      "objectives": "جمع الكسور المتشابهة وطرحها.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "١/٥ + ٢/٥ = ؟",
+          "correctAnswer": "٣/٥",
+          "options": [
+            "٣/٥",
+            "٣/١٠",
+            "٢/٥",
+            "٤/٥"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٤/٧ − ١/٧ = ؟",
+          "correctAnswer": "٣/٧",
+          "options": [
+            "٣/٧",
+            "٣/١٤",
+            "٥/٧",
+            "٢/٧"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٣/٨ + ٣/٨ = ؟",
+          "correctAnswer": "٦/٨",
+          "options": [
+            "٦/٨",
+            "٦/١٦",
+            "٩/٨",
+            "٣/٨"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "عند جمع كسرين متساويي المقام نجمع:",
+          "correctAnswer": "البسوط فقط",
+          "options": [
+            "البسوط فقط",
+            "المقامات فقط",
+            "البسوط والمقامات",
+            "لا شيء"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٢/٩ + ٥/٩ = ٧/٩.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٥/٦ − ٢/٦ = ___.",
+          "correctAnswer": "٣/٦",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ٢/١٠ + ٥/١٠.",
+          "correctAnswer": "٧/١٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب النواتج تصاعدياً: ١/٤+١/٤، ١/٤+٢/٤، ٣/٤−١/٤",
+          "correctAnswer": "٢/٤، ٢/٤، ٣/٤",
+          "options": [
+            "٢/٤",
+            "٢/٤",
+            "٣/٤"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أكل خالد ٢/٨ من كعكة وأخوه ٣/٨، كم أكلا معاً؟",
+          "correctAnswer": "٥/٨",
+          "options": [
+            "٥/٨",
+            "٥/١٦",
+            "٦/٨",
+            "١/٨"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ٧/٩ − ٤/٩.",
+          "correctAnswer": "٣/٩",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 16
+    },
+    {
+      "title": "العدد الكسري",
+      "content": "العدد الكسري يتكوّن من عدد صحيح وكسر، مثل ١ ونصف، ويمكن تحويله إلى كسر غير حقيقي.",
+      "objectives": "التعرّف إلى العدد الكسري وقراءته.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أيّ ممّا يلي عدد كسري؟",
+          "correctAnswer": "٢ و١/٣",
+          "options": [
+            "٢ و١/٣",
+            "٣/٤",
+            "٥",
+            "٧/٩"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "العدد الكسري ١ و١/٢ يساوي الكسر:",
+          "correctAnswer": "٣/٢",
+          "options": [
+            "٣/٢",
+            "٢/٣",
+            "١/٢",
+            "٢/١"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٢ و١/٤ يساوي الكسر:",
+          "correctAnswer": "٩/٤",
+          "options": [
+            "٩/٤",
+            "٧/٤",
+            "٤/٩",
+            "٦/٤"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "يتكوّن العدد الكسري من:",
+          "correctAnswer": "عدد صحيح وكسر",
+          "options": [
+            "عدد صحيح وكسر",
+            "كسرين",
+            "عددين صحيحين",
+            "مقام فقط"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٥/٢ يمكن كتابته عدداً كسرياً ٢ و١/٢.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ١ و٣/٤ = ___/٤.",
+          "correctAnswer": "٧",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "حوّل ٧/٣ إلى عدد كسري.",
+          "correctAnswer": "٢ و١/٣",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب تصاعدياً: ١ و١/٢، ١، ٢",
+          "correctAnswer": "١، ١ و١/٢، ٢",
+          "options": [
+            "١ و١/٢",
+            "١",
+            "٢"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "العدد الكسري ٣ و٠/٥ يساوي:",
+          "correctAnswer": "٣",
+          "options": [
+            "٣",
+            "٣ و١/٥",
+            "٥/٣",
+            "٨/٥"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "حوّل العدد الكسري ٢ و٢/٥ إلى كسر.",
+          "correctAnswer": "١٢/٥",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 17
+    },
+    {
+      "title": "الجمع والطرح على الأعداد الكسرية",
+      "content": "نجمع الأعداد الكسرية بجمع الأعداد الصحيحة معاً والكسور معاً، وكذلك الطرح.",
+      "objectives": "إجراء الجمع والطرح على الأعداد الكسرية.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "١ و١/٤ + ٢ و٢/٤ = ؟",
+          "correctAnswer": "٣ و٣/٤",
+          "options": [
+            "٣ و٣/٤",
+            "٣ و١/٤",
+            "٤ و٣/٤",
+            "٣ و٢/٤"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٣ و٢/٥ − ١ و١/٥ = ؟",
+          "correctAnswer": "٢ و١/٥",
+          "options": [
+            "٢ و١/٥",
+            "٢ و٣/٥",
+            "١ و١/٥",
+            "٢"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٢ و١/٣ + ١ = ؟",
+          "correctAnswer": "٣ و١/٣",
+          "options": [
+            "٣ و١/٣",
+            "٢ و١/٣",
+            "٣",
+            "٤"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "لجمع الأعداد الكسرية نجمع:",
+          "correctAnswer": "الصحيح مع الصحيح والكسر مع الكسر",
+          "options": [
+            "الصحيح مع الصحيح والكسر مع الكسر",
+            "الصحيح مع الكسر",
+            "المقامات معاً",
+            "لا شيء"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٢ و٣/٧ + ١ و٢/٧ = ٣ و٥/٧.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٤ و٢/٦ − ٢ = ___ و٢/٦.",
+          "correctAnswer": "٢",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ١ و٢/٥ + ٢ و١/٥.",
+          "correctAnswer": "٣ و٣/٥",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب تصاعدياً: ٢ و١/٢، ١ و١/٢، ٣",
+          "correctAnswer": "١ و١/٢، ٢ و١/٢، ٣",
+          "options": [
+            "٢ و١/٢",
+            "١ و١/٢",
+            "٣"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "قطع سمير ١ و١/٤ كم ثم ٢ و١/٤ كم، كم قطع معاً؟",
+          "correctAnswer": "٣ و٢/٤",
+          "options": [
+            "٣ و٢/٤",
+            "٣ و١/٤",
+            "٤",
+            "٢ و٢/٤"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ٥ و٤/٨ − ٢ و١/٨.",
+          "correctAnswer": "٣ و٣/٨",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 18
+    },
+    {
+      "title": "المستقيمات المتوازية والمتعامدة",
+      "content": "المستقيمان المتوازيان لا يلتقيان مهما امتدّا، والمتعامدان يتقاطعان مكوّنَين زاوية قائمة (٩٠°).",
+      "objectives": "تمييز المستقيمات المتوازية والمتعامدة.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "المستقيمان المتوازيان:",
+          "correctAnswer": "لا يلتقيان أبداً",
+          "options": [
+            "لا يلتقيان أبداً",
+            "يتقاطعان بزاوية قائمة",
+            "يلتقيان في نقطة",
+            "منحنيان"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "المستقيمان المتعامدان يكوّنان زاوية:",
+          "correctAnswer": "قائمة",
+          "options": [
+            "قائمة",
+            "حادّة",
+            "منفرجة",
+            "مستقيمة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "قياس الزاوية القائمة:",
+          "correctAnswer": "٩٠°",
+          "options": [
+            "٩٠°",
+            "٤٥°",
+            "١٨٠°",
+            "٦٠°"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الأمثلة يمثّل خطّين متوازيين؟",
+          "correctAnswer": "حافتا المسطرة",
+          "options": [
+            "حافتا المسطرة",
+            "عقربا الساعة",
+            "زاويتا المثلث",
+            "أضلاع النجمة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "سكّتا القطار مثال على المتوازيين.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: المستقيمان المتعامدان يكوّنان زاوية ___.",
+          "correctAnswer": "قائمة",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر مثالاً من الصفّ على خطّين متعامدين.",
+          "correctAnswer": "حافتا النافذة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب قياسات الزوايا تصاعدياً: ٩٠°، ٤٥°، ١٨٠°",
+          "correctAnswer": "٤٥°، ٩٠°، ١٨٠°",
+          "options": [
+            "٩٠°",
+            "٤٥°",
+            "١٨٠°"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الزاوية التي قياسها أقلّ من ٩٠° تُسمّى:",
+          "correctAnswer": "حادّة",
+          "options": [
+            "حادّة",
+            "قائمة",
+            "منفرجة",
+            "مستقيمة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كم زاوية قائمة في المربّع؟",
+          "correctAnswer": "أربع",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 19
+    },
+    {
+      "title": "الزوايا",
+      "content": "الزاوية تكوّنها نصفا مستقيم لهما نقطة بداية مشتركة، وتُقاس بالدرجات: حادّة، قائمة، منفرجة، مستقيمة.",
+      "objectives": "تصنيف الزوايا حسب قياسها.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "الزاوية التي قياسها ٩٠° تُسمّى:",
+          "correctAnswer": "قائمة",
+          "options": [
+            "قائمة",
+            "حادّة",
+            "منفرجة",
+            "مستقيمة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الزاوية التي قياسها بين ٩٠° و١٨٠° تُسمّى:",
+          "correctAnswer": "منفرجة",
+          "options": [
+            "منفرجة",
+            "حادّة",
+            "قائمة",
+            "مستقيمة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الزاوية المستقيمة قياسها:",
+          "correctAnswer": "١٨٠°",
+          "options": [
+            "١٨٠°",
+            "٩٠°",
+            "٣٦٠°",
+            "٤٥°"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "زاوية قياسها ٣٠° هي:",
+          "correctAnswer": "حادّة",
+          "options": [
+            "حادّة",
+            "قائمة",
+            "منفرجة",
+            "مستقيمة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الزاوية المنفرجة أكبر من القائمة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: الزاوية القائمة قياسها ___ درجة.",
+          "correctAnswer": "٩٠",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "زاوية قياسها ١٢٠°، ما نوعها؟",
+          "correctAnswer": "منفرجة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أنواع الزوايا حسب القياس تصاعدياً: قائمة، حادّة، مستقيمة",
+          "correctAnswer": "حادّة، قائمة، مستقيمة",
+          "options": [
+            "قائمة",
+            "حادّة",
+            "مستقيمة"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أداة قياس الزوايا هي:",
+          "correctAnswer": "المنقلة",
+          "options": [
+            "المنقلة",
+            "المسطرة",
+            "الفرجار",
+            "الميزان"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "زاوية قياسها ٩٠°، ما نوعها؟",
+          "correctAnswer": "قائمة",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 20
+    },
+    {
+      "title": "زوايا المثلث",
+      "content": "مجموع زوايا المثلث يساوي ١٨٠°، ويُصنّف المثلث حسب زواياه إلى قائم وحادّ ومنفرج.",
+      "objectives": "معرفة مجموع زوايا المثلث وتصنيفه.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "مجموع زوايا المثلث:",
+          "correctAnswer": "١٨٠°",
+          "options": [
+            "١٨٠°",
+            "٩٠°",
+            "٣٦٠°",
+            "٢٧٠°"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في مثلث زاويتاه ٦٠° و٦٠°، الزاوية الثالثة:",
+          "correctAnswer": "٦٠°",
+          "options": [
+            "٦٠°",
+            "٩٠°",
+            "٥٠°",
+            "٧٠°"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "المثلث الذي فيه زاوية قائمة يُسمّى:",
+          "correctAnswer": "قائم الزاوية",
+          "options": [
+            "قائم الزاوية",
+            "حادّ الزوايا",
+            "منفرج الزاوية",
+            "متطابق"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في مثلث زاويتاه ٩٠° و٤٥°، الثالثة:",
+          "correctAnswer": "٤٥°",
+          "options": [
+            "٤٥°",
+            "٣٥°",
+            "٥٥°",
+            "٩٠°"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يمكن أن يحوي المثلث زاويتين قائمتين.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: مجموع زوايا المثلث ___ درجة.",
+          "correctAnswer": "١٨٠",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "في مثلث زاويتاه ٧٠° و٥٠°، ما الثالثة؟",
+          "correctAnswer": "٦٠°",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الزوايا تصاعدياً: ٩٠°، ٣٠°، ٦٠°",
+          "correctAnswer": "٣٠°، ٦٠°، ٩٠°",
+          "options": [
+            "٩٠°",
+            "٣٠°",
+            "٦٠°"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "المثلث الذي جميع زواياه أقلّ من ٩٠° يُسمّى:",
+          "correctAnswer": "حادّ الزوايا",
+          "options": [
+            "حادّ الزوايا",
+            "قائم الزاوية",
+            "منفرج الزاوية",
+            "مستقيم"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "زاويتان في مثلث ٩٠° و٣٠°، ما الثالثة؟",
+          "correctAnswer": "٦٠°",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 21
+    },
+    {
+      "title": "تنظيم البيانات في جداول",
+      "content": "نجمع البيانات وننظّمها في جداول بإشارات العدّ لتسهيل قراءتها.",
+      "objectives": "تنظيم البيانات في جداول وقراءتها.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "لماذا ننظّم البيانات في جداول؟",
+          "correctAnswer": "لتسهيل قراءتها وفهمها",
+          "options": [
+            "لتسهيل قراءتها وفهمها",
+            "لإخفائها",
+            "لجعلها أصعب",
+            "لا فائدة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "إشارات العدّ تُستخدم لـ:",
+          "correctAnswer": "حساب التكرار",
+          "options": [
+            "حساب التكرار",
+            "الرسم فقط",
+            "الزينة",
+            "قياس الطول"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "إذا تكرّر اللون الأحمر ٥ مرّات نكتب في الجدول:",
+          "correctAnswer": "٥",
+          "options": [
+            "٥",
+            "٠",
+            "١",
+            "١٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "العمود الأول في جدول التكرار يمثّل عادةً:",
+          "correctAnswer": "الفئة",
+          "options": [
+            "الفئة",
+            "التكرار فقط",
+            "المجموع",
+            "لا شيء"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الجدول يساعد على مقارنة البيانات بسهولة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: مجموع التكرارات في الجدول = عدد ___ البيانات.",
+          "correctAnswer": "قيم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "إذا كانت التكرارات ٣ و٤ و٥، فما مجموعها؟",
+          "correctAnswer": "١٢",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب خطوات تنظيم البيانات: نعدّ التكرار، نجمع البيانات، نكتبها في جدول",
+          "correctAnswer": "نجمع البيانات، نعدّ التكرار، نكتبها في جدول",
+          "options": [
+            "نعدّ التكرار",
+            "نجمع البيانات",
+            "نكتبها في جدول"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أكبر تكرار في جدول قيمه ٢ و٧ و٤ هو:",
+          "correctAnswer": "٧",
+          "options": [
+            "٧",
+            "٤",
+            "٢",
+            "١٣"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "في جدول تكرارات ٦ و٢ و٣، ما أكبر فئة تكراراً؟",
+          "correctAnswer": "الأولى",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 22
+    },
+    {
+      "title": "تمثيل البيانات بالأعمدة",
+      "content": "نمثّل البيانات بأعمدة يتناسب ارتفاع كلٍّ منها مع التكرار، لتسهيل المقارنة.",
+      "objectives": "تمثيل البيانات بالأعمدة وقراءتها.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "في التمثيل بالأعمدة يدلّ ارتفاع العمود على:",
+          "correctAnswer": "التكرار",
+          "options": [
+            "التكرار",
+            "اللون",
+            "الاسم فقط",
+            "الطول الحقيقي"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "العمود الأطول يمثّل الفئة:",
+          "correctAnswer": "الأكثر تكراراً",
+          "options": [
+            "الأكثر تكراراً",
+            "الأقلّ تكراراً",
+            "الصفرية",
+            "المتوسطة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "إذا كان عمود التفاح ارتفاعه ٨ وعمود الموز ٥، فأيّهما أكثر؟",
+          "correctAnswer": "التفاح",
+          "options": [
+            "التفاح",
+            "الموز",
+            "متساويان",
+            "لا يُعرف"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "المحور الأفقي في المخطّط العمودي يمثّل عادةً:",
+          "correctAnswer": "الفئات",
+          "options": [
+            "الفئات",
+            "التكرار",
+            "الزمن فقط",
+            "لا شيء"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الأعمدة تسهّل مقارنة الفئات بصرياً.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: العمود الأقصر يمثّل الفئة ___ تكراراً.",
+          "correctAnswer": "الأقلّ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "إذا كانت الأعمدة ٤ و٦ و٢، فما مجموع التكرارات؟",
+          "correctAnswer": "١٢",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأعمدة من الأقصر: ٧، ٣، ٥",
+          "correctAnswer": "٣، ٥، ٧",
+          "options": [
+            "٧",
+            "٣",
+            "٥"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الفرق بين عمودين ارتفاعهما ٩ و٤ هو:",
+          "correctAnswer": "٥",
+          "options": [
+            "٥",
+            "١٣",
+            "٤",
+            "٦"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أعمدة بارتفاع ٥ و٥ و٥ تدلّ على أنّ الفئات:",
+          "correctAnswer": "متساوية",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 23
+    }
+  ]
+}

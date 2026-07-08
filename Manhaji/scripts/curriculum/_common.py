@@ -201,6 +201,14 @@ def write_curriculum(*, subject_code: str, grade: int, semester: int,
             f"Expected one of {sorted(SUBJECT_NAMES.keys())}."
         )
 
+    # Assign a 1-based orderIndex to any lesson that doesn't declare one. The
+    # backend's `lessons.order_index` column is NOT NULL (and has a unique
+    # (subject, semester, order_index) key), so an omitted orderIndex fails the
+    # DataSeeder import. Authoring scripts may still set orderIndex explicitly to
+    # control ordering; only the missing ones are auto-numbered by position.
+    for position, lesson in enumerate(lessons, start=1):
+        lesson.setdefault("orderIndex", position)
+
     data: dict[str, Any] = {
         "subject": SUBJECT_NAMES[subject_code],
         "subjectCode": subject_code,

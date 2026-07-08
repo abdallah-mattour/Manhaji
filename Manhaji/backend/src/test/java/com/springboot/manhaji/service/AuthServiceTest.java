@@ -292,7 +292,7 @@ class AuthServiceTest {
 
             assertThatThrownBy(() -> authService.loginWithEmail(request))
                     .isInstanceOf(UnauthorizedException.class)
-                    .hasMessageContaining("disabled");
+                    .hasMessageContaining("تعطيل");
             // Critical: no tokens minted, no save called.
             verify(jwtService, never()).generateAccessToken(any());
             verify(userRepository, never()).save(any());
@@ -412,7 +412,7 @@ class AuthServiceTest {
 
             assertThatThrownBy(() -> authService.refreshToken("valid_refresh"))
                     .isInstanceOf(UnauthorizedException.class)
-                    .hasMessageContaining("disabled");
+                    .hasMessageContaining("تعطيل");
             verify(jwtService, never()).generateAccessToken(any());
         }
     }

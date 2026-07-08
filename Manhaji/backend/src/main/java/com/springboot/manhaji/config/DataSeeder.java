@@ -6,6 +6,7 @@ import com.springboot.manhaji.entity.Admin;
 import com.springboot.manhaji.entity.Lesson;
 import com.springboot.manhaji.entity.Question;
 import com.springboot.manhaji.entity.Quiz;
+import com.springboot.manhaji.entity.Student;
 import com.springboot.manhaji.entity.Subject;
 import com.springboot.manhaji.entity.Teacher;
 import com.springboot.manhaji.entity.enums.QuestionType;
@@ -179,6 +180,9 @@ public class DataSeeder implements CommandLineRunner {
             log.info("Created demo admin account: admin@manhaji.edu (password not logged)");
         }
 
+        // Demo students — populate a realistic leaderboard/class for the showcase.
+        seedDemoStudents();
+
         // Parent account — link to all existing students that have no parent
         if (userRepository.findByEmail("parent@manhaji.edu").isEmpty()) {
             com.springboot.manhaji.entity.Parent parent = new com.springboot.manhaji.entity.Parent();
@@ -200,6 +204,56 @@ public class DataSeeder implements CommandLineRunner {
                 }
             }
             log.info("Created demo parent account: parent@manhaji.edu (password not logged; linked {} children)", linked);
+        }
+    }
+
+    /**
+     * Seed a roster of demo students per grade so the leaderboard and class
+     * screens look populated during the showcase. Gated by the same
+     * {@code MANHAJI_DEMO_SEED} flag as {@link #seedDemoAccounts()} (the caller
+     * already checked it). Idempotent via a per-email existence check.
+     *
+     * <p>Points/avatars are hand-tuned so the podium reads well; these students
+     * have no quiz attempts (completedLessons = 0), which is fine for the board.
+     */
+    private void seedDemoStudents() {
+        // name, points, avatarId — descending so ranks read naturally.
+        Object[][] roster = {
+                {"محمد", 1250, "owl"},
+                {"سارة", 980, "fox"},
+                {"ليان", 870, "penguin"},
+                {"يوسف", 760, "koala"},
+                {"رهف", 640, "hamster"},
+                {"آدم", 590, "panda"},
+                {"جنى", 510, "butterfly"},
+                {"كرم", 430, "unicorn"},
+                {"نور", 360, "bee"},
+                {"تالا", 300, "dolphin"},
+        };
+
+        int created = 0;
+        for (int grade = 1; grade <= 4; grade++) {
+            for (int i = 0; i < roster.length; i++) {
+                String email = String.format("demo.g%d.s%d@manhaji.edu", grade, i + 1);
+                if (userRepository.findByEmail(email).isPresent()) continue;
+
+                Object[] row = roster[i];
+                Student s = new Student();
+                s.setFullName((String) row[0]);
+                s.setEmail(email);
+                s.setPasswordHash(passwordEncoder.encode("demo1234"));
+                s.setRole(Role.STUDENT);
+                s.setIsActive(true);
+                s.setGradeLevel(grade);
+                s.setTotalPoints((Integer) row[1]);
+                s.setAvatarId((String) row[2]);
+                s.setCurrentStreak((i % 5) + 1);
+                studentRepository.save(s);
+                created++;
+            }
+        }
+        if (created > 0) {
+            log.info("Created {} demo students across grades 1-4 (passwords not logged)", created);
         }
     }
 

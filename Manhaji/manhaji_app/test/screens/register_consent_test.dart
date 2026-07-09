@@ -22,6 +22,8 @@ class FakeLocalStorage extends Fake implements LocalStorageService {
   @override
   int? getGradeLevel() => null;
   @override
+  String? getUserAvatarId() => null;
+  @override
   Future<void> saveTokens(String a, String r) async {}
   @override
   Future<void> saveUserInfo({
@@ -29,6 +31,7 @@ class FakeLocalStorage extends Fake implements LocalStorageService {
     required String role,
     required String name,
     int? gradeLevel,
+    String? avatarId,
   }) async {}
 }
 

@@ -6,7 +6,7 @@ import 'package:manhaji_app/models/lesson.dart';
 import 'package:manhaji_app/models/subject.dart';
 import 'package:manhaji_app/providers/lesson_provider.dart';
 import 'package:manhaji_app/providers/student_rewards_provider.dart';
-import 'package:manhaji_app/screens/rewards/rewards_screen.dart';
+import 'package:manhaji_app/screens/rewards/rewards_shop_screen.dart';
 import 'package:manhaji_app/services/api_service.dart';
 import 'package:manhaji_app/services/lesson_service.dart';
 import 'package:manhaji_app/services/local_storage_service.dart';
@@ -68,7 +68,8 @@ Widget _wrap({required int points, FakeLocalStorage? storage}) {
         create: (_) => StudentRewardsProvider(localStorage),
       ),
     ],
-    child: MaterialApp(theme: AppTheme.lightTheme, home: const RewardsScreen()),
+    child: MaterialApp(
+        theme: AppTheme.lightTheme, home: const RewardsShopScreen()),
   );
 }
 

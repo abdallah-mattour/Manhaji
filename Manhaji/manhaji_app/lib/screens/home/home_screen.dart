@@ -193,8 +193,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: _RewardsEntryCard(
                           points: dashboard.totalPoints,
                           streak: dashboard.currentStreak,
-                          onTap: () =>
-                              Navigator.pushNamed(context, AppRoutes.rewards),
+                          onTap: () => Navigator.pushNamed(
+                              context, AppRoutes.rewardsShop),
                         ),
                       ),
                       // Daily-goal progress card — overall lessons completed vs

@@ -3,9 +3,7 @@ package com.springboot.manhaji.config;
 import com.springboot.manhaji.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -29,27 +27,26 @@ public class JwtService {
     public static final String TOKEN_TYPE_REFRESH = "REFRESH";
     private static final String CLAIM_TOKEN_TYPE = "tokenType";
 
-    @Value("${app.jwt.secret}")
-    private String secretKey;
+    private final JwtProperties jwtProperties;
+    private final SecretKey signingKey;
 
-    @Value("${app.jwt.access-token-expiration}")
-    private long accessTokenExpiration;
-
-    @Value("${app.jwt.refresh-token-expiration}")
-    private long refreshTokenExpiration;
+    public JwtService(JwtProperties jwtProperties) {
+        this.jwtProperties = jwtProperties;
+        this.signingKey = Keys.hmacShaKeyFor(jwtProperties.decodedSecret());
+    }
 
     public String generateAccessToken(User user) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", user.getRole().name());
         claims.put("userId", user.getId());
         claims.put(CLAIM_TOKEN_TYPE, TOKEN_TYPE_ACCESS);
-        return buildToken(claims, user.getEmail() != null ? user.getEmail() : user.getPhone(), accessTokenExpiration);
+        return buildToken(claims, user.getEmail() != null ? user.getEmail() : user.getPhone(), jwtProperties.getAccessTokenExpiration());
     }
 
     public String generateRefreshToken(User user) {
         Map<String, Object> claims = new HashMap<>();
         claims.put(CLAIM_TOKEN_TYPE, TOKEN_TYPE_REFRESH);
-        return buildToken(claims, user.getEmail() != null ? user.getEmail() : user.getPhone(), refreshTokenExpiration);
+        return buildToken(claims, user.getEmail() != null ? user.getEmail() : user.getPhone(), jwtProperties.getRefreshTokenExpiration());
     }
 
     private String buildToken(Map<String, Object> extraClaims, String subject, long expiration) {
@@ -124,11 +121,6 @@ public class JwtService {
     }
 
     private SecretKey getSigningKey() {
-        // Audit fix S2 (2026-04-29): the previous implementation Base64-encoded
-        // the plaintext secret bytes and immediately Base64-decoded them — a
-        // round-trip no-op that yielded the raw UTF-8 bytes of the plaintext.
-        // The signing key must come from a single, well-defined Base64 decode
-        // of a properly-generated random key (see application.yaml note + README).
-        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
+        return signingKey;
     }
 }

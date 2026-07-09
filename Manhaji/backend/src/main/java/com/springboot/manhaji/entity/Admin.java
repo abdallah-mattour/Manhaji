@@ -17,5 +17,8 @@ import lombok.*;
 public class Admin extends User {
 
     @Column
+    private String avatarId;
+
+    @Column
     private String permissions;
 }

@@ -84,4 +84,48 @@ public class ProgressMetrics {
         }
         return result;
     }
+
+    public List<SubjectMasterySummary> buildSubjectBreakdown(
+            Student student,
+            List<Progress> progressRecords,
+            List<Subject> subjects) {
+        if (subjects.isEmpty()) {
+            return List.of();
+        }
+        List<Long> subjectIds = subjects.stream()
+                .map(Subject::getId)
+                .toList();
+        List<Lesson> lessons = lessonRepository
+                .findBySubjectIdsAndGradeLevel(subjectIds, student.getGradeLevel());
+        return buildSubjectBreakdown(student, progressRecords, subjects, lessons);
+    }
+
+    public List<SubjectMasterySummary> buildSubjectBreakdown(
+            Student student,
+            List<Progress> progressRecords,
+            List<Subject> subjects,
+            List<Lesson> lessons) {
+        Map<Long, List<Progress>> bySubject = progressRecords.stream()
+                .filter(p -> p.getLesson() != null && p.getLesson().getSubject() != null)
+                .collect(Collectors.groupingBy(p -> p.getLesson().getSubject().getId()));
+
+        Map<Long, List<Lesson>> lessonsBySubject = lessons.stream()
+                .filter(l -> l.getSubject() != null)
+                .collect(Collectors.groupingBy(l -> l.getSubject().getId()));
+
+        List<SubjectMasterySummary> result = new ArrayList<>();
+        for (Subject subject : subjects) {
+            List<Progress> subjectProgress = bySubject.getOrDefault(subject.getId(), List.of());
+            List<Lesson> subjectLessons = lessonsBySubject.getOrDefault(subject.getId(), List.of());
+
+            result.add(SubjectMasterySummary.builder()
+                    .subjectId(subject.getId())
+                    .subjectName(subject.getName())
+                    .totalLessons(subjectLessons.size())
+                    .lessonsCompleted(countCompleted(subjectProgress))
+                    .averageMastery(round2(averageMastery(subjectProgress)))
+                    .build());
+        }
+        return result;
+    }
 }

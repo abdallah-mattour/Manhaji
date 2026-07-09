@@ -4,9 +4,9 @@ import com.springboot.manhaji.dto.request.ChangePasswordRequest;
 import com.springboot.manhaji.dto.request.LoginRequest;
 import com.springboot.manhaji.dto.request.PhoneLoginRequest;
 import com.springboot.manhaji.dto.request.RegisterRequest;
+import com.springboot.manhaji.dto.request.UpdateProfileRequest;
 import com.springboot.manhaji.dto.response.ApiResponse;
 import com.springboot.manhaji.dto.response.AuthResponse;
-import com.springboot.manhaji.entity.User;
 import com.springboot.manhaji.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping({"/api/auth", "/auth"})
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -60,23 +60,11 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ApiResponse.error("Not authenticated"));
         }
         Long userId = (Long) authentication.getPrincipal();
-        User user = authService.getCurrentUser(userId);
-        AuthResponse response = AuthResponse.builder()
-                .userId(user.getId())
-                .fullName(user.getFullName())
-                .email(user.getEmail())
-                .phone(user.getPhone())
-                .role(user.getRole())
-                .build();
+        AuthResponse response = authService.getCurrentProfile(userId);
         return ResponseEntity.ok(ApiResponse.success(response));
     }
 
-    /**
-     * Change the caller's own password. {@code /api/auth/**} is {@code permitAll}
-     * in SecurityConfig, so — exactly like {@link #me} — we must null-check the
-     * Authentication ourselves rather than relying on the security layer to 401.
-     */
-    @PutMapping("/password")
+    @PutMapping("/change-password")
     public ResponseEntity<ApiResponse<Void>> changePassword(
             @Valid @RequestBody ChangePasswordRequest request,
             Authentication authentication) {
@@ -84,7 +72,19 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ApiResponse.error("Not authenticated"));
         }
         Long userId = (Long) authentication.getPrincipal();
-        authService.changePassword(userId, request);
-        return ResponseEntity.ok(ApiResponse.success("Password changed successfully", null));
+        authService.changePassword(userId, request.getCurrentPassword(), request.getNewPassword());
+        return ResponseEntity.ok(ApiResponse.<Void>success("Password changed successfully", null));
+    }
+
+    @PatchMapping("/profile")
+    public ResponseEntity<ApiResponse<AuthResponse>> updateProfile(
+            @Valid @RequestBody UpdateProfileRequest request,
+            Authentication authentication) {
+        if (authentication == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ApiResponse.error("Not authenticated"));
+        }
+        Long userId = (Long) authentication.getPrincipal();
+        AuthResponse response = authService.updateProfile(userId, request);
+        return ResponseEntity.ok(ApiResponse.success("Profile updated", response));
     }
 }

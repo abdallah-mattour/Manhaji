@@ -36,6 +36,7 @@ class ParentServiceTest {
     @Mock private AttemptRepository attemptRepository;
     @Mock private SubjectRepository subjectRepository;
     @Mock private LessonRepository lessonRepository;
+    @Mock private ProgressReportRepository progressReportRepository;
 
     private ParentService parentService;
 
@@ -47,7 +48,8 @@ class ParentServiceTest {
         ProgressMetrics metrics = new ProgressMetrics(subjectRepository, lessonRepository);
         parentService = new ParentService(
                 parentRepository, studentRepository, progressRepository,
-                attemptRepository, lessonRepository, metrics, TestMessages.create());
+                attemptRepository, lessonRepository, progressReportRepository,
+                metrics, TestMessages.create());
 
         parent = new Parent();
         parent.setId(100L);
@@ -82,6 +84,7 @@ class ParentServiceTest {
             when(lessonRepository.findByGradeLevelOrderByOrderIndexAsc(1)).thenReturn(
                     List.of(new Lesson(), new Lesson(), new Lesson(), new Lesson(), new Lesson())
             );
+            when(attemptRepository.findByStudentIdOrderByCreatedAtDesc(1L)).thenReturn(List.of());
 
             ParentDashboardResponse response = parentService.getDashboard(100L);
 
@@ -136,6 +139,7 @@ class ParentServiceTest {
                     createAttempt(AttemptStatus.GRADED, 88.0)
             ));
             when(subjectRepository.findByGradeLevel(1)).thenReturn(List.of());
+            when(progressReportRepository.findByStudentIdOrderByGeneratedAtDesc(1L)).thenReturn(List.of());
 
             StudentDetailResponse detail = parentService.getChildDetail(100L, 1L);
 
@@ -194,6 +198,7 @@ class ParentServiceTest {
             Attempt a3 = createAttempt(AttemptStatus.IN_PROGRESS, null); // not graded
             when(attemptRepository.findByStudentIdOrderByCreatedAtDesc(1L)).thenReturn(List.of(a1, a2, a3));
             when(subjectRepository.findByGradeLevel(1)).thenReturn(List.of());
+            when(progressReportRepository.findByStudentIdOrderByGeneratedAtDesc(1L)).thenReturn(List.of());
 
             StudentDetailResponse detail = parentService.getChildDetail(100L, 1L);
 
@@ -204,6 +209,44 @@ class ParentServiceTest {
             // Only graded: (90 + 70) / 2 = 80
             assertThat(detail.getAverageScore()).isEqualTo(80.0);
             assertThat(detail.getTotalAttempts()).isEqualTo(3);
+        }
+
+        @Test
+        @DisplayName("should generate backend-driven recommendations for weak subject and inactivity")
+        void generatesRecommendations() {
+            child.setLastLoginAt(LocalDateTime.now().minusDays(10));
+
+            Subject subject = new Subject();
+            subject.setId(10L);
+            subject.setName("الرياضيات");
+            subject.setGradeLevel(1);
+            subject.setLessons(new java.util.ArrayList<>());
+
+            Lesson lesson = new Lesson();
+            lesson.setId(50L);
+            lesson.setSubject(subject);
+            lesson.setTitle("جمع الأعداد");
+
+            Progress weakProgress = createProgress(CompletionStatus.IN_PROGRESS, 30.0);
+            weakProgress.setLesson(lesson);
+
+            when(parentRepository.findById(100L)).thenReturn(Optional.of(parent));
+            when(studentRepository.findById(1L)).thenReturn(Optional.of(child));
+            when(progressRepository.findByStudentId(1L)).thenReturn(List.of(weakProgress));
+            when(attemptRepository.findByStudentIdOrderByCreatedAtDesc(1L)).thenReturn(List.of());
+            when(subjectRepository.findByGradeLevel(1)).thenReturn(List.of(subject));
+            when(lessonRepository.findBySubjectIdAndGradeLevelOrderByOrderIndexAsc(10L, 1))
+                    .thenReturn(List.of(lesson));
+            when(progressReportRepository.findByStudentIdOrderByGeneratedAtDesc(1L)).thenReturn(List.of());
+
+            StudentDetailResponse detail = parentService.getChildDetail(100L, 1L);
+
+            assertThat(detail.getAlerts()).extracting("alertType").contains("INACTIVE");
+            assertThat(detail.getAlerts().get(0).getStudentId()).isEqualTo(1L);
+
+            assertThat(detail.getRecommendations())
+                    .extracting("type")
+                    .contains("WEAK_SUBJECT", "ENCOURAGE_ACTIVITY");
         }
     }
 

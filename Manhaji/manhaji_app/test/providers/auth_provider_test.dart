@@ -1,13 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:manhaji_app/models/auth_response.dart';
 import 'package:manhaji_app/providers/auth_provider.dart';
 import 'package:manhaji_app/services/api_service.dart';
 import 'package:manhaji_app/services/auth_service.dart';
 import 'package:manhaji_app/services/local_storage_service.dart';
 
 /// Minimal in-memory storage stub. AuthProvider's constructor reads a handful
-/// of sync getters, and `gradeLevel` delegates to `getGradeLevel()`.
+/// of sync getters (including [getUserAvatarId]); `gradeLevel` delegates to
+/// [getGradeLevel].
 class FakeLocalStorage extends Fake implements LocalStorageService {
   int? grade;
 
@@ -21,11 +23,27 @@ class FakeLocalStorage extends Fake implements LocalStorageService {
   int? getUserId() => null;
   @override
   int? getGradeLevel() => grade;
+  @override
+  String? getUserAvatarId() => null;
+  @override
+  Future<void> saveUserInfo({
+    required int userId,
+    required String role,
+    required String name,
+    int? gradeLevel,
+    String? avatarId,
+  }) async {}
 }
 
 class MockAuthService extends AuthService {
   Object? errorToThrow;
-  Map<String, dynamic> profileResult = const {};
+  AuthResponse profileResult = AuthResponse(
+    accessToken: '',
+    refreshToken: '',
+    userId: 0,
+    fullName: '',
+    role: '',
+  );
   Completer<void>? changeGate; // lets a test observe the in-flight loading state
 
   MockAuthService() : super(ApiService(FakeLocalStorage()));
@@ -40,7 +58,7 @@ class MockAuthService extends AuthService {
   }
 
   @override
-  Future<Map<String, dynamic>> getCurrentUser() async {
+  Future<AuthResponse> getCurrentUser() async {
     if (errorToThrow != null) throw errorToThrow!;
     return profileResult;
   }
@@ -110,22 +128,31 @@ void main() {
   });
 
   group('AuthProvider.fetchProfile()', () {
-    test('returns the account map on success', () async {
-      service.profileResult = {'email': 'a@b.com', 'phone': '0591234567'};
+    test('populates the email/phone getters on success', () async {
+      service.profileResult = AuthResponse(
+        accessToken: '',
+        refreshToken: '',
+        userId: 0,
+        fullName: '',
+        role: '',
+        email: 'a@b.com',
+        phone: '0591234567',
+      );
 
-      final data = await provider.fetchProfile();
+      await provider.fetchProfile();
 
-      expect(data['email'], 'a@b.com');
-      expect(data['phone'], '0591234567');
+      expect(provider.userEmail, 'a@b.com');
+      expect(provider.userPhone, '0591234567');
+      expect(provider.profileError, isNull);
     });
 
-    test('returns an empty map and sets error on failure', () async {
+    test('sets profileError and leaves email null on failure', () async {
       service.errorToThrow = ApiException('تعذّر الاتصال بالخادم.');
 
-      final data = await provider.fetchProfile();
+      await provider.fetchProfile();
 
-      expect(data, isEmpty);
-      expect(provider.errorMessage, 'تعذّر الاتصال بالخادم.');
+      expect(provider.profileError, 'تعذّر الاتصال بالخادم.');
+      expect(provider.userEmail, isNull);
     });
   });
 

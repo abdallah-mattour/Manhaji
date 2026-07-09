@@ -379,7 +379,7 @@ class _TracingResultCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 2),
                 child: Icon(
                   i < result.stars ? Icons.star_rounded : Icons.star_outline_rounded,
-                  color: i < result.stars ? AppTheme.primaryYellow : Colors.grey,
+                  color: i < result.stars ? AppTheme.primaryYellow : AppTheme.starInactive,
                   size: 32,
                 ),
               );

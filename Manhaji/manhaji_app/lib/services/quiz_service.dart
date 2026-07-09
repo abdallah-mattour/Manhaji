@@ -1,6 +1,7 @@
 import '../config/api_config.dart';
 import '../models/quiz.dart';
 import '../models/skill_mastery.dart';
+import '../models/student_assigned_quiz.dart';
 import 'api_service.dart';
 
 class QuizApiService {
@@ -19,8 +20,9 @@ class QuizApiService {
   /// model. Returns the same [Quiz] shape as [getQuizByLesson] so the normal
   /// quiz UI renders it unchanged.
   Future<Quiz> generatePersonalizedQuiz(int subjectId) async {
-    final response =
-        await _api.post('${ApiConfig.personalizedQuiz}/$subjectId');
+    final response = await _api.post(
+      '${ApiConfig.personalizedQuiz}/$subjectId',
+    );
     return Quiz.fromJson(response['data'] ?? {});
   }
 
@@ -35,7 +37,9 @@ class QuizApiService {
   /// weak sub-skills first, then "stretch" difficulty, then novelty.
   /// Falls back server-side to fixed order on first visit.
   Future<Quiz> getAdaptiveQuizByLesson(int lessonId) async {
-    final response = await _api.get('${ApiConfig.quizByLesson}/$lessonId/adaptive');
+    final response = await _api.get(
+      '${ApiConfig.quizByLesson}/$lessonId/adaptive',
+    );
     return Quiz.fromJson(response['data'] ?? {});
   }
 
@@ -44,20 +48,52 @@ class QuizApiService {
     return AttemptResult.fromJson(response['data'] ?? {});
   }
 
-  Future<SubmitAnswerResult> submitAnswer(int attemptId, {
+  Future<List<StudentAssignedQuizSummary>> getAssignedQuizzes() async {
+    final response = await _api.get(ApiConfig.studentAssignedQuizzes);
+    final data = response['data'];
+    if (data is! List) return const [];
+    return data
+        .map(
+          (quiz) => StudentAssignedQuizSummary.fromJson(
+            Map<String, dynamic>.from(quiz as Map),
+          ),
+        )
+        .toList();
+  }
+
+  Future<StudentAssignedQuizDetail> getAssignedQuizDetail(
+    int assignmentId,
+  ) async {
+    final response = await _api.get(
+      ApiConfig.studentAssignedQuiz(assignmentId),
+    );
+    return StudentAssignedQuizDetail.fromJson(
+      Map<String, dynamic>.from((response['data'] ?? {}) as Map),
+    );
+  }
+
+  Future<AttemptResult> startAssignedQuizAttempt(int assignmentId) async {
+    final response = await _api.post(
+      ApiConfig.startAssignedQuizAttempt(assignmentId),
+    );
+    return AttemptResult.fromJson(response['data'] ?? {});
+  }
+
+  Future<SubmitAnswerResult> submitAnswer(
+    int attemptId, {
     required int questionId,
     String? answer,
     String? spokenText,
     String? audioRef,
   }) async {
+    final data = <String, dynamic>{'questionId': questionId};
+    if (answer != null) data['answer'] = answer;
+    if (spokenText != null) data['spokenText'] = spokenText;
+    if (audioRef != null) data['audioRef'] = audioRef;
+
     final response = await _api.post(
       '/quiz/attempt/$attemptId/answer',
-      data: {
-        'questionId': questionId,
-        if (answer != null) 'answer': answer, // ignore: use_null_aware_elements
-        if (spokenText != null) 'spokenText': spokenText, // ignore: use_null_aware_elements
-        if (audioRef != null) 'audioRef': audioRef, // ignore: use_null_aware_elements
-      },
+      data: data,
     );
     return SubmitAnswerResult.fromJson(response['data'] ?? {});
   }
@@ -78,15 +114,17 @@ class QuizApiService {
     required bool isCorrect,
     String? feedback,
   }) async {
+    final data = <String, dynamic>{
+      'questionId': questionId,
+      'score': score,
+      'stars': stars,
+      'isCorrect': isCorrect,
+    };
+    if (feedback != null) data['feedback'] = feedback;
+
     final response = await _api.post(
       '/quiz/attempt/$attemptId/tracing',
-      data: {
-        'questionId': questionId,
-        'score': score,
-        'stars': stars,
-        'isCorrect': isCorrect,
-        if (feedback != null) 'feedback': feedback, // ignore: use_null_aware_elements
-      },
+      data: data,
     );
     return SubmitAnswerResult.fromJson(response['data'] ?? {});
   }

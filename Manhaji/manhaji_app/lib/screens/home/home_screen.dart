@@ -4,16 +4,21 @@ import 'package:provider/provider.dart';
 import '../../app/routes.dart';
 import '../../app/theme.dart';
 import '../../config/api_config.dart';
-import '../../config/gamification.dart';
+import '../../models/student_assigned_quiz.dart';
+import '../../models/student_assigned_quiz_alert.dart';
 import '../../models/subject.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/lesson_provider.dart';
+import '../../providers/student_assigned_quiz_provider.dart';
 import '../../services/local_storage_service.dart';
 import '../../services/quiz_service.dart';
 import '../../utils/error_handler.dart';
 import '../../widgets/error_state.dart';
 import '../../widgets/loading_state.dart';
 import '../../widgets/mascot.dart';
+import '../../widgets/student_assigned_quiz_alerts_section.dart';
+import '../../widgets/student_assigned_quizzes_section.dart';
+import '../../widgets/student_bottom_nav.dart';
 import '../../widgets/vibrant_background.dart';
 import '../learning/learning_screen.dart';
 import '../subject/subject_lessons_screen.dart';
@@ -36,14 +41,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _loadData() async {
     final lessonProvider = context.read<LessonProvider>();
-    await lessonProvider.loadDashboard();
+    final assignedQuizProvider = context.read<StudentAssignedQuizProvider>();
+    await Future.wait([
+      lessonProvider.loadDashboard(),
+      assignedQuizProvider.loadAssignedQuizzes(),
+    ]);
     if (!mounted) return;
-    if (lessonProvider.dashboard == null && lessonProvider.errorMessage != null) {
+    if (lessonProvider.dashboard == null &&
+        lessonProvider.errorMessage != null) {
       final storage = context.read<LocalStorageService>();
       if (!storage.isLoggedIn) {
-        Navigator.of(context).pushNamedAndRemoveUntil(
-          AppRoutes.login, (_) => false,
-        );
+        Navigator.of(
+          context,
+        ).pushNamedAndRemoveUntil(AppRoutes.login, (_) => false);
       }
     }
   }
@@ -55,126 +65,172 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         body: VibrantBackground(
           child: Consumer<LessonProvider>(
-          builder: (context, lessonProvider, _) {
-            if (lessonProvider.isLoading && lessonProvider.dashboard == null) {
-              return const LoadingState();
-            }
+            builder: (context, lessonProvider, _) {
+              if (lessonProvider.isLoading &&
+                  lessonProvider.dashboard == null) {
+                return const LoadingState();
+              }
 
-            if (lessonProvider.errorMessage != null &&
-                lessonProvider.dashboard == null) {
-              return ErrorState(
-                message: lessonProvider.errorMessage!,
-                onRetry: lessonProvider.loadDashboard,
-              );
-            }
+              if (lessonProvider.errorMessage != null &&
+                  lessonProvider.dashboard == null) {
+                return ErrorState(
+                  message: lessonProvider.errorMessage!,
+                  onRetry: lessonProvider.loadDashboard,
+                );
+              }
 
-            final dashboard = lessonProvider.dashboard;
-            if (dashboard == null) {
-              return ErrorState(
-                message: 'تعذّر تحميل البيانات',
-                onRetry: lessonProvider.loadDashboard,
-              );
-            }
+              final dashboard = lessonProvider.dashboard;
+              if (dashboard == null) {
+                return ErrorState(
+                  message: 'تعذّر تحميل البيانات',
+                  onRetry: lessonProvider.loadDashboard,
+                );
+              }
 
-            return SafeArea(
-              child: RefreshIndicator(
-                onRefresh: () => lessonProvider.loadDashboard(),
-                color: AppTheme.primaryTerracotta,
-                child: CustomScrollView(
-                  slivers: [
-                    SliverToBoxAdapter(
-                      child: _buildHeader(dashboard.fullName,
-                          dashboard.totalPoints, dashboard.currentStreak,
-                          dashboard.avatarId),
-                    ),
-                    SliverToBoxAdapter(
-                      child: _buildStatsRow(
-                        dashboard.totalPoints,
-                        dashboard.currentStreak,
-                        dashboard.subjects.fold<int>(
-                            0, (sum, s) => sum + s.completedLessons),
-                      ),
-                    ),
-                    // Daily-goal progress card — overall lessons completed vs
-                    // total across all subjects, with a warm progress bar.
-                    if (dashboard.subjects.isNotEmpty)
+              return SafeArea(
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    await Future.wait([
+                      lessonProvider.loadDashboard(),
+                      context
+                          .read<StudentAssignedQuizProvider>()
+                          .loadAssignedQuizzes(),
+                    ]);
+                  },
+                  color: AppTheme.primaryTerracotta,
+                  child: CustomScrollView(
+                    slivers: [
                       SliverToBoxAdapter(
-                        child: _DailyGoalCard(
-                          completed: dashboard.subjects.fold<int>(
-                              0, (sum, s) => sum + s.completedLessons),
-                          total: dashboard.subjects.fold<int>(
-                              0, (sum, s) => sum + s.totalLessons),
+                        child: _buildHeader(
+                          dashboard.fullName,
+                          dashboard.totalPoints,
+                          dashboard.currentStreak,
                         ),
                       ),
-                    // Knowledge Tracing "Challenge Me" — personalized adaptive
-                    // quiz entry point. Only shown when the student has
-                    // subjects to be challenged on.
-                    if (dashboard.subjects.isNotEmpty)
                       SliverToBoxAdapter(
-                        child: _ChallengeMeBanner(
-                          onTap: () => _openChallengePicker(dashboard.subjects),
+                        child: Consumer<StudentAssignedQuizProvider>(
+                          builder: (context, assignedProvider, _) {
+                            final hasQuizAlerts =
+                                buildStudentAssignedQuizAlerts(
+                                  assignedProvider.assignedQuizzes,
+                                ).isNotEmpty;
+                            return Column(
+                              children: [
+                                StudentAssignedQuizAlertsSection(
+                                  quizzes: assignedProvider.assignedQuizzes,
+                                  onAction: _startAssignedQuiz,
+                                  maxVisibleAlerts: 2,
+                                ),
+                                StudentAssignedQuizzesSection(
+                                  quizzes: assignedProvider.assignedQuizzes,
+                                  isLoading: assignedProvider.isLoading,
+                                  errorMessage: assignedProvider.errorMessage,
+                                  onRetry: assignedProvider.loadAssignedQuizzes,
+                                  onStart: _startAssignedQuiz,
+                                  compact: hasQuizAlerts,
+                                ),
+                              ],
+                            );
+                          },
                         ),
                       ),
-                    // Section header removed as it's now part of _buildStatsRow/Header style
-                    if (dashboard.subjects.isEmpty)
-                      // Defensive empty state — without this the user just
-                      // sees a section header over blank space and assumes
-                      // the app is broken. Most common cause: the student's
-                      // grade has no Subject rows yet (DataSeeder didn't run
-                      // for that grade's curriculum JSON). Tell the user
-                      // what's wrong and what to do.
-                      SliverToBoxAdapter(
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(
+                      SliverToBoxAdapter(child: _buildStatsRow()),
+                      // Section header removed as it's now part of _buildStatsRow/Header style
+                      if (dashboard.subjects.isEmpty)
+                        // Defensive empty state — without this the user just
+                        // sees a section header over blank space and assumes
+                        // the app is broken. Most common cause: the student's
+                        // grade has no Subject rows yet (DataSeeder didn't run
+                        // for that grade's curriculum JSON). Tell the user
+                        // what's wrong and what to do.
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(
                               AppTheme.space5,
                               AppTheme.space6,
                               AppTheme.space5,
-                              AppTheme.space8),
-                          child: _NoSubjectsCard(
-                            gradeLevel: dashboard.gradeLevel,
-                            onRetry: () => lessonProvider.loadDashboard(),
+                              AppTheme.space8,
+                            ),
+                            child: _NoSubjectsCard(
+                              gradeLevel: dashboard.gradeLevel,
+                              onRetry: () => lessonProvider.loadDashboard(),
+                            ),
                           ),
-                        ),
-                      )
-                    else
-                      SliverPadding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: AppTheme.space4),
-                        sliver: SliverGrid(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 14,
-                            mainAxisSpacing: 14,
-                            // Post-screenshot fix v2 (2026-05-24): 0.85 still
-                            // overflowed by 1.3px after the icon grew to 72px
-                            // and title bumped to 18pt w900. 0.78 gives a
-                            // comfortable ~10px of vertical headroom for the
-                            // longest 2-line Arabic name ("التربية الإسلامية").
-                            childAspectRatio: 0.78,
+                        )
+                      else
+                        SliverPadding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: AppTheme.space4,
                           ),
-                          delegate: SliverChildBuilderDelegate(
-                            (context, index) {
+                          sliver: SliverGrid(
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 14,
+                              mainAxisSpacing: 14,
+                              // Post-screenshot fix v2 (2026-05-24): 0.85 still
+                              // overflowed by 1.3px after the icon grew to 72px
+                              // and title bumped to 18pt w900. 0.78 gives a
+                              // comfortable ~10px of vertical headroom for the
+                              // longest 2-line Arabic name ("التربية الإسلامية").
+                              childAspectRatio: 0.78,
+                            ),
+                            delegate: SliverChildBuilderDelegate((
+                              context,
+                              index,
+                            ) {
                               return _SubjectCard(
                                 subject: dashboard.subjects[index],
                                 index: index,
                                 onTap: () => _openSubject(
-                                    dashboard.subjects[index], index),
+                                  dashboard.subjects[index],
+                                  index,
+                                ),
                               );
-                            },
-                            childCount: dashboard.subjects.length,
+                            }, childCount: dashboard.subjects.length),
                           ),
                         ),
+                      SliverToBoxAdapter(
+                        child: _RewardsEntryCard(
+                          points: dashboard.totalPoints,
+                          streak: dashboard.currentStreak,
+                          onTap: () => Navigator.pushNamed(
+                              context, AppRoutes.rewardsShop),
+                        ),
                       ),
-                    const SliverToBoxAdapter(child: SizedBox(height: 24)),
-                  ],
+                      // Daily-goal progress card — overall lessons completed vs
+                      // total across all subjects, with a warm progress bar.
+                      if (dashboard.subjects.isNotEmpty)
+                        SliverToBoxAdapter(
+                          child: _DailyGoalCard(
+                            completed: dashboard.subjects.fold<int>(
+                              0,
+                              (sum, s) => sum + s.completedLessons,
+                            ),
+                            total: dashboard.subjects.fold<int>(
+                              0,
+                              (sum, s) => sum + s.totalLessons,
+                            ),
+                          ),
+                        ),
+                      // Knowledge Tracing "Challenge Me" — personalized adaptive
+                      // quiz entry point. Only shown when the student has
+                      // subjects to be challenged on.
+                      if (dashboard.subjects.isNotEmpty)
+                        SliverToBoxAdapter(
+                          child: _ChallengeMeBanner(
+                            onTap: () =>
+                                _openChallengePicker(dashboard.subjects),
+                          ),
+                        ),
+                      const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
-        ),
-        bottomNavigationBar: _buildBottomNav(),
+        bottomNavigationBar: const StudentBottomNav(currentIndex: 0),
       ),
     );
   }
@@ -232,36 +288,87 @@ class _HomeScreenState extends State<HomeScreen> {
       final quiz = await quizService.generatePersonalizedQuiz(subject.id);
       navigator.pop(); // dismiss loading dialog
       if (quiz.questions.isEmpty) {
-        messenger.showSnackBar(const SnackBar(
-          content: Text('لا توجد أسئلة كافية لهذا التحدّي بعد.',
-              style: TextStyle(fontFamily: 'Cairo')),
-        ));
+        messenger.showSnackBar(
+          const SnackBar(
+            content: Text(
+              'لا توجد أسئلة كافية لهذا التحدّي بعد.',
+              style: TextStyle(fontFamily: 'Cairo'),
+            ),
+          ),
+        );
         return;
       }
-      navigator.push(MaterialPageRoute(
-        builder: (_) => LearningScreen(
-          lessonId: -1, // unused in personalized mode
-          lessonTitle: quiz.title,
-          personalizedQuiz: quiz,
-          englishMode: subject.name.contains('English') ||
-              subject.name.contains('نجليزية'),
+      navigator.push(
+        MaterialPageRoute(
+          builder: (_) => LearningScreen(
+            lessonId: -1, // unused in personalized mode
+            lessonTitle: quiz.title,
+            personalizedQuiz: quiz,
+          ),
         ),
-      ));
+      );
     } catch (e) {
       navigator.pop(); // dismiss loading dialog
-      messenger.showSnackBar(SnackBar(
-        content: Text(extractError(e),
-            style: const TextStyle(fontFamily: 'Cairo')),
-      ));
+      messenger.showSnackBar(
+        SnackBar(
+          content: Text(
+            extractError(e),
+            style: const TextStyle(fontFamily: 'Cairo'),
+          ),
+        ),
+      );
     }
   }
 
+  Future<void> _startAssignedQuiz(
+    StudentAssignedQuizSummary assignedQuiz,
+  ) async {
+    final assignedProvider = context.read<StudentAssignedQuizProvider>();
+    final navigator = Navigator.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+
+    final detail = await assignedProvider.loadAssignedQuizDetail(
+      assignedQuiz.assignmentId,
+    );
+    if (!mounted) return;
+
+    if (detail == null) {
+      messenger.showSnackBar(
+        SnackBar(
+          content: Text(
+            assignedProvider.detailErrorMessage ?? 'تعذّر فتح الاختبار',
+            style: const TextStyle(fontFamily: 'Cairo'),
+          ),
+        ),
+      );
+      return;
+    }
+
+    if (detail.questions.isEmpty) {
+      messenger.showSnackBar(
+        const SnackBar(
+          content: Text(
+            'لا توجد أسئلة في هذا الاختبار بعد.',
+            style: TextStyle(fontFamily: 'Cairo'),
+          ),
+        ),
+      );
+      return;
+    }
+
+    navigator.push(
+      MaterialPageRoute(
+        builder: (_) => LearningScreen(
+          lessonId: -1,
+          lessonTitle: detail.title,
+          assignedQuiz: detail,
+        ),
+      ),
+    );
+  }
+
   /// Duolingo-style top bar with stats.
-  Widget _buildHeader(String name, int points, int streak, String? avatarId) {
-    // Tier 3: the header circle shows the avatar the child picked on the
-    // rewards screen; the mascot remains the fallback for new accounts.
-    final avatar =
-        (avatarId == null || avatarId.isEmpty) ? null : Avatars.resolve(avatarId);
+  Widget _buildHeader(String name, int points, int streak) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: const BoxDecoration(
@@ -273,7 +380,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Avatar (Left) — tap to log out (existing behavior)
+          // Mascot Avatar (Left)
           GestureDetector(
             onTap: () => _showLogoutDialog(),
             child: Container(
@@ -284,35 +391,30 @@ class _HomeScreenState extends State<HomeScreen> {
                 shape: BoxShape.circle,
                 border: Border.all(color: AppTheme.surfaceMuted, width: 2),
               ),
-              alignment: Alignment.center,
-              child: avatar != null
-                  ? Text(avatar.emoji, style: const TextStyle(fontSize: 24))
-                  : const ClipOval(
-                      child: Mascot(mood: MascotMood.idle, size: 36),
-                    ),
+              child: const ClipOval(
+                child: Mascot(mood: MascotMood.idle, size: 36),
+              ),
             ),
           ),
 
-          // Stats Row (Center) — trophy opens the rewards screen (Tier 3)
+          // Stats Row (Center)
           Row(
             children: [
               _buildStatItem('🔥', '$streak', AppTheme.primaryOrange),
               const SizedBox(width: 16),
               _buildStatItem('⭐', '$points', AppTheme.primaryYellow),
-              const SizedBox(width: 16),
-              GestureDetector(
-                onTap: () =>
-                    Navigator.pushNamed(context, AppRoutes.rewards),
-                child: _buildStatItem(
-                    '🏆', 'مكافآتي', AppTheme.primaryTerracotta),
-              ),
             ],
           ),
 
           // Settings/Profile icon (Right)
           IconButton(
-            onPressed: () => Navigator.pushNamed(context, AppRoutes.settings),
-            icon: const Icon(Icons.person_rounded, color: AppTheme.textGray, size: 28),
+            onPressed: () =>
+                Navigator.pushReplacementNamed(context, AppRoutes.settings),
+            icon: const Icon(
+              Icons.person_rounded,
+              color: AppTheme.textGray,
+              size: 28,
+            ),
           ),
         ],
       ),
@@ -337,7 +439,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildStatsRow(int points, int streak, int completed) {
+  Widget _buildStatsRow() {
     // We moved stats to the header, so this can return a minimal sub-header
     return const Padding(
       padding: EdgeInsets.fromLTRB(20, 24, 20, 8),
@@ -353,51 +455,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildBottomNav() {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppTheme.cardWhite,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.06),
-              blurRadius: 12,
-              offset: const Offset(0, -2),
-            ),
-          ],
-        ),
-        child: BottomNavigationBar(
-          currentIndex: 0,
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: AppTheme.cardWhite,
-          elevation: 0,
-          selectedItemColor: AppTheme.primaryGreen,
-          unselectedItemColor: AppTheme.textLight,
-          selectedLabelStyle: const TextStyle(
-              fontFamily: 'Cairo', fontSize: 12, fontWeight: FontWeight.w800),
-          unselectedLabelStyle: const TextStyle(
-              fontFamily: 'Cairo', fontSize: 12, fontWeight: FontWeight.w600),
-          onTap: (index) {
-            if (index == 1) {
-              Navigator.pushNamed(context, AppRoutes.progress);
-            } else if (index == 2) {
-              Navigator.pushNamed(context, AppRoutes.settings);
-            }
-          },
-          items: const [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home_rounded), label: 'الرئيسية'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.bar_chart_rounded), label: 'تقدمي'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.settings_rounded), label: 'الإعدادات'),
-          ],
-        ),
-      ),
-    );
-  }
-
   void _showLogoutDialog() {
     showDialog(
       context: context,
@@ -406,7 +463,8 @@ class _HomeScreenState extends State<HomeScreen> {
         child: AlertDialog(
           backgroundColor: AppTheme.cardWhite,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(AppTheme.radiusXL)),
+            borderRadius: BorderRadius.circular(AppTheme.radiusXL),
+          ),
           title: const Text(
             'تسجيل الخروج',
             style: TextStyle(
@@ -419,27 +477,31 @@ class _HomeScreenState extends State<HomeScreen> {
           content: const Text(
             'هل تريد تسجيل الخروج؟',
             style: TextStyle(
-                fontFamily: 'Cairo',
-                fontSize: 15,
-                color: AppTheme.textDark,
-                height: 1.5),
+              fontFamily: 'Cairo',
+              fontSize: 15,
+              color: AppTheme.textDark,
+              height: 1.5,
+            ),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx),
-              child: const Text('إلغاء',
-                  style: TextStyle(
-                    fontFamily: 'Cairo',
-                    color: AppTheme.textGray,
-                    fontWeight: FontWeight.w700,
-                  )),
+              child: const Text(
+                'إلغاء',
+                style: TextStyle(
+                  fontFamily: 'Cairo',
+                  color: AppTheme.textGray,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(ctx);
                 context.read<AuthProvider>().logout();
-                Navigator.of(context)
-                    .pushNamedAndRemoveUntil(AppRoutes.login, (_) => false);
+                Navigator.of(
+                  context,
+                ).pushNamedAndRemoveUntil(AppRoutes.login, (_) => false);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppTheme.primaryRed,
@@ -448,13 +510,163 @@ class _HomeScreenState extends State<HomeScreen> {
               child: const Text(
                 'تسجيل الخروج',
                 style: TextStyle(
-                    fontFamily: 'Cairo',
-                    fontWeight: FontWeight.w800,
-                    color: Colors.white),
+                  fontFamily: 'Cairo',
+                  fontWeight: FontWeight.w800,
+                  color: Colors.white,
+                ),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _RewardsEntryCard extends StatelessWidget {
+  const _RewardsEntryCard({
+    required this.points,
+    required this.streak,
+    required this.onTap,
+  });
+
+  final int points;
+  final int streak;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 10, 16, 8),
+      child: Material(
+        color: AppTheme.cardWhite,
+        borderRadius: BorderRadius.circular(AppTheme.radiusL),
+        child: InkWell(
+          key: const ValueKey('student-rewards-entry-card'),
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(AppTheme.radiusL),
+          child: Container(
+            padding: const EdgeInsets.all(AppTheme.space4),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(AppTheme.radiusL),
+              border: Border.all(
+                color: AppTheme.primaryYellow.withValues(alpha: 0.45),
+                width: 1.5,
+              ),
+              boxShadow: AppTheme.elevationLow,
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 46,
+                  height: 46,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: AppTheme.primaryYellow.withValues(alpha: 0.18),
+                    borderRadius: BorderRadius.circular(AppTheme.radiusM),
+                  ),
+                  child: const Icon(
+                    Icons.redeem_rounded,
+                    color: AppTheme.primaryYellowDeep,
+                    size: 27,
+                  ),
+                ),
+                const SizedBox(width: AppTheme.space3),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'متجر المكافآت',
+                        style: TextStyle(
+                          fontFamily: 'Cairo',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w900,
+                          color: AppTheme.textDark,
+                        ),
+                      ),
+                      const SizedBox(height: AppTheme.space1),
+                      const Text(
+                        'استخدم نجومك لفتح مكافآت شكلية',
+                        style: TextStyle(
+                          fontFamily: 'Cairo',
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: AppTheme.textGray,
+                        ),
+                      ),
+                      const SizedBox(height: AppTheme.space2),
+                      Wrap(
+                        spacing: AppTheme.space2,
+                        runSpacing: AppTheme.space2,
+                        children: [
+                          _MiniRewardStat(
+                            icon: Icons.star_rounded,
+                            label: '$points نجمة',
+                            color: AppTheme.primaryYellowDeep,
+                          ),
+                          _MiniRewardStat(
+                            icon: Icons.local_fire_department_rounded,
+                            label: '$streak يوم',
+                            color: AppTheme.primaryOrange,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: AppTheme.space3),
+                const Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  size: 18,
+                  color: AppTheme.textGray,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _MiniRewardStat extends StatelessWidget {
+  const _MiniRewardStat({
+    required this.icon,
+    required this.label,
+    required this.color,
+  });
+
+  final IconData icon;
+  final String label;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppTheme.space2,
+        vertical: AppTheme.space1,
+      ),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(AppTheme.radiusPill),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 15, color: color),
+          const SizedBox(width: AppTheme.space1),
+          Text(
+            label,
+            style: TextStyle(
+              fontFamily: 'Cairo',
+              fontSize: 11,
+              fontWeight: FontWeight.w900,
+              color: color,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -484,13 +696,13 @@ class _SubjectColorRouter {
   static IconData iconForName(String name) {
     switch (indexForName(name)) {
       case 1:
-        return Icons.calculate_rounded;   // math
+        return Icons.calculate_rounded; // math
       case 2:
-        return Icons.mosque_rounded;      // islamic
+        return Icons.mosque_rounded; // islamic
       case 3:
-        return Icons.language_rounded;    // english
+        return Icons.language_rounded; // english
       default:
-        return Icons.menu_book_rounded;   // arabic + unknown
+        return Icons.menu_book_rounded; // arabic + unknown
     }
   }
 }
@@ -525,9 +737,7 @@ class _NoSubjectsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Center(
-            child: Mascot(mood: MascotMood.sad, size: 110),
-          ),
+          const Center(child: Mascot(mood: MascotMood.sad, size: 110)),
           const AppGap.v4(),
           Text(
             'لا توجد مواد للصف $gradeLevel بعد',
@@ -670,9 +880,10 @@ class _SubjectCardState extends State<_SubjectCard>
       vsync: this,
       duration: const Duration(milliseconds: 480),
     );
-    _scale = Tween<double>(begin: 0.85, end: 1.0).animate(
-      CurvedAnimation(parent: _entrance, curve: Curves.easeOutBack),
-    );
+    _scale = Tween<double>(
+      begin: 0.85,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _entrance, curve: Curves.easeOutBack));
     _opacity = CurvedAnimation(parent: _entrance, curve: Curves.easeOut);
     // Stagger each card 80ms after the previous so the grid waves in.
     Future.delayed(Duration(milliseconds: 80 * widget.index), () {
@@ -708,10 +919,7 @@ class _SubjectCardState extends State<_SubjectCard>
               decoration: BoxDecoration(
                 color: AppTheme.cardWhite,
                 borderRadius: BorderRadius.circular(AppTheme.radiusXL),
-                border: Border.all(
-                  color: AppTheme.surfaceMuted,
-                  width: 2,
-                ),
+                border: Border.all(color: AppTheme.surfaceMuted, width: 2),
                 boxShadow: [
                   BoxShadow(
                     color: AppTheme.surfaceMuted,
@@ -835,18 +1043,23 @@ class _DailyGoalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fraction =
-        total == 0 ? 0.0 : (completed / total).clamp(0.0, 1.0).toDouble();
+    final fraction = total == 0
+        ? 0.0
+        : (completed / total).clamp(0.0, 1.0).toDouble();
     final allDone = fraction >= 1.0;
     final message = total == 0
         ? 'ستبدأ دروسك قريباً!'
         : allDone
-            ? 'أحسنت! أكملت كل الدروس 🎉'
-            : 'استمرّ، أنت تتقدّم بشكل رائع!';
+        ? 'أحسنت! أكملت كل الدروس 🎉'
+        : 'استمرّ، أنت تتقدّم بشكل رائع!';
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(
-          AppTheme.space4, AppTheme.space2, AppTheme.space4, AppTheme.space2),
+        AppTheme.space4,
+        AppTheme.space2,
+        AppTheme.space4,
+        AppTheme.space2,
+      ),
       child: Container(
         padding: const EdgeInsets.all(AppTheme.space4),
         decoration: BoxDecoration(
@@ -890,7 +1103,9 @@ class _DailyGoalCard extends StatelessWidget {
                 value: fraction,
                 minHeight: 14,
                 backgroundColor: AppTheme.surfaceMuted,
-                valueColor: const AlwaysStoppedAnimation(AppTheme.primaryYellow),
+                valueColor: const AlwaysStoppedAnimation(
+                  AppTheme.primaryYellow,
+                ),
               ),
             ),
             const SizedBox(height: AppTheme.space2),
@@ -919,7 +1134,11 @@ class _ChallengeMeBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(
-          AppTheme.space4, AppTheme.space2, AppTheme.space4, AppTheme.space2),
+        AppTheme.space4,
+        AppTheme.space2,
+        AppTheme.space4,
+        AppTheme.space2,
+      ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
@@ -941,7 +1160,9 @@ class _ChallengeMeBanner extends StatelessWidget {
               ],
             ),
             padding: const EdgeInsets.symmetric(
-                horizontal: AppTheme.space5, vertical: AppTheme.space4),
+              horizontal: AppTheme.space5,
+              vertical: AppTheme.space4,
+            ),
             child: Row(
               children: [
                 const Text('⚡', style: TextStyle(fontSize: 34)),
@@ -971,8 +1192,11 @@ class _ChallengeMeBanner extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Icon(Icons.arrow_forward_ios_rounded,
-                    color: Colors.white, size: 18),
+                const Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  color: Colors.white,
+                  size: 18,
+                ),
               ],
             ),
           ),
@@ -1037,11 +1261,16 @@ class _ChallengeSubjectPicker extends StatelessWidget {
                   onTap: () => onPick(s),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 18, vertical: 16),
+                      horizontal: 18,
+                      vertical: 16,
+                    ),
                     child: Row(
                       children: [
-                        Icon(_SubjectColorRouter.iconForName(s.name),
-                            color: color, size: 28),
+                        Icon(
+                          _SubjectColorRouter.iconForName(s.name),
+                          color: color,
+                          size: 28,
+                        ),
                         const SizedBox(width: 14),
                         Expanded(
                           child: Text(

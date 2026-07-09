@@ -7,6 +7,7 @@ import '../../providers/progress_provider.dart';
 import '../../widgets/error_state.dart';
 import '../../widgets/loading_state.dart';
 import '../../widgets/stat_card.dart';
+import '../../widgets/student_bottom_nav.dart';
 import '../../widgets/vibrant_background.dart';
 
 class ProgressScreen extends StatefulWidget {
@@ -46,6 +47,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
             ),
           ],
         ),
+        bottomNavigationBar: const StudentBottomNav(currentIndex: 1),
         body: VibrantBackground(
           backgroundColor: AppTheme.backgroundLight,
           pattern: BackgroundPattern.none,
@@ -304,7 +306,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                         borderRadius: BorderRadius.circular(4),
                         child: LinearProgressIndicator(
                           value: subject.progressPercent,
-                          backgroundColor: Colors.grey.shade200,
+                          backgroundColor: AppTheme.surfaceMuted,
                           valueColor: AlwaysStoppedAnimation(color),
                           minHeight: 6,
                         ),
@@ -436,10 +438,10 @@ class _ProgressScreenState extends State<ProgressScreen> {
                           horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
                         color: activity.score! >= 80
-                            ? Colors.green.shade50
+                            ? AppTheme.successContainer
                             : activity.score! >= 50
-                                ? Colors.orange.shade50
-                                : Colors.red.shade50,
+                                ? AppTheme.warningContainer
+                                : AppTheme.errorContainer,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
@@ -449,10 +451,10 @@ class _ProgressScreenState extends State<ProgressScreen> {
                           fontSize: 13,
                           fontWeight: FontWeight.bold,
                           color: activity.score! >= 80
-                              ? Colors.green
+                              ? AppTheme.primaryGreen
                               : activity.score! >= 50
-                                  ? Colors.orange
-                                  : Colors.red,
+                                  ? AppTheme.primaryOrange
+                                  : AppTheme.primaryRed,
                         ),
                       ),
                     ),

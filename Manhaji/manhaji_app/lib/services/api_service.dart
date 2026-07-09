@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import '../config/api_config.dart';
 import '../utils/app_log.dart';
 import 'local_storage_service.dart';
@@ -25,13 +26,15 @@ class ApiService {
   final LocalStorageService _storage;
 
   ApiService(this._storage) {
-    _dio = Dio(BaseOptions(
-      baseUrl: ApiConfig.baseUrl,
-      connectTimeout: const Duration(seconds: 15),
-      receiveTimeout: const Duration(seconds: 15),
-      sendTimeout: const Duration(seconds: 15),
-      headers: {'Content-Type': 'application/json'},
-    ));
+    _dio = Dio(
+      BaseOptions(
+        baseUrl: ApiConfig.baseUrl,
+        connectTimeout: const Duration(seconds: 15),
+        receiveTimeout: const Duration(seconds: 15),
+        sendTimeout: kIsWeb ? null : const Duration(seconds: 15),
+        headers: {'Content-Type': 'application/json'},
+      ),
+    );
 
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
@@ -84,8 +87,10 @@ class ApiService {
   /// the demo will see these. The console still gets the raw exception via
   /// [debugPrint] for us to diagnose post-demo.
   Never _throwFriendly(DioException err) {
-    _log.e('${err.requestOptions.method} ${err.requestOptions.path} '
-        '[${err.type.name}] status=${err.response?.statusCode} ${err.message}');
+    _log.e(
+      '${err.requestOptions.method} ${err.requestOptions.path} '
+      '[${err.type.name}] status=${err.response?.statusCode} ${err.message}',
+    );
     final status = err.response?.statusCode;
     String msg;
     switch (err.type) {
@@ -108,9 +113,10 @@ class ApiService {
           msg = 'حدث خطأ في الخادم. نحاول إصلاحه.';
         } else if (serverMsg != null && serverMsg.isNotEmpty) {
           msg = serverMsg;
-        } else if (status == 401 || status == 403) {
-          // No message from the server (e.g. an expired token mid-session).
+        } else if (status == 401) {
           msg = 'تحتاج لتسجيل الدخول من جديد.';
+        } else if (status == 403) {
+          msg = 'ليس لديك صلاحية للوصول إلى هذا المورد.';
         } else {
           msg = 'طلب غير صالح.';
         }
@@ -131,20 +137,16 @@ class ApiService {
       final refreshToken = await _storage.getRefreshToken();
       if (refreshToken == null) return false;
 
-      final response = await Dio(BaseOptions(baseUrl: ApiConfig.baseUrl)).post(
-        ApiConfig.refreshToken,
-        data: {'refreshToken': refreshToken},
-      );
+      final response = await Dio(
+        BaseOptions(baseUrl: ApiConfig.baseUrl),
+      ).post(ApiConfig.refreshToken, data: {'refreshToken': refreshToken});
 
       if (response.data['success'] == true) {
         final data = response.data['data'];
         if (data is Map &&
             data['accessToken'] != null &&
             data['refreshToken'] != null) {
-          await _storage.saveTokens(
-            data['accessToken'],
-            data['refreshToken'],
-          );
+          await _storage.saveTokens(data['accessToken'], data['refreshToken']);
           return true;
         }
       }
@@ -169,8 +171,10 @@ class ApiService {
     );
   }
 
-  Future<Map<String, dynamic>> get(String path,
-      {Map<String, dynamic>? queryParams}) async {
+  Future<Map<String, dynamic>> get(
+    String path, {
+    Map<String, dynamic>? queryParams,
+  }) async {
     try {
       final response = await _dio.get(path, queryParameters: queryParams);
       return _asMap(response.data);
@@ -179,8 +183,10 @@ class ApiService {
     }
   }
 
-  Future<Map<String, dynamic>> post(String path,
-      {Map<String, dynamic>? data}) async {
+  Future<Map<String, dynamic>> post(
+    String path, {
+    Map<String, dynamic>? data,
+  }) async {
     try {
       final response = await _dio.post(path, data: data);
       return _asMap(response.data);
@@ -189,10 +195,33 @@ class ApiService {
     }
   }
 
-  Future<Map<String, dynamic>> put(String path,
-      {Map<String, dynamic>? data}) async {
+  Future<Map<String, dynamic>> put(
+    String path, {
+    Map<String, dynamic>? data,
+  }) async {
     try {
       final response = await _dio.put(path, data: data);
+      return _asMap(response.data);
+    } on DioException catch (e) {
+      _throwFriendly(e);
+    }
+  }
+
+  Future<Map<String, dynamic>> putRaw(String path, {Object? data}) async {
+    try {
+      final response = await _dio.put(path, data: data);
+      return _asMap(response.data);
+    } on DioException catch (e) {
+      _throwFriendly(e);
+    }
+  }
+
+  Future<Map<String, dynamic>> patch(
+    String path, {
+    Map<String, dynamic>? data,
+  }) async {
+    try {
+      final response = await _dio.patch(path, data: data);
       return _asMap(response.data);
     } on DioException catch (e) {
       _throwFriendly(e);
@@ -208,8 +237,10 @@ class ApiService {
     }
   }
 
-  Future<Map<String, dynamic>> postMultipart(String path,
-      {required FormData formData}) async {
+  Future<Map<String, dynamic>> postMultipart(
+    String path, {
+    required FormData formData,
+  }) async {
     try {
       final response = await _dio.post(path, data: formData);
       return _asMap(response.data);

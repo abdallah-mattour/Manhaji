@@ -4,15 +4,16 @@ import com.springboot.manhaji.config.JwtService;
 import com.springboot.manhaji.dto.request.LoginRequest;
 import com.springboot.manhaji.dto.request.PhoneLoginRequest;
 import com.springboot.manhaji.dto.request.RegisterRequest;
+import com.springboot.manhaji.dto.request.UpdateProfileRequest;
 import com.springboot.manhaji.dto.response.AuthResponse;
 import com.springboot.manhaji.entity.Admin;
 import com.springboot.manhaji.entity.Parent;
 import com.springboot.manhaji.entity.Student;
 import com.springboot.manhaji.entity.Teacher;
 import com.springboot.manhaji.entity.enums.Role;
+import com.springboot.manhaji.exception.AuthenticationFailedException;
 import com.springboot.manhaji.exception.BadRequestException;
 import com.springboot.manhaji.exception.ResourceNotFoundException;
-import com.springboot.manhaji.exception.UnauthorizedException;
 import com.springboot.manhaji.repository.UserRepository;
 import com.springboot.manhaji.infrastructure.TestMessages;
 import org.junit.jupiter.api.BeforeEach;
@@ -137,6 +138,7 @@ class AuthServiceTest {
             request.setPassword("pass123");
             request.setRole(Role.STUDENT);
             request.setFullName("Test");
+            request.setGradeLevel(1);
 
             when(userRepository.existsByEmail("taken@test.com")).thenReturn(true);
 
@@ -153,6 +155,7 @@ class AuthServiceTest {
             request.setPassword("pass123");
             request.setRole(Role.STUDENT);
             request.setFullName("Test");
+            request.setGradeLevel(1);
 
             when(userRepository.existsByPhone("0591234567")).thenReturn(true);
 
@@ -168,6 +171,7 @@ class AuthServiceTest {
             request.setPassword("pass123");
             request.setRole(Role.STUDENT);
             request.setFullName("Test");
+            request.setGradeLevel(1);
 
             assertThatThrownBy(() -> authService.register(request))
                     .isInstanceOf(BadRequestException.class)
@@ -205,6 +209,89 @@ class AuthServiceTest {
             ArgumentCaptor<Parent> captor = ArgumentCaptor.forClass(Parent.class);
             verify(userRepository).save(captor.capture());
             assertThat(captor.getValue().getPasswordHash()).isEqualTo("hashed_password");
+        }
+
+        @Test
+        @DisplayName("should reject student with null gradeLevel")
+        void rejectStudentWithNullGradeLevel() {
+            RegisterRequest request = new RegisterRequest();
+            request.setFullName("طالب");
+            request.setEmail("student@test.com");
+            request.setPassword("pass123");
+            request.setRole(Role.STUDENT);
+            // gradeLevel left null — validation must fire before any repository call
+
+            assertThatThrownBy(() -> authService.register(request))
+                    .isInstanceOf(BadRequestException.class)
+                    .hasMessageContaining("يجب تحديد الصف الدراسي");
+            verifyNoInteractions(userRepository, passwordEncoder, jwtService);
+        }
+
+        @Test
+        @DisplayName("should reject student with gradeLevel 0 (below minimum)")
+        void rejectStudentWithGradeLevelZero() {
+            RegisterRequest request = new RegisterRequest();
+            request.setFullName("طالب");
+            request.setEmail("student@test.com");
+            request.setPassword("pass123");
+            request.setRole(Role.STUDENT);
+            request.setGradeLevel(0);
+
+            assertThatThrownBy(() -> authService.register(request))
+                    .isInstanceOf(BadRequestException.class)
+                    .hasMessageContaining("يجب أن يكون بين 1 و 4");
+            verifyNoInteractions(userRepository, passwordEncoder, jwtService);
+        }
+
+        @Test
+        @DisplayName("should reject student with gradeLevel 5 (above maximum)")
+        void rejectStudentWithGradeLevelTooHigh() {
+            RegisterRequest request = new RegisterRequest();
+            request.setFullName("طالب");
+            request.setEmail("student@test.com");
+            request.setPassword("pass123");
+            request.setRole(Role.STUDENT);
+            request.setGradeLevel(5);
+
+            assertThatThrownBy(() -> authService.register(request))
+                    .isInstanceOf(BadRequestException.class)
+                    .hasMessageContaining("يجب أن يكون بين 1 و 4");
+            verifyNoInteractions(userRepository, passwordEncoder, jwtService);
+        }
+
+        @Test
+        @DisplayName("parent registration succeeds without gradeLevel")
+        void parentRegistrationDoesNotRequireGradeLevel() {
+            RegisterRequest request = new RegisterRequest();
+            request.setFullName("ولي أمر");
+            request.setEmail("parent@test.com");
+            request.setPassword("pass123");
+            request.setRole(Role.PARENT);
+            // gradeLevel not set — must not be required for non-student roles
+
+            when(userRepository.existsByEmail("parent@test.com")).thenReturn(false);
+            when(passwordEncoder.encode("pass123")).thenReturn("hashed");
+            when(userRepository.save(any())).thenAnswer(inv -> {
+                Parent p = (Parent) inv.getArgument(0);
+                p.setId(10L);
+                return p;
+            });
+            when(userRepository.findById(10L)).thenAnswer(inv -> {
+                Parent p = new Parent();
+                p.setId(10L);
+                p.setFullName("ولي أمر");
+                p.setEmail("parent@test.com");
+                p.setRole(Role.PARENT);
+                return Optional.of(p);
+            });
+            when(jwtService.generateAccessToken(any())).thenReturn("access_token");
+            when(jwtService.generateRefreshToken(any())).thenReturn("refresh_token");
+
+            AuthResponse response = authService.register(request);
+
+            assertThat(response.getUserId()).isEqualTo(10L);
+            assertThat(response.getRole()).isEqualTo(Role.PARENT);
+            assertThat(response.getGradeLevel()).isNull();
         }
     }
 
@@ -256,7 +343,7 @@ class AuthServiceTest {
             when(passwordEncoder.matches("wrong_pass", "hashed_pass")).thenReturn(false);
 
             assertThatThrownBy(() -> authService.loginWithEmail(request))
-                    .isInstanceOf(UnauthorizedException.class);
+                    .isInstanceOf(AuthenticationFailedException.class);
         }
 
         @Test
@@ -269,7 +356,7 @@ class AuthServiceTest {
             when(userRepository.findByEmail("nobody@test.com")).thenReturn(Optional.empty());
 
             assertThatThrownBy(() -> authService.loginWithEmail(request))
-                    .isInstanceOf(UnauthorizedException.class);
+                    .isInstanceOf(AuthenticationFailedException.class);
         }
 
         @Test
@@ -291,7 +378,7 @@ class AuthServiceTest {
             when(passwordEncoder.matches("correct_pass", "hashed_pass")).thenReturn(true);
 
             assertThatThrownBy(() -> authService.loginWithEmail(request))
-                    .isInstanceOf(UnauthorizedException.class)
+                    .isInstanceOf(AuthenticationFailedException.class)
                     .hasMessageContaining("تعطيل");
             // Critical: no tokens minted, no save called.
             verify(jwtService, never()).generateAccessToken(any());
@@ -340,7 +427,7 @@ class AuthServiceTest {
             when(userRepository.findByPhone("0000000000")).thenReturn(Optional.empty());
 
             assertThatThrownBy(() -> authService.loginWithPhone(request))
-                    .isInstanceOf(UnauthorizedException.class);
+                    .isInstanceOf(AuthenticationFailedException.class);
         }
     }
 
@@ -380,7 +467,7 @@ class AuthServiceTest {
             when(jwtService.isRefreshToken("expired_token")).thenReturn(false);
 
             assertThatThrownBy(() -> authService.refreshToken("expired_token"))
-                    .isInstanceOf(UnauthorizedException.class)
+                    .isInstanceOf(AuthenticationFailedException.class)
                     .hasMessageContaining("Invalid or expired refresh token");
         }
 
@@ -393,7 +480,7 @@ class AuthServiceTest {
             when(jwtService.isRefreshToken("access_token_replayed")).thenReturn(false);
 
             assertThatThrownBy(() -> authService.refreshToken("access_token_replayed"))
-                    .isInstanceOf(UnauthorizedException.class);
+                    .isInstanceOf(AuthenticationFailedException.class);
             verify(userRepository, never()).findByEmail(any());
         }
 
@@ -411,9 +498,320 @@ class AuthServiceTest {
             when(userRepository.findByEmail("disabled@test.com")).thenReturn(Optional.of(disabled));
 
             assertThatThrownBy(() -> authService.refreshToken("valid_refresh"))
-                    .isInstanceOf(UnauthorizedException.class)
+                    .isInstanceOf(AuthenticationFailedException.class)
                     .hasMessageContaining("تعطيل");
             verify(jwtService, never()).generateAccessToken(any());
+        }
+    }
+
+    // ==================== Change Password Tests ====================
+
+    @Nested
+    @DisplayName("changePassword()")
+    class ChangePasswordTests {
+
+        @Test
+        @DisplayName("should change password when current password is correct")
+        void changePasswordSuccess() {
+            Student student = new Student();
+            student.setId(1L);
+            student.setPasswordHash("hashed_old");
+            student.setRole(Role.STUDENT);
+
+            when(userRepository.findById(1L)).thenReturn(Optional.of(student));
+            when(passwordEncoder.matches("old_pass", "hashed_old")).thenReturn(true);
+            when(passwordEncoder.encode("new_pass123")).thenReturn("hashed_new");
+            when(userRepository.save(any())).thenReturn(student);
+
+            authService.changePassword(1L, "old_pass", "new_pass123");
+
+            ArgumentCaptor<Student> captor = ArgumentCaptor.forClass(Student.class);
+            verify(userRepository).save(captor.capture());
+            assertThat(captor.getValue().getPasswordHash()).isEqualTo("hashed_new");
+        }
+
+        @Test
+        @DisplayName("should save encoded hash, not plaintext new password")
+        void savedPasswordIsEncoded() {
+            Student student = new Student();
+            student.setId(2L);
+            student.setPasswordHash("hashed_old");
+
+            when(userRepository.findById(2L)).thenReturn(Optional.of(student));
+            when(passwordEncoder.matches("old", "hashed_old")).thenReturn(true);
+            when(passwordEncoder.encode("brand_new")).thenReturn("$2a$10$fakeHashedValue");
+            when(userRepository.save(any())).thenReturn(student);
+
+            authService.changePassword(2L, "old", "brand_new");
+
+            ArgumentCaptor<Student> captor = ArgumentCaptor.forClass(Student.class);
+            verify(userRepository).save(captor.capture());
+            // Must be encoded value, never the plaintext
+            assertThat(captor.getValue().getPasswordHash()).isNotEqualTo("brand_new");
+            assertThat(captor.getValue().getPasswordHash()).isEqualTo("$2a$10$fakeHashedValue");
+        }
+
+        @Test
+        @DisplayName("should reject wrong current password")
+        void changePasswordWrongCurrent() {
+            Student student = new Student();
+            student.setId(3L);
+            student.setPasswordHash("hashed_old");
+
+            when(userRepository.findById(3L)).thenReturn(Optional.of(student));
+            when(passwordEncoder.matches("wrong_pass", "hashed_old")).thenReturn(false);
+
+            assertThatThrownBy(() -> authService.changePassword(3L, "wrong_pass", "new_pass123"))
+                    .isInstanceOf(BadRequestException.class)
+                    .hasMessageContaining("كلمة المرور الحالية غير صحيحة");
+            verify(userRepository, never()).save(any());
+        }
+
+        @Test
+        @DisplayName("should reject when new password equals current password")
+        void changePasswordSamePassword() {
+            Student student = new Student();
+            student.setId(4L);
+            student.setPasswordHash("hashed_pass");
+
+            when(userRepository.findById(4L)).thenReturn(Optional.of(student));
+            when(passwordEncoder.matches("same_pass", "hashed_pass")).thenReturn(true);
+
+            assertThatThrownBy(() -> authService.changePassword(4L, "same_pass", "same_pass"))
+                    .isInstanceOf(BadRequestException.class)
+                    .hasMessageContaining("يجب أن تختلف");
+            verify(userRepository, never()).save(any());
+        }
+
+        @Test
+        @DisplayName("should throw when user not found")
+        void changePasswordUserNotFound() {
+            when(userRepository.findById(999L)).thenReturn(Optional.empty());
+
+            assertThatThrownBy(() -> authService.changePassword(999L, "any_pass", "new_pass123"))
+                    .isInstanceOf(ResourceNotFoundException.class);
+            verify(passwordEncoder, never()).matches(any(), any());
+            verify(userRepository, never()).save(any());
+        }
+    }
+
+    // ==================== Update Profile Tests ====================
+
+    @Nested
+    @DisplayName("updateProfile()")
+    class UpdateProfileTests {
+
+        @Test
+        @DisplayName("should update fullName when provided")
+        void updateFullName() {
+            Student student = new Student();
+            student.setId(1L);
+            student.setFullName("اسم قديم");
+            student.setEmail("user@test.com");
+            student.setRole(Role.STUDENT);
+            student.setGradeLevel(1);
+
+            when(userRepository.findById(1L)).thenReturn(Optional.of(student));
+            when(userRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+            UpdateProfileRequest request = new UpdateProfileRequest();
+            request.setFullName("اسم جديد");
+
+            AuthResponse response = authService.updateProfile(1L, request);
+
+            assertThat(response.getFullName()).isEqualTo("اسم جديد");
+            verify(userRepository).save(argThat(u -> "اسم جديد".equals(u.getFullName())));
+        }
+
+        @Test
+        @DisplayName("should update student avatarId when provided")
+        void updateStudentAvatarId() {
+            Student student = new Student();
+            student.setId(11L);
+            student.setFullName("طالبة");
+            student.setEmail("student-avatar@test.com");
+            student.setRole(Role.STUDENT);
+            student.setGradeLevel(2);
+
+            when(userRepository.findById(11L)).thenReturn(Optional.of(student));
+            when(userRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+            UpdateProfileRequest request = new UpdateProfileRequest();
+            request.setFullName("طالبة");
+            request.setAvatarId("avatar-book");
+
+            AuthResponse response = authService.updateProfile(11L, request);
+
+            assertThat(response.getAvatarId()).isEqualTo("avatar-book");
+            assertThat(response.getGradeLevel()).isEqualTo(2);
+            verify(userRepository).save(argThat(u ->
+                    u instanceof Student saved && "avatar-book".equals(saved.getAvatarId())));
+        }
+
+        @Test
+        @DisplayName("should update teacher avatarId without changing role")
+        void updateTeacherAvatarId() {
+            Teacher teacher = new Teacher();
+            teacher.setId(12L);
+            teacher.setFullName("معلمة");
+            teacher.setEmail("teacher-avatar@test.com");
+            teacher.setRole(Role.TEACHER);
+
+            when(userRepository.findById(12L)).thenReturn(Optional.of(teacher));
+            when(userRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+            UpdateProfileRequest request = new UpdateProfileRequest();
+            request.setAvatarId("avatar-star");
+
+            AuthResponse response = authService.updateProfile(12L, request);
+
+            assertThat(response.getRole()).isEqualTo(Role.TEACHER);
+            assertThat(response.getAvatarId()).isEqualTo("avatar-star");
+            verify(userRepository).save(argThat(u ->
+                    u instanceof Teacher saved && "avatar-star".equals(saved.getAvatarId())));
+        }
+
+        @Test
+        @DisplayName("blank avatarId clears safely to null")
+        void blankAvatarClearsToNull() {
+            Parent parent = new Parent();
+            parent.setId(13L);
+            parent.setFullName("ولي أمر");
+            parent.setEmail("parent-avatar@test.com");
+            parent.setRole(Role.PARENT);
+            parent.setAvatarId("avatar-old");
+
+            when(userRepository.findById(13L)).thenReturn(Optional.of(parent));
+            when(userRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+            UpdateProfileRequest request = new UpdateProfileRequest();
+            request.setAvatarId("   ");
+
+            AuthResponse response = authService.updateProfile(13L, request);
+
+            assertThat(response.getAvatarId()).isNull();
+            verify(userRepository).save(argThat(u ->
+                    u instanceof Parent saved && saved.getAvatarId() == null));
+        }
+
+        @Test
+        @DisplayName("should update email when provided and not a duplicate")
+        void updateEmail() {
+            Student student = new Student();
+            student.setId(2L);
+            student.setFullName("طالب");
+            student.setEmail("old@test.com");
+            student.setRole(Role.STUDENT);
+
+            when(userRepository.findById(2L)).thenReturn(Optional.of(student));
+            when(userRepository.existsByEmail("new@test.com")).thenReturn(false);
+            when(userRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+            UpdateProfileRequest request = new UpdateProfileRequest();
+            request.setEmail("new@test.com");
+
+            AuthResponse response = authService.updateProfile(2L, request);
+
+            assertThat(response.getEmail()).isEqualTo("new@test.com");
+            verify(userRepository).existsByEmail("new@test.com");
+        }
+
+        @Test
+        @DisplayName("should update phone when provided and not a duplicate")
+        void updatePhone() {
+            Student student = new Student();
+            student.setId(3L);
+            student.setFullName("طالب");
+            student.setPhone("0591111111");
+            student.setRole(Role.STUDENT);
+
+            when(userRepository.findById(3L)).thenReturn(Optional.of(student));
+            when(userRepository.existsByPhone("0592222222")).thenReturn(false);
+            when(userRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+            UpdateProfileRequest request = new UpdateProfileRequest();
+            request.setPhone("0592222222");
+
+            AuthResponse response = authService.updateProfile(3L, request);
+
+            assertThat(response.getPhone()).isEqualTo("0592222222");
+            verify(userRepository).existsByPhone("0592222222");
+        }
+
+        @Test
+        @DisplayName("should skip uniqueness check when email is unchanged")
+        void sameEmailSkipsUniquenessCheck() {
+            Student student = new Student();
+            student.setId(4L);
+            student.setEmail("same@test.com");
+            student.setFullName("طالب");
+            student.setRole(Role.STUDENT);
+
+            when(userRepository.findById(4L)).thenReturn(Optional.of(student));
+            when(userRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+            UpdateProfileRequest request = new UpdateProfileRequest();
+            request.setEmail("same@test.com");
+
+            authService.updateProfile(4L, request);
+
+            verify(userRepository, never()).existsByEmail(any());
+        }
+
+        @Test
+        @DisplayName("should reject duplicate email belonging to another user")
+        void duplicateEmailRejected() {
+            Student student = new Student();
+            student.setId(5L);
+            student.setEmail("mine@test.com");
+            student.setFullName("طالب");
+            student.setRole(Role.STUDENT);
+
+            when(userRepository.findById(5L)).thenReturn(Optional.of(student));
+            when(userRepository.existsByEmail("taken@test.com")).thenReturn(true);
+
+            UpdateProfileRequest request = new UpdateProfileRequest();
+            request.setEmail("taken@test.com");
+
+            assertThatThrownBy(() -> authService.updateProfile(5L, request))
+                    .isInstanceOf(BadRequestException.class)
+                    .hasMessageContaining("Email already registered");
+            verify(userRepository, never()).save(any());
+        }
+
+        @Test
+        @DisplayName("should reject duplicate phone belonging to another user")
+        void duplicatePhoneRejected() {
+            Student student = new Student();
+            student.setId(6L);
+            student.setPhone("0591111111");
+            student.setFullName("طالب");
+            student.setRole(Role.STUDENT);
+
+            when(userRepository.findById(6L)).thenReturn(Optional.of(student));
+            when(userRepository.existsByPhone("0599999999")).thenReturn(true);
+
+            UpdateProfileRequest request = new UpdateProfileRequest();
+            request.setPhone("0599999999");
+
+            assertThatThrownBy(() -> authService.updateProfile(6L, request))
+                    .isInstanceOf(BadRequestException.class)
+                    .hasMessageContaining("Phone number already registered");
+            verify(userRepository, never()).save(any());
+        }
+
+        @Test
+        @DisplayName("should throw when user not found")
+        void userNotFound() {
+            when(userRepository.findById(999L)).thenReturn(Optional.empty());
+
+            UpdateProfileRequest request = new UpdateProfileRequest();
+            request.setFullName("اسم");
+
+            assertThatThrownBy(() -> authService.updateProfile(999L, request))
+                    .isInstanceOf(ResourceNotFoundException.class);
+            verify(userRepository, never()).existsByEmail(any());
+            verify(userRepository, never()).save(any());
         }
     }
 
@@ -444,74 +842,25 @@ class AuthServiceTest {
             assertThatThrownBy(() -> authService.getCurrentUser(999L))
                     .isInstanceOf(ResourceNotFoundException.class);
         }
-    }
-
-    // ==================== changePassword Tests ====================
-
-    @Nested
-    @DisplayName("changePassword()")
-    class ChangePasswordTests {
 
         @Test
-        @DisplayName("should re-encode and save the new password when current is correct")
-        void changePasswordSuccess() {
-            Student student = new Student();
-            student.setId(1L);
-            student.setPasswordHash("old_hash");
+        @DisplayName("getCurrentProfile includes avatarId for existing users")
+        void getCurrentProfileIncludesAvatarId() {
+            Teacher teacher = new Teacher();
+            teacher.setId(2L);
+            teacher.setFullName("معلم");
+            teacher.setEmail("teacher@test.com");
+            teacher.setRole(Role.TEACHER);
+            teacher.setAvatarId("avatar-olive");
 
-            com.springboot.manhaji.dto.request.ChangePasswordRequest request =
-                    new com.springboot.manhaji.dto.request.ChangePasswordRequest();
-            request.setCurrentPassword("old_pass");
-            request.setNewPassword("new_pass123");
+            when(userRepository.findById(2L)).thenReturn(Optional.of(teacher));
 
-            when(userRepository.findById(1L)).thenReturn(Optional.of(student));
-            when(passwordEncoder.matches("old_pass", "old_hash")).thenReturn(true);
-            when(passwordEncoder.encode("new_pass123")).thenReturn("new_hash");
+            AuthResponse response = authService.getCurrentProfile(2L);
 
-            authService.changePassword(1L, request);
-
-            ArgumentCaptor<Student> captor = ArgumentCaptor.forClass(Student.class);
-            verify(userRepository).save(captor.capture());
-            assertThat(captor.getValue().getPasswordHash()).isEqualTo("new_hash");
-        }
-
-        @Test
-        @DisplayName("should reject wrong current password with BadRequest and never save")
-        void changePasswordWrongCurrent() {
-            Student student = new Student();
-            student.setId(1L);
-            student.setPasswordHash("old_hash");
-
-            com.springboot.manhaji.dto.request.ChangePasswordRequest request =
-                    new com.springboot.manhaji.dto.request.ChangePasswordRequest();
-            request.setCurrentPassword("wrong_pass");
-            request.setNewPassword("new_pass123");
-
-            when(userRepository.findById(1L)).thenReturn(Optional.of(student));
-            when(passwordEncoder.matches("wrong_pass", "old_hash")).thenReturn(false);
-
-            // Must be BadRequest (400), NOT Unauthorized (401): the Dio interceptor
-            // auto-refreshes on 401 and would hide the error from the user.
-            assertThatThrownBy(() -> authService.changePassword(1L, request))
-                    .isInstanceOf(BadRequestException.class)
-                    .hasMessageContaining("كلمة المرور"); // UTF-8 loads correctly, not mojibake
-            verify(userRepository, never()).save(any());
-            verify(passwordEncoder, never()).encode(any());
-        }
-
-        @Test
-        @DisplayName("should throw NotFound for an unknown user id")
-        void changePasswordUnknownUser() {
-            com.springboot.manhaji.dto.request.ChangePasswordRequest request =
-                    new com.springboot.manhaji.dto.request.ChangePasswordRequest();
-            request.setCurrentPassword("any");
-            request.setNewPassword("new_pass123");
-
-            when(userRepository.findById(42L)).thenReturn(Optional.empty());
-
-            assertThatThrownBy(() -> authService.changePassword(42L, request))
-                    .isInstanceOf(ResourceNotFoundException.class);
-            verify(userRepository, never()).save(any());
+            assertThat(response.getFullName()).isEqualTo("معلم");
+            assertThat(response.getAvatarId()).isEqualTo("avatar-olive");
+            assertThat(response.getAccessToken()).isNull();
+            assertThat(response.getRefreshToken()).isNull();
         }
     }
 }

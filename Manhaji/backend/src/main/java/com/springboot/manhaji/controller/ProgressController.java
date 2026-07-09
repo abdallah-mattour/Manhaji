@@ -28,7 +28,7 @@ public class ProgressController {
 
     @GetMapping("/leaderboard")
     public ResponseEntity<ApiResponse<List<LeaderboardEntryResponse>>> getLeaderboard(
-            @RequestParam(required = false) Integer gradeLevel,
+            @RequestParam(name = "gradeLevel", required = false) Integer gradeLevel,
             Authentication authentication) {
         Long studentId = (Long) authentication.getPrincipal();
         List<LeaderboardEntryResponse> leaderboard = progressService.getLeaderboard(studentId, gradeLevel);
@@ -45,8 +45,8 @@ public class ProgressController {
      */
     @org.springframework.web.bind.annotation.PatchMapping("/lesson/{lessonId}/segment/{segmentIndex}")
     public ResponseEntity<ApiResponse<Void>> setLastSegment(
-            @org.springframework.web.bind.annotation.PathVariable Long lessonId,
-            @org.springframework.web.bind.annotation.PathVariable Integer segmentIndex,
+            @org.springframework.web.bind.annotation.PathVariable("lessonId") Long lessonId,
+            @org.springframework.web.bind.annotation.PathVariable("segmentIndex") Integer segmentIndex,
             Authentication authentication) {
         Long studentId = (Long) authentication.getPrincipal();
         progressService.updateLastSegmentIndex(studentId, lessonId, segmentIndex);

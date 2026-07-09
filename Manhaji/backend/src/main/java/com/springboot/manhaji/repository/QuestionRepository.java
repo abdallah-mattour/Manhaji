@@ -14,7 +14,12 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     List<Question> findByLessonId(Long lessonId);
     List<Question> findByLessonIdAndDifficultyLevel(Long lessonId, Integer difficultyLevel);
 
-    @Query("SELECT q FROM Question q JOIN FETCH q.lesson l WHERE l.subject.id = :subjectId "
-            + "ORDER BY l.orderIndex ASC, q.id ASC")
+    @Query(value = """
+            SELECT q.*
+            FROM questions q
+            JOIN lessons l ON q.lesson_id = l.id
+            WHERE l.subject_id = :subjectId
+            ORDER BY l.order_index ASC, q.id ASC
+            """, nativeQuery = true)
     List<Question> findAllBySubjectIdWithLesson(@Param("subjectId") Long subjectId);
 }

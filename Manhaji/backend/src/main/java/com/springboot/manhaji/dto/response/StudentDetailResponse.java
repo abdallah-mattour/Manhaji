@@ -30,4 +30,8 @@ public class StudentDetailResponse {
     private Double averageScore;
 
     private List<SubjectMasterySummary> subjectBreakdown;
+    private List<QuizAttemptSummaryResponse> recentAttempts;
+    private List<ParentAlertResponse> alerts;
+    private List<ParentReportSummaryResponse> reports;
+    private List<ParentRecommendationResponse> recommendations;
 }

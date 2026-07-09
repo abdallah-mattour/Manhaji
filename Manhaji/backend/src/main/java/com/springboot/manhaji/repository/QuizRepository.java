@@ -23,6 +23,33 @@ public interface QuizRepository extends JpaRepository<Quiz, Long> {
     Optional<Quiz> findByGeneratedForStudentIdAndSubjectIdAndQuizType(
             Long generatedForStudentId, Long subjectId, QuizType quizType);
 
+    @Query("""
+            SELECT DISTINCT quiz FROM Quiz quiz
+            LEFT JOIN FETCH quiz.subject subject
+            LEFT JOIN FETCH quiz.lesson lesson
+            LEFT JOIN FETCH lesson.subject lessonSubject
+            LEFT JOIN FETCH quiz.questions question
+            LEFT JOIN FETCH question.lesson questionLesson
+            LEFT JOIN FETCH questionLesson.subject questionSubject
+            WHERE quiz.generatedForStudentId IS NULL
+              AND (subject.id IN :subjectIds
+               OR lessonSubject.id IN :subjectIds)
+            ORDER BY quiz.createdAt DESC, quiz.id DESC
+            """)
+    List<Quiz> findTeacherVisibleBySubjectIds(@Param("subjectIds") List<Long> subjectIds);
+
+    @Query("""
+            SELECT DISTINCT quiz FROM Quiz quiz
+            LEFT JOIN FETCH quiz.subject subject
+            LEFT JOIN FETCH quiz.lesson lesson
+            LEFT JOIN FETCH lesson.subject lessonSubject
+            LEFT JOIN FETCH quiz.questions question
+            LEFT JOIN FETCH question.lesson questionLesson
+            LEFT JOIN FETCH questionLesson.subject questionSubject
+            WHERE quiz.id = :quizId
+            """)
+    Optional<Quiz> findByIdWithTeacherDetails(@Param("quizId") Long quizId);
+
     /**
      * Direct join-table read so DataSeeder can check which questions are already
      * attached to a quiz without pulling the lazy collection (which requires an

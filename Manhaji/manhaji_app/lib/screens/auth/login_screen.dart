@@ -48,8 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (success && mounted) {
       final role = auth.userRole;
-      Navigator.of(context)
-          .pushReplacementNamed(AppRoutes.homeForRole(role));
+      Navigator.of(context).pushReplacementNamed(AppRoutes.homeForRole(role));
     }
   }
 
@@ -87,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const AppGap.v5(),
                     const Text(
-                      'مرحباً بك في منهجي',
+                      'مرحباً بك في منهاجي',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'Cairo',
@@ -131,8 +130,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: AppTheme.textDark,
                       ),
                       decoration: InputDecoration(
-                        labelText:
-                            _isPhoneLogin ? 'رقم الهاتف' : 'البريد الإلكتروني',
+                        labelText: _isPhoneLogin
+                            ? 'رقم الهاتف'
+                            : 'البريد الإلكتروني',
                         prefixIcon: Icon(
                           _isPhoneLogin
                               ? Icons.phone_rounded
@@ -176,7 +176,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: AppTheme.textGray,
                           ),
                           onPressed: () => setState(
-                              () => _obscurePassword = !_obscurePassword),
+                            () => _obscurePassword = !_obscurePassword,
+                          ),
                         ),
                       ),
                       validator: (value) {
@@ -200,8 +201,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             padding: const EdgeInsets.all(14),
                             decoration: BoxDecoration(
                               color: AppTheme.errorContainer,
-                              borderRadius:
-                                  BorderRadius.circular(AppTheme.radiusL),
+                              borderRadius: BorderRadius.circular(
+                                AppTheme.radiusL,
+                              ),
                               border: Border.all(
                                 color: AppTheme.error.withValues(alpha: 0.4),
                                 width: 1.5,
@@ -210,8 +212,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Icon(Icons.error_outline_rounded,
-                                    color: AppTheme.error, size: 22),
+                                const Icon(
+                                  Icons.error_outline_rounded,
+                                  color: AppTheme.error,
+                                  size: 22,
+                                ),
                                 const SizedBox(width: 10),
                                 Expanded(
                                   child: Text(
@@ -304,10 +309,7 @@ class _LoginMethodToggle extends StatelessWidget {
   final bool isPhone;
   final ValueChanged<bool> onChanged;
 
-  const _LoginMethodToggle({
-    required this.isPhone,
-    required this.onChanged,
-  });
+  const _LoginMethodToggle({required this.isPhone, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -320,7 +322,11 @@ class _LoginMethodToggle extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: _segment('البريد الإلكتروني', !isPhone, () => onChanged(false)),
+            child: _segment(
+              'البريد الإلكتروني',
+              !isPhone,
+              () => onChanged(false),
+            ),
           ),
           Expanded(
             child: _segment('رقم الهاتف', isPhone, () => onChanged(true)),

@@ -3,29 +3,43 @@ package com.springboot.manhaji.config;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springboot.manhaji.entity.Admin;
+import com.springboot.manhaji.entity.Attempt;
 import com.springboot.manhaji.entity.Lesson;
+import com.springboot.manhaji.entity.Parent;
+import com.springboot.manhaji.entity.Progress;
 import com.springboot.manhaji.entity.Question;
 import com.springboot.manhaji.entity.Quiz;
+import com.springboot.manhaji.entity.School;
 import com.springboot.manhaji.entity.Student;
 import com.springboot.manhaji.entity.Subject;
 import com.springboot.manhaji.entity.Teacher;
+import com.springboot.manhaji.entity.TeacherAssignment;
+import com.springboot.manhaji.entity.User;
+import com.springboot.manhaji.entity.enums.AttemptStatus;
+import com.springboot.manhaji.entity.enums.CompletionStatus;
 import com.springboot.manhaji.entity.enums.QuestionType;
 import com.springboot.manhaji.entity.enums.Role;
 import com.springboot.manhaji.repository.AdminRepository;
 import com.springboot.manhaji.repository.AttemptRepository;
 import com.springboot.manhaji.repository.LessonRepository;
 import com.springboot.manhaji.repository.ParentRepository;
+import com.springboot.manhaji.repository.ProgressRepository;
 import com.springboot.manhaji.repository.QuestionRepository;
 import com.springboot.manhaji.repository.QuizRepository;
+import com.springboot.manhaji.repository.SchoolRepository;
 import com.springboot.manhaji.repository.StudentRepository;
 import com.springboot.manhaji.repository.StudentResponseRepository;
 import com.springboot.manhaji.repository.SubjectRepository;
+import com.springboot.manhaji.repository.TeacherAssignmentRepository;
 import com.springboot.manhaji.repository.TeacherRepository;
 import com.springboot.manhaji.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -53,6 +67,9 @@ public class DataSeeder implements CommandLineRunner {
     private final TeacherRepository teacherRepository;
     private final AdminRepository adminRepository;
     private final ParentRepository parentRepository;
+    private final SchoolRepository schoolRepository;
+    private final TeacherAssignmentRepository teacherAssignmentRepository;
+    private final ProgressRepository progressRepository;
     private final PasswordEncoder passwordEncoder;
     private final JdbcTemplate jdbcTemplate;
 
@@ -152,20 +169,11 @@ public class DataSeeder implements CommandLineRunner {
         String teacherPw = System.getenv().getOrDefault("MANHAJI_DEMO_TEACHER_PASSWORD", "teacher123");
         String adminPw = System.getenv().getOrDefault("MANHAJI_DEMO_ADMIN_PASSWORD", "admin123");
         String parentPw = System.getenv().getOrDefault("MANHAJI_DEMO_PARENT_PASSWORD", "parent123");
+        String studentPw = System.getenv().getOrDefault("MANHAJI_DEMO_STUDENT_PASSWORD", "student123");
 
-        // Teacher account
-        if (userRepository.findByEmail("teacher@manhaji.edu").isEmpty()) {
-            Teacher teacher = new Teacher();
-            teacher.setFullName("أحمد المعلم");
-            teacher.setEmail("teacher@manhaji.edu");
-            teacher.setPasswordHash(passwordEncoder.encode(teacherPw));
-            teacher.setRole(Role.TEACHER);
-            teacher.setIsActive(true);
-            teacher.setDepartment("اللغة العربية");
-            teacher.setAssignedGrade(1);
-            teacherRepository.save(teacher);
-            log.info("Created demo teacher account: teacher@manhaji.edu (password not logged)");
-        }
+        userRepository.findByEmail("teacher@manhaji.edu")
+                .ifPresent(ignored -> log.info(
+                        "Legacy demo teacher teacher@manhaji.edu exists; assigning it to Arabic Grade 1"));
 
         // Admin account
         if (userRepository.findByEmail("admin@manhaji.edu").isEmpty()) {
@@ -205,6 +213,321 @@ public class DataSeeder implements CommandLineRunner {
             }
             log.info("Created demo parent account: parent@manhaji.edu (password not logged; linked {} children)", linked);
         }
+
+        seedSubjectScopedDemoData(teacherPw, parentPw, studentPw);
+    }
+
+    private void seedSubjectScopedDemoData(String teacherPw, String parentPw, String studentPw) {
+        Map<String, Subject> subjects = ensureGradeOneDemoSubjects();
+        School school = ensureDemoSchool();
+        Parent parent = ensureDemoParent(parentPw);
+
+        Map<String, Teacher> teachers = ensureSubjectTeachers(subjects, school, teacherPw);
+        ensureTeacherAssignments(teachers, subjects, school);
+
+        List<Student> students = ensureDemoStudents(school, parent, studentPw);
+        seedDemoProgressAndAttempts(students, subjects);
+    }
+
+    private Map<String, Subject> ensureGradeOneDemoSubjects() {
+        Map<String, Subject> subjects = new LinkedHashMap<>();
+        subjects.put("arabic", ensureSubjectWithLessons(
+                List.of("اللغة العربية", "Arabic"),
+                1,
+                this::createArabicLessons));
+        subjects.put("islamic", ensureSubjectWithLessons(
+                List.of("التربية الإسلامية", "Islamic Education", "Islamic"),
+                1,
+                this::createIslamicLessons));
+        subjects.put("math", ensureSubjectWithLessons(
+                List.of("الرياضيات", "Math", "Mathematics"),
+                1,
+                this::createMathLessons));
+        subjects.put("english", ensureSubjectWithLessons(
+                List.of("اللغة الإنجليزية", "English"),
+                1,
+                this::createEnglishLessons));
+        return subjects;
+    }
+
+    private School ensureDemoSchool() {
+        List<School> existing = schoolRepository.findByName("مدرسة منهاجي النموذجية");
+        if (!existing.isEmpty()) {
+            return existing.get(0);
+        }
+
+        School school = new School();
+        school.setName("مدرسة منهاجي النموذجية");
+        school.setAddress("فلسطين - بيئة عرض محلية");
+        log.info("Created local demo school: {}", school.getName());
+        return schoolRepository.save(school);
+    }
+
+    private Parent ensureDemoParent(String parentPw) {
+        return userRepository.findByEmail("parent@manhaji.edu")
+                .map(User::getId)
+                .flatMap(parentRepository::findById)
+                .orElseGet(() -> {
+                    Parent parent = new Parent();
+                    parent.setFullName("ولي أمر طلاب العرض");
+                    parent.setEmail("parent@manhaji.edu");
+                    parent.setPasswordHash(passwordEncoder.encode(parentPw));
+                    parent.setIsActive(true);
+                    log.info("Created demo parent account: parent@manhaji.edu (password not logged)");
+                    return parentRepository.save(parent);
+                });
+    }
+
+    private Map<String, Teacher> ensureSubjectTeachers(
+            Map<String, Subject> subjects,
+            School school,
+            String teacherPw) {
+        Map<String, Teacher> teachers = new LinkedHashMap<>();
+
+        Teacher arabicTeacher = findTeacherByEmail("teacher@manhaji.edu");
+        if (arabicTeacher == null) {
+            arabicTeacher = ensureDemoTeacher(
+                    "teacher.arabic@manhaji.local",
+                    "أ. سلمى معلمة اللغة العربية",
+                    "اللغة العربية",
+                    school,
+                    teacherPw);
+        } else {
+            configureDemoTeacher(arabicTeacher, "اللغة العربية", 1, school);
+            log.info("Reused legacy demo teacher teacher@manhaji.edu for Arabic Grade 1 assignment");
+        }
+        teachers.put("arabic", arabicTeacher);
+
+        teachers.put("islamic", ensureDemoTeacher(
+                "teacher.islamic@manhaji.local",
+                "أ. مريم معلمة التربية الإسلامية",
+                "التربية الإسلامية",
+                school,
+                teacherPw));
+        teachers.put("math", ensureDemoTeacher(
+                "teacher.math@manhaji.local",
+                "أ. خالد معلم الرياضيات",
+                "الرياضيات",
+                school,
+                teacherPw));
+        teachers.put("english", ensureDemoTeacher(
+                "teacher.english@manhaji.local",
+                "أ. ليلى معلمة اللغة الإنجليزية",
+                "اللغة الإنجليزية",
+                school,
+                teacherPw));
+
+        return teachers;
+    }
+
+    private Teacher ensureDemoTeacher(
+            String email,
+            String fullName,
+            String department,
+            School school,
+            String teacherPw) {
+        Teacher existing = findTeacherByEmail(email);
+        if (existing != null) {
+            return configureDemoTeacher(existing, department, 1, school);
+        }
+
+        Teacher teacher = new Teacher();
+        teacher.setFullName(fullName);
+        teacher.setEmail(email);
+        teacher.setPasswordHash(passwordEncoder.encode(teacherPw));
+        teacher.setIsActive(true);
+        teacher.setDepartment(department);
+        teacher.setAssignedGrade(1);
+        teacher.setSchool(school);
+        teacher = teacherRepository.save(teacher);
+        log.info("Created subject demo teacher account: {} (password not logged)", email);
+        return teacher;
+    }
+
+    private Teacher findTeacherByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .map(User::getId)
+                .flatMap(teacherRepository::findById)
+                .orElse(null);
+    }
+
+    private Teacher configureDemoTeacher(
+            Teacher teacher,
+            String department,
+            Integer assignedGrade,
+            School school) {
+        teacher.setIsActive(true);
+        teacher.setDepartment(department);
+        teacher.setAssignedGrade(assignedGrade);
+        teacher.setSchool(school);
+        return teacherRepository.save(teacher);
+    }
+
+    private void ensureTeacherAssignments(
+            Map<String, Teacher> teachers,
+            Map<String, Subject> subjects,
+            School school) {
+        for (Map.Entry<String, Teacher> entry : teachers.entrySet()) {
+            Subject subject = subjects.get(entry.getKey());
+            if (subject == null) continue;
+            ensureTeacherAssignment(entry.getValue(), subject, school);
+        }
+    }
+
+    private void ensureTeacherAssignment(Teacher teacher, Subject subject, School school) {
+        TeacherAssignment assignment = teacherAssignmentRepository
+                .findByTeacherIdAndSubjectId(teacher.getId(), subject.getId())
+                .orElseGet(() -> {
+                    TeacherAssignment created = new TeacherAssignment();
+                    created.setTeacher(teacher);
+                    created.setSubject(subject);
+                    return created;
+                });
+        assignment.setGradeLevel(subject.getGradeLevel());
+        assignment.setSchool(school);
+        assignment.setIsActive(true);
+        teacherAssignmentRepository.save(assignment);
+    }
+
+    private List<Student> ensureDemoStudents(School school, Parent parent, String studentPw) {
+        List<String> names = List.of(
+                "ليان أحمد",
+                "آدم محمد",
+                "جنى خالد",
+                "يوسف سمير",
+                "تالا محمود",
+                "عمر ناصر",
+                "سارة علي",
+                "كريم حسن",
+                "ريم ياسر",
+                "مريم فادي",
+                "زيد رامي",
+                "نور إبراهيم"
+        );
+
+        List<Student> students = new ArrayList<>();
+        for (int i = 0; i < names.size(); i++) {
+            int number = i + 1;
+            String fullName = names.get(i);
+            String email = "student.demo%02d@manhaji.local".formatted(number);
+            Student student = userRepository.findByEmail(email)
+                    .map(User::getId)
+                    .flatMap(studentRepository::findById)
+                    .orElseGet(() -> {
+                        Student created = new Student();
+                        created.setFullName(fullName);
+                        created.setEmail(email);
+                        created.setPasswordHash(passwordEncoder.encode(studentPw));
+                        log.info("Created demo student account: {} (password not logged)", email);
+                        return created;
+                    });
+            student.setFullName(fullName);
+            student.setIsActive(true);
+            student.setGradeLevel(1);
+            student.setSchool(school);
+            student.setParent(parent);
+            student.setCurrentStreak((number % 5) + 1);
+            student.setTotalPoints(120 + (number * 35));
+            student.setLastLoginAt(LocalDateTime.now().minusDays(number % 6));
+            students.add(studentRepository.save(student));
+        }
+        return students;
+    }
+
+    private void seedDemoProgressAndAttempts(List<Student> students, Map<String, Subject> subjects) {
+        LocalDateTime now = LocalDateTime.now();
+        int subjectIndex = 0;
+        for (Subject subject : subjects.values()) {
+            List<Lesson> lessons = lessonRepository.findBySubjectIdOrderByOrderIndexAsc(subject.getId());
+            if (lessons.isEmpty()) {
+                subjectIndex++;
+                continue;
+            }
+
+            int lessonLimit = Math.min(4, lessons.size());
+            for (int studentIndex = 0; studentIndex < students.size(); studentIndex++) {
+                Student student = students.get(studentIndex);
+                for (int lessonIndex = 0; lessonIndex < lessonLimit; lessonIndex++) {
+                    Lesson lesson = lessons.get(lessonIndex);
+                    double mastery = demoMastery(studentIndex, subjectIndex, lessonIndex);
+                    CompletionStatus status = demoCompletionStatus(mastery, lessonIndex);
+                    ensureDemoProgress(student, lesson, mastery, status, now, studentIndex, lessonIndex);
+                    ensureDemoAttempt(student, lesson, mastery, now, studentIndex, lessonIndex);
+                }
+            }
+            subjectIndex++;
+        }
+    }
+
+    private double demoMastery(int studentIndex, int subjectIndex, int lessonIndex) {
+        int band = studentIndex % 4;
+        double base = switch (band) {
+            case 0 -> 92.0;
+            case 1 -> 78.0;
+            case 2 -> 61.0;
+            default -> 44.0;
+        };
+        double adjusted = base - (lessonIndex * 4.0) + (subjectIndex * 2.0);
+        return Math.max(28.0, Math.min(98.0, adjusted));
+    }
+
+    private CompletionStatus demoCompletionStatus(double mastery, int lessonIndex) {
+        if (mastery >= 88.0 && lessonIndex <= 2) return CompletionStatus.MASTERED;
+        if (mastery >= 65.0) return CompletionStatus.COMPLETED;
+        if (mastery >= 45.0) return CompletionStatus.IN_PROGRESS;
+        return CompletionStatus.NOT_STARTED;
+    }
+
+    private void ensureDemoProgress(
+            Student student,
+            Lesson lesson,
+            double mastery,
+            CompletionStatus status,
+            LocalDateTime now,
+            int studentIndex,
+            int lessonIndex) {
+        Progress progress = progressRepository
+                .findByStudentIdAndLessonId(student.getId(), lesson.getId())
+                .orElseGet(() -> {
+                    Progress created = new Progress();
+                    created.setStudent(student);
+                    created.setLesson(lesson);
+                    return created;
+                });
+        progress.setMasteryLevel(mastery);
+        progress.setCompletionStatus(status);
+        progress.setLastAccessedAt(now.minusDays((studentIndex + lessonIndex) % 7));
+        progress.setLastSegmentIndex(Math.min(lessonIndex, 2));
+        if (status == CompletionStatus.COMPLETED || status == CompletionStatus.MASTERED) {
+            progress.setCompletedAt(now.minusDays((studentIndex + lessonIndex) % 10));
+        } else {
+            progress.setCompletedAt(null);
+        }
+        progressRepository.save(progress);
+    }
+
+    private void ensureDemoAttempt(
+            Student student,
+            Lesson lesson,
+            double mastery,
+            LocalDateTime now,
+            int studentIndex,
+            int lessonIndex) {
+        List<Quiz> quizzes = quizRepository.findByLessonId(lesson.getId());
+        if (quizzes.isEmpty()) return;
+
+        Quiz quiz = quizzes.get(0);
+        if (!attemptRepository.findByStudentIdAndQuizId(student.getId(), quiz.getId()).isEmpty()) {
+            return;
+        }
+
+        Attempt attempt = new Attempt();
+        attempt.setStudent(student);
+        attempt.setQuiz(quiz);
+        attempt.setStatus(AttemptStatus.GRADED);
+        attempt.setScore(Math.max(35.0, Math.min(100.0, mastery + 3.0)));
+        attempt.setSubmittedAt(now.minusDays((studentIndex + lessonIndex) % 8));
+        attemptRepository.save(attempt);
     }
 
     /**
@@ -271,26 +594,36 @@ public class DataSeeder implements CommandLineRunner {
         ensureSubjectWithLessons("التربية الإسلامية", 1, this::createIslamicLessons);
     }
 
-    private void ensureSubjectWithLessons(String name, int gradeLevel,
-                                           java.util.function.Consumer<Subject> lessonCreator) {
-        Subject subject = subjectRepository.findByNameAndGradeLevel(name, gradeLevel)
+    private Subject ensureSubjectWithLessons(String name, int gradeLevel,
+                                             java.util.function.Consumer<Subject> lessonCreator) {
+        return ensureSubjectWithLessons(List.of(name), gradeLevel, lessonCreator);
+    }
+
+    private Subject ensureSubjectWithLessons(List<String> candidateNames, int gradeLevel,
+                                             java.util.function.Consumer<Subject> lessonCreator) {
+        Subject subject = candidateNames.stream()
+                .map(name -> subjectRepository.findByNameAndGradeLevel(name, gradeLevel))
+                .filter(java.util.Optional::isPresent)
+                .map(java.util.Optional::get)
+                .findFirst()
                 .orElseGet(() -> {
                     Subject s = new Subject();
-                    s.setName(name);
+                    s.setName(candidateNames.get(0));
                     s.setGradeLevel(gradeLevel);
-                    log.info("Creating missing subject: {}", name);
+                    log.info("Creating missing subject: {}", candidateNames.get(0));
                     return subjectRepository.save(s);
                 });
 
         // Only create lessons if this subject has none
         List<Lesson> existing = lessonRepository.findBySubjectIdOrderByOrderIndexAsc(subject.getId());
         if (existing.isEmpty()) {
-            log.info("Creating lessons for subject: {}", name);
+            log.info("Creating lessons for subject: {}", subject.getName());
             lessonCreator.accept(subject);
         } else {
             // Check if existing lessons are missing questions and add them
             supplementMissingQuestions(existing);
         }
+        return subject;
     }
 
     private void supplementMissingQuestions(List<Lesson> lessons) {

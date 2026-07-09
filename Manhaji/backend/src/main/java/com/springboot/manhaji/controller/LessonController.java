@@ -21,7 +21,7 @@ public class LessonController {
 
     @GetMapping("/subjects")
     public ResponseEntity<ApiResponse<List<SubjectResponse>>> getSubjects(
-            @RequestParam Integer gradeLevel,
+            @RequestParam("gradeLevel") Integer gradeLevel,
             Authentication authentication) {
         Long studentId = (Long) authentication.getPrincipal();
         List<SubjectResponse> subjects = lessonService.getSubjectsByGrade(gradeLevel, studentId);
@@ -30,7 +30,7 @@ public class LessonController {
 
     @GetMapping("/subject/{subjectId}")
     public ResponseEntity<ApiResponse<List<LessonSummaryResponse>>> getLessonsBySubject(
-            @PathVariable Long subjectId,
+            @PathVariable("subjectId") Long subjectId,
             Authentication authentication) {
         Long studentId = (Long) authentication.getPrincipal();
         List<LessonSummaryResponse> lessons = lessonService.getLessonsBySubject(subjectId, studentId);
@@ -39,7 +39,7 @@ public class LessonController {
 
     @GetMapping("/{lessonId}")
     public ResponseEntity<ApiResponse<LessonResponse>> getLessonDetail(
-            @PathVariable Long lessonId,
+            @PathVariable("lessonId") Long lessonId,
             Authentication authentication) {
         Long studentId = (Long) authentication.getPrincipal();
         LessonResponse lesson = lessonService.getLessonDetail(lessonId, studentId);

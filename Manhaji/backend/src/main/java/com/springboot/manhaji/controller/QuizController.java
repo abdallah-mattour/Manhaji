@@ -54,7 +54,7 @@ public class QuizController {
     // Get quiz for a lesson (with questions, no correct answers)
     @GetMapping("/lesson/{lessonId}")
     public ResponseEntity<ApiResponse<QuizResponse>> getQuizByLesson(
-            @PathVariable Long lessonId) {
+            @PathVariable("lessonId") Long lessonId) {
         QuizResponse quiz = quizService.getQuizByLesson(lessonId);
         return ResponseEntity.ok(ApiResponse.success(quiz));
     }
@@ -70,7 +70,7 @@ public class QuizController {
      */
     @GetMapping("/lesson/{lessonId}/adaptive")
     public ResponseEntity<ApiResponse<QuizResponse>> getAdaptiveQuiz(
-            @PathVariable Long lessonId,
+            @PathVariable("lessonId") Long lessonId,
             Authentication authentication) {
         Long studentId = (Long) authentication.getPrincipal();
         QuizResponse quiz = quizService.getAdaptiveQuizByLesson(lessonId, studentId);
@@ -86,7 +86,7 @@ public class QuizController {
      */
     @PostMapping("/personalized/{subjectId}")
     public ResponseEntity<ApiResponse<QuizResponse>> generatePersonalizedQuiz(
-            @PathVariable Long subjectId,
+            @PathVariable("subjectId") Long subjectId,
             Authentication authentication) {
         Long studentId = (Long) authentication.getPrincipal();
         QuizResponse quiz = quizService.generatePersonalizedQuiz(subjectId, studentId);
@@ -99,7 +99,7 @@ public class QuizController {
      */
     @GetMapping("/skills/{subjectId}")
     public ResponseEntity<ApiResponse<SkillMasteryResponse>> getSkillMastery(
-            @PathVariable Long subjectId,
+            @PathVariable("subjectId") Long subjectId,
             Authentication authentication) {
         Long studentId = (Long) authentication.getPrincipal();
         SkillMasteryResponse skills = quizService.getSkillMastery(subjectId, studentId);
@@ -109,7 +109,7 @@ public class QuizController {
     // Start a new quiz attempt
     @PostMapping("/attempt/start/{quizId}")
     public ResponseEntity<ApiResponse<AttemptResponse>> startAttempt(
-            @PathVariable Long quizId,
+            @PathVariable("quizId") Long quizId,
             Authentication authentication) {
         Long studentId = (Long) authentication.getPrincipal();
         AttemptResponse attempt = quizService.startAttempt(quizId, studentId);
@@ -119,7 +119,7 @@ public class QuizController {
     // Submit answer for one question in an attempt
     @PostMapping("/attempt/{attemptId}/answer")
     public ResponseEntity<ApiResponse<SubmitAnswerResponse>> submitAnswer(
-            @PathVariable Long attemptId,
+            @PathVariable("attemptId") Long attemptId,
             @Valid @RequestBody SubmitAnswerRequest request,
             Authentication authentication) {
         Long studentId = (Long) authentication.getPrincipal();
@@ -130,7 +130,7 @@ public class QuizController {
     // Submit voice answer — transcribe audio then evaluate
     @PostMapping("/attempt/{attemptId}/voice-answer")
     public ResponseEntity<ApiResponse<SubmitAnswerResponse>> submitVoiceAnswer(
-            @PathVariable Long attemptId,
+            @PathVariable("attemptId") Long attemptId,
             @RequestParam("audio") MultipartFile audioFile,
             @RequestParam("questionId") Long questionId,
             @RequestParam(value = "language", defaultValue = "ar") String language,
@@ -167,7 +167,7 @@ public class QuizController {
     // Submit a pronunciation attempt — transcribe audio then score phonetic similarity
     @PostMapping("/attempt/{attemptId}/pronunciation")
     public ResponseEntity<ApiResponse<PronunciationScoreResponse>> submitPronunciation(
-            @PathVariable Long attemptId,
+            @PathVariable("attemptId") Long attemptId,
             @RequestParam("audio") MultipartFile audioFile,
             @RequestParam("questionId") Long questionId,
             @RequestParam(value = "language", defaultValue = "ar") String language,
@@ -190,7 +190,7 @@ public class QuizController {
     // Submit a tracing attempt — client-scored, persists StudentResponse for dashboards
     @PostMapping("/attempt/{attemptId}/tracing")
     public ResponseEntity<ApiResponse<SubmitAnswerResponse>> submitTracing(
-            @PathVariable Long attemptId,
+            @PathVariable("attemptId") Long attemptId,
             @Valid @RequestBody TracingSubmitRequest request,
             Authentication authentication) {
         Long studentId = (Long) authentication.getPrincipal();
@@ -201,8 +201,8 @@ public class QuizController {
     // Get hint for a question — must belong to an active attempt the caller owns.
     @GetMapping("/question/{questionId}/hint")
     public ResponseEntity<ApiResponse<Map<String, Object>>> getHint(
-            @PathVariable Long questionId,
-            @RequestParam(defaultValue = "1") int level,
+            @PathVariable("questionId") Long questionId,
+            @RequestParam(name = "level", defaultValue = "1") int level,
             Authentication authentication) {
         Long studentId = (Long) authentication.getPrincipal();
         Map<String, Object> hint = quizService.getHint(questionId, level, studentId);
@@ -212,7 +212,7 @@ public class QuizController {
     // Complete the attempt and get final results
     @PostMapping("/attempt/{attemptId}/complete")
     public ResponseEntity<ApiResponse<AttemptResponse>> completeAttempt(
-            @PathVariable Long attemptId,
+            @PathVariable("attemptId") Long attemptId,
             Authentication authentication) {
         Long studentId = (Long) authentication.getPrincipal();
         AttemptResponse result = quizService.completeAttempt(attemptId, studentId);

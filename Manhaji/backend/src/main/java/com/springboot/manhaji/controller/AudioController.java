@@ -27,7 +27,7 @@ public class AudioController {
     private final QuestionRepository questionRepository;
 
     @PostMapping("/lesson/{lessonId}/narrate")
-    public ResponseEntity<ApiResponse<Map<String, String>>> narrateLesson(@PathVariable Long lessonId) {
+    public ResponseEntity<ApiResponse<Map<String, String>>> narrateLesson(@PathVariable("lessonId") Long lessonId) {
         Lesson lesson = lessonRepository.findById(lessonId)
                 .orElseThrow(() -> new ResourceNotFoundException("Lesson", lessonId));
 
@@ -82,7 +82,7 @@ public class AudioController {
     }
 
     @PostMapping("/question/{questionId}/read")
-    public ResponseEntity<ApiResponse<Map<String, Object>>> readQuestion(@PathVariable Long questionId) {
+    public ResponseEntity<ApiResponse<Map<String, Object>>> readQuestion(@PathVariable("questionId") Long questionId) {
         Question question = questionRepository.findById(questionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Question", questionId));
 

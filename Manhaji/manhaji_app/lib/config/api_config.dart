@@ -1,12 +1,45 @@
 import 'package:flutter/foundation.dart';
 
 class ApiConfig {
-  /// On web we assume the Flutter bundle is served from the same origin as the
-  /// Spring Boot backend (see Phase E: `static/app/` inside the jar). A relative
-  /// `/api` base means no CORS and survives whichever host/port the browser is on.
-  /// On mobile we still point at the Android-emulator loopback.
-  static String get baseUrl => kIsWeb ? '/api' : 'http://192.168.1.104:8080/api';
-  static String get serverUrl => kIsWeb ? '' : 'http://192.168.1.104:8080';
+  /// API base can be overridden with:
+  /// `flutter run --dart-define=API_BASE_URL=http://localhost:8080/api`.
+  /// When Flutter web runs on its own dev server, relative `/api` would hit the
+  /// Flutter server and return 404, so we point dev web builds at Spring Boot.
+  static const String _apiBaseUrl = String.fromEnvironment('API_BASE_URL');
+
+  static String get baseUrl {
+    if (_apiBaseUrl.isNotEmpty) return _apiBaseUrl;
+    if (kIsWeb) {
+      return _isServedByBackend ? '/api' : 'http://localhost:8080/api';
+    }
+    return '$_nativeServerUrl/api';
+  }
+
+  static String get serverUrl {
+    if (_apiBaseUrl.isNotEmpty) {
+      return _apiBaseUrl.endsWith('/api')
+          ? _apiBaseUrl.substring(0, _apiBaseUrl.length - 4)
+          : _apiBaseUrl;
+    }
+    if (kIsWeb) return _isServedByBackend ? '' : 'http://localhost:8080';
+    return _nativeServerUrl;
+  }
+
+  static bool get _isServedByBackend {
+    final uri = Uri.base;
+    return uri.host == 'localhost' && uri.hasPort && uri.port == 8080;
+  }
+
+  static String get _nativeServerUrl {
+    return switch (defaultTargetPlatform) {
+      TargetPlatform.android => 'http://10.0.2.2:8080',
+      TargetPlatform.iOS ||
+      TargetPlatform.macOS ||
+      TargetPlatform.linux ||
+      TargetPlatform.windows => 'http://127.0.0.1:8080',
+      TargetPlatform.fuchsia => 'http://127.0.0.1:8080',
+    };
+  }
 
   /// Resolves a backend-relative path like `/uploads/images/...` into a full URL.
   /// Returns the input unchanged if it already starts with `http`.
@@ -23,7 +56,8 @@ class ApiConfig {
   static const String loginPhone = '/auth/login/phone';
   static const String refreshToken = '/auth/refresh';
   static const String me = '/auth/me';
-  static const String changePassword = '/auth/password';
+  static const String changePassword = '/auth/change-password';
+  static const String updateProfile = '/auth/profile';
 
   // Lessons
   static const String subjects = '/lessons/subjects';
@@ -32,6 +66,11 @@ class ApiConfig {
 
   // Student
   static const String dashboard = '/student/dashboard';
+  static const String studentAssignedQuizzes = '/student/assigned-quizzes';
+  static String studentAssignedQuiz(int assignmentId) =>
+      '$studentAssignedQuizzes/$assignmentId';
+  static String startAssignedQuizAttempt(int assignmentId) =>
+      '$studentAssignedQuizzes/$assignmentId/attempt/start';
 
   // Quiz
   static const String quizByLesson = '/quiz/lesson';
@@ -47,11 +86,21 @@ class ApiConfig {
   static const String teacherDashboard = '/teacher/dashboard';
   static const String teacherStudents = '/teacher/students';
   static const String teacherSubjects = '/teacher/subjects';
+  static const String teacherMistakes = '/teacher/analytics/mistakes';
+  static const String teacherQuizzes = '/teacher/quizzes';
+  static String teacherQuizAssignments(int quizId) =>
+      '$teacherQuizzes/$quizId/assignments';
+  static String teacherAssignmentResults(int assignmentId) =>
+      '/teacher/assignments/$assignmentId/results';
 
   // Admin
   static const String adminStats = '/admin/stats';
   static const String adminUsers = '/admin/users';
   static const String adminSubjects = '/admin/subjects';
+  static String adminLinkParent(int studentId) =>
+      '/admin/students/$studentId/link-parent';
+  static String adminTeacherAssignments(int teacherId) =>
+      '/admin/teachers/$teacherId/assignments';
 
   // Parent
   static const String parentDashboard = '/parent/dashboard';

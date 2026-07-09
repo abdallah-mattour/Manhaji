@@ -28,7 +28,7 @@ public class ParentController {
     @GetMapping("/children/{childId}")
     public ResponseEntity<ApiResponse<StudentDetailResponse>> getChildDetail(
             Authentication authentication,
-            @PathVariable Long childId) {
+            @PathVariable("childId") Long childId) {
         Long parentId = (Long) authentication.getPrincipal();
         return ResponseEntity.ok(ApiResponse.success(parentService.getChildDetail(parentId, childId)));
     }

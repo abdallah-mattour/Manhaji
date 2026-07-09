@@ -23,7 +23,8 @@ class _AiReportsScreenState extends State<AiReportsScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    Future.microtask(() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
       final provider = context.read<ReportProvider>();
       provider.loadReports();
       provider.loadLearningPath();

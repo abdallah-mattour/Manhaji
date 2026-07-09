@@ -13,6 +13,7 @@ void main() {
         'phone': '0591234567',
         'role': 'STUDENT',
         'gradeLevel': 1,
+        'avatarId': 'avatar-book',
       };
 
       final response = AuthResponse.fromJson(json);
@@ -25,6 +26,7 @@ void main() {
       expect(response.phone, '0591234567');
       expect(response.role, 'STUDENT');
       expect(response.gradeLevel, 1);
+      expect(response.avatarId, 'avatar-book');
     });
 
     test('should parse teacher response without gradeLevel', () {
@@ -42,6 +44,7 @@ void main() {
       expect(response.role, 'TEACHER');
       expect(response.gradeLevel, isNull);
       expect(response.phone, isNull);
+      expect(response.avatarId, isNull);
     });
 
     test('should handle missing fields with defaults', () {
@@ -57,6 +60,31 @@ void main() {
       expect(response.email, isNull);
       expect(response.phone, isNull);
       expect(response.gradeLevel, isNull);
+      expect(response.avatarId, isNull);
+    });
+
+    test('should coerce mixed backend values safely', () {
+      final response = AuthResponse.fromJson({
+        'accessToken': 123,
+        'refreshToken': 'refresh',
+        'userId': '42',
+        'fullName': 55,
+        'email': '',
+        'phone': 599123456,
+        'role': 'student',
+        'gradeLevel': '3',
+        'avatarId': '  avatar-star  ',
+      });
+
+      expect(response.accessToken, '123');
+      expect(response.userId, 42);
+      expect(response.fullName, '55');
+      expect(response.email, isNull);
+      expect(response.phone, '599123456');
+      expect(response.role, 'STUDENT');
+      expect(response.gradeLevel, 3);
+      expect(response.avatarId, 'avatar-star');
+      expect(response.hasTokens, true);
     });
   });
 }

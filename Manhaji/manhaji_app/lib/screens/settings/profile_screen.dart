@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../app/theme.dart';
-import '../../config/gamification.dart';
 import '../../providers/auth_provider.dart';
-import '../../providers/lesson_provider.dart';
-import '../../providers/progress_provider.dart';
-import '../../widgets/avatar_picker_card.dart';
+import '../../widgets/account_profile_actions.dart';
 import '../../widgets/duolingo_card.dart';
+import '../../widgets/error_state.dart';
+import '../../widgets/loading_state.dart';
 import '../../widgets/vibrant_background.dart';
+import 'edit_profile_screen.dart';
 
-/// "الملف الشخصي" — read-only account details from `/auth/me` plus, for
-/// students, the point-unlockable avatar picker. Account fields (name, email,
-/// phone, grade) are not editable in-app; editing goes through the school
-/// administration, matching the admin-only user-management model.
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
@@ -22,69 +17,48 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  late final Future<Map<String, dynamic>> _profileFuture;
-
   @override
   void initState() {
     super.initState();
-    _profileFuture = context.read<AuthProvider>().fetchProfile();
-
-    // Students get the avatar picker, which needs points (progress) and the
-    // current avatar (dashboard). Parents don't — skip the loads for them.
-    final auth = context.read<AuthProvider>();
-    if (auth.userRole == 'STUDENT') {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (!mounted) return;
-        final progress = context.read<ProgressProvider>();
-        final lessons = context.read<LessonProvider>();
-        if (progress.summary == null) progress.loadProgress();
-        if (lessons.dashboard == null) lessons.loadDashboard();
-      });
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      context.read<AuthProvider>().fetchProfile();
+    });
   }
 
-  Future<void> _selectAvatar(AvatarDef av, String? currentId) async {
-    if (av.id == currentId) return;
-    final progress = context.read<ProgressProvider>();
-    final lessons = context.read<LessonProvider>();
-    final messenger = ScaffoldMessenger.of(context);
+  String _roleLabel(String? role) => switch (role) {
+    'TEACHER' => 'معلم',
+    'ADMIN' => 'مدير',
+    'PARENT' => 'ولي أمر',
+    _ => 'طالب',
+  };
 
-    final ok = await progress.updateAvatar(av.id);
-    if (!mounted) return;
-    if (ok) {
-      await lessons.loadDashboard();
-      _snack(messenger, 'أصبحت ${av.name} ${av.emoji}', AppTheme.primaryGreen);
-    } else {
-      _snack(messenger, 'تعذر حفظ الشخصية. حاول مرة أخرى.', AppTheme.primaryRed);
-    }
-  }
-
-  void _showLockedHint(AvatarDef av) {
-    _snack(ScaffoldMessenger.of(context),
-        '${av.name} يحتاج ${av.unlockPoints} نقطة 🔒', AppTheme.textGray);
-  }
-
-  void _snack(ScaffoldMessengerState messenger, String text, Color color) {
-    messenger.showSnackBar(
-      SnackBar(
-        content: Text(
-          text,
-          style: const TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.w800),
-        ),
-        backgroundColor: color,
-        duration: const Duration(seconds: 2),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppTheme.radiusM),
-        ),
-      ),
-    );
+  String? _gradeLevelLabel(int? level) {
+    if (level == null) return null;
+    const labels = [
+      '',
+      'الأول',
+      'الثاني',
+      'الثالث',
+      'الرابع',
+      'الخامس',
+      'السادس',
+      'السابع',
+      'الثامن',
+      'التاسع',
+      'العاشر',
+    ];
+    if (level >= 1 && level < labels.length) return 'الصف ${labels[level]}';
+    return 'الصف $level';
   }
 
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
-    final isStudent = auth.userRole == 'STUDENT';
+
+    final bool hasDetail = auth.userEmail != null || auth.userPhone != null;
+    final bool loading = auth.isProfileLoading && !hasDetail;
+    final bool hasError = auth.profileError != null && !hasDetail;
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -92,188 +66,163 @@ class _ProfileScreenState extends State<ProfileScreen> {
         appBar: AppBar(
           title: const Text('الملف الشخصي'),
           backgroundColor: AppTheme.backgroundLight,
-          foregroundColor: AppTheme.textDark,
           elevation: 0,
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.edit_outlined),
+              tooltip: 'تعديل الملف الشخصي',
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const EditProfileScreen()),
+              ),
+            ),
+          ],
         ),
         body: VibrantBackground(
           backgroundColor: AppTheme.backgroundLight,
           pattern: BackgroundPattern.none,
-          child: SafeArea(
-            child: ListView(
-              padding: const EdgeInsets.all(24),
-              children: [
-                _avatarHeader(isStudent, auth.userName),
-                const SizedBox(height: 20),
-                _accountCard(auth),
-                const SizedBox(height: 12),
-                const Text(
-                  'لتعديل بيانات الحساب تواصل مع مشرف المدرسة',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'Cairo',
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
-                    color: AppTheme.textGray,
-                  ),
-                ),
-                if (isStudent) ...[
-                  const SizedBox(height: 24),
-                  _avatarPicker(),
-                ],
-                const SizedBox(height: 24),
-              ],
-            ),
-          ),
+          child: loading
+              ? const LoadingState()
+              : hasError
+              ? ErrorState(
+                  message: auth.profileError!,
+                  onRetry: () => auth.fetchProfile(),
+                  retryLabel: 'إعادة المحاولة',
+                )
+              : _buildProfile(auth),
         ),
       ),
     );
   }
 
-  Widget _avatarHeader(bool isStudent, String? name) {
-    // For students show their chosen avatar emoji; others get a person icon.
-    return Consumer<LessonProvider>(
-      builder: (context, lessons, _) {
-        final emoji =
-            isStudent ? Avatars.resolve(lessons.dashboard?.avatarId).emoji : null;
-        return Column(
-          children: [
-            Container(
-              width: 96,
-              height: 96,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppTheme.primaryGreen.withValues(alpha: 0.12),
-                border: Border.all(color: AppTheme.primaryGreen, width: 3),
-              ),
-              alignment: Alignment.center,
-              child: emoji != null
-                  ? Text(emoji, style: const TextStyle(fontSize: 52))
-                  : const Icon(Icons.person,
-                      size: 52, color: AppTheme.primaryGreen),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              name ?? 'مستخدم',
-              style: const TextStyle(
-                fontFamily: 'Cairo',
-                fontSize: 22,
-                fontWeight: FontWeight.w900,
-                color: AppTheme.textDark,
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Widget _accountCard(AuthProvider auth) {
-    final isStudent = auth.userRole == 'STUDENT';
-    final grade = auth.gradeLevel;
-
-    return FutureBuilder<Map<String, dynamic>>(
-      future: _profileFuture,
-      builder: (context, snapshot) {
-        final data = snapshot.data ?? const {};
-        final email = (data['email'] as String?)?.trim();
-        final phone = (data['phone'] as String?)?.trim();
-        final loading = snapshot.connectionState == ConnectionState.waiting;
-
-        return DuolingoCard(
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+  Widget _buildProfile(AuthProvider auth) {
+    return ListView(
+      padding: const EdgeInsets.all(24),
+      children: [
+        // Avatar + name header
+        Center(
           child: Column(
             children: [
-              _row(Icons.badge_outlined, 'النوع', _roleLabel(auth.userRole)),
-              _divider(),
-              _row(
-                Icons.email_outlined,
-                'البريد الإلكتروني',
-                loading ? '...' : (email?.isNotEmpty == true ? email! : '—'),
-                ltr: true,
+              AccountAvatar(
+                avatarId: auth.userAvatarId,
+                fallbackLabel: auth.userName ?? 'طالب',
+                size: 88,
+                fallbackColor: AppTheme.primaryGreen,
+                borderRadius: AppTheme.radiusPill,
               ),
-              _divider(),
-              _row(
-                Icons.phone_outlined,
-                'رقم الهاتف',
-                loading ? '...' : (phone?.isNotEmpty == true ? phone! : '—'),
-                ltr: true,
+              const SizedBox(height: 14),
+              Text(
+                auth.userName ?? '—',
+                style: const TextStyle(
+                  fontFamily: 'Cairo',
+                  fontSize: 22,
+                  fontWeight: FontWeight.w900,
+                  color: AppTheme.textDark,
+                ),
               ),
-              if (isStudent) ...[
-                _divider(),
-                _row(Icons.school_outlined, 'الصف',
-                    grade != null ? 'الصف $grade' : '—'),
-              ],
+              const SizedBox(height: 4),
+              Text(
+                _roleLabel(auth.userRole),
+                style: const TextStyle(
+                  fontFamily: 'Cairo',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: AppTheme.textGray,
+                ),
+              ),
             ],
           ),
-        );
-      },
+        ),
+        const SizedBox(height: 28),
+
+        // Info card
+        DuolingoCard(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Column(
+            children: [
+              if (auth.userEmail != null)
+                _InfoRow(
+                  icon: Icons.email_outlined,
+                  label: 'البريد الإلكتروني',
+                  value: auth.userEmail!,
+                  ltr: true,
+                ),
+              if (auth.userPhone != null)
+                _InfoRow(
+                  icon: Icons.phone_outlined,
+                  label: 'رقم الهاتف',
+                  value: auth.userPhone!,
+                  ltr: true,
+                ),
+              if (_gradeLevelLabel(auth.userGradeLevel) != null)
+                _InfoRow(
+                  icon: Icons.school_outlined,
+                  label: 'الصف الدراسي',
+                  value: _gradeLevelLabel(auth.userGradeLevel)!,
+                ),
+              _InfoRow(
+                icon: Icons.badge_outlined,
+                label: 'نوع الحساب',
+                value: _roleLabel(auth.userRole),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
+}
 
-  String _roleLabel(String? role) {
-    switch (role) {
-      case 'STUDENT':
-        return 'طالب';
-      case 'PARENT':
-        return 'ولي أمر';
-      case 'TEACHER':
-        return 'معلم';
-      case 'ADMIN':
-        return 'مشرف';
-      default:
-        return '—';
-    }
-  }
+class _InfoRow extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String value;
+  final bool ltr;
 
-  Widget _row(IconData icon, String label, String value, {bool ltr = false}) {
-    final valueText = Text(
-      value,
-      textDirection: ltr ? TextDirection.ltr : null,
-      style: const TextStyle(
-        fontFamily: 'Cairo',
-        fontSize: 15,
-        fontWeight: FontWeight.w800,
-        color: AppTheme.textDark,
-      ),
-    );
+  const _InfoRow({
+    required this.icon,
+    required this.label,
+    required this.value,
+    this.ltr = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       child: Row(
         children: [
-          Icon(icon, size: 20, color: AppTheme.primaryGreen),
-          const SizedBox(width: 12),
-          Text(
-            label,
-            style: const TextStyle(
-              fontFamily: 'Cairo',
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: AppTheme.textGray,
+          Icon(icon, size: 22, color: AppTheme.primaryGreen),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  style: const TextStyle(
+                    fontFamily: 'Cairo',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: AppTheme.textGray,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  value,
+                  textDirection: ltr ? TextDirection.ltr : TextDirection.rtl,
+                  style: const TextStyle(
+                    fontFamily: 'Cairo',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                    color: AppTheme.textDark,
+                  ),
+                ),
+              ],
             ),
           ),
-          const SizedBox(width: 12),
-          Expanded(
-              child: Align(alignment: Alignment.centerLeft, child: valueText)),
         ],
       ),
-    );
-  }
-
-  Widget _divider() =>
-      Divider(height: 1, color: AppTheme.surfaceMuted.withValues(alpha: 0.6));
-
-  Widget _avatarPicker() {
-    return Consumer2<ProgressProvider, LessonProvider>(
-      builder: (context, progress, lessons, _) {
-        final pts = progress.summary?.totalPoints ?? 0;
-        final av = Avatars.resolve(lessons.dashboard?.avatarId);
-        return AvatarPickerCard(
-          currentId: av.id,
-          pts: pts,
-          onSelect: (a) => _selectAvatar(a, av.id),
-          onLockedTap: _showLockedHint,
-        );
-      },
     );
   }
 }

@@ -2,10 +2,13 @@ package com.springboot.manhaji.controller;
 
 import com.springboot.manhaji.dto.request.AdminCreateUserRequest;
 import com.springboot.manhaji.dto.request.AdminUpdateUserRequest;
+import com.springboot.manhaji.dto.request.LinkParentRequest;
+import com.springboot.manhaji.dto.request.TeacherAssignmentRequest;
 import com.springboot.manhaji.dto.response.AdminStatsResponse;
 import com.springboot.manhaji.dto.response.ApiResponse;
 import com.springboot.manhaji.dto.response.QuestionBankResponse;
 import com.springboot.manhaji.dto.response.SubjectSummary;
+import com.springboot.manhaji.dto.response.TeacherAssignmentResponse;
 import com.springboot.manhaji.dto.response.UserSummaryResponse;
 import com.springboot.manhaji.entity.AuditLog;
 import com.springboot.manhaji.entity.enums.Role;
@@ -45,7 +48,7 @@ public class AdminController {
 
     @GetMapping("/users")
     public ResponseEntity<ApiResponse<List<UserSummaryResponse>>> getUsers(
-            @RequestParam(required = false) Role role) {
+            @RequestParam(name = "role", required = false) Role role) {
         return ResponseEntity.ok(ApiResponse.success(adminService.getAllUsers(role)));
     }
 
@@ -59,31 +62,54 @@ public class AdminController {
 
     @PutMapping("/users/{userId}")
     public ResponseEntity<ApiResponse<UserSummaryResponse>> updateUser(
-            @PathVariable Long userId,
+            @PathVariable("userId") Long userId,
             @Valid @RequestBody AdminUpdateUserRequest request) {
         return ResponseEntity.ok(ApiResponse.success(adminService.updateUser(userId, request)));
     }
 
     @DeleteMapping("/users/{userId}")
-    public ResponseEntity<ApiResponse<Void>> deleteUser(@PathVariable Long userId) {
+    public ResponseEntity<ApiResponse<Void>> deleteUser(@PathVariable("userId") Long userId) {
         Long callerUserId = currentUserId();
         adminService.deleteUser(userId, callerUserId);
         return ResponseEntity.ok(ApiResponse.success(null));
+    }
+
+    @PutMapping("/students/{studentId}/link-parent")
+    public ResponseEntity<ApiResponse<UserSummaryResponse>> linkParent(
+            @PathVariable("studentId") Long studentId,
+            @RequestBody LinkParentRequest request) {
+        return ResponseEntity.ok(ApiResponse.success(
+                adminService.linkStudentToParent(studentId, request.getParentId())));
+    }
+
+    @GetMapping("/teachers/{teacherId}/assignments")
+    public ResponseEntity<ApiResponse<List<TeacherAssignmentResponse>>> getTeacherAssignments(
+            @PathVariable("teacherId") Long teacherId) {
+        return ResponseEntity.ok(ApiResponse.success(
+                adminService.getTeacherAssignments(teacherId)));
+    }
+
+    @PutMapping("/teachers/{teacherId}/assignments")
+    public ResponseEntity<ApiResponse<List<TeacherAssignmentResponse>>> replaceTeacherAssignments(
+            @PathVariable("teacherId") Long teacherId,
+            @Valid @RequestBody List<@Valid TeacherAssignmentRequest> request) {
+        return ResponseEntity.ok(ApiResponse.success(
+                adminService.replaceTeacherAssignments(teacherId, request)));
     }
 
     // ==================== Question Bank (FR-9, unrestricted) ====================
 
     @GetMapping("/subjects")
     public ResponseEntity<ApiResponse<List<SubjectSummary>>> getSubjects(
-            @RequestParam(required = false) Integer grade) {
+            @RequestParam(name = "grade", required = false) Integer grade) {
         return ResponseEntity.ok(ApiResponse.success(adminService.getAllSubjects(grade)));
     }
 
     @GetMapping("/subjects/{subjectId}/questions")
     public ResponseEntity<ApiResponse<QuestionBankResponse>> getQuestionsForSubject(
-            @PathVariable Long subjectId,
-            @RequestParam(required = false) Integer difficulty,
-            @RequestParam(required = false) Long lessonId) {
+            @PathVariable("subjectId") Long subjectId,
+            @RequestParam(name = "difficulty", required = false) Integer difficulty,
+            @RequestParam(name = "lessonId", required = false) Long lessonId) {
         return ResponseEntity.ok(ApiResponse.success(
                 adminService.getQuestionsForSubject(subjectId, difficulty, lessonId)));
     }
@@ -95,9 +121,9 @@ public class AdminController {
      */
     @GetMapping("/audit-logs")
     public ResponseEntity<ApiResponse<Page<AuditLog>>> getAuditLogs(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "50") int size,
-            @RequestParam(required = false) Long actorUserId) {
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "50") int size,
+            @RequestParam(name = "actorUserId", required = false) Long actorUserId) {
         int safeSize = Math.max(1, Math.min(size, 200));
         PageRequest pageable = PageRequest.of(Math.max(0, page), safeSize);
         Page<AuditLog> result = actorUserId == null

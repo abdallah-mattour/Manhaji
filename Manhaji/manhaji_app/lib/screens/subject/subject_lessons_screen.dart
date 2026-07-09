@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import '../../app/theme.dart';
 import '../../models/lesson.dart';
@@ -125,12 +124,15 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
               final semester2Lessons = provider.currentLessons
                   .where((l) => l.semesterNumber == 2)
                   .toList();
+              // Combined ordered list: S1 lessons then S2 lessons.
+              // Used to compute global position for the cross-semester lock check.
+              final allLessons = [...semester1Lessons, ...semester2Lessons];
 
               return TabBarView(
                 controller: _tabController,
                 children: [
-                  _buildLessonList(semester1Lessons, 1),
-                  _buildLessonList(semester2Lessons, 2),
+                  _buildLessonList(semester1Lessons, 1, allLessons, 0),
+                  _buildLessonList(semester2Lessons, 2, allLessons, semester1Lessons.length),
                 ],
               );
             },
@@ -140,7 +142,7 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
     );
   }
 
-  Widget _buildLessonList(List<LessonSummary> lessons, int semester) {
+  Widget _buildLessonList(List<LessonSummary> lessons, int semester, List<LessonSummary> allLessons, int globalOffset) {
     if (lessons.isEmpty) {
       return Center(
         child: Padding(
@@ -169,18 +171,7 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
         ),
       );
     }
-    // Demo-readiness decision (2026-05-24): every lesson is tappable so the
-    // demo committee can jump to any node during the live walkthrough. The
-    // Duolingo-style progressive unlock (lock until previous is complete)
-    // looked great visually but blocked 90% of the path on a fresh student.
-    // To restore gating post-demo, change to:
-    //   isLocked = index > 0 && !lessons[index - 1].isCompleted;
     final isRtl = Directionality.of(context) == TextDirection.rtl;
-
-    // Tier 2 (ported from partner's path_screen): mark the first unfinished
-    // lesson as the "you are here" node — crown icon + bobbing "ابدأ هنا"
-    // bubble. Nodes stay tappable per the 2026-05-24 demo decision above.
-    final firstUnfinished = lessons.indexWhere((l) => !l.isCompleted);
 
     return Stack(
       children: [
@@ -199,8 +190,8 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
           itemCount: lessons.length,
           itemBuilder: (context, index) {
             final lesson = lessons[index];
-            const isLocked = false;
-            final isCurrent = index == firstUnfinished;
+            final globalIndex = globalOffset + index;
+            final isLocked = globalIndex > 0 && !allLessons[globalIndex - 1].isCompleted;
 
             final double rawOffset = (index % 4 == 0 || index % 4 == 3)
                 ? 0
@@ -217,9 +208,8 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
               child: _LessonPathNode(
                 lesson: lesson,
                 isLocked: isLocked,
-                isCurrent: isCurrent,
                 color: widget.subjectColor,
-                onTap: () => _openLesson(lesson, practice: false),
+                onTap: isLocked ? null : () => _openLesson(lesson, practice: false),
                 onPractice: () => _openLesson(lesson, practice: true),
               ),
             );
@@ -252,7 +242,6 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
 class _LessonPathNode extends StatelessWidget {
   final LessonSummary lesson;
   final bool isLocked;
-  final bool isCurrent;
   final Color color;
   final VoidCallback? onTap;
   final VoidCallback onPractice;
@@ -260,7 +249,6 @@ class _LessonPathNode extends StatelessWidget {
   const _LessonPathNode({
     required this.lesson,
     required this.isLocked,
-    required this.isCurrent,
     required this.color,
     this.onTap,
     required this.onPractice,
@@ -271,58 +259,11 @@ class _LessonPathNode extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // "You are here" bubble — gentle bob so the child's eye lands on it.
-        if (isCurrent)
-          Container(
-            margin: const EdgeInsets.only(bottom: 6),
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(AppTheme.radiusPill),
-              border: Border.all(color: color, width: 2),
-              boxShadow: [
-                BoxShadow(
-                  color: color.withValues(alpha: 0.25),
-                  blurRadius: 8,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-            ),
-            child: Text(
-              'ابدأ هنا',
-              style: TextStyle(
-                fontFamily: 'Cairo',
-                fontSize: 13,
-                fontWeight: FontWeight.w900,
-                color: color,
-              ),
-            ),
-          )
-              .animate(onPlay: (c) => c.repeat(reverse: true))
-              .moveY(
-                begin: 0,
-                end: -5,
-                duration: 700.ms,
-                curve: Curves.easeInOut,
-              ),
         GestureDetector(
           onTap: onTap,
           child: Stack(
             alignment: Alignment.center,
             children: [
-              // Halo ring around the current node.
-              if (isCurrent)
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: color.withValues(alpha: 0.35),
-                      width: 4,
-                    ),
-                  ),
-                ),
               // 3D Depth Shadow
               Container(
                 width: 84,
@@ -345,21 +286,11 @@ class _LessonPathNode extends StatelessWidget {
                     width: 4,
                   ),
                 ),
-                child: isCurrent
-                    ? const Text(
-                        '👑',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 34, height: 1.6),
-                      )
-                    : Icon(
-                        isLocked
-                            ? Icons.lock_rounded
-                            : (lesson.isCompleted
-                                ? Icons.check_rounded
-                                : Icons.play_arrow_rounded),
-                        color: Colors.white,
-                        size: 40,
-                      ),
+                child: Icon(
+                  isLocked ? Icons.lock_rounded : (lesson.isCompleted ? Icons.check_rounded : Icons.play_arrow_rounded),
+                  color: Colors.white,
+                  size: 40,
+                ),
               ),
               // Mastery stars if completed
               if (lesson.isCompleted)

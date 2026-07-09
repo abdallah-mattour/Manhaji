@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../app/routes.dart';
 import '../../app/theme.dart';
-import '../../config/gamification.dart';
 import '../../providers/auth_provider.dart';
-import '../../providers/lesson_provider.dart';
+import '../../providers/student_settings_provider.dart';
+import '../../widgets/account_profile_actions.dart';
+import '../../widgets/student_bottom_nav.dart';
+import '../../widgets/vibrant_background.dart';
 import '../../widgets/duolingo_button.dart';
 import '../../widgets/duolingo_card.dart';
-import '../../widgets/settings_tile.dart';
-import '../../widgets/vibrant_background.dart';
+import 'about_screen.dart';
+import 'change_password_screen.dart';
+import 'notifications_screen.dart';
+import 'profile_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -16,7 +20,6 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
-    final isStudent = auth.userRole == 'STUDENT';
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -26,28 +29,37 @@ class SettingsScreen extends StatelessWidget {
           backgroundColor: AppTheme.backgroundLight,
           elevation: 0,
         ),
+        bottomNavigationBar: const StudentBottomNav(currentIndex: 2),
         body: VibrantBackground(
           backgroundColor: AppTheme.backgroundLight,
           pattern: BackgroundPattern.none,
           child: ListView(
             padding: const EdgeInsets.all(24),
             children: [
-              // Tappable profile card → profile screen.
+              // Profile card
               DuolingoCard(
                 padding: const EdgeInsets.all(20),
                 borderColor: AppTheme.primaryGreen,
-                onTap: () =>
-                    Navigator.pushNamed(context, AppRoutes.profile),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const ProfileScreen()),
+                ),
                 child: Row(
                   children: [
-                    _avatar(isStudent),
+                    AccountAvatar(
+                      avatarId: auth.userAvatarId,
+                      fallbackLabel: auth.userName ?? 'طالب',
+                      size: 60,
+                      fallbackColor: AppTheme.primaryGreen,
+                      borderRadius: AppTheme.radiusPill,
+                    ),
                     const SizedBox(width: 16),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            auth.userName ?? 'مستخدم',
+                            auth.userName ?? 'طالب',
                             style: const TextStyle(
                               fontFamily: 'Cairo',
                               fontSize: 18,
@@ -56,7 +68,9 @@ class SettingsScreen extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            _roleLabel(auth.userRole),
+                            auth.userRole == 'STUDENT'
+                                ? 'طالب'
+                                : auth.userRole ?? '',
                             style: const TextStyle(
                               fontFamily: 'Cairo',
                               color: AppTheme.textGray,
@@ -66,33 +80,52 @@ class SettingsScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const Icon(Icons.arrow_back_ios,
-                        size: 16, color: AppTheme.textGray),
                   ],
                 ),
               ),
               const SizedBox(height: 32),
 
-              SettingsTile(
-                icon: Icons.person_outline,
-                title: 'الملف الشخصي',
-                onTap: () => Navigator.pushNamed(context, AppRoutes.profile),
-              ),
-              SettingsTile(
-                icon: Icons.lock_outline,
+              // Phase 8A — الوضع الصامت: gates automatic audio only.
+              _SilentModeTile(),
+
+              _buildSettingTile(
+                icon: Icons.lock_outline_rounded,
                 title: 'تغيير كلمة المرور',
-                onTap: () =>
-                    Navigator.pushNamed(context, AppRoutes.changePassword),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const ChangePasswordScreen(),
+                  ),
+                ),
               ),
-              SettingsTile(
+              _buildSettingTile(
+                icon: Icons.notifications_outlined,
+                title: 'الإشعارات',
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const NotificationsScreen(),
+                  ),
+                ),
+              ),
+              _buildSettingTile(
                 icon: Icons.info_outline,
                 title: 'عن التطبيق',
-                onTap: () => Navigator.pushNamed(context, AppRoutes.about),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const AboutScreen()),
+                ),
               ),
               const SizedBox(height: 32),
 
+              // Logout
               DuolingoButton(
-                onPressed: () => _confirmLogout(context),
+                onPressed: () {
+                  context.read<AuthProvider>().logout();
+                  Navigator.of(
+                    context,
+                  ).pushNamedAndRemoveUntil(AppRoutes.login, (_) => false);
+                },
                 color: AppTheme.primaryRed,
                 text: 'تسجيل الخروج',
               ),
@@ -103,95 +136,83 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  Widget _avatar(bool isStudent) {
-    if (!isStudent) {
-      return CircleAvatar(
-        radius: 30,
-        backgroundColor: AppTheme.primaryGreen.withValues(alpha: 0.1),
-        child: const Icon(Icons.person, size: 35, color: AppTheme.primaryGreen),
-      );
-    }
-    // Students: show their chosen avatar emoji from the dashboard.
-    return Consumer<LessonProvider>(
-      builder: (context, lessons, _) {
-        final emoji = Avatars.resolve(lessons.dashboard?.avatarId).emoji;
-        return Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: AppTheme.primaryGreen.withValues(alpha: 0.1),
+  Widget _buildSettingTile({
+    required IconData icon,
+    required String title,
+    required VoidCallback onTap,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: DuolingoCard(
+        padding: EdgeInsets.zero,
+        borderRadius: AppTheme.radiusM,
+        child: ListTile(
+          leading: Icon(icon, color: AppTheme.primaryGreen),
+          title: Text(
+            title,
+            style: const TextStyle(
+              fontFamily: 'Cairo',
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          alignment: Alignment.center,
-          child: Text(emoji, style: const TextStyle(fontSize: 34)),
-        );
-      },
-    );
-  }
-
-  String _roleLabel(String? role) {
-    switch (role) {
-      case 'STUDENT':
-        return 'طالب';
-      case 'PARENT':
-        return 'ولي أمر';
-      case 'TEACHER':
-        return 'معلم';
-      case 'ADMIN':
-        return 'مشرف';
-      default:
-        return '';
-    }
-  }
-
-  Future<void> _confirmLogout(BuildContext context) async {
-    final navigator = Navigator.of(context);
-    final auth = context.read<AuthProvider>();
-
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (dialogContext) => Directionality(
-        textDirection: TextDirection.rtl,
-        child: AlertDialog(
+          trailing: const Icon(Icons.arrow_back_ios, size: 16),
+          onTap: onTap,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppTheme.radiusL),
+            borderRadius: BorderRadius.circular(12),
           ),
-          title: const Text(
-            'تسجيل الخروج',
-            style: TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.w900),
-          ),
-          content: const Text(
-            'هل تريد بالتأكيد تسجيل الخروج من حسابك؟',
-            style: TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.w600),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(dialogContext).pop(false),
-              child: const Text(
-                'إلغاء',
-                style: TextStyle(
-                    fontFamily: 'Cairo',
-                    fontWeight: FontWeight.w800,
-                    color: AppTheme.textGray),
-              ),
-            ),
-            TextButton(
-              onPressed: () => Navigator.of(dialogContext).pop(true),
-              child: const Text(
-                'خروج',
-                style: TextStyle(
-                    fontFamily: 'Cairo',
-                    fontWeight: FontWeight.w800,
-                    color: AppTheme.primaryRed),
-              ),
-            ),
-          ],
         ),
       ),
     );
+  }
+}
 
-    if (confirmed != true) return;
-    await auth.logout();
-    navigator.pushNamedAndRemoveUntil(AppRoutes.login, (_) => false);
+/// Phase 8A — "الوضع الصامت" toggle. ON disables automatic audio in the
+/// learning flow (auto-TTS on step change + verdict sounds). Manual speaker
+/// buttons and voice answers stay fully available.
+class _SilentModeTile extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final settings = context.watch<StudentSettingsProvider>();
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: DuolingoCard(
+        padding: EdgeInsets.zero,
+        borderRadius: AppTheme.radiusM,
+        child: SwitchListTile(
+          key: const ValueKey('student-silent-mode-switch'),
+          secondary: Icon(
+            settings.silentMode
+                ? Icons.volume_off_rounded
+                : Icons.volume_up_rounded,
+            color: AppTheme.primaryGreen,
+          ),
+          title: const Text(
+            'الوضع الصامت',
+            style: TextStyle(
+              fontFamily: 'Cairo',
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          subtitle: const Text(
+            'إيقاف التشغيل التلقائي للصوت أثناء الدراسة',
+            style: TextStyle(
+              fontFamily: 'Cairo',
+              fontSize: 12,
+              color: AppTheme.textGray,
+            ),
+          ),
+          value: settings.silentMode,
+          activeThumbColor: AppTheme.primaryGreen,
+          onChanged: (enabled) =>
+              context.read<StudentSettingsProvider>().setSilentMode(enabled),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+      ),
+    );
   }
 }

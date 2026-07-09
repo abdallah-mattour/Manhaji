@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'app/routes.dart';
+import 'preview/preview_config.dart';
 import 'app/theme.dart';
 import 'providers/admin_provider.dart';
 import 'providers/auth_provider.dart';
@@ -10,6 +11,9 @@ import 'providers/learning_provider.dart';
 import 'providers/parent_provider.dart';
 import 'providers/question_bank_provider.dart';
 import 'providers/report_provider.dart';
+import 'providers/student_assigned_quiz_provider.dart';
+import 'providers/student_rewards_provider.dart';
+import 'providers/student_settings_provider.dart';
 import 'providers/teacher_provider.dart';
 import 'services/admin_service.dart';
 import 'services/api_service.dart';
@@ -29,33 +33,14 @@ void main() async {
   final localStorage = LocalStorageService();
   await localStorage.init();
 
-  final apiService = ApiService(localStorage);
-  final authService = AuthService(apiService);
-  final lessonService = LessonApiService(apiService);
-  final quizService = QuizApiService(apiService);
-  final progressService = ProgressApiService(apiService);
-  final audioService = AudioApiService(apiService);
-  final teacherService = TeacherService(apiService);
-  final adminService = AdminService(apiService);
-  final parentService = ParentApiService(apiService);
-  final reportService = ReportService(apiService);
+  final services = AppServices.create(localStorage);
 
-  runApp(ManhajiApp(
-    localStorage: localStorage,
-    authService: authService,
-    lessonService: lessonService,
-    quizService: quizService,
-    progressService: progressService,
-    audioService: audioService,
-    teacherService: teacherService,
-    adminService: adminService,
-    parentService: parentService,
-    reportService: reportService,
-  ));
+  runApp(ManhajiApp(services: services));
 }
 
-class ManhajiApp extends StatelessWidget {
+class AppServices {
   final LocalStorageService localStorage;
+  final ApiService apiService;
   final AuthService authService;
   final LessonApiService lessonService;
   final QuizApiService quizService;
@@ -66,9 +51,9 @@ class ManhajiApp extends StatelessWidget {
   final ParentApiService parentService;
   final ReportService reportService;
 
-  const ManhajiApp({
-    super.key,
+  AppServices({
     required this.localStorage,
+    required this.apiService,
     required this.authService,
     required this.lessonService,
     required this.quizService,
@@ -80,41 +65,87 @@ class ManhajiApp extends StatelessWidget {
     required this.reportService,
   });
 
+  factory AppServices.create(LocalStorageService localStorage) {
+    final apiService = ApiService(localStorage);
+    return AppServices(
+      localStorage: localStorage,
+      apiService: apiService,
+      authService: AuthService(apiService),
+      lessonService: LessonApiService(apiService),
+      quizService: QuizApiService(apiService),
+      progressService: ProgressApiService(apiService),
+      audioService: AudioApiService(apiService),
+      teacherService: TeacherService(apiService),
+      adminService: AdminService(apiService),
+      parentService: ParentApiService(apiService),
+      reportService: ReportService(apiService),
+    );
+  }
+}
+
+class ManhajiApp extends StatelessWidget {
+  final AppServices services;
+
+  const ManhajiApp({super.key, required this.services});
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<LocalStorageService>.value(value: localStorage),
+        Provider<LocalStorageService>.value(value: services.localStorage),
+        Provider<ApiService>.value(value: services.apiService),
+        Provider<AuthService>.value(value: services.authService),
+        Provider<LessonApiService>.value(value: services.lessonService),
+        Provider<ProgressApiService>.value(value: services.progressService),
+        Provider<AdminService>.value(value: services.adminService),
+        Provider<ParentApiService>.value(value: services.parentService),
+        Provider<ReportService>.value(value: services.reportService),
+        Provider<TeacherService>.value(value: services.teacherService),
         ChangeNotifierProvider(
-          create: (_) => AuthProvider(authService, localStorage),
+          create: (_) =>
+              AuthProvider(services.authService, services.localStorage),
+        ),
+        // Student-scoped local preferences (Silent Mode). Registered app-wide
+        // like the other providers, but only student screens consume it.
+        ChangeNotifierProvider(
+          create: (_) => StudentSettingsProvider(services.localStorage),
         ),
         ChangeNotifierProvider(
-          create: (_) => LessonProvider(lessonService),
+          create: (_) => StudentRewardsProvider(services.localStorage),
         ),
         ChangeNotifierProvider(
-          create: (_) => LearningProvider(quizService),
+          create: (_) => LessonProvider(services.lessonService),
         ),
         ChangeNotifierProvider(
-          create: (_) => ProgressProvider(progressService),
+          create: (_) => LearningProvider(services.quizService),
         ),
-        Provider<AudioApiService>.value(value: audioService),
+        ChangeNotifierProvider(
+          create: (_) => StudentAssignedQuizProvider(services.quizService),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ProgressProvider(services.progressService),
+        ),
+        Provider<AudioApiService>.value(value: services.audioService),
         // Registered so the home-screen "Challenge Me" flow can call
         // generatePersonalizedQuiz / getSkillMastery directly.
-        Provider<QuizApiService>.value(value: quizService),
+        Provider<QuizApiService>.value(value: services.quizService),
         ChangeNotifierProvider(
-          create: (_) => TeacherProvider(teacherService),
+          create: (_) => TeacherProvider(services.teacherService),
         ),
         ChangeNotifierProvider(
-          create: (_) => AdminProvider(adminService),
+          create: (_) => AdminProvider(services.adminService),
         ),
         ChangeNotifierProvider(
-          create: (_) => ParentProvider(parentService),
+          create: (_) => ParentProvider(services.parentService),
         ),
         ChangeNotifierProvider(
-          create: (_) => ReportProvider(reportService),
+          create: (_) => ReportProvider(services.reportService),
         ),
         ChangeNotifierProvider(
-          create: (_) => QuestionBankProvider(teacherService, adminService),
+          create: (_) => QuestionBankProvider(
+            services.teacherService,
+            services.adminService,
+          ),
         ),
       ],
       child: MaterialApp(
@@ -123,7 +154,9 @@ class ManhajiApp extends StatelessWidget {
         theme: AppTheme.lightTheme,
         locale: const Locale('ar'),
         routes: AppRoutes.routes,
-        initialRoute: AppRoutes.splash,
+        initialRoute: kScreenshotMode
+            ? AppRoutes.previewMenu
+            : AppRoutes.splash,
       ),
     );
   }

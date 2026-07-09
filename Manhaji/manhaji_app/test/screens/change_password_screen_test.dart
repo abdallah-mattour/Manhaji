@@ -8,6 +8,7 @@ import 'package:manhaji_app/screens/settings/change_password_screen.dart';
 import 'package:manhaji_app/services/api_service.dart';
 import 'package:manhaji_app/services/auth_service.dart';
 import 'package:manhaji_app/services/local_storage_service.dart';
+import 'package:manhaji_app/widgets/duolingo_button.dart';
 
 class FakeLocalStorage extends Fake implements LocalStorageService {
   @override
@@ -20,6 +21,8 @@ class FakeLocalStorage extends Fake implements LocalStorageService {
   int? getUserId() => 1;
   @override
   int? getGradeLevel() => 1;
+  @override
+  String? getUserAvatarId() => null;
 }
 
 class MockAuthService extends AuthService {
@@ -70,6 +73,13 @@ Future<void> _open(WidgetTester tester, AuthProvider provider) async {
   await tester.pumpAndSettle();
 }
 
+/// The submit button label ("تغيير كلمة المرور") also appears in the AppBar
+/// title, so target the button by type instead of by text.
+Future<void> _tapSubmit(WidgetTester tester) async {
+  await tester.tap(find.byType(DuolingoButton));
+  await tester.pumpAndSettle();
+}
+
 void main() {
   late MockAuthService service;
   late AuthProvider provider;
@@ -82,9 +92,7 @@ void main() {
   testWidgets('shows required-field validators on empty submit',
       (tester) async {
     await _open(tester, provider);
-
-    await tester.tap(find.text('حفظ كلمة المرور'));
-    await tester.pumpAndSettle();
+    await _tapSubmit(tester);
 
     expect(find.text('أدخل كلمة المرور الحالية'), findsOneWidget);
     expect(find.text('أدخل كلمة المرور الجديدة'), findsOneWidget);
@@ -98,8 +106,7 @@ void main() {
     await tester.enterText(fields.at(0), 'oldpass');
     await tester.enterText(fields.at(1), 'newpass');
     await tester.enterText(fields.at(2), 'different');
-    await tester.tap(find.text('حفظ كلمة المرور'));
-    await tester.pumpAndSettle();
+    await _tapSubmit(tester);
 
     expect(find.text('كلمتا المرور غير متطابقتين'), findsOneWidget);
     expect(service.changeCalls, 0);
@@ -112,10 +119,9 @@ void main() {
     await tester.enterText(fields.at(0), 'oldpass');
     await tester.enterText(fields.at(1), 'abc');
     await tester.enterText(fields.at(2), 'abc');
-    await tester.tap(find.text('حفظ كلمة المرور'));
-    await tester.pumpAndSettle();
+    await _tapSubmit(tester);
 
-    expect(find.text('كلمة المرور يجب أن تكون ٦ أحرف على الأقل'),
+    expect(find.text('كلمة المرور يجب أن تكون 6 أحرف على الأقل'),
         findsOneWidget);
     expect(service.changeCalls, 0);
   });
@@ -127,8 +133,7 @@ void main() {
     await tester.enterText(fields.at(0), 'oldpass');
     await tester.enterText(fields.at(1), 'newpass');
     await tester.enterText(fields.at(2), 'newpass');
-    await tester.tap(find.text('حفظ كلمة المرور'));
-    await tester.pumpAndSettle();
+    await _tapSubmit(tester);
 
     expect(service.changeCalls, 1);
     expect(service.lastCurrent, 'oldpass');

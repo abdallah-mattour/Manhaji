@@ -13,6 +13,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     List<Student> findBySchoolId(Long schoolId);
     List<Student> findByParentId(Long parentId);
     List<Student> findBySchoolIdAndGradeLevel(Long schoolId, Integer gradeLevel);
+    List<Student> findBySchoolIdInAndGradeLevelIn(List<Long> schoolIds, List<Integer> gradeLevels);
 
     @Query("SELECT s FROM Student s WHERE s.gradeLevel = :gradeLevel ORDER BY s.totalPoints DESC")
     List<Student> findTopByGradeLevelOrderByPointsDesc(Integer gradeLevel);

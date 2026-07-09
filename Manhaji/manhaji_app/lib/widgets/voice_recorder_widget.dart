@@ -255,7 +255,7 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
               borderRadius: BorderRadius.circular(4),
               child: LinearProgressIndicator(
                 value: _recordingSeconds / maxSeconds,
-                backgroundColor: Colors.grey.shade200,
+                backgroundColor: AppTheme.surfaceMuted,
                 valueColor: const AlwaysStoppedAnimation(AppTheme.primaryRed),
                 minHeight: 4,
               ),
@@ -310,7 +310,7 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
                 color: isRecording
                     ? AppTheme.primaryRed
                     : isProcessing
-                        ? Colors.grey
+                        ? AppTheme.surfaceStrong
                         : AppTheme.primaryOrange,
                 boxShadow: isRecording
                     ? [

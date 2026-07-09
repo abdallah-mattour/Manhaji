@@ -28,4 +28,26 @@ public interface StudentResponseRepository extends JpaRepository<StudentResponse
     List<StudentResponse> findByStudentIdAndLessonId(
             @Param("studentId") Long studentId,
             @Param("lessonId") Long lessonId);
+
+    @Query("""
+            SELECT r FROM StudentResponse r
+            JOIN FETCH r.attempt a
+            JOIN FETCH a.student s
+            JOIN FETCH r.question q
+            JOIN FETCH q.lesson l
+            JOIN FETCH l.subject subject
+            WHERE r.isCorrect = false
+              AND s.id IN :studentIds
+              AND subject.id IN :subjectIds
+              AND (:subjectId IS NULL OR subject.id = :subjectId)
+              AND (:lessonId IS NULL OR l.id = :lessonId)
+              AND (:studentId IS NULL OR s.id = :studentId)
+            ORDER BY a.createdAt DESC, r.id DESC
+            """)
+    List<StudentResponse> findIncorrectByStudentIdsAndSubjectIds(
+            @Param("studentIds") List<Long> studentIds,
+            @Param("subjectIds") List<Long> subjectIds,
+            @Param("subjectId") Long subjectId,
+            @Param("lessonId") Long lessonId,
+            @Param("studentId") Long studentId);
 }

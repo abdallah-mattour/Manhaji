@@ -1,9 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../app/routes.dart';
 import '../../app/theme.dart';
 import '../../providers/auth_provider.dart';
+import '../../utils/role_platform_policy.dart';
 
 /// Shown when a logged-in user is on the wrong platform.
 ///
@@ -12,9 +12,8 @@ import '../../providers/auth_provider.dart';
 /// explains the mismatch and gives a one-tap logout so they can
 /// switch accounts on the correct platform.
 ///
-/// The screen inspects `kIsWeb` + the stored role at build time — no
-/// need to pass a mode explicitly. If somehow reached on the correct
-/// platform, it just redirects to the role's home.
+/// The screen asks RolePlatformPolicy for the current role's expected runtime.
+/// If somehow reached on the correct platform, it redirects to the role's home.
 class PlatformMismatchScreen extends StatelessWidget {
   const PlatformMismatchScreen({super.key});
 
@@ -23,7 +22,20 @@ class PlatformMismatchScreen extends StatelessWidget {
     final auth = context.watch<AuthProvider>();
     final role = auth.userRole;
 
-    final mode = _resolveMode(role);
+    if (auth.isLoggedIn &&
+        RolePlatformPolicy.isRoleAllowedOnCurrentPlatform(role)) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (context.mounted) {
+          final navigator = Navigator.of(context);
+          navigator.pushReplacementNamed(AppRoutes.homeForRole(role));
+        }
+      });
+      return const SizedBox.shrink();
+    }
+
+    final mode = _MismatchMode.fromTarget(
+      RolePlatformPolicy.targetForRole(role),
+    );
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -62,11 +74,22 @@ class PlatformMismatchScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      mode._body,
+                      RolePlatformPolicy.unsupportedMessageForRole(role),
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontFamily: 'Cairo',
                         fontSize: 16,
+                        height: 1.5,
+                        color: AppTheme.textGray,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    Text(
+                      mode._body,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontFamily: 'Cairo',
+                        fontSize: 15,
                         height: 1.5,
                         color: AppTheme.textGray,
                       ),
@@ -135,19 +158,10 @@ class PlatformMismatchScreen extends StatelessWidget {
       ),
     );
   }
-
-  _MismatchMode _resolveMode(String? role) {
-    if (kIsWeb) {
-      // Web should only host TEACHER / ADMIN. Anyone else is mismatched.
-      return _MismatchMode.studentOnWeb;
-    }
-    // Mobile should only host STUDENT / PARENT. Staff is mismatched.
-    return _MismatchMode.staffOnMobile;
-  }
 }
 
 enum _MismatchMode {
-  studentOnWeb(
+  mobileAccount(
     icon: Icons.phone_android_rounded,
     title: 'يرجى استخدام تطبيق منهجي على الموبايل',
     body:
@@ -156,7 +170,7 @@ enum _MismatchMode {
     hint:
         'التطبيق يعمل على نظامَي Android و iOS — سجّل دخولك بنفس الحساب هناك.',
   ),
-  staffOnMobile(
+  webAccount(
     icon: Icons.laptop_rounded,
     title: 'يرجى استخدام بوابة المعلم عبر المتصفّح',
     body:
@@ -164,6 +178,12 @@ enum _MismatchMode {
         'يرجى فتح البوابة في Chrome أو Edge للاستفادة من جميع المزايا.',
     hint:
         'افتح المتصفّح على الرابط نفسه الذي زوّدتك به إدارة المدرسة ثم سجّل دخولك.',
+  ),
+  unsupported(
+    icon: Icons.info_outline_rounded,
+    title: 'تعذّر فتح هذا الحساب هنا',
+    body: 'يرجى التأكد من نوع الحساب أو التواصل مع إدارة المدرسة.',
+    hint: 'يمكنك تسجيل الخروج ثم الدخول بحساب مدعوم لهذه النسخة.',
   );
 
   const _MismatchMode({
@@ -171,13 +191,21 @@ enum _MismatchMode {
     required String title,
     required String body,
     required String hint,
-  })  : _icon = icon,
-        _title = title,
-        _body = body,
-        _hint = hint;
+  }) : _icon = icon,
+       _title = title,
+       _body = body,
+       _hint = hint;
 
   final IconData _icon;
   final String _title;
   final String _body;
   final String _hint;
+
+  static _MismatchMode fromTarget(RolePlatformTarget target) {
+    return switch (target) {
+      RolePlatformTarget.mobile => _MismatchMode.mobileAccount,
+      RolePlatformTarget.web => _MismatchMode.webAccount,
+      RolePlatformTarget.unsupported => _MismatchMode.unsupported,
+    };
+  }
 }

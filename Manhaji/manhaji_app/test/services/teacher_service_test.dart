@@ -1,0 +1,235 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:manhaji_app/config/api_config.dart';
+import 'package:manhaji_app/services/api_service.dart';
+import 'package:manhaji_app/services/local_storage_service.dart';
+import 'package:manhaji_app/services/teacher_service.dart';
+
+class FakeLocalStorage extends Fake implements LocalStorageService {}
+
+class FakeApiService extends ApiService {
+  FakeApiService() : super(FakeLocalStorage());
+
+  final Map<String, Map<String, dynamic>> getResponses = {};
+  final Map<String, Map<String, dynamic>> postResponses = {};
+  final List<String> getPaths = [];
+  final List<Map<String, dynamic>?> getQueryParams = [];
+  final List<String> postPaths = [];
+  final List<Map<String, dynamic>?> postData = [];
+
+  @override
+  Future<Map<String, dynamic>> get(
+    String path, {
+    Map<String, dynamic>? queryParams,
+  }) async {
+    getPaths.add(path);
+    getQueryParams.add(queryParams);
+    return getResponses[path] ?? const {'data': null};
+  }
+
+  @override
+  Future<Map<String, dynamic>> post(
+    String path, {
+    Map<String, dynamic>? data,
+  }) async {
+    postPaths.add(path);
+    postData.add(data);
+    return postResponses[path] ?? const {'data': null};
+  }
+}
+
+void main() {
+  late FakeApiService api;
+  late TeacherService service;
+
+  setUp(() {
+    api = FakeApiService();
+    service = TeacherService(api);
+  });
+
+  group('TeacherService mistake analytics', () {
+    test(
+      'calls mistake analytics endpoint with filters and parses rows',
+      () async {
+        api.getResponses[ApiConfig.teacherMistakes] = {
+          'data': {
+            'summary': {
+              'totalMistakes': 3,
+              'affectedStudents': 2,
+              'mostMistakenLessonTitle': 'حرف الراء',
+              'mostMistakenQuestionText': 'اختر الكلمة الصحيحة',
+            },
+            'mistakes': [
+              {
+                'studentId': 1,
+                'studentName': 'ليان أحمد',
+                'subjectId': 10,
+                'subjectName': 'اللغة العربية',
+                'lessonId': 20,
+                'lessonTitle': 'حرف الراء',
+                'questionId': 30,
+                'questionText': 'اختر الكلمة الصحيحة',
+                'studentAnswer': 'باب',
+                'correctAnswer': 'رمان',
+                'mistakeCount': 2,
+                'lastMistakeAt': '2026-07-05T10:15:00',
+                'commonMistake': true,
+                'affectedStudentsForQuestion': 2,
+              },
+            ],
+          },
+        };
+
+        final analytics = await service.getMistakeAnalytics(
+          subjectId: 10,
+          lessonId: 20,
+          studentId: 1,
+          limit: 25,
+        );
+
+        expect(api.getPaths, [ApiConfig.teacherMistakes]);
+        expect(api.getQueryParams.single, {
+          'subjectId': 10,
+          'lessonId': 20,
+          'studentId': 1,
+          'limit': 25,
+        });
+        expect(analytics.summary.totalMistakes, 3);
+        expect(analytics.summary.affectedStudents, 2);
+        expect(analytics.mistakes, hasLength(1));
+        expect(analytics.mistakes.first.studentName, 'ليان أحمد');
+        expect(analytics.mistakes.first.commonMistake, isTrue);
+      },
+    );
+  });
+
+  group('TeacherService quizzes', () {
+    test('loads teacher quizzes and creates with expected payload', () async {
+      api.getResponses[ApiConfig.teacherQuizzes] = {
+        'data': [
+          {
+            'id': 44,
+            'title': 'اختبار الحروف',
+            'subjectId': 10,
+            'subjectName': 'اللغة العربية',
+            'lessonId': 20,
+            'lessonTitle': 'حرف الراء',
+            'questionCount': 2,
+            'createdAt': '2026-07-05T10:00:00',
+            'status': 'DRAFT',
+          },
+        ],
+      };
+      api.postResponses[ApiConfig.teacherQuizzes] = {
+        'data': {
+          'id': 45,
+          'title': 'اختبار جديد',
+          'subjectId': 10,
+          'subjectName': 'اللغة العربية',
+          'lessonId': 20,
+          'lessonTitle': 'حرف الراء',
+          'questionCount': 2,
+          'status': 'DRAFT',
+          'questions': [],
+        },
+      };
+
+      final quizzes = await service.getTeacherQuizzes();
+      final created = await service.createTeacherQuiz(
+        title: 'اختبار جديد',
+        subjectId: 10,
+        lessonId: 20,
+        questionIds: [30, 31],
+      );
+
+      expect(api.getPaths.last, ApiConfig.teacherQuizzes);
+      expect(quizzes.single.title, 'اختبار الحروف');
+      expect(quizzes.single.status, 'DRAFT');
+      expect(api.postPaths, [ApiConfig.teacherQuizzes]);
+      expect(api.postData.single, {
+        'title': 'اختبار جديد',
+        'subjectId': 10,
+        'lessonId': 20,
+        'questionIds': [30, 31],
+      });
+      expect(created.id, 45);
+      expect(created.subjectName, 'اللغة العربية');
+      expect(created.status, 'DRAFT');
+    });
+
+    test('publishes assignment with assign-to-all payload', () async {
+      final dueAt = DateTime(2026, 7, 7, 10);
+      final path = ApiConfig.teacherQuizAssignments(45);
+      api.postResponses[path] = {
+        'data': {
+          'assignmentId': 70,
+          'quizId': 45,
+          'quizTitle': 'اختبار جديد',
+          'subjectId': 10,
+          'subjectName': 'اللغة العربية',
+          'gradeLevel': 1,
+          'status': 'PUBLISHED',
+          'publishedAt': '2026-07-06T10:00:00',
+          'dueAt': '2026-07-07T10:00:00',
+          'maxAttempts': 2,
+          'assignedCount': 12,
+        },
+      };
+
+      final assignment = await service.publishQuizAssignment(
+        quizId: 45,
+        gradeLevel: 1,
+        dueAt: dueAt,
+        maxAttempts: 2,
+      );
+
+      expect(api.postPaths, [path]);
+      expect(api.postData.single, {
+        'gradeLevel': 1,
+        'dueAt': dueAt.toIso8601String(),
+        'maxAttempts': 2,
+      });
+      expect(assignment.assignmentId, 70);
+      expect(assignment.assignedCount, 12);
+    });
+
+    test('loads assignments and result summary', () async {
+      final assignmentsPath = ApiConfig.teacherQuizAssignments(45);
+      final resultsPath = ApiConfig.teacherAssignmentResults(70);
+      api.getResponses[assignmentsPath] = {
+        'data': [
+          {
+            'assignmentId': 70,
+            'quizId': 45,
+            'quizTitle': 'اختبار جديد',
+            'subjectName': 'اللغة العربية',
+            'gradeLevel': 1,
+            'status': 'PUBLISHED',
+            'publishedAt': '2026-07-06T10:00:00',
+            'dueAt': '2026-07-07T10:00:00',
+            'maxAttempts': 1,
+            'assignedCount': 8,
+          },
+        ],
+      };
+      api.getResponses[resultsPath] = {
+        'data': {
+          'assignmentId': 70,
+          'quizId': 45,
+          'quizTitle': 'اختبار جديد',
+          'assignedCount': 8,
+          'completedCount': 3,
+          'averageScore': 84.5,
+          'recentAttempts': [],
+        },
+      };
+
+      final assignments = await service.getQuizAssignments(45);
+      final results = await service.getAssignmentResults(70);
+
+      expect(api.getPaths, [assignmentsPath, resultsPath]);
+      expect(assignments.single.assignmentId, 70);
+      expect(results.completedCount, 3);
+      expect(results.averageScore, 84.5);
+    });
+  });
+}

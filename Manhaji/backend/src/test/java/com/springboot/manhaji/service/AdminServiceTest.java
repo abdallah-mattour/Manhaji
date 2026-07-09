@@ -2,18 +2,23 @@ package com.springboot.manhaji.service;
 
 import com.springboot.manhaji.dto.request.AdminCreateUserRequest;
 import com.springboot.manhaji.dto.request.AdminUpdateUserRequest;
+import com.springboot.manhaji.dto.request.TeacherAssignmentRequest;
 import com.springboot.manhaji.dto.response.AdminStatsResponse;
 import com.springboot.manhaji.dto.response.QuestionBankResponse;
 import com.springboot.manhaji.dto.response.SubjectSummary;
+import com.springboot.manhaji.dto.response.TeacherAssignmentResponse;
 import com.springboot.manhaji.dto.response.UserSummaryResponse;
 import com.springboot.manhaji.entity.Admin;
 import com.springboot.manhaji.entity.Attempt;
 import com.springboot.manhaji.entity.Lesson;
+import com.springboot.manhaji.entity.Parent;
 import com.springboot.manhaji.entity.Progress;
 import com.springboot.manhaji.entity.Question;
+import com.springboot.manhaji.entity.School;
 import com.springboot.manhaji.entity.Student;
 import com.springboot.manhaji.entity.Subject;
 import com.springboot.manhaji.entity.Teacher;
+import com.springboot.manhaji.entity.TeacherAssignment;
 import com.springboot.manhaji.entity.User;
 import com.springboot.manhaji.entity.enums.AttemptStatus;
 import com.springboot.manhaji.entity.enums.CompletionStatus;
@@ -29,6 +34,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -49,9 +55,11 @@ class AdminServiceTest {
     @Mock private UserRepository userRepository;
     @Mock private StudentRepository studentRepository;
     @Mock private TeacherRepository teacherRepository;
+    @Mock private TeacherAssignmentRepository teacherAssignmentRepository;
     @Mock private ParentRepository parentRepository;
     @Mock private AdminRepository adminRepository;
     @Mock private SubjectRepository subjectRepository;
+    @Mock private SchoolRepository schoolRepository;
     @Mock private LessonRepository lessonRepository;
     @Mock private QuestionRepository questionRepository;
     @Mock private AttemptRepository attemptRepository;
@@ -64,8 +72,9 @@ class AdminServiceTest {
     @BeforeEach
     void setUp() {
         adminService = new AdminService(
-                userRepository, studentRepository, teacherRepository, parentRepository,
-                adminRepository, subjectRepository, lessonRepository, questionRepository,
+                userRepository, studentRepository, teacherRepository, teacherAssignmentRepository,
+                parentRepository, adminRepository, subjectRepository, schoolRepository,
+                lessonRepository, questionRepository,
                 attemptRepository, progressRepository, new QuestionBankMapper(),
                 passwordEncoder, messages);
         lenient().when(messages.get(anyString(), any(Object[].class)))
@@ -384,8 +393,30 @@ class AdminServiceTest {
         }
 
         @Test
-        @DisplayName("should create a teacher with department + assignedGrade")
-        void createTeacher() {
+        @DisplayName("should reject creating a teacher without assignments")
+        void rejectsTeacherWithoutAssignments() {
+            AdminCreateUserRequest req = new AdminCreateUserRequest();
+            req.setFullName("Ms. Sara");
+            req.setPhone("0599123456");
+            req.setPassword("p4ssword");
+            req.setRole(Role.TEACHER);
+
+            when(userRepository.existsByPhone("0599123456")).thenReturn(false);
+            when(messages.get("error.admin.teacherAssignmentRequired"))
+                    .thenReturn("يجب إسناد مادة واحدة على الأقل للمعلم.");
+
+            assertThatThrownBy(() -> adminService.createUser(req))
+                    .isInstanceOf(BadRequestException.class)
+                    .hasMessage("يجب إسناد مادة واحدة على الأقل للمعلم.");
+
+            verify(userRepository, never()).save(any(User.class));
+            verify(teacherAssignmentRepository, never()).save(any(TeacherAssignment.class));
+        }
+
+        @Test
+        @DisplayName("should create a teacher with Arabic assignment")
+        void createTeacherWithAssignment() {
+            Subject arabic = createSubject(101L, "اللغة العربية", 1);
             AdminCreateUserRequest req = new AdminCreateUserRequest();
             req.setFullName("Ms. Sara");
             req.setPhone("0599123456");
@@ -393,8 +424,10 @@ class AdminServiceTest {
             req.setRole(Role.TEACHER);
             req.setDepartment("Arabic");
             req.setAssignedGrade(1);
+            req.setTeacherAssignments(List.of(createAssignmentRequest(arabic.getId(), null)));
 
             when(userRepository.existsByPhone("0599123456")).thenReturn(false);
+            when(subjectRepository.findById(arabic.getId())).thenReturn(Optional.of(arabic));
             when(passwordEncoder.encode("p4ssword")).thenReturn("HASH");
             when(userRepository.save(any(User.class))).thenAnswer(inv -> {
                 User u = inv.getArgument(0);
@@ -406,6 +439,44 @@ class AdminServiceTest {
 
             assertThat(result.getRole()).isEqualTo(Role.TEACHER);
             assertThat(result.getPhone()).isEqualTo("0599123456");
+            assertThat(result.getDepartment()).isEqualTo("Arabic");
+            assertThat(result.getAssignedGrade()).isEqualTo(1);
+
+            ArgumentCaptor<TeacherAssignment> assignmentCaptor =
+                    ArgumentCaptor.forClass(TeacherAssignment.class);
+            verify(teacherAssignmentRepository).save(assignmentCaptor.capture());
+            TeacherAssignment savedAssignment = assignmentCaptor.getValue();
+            assertThat(savedAssignment.getTeacher()).isInstanceOf(Teacher.class);
+            assertThat(savedAssignment.getTeacher().getId()).isEqualTo(7L);
+            assertThat(savedAssignment.getSubject()).isEqualTo(arabic);
+            assertThat(savedAssignment.getGradeLevel()).isEqualTo(1);
+            assertThat(savedAssignment.getIsActive()).isTrue();
+        }
+
+        @Test
+        @DisplayName("should create a parent account with no role-specific fields")
+        void createParent() {
+            AdminCreateUserRequest req = new AdminCreateUserRequest();
+            req.setFullName("Sarah Parent");
+            req.setPhone("0599111222");
+            req.setPassword("pass1234");
+            req.setRole(Role.PARENT);
+
+            when(userRepository.existsByPhone("0599111222")).thenReturn(false);
+            when(passwordEncoder.encode("pass1234")).thenReturn("HASH");
+            when(userRepository.save(any(User.class))).thenAnswer(inv -> {
+                User u = inv.getArgument(0);
+                u.setId(20L);
+                return u;
+            });
+
+            UserSummaryResponse result = adminService.createUser(req);
+
+            assertThat(result.getRole()).isEqualTo(Role.PARENT);
+            assertThat(result.getGradeLevel()).isNull();
+            assertThat(result.getDepartment()).isNull();
+            assertThat(result.getAssignedGrade()).isNull();
+            verify(passwordEncoder).encode("pass1234");
         }
 
         @Test
@@ -499,6 +570,8 @@ class AdminServiceTest {
             teacher.setPasswordHash("OLD");
 
             when(userRepository.findById(8L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(8L))
+                    .thenReturn(List.of(new TeacherAssignment()));
             when(passwordEncoder.encode("newpass")).thenReturn("NEWHASH");
             when(userRepository.save(any(User.class))).thenAnswer(inv -> inv.getArgument(0));
 
@@ -523,6 +596,72 @@ class AdminServiceTest {
         }
 
         @Test
+        @DisplayName("should deactivate a parent account")
+        void deactivatesParent() {
+            Parent parent = new Parent();
+            parent.setId(15L);
+            parent.setRole(Role.PARENT);
+            parent.setIsActive(true);
+
+            when(userRepository.findById(15L)).thenReturn(Optional.of(parent));
+            when(userRepository.save(any(User.class))).thenAnswer(inv -> inv.getArgument(0));
+
+            AdminUpdateUserRequest req = new AdminUpdateUserRequest();
+            req.setIsActive(false);
+
+            UserSummaryResponse result = adminService.updateUser(15L, req);
+
+            assertThat(result.getRole()).isEqualTo(Role.PARENT);
+            assertThat(parent.getIsActive()).isFalse();
+            assertThat(result.getGradeLevel()).isNull();
+            assertThat(result.getDepartment()).isNull();
+        }
+
+        @Test
+        @DisplayName("should return department and assignedGrade for teacher")
+        void returnsDepartmentAndGradeForTeacher() {
+            Teacher teacher = new Teacher();
+            teacher.setId(9L);
+            teacher.setRole(Role.TEACHER);
+            teacher.setDepartment("Math");
+            teacher.setAssignedGrade(2);
+
+            when(userRepository.findById(9L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(9L))
+                    .thenReturn(List.of(new TeacherAssignment()));
+            when(userRepository.save(any(User.class))).thenAnswer(inv -> inv.getArgument(0));
+
+            UserSummaryResponse result = adminService.updateUser(9L, new AdminUpdateUserRequest());
+
+            assertThat(result.getDepartment()).isEqualTo("Math");
+            assertThat(result.getAssignedGrade()).isEqualTo(2);
+            assertThat(result.getGradeLevel()).isNull();
+        }
+
+        @Test
+        @DisplayName("should reject active teacher update when no assignments exist")
+        void rejectsActiveTeacherUpdateWithoutAssignments() {
+            Teacher teacher = new Teacher();
+            teacher.setId(10L);
+            teacher.setRole(Role.TEACHER);
+            teacher.setIsActive(true);
+
+            when(userRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of());
+            when(messages.get("error.admin.teacherAssignmentRequired"))
+                    .thenReturn("يجب إسناد مادة واحدة على الأقل للمعلم.");
+
+            AdminUpdateUserRequest req = new AdminUpdateUserRequest();
+            req.setFullName("Updated Teacher");
+
+            assertThatThrownBy(() -> adminService.updateUser(10L, req))
+                    .isInstanceOf(BadRequestException.class)
+                    .hasMessage("يجب إسناد مادة واحدة على الأقل للمعلم.");
+            verify(userRepository, never()).save(any(User.class));
+        }
+
+        @Test
         @DisplayName("should reject when target user not found")
         void rejectsMissingUser() {
             when(userRepository.findById(404L)).thenReturn(Optional.empty());
@@ -531,11 +670,84 @@ class AdminServiceTest {
         }
     }
 
+    // ==================== TeacherAssignment Tests ====================
+
+    @Nested
+    @DisplayName("teacher assignments")
+    class TeacherAssignmentTests {
+
+        @Test
+        @DisplayName("should reject replacing teacher assignments with an empty list")
+        void rejectsEmptyAssignmentReplacement() {
+            Teacher teacher = createTeacher(30L);
+            when(userRepository.findById(30L)).thenReturn(Optional.of(teacher));
+            when(messages.get("error.admin.teacherAssignmentRequired"))
+                    .thenReturn("يجب إسناد مادة واحدة على الأقل للمعلم.");
+
+            assertThatThrownBy(() -> adminService.replaceTeacherAssignments(30L, List.of()))
+                    .isInstanceOf(BadRequestException.class)
+                    .hasMessage("يجب إسناد مادة واحدة على الأقل للمعلم.");
+
+            verify(teacherAssignmentRepository, never()).save(any(TeacherAssignment.class));
+        }
+
+        @Test
+        @DisplayName("should replace teacher assignment from Arabic to Math")
+        void replacesArabicAssignmentWithMath() {
+            Teacher teacher = createTeacher(30L);
+            Subject arabic = createSubject(101L, "اللغة العربية", 1);
+            Subject math = createSubject(102L, "الرياضيات", 2);
+            TeacherAssignment oldAssignment =
+                    createTeacherAssignment(201L, teacher, arabic, true);
+
+            when(userRepository.findById(30L)).thenReturn(Optional.of(teacher));
+            when(subjectRepository.findById(math.getId())).thenReturn(Optional.of(math));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(30L))
+                    .thenReturn(List.of(oldAssignment));
+            when(teacherAssignmentRepository.findByTeacherIdAndSubjectId(30L, math.getId()))
+                    .thenReturn(Optional.empty());
+
+            List<TeacherAssignmentResponse> result = adminService.replaceTeacherAssignments(
+                    30L,
+                    List.of(createAssignmentRequest(math.getId(), null)));
+
+            assertThat(oldAssignment.getIsActive()).isFalse();
+            assertThat(teacher.getAssignedGrade()).isEqualTo(2);
+            assertThat(result).hasSize(1);
+            assertThat(result.get(0).getSubjectId()).isEqualTo(math.getId());
+            assertThat(result.get(0).getSubjectName()).isEqualTo("الرياضيات");
+            assertThat(result.get(0).getGradeLevel()).isEqualTo(2);
+
+            ArgumentCaptor<TeacherAssignment> assignmentCaptor =
+                    ArgumentCaptor.forClass(TeacherAssignment.class);
+            verify(teacherAssignmentRepository, times(2)).save(assignmentCaptor.capture());
+            assertThat(assignmentCaptor.getAllValues()).anySatisfy(saved -> {
+                assertThat(saved.getSubject()).isEqualTo(math);
+                assertThat(saved.getTeacher()).isEqualTo(teacher);
+                assertThat(saved.getGradeLevel()).isEqualTo(2);
+                assertThat(saved.getIsActive()).isTrue();
+            });
+        }
+    }
+
     // ==================== deleteUser Tests ====================
 
     @Nested
     @DisplayName("deleteUser()")
     class DeleteUserTests {
+
+        @Test
+        @DisplayName("should delete a parent account")
+        void deletesParent() {
+            Parent parent = new Parent();
+            parent.setId(12L);
+            parent.setRole(Role.PARENT);
+            when(userRepository.findById(12L)).thenReturn(Optional.of(parent));
+
+            adminService.deleteUser(12L, 99L);
+
+            verify(userRepository).delete(parent);
+        }
 
         @Test
         @DisplayName("should delete a student")
@@ -577,7 +789,111 @@ class AdminServiceTest {
         }
     }
 
+    // ==================== linkStudentToParent Tests ====================
+
+    @Nested
+    @DisplayName("linkStudentToParent()")
+    class LinkStudentToParentTests {
+
+        @Test
+        @DisplayName("should link a student to a parent and return parentId in summary")
+        void linksStudentToParent() {
+            Student student = new Student();
+            student.setId(1L);
+            student.setRole(Role.STUDENT);
+            student.setGradeLevel(1);
+
+            Parent parent = new Parent();
+            parent.setId(10L);
+            parent.setRole(Role.PARENT);
+
+            when(userRepository.findById(1L)).thenReturn(Optional.of(student));
+            when(parentRepository.findById(10L)).thenReturn(Optional.of(parent));
+            when(userRepository.save(any(User.class))).thenAnswer(inv -> inv.getArgument(0));
+
+            UserSummaryResponse result = adminService.linkStudentToParent(1L, 10L);
+
+            assertThat(student.getParent()).isEqualTo(parent);
+            assertThat(result.getParentId()).isEqualTo(10L);
+            assertThat(result.getRole()).isEqualTo(Role.STUDENT);
+        }
+
+        @Test
+        @DisplayName("should unlink a student when parentId is null")
+        void unlinksStudentWhenParentIdIsNull() {
+            Parent existingParent = new Parent();
+            existingParent.setId(5L);
+
+            Student student = new Student();
+            student.setId(2L);
+            student.setRole(Role.STUDENT);
+            student.setParent(existingParent);
+
+            when(userRepository.findById(2L)).thenReturn(Optional.of(student));
+            when(userRepository.save(any(User.class))).thenAnswer(inv -> inv.getArgument(0));
+
+            UserSummaryResponse result = adminService.linkStudentToParent(2L, null);
+
+            assertThat(student.getParent()).isNull();
+            assertThat(result.getParentId()).isNull();
+        }
+
+        @Test
+        @DisplayName("should throw ResourceNotFoundException when student not found")
+        void throwsWhenStudentNotFound() {
+            when(userRepository.findById(999L)).thenReturn(Optional.empty());
+
+            assertThatThrownBy(() -> adminService.linkStudentToParent(999L, 10L))
+                    .isInstanceOf(ResourceNotFoundException.class);
+            verify(userRepository, never()).save(any(User.class));
+        }
+
+        @Test
+        @DisplayName("should throw ResourceNotFoundException when parent not found")
+        void throwsWhenParentNotFound() {
+            Student student = new Student();
+            student.setId(1L);
+            student.setRole(Role.STUDENT);
+
+            when(userRepository.findById(1L)).thenReturn(Optional.of(student));
+            when(parentRepository.findById(999L)).thenReturn(Optional.empty());
+
+            assertThatThrownBy(() -> adminService.linkStudentToParent(1L, 999L))
+                    .isInstanceOf(ResourceNotFoundException.class);
+            verify(userRepository, never()).save(any(User.class));
+        }
+    }
+
     // ==================== Helpers ====================
+
+    private Teacher createTeacher(Long id) {
+        Teacher teacher = new Teacher();
+        teacher.setId(id);
+        teacher.setRole(Role.TEACHER);
+        teacher.setIsActive(true);
+        return teacher;
+    }
+
+    private TeacherAssignmentRequest createAssignmentRequest(Long subjectId, Long schoolId) {
+        TeacherAssignmentRequest request = new TeacherAssignmentRequest();
+        request.setSubjectId(subjectId);
+        request.setSchoolId(schoolId);
+        return request;
+    }
+
+    private TeacherAssignment createTeacherAssignment(
+            Long id,
+            Teacher teacher,
+            Subject subject,
+            Boolean active) {
+        TeacherAssignment assignment = new TeacherAssignment();
+        assignment.setId(id);
+        assignment.setTeacher(teacher);
+        assignment.setSubject(subject);
+        assignment.setGradeLevel(subject.getGradeLevel());
+        assignment.setIsActive(active);
+        return assignment;
+    }
 
     private Subject createSubject(Long id, String name, Integer gradeLevel) {
         Subject s = new Subject();

@@ -15,6 +15,8 @@ class MockReportService extends ReportService {
   LearningPathModel? generatePathResult;
   PerformanceStats? statsResult;
   Exception? errorToThrow;
+  Exception? statsErrorToThrow;
+  int statsCallCount = 0;
 
   MockReportService() : super(ApiService(FakeLocalStorage()));
 
@@ -26,6 +28,8 @@ class MockReportService extends ReportService {
 
   @override
   Future<PerformanceStats> getStats() async {
+    statsCallCount += 1;
+    if (statsErrorToThrow != null) throw statsErrorToThrow!;
     // Stats are best-effort in the provider; return a benign empty snapshot
     // unless a test explicitly sets one.
     return statsResult ??
@@ -95,6 +99,28 @@ void main() {
         expect(provider.error, isNull);
       });
 
+      test('should keep reports when stats endpoint fails', () async {
+        mockService.reportsResult = [
+          ProgressReportModel(
+            id: 1,
+            studentId: 10,
+            studentName: 'طالب أحمد',
+            periodStart: '2026-03-01',
+            periodEnd: '2026-04-01',
+            summary: 'أداء جيد',
+            riskLevel: 'LOW',
+            generatedAt: '2026-04-13',
+          ),
+        ];
+        mockService.statsErrorToThrow = Exception('Older backend');
+
+        await provider.loadReports();
+
+        expect(provider.reports, hasLength(1));
+        expect(provider.stats, isNull);
+        expect(provider.error, isNull);
+      });
+
       test('should set error on failure', () async {
         mockService.errorToThrow = Exception('Network error');
 
@@ -120,6 +146,18 @@ void main() {
             generatedAt: '2026-04-01',
           ),
         ];
+        mockService.statsResult = PerformanceStats(
+          completedLessons: 1,
+          totalLessons: 4,
+          inProgressLessons: 0,
+          averageMastery: 25,
+          averageScore: 60,
+          totalPoints: 10,
+          currentStreak: 1,
+          quizzesTaken: 1,
+          hasActivity: true,
+          subjects: const [],
+        );
         await provider.loadReports();
 
         // Now generate a new report
@@ -133,12 +171,26 @@ void main() {
           riskLevel: 'MEDIUM',
           generatedAt: '2026-04-13',
         );
+        mockService.statsResult = PerformanceStats(
+          completedLessons: 2,
+          totalLessons: 4,
+          inProgressLessons: 0,
+          averageMastery: 50,
+          averageScore: 80,
+          totalPoints: 20,
+          currentStreak: 2,
+          quizzesTaken: 2,
+          hasActivity: true,
+          subjects: const [],
+        );
 
         await provider.generateReport();
 
         expect(provider.reports, hasLength(2));
         expect(provider.reports!.first.id, 2); // newest first
         expect(provider.reports!.first.riskLevel, 'MEDIUM');
+        expect(provider.stats!.completedLessons, 2);
+        expect(mockService.statsCallCount, 2);
         expect(provider.isGenerating, false);
       });
 
@@ -158,14 +210,18 @@ void main() {
           id: 1,
           studentId: 10,
           studentName: 'طالب',
-          recommendations: '{"reviewLessons":["الدرس 1"],"activities":["قراءة"],"tips":["اقرأ يومياً"]}',
+          recommendations:
+              '{"reviewLessons":["الدرس 1"],"activities":["قراءة"],"tips":["اقرأ يومياً"]}',
           generatedAt: '2026-04-13',
         );
 
         await provider.loadLearningPath();
 
         expect(provider.learningPath, isNotNull);
-        expect(provider.learningPath!.recommendations, contains('reviewLessons'));
+        expect(
+          provider.learningPath!.recommendations,
+          contains('reviewLessons'),
+        );
         expect(provider.isLoading, false);
       });
 
@@ -186,7 +242,8 @@ void main() {
           id: 1,
           studentId: 10,
           studentName: 'طالب',
-          recommendations: '{"reviewLessons":[],"activities":["تمرين"],"tips":[]}',
+          recommendations:
+              '{"reviewLessons":[],"activities":["تمرين"],"tips":[]}',
           generatedAt: '2026-04-13',
         );
 

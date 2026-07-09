@@ -1,3 +1,5 @@
+import 'parent_dashboard.dart';
+
 class ClassStudentSummary {
   final int studentId;
   final String fullName;
@@ -122,6 +124,10 @@ class StudentDetail {
   final int totalAttempts;
   final double averageScore;
   final List<SubjectMasterySummary> subjectBreakdown;
+  final List<QuizAttemptSummary> recentAttempts;
+  final List<ParentAlert> alerts;
+  final List<ParentReportSummary> reports;
+  final List<ParentRecommendation> recommendations;
 
   StudentDetail({
     required this.studentId,
@@ -139,6 +145,10 @@ class StudentDetail {
     required this.totalAttempts,
     required this.averageScore,
     required this.subjectBreakdown,
+    this.recentAttempts = const [],
+    this.alerts = const [],
+    this.reports = const [],
+    this.recommendations = const [],
   });
 
   factory StudentDetail.fromJson(Map<String, dynamic> json) {
@@ -159,6 +169,22 @@ class StudentDetail {
       averageScore: (json['averageScore'] ?? 0).toDouble(),
       subjectBreakdown: (json['subjectBreakdown'] as List?)
               ?.map((s) => SubjectMasterySummary.fromJson(s))
+              .toList() ??
+          [],
+      recentAttempts: (json['recentAttempts'] as List?)
+              ?.map((a) => QuizAttemptSummary.fromJson(a))
+              .toList() ??
+          [],
+      alerts: (json['alerts'] as List?)
+              ?.map((a) => ParentAlert.fromJson(a))
+              .toList() ??
+          [],
+      reports: (json['reports'] as List?)
+              ?.map((r) => ParentReportSummary.fromJson(r))
+              .toList() ??
+          [],
+      recommendations: (json['recommendations'] as List?)
+              ?.map((r) => ParentRecommendation.fromJson(r))
               .toList() ??
           [],
     );

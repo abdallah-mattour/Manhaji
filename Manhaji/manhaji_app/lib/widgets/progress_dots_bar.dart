@@ -64,7 +64,7 @@ class ProgressDotsBar extends StatelessWidget {
             } else if (isCurrent) {
               color = AppTheme.primaryOrange;
             } else {
-              color = Colors.grey.shade300;
+              color = AppTheme.starInactive;
             }
 
             return Padding(

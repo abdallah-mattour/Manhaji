@@ -1,15 +1,22 @@
 package com.springboot.manhaji.service;
 
+import com.springboot.manhaji.dto.request.TeacherQuizCreateRequest;
 import com.springboot.manhaji.dto.response.ClassStudentSummary;
 import com.springboot.manhaji.dto.response.QuestionBankResponse;
 import com.springboot.manhaji.dto.response.StudentDetailResponse;
 import com.springboot.manhaji.dto.response.SubjectSummary;
 import com.springboot.manhaji.dto.response.TeacherDashboardResponse;
+import com.springboot.manhaji.dto.response.TeacherMistakeAnalyticsResponse;
+import com.springboot.manhaji.dto.response.TeacherQuizDetailResponse;
+import com.springboot.manhaji.dto.response.TeacherQuizSummaryResponse;
 import com.springboot.manhaji.entity.*;
 import com.springboot.manhaji.entity.enums.AttemptStatus;
 import com.springboot.manhaji.entity.enums.CompletionStatus;
 import com.springboot.manhaji.entity.enums.QuestionType;
+import com.springboot.manhaji.entity.enums.QuizStatus;
+import com.springboot.manhaji.entity.enums.QuizType;
 import com.springboot.manhaji.entity.enums.Role;
+import com.springboot.manhaji.exception.BadRequestException;
 import com.springboot.manhaji.exception.ResourceNotFoundException;
 import com.springboot.manhaji.exception.UnauthorizedException;
 import com.springboot.manhaji.repository.*;
@@ -21,6 +28,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -37,16 +45,20 @@ import static org.mockito.Mockito.*;
 class TeacherServiceTest {
 
     @Mock private TeacherRepository teacherRepository;
+    @Mock private TeacherAssignmentRepository teacherAssignmentRepository;
     @Mock private StudentRepository studentRepository;
     @Mock private ProgressRepository progressRepository;
     @Mock private AttemptRepository attemptRepository;
+    @Mock private StudentResponseRepository studentResponseRepository;
     @Mock private SubjectRepository subjectRepository;
     @Mock private LessonRepository lessonRepository;
     @Mock private QuestionRepository questionRepository;
+    @Mock private QuizRepository quizRepository;
 
     private TeacherService teacherService;
 
     private Teacher teacher;
+    private School school;
     private Student student1;
     private Student student2;
 
@@ -55,15 +67,21 @@ class TeacherServiceTest {
         ProgressMetrics metrics = new ProgressMetrics(subjectRepository, lessonRepository);
         QuestionBankMapper questionBankMapper = new QuestionBankMapper();
         teacherService = new TeacherService(
-                teacherRepository, studentRepository, progressRepository, attemptRepository,
-                subjectRepository, questionRepository, questionBankMapper,
-                metrics, TestMessages.create());
+                teacherRepository, teacherAssignmentRepository,
+                studentRepository, progressRepository, attemptRepository,
+                studentResponseRepository, subjectRepository, questionRepository, quizRepository,
+                questionBankMapper, metrics, TestMessages.create());
+
+        school = new School();
+        school.setId(7L);
+        school.setName("مدرسة منهاجي");
 
         teacher = new Teacher();
         teacher.setId(10L);
         teacher.setFullName("أستاذ أحمد");
         teacher.setDepartment("اللغة العربية");
         teacher.setAssignedGrade(1);
+        teacher.setSchool(school);
         teacher.setRole(Role.TEACHER);
 
         student1 = new Student();
@@ -71,6 +89,7 @@ class TeacherServiceTest {
         student1.setFullName("طالب واحد");
         student1.setEmail("s1@test.com");
         student1.setGradeLevel(1);
+        student1.setSchool(school);
         student1.setTotalPoints(100);
         student1.setCurrentStreak(3);
         student1.setLastLoginAt(LocalDateTime.now().minusDays(1));
@@ -80,6 +99,7 @@ class TeacherServiceTest {
         student2.setFullName("طالب اثنان");
         student2.setEmail("s2@test.com");
         student2.setGradeLevel(1);
+        student2.setSchool(school);
         student2.setTotalPoints(50);
         student2.setCurrentStreak(1);
         student2.setLastLoginAt(LocalDateTime.now().minusDays(10));
@@ -92,17 +112,19 @@ class TeacherServiceTest {
     class GetDashboardTests {
 
         @Test
-        @DisplayName("should return dashboard with student stats")
-        void getDashboardSuccess() {
+        @DisplayName("Arabic teacher dashboard uses Arabic progress only")
+        void arabicTeacherDashboardUsesArabicProgressOnly() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+            Lesson arabicLesson = createLesson(200L, arabic, "Arabic Lesson", 1);
             when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
-            when(studentRepository.findByGradeLevel(1)).thenReturn(List.of(student1, student2));
-            // Post-review fix (2026-05-24): TeacherService now bulk-loads
-            // progress via findByStudentIdIn and groups by student.id in
-            // memory — the test mirrors that single-query path.
-            when(progressRepository.findByStudentIdIn(List.of(1L, 2L))).thenReturn(List.of(
-                    createProgressFor(student1, CompletionStatus.COMPLETED, 85.0),
-                    createProgressFor(student1, CompletionStatus.IN_PROGRESS, 40.0),
-                    createProgressFor(student2, CompletionStatus.COMPLETED, 70.0)
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+            when(studentRepository.findBySchoolIdInAndGradeLevelIn(List.of(7L), List.of(1)))
+                    .thenReturn(List.of(student1, student2));
+            when(progressRepository.findByStudentIdsAndSubjectIds(
+                    List.of(1L, 2L), List.of(100L))).thenReturn(List.of(
+                    createProgressFor(student1, arabicLesson, CompletionStatus.COMPLETED, 85.0),
+                    createProgressFor(student2, arabicLesson, CompletionStatus.IN_PROGRESS, 55.0)
             ));
 
             TeacherDashboardResponse response = teacherService.getDashboard(10L);
@@ -111,8 +133,33 @@ class TeacherServiceTest {
             assertThat(response.getFullName()).isEqualTo("أستاذ أحمد");
             assertThat(response.getTotalStudents()).isEqualTo(2);
             assertThat(response.getActiveThisWeek()).isEqualTo(1); // Only student1 logged in within 7 days
-            assertThat(response.getLessonsCompletedTotal()).isEqualTo(2); // 1 completed per student
+            assertThat(response.getLessonsCompletedTotal()).isEqualTo(1);
+            assertThat(response.getAverageMasteryAcrossClass()).isEqualTo(70.0);
             assertThat(response.getTopStudents()).hasSizeLessThanOrEqualTo(5);
+        }
+
+        @Test
+        @DisplayName("Islamic teacher dashboard uses Islamic progress only")
+        void islamicTeacherDashboardUsesIslamicProgressOnly() {
+            Subject islamic = createSubject(101L, "Islamic", 1);
+            Lesson islamicLesson = createLesson(201L, islamic, "Islamic Lesson", 1);
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(2L, islamic)));
+            when(studentRepository.findBySchoolIdInAndGradeLevelIn(List.of(7L), List.of(1)))
+                    .thenReturn(List.of(student1, student2));
+            when(progressRepository.findByStudentIdsAndSubjectIds(
+                    List.of(1L, 2L), List.of(101L))).thenReturn(List.of(
+                    createProgressFor(student1, islamicLesson, CompletionStatus.COMPLETED, 92.0)
+            ));
+
+            TeacherDashboardResponse response = teacherService.getDashboard(10L);
+
+            assertThat(response.getTotalStudents()).isEqualTo(2);
+            assertThat(response.getLessonsCompletedTotal()).isEqualTo(1);
+            assertThat(response.getAverageMasteryAcrossClass()).isEqualTo(46.0);
+            verify(progressRepository).findByStudentIdsAndSubjectIds(
+                    List.of(1L, 2L), List.of(101L));
         }
 
         @Test
@@ -125,21 +172,25 @@ class TeacherServiceTest {
         }
 
         @Test
-        @DisplayName("should fallback to all students when no grade/school")
-        void fallbackToAllStudents() {
+        @DisplayName("should return no students when no grade/school")
+        void noFallbackWhenNoGradeOrSchool() {
             Teacher unassigned = new Teacher();
             unassigned.setId(20L);
             unassigned.setFullName("أستاذ بدون تعيين");
             // No school, no grade
 
             when(teacherRepository.findById(20L)).thenReturn(Optional.of(unassigned));
-            when(studentRepository.findAll()).thenReturn(List.of(student1, student2));
-            when(progressRepository.findByStudentIdIn(anyList())).thenReturn(List.of());
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(20L))
+                    .thenReturn(List.of());
 
             TeacherDashboardResponse response = teacherService.getDashboard(20L);
 
-            assertThat(response.getTotalStudents()).isEqualTo(2);
-            verify(studentRepository).findAll(); // fallback path
+            assertThat(response.getTotalStudents()).isZero();
+            assertThat(response.getActiveThisWeek()).isZero();
+            assertThat(response.getLessonsCompletedTotal()).isZero();
+            assertThat(response.getAverageMasteryAcrossClass()).isZero();
+            assertThat(response.getTopStudents()).isEmpty();
+            verifyNoInteractions(studentRepository);
         }
     }
 
@@ -150,18 +201,54 @@ class TeacherServiceTest {
     class GetStudentsTests {
 
         @Test
-        @DisplayName("should return sorted student list")
-        void getStudentsSorted() {
+        @DisplayName("students list excludes students outside assignment grade/school scope")
+        void studentsListExcludesStudentsOutsideAssignmentScope() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+            Lesson arabicLesson = createLesson(200L, arabic, "Arabic Lesson", 1);
+            School otherSchool = new School();
+            otherSchool.setId(8L);
+            Student outsideScope = new Student();
+            outsideScope.setId(3L);
+            outsideScope.setFullName("طالب خارج النطاق");
+            outsideScope.setEmail("s3@test.com");
+            outsideScope.setGradeLevel(1);
+            outsideScope.setSchool(otherSchool);
+            outsideScope.setTotalPoints(500);
+            outsideScope.setCurrentStreak(8);
+
             when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
-            when(studentRepository.findByGradeLevel(1)).thenReturn(List.of(student1, student2));
-            when(progressRepository.findByStudentIdIn(anyList())).thenReturn(List.of());
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+            when(studentRepository.findBySchoolIdInAndGradeLevelIn(List.of(7L), List.of(1)))
+                    .thenReturn(List.of(student1, student2, outsideScope));
+            when(progressRepository.findByStudentIdsAndSubjectIds(
+                    List.of(1L, 2L), List.of(100L))).thenReturn(List.of(
+                    createProgressFor(student1, arabicLesson, CompletionStatus.COMPLETED, 80.0)
+            ));
 
             List<ClassStudentSummary> students = teacherService.getStudents(10L);
 
             assertThat(students).hasSize(2);
+            assertThat(students).extracting(ClassStudentSummary::getStudentId)
+                    .containsExactly(2L, 1L);
+            assertThat(students).extracting(ClassStudentSummary::getStudentId)
+                    .doesNotContain(3L);
             // Sorted by name alphabetically
             assertThat(students.get(0).getFullName()).isEqualTo("طالب اثنان");
             assertThat(students.get(1).getFullName()).isEqualTo("طالب واحد");
+        }
+
+        @Test
+        @DisplayName("teacher with no assignments gets empty student list")
+        void teacherWithNoAssignmentsGetsEmptyStudentList() {
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of());
+
+            List<ClassStudentSummary> students = teacherService.getStudents(10L);
+
+            assertThat(students).isEmpty();
+            verifyNoInteractions(studentRepository);
         }
     }
 
@@ -172,17 +259,24 @@ class TeacherServiceTest {
     class GetStudentDetailTests {
 
         @Test
-        @DisplayName("should return detailed student info")
-        void getStudentDetailSuccess() {
+        @DisplayName("student detail returns only assigned subject breakdown")
+        void studentDetailReturnsOnlyAssignedSubjectBreakdown() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+            Subject islamic = createSubject(101L, "Islamic", 1);
+            Lesson arabicLesson = createLesson(200L, arabic, "Arabic Lesson", 1);
             when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
             when(studentRepository.findById(1L)).thenReturn(Optional.of(student1));
-            when(progressRepository.findByStudentId(1L)).thenReturn(List.of(
-                    createProgress(CompletionStatus.COMPLETED, 90.0)
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+            when(progressRepository.findByStudentIdAndSubjectIds(1L, List.of(100L))).thenReturn(List.of(
+                    createProgressFor(student1, arabicLesson, CompletionStatus.COMPLETED, 90.0)
             ));
-            when(attemptRepository.findByStudentIdOrderByCreatedAtDesc(1L)).thenReturn(List.of(
+            when(attemptRepository.findByStudentIdAndSubjectIdsOrderByCreatedAtDesc(1L, List.of(100L)))
+                    .thenReturn(List.of(
                     createAttempt(AttemptStatus.GRADED, 85.0)
             ));
-            when(subjectRepository.findByGradeLevel(1)).thenReturn(List.of());
+            when(lessonRepository.findBySubjectIdsAndGradeLevel(List.of(100L), 1))
+                    .thenReturn(List.of(arabicLesson));
 
             StudentDetailResponse detail = teacherService.getStudentDetail(10L, 1L);
 
@@ -191,20 +285,148 @@ class TeacherServiceTest {
             assertThat(detail.getLessonsCompleted()).isEqualTo(1);
             assertThat(detail.getTotalAttempts()).isEqualTo(1);
             assertThat(detail.getAverageScore()).isEqualTo(85.0);
+            assertThat(detail.getSubjectBreakdown()).hasSize(1);
+            assertThat(detail.getSubjectBreakdown().get(0).getSubjectName()).isEqualTo("Arabic");
+            assertThat(detail.getSubjectBreakdown())
+                    .extracting("subjectName")
+                    .doesNotContain(islamic.getName());
+            verify(progressRepository).findByStudentIdAndSubjectIds(1L, List.of(100L));
+            verify(attemptRepository).findByStudentIdAndSubjectIdsOrderByCreatedAtDesc(1L, List.of(100L));
         }
 
         @Test
         @DisplayName("should deny access when student grade doesn't match teacher")
         void denyAccessWrongGrade() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
             Student grade2Student = new Student();
             grade2Student.setId(3L);
             grade2Student.setGradeLevel(2); // Teacher is assigned grade 1
+            grade2Student.setSchool(school);
 
             when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
             when(studentRepository.findById(3L)).thenReturn(Optional.of(grade2Student));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
 
             assertThatThrownBy(() -> teacherService.getStudentDetail(10L, 3L))
                     .isInstanceOf(UnauthorizedException.class);
+            verifyNoInteractions(progressRepository);
+        }
+    }
+
+    // ==================== Mistake Analytics Tests ====================
+
+    @Nested
+    @DisplayName("getMistakeAnalytics()")
+    class GetMistakeAnalyticsTests {
+
+        @Test
+        @DisplayName("teacher sees only mistakes in assigned subject")
+        void teacherSeesOnlyAssignedSubjectMistakes() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+            Subject math = createSubject(300L, "Math", 1);
+            Lesson arabicLesson = createLesson(200L, arabic, "Arabic Lesson", 1);
+            Lesson mathLesson = createLesson(300L, math, "Math Lesson", 1);
+            Question arabicQuestion = createQuestion(500L, arabicLesson, "Arabic Q", 1);
+            Question mathQuestion = createQuestion(700L, mathLesson, "Math Q", 1);
+            StudentResponse firstArabicMistake = createMistakeResponse(
+                    1L, student1, arabicQuestion, "B", LocalDateTime.now().minusDays(2));
+            StudentResponse secondArabicMistake = createMistakeResponse(
+                    2L, student2, arabicQuestion, "C", LocalDateTime.now().minusDays(1));
+            StudentResponse leakedMathMistake = createMistakeResponse(
+                    3L, student1, mathQuestion, "9", LocalDateTime.now());
+
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+            when(studentRepository.findBySchoolIdInAndGradeLevelIn(List.of(7L), List.of(1)))
+                    .thenReturn(List.of(student1, student2));
+            when(studentResponseRepository.findIncorrectByStudentIdsAndSubjectIds(
+                    List.of(1L, 2L), List.of(100L), null, null, null))
+                    .thenReturn(List.of(firstArabicMistake, secondArabicMistake, leakedMathMistake));
+
+            TeacherMistakeAnalyticsResponse response = teacherService
+                    .getMistakeAnalytics(10L, null, null, null, null);
+
+            assertThat(response.getSummary().getTotalMistakes()).isEqualTo(2);
+            assertThat(response.getSummary().getAffectedStudents()).isEqualTo(2);
+            assertThat(response.getSummary().getMostMistakenLessonTitle()).isEqualTo("Arabic Lesson");
+            assertThat(response.getSummary().getMostMistakenQuestionText()).isEqualTo("Arabic Q");
+            assertThat(response.getMistakes()).hasSize(2);
+            assertThat(response.getMistakes())
+                    .allMatch(row -> row.getSubjectId().equals(100L));
+            assertThat(response.getMistakes())
+                    .allMatch(row -> row.isCommonMistake());
+            assertThat(response.getMistakes())
+                    .extracting("subjectName")
+                    .doesNotContain("Math");
+        }
+
+        @Test
+        @DisplayName("teacher cannot see unrelated subject mistakes")
+        void teacherCannotSeeUnrelatedSubjectMistakes() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+
+            TeacherMistakeAnalyticsResponse response = teacherService
+                    .getMistakeAnalytics(10L, 300L, null, null, null);
+
+            assertThat(response.getSummary().getTotalMistakes()).isZero();
+            assertThat(response.getMistakes()).isEmpty();
+            verifyNoInteractions(studentRepository, studentResponseRepository);
+        }
+
+        @Test
+        @DisplayName("teacher with no assignments gets empty analytics")
+        void teacherWithNoAssignmentsGetsEmptyAnalytics() {
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of());
+
+            TeacherMistakeAnalyticsResponse response = teacherService
+                    .getMistakeAnalytics(10L, null, null, null, null);
+
+            assertThat(response.getSummary().getTotalMistakes()).isZero();
+            assertThat(response.getSummary().getAffectedStudents()).isZero();
+            assertThat(response.getMistakes()).isEmpty();
+            verifyNoInteractions(studentRepository, studentResponseRepository);
+        }
+
+        @Test
+        @DisplayName("filters by subject, lesson, student, and limit")
+        void filtersBySubjectLessonStudentAndLimit() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+            Lesson lesson1 = createLesson(200L, arabic, "Lesson 1", 1);
+            Lesson lesson2 = createLesson(201L, arabic, "Lesson 2", 2);
+            Question lesson1Question = createQuestion(500L, lesson1, "Q1", 1);
+            Question lesson2Question = createQuestion(501L, lesson2, "Q2", 1);
+            StudentResponse matching = createMistakeResponse(
+                    1L, student1, lesson1Question, "B", LocalDateTime.now().minusHours(1));
+            StudentResponse otherStudent = createMistakeResponse(
+                    2L, student2, lesson1Question, "C", LocalDateTime.now().minusHours(2));
+            StudentResponse otherLesson = createMistakeResponse(
+                    3L, student1, lesson2Question, "D", LocalDateTime.now());
+
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+            when(studentRepository.findBySchoolIdInAndGradeLevelIn(List.of(7L), List.of(1)))
+                    .thenReturn(List.of(student1, student2));
+            when(studentResponseRepository.findIncorrectByStudentIdsAndSubjectIds(
+                    List.of(1L), List.of(100L), 100L, 200L, 1L))
+                    .thenReturn(List.of(matching, otherStudent, otherLesson));
+
+            TeacherMistakeAnalyticsResponse response = teacherService
+                    .getMistakeAnalytics(10L, 100L, 200L, 1L, 1);
+
+            assertThat(response.getSummary().getTotalMistakes()).isEqualTo(1);
+            assertThat(response.getMistakes()).hasSize(1);
+            assertThat(response.getMistakes().get(0).getStudentId()).isEqualTo(1L);
+            assertThat(response.getMistakes().get(0).getLessonId()).isEqualTo(200L);
+            assertThat(response.getMistakes().get(0).getQuestionText()).isEqualTo("Q1");
         }
     }
 
@@ -215,34 +437,48 @@ class TeacherServiceTest {
     class GetAssignedSubjectsTests {
 
         @Test
-        @DisplayName("should return subjects at teacher's assigned grade")
-        void returnsSubjectsAtAssignedGrade() {
+        @DisplayName("teacher assigned to Arabic sees only Arabic")
+        void teacherAssignedToArabicSeesOnlyArabic() {
             Subject arabic = createSubject(100L, "Arabic", 1);
-            Subject math = createSubject(101L, "Math", 1);
             when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
-            when(subjectRepository.findByGradeLevel(1)).thenReturn(List.of(arabic, math));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
 
             List<SubjectSummary> subjects = teacherService.getAssignedSubjects(10L);
 
-            assertThat(subjects).hasSize(2);
             assertThat(subjects).extracting(SubjectSummary::getName)
-                    .containsExactly("Arabic", "Math");
+                    .containsExactly("Arabic");
             assertThat(subjects).allMatch(s -> s.getGradeLevel() == 1);
+            verifyNoInteractions(subjectRepository);
         }
 
         @Test
-        @DisplayName("should fall back to all subjects when teacher has no grade")
-        void fallbackAllSubjectsWhenNoGrade() {
-            Teacher unassigned = new Teacher();
-            unassigned.setId(20L);
-            when(teacherRepository.findById(20L)).thenReturn(Optional.of(unassigned));
-            when(subjectRepository.findAll()).thenReturn(
-                    List.of(createSubject(1L, "Any", 1)));
+        @DisplayName("teacher assigned to Islamic sees only Islamic")
+        void teacherAssignedToIslamicSeesOnlyIslamic() {
+            Subject islamic = createSubject(101L, "Islamic", 1);
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(2L, islamic)));
 
-            List<SubjectSummary> subjects = teacherService.getAssignedSubjects(20L);
+            List<SubjectSummary> subjects = teacherService.getAssignedSubjects(10L);
 
-            assertThat(subjects).hasSize(1);
-            verify(subjectRepository).findAll();
+            assertThat(subjects).extracting(SubjectSummary::getName)
+                    .containsExactly("Islamic");
+            assertThat(subjects).allMatch(s -> s.getGradeLevel() == 1);
+            verifyNoInteractions(subjectRepository);
+        }
+
+        @Test
+        @DisplayName("teacher with no assignments gets empty subject list")
+        void teacherWithNoAssignmentsGetsEmptySubjectList() {
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of());
+
+            List<SubjectSummary> subjects = teacherService.getAssignedSubjects(10L);
+
+            assertThat(subjects).isEmpty();
+            verifyNoInteractions(subjectRepository);
         }
     }
 
@@ -263,6 +499,8 @@ class TeacherServiceTest {
 
             when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
             when(subjectRepository.findById(100L)).thenReturn(Optional.of(arabic));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
             when(questionRepository.findAllBySubjectIdWithLesson(100L)).thenReturn(questions);
 
             QuestionBankResponse response = teacherService.getQuestionsForSubject(
@@ -285,6 +523,8 @@ class TeacherServiceTest {
 
             when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
             when(subjectRepository.findById(100L)).thenReturn(Optional.of(arabic));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
             when(questionRepository.findAllBySubjectIdWithLesson(100L)).thenReturn(questions);
 
             QuestionBankResponse response = teacherService.getQuestionsForSubject(
@@ -309,6 +549,8 @@ class TeacherServiceTest {
 
             when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
             when(subjectRepository.findById(100L)).thenReturn(Optional.of(arabic));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
             when(questionRepository.findAllBySubjectIdWithLesson(100L)).thenReturn(questions);
 
             QuestionBankResponse response = teacherService.getQuestionsForSubject(
@@ -320,33 +562,300 @@ class TeacherServiceTest {
         }
 
         @Test
-        @DisplayName("should deny access when subject is at a different grade")
-        void deniesWhenSubjectWrongGrade() {
-            Subject grade2Subject = createSubject(300L, "Grade2Arabic", 2);
+        @DisplayName("teacher cannot access questions for unassigned subject")
+        void deniesWhenSubjectUnassigned() {
+            Subject math = createSubject(300L, "Math", 1);
+            Subject arabic = createSubject(100L, "Arabic", 1);
             when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
-            when(subjectRepository.findById(300L)).thenReturn(Optional.of(grade2Subject));
+            when(subjectRepository.findById(300L)).thenReturn(Optional.of(math));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
 
             assertThatThrownBy(() -> teacherService.getQuestionsForSubject(
                     10L, 300L, null, null))
                     .isInstanceOf(UnauthorizedException.class);
+            verify(questionRepository, never()).findAllBySubjectIdWithLesson(anyLong());
+            verify(teacherAssignmentRepository, never())
+                    .existsActiveByTeacherIdAndSubjectId(anyLong(), anyLong());
         }
 
         @Test
-        @DisplayName("should allow unassigned teacher (no grade) to see any subject")
-        void unassignedTeacherBypassesGuard() {
+        @DisplayName("teacher with no assignments cannot access subject questions")
+        void teacherWithNoAssignmentsCannotAccessSubjectQuestions() {
             Teacher unassigned = new Teacher();
             unassigned.setId(20L);
             Subject any = createSubject(400L, "Any", 3);
             when(teacherRepository.findById(20L)).thenReturn(Optional.of(unassigned));
             when(subjectRepository.findById(400L)).thenReturn(Optional.of(any));
-            when(questionRepository.findAllBySubjectIdWithLesson(400L))
-                    .thenReturn(new ArrayList<>());
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(20L))
+                    .thenReturn(List.of());
 
-            QuestionBankResponse response = teacherService.getQuestionsForSubject(
-                    20L, 400L, null, null);
+            assertThatThrownBy(() -> teacherService.getQuestionsForSubject(
+                    20L, 400L, null, null))
+                    .isInstanceOf(UnauthorizedException.class);
+            verify(questionRepository, never()).findAllBySubjectIdWithLesson(anyLong());
+            verify(teacherAssignmentRepository, never())
+                    .existsActiveByTeacherIdAndSubjectId(anyLong(), anyLong());
+        }
+    }
 
-            assertThat(response.getSubjectId()).isEqualTo(400L);
-            assertThat(response.getQuestions()).isEmpty();
+    // ==================== Teacher Quiz Creation Tests (Phase 8D) ====================
+
+    @Nested
+    @DisplayName("teacher quizzes")
+    class TeacherQuizzesTests {
+
+        @Test
+        @DisplayName("teacher can create quiz for assigned subject")
+        void teacherCanCreateQuizForAssignedSubject() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+            Lesson lesson = createLesson(200L, arabic, "Lesson 1", 1);
+            Question q1 = createQuestion(500L, lesson, "Q1", 1);
+            Question q2 = createQuestion(501L, lesson, "Q2", 2);
+            TeacherQuizCreateRequest request = new TeacherQuizCreateRequest(
+                    " اختبار قصير ",
+                    100L,
+                    200L,
+                    List.of(500L, 501L));
+
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+            when(questionRepository.findAllById(List.of(500L, 501L)))
+                    .thenReturn(List.of(q1, q2));
+            when(quizRepository.save(any(Quiz.class))).thenAnswer(invocation -> {
+                Quiz quiz = invocation.getArgument(0);
+                quiz.setId(900L);
+                quiz.setCreatedAt(LocalDateTime.of(2026, 7, 5, 10, 0));
+                return quiz;
+            });
+
+            TeacherQuizDetailResponse response = teacherService.createTeacherQuiz(10L, request);
+
+            ArgumentCaptor<Quiz> captor = ArgumentCaptor.forClass(Quiz.class);
+            verify(quizRepository).save(captor.capture());
+            Quiz saved = captor.getValue();
+            assertThat(saved.getTitle()).isEqualTo("اختبار قصير");
+            assertThat(saved.getSubject()).isSameAs(arabic);
+            assertThat(saved.getLesson()).isNull();
+            assertThat(saved.getQuizType()).isEqualTo(QuizType.TEACHER_ASSIGNED);
+            assertThat(saved.getCreatedByTeacher()).isSameAs(teacher);
+            assertThat(saved.getStatus()).isEqualTo(QuizStatus.DRAFT);
+            assertThat(saved.getGeneratedForStudentId()).isNull();
+            assertThat(saved.getQuestions()).extracting(Question::getId)
+                    .containsExactly(500L, 501L);
+
+            assertThat(response.getId()).isEqualTo(900L);
+            assertThat(response.getSubjectId()).isEqualTo(100L);
+            assertThat(response.getLessonId()).isEqualTo(200L);
+            assertThat(response.getQuestionCount()).isEqualTo(2);
+            assertThat(response.getStatus()).isEqualTo(QuizStatus.DRAFT);
+            assertThat(response.isCanPublish()).isTrue();
+            assertThat(response.getPublishBlockedReason()).isNull();
+            assertThat(response.getQuestions()).hasSize(2);
+        }
+
+        @Test
+        @DisplayName("teacher cannot create quiz for unassigned subject")
+        void teacherCannotCreateQuizForUnassignedSubject() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+            TeacherQuizCreateRequest request = new TeacherQuizCreateRequest(
+                    "Math quiz",
+                    300L,
+                    null,
+                    List.of(500L));
+
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+
+            assertThatThrownBy(() -> teacherService.createTeacherQuiz(10L, request))
+                    .isInstanceOf(UnauthorizedException.class);
+            verifyNoInteractions(questionRepository, quizRepository);
+        }
+
+        @Test
+        @DisplayName("teacher cannot include question from unrelated subject")
+        void teacherCannotIncludeQuestionFromUnrelatedSubject() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+            Subject math = createSubject(300L, "Math", 1);
+            Lesson arabicLesson = createLesson(200L, arabic, "Arabic Lesson", 1);
+            Lesson mathLesson = createLesson(700L, math, "Math Lesson", 1);
+            Question arabicQuestion = createQuestion(500L, arabicLesson, "Arabic Q", 1);
+            Question mathQuestion = createQuestion(900L, mathLesson, "Math Q", 1);
+            TeacherQuizCreateRequest request = new TeacherQuizCreateRequest(
+                    "Mixed quiz",
+                    100L,
+                    null,
+                    List.of(500L, 900L));
+
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+            when(questionRepository.findAllById(List.of(500L, 900L)))
+                    .thenReturn(List.of(arabicQuestion, mathQuestion));
+
+            assertThatThrownBy(() -> teacherService.createTeacherQuiz(10L, request))
+                    .isInstanceOf(UnauthorizedException.class);
+            verify(quizRepository, never()).save(any());
+        }
+
+        @Test
+        @DisplayName("teacher with no assignment cannot create quiz")
+        void teacherWithNoAssignmentCannotCreateQuiz() {
+            TeacherQuizCreateRequest request = new TeacherQuizCreateRequest(
+                    "Quiz",
+                    100L,
+                    null,
+                    List.of(500L));
+
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of());
+
+            assertThatThrownBy(() -> teacherService.createTeacherQuiz(10L, request))
+                    .isInstanceOf(UnauthorizedException.class);
+            verifyNoInteractions(questionRepository, quizRepository);
+        }
+
+        @Test
+        @DisplayName("invalid question ids are rejected")
+        void invalidQuestionIdsAreRejected() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+            Lesson lesson = createLesson(200L, arabic, "Lesson 1", 1);
+            Question q1 = createQuestion(500L, lesson, "Q1", 1);
+            TeacherQuizCreateRequest request = new TeacherQuizCreateRequest(
+                    "Quiz",
+                    100L,
+                    null,
+                    List.of(500L, 999L));
+
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+            when(questionRepository.findAllById(List.of(500L, 999L)))
+                    .thenReturn(List.of(q1));
+
+            assertThatThrownBy(() -> teacherService.createTeacherQuiz(10L, request))
+                    .isInstanceOf(BadRequestException.class)
+                    .hasMessageContaining("Invalid question ids");
+            verify(quizRepository, never()).save(any());
+        }
+
+        @Test
+        @DisplayName("teacher with no assignments gets empty quiz list")
+        void teacherWithNoAssignmentsGetsEmptyQuizList() {
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of());
+
+            List<TeacherQuizSummaryResponse> quizzes = teacherService.getTeacherQuizzes(10L);
+
+            assertThat(quizzes).isEmpty();
+            verifyNoInteractions(quizRepository);
+        }
+
+        @Test
+        @DisplayName("teacher quiz list includes status and defaults legacy null to draft")
+        void teacherQuizListIncludesStatusAndDefaultsLegacyNullToDraft() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+            Quiz legacyQuiz = new Quiz();
+            legacyQuiz.setId(900L);
+            legacyQuiz.setTitle("Legacy teacher quiz");
+            legacyQuiz.setSubject(arabic);
+            legacyQuiz.setStatus(null);
+
+            Quiz archivedQuiz = new Quiz();
+            archivedQuiz.setId(901L);
+            archivedQuiz.setTitle("Archived teacher quiz");
+            archivedQuiz.setSubject(arabic);
+            archivedQuiz.setStatus(QuizStatus.ARCHIVED);
+
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+            when(quizRepository.findTeacherVisibleBySubjectIds(List.of(100L)))
+                    .thenReturn(List.of(legacyQuiz, archivedQuiz));
+
+            List<TeacherQuizSummaryResponse> quizzes = teacherService.getTeacherQuizzes(10L);
+
+            assertThat(quizzes).extracting(TeacherQuizSummaryResponse::getStatus)
+                    .containsExactly(QuizStatus.DRAFT, QuizStatus.ARCHIVED);
+            assertThat(legacyQuiz.getStatus()).isNull();
+            assertThat(quizzes).allSatisfy(summary -> {
+                assertThat(summary.isCanPublish()).isFalse();
+                assertThat(summary.getPublishBlockedReason())
+                        .isEqualTo(TeacherService.PUBLISH_BLOCKED_LEGACY);
+            });
+        }
+
+        @Test
+        @DisplayName("owned draft teacher quiz is publishable, other-owner draft is not")
+        void ownedDraftTeacherQuizIsPublishableOtherOwnerDraftIsNot() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+            Teacher otherTeacher = new Teacher();
+            otherTeacher.setId(77L);
+
+            Quiz ownedDraft = new Quiz();
+            ownedDraft.setId(910L);
+            ownedDraft.setTitle("Owned draft");
+            ownedDraft.setSubject(arabic);
+            ownedDraft.setStatus(QuizStatus.DRAFT);
+            ownedDraft.setQuizType(QuizType.TEACHER_ASSIGNED);
+            ownedDraft.setCreatedByTeacher(teacher);
+
+            Quiz foreignDraft = new Quiz();
+            foreignDraft.setId(911L);
+            foreignDraft.setTitle("Foreign draft");
+            foreignDraft.setSubject(arabic);
+            foreignDraft.setStatus(QuizStatus.DRAFT);
+            foreignDraft.setQuizType(QuizType.TEACHER_ASSIGNED);
+            foreignDraft.setCreatedByTeacher(otherTeacher);
+
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+            when(quizRepository.findTeacherVisibleBySubjectIds(List.of(100L)))
+                    .thenReturn(List.of(ownedDraft, foreignDraft));
+
+            List<TeacherQuizSummaryResponse> quizzes = teacherService.getTeacherQuizzes(10L);
+
+            assertThat(quizzes).hasSize(2);
+            assertThat(quizzes.get(0).isCanPublish()).isTrue();
+            assertThat(quizzes.get(0).getPublishBlockedReason()).isNull();
+            assertThat(quizzes.get(1).isCanPublish()).isFalse();
+            assertThat(quizzes.get(1).getPublishBlockedReason())
+                    .isEqualTo(TeacherService.PUBLISH_BLOCKED_NOT_OWNER);
+        }
+
+        @Test
+        @DisplayName("teacher quiz detail includes status")
+        void teacherQuizDetailIncludesStatus() {
+            Subject arabic = createSubject(100L, "Arabic", 1);
+            Lesson lesson = createLesson(200L, arabic, "Lesson 1", 1);
+            Question q1 = createQuestion(500L, lesson, "Q1", 1);
+            Quiz quiz = new Quiz();
+            quiz.setId(900L);
+            quiz.setTitle("Published teacher quiz");
+            quiz.setSubject(arabic);
+            quiz.setStatus(QuizStatus.PUBLISHED);
+            quiz.setQuizType(QuizType.TEACHER_ASSIGNED);
+            quiz.setCreatedByTeacher(teacher);
+            quiz.setQuestions(new ArrayList<>(List.of(q1)));
+
+            when(teacherRepository.findById(10L)).thenReturn(Optional.of(teacher));
+            when(teacherAssignmentRepository.findActiveByTeacherIdWithSubject(10L))
+                    .thenReturn(List.of(createAssignment(1L, arabic)));
+            when(quizRepository.findByIdWithTeacherDetails(900L))
+                    .thenReturn(Optional.of(quiz));
+
+            TeacherQuizDetailResponse response = teacherService.getTeacherQuiz(10L, 900L);
+
+            assertThat(response.getStatus()).isEqualTo(QuizStatus.PUBLISHED);
+            assertThat(response.isCanPublish()).isFalse();
+            assertThat(response.getPublishBlockedReason())
+                    .isEqualTo(TeacherService.PUBLISH_BLOCKED_NOT_DRAFT);
+            assertThat(response.getQuestions()).hasSize(1);
         }
     }
 
@@ -357,6 +866,17 @@ class TeacherServiceTest {
         s.setGradeLevel(grade);
         s.setLessons(new ArrayList<>());
         return s;
+    }
+
+    private TeacherAssignment createAssignment(Long id, Subject subject) {
+        TeacherAssignment assignment = new TeacherAssignment();
+        assignment.setId(id);
+        assignment.setTeacher(teacher);
+        assignment.setSubject(subject);
+        assignment.setGradeLevel(subject.getGradeLevel());
+        assignment.setSchool(school);
+        assignment.setIsActive(true);
+        return assignment;
     }
 
     private Lesson createLesson(Long id, Subject subject, String title, int order) {
@@ -390,11 +910,15 @@ class TeacherServiceTest {
         return p;
     }
 
-    /** Same as {@link #createProgress} but with the Student set, so the
-     *  groupingBy in {@code loadProgressByStudent} can find the student-id key. */
-    private Progress createProgressFor(Student student, CompletionStatus status, double mastery) {
+    /** Same as {@link #createProgress} but with Student and Lesson set for scoped metrics. */
+    private Progress createProgressFor(
+            Student student,
+            Lesson lesson,
+            CompletionStatus status,
+            double mastery) {
         Progress p = createProgress(status, mastery);
         p.setStudent(student);
+        p.setLesson(lesson);
         return p;
     }
 
@@ -403,5 +927,28 @@ class TeacherServiceTest {
         a.setStatus(status);
         a.setScore(score);
         return a;
+    }
+
+    private StudentResponse createMistakeResponse(
+            Long id,
+            Student student,
+            Question question,
+            String answer,
+            LocalDateTime submittedAt) {
+        Attempt attempt = new Attempt();
+        attempt.setId(1000L + id);
+        attempt.setStudent(student);
+        attempt.setStatus(AttemptStatus.GRADED);
+        attempt.setCreatedAt(submittedAt.minusMinutes(5));
+        attempt.setSubmittedAt(submittedAt);
+
+        StudentResponse response = new StudentResponse();
+        response.setId(id);
+        response.setAttempt(attempt);
+        response.setQuestion(question);
+        response.setIsCorrect(false);
+        response.setEvaluatedText(answer);
+        response.setFeedback("wrong");
+        return response;
     }
 }

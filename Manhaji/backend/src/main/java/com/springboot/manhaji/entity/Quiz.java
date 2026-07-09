@@ -1,6 +1,7 @@
 package com.springboot.manhaji.entity;
 
 import com.springboot.manhaji.entity.enums.QuizType;
+import com.springboot.manhaji.entity.enums.QuizStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +20,9 @@ import java.util.List;
                 // Personalized-quiz feature (2026-05-27): find-or-create the
                 // single PERSONALIZED quiz per (student, subject).
                 @Index(name = "idx_quiz_personalized",
-                        columnList = "generated_for_student_id, subject_id, quiz_type")
+                        columnList = "generated_for_student_id, subject_id, quiz_type"),
+                @Index(name = "idx_quiz_teacher_status",
+                        columnList = "created_by_teacher_id, status")
         })
 @Getter
 @Setter
@@ -78,6 +81,24 @@ public class Quiz {
     @Column(name = "generated_for_student_id")
     private Long generatedForStudentId;
 
+    /**
+     * Teacher quiz delivery foundation (Phase 8D.2A): nullable for every
+     * legacy lesson/personalized quiz. Teacher-created quizzes set this so
+     * generic student start can block them until assignment authorization is
+     * used.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by_teacher_id")
+    private Teacher createdByTeacher;
+
+    /**
+     * Nullable for legacy quizzes. Teacher-created quizzes start as DRAFT and
+     * must be published through assignment flow before any student delivery.
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(length = 16)
+    private QuizStatus status;
+
     // Audit fix (2026-05-15): without the unique constraint on the join
     // table, the same Question could be linked to the same Quiz multiple
     // times (e.g. via accidental re-add). The unique constraint makes the
@@ -96,6 +117,9 @@ public class Quiz {
 
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     private List<Attempt> attempts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<QuizAssignment> assignments = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {

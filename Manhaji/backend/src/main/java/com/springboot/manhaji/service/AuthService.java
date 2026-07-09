@@ -1,15 +1,15 @@
 package com.springboot.manhaji.service;
 
 import com.springboot.manhaji.config.JwtService;
-import com.springboot.manhaji.dto.request.ChangePasswordRequest;
 import com.springboot.manhaji.dto.request.LoginRequest;
 import com.springboot.manhaji.dto.request.PhoneLoginRequest;
 import com.springboot.manhaji.dto.request.RegisterRequest;
+import com.springboot.manhaji.dto.request.UpdateProfileRequest;
 import com.springboot.manhaji.dto.response.AuthResponse;
 import com.springboot.manhaji.entity.*;
+import com.springboot.manhaji.exception.AuthenticationFailedException;
 import com.springboot.manhaji.exception.BadRequestException;
 import com.springboot.manhaji.exception.ResourceNotFoundException;
-import com.springboot.manhaji.exception.UnauthorizedException;
 import com.springboot.manhaji.repository.UserRepository;
 import com.springboot.manhaji.infrastructure.Messages;
 import lombok.RequiredArgsConstructor;
@@ -53,6 +53,15 @@ public class AuthService {
                     request.getRole() == null ? "null" : request.getRole().name()));
         }
 
+        if (request.getRole() == com.springboot.manhaji.entity.enums.Role.STUDENT) {
+            if (request.getGradeLevel() == null) {
+                throw new BadRequestException(messages.get("error.auth.studentGradeRequired"));
+            }
+            if (request.getGradeLevel() < 1 || request.getGradeLevel() > 4) {
+                throw new BadRequestException(messages.get("error.auth.invalidGradeLevel"));
+            }
+        }
+
         if (request.getEmail() != null && userRepository.existsByEmail(request.getEmail())) {
             throw new BadRequestException(messages.get("error.auth.emailAlreadyRegistered"));
         }
@@ -79,17 +88,19 @@ public class AuthService {
     @Transactional
     public AuthResponse loginWithEmail(LoginRequest request) {
         User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new UnauthorizedException(messages.get("error.auth.invalidEmailCredentials")));
+                .orElseThrow(() -> new AuthenticationFailedException(
+                        messages.get("error.auth.invalidEmailCredentials")));
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPasswordHash())) {
-            throw new UnauthorizedException(messages.get("error.auth.invalidEmailCredentials"));
+            throw new AuthenticationFailedException(
+                    messages.get("error.auth.invalidEmailCredentials"));
         }
 
         // Audit-4 fix H1 (2026-05-15): an admin-disabled user could still log
         // in (and obtain new tokens) because isActive was set on the entity
         // but never checked during the login flow.
         if (Boolean.FALSE.equals(user.getIsActive())) {
-            throw new UnauthorizedException(messages.get("error.auth.accountDisabled"));
+            throw new AuthenticationFailedException(messages.get("error.auth.accountDisabled"));
         }
 
         user.setLastLoginAt(LocalDateTime.now());
@@ -101,15 +112,17 @@ public class AuthService {
     @Transactional
     public AuthResponse loginWithPhone(PhoneLoginRequest request) {
         User user = userRepository.findByPhone(request.getPhone())
-                .orElseThrow(() -> new UnauthorizedException(messages.get("error.auth.invalidPhoneCredentials")));
+                .orElseThrow(() -> new AuthenticationFailedException(
+                        messages.get("error.auth.invalidPhoneCredentials")));
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPasswordHash())) {
-            throw new UnauthorizedException(messages.get("error.auth.invalidPhoneCredentials"));
+            throw new AuthenticationFailedException(
+                    messages.get("error.auth.invalidPhoneCredentials"));
         }
 
         // Audit-4 fix H1 (2026-05-15): same isActive gate as the email path.
         if (Boolean.FALSE.equals(user.getIsActive())) {
-            throw new UnauthorizedException(messages.get("error.auth.accountDisabled"));
+            throw new AuthenticationFailedException(messages.get("error.auth.accountDisabled"));
         }
 
         user.setLastLoginAt(LocalDateTime.now());
@@ -123,18 +136,18 @@ public class AuthService {
         // Was previously accepting any valid token (including an access token
         // hot off a successful login), so the type distinction was cosmetic.
         if (!jwtService.isRefreshToken(refreshToken)) {
-            throw new UnauthorizedException(messages.get("error.auth.invalidRefreshToken"));
+            throw new AuthenticationFailedException(messages.get("error.auth.invalidRefreshToken"));
         }
 
         String subject = jwtService.extractSubject(refreshToken);
         User user = userRepository.findByEmail(subject)
                 .orElseGet(() -> userRepository.findByPhone(subject)
-                        .orElseThrow(() -> new UnauthorizedException("User not found")));
+                        .orElseThrow(() -> new AuthenticationFailedException("User not found")));
 
         // Audit-4 fix H1: a disabled account should not be able to mint
         // new tokens via the refresh path either.
         if (Boolean.FALSE.equals(user.getIsActive())) {
-            throw new UnauthorizedException(messages.get("error.auth.accountDisabled"));
+            throw new AuthenticationFailedException(messages.get("error.auth.accountDisabled"));
         }
 
         return buildAuthResponse(user);
@@ -145,31 +158,61 @@ public class AuthService {
                 .orElseThrow(() -> new ResourceNotFoundException("User", userId));
     }
 
-    /**
-     * Change the caller's own password (2026-07-07). Verifies the supplied
-     * current password against the stored hash, then re-encodes and persists
-     * the new one.
-     *
-     * <p>Wrong current password throws {@link BadRequestException} (HTTP 400),
-     * deliberately NOT {@link UnauthorizedException} (401): the Flutter Dio
-     * interceptor (api_service.dart) treats every 401 as an expired access
-     * token and silently auto-refreshes, which would swallow the error and the
-     * user would never see "current password is wrong".
-     *
-     * <p>JWTs are stateless with no server-side revocation, so existing tokens
-     * stay valid after a password change — the session is intentionally kept
-     * and the user is not logged out.
-     */
+    public AuthResponse getCurrentProfile(Long userId) {
+        return buildProfileResponse(getCurrentUser(userId));
+    }
+
     @Transactional
-    public void changePassword(Long userId, ChangePasswordRequest request) {
+    public AuthResponse updateProfile(Long userId, UpdateProfileRequest request) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", userId));
 
-        if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPasswordHash())) {
-            throw new BadRequestException(messages.get("error.auth.wrongCurrentPassword"));
+        if (request.getFullName() != null && !request.getFullName().isBlank()) {
+            user.setFullName(request.getFullName());
         }
 
-        user.setPasswordHash(passwordEncoder.encode(request.getNewPassword()));
+        if (request.getEmail() != null && !request.getEmail().isBlank()
+                && !request.getEmail().equals(user.getEmail())) {
+            if (userRepository.existsByEmail(request.getEmail())) {
+                throw new BadRequestException(messages.get("error.auth.emailAlreadyRegistered"));
+            }
+            user.setEmail(request.getEmail());
+        }
+
+        if (request.getPhone() != null && !request.getPhone().isBlank()
+                && !request.getPhone().equals(user.getPhone())) {
+            if (userRepository.existsByPhone(request.getPhone())) {
+                throw new BadRequestException(messages.get("error.auth.phoneAlreadyRegistered"));
+            }
+            user.setPhone(request.getPhone());
+        }
+
+        if (request.getAvatarId() != null) {
+            setAvatarId(user, request.getAvatarId());
+        }
+
+        if (user.getEmail() == null && user.getPhone() == null) {
+            throw new BadRequestException(messages.get("error.auth.emailOrPhoneRequired"));
+        }
+
+        User saved = userRepository.save(user);
+        return buildProfileResponse(saved);
+    }
+
+    @Transactional
+    public void changePassword(Long userId, String currentPassword, String newPassword) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", userId));
+
+        if (!passwordEncoder.matches(currentPassword, user.getPasswordHash())) {
+            throw new BadRequestException(messages.get("error.auth.incorrectCurrentPassword"));
+        }
+
+        if (newPassword.equals(currentPassword)) {
+            throw new BadRequestException(messages.get("error.auth.samePassword"));
+        }
+
+        user.setPasswordHash(passwordEncoder.encode(newPassword));
         userRepository.save(user);
     }
 
@@ -193,19 +236,62 @@ public class AuthService {
         String accessToken = jwtService.generateAccessToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
 
-        AuthResponse.AuthResponseBuilder builder = AuthResponse.builder()
+        return baseAuthResponse(user)
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                .build();
+    }
+
+    private AuthResponse buildProfileResponse(User user) {
+        return baseAuthResponse(user).build();
+    }
+
+    private AuthResponse.AuthResponseBuilder baseAuthResponse(User user) {
+        AuthResponse.AuthResponseBuilder builder = AuthResponse.builder()
                 .userId(user.getId())
                 .fullName(user.getFullName())
                 .email(user.getEmail())
                 .phone(user.getPhone())
-                .role(user.getRole());
+                .role(user.getRole())
+                .avatarId(getAvatarId(user));
 
         if (user instanceof Student student) {
             builder.gradeLevel(student.getGradeLevel());
         }
 
-        return builder.build();
+        return builder;
+    }
+
+    private String getAvatarId(User user) {
+        if (user instanceof Student student) {
+            return student.getAvatarId();
+        }
+        if (user instanceof Teacher teacher) {
+            return teacher.getAvatarId();
+        }
+        if (user instanceof Parent parent) {
+            return parent.getAvatarId();
+        }
+        if (user instanceof Admin admin) {
+            return admin.getAvatarId();
+        }
+        return null;
+    }
+
+    private void setAvatarId(User user, String avatarId) {
+        String normalized = avatarId.trim();
+        if (normalized.isEmpty()) {
+            normalized = null;
+        }
+
+        if (user instanceof Student student) {
+            student.setAvatarId(normalized);
+        } else if (user instanceof Teacher teacher) {
+            teacher.setAvatarId(normalized);
+        } else if (user instanceof Parent parent) {
+            parent.setAvatarId(normalized);
+        } else if (user instanceof Admin admin) {
+            admin.setAvatarId(normalized);
+        }
     }
 }

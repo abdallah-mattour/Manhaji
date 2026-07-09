@@ -14,7 +14,8 @@ import java.util.List;
         indexes = {
                 @Index(name = "idx_attempt_student", columnList = "student_id"),
                 @Index(name = "idx_attempt_quiz", columnList = "quiz_id"),
-                @Index(name = "idx_attempt_student_quiz_status", columnList = "student_id, quiz_id, status")
+                @Index(name = "idx_attempt_student_quiz_status", columnList = "student_id, quiz_id, status"),
+                @Index(name = "idx_attempt_assignment_student", columnList = "quiz_assignment_id, student_id")
         })
 // Audit fix (2026-05-15): score is a percentage. Anything outside 0..100 is a
 // scoring-engine bug, and silently storing it would corrupt rankings and the
@@ -50,6 +51,15 @@ public class Attempt {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quiz_id", nullable = false)
     private Quiz quiz;
+
+    /**
+     * Nullable for all existing lesson/adaptive/personalized attempts. Future
+     * assigned-quiz starts will set this to connect the result to a published
+     * teacher assignment.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "quiz_assignment_id")
+    private QuizAssignment quizAssignment;
 
     @OneToMany(mappedBy = "attempt", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StudentResponse> responses = new ArrayList<>();

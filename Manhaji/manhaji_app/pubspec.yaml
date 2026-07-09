@@ -24,7 +24,8 @@ dependencies:
   intl: ^0.20.2
   permission_handler: ^11.3.1
   path_provider: ^2.1.5
-  record: ^5.2.0
+  share_plus: ^10.0.0
+  record: ^6.2.1
   flutter_svg: ^2.0.17  # mascot illustrations (see assets/mascots/)
   # flutter_tts removed 2026-07-03: TTS is backend-API only by product
   # decision — no offline/on-device voices.

@@ -86,8 +86,8 @@ class _QuestionBankQuestionsScreenState
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
+        color: AppTheme.cardWhite,
+        border: Border(bottom: BorderSide(color: AppTheme.surfaceMuted)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -96,8 +96,10 @@ class _QuestionBankQuestionsScreenState
           Row(
             children: [
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: AppTheme.primaryGreen.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(20),
@@ -114,8 +116,10 @@ class _QuestionBankQuestionsScreenState
               ),
               const SizedBox(width: 8),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: AppTheme.primaryBlue.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(20),
@@ -194,7 +198,10 @@ class _QuestionBankQuestionsScreenState
   }
 
   Widget _difficultyChip(
-      QuestionBankProvider provider, int? value, String label) {
+    QuestionBankProvider provider,
+    int? value,
+    String label,
+  ) {
     final selected = provider.selectedDifficulty == value;
     return ChoiceChip(
       label: Text(
@@ -208,11 +215,8 @@ class _QuestionBankQuestionsScreenState
       ),
       selected: selected,
       selectedColor: AppTheme.primaryGreen,
-      backgroundColor: Colors.grey.shade100,
-      onSelected: (_) => provider.setDifficulty(
-        value,
-        asAdmin: widget.asAdmin,
-      ),
+      backgroundColor: AppTheme.surfaceSubtle,
+      onSelected: (_) => provider.setDifficulty(value, asAdmin: widget.asAdmin),
     );
   }
 
@@ -223,7 +227,7 @@ class _QuestionBankQuestionsScreenState
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
-        color: Colors.grey.shade100,
+        color: AppTheme.surfaceSubtle,
         borderRadius: BorderRadius.circular(10),
       ),
       child: DropdownButtonHideUnderline(
@@ -282,10 +286,7 @@ class _QuestionBankQuestionsScreenState
             _lessonHeader(lesson),
             const SizedBox(height: 10),
             for (var idx = 0; idx < items.length; idx++)
-              QuestionPreviewCard(
-                question: items[idx],
-                index: idx + 1,
-              ),
+              QuestionPreviewCard(question: items[idx], index: idx + 1),
             const SizedBox(height: 16),
           ],
         );
@@ -348,8 +349,11 @@ class _QuestionBankQuestionsScreenState
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.filter_alt_off_rounded,
-                size: 64, color: Colors.grey.shade400),
+            Icon(
+              Icons.filter_alt_off_rounded,
+              size: 64,
+              color: AppTheme.textLight,
+            ),
             const SizedBox(height: 12),
             const Text(
               'لا توجد أسئلة مطابقة للفلاتر الحالية',
@@ -373,8 +377,11 @@ class _QuestionBankQuestionsScreenState
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.cloud_off_rounded,
-                size: 64, color: AppTheme.primaryRed),
+            const Icon(
+              Icons.cloud_off_rounded,
+              size: 64,
+              color: AppTheme.primaryRed,
+            ),
             const SizedBox(height: 12),
             Text(
               msg,
@@ -393,6 +400,7 @@ class _QuestionBankQuestionsScreenState
                 'إعادة المحاولة',
                 style: TextStyle(fontFamily: 'Cairo'),
               ),
+              style: ElevatedButton.styleFrom(minimumSize: const Size(180, 52)),
             ),
           ],
         ),

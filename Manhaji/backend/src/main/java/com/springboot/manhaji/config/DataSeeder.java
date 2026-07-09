@@ -35,7 +35,6 @@ import com.springboot.manhaji.repository.TeacherRepository;
 import com.springboot.manhaji.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import java.io.File;
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -43,12 +42,12 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -72,7 +71,7 @@ public class DataSeeder implements CommandLineRunner {
     private final TeacherAssignmentRepository teacherAssignmentRepository;
     private final ProgressRepository progressRepository;
     private final PasswordEncoder passwordEncoder;
-    private final StorageConfigProperties storageConfig;
+    private final JdbcTemplate jdbcTemplate;
 
     /**
      * When {@code true}, the seeder wipes all curriculum data (subjects, lessons,
@@ -100,6 +99,30 @@ public class DataSeeder implements CommandLineRunner {
             seedHardcodedData();
             ensureHardcodedSubjects();
         }
+
+        // English-purity self-heal (2026-07-04): dev databases seeded before
+        // the "remove Arabic from English subject" cleanup still carry (a) the
+        // legacy hardcoded "اللغة الإنجليزية" subject whose questions mix Arabic
+        // into English stems, and (b) orphaned pre-cleanup rows under the
+        // canonical "English" subject. The backfill only ADDS rows, so those
+        // never healed on their own. Purge both on every boot (no-op when clean).
+        purgeLegacyEnglishData();
+
+        // Book-alignment self-heal (2026-07-04): subjects are being rebuilt
+        // to mirror the real Palestinian textbooks (English G1 units, math G1
+        // unit order/renames, Arabic story lessons, ...), so lessons/questions
+        // that are no longer in the JSON are stale (old unit names, superseded
+        // stem wordings — the "same question appears many times" bug). Remove
+        // any curriculum row the canonical JSON doesn't contain.
+        // NOTE: this makes the JSON the single source of truth for ALL seeded
+        // subjects — teacher-authored additions to seeded lessons would be
+        // removed too (acceptable for the demo dataset).
+        purgeOrphanCurriculumContent();
+
+        // Fairness self-heal (2026-07-04): a few authored ORDERING questions
+        // shipped with options already in the correct order — the child could
+        // just press "check". Rotate those rows so the puzzle is real.
+        healPresolvedOrderingQuestions();
 
         // Always generate quizzes for lessons that have questions but no quiz,
         // and attach backfilled questions to quizzes that already exist.
@@ -164,6 +187,9 @@ public class DataSeeder implements CommandLineRunner {
             adminRepository.save(admin);
             log.info("Created demo admin account: admin@manhaji.edu (password not logged)");
         }
+
+        // Demo students — populate a realistic leaderboard/class for the showcase.
+        seedDemoStudents();
 
         // Parent account — link to all existing students that have no parent
         if (userRepository.findByEmail("parent@manhaji.edu").isEmpty()) {
@@ -505,6 +531,56 @@ public class DataSeeder implements CommandLineRunner {
     }
 
     /**
+     * Seed a roster of demo students per grade so the leaderboard and class
+     * screens look populated during the showcase. Gated by the same
+     * {@code MANHAJI_DEMO_SEED} flag as {@link #seedDemoAccounts()} (the caller
+     * already checked it). Idempotent via a per-email existence check.
+     *
+     * <p>Points/avatars are hand-tuned so the podium reads well; these students
+     * have no quiz attempts (completedLessons = 0), which is fine for the board.
+     */
+    private void seedDemoStudents() {
+        // name, points, avatarId — descending so ranks read naturally.
+        Object[][] roster = {
+                {"محمد", 1250, "owl"},
+                {"سارة", 980, "fox"},
+                {"ليان", 870, "penguin"},
+                {"يوسف", 760, "koala"},
+                {"رهف", 640, "hamster"},
+                {"آدم", 590, "panda"},
+                {"جنى", 510, "butterfly"},
+                {"كرم", 430, "unicorn"},
+                {"نور", 360, "bee"},
+                {"تالا", 300, "dolphin"},
+        };
+
+        int created = 0;
+        for (int grade = 1; grade <= 4; grade++) {
+            for (int i = 0; i < roster.length; i++) {
+                String email = String.format("demo.g%d.s%d@manhaji.edu", grade, i + 1);
+                if (userRepository.findByEmail(email).isPresent()) continue;
+
+                Object[] row = roster[i];
+                Student s = new Student();
+                s.setFullName((String) row[0]);
+                s.setEmail(email);
+                s.setPasswordHash(passwordEncoder.encode("demo1234"));
+                s.setRole(Role.STUDENT);
+                s.setIsActive(true);
+                s.setGradeLevel(grade);
+                s.setTotalPoints((Integer) row[1]);
+                s.setAvatarId((String) row[2]);
+                s.setCurrentStreak((i % 5) + 1);
+                studentRepository.save(s);
+                created++;
+            }
+        }
+        if (created > 0) {
+            log.info("Created {} demo students across grades 1-4 (passwords not logged)", created);
+        }
+    }
+
+    /**
      * Ensure all hardcoded subjects and their lessons exist.
      * This supplements the JSON import — adds any missing subjects/lessons/questions.
      */
@@ -635,9 +711,35 @@ public class DataSeeder implements CommandLineRunner {
                     List<Map<String, Object>> lessons = (List<Map<String, Object>>) curriculum.get("lessons");
                     if (lessons == null) continue;
 
-                    // Build per-lesson image mapping once per file
-                    Map<String, List<String>> lessonImageMap = buildLessonImageMap(
-                            subjectCode, gradeLevel, semester, lessons);
+                    // Book-restructure fix (2026-07-05): lessons carry a UNIQUE
+                    // (subject, semester, order_index) key. When a subject is
+                    // restructured (new lessons inserted mid-sequence, existing
+                    // ones reordered — the G1 math/religion rebuilds), surviving
+                    // DB rows still hold their OLD index, so inserting a new
+                    // lesson at its canonical index used to abort the whole file
+                    // with a duplicate-key error, boot after boot. Park all
+                    // existing rows of this subject+semester at +1000 first;
+                    // every surviving lesson is re-pointed at its canonical
+                    // index below (and the in-memory entities are synced so a
+                    // later Hibernate flush can't write a stale index back).
+                    if (!existingTitles.isEmpty()) {
+                        jdbcTemplate.update(
+                                "UPDATE lessons SET order_index = order_index + 1000 " +
+                                "WHERE subject_id = ? AND semester_number = ? AND order_index < 1000 " +
+                                "ORDER BY order_index DESC",
+                                subject.getId(), semester);
+                        for (Lesson l : existingLessons) {
+                            if (semester.equals(l.getSemesterNumber()) && l.getOrderIndex() < 1000) {
+                                l.setOrderIndex(l.getOrderIndex() + 1000);
+                            }
+                        }
+                    }
+
+                    // 2026-07-03: the textbook page-scan auto-mapper
+                    // (buildLessonImageMap) was REMOVED by product decision —
+                    // the scanned book pages rendered too blurry on device.
+                    // Lesson images now come ONLY from the JSON "imageUrls"
+                    // field (clean bundled illustrations, e.g. assets/openmoji/).
 
                     int importedFromFile = 0;
                     List<Lesson> importedLessons = new ArrayList<>();
@@ -649,18 +751,26 @@ public class DataSeeder implements CommandLineRunner {
                             // added to the JSON after the initial seed (e.g. the
                             // English PRONUNCIATION additions). Match on type +
                             // questionText so edits to existing questions don't
-                            // duplicate-insert.
+                            // duplicate-insert. Filter by semester too: a lesson
+                            // moved between semesters briefly exists in both.
                             Lesson existing = existingLessons.stream()
-                                    .filter(l -> title.equals(l.getTitle()))
+                                    .filter(l -> title.equals(l.getTitle())
+                                            && semester.equals(l.getSemesterNumber()))
                                     .findFirst().orElse(null);
                             if (existing != null) {
                                 newQuestions += backfillLessonQuestions(existing, lessonData);
+                                // Un-park: restore this lesson to its canonical
+                                // book position from the JSON.
+                                if (lessonData.get("orderIndex") instanceof Integer canonicalIdx
+                                        && !canonicalIdx.equals(existing.getOrderIndex())) {
+                                    existing.setOrderIndex(canonicalIdx);
+                                    lessonRepository.save(existing);
+                                }
                             }
                             continue;
                         }
 
-                        List<String> mappedImages = lessonImageMap.getOrDefault(title, List.of());
-                        Lesson lesson = importLesson(subject, lessonData, semester, mappedImages);
+                        Lesson lesson = importLesson(subject, lessonData, semester);
                         importedLessons.add(lesson);
                         newLessons++;
                         importedFromFile++;
@@ -681,7 +791,7 @@ public class DataSeeder implements CommandLineRunner {
                     }
 
                     // Backfill semesterNumber and imageUrls for existing lessons that are missing them
-                    backfillLessonMetadata(existingLessons, semester, lessons, lessonImageMap);
+                    backfillLessonMetadata(existingLessons, semester, lessons);
                 } catch (Exception perFileEx) {
                     // Don't let one bad file kill the rest. Log loudly with
                     // the filename + exception type so the cause is obvious
@@ -720,7 +830,7 @@ public class DataSeeder implements CommandLineRunner {
 
     @SuppressWarnings("unchecked")
     private Lesson importLesson(Subject subject, Map<String, Object> data,
-                                 Integer semester, List<String> mappedImages) {
+                                 Integer semester) {
         Lesson lesson = new Lesson();
         lesson.setSubject(subject);
         lesson.setTitle((String) data.get("title"));
@@ -730,11 +840,9 @@ public class DataSeeder implements CommandLineRunner {
         lesson.setContent((String) data.get("content"));
         lesson.setObjectives((String) data.get("objectives"));
 
-        // Prefer JSON-provided imageUrls if present, else use auto-mapped images
+        // Lesson images come ONLY from the JSON (clean bundled illustrations).
+        // The old textbook page-scan auto-mapper is gone — see importCurriculum.
         List<String> imageUrls = (List<String>) data.get("imageUrls");
-        if (imageUrls == null || imageUrls.isEmpty()) {
-            imageUrls = mappedImages;
-        }
         if (imageUrls != null && !imageUrls.isEmpty()) {
             try {
                 lesson.setImageUrls(objectMapper.writeValueAsString(imageUrls));
@@ -747,86 +855,34 @@ public class DataSeeder implements CommandLineRunner {
     }
 
     /**
-     * Build a mapping of lesson title -> list of image URLs by distributing
-     * the page-numbered images in the subject/semester folder evenly across
-     * the lessons in order. Returns an empty map if the folder doesn't exist.
-     */
-    private Map<String, List<String>> buildLessonImageMap(
-            String subjectCode, int gradeLevel, Integer semester,
-            List<Map<String, Object>> lessons) {
-        Map<String, List<String>> result = new java.util.HashMap<>();
-        if (subjectCode == null || lessons == null || lessons.isEmpty()) {
-            return result;
-        }
-
-        String folderName = subjectCode + gradeLevel + "-p" + semester; // e.g. "ar1-p1"
-        File folder = new File(storageConfig.getImageDir() + "/" + folderName);
-        if (!folder.exists() || !folder.isDirectory()) {
-            return result;
-        }
-
-        String[] fileNames = folder.list((dir, name) ->
-                name.toLowerCase().matches("page\\d+_img\\d+\\.(png|jpe?g|webp)"));
-        if (fileNames == null || fileNames.length == 0) {
-            return result;
-        }
-
-        // Group files by page number, preserve natural order
-        TreeMap<Integer, List<String>> pageGroups = new TreeMap<>();
-        for (String name : fileNames) {
-            try {
-                int pageNum = Integer.parseInt(name.substring(4, name.indexOf('_')));
-                pageGroups.computeIfAbsent(pageNum, k -> new ArrayList<>()).add(name);
-            } catch (Exception e) {
-                log.warn("Could not parse page number from image filename '{}': {}", name, e.getMessage());
-            }
-        }
-        for (List<String> group : pageGroups.values()) {
-            Collections.sort(group);
-        }
-
-        List<Integer> pageNumbers = new ArrayList<>(pageGroups.keySet());
-        int totalPages = pageNumbers.size();
-        int lessonCount = lessons.size();
-        if (totalPages == 0 || lessonCount == 0) return result;
-
-        // Distribute pages across lessons evenly
-        double pagesPerLesson = (double) totalPages / lessonCount;
-        for (int i = 0; i < lessonCount; i++) {
-            Map<String, Object> lessonData = lessons.get(i);
-            String title = (String) lessonData.get("title");
-            if (title == null) continue;
-
-            int startIdx = (int) Math.floor(i * pagesPerLesson);
-            int endIdx = (i == lessonCount - 1)
-                    ? totalPages
-                    : (int) Math.floor((i + 1) * pagesPerLesson);
-            if (endIdx <= startIdx) endIdx = Math.min(startIdx + 1, totalPages);
-
-            List<String> urls = new ArrayList<>();
-            for (int p = startIdx; p < endIdx; p++) {
-                int pageNum = pageNumbers.get(p);
-                for (String fileName : pageGroups.get(pageNum)) {
-                    urls.add("/uploads/images/" + folderName + "/" + fileName);
-                }
-            }
-            result.put(title, urls);
-        }
-        return result;
-    }
-
-    /**
      * Update existing lessons that may be missing semesterNumber or imageUrls
      * (e.g. from an earlier import before these fields were populated).
+     *
+     * <p>2026-07-03: also SELF-HEALS the old textbook page scans — any stored
+     * imageUrls that point at the removed {@code /uploads/images/**}
+     * page-scan convention are replaced with the JSON's imageUrls (or cleared
+     * when the JSON has none), so existing dev databases lose the blurry book
+     * photos on next boot without needing a destructive reseed.
      */
+    @SuppressWarnings("unchecked")
     private void backfillLessonMetadata(List<Lesson> existingLessons, Integer semester,
-                                         List<Map<String, Object>> jsonLessons,
-                                         Map<String, List<String>> lessonImageMap) {
+                                         List<Map<String, Object>> jsonLessons) {
         if (existingLessons == null || existingLessons.isEmpty() || jsonLessons == null) return;
+        Map<String, List<String>> jsonImagesByTitle = new java.util.HashMap<>();
+        Map<String, Integer> jsonOrderByTitle = new java.util.HashMap<>();
         java.util.Set<String> jsonTitles = new java.util.HashSet<>();
         for (Map<String, Object> ld : jsonLessons) {
             Object t = ld.get("title");
-            if (t != null) jsonTitles.add(t.toString());
+            if (t == null) continue;
+            jsonTitles.add(t.toString());
+            Object imgs = ld.get("imageUrls");
+            if (imgs instanceof List<?> list && !list.isEmpty()) {
+                jsonImagesByTitle.put(t.toString(),
+                        list.stream().map(Object::toString).toList());
+            }
+            if (ld.get("orderIndex") instanceof Integer oi) {
+                jsonOrderByTitle.put(t.toString(), oi);
+            }
         }
 
         int backfilled = 0;
@@ -845,16 +901,32 @@ public class DataSeeder implements CommandLineRunner {
                 lesson.setSemesterNumber(semester);
                 changed = true;
             }
-            if ((lesson.getImageUrls() == null || lesson.getImageUrls().isBlank()
-                    || lesson.getImageUrls().equals("[]"))) {
-                List<String> imgs = lessonImageMap.get(lesson.getTitle());
-                if (imgs != null && !imgs.isEmpty()) {
-                    try {
-                        lesson.setImageUrls(objectMapper.writeValueAsString(imgs));
+
+            // Keep display order in sync with the JSON (e.g. the English
+            // alphabet lessons moved behind the book units, 2026-07-04).
+            Integer jsonOrder = jsonOrderByTitle.get(lesson.getTitle());
+            if (jsonOrder != null && !jsonOrder.equals(lesson.getOrderIndex())) {
+                lesson.setOrderIndex(jsonOrder);
+                changed = true;
+            }
+
+            String stored = lesson.getImageUrls();
+            boolean storedEmpty = stored == null || stored.isBlank() || stored.equals("[]");
+            // Legacy book scans are recognizable by the auto-mapper's URL shape.
+            boolean storedIsBookScan = stored != null && stored.contains("/uploads/images/")
+                    && stored.contains("page");
+            if (storedEmpty || storedIsBookScan) {
+                List<String> imgs = jsonImagesByTitle.get(lesson.getTitle());
+                try {
+                    String replacement = (imgs == null || imgs.isEmpty())
+                            ? (storedIsBookScan ? "[]" : null)
+                            : objectMapper.writeValueAsString(imgs);
+                    if (replacement != null && !replacement.equals(stored)) {
+                        lesson.setImageUrls(replacement);
                         changed = true;
-                    } catch (Exception e) {
-                        log.warn("Failed to backfill imageUrls for lesson '{}': {}", lesson.getTitle(), e.getMessage());
                     }
+                } catch (Exception e) {
+                    log.warn("Failed to backfill imageUrls for lesson '{}': {}", lesson.getTitle(), e.getMessage());
                 }
             }
             if (changed) {
@@ -942,7 +1014,298 @@ public class DataSeeder implements CommandLineRunner {
             q.setAudioUrl(s);
         }
 
+        // Tier 1 (2026-06): IMAGE_MCQ / LISTEN_CHOOSE parallel images + IMAGE_MATCH pairs.
+        // Stored as raw JSON strings on the entity's JSON columns.
+        Object optionImages = data.get("optionImages");
+        if (optionImages instanceof List<?> list && !list.isEmpty()) {
+            try {
+                q.setOptionImages(objectMapper.writeValueAsString(list));
+            } catch (Exception ignored) {
+                // leave null — widget falls back to text options
+            }
+        }
+        Object pairs = data.get("pairs");
+        if (pairs instanceof Map<?, ?> map && !map.isEmpty()) {
+            try {
+                q.setPairsJson(objectMapper.writeValueAsString(map));
+            } catch (Exception ignored) {
+                // leave null
+            }
+        }
+
         questionRepository.save(q);
+    }
+
+    // =================== English purity self-heal ===================
+
+    /**
+     * Removes English-subject data that must not exist (2026-07-04):
+     * <ol>
+     *   <li>The legacy hardcoded "اللغة الإنجليزية" subject — a duplicate of the
+     *       canonical JSON "English" subject whose hardcoded questions mixed
+     *       Arabic into English stems ("How do you say 'مرحباً' in English?").
+     *       Deleted wholesale, dependents first.</li>
+     *   <li>Any question under a canonical "English" subject whose stem,
+     *       options, or answer still contains Arabic script — orphans left in
+     *       old dev DBs from before the JSON cleanup (the backfill inserted
+     *       the English replacements but never removed the Arabic originals).</li>
+     * </ol>
+     * Idempotent: a clean database matches nothing and nothing is touched.
+     */
+    private void purgeLegacyEnglishData() {
+        try {
+            // ---- (1) legacy duplicate subject, dependents-first ----
+            List<Long> subjectIds = queryIds(
+                    "SELECT id FROM subjects WHERE name = 'اللغة الإنجليزية'");
+            if (!subjectIds.isEmpty()) {
+                String sin = joinIds(subjectIds);
+                List<Long> lessonIds = queryIds(
+                        "SELECT id FROM lessons WHERE subject_id IN (" + sin + ")");
+                String lin = joinIds(lessonIds);
+                List<Long> quizIds = lessonIds.isEmpty()
+                        ? queryIds("SELECT id FROM quizzes WHERE subject_id IN (" + sin + ")")
+                        : queryIds("SELECT id FROM quizzes WHERE subject_id IN (" + sin + ")"
+                                + " OR lesson_id IN (" + lin + ")");
+                if (!quizIds.isEmpty()) {
+                    String qin = joinIds(quizIds);
+                    List<Long> attemptIds = queryIds(
+                            "SELECT id FROM attempts WHERE quiz_id IN (" + qin + ")");
+                    if (!attemptIds.isEmpty()) {
+                        String ain = joinIds(attemptIds);
+                        jdbcTemplate.update("DELETE FROM student_responses WHERE attempt_id IN (" + ain + ")");
+                        jdbcTemplate.update("DELETE FROM attempts WHERE id IN (" + ain + ")");
+                    }
+                    jdbcTemplate.update("DELETE FROM quiz_questions WHERE quiz_id IN (" + qin + ")");
+                    jdbcTemplate.update("DELETE FROM quizzes WHERE id IN (" + qin + ")");
+                }
+                if (!lessonIds.isEmpty()) {
+                    List<Long> questionIds = queryIds(
+                            "SELECT id FROM questions WHERE lesson_id IN (" + lin + ")");
+                    if (!questionIds.isEmpty()) {
+                        String qqin = joinIds(questionIds);
+                        jdbcTemplate.update("DELETE FROM student_responses WHERE question_id IN (" + qqin + ")");
+                        jdbcTemplate.update("DELETE FROM quiz_questions WHERE question_id IN (" + qqin + ")");
+                        jdbcTemplate.update("DELETE FROM questions WHERE id IN (" + qqin + ")");
+                    }
+                    jdbcTemplate.update("DELETE FROM progress WHERE lesson_id IN (" + lin + ")");
+                    jdbcTemplate.update("DELETE FROM lessons WHERE id IN (" + lin + ")");
+                }
+                jdbcTemplate.update("DELETE FROM skill_mastery WHERE subject_id IN (" + sin + ")");
+                jdbcTemplate.update("DELETE FROM subjects WHERE id IN (" + sin + ")");
+                log.info("Purged legacy duplicate English subject (اللغة الإنجليزية): "
+                        + "{} lesson(s), {} quiz(zes)", lessonIds.size(), quizIds.size());
+            }
+
+            // ---- (2) Arabic-contaminated rows under canonical English ----
+            List<Map<String, Object>> rows = jdbcTemplate.queryForList(
+                    "SELECT q.id, q.question_text, q.options, q.correct_answer "
+                    + "FROM questions q "
+                    + "JOIN lessons l ON q.lesson_id = l.id "
+                    + "JOIN subjects s ON l.subject_id = s.id "
+                    + "WHERE s.name = 'English'");
+            List<Long> contaminated = new ArrayList<>();
+            for (Map<String, Object> row : rows) {
+                String blob = String.valueOf(row.get("question_text")) + " "
+                        + String.valueOf(row.get("options")) + " "
+                        + String.valueOf(row.get("correct_answer"));
+                if (containsArabicScript(blob)) {
+                    contaminated.add(((Number) row.get("id")).longValue());
+                }
+            }
+            if (!contaminated.isEmpty()) {
+                String cin = joinIds(contaminated);
+                jdbcTemplate.update("DELETE FROM student_responses WHERE question_id IN (" + cin + ")");
+                jdbcTemplate.update("DELETE FROM quiz_questions WHERE question_id IN (" + cin + ")");
+                jdbcTemplate.update("DELETE FROM questions WHERE id IN (" + cin + ")");
+                log.info("Purged {} Arabic-contaminated question(s) from the English subject", contaminated.size());
+            }
+        } catch (Exception e) {
+            // Never block boot on the sweep — log and continue.
+            log.warn("English-purity sweep failed (continuing): {}", e.getMessage());
+        }
+    }
+
+    /**
+     * Deletes seeded-subject lessons and questions that the canonical
+     * curriculum JSON no longer contains (see call site for rationale).
+     * Lessons match by (subject, gradeLevel, semester, title); questions by
+     * (lesson, type, questionText). Dependents are removed first. Subjects
+     * that have no JSON files are never touched.
+     */
+    @SuppressWarnings("unchecked")
+    private void purgeOrphanCurriculumContent() {
+        try {
+            // Canonical content from the classpath JSONs:
+            // key "<subject>|<grade>|<semester>|<lessonTitle>" → "TYPE|questionText" set.
+            Map<String, java.util.Set<String>> canonical = new java.util.HashMap<>();
+            java.util.Set<String> seededSubjects = new java.util.HashSet<>();
+            PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+            for (Resource resource : resolver.getResources("classpath:curriculum/*.json")) {
+                try (InputStream in = resource.getInputStream()) {
+                    Map<String, Object> curriculum = objectMapper.readValue(in, Map.class);
+                    String subjectName = String.valueOf(curriculum.get("subject"));
+                    int grade = (Integer) curriculum.get("gradeLevel");
+                    int semester = (Integer) curriculum.getOrDefault("semester", 1);
+                    seededSubjects.add(subjectName);
+                    List<Map<String, Object>> lessons =
+                            (List<Map<String, Object>>) curriculum.get("lessons");
+                    if (lessons == null) continue;
+                    for (Map<String, Object> lessonData : lessons) {
+                        String key = subjectName + "|" + grade + "|" + semester
+                                + "|" + lessonData.get("title");
+                        java.util.Set<String> qKeys = canonical
+                                .computeIfAbsent(key, k -> new java.util.HashSet<>());
+                        List<Map<String, Object>> questions =
+                                (List<Map<String, Object>>) lessonData.get("questions");
+                        if (questions == null) continue;
+                        for (Map<String, Object> qData : questions) {
+                            qKeys.add(qData.get("type") + "|" + qData.get("questionText"));
+                        }
+                    }
+                }
+            }
+            if (canonical.isEmpty()) return;
+
+            // Walk lessons of seeded subjects in the DB.
+            List<Map<String, Object>> lessonRows = jdbcTemplate.queryForList(
+                    "SELECT l.id, l.title, l.grade_level, l.semester_number, s.name AS subject_name "
+                    + "FROM lessons l JOIN subjects s ON l.subject_id = s.id");
+            List<Long> orphanLessonIds = new ArrayList<>();
+            List<Long> orphanQuestionIds = new ArrayList<>();
+            for (Map<String, Object> row : lessonRows) {
+                if (!seededSubjects.contains(String.valueOf(row.get("subject_name")))) {
+                    continue; // subject not managed by JSON — never touch
+                }
+                long lessonId = ((Number) row.get("id")).longValue();
+                String key = row.get("subject_name") + "|" + row.get("grade_level")
+                        + "|" + row.get("semester_number") + "|" + row.get("title");
+                java.util.Set<String> qKeys = canonical.get(key);
+                if (qKeys == null) {
+                    orphanLessonIds.add(lessonId);
+                    continue;
+                }
+                List<Map<String, Object>> qRows = jdbcTemplate.queryForList(
+                        "SELECT id, type, question_text FROM questions WHERE lesson_id = " + lessonId);
+                for (Map<String, Object> qRow : qRows) {
+                    if (!qKeys.contains(qRow.get("type") + "|" + qRow.get("question_text"))) {
+                        orphanQuestionIds.add(((Number) qRow.get("id")).longValue());
+                    }
+                }
+            }
+
+            // Orphan lessons: their questions are orphans too.
+            if (!orphanLessonIds.isEmpty()) {
+                String lin = joinIds(orphanLessonIds);
+                orphanQuestionIds.addAll(queryIds(
+                        "SELECT id FROM questions WHERE lesson_id IN (" + lin + ")"));
+            }
+            if (!orphanQuestionIds.isEmpty()) {
+                String qin = joinIds(orphanQuestionIds);
+                jdbcTemplate.update("DELETE FROM student_responses WHERE question_id IN (" + qin + ")");
+                jdbcTemplate.update("DELETE FROM quiz_questions WHERE question_id IN (" + qin + ")");
+                jdbcTemplate.update("DELETE FROM questions WHERE id IN (" + qin + ")");
+            }
+            if (!orphanLessonIds.isEmpty()) {
+                String lin = joinIds(orphanLessonIds);
+                List<Long> quizIds = queryIds("SELECT id FROM quizzes WHERE lesson_id IN (" + lin + ")");
+                if (!quizIds.isEmpty()) {
+                    String qzin = joinIds(quizIds);
+                    List<Long> attemptIds = queryIds("SELECT id FROM attempts WHERE quiz_id IN (" + qzin + ")");
+                    if (!attemptIds.isEmpty()) {
+                        String ain = joinIds(attemptIds);
+                        jdbcTemplate.update("DELETE FROM student_responses WHERE attempt_id IN (" + ain + ")");
+                        jdbcTemplate.update("DELETE FROM attempts WHERE id IN (" + ain + ")");
+                    }
+                    jdbcTemplate.update("DELETE FROM quiz_questions WHERE quiz_id IN (" + qzin + ")");
+                    jdbcTemplate.update("DELETE FROM quizzes WHERE id IN (" + qzin + ")");
+                }
+                jdbcTemplate.update("DELETE FROM progress WHERE lesson_id IN (" + lin + ")");
+                jdbcTemplate.update("DELETE FROM lessons WHERE id IN (" + lin + ")");
+            }
+            if (!orphanLessonIds.isEmpty() || !orphanQuestionIds.isEmpty()) {
+                log.info("Book-alignment purge: removed {} stale lesson(s) and {} stale question(s)",
+                        orphanLessonIds.size(), orphanQuestionIds.size());
+            }
+        } catch (Exception e) {
+            log.warn("Curriculum orphan purge failed (continuing): {}", e.getMessage());
+        }
+    }
+
+    private List<Long> queryIds(String sql) {
+        return jdbcTemplate.queryForList(sql, Long.class);
+    }
+
+    private static String joinIds(List<Long> ids) {
+        StringBuilder sb = new StringBuilder();
+        for (Long id : ids) {
+            if (sb.length() > 0) sb.append(',');
+            sb.append(id);
+        }
+        return sb.toString();
+    }
+
+    private static boolean containsArabicScript(String text) {
+        if (text == null) return false;
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            if (c >= 0x0600 && c <= 0x06FF) return true;
+        }
+        return false;
+    }
+
+    /**
+     * ORDERING rows whose stored options already match the correct-answer
+     * sequence present a pre-solved puzzle. Rotate the options by one so the
+     * student actually has to reorder. Idempotent — after the rotation the
+     * sequences differ and the row is never touched again. (The JSON files
+     * carry the same fix via the enrichment script's fairness pass; this
+     * heals rows that were seeded before it.)
+     */
+    private void healPresolvedOrderingQuestions() {
+        try {
+            List<Map<String, Object>> rows = jdbcTemplate.queryForList(
+                    "SELECT id, options, correct_answer FROM questions WHERE type = 'ORDERING'");
+            int healed = 0;
+            for (Map<String, Object> row : rows) {
+                String optionsJson = String.valueOf(row.get("options"));
+                String correct = String.valueOf(row.get("correct_answer"));
+                List<String> options;
+                try {
+                    options = objectMapper.readValue(optionsJson,
+                            new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {});
+                } catch (Exception parse) {
+                    continue;
+                }
+                if (options == null || options.size() < 2) continue;
+
+                List<String> answerSeq = new ArrayList<>();
+                for (String part : correct.split("[،,]")) {
+                    answerSeq.add(part.replaceAll("\\s+", ""));
+                }
+                List<String> optionSeq = new ArrayList<>();
+                for (String o : options) {
+                    optionSeq.add(o == null ? "" : o.replaceAll("\\s+", ""));
+                }
+                if (!optionSeq.equals(answerSeq)) continue;
+
+                // Pre-solved — rotate by one (guaranteed different order).
+                List<String> rotated = new ArrayList<>(options.subList(1, options.size()));
+                rotated.add(options.get(0));
+                try {
+                    jdbcTemplate.update("UPDATE questions SET options = ? WHERE id = ?",
+                            objectMapper.writeValueAsString(rotated), row.get("id"));
+                    healed++;
+                } catch (Exception write) {
+                    log.warn("Could not heal pre-solved ORDERING question {}: {}",
+                            row.get("id"), write.getMessage());
+                }
+            }
+            if (healed > 0) {
+                log.info("Healed {} pre-solved ORDERING question(s) (options rotated)", healed);
+            }
+        } catch (Exception e) {
+            log.warn("Pre-solved ORDERING sweep failed (continuing): {}", e.getMessage());
+        }
     }
 
     // =================== Quiz Generation ===================

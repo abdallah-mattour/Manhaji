@@ -43,6 +43,18 @@ class AuthProvider extends ChangeNotifier {
   bool get isProfileLoading => _isProfileLoading;
   String? get profileError => _profileError;
 
+  /// `/auth/me` doesn't return the grade level, so it's read from the prefs
+  /// snapshot saved at login. Null for parents/teachers/admins.
+  int? get gradeLevel => _storage.getGradeLevel();
+
+  /// Clear a stale error banner before the user re-enters a form (e.g. the
+  /// change-password screen shares [_errorMessage] with the auth flows).
+  void clearError() {
+    if (_errorMessage == null) return;
+    _errorMessage = null;
+    notifyListeners();
+  }
+
   Future<bool> register({
     required String fullName,
     required String email,

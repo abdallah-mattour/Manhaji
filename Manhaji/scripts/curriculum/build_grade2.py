@@ -53,6 +53,12 @@ def main() -> int:
     for mod_name in BUILDERS:
         module = importlib.import_module(mod_name)
         module.main()
+    # Phase 3 (2026-07): re-apply the media-type enrichment (IMAGE_MCQ /
+    # LISTEN_CHOOSE / IMAGE_MATCH / DRAG_DROP / READING + lesson images) so a
+    # rebuild never loses it. Idempotent; content lives in _enrich_media_g12.
+    enrich = importlib.import_module("_enrich_media_g12")
+    print("Re-applying media enrichment (_enrich_media_g12)...")
+    enrich.main()
     elapsed_ms = (time.perf_counter() - start) * 1000
     print(f"Done in {elapsed_ms:.0f} ms. "
           f"Run `./gradlew test --tests QuestionAuditTest` to verify.")

@@ -16,10 +16,10 @@
           "questionText": "في الدرس، أين كان البلبل؟",
           "correctAnswer": "في قفص داخل بيت",
           "options": [
-            "يطير في السماء",
+            "في الغابة",
             "في قفص داخل بيت",
             "على الشجرة",
-            "في الغابة"
+            "يطير في السماء"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -29,9 +29,9 @@
           "questionText": "لماذا كان البلبل حزيناً رغم الطعام والشراب؟",
           "correctAnswer": "لأنه فقد حرّيّته",
           "options": [
+            "لأنه مريض",
             "لأنه جائع",
             "لأنه فقد حرّيّته",
-            "لأنه مريض",
             "لأنه يكره الطعام"
           ],
           "difficultyLevel": 2,
@@ -42,10 +42,10 @@
           "questionText": "ما القيمة الرئيسية في الدرس؟",
           "correctAnswer": "الحرّيّة قيمة عظيمة لا تعدلها نعمة",
           "options": [
+            "السفر متعة",
             "الطعام أهم شيء",
-            "الحرّيّة قيمة عظيمة لا تعدلها نعمة",
             "النوم خير من العمل",
-            "السفر متعة"
+            "الحرّيّة قيمة عظيمة لا تعدلها نعمة"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -140,8 +140,8 @@
           "questionText": "ماذا كانت تحب الفتاة في الدرس؟",
           "correctAnswer": "الرسم",
           "options": [
-            "الرسم",
             "الرياضة",
+            "الرسم",
             "الطبخ",
             "النوم"
           ],
@@ -153,10 +153,10 @@
           "questionText": "أين عرضت أعمالها؟",
           "correctAnswer": "في معرض المدرسة",
           "options": [
-            "في الحديقة",
-            "في معرض المدرسة",
             "في السوق",
-            "في البيت فقط"
+            "في معرض المدرسة",
+            "في البيت فقط",
+            "في الحديقة"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -166,10 +166,10 @@
           "questionText": "ما القيمة الرئيسية التي يعلّمنا الدرس؟",
           "correctAnswer": "الموهبة تنمو بالتدريب والمثابرة",
           "options": [
-            "النوم سرّ النجاح",
-            "الموهبة تنمو بالتدريب والمثابرة",
             "اللعب أهم من الدراسة",
-            "الرسم سهل بلا تدريب"
+            "الرسم سهل بلا تدريب",
+            "النوم سرّ النجاح",
+            "الموهبة تنمو بالتدريب والمثابرة"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -264,10 +264,10 @@
           "questionText": "متى هاجر الطائر؟",
           "correctAnswer": "في الشتاء",
           "options": [
-            "في الصيف",
-            "في الشتاء",
+            "في الخريف",
             "في الربيع",
-            "في الخريف"
+            "في الشتاء",
+            "في الصيف"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -279,8 +279,8 @@
           "options": [
             "في الشتاء",
             "في الصيف",
-            "في الربيع",
-            "في الخريف"
+            "في الخريف",
+            "في الربيع"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -290,10 +290,10 @@
           "questionText": "ما القيمة التي يعلّمنا إيّاها الدرس؟",
           "correctAnswer": "حبّ الوطن والرفق بالحيوان",
           "options": [
-            "الكسل",
-            "حبّ الوطن والرفق بالحيوان",
             "الأنانية",
-            "كراهية السفر"
+            "حبّ الوطن والرفق بالحيوان",
+            "كراهية السفر",
+            "الكسل"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -373,6 +373,47 @@
           "options": null,
           "difficultyLevel": 2,
           "subSkill": "pronunciation"
+        },
+        {
+          "type": "IMAGE_MATCH",
+          "questionText": "صِل الكائن بمكان عيشه",
+          "correctAnswer": "1=a,2=b,3=c",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "left": [
+              {
+                "id": "1",
+                "text": "العصفور",
+                "image": "assets/openmoji/bird.png"
+              },
+              {
+                "id": "2",
+                "text": "السمكة",
+                "image": "assets/openmoji/fish.png"
+              },
+              {
+                "id": "3",
+                "text": "الأرنب",
+                "image": "assets/openmoji/rabbit.png"
+              }
+            ],
+            "right": [
+              {
+                "id": "c",
+                "text": "الحقل"
+              },
+              {
+                "id": "a",
+                "text": "الشجرة"
+              },
+              {
+                "id": "b",
+                "text": "الماء"
+              }
+            ]
+          }
         }
       ],
       "imageUrls": []
@@ -388,10 +429,10 @@
           "questionText": "أيّ مما يلي ليس من نعم الأرض على الإنسان؟",
           "correctAnswer": "التلوّث",
           "options": [
-            "الماء",
-            "الهواء",
             "الشمس",
-            "التلوّث"
+            "التلوّث",
+            "الهواء",
+            "الماء"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -401,10 +442,10 @@
           "questionText": "كيف نحافظ على الأرض؟",
           "correctAnswer": "بعدم تلويثها وبزراعتها",
           "options": [
-            "برميها بالنفايات",
-            "بعدم تلويثها وبزراعتها",
             "بحرق الأشجار",
-            "بإهمالها"
+            "بعدم تلويثها وبزراعتها",
+            "بإهمالها",
+            "برميها بالنفايات"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -414,10 +455,10 @@
           "questionText": "ما الذي يبثّ الحياة في الكائنات الحيّة؟",
           "correctAnswer": "الماء والهواء والشمس",
           "options": [
-            "النفط",
             "البلاستيك",
-            "الماء والهواء والشمس",
-            "النفايات"
+            "النفط",
+            "النفايات",
+            "الماء والهواء والشمس"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -512,10 +553,10 @@
           "questionText": "ما الذي عانى منه الغراب في القصة؟",
           "correctAnswer": "العطش",
           "options": [
+            "النوم",
             "الجوع",
             "العطش",
-            "البرد",
-            "النوم"
+            "البرد"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -526,9 +567,9 @@
           "correctAnswer": "وضع حصى في الجرّة فارتفع الماء",
           "options": [
             "كسر الجرّة",
-            "وضع حصى في الجرّة فارتفع الماء",
             "ترك الجرّة وطار",
-            "بكى حتى انتهى الماء"
+            "بكى حتى انتهى الماء",
+            "وضع حصى في الجرّة فارتفع الماء"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -539,9 +580,9 @@
           "correctAnswer": "التفكير يحلّ المشكلات",
           "options": [
             "العنف يحلّ المشكلات",
-            "التفكير يحلّ المشكلات",
             "الكسل خير",
-            "الاستسلام أسرع"
+            "الاستسلام أسرع",
+            "التفكير يحلّ المشكلات"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -621,9 +662,19 @@
           "options": null,
           "difficultyLevel": 2,
           "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "عَطِشَ الغُرابُ فَبَحَثَ عَنِ الماءِ في كُلِّ مَكانٍ",
+          "correctAnswer": "عَطِشَ الغُرابُ فَبَحَثَ عَنِ الماءِ في كُلِّ مَكانٍ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/bird.png"
+      ]
     },
     {
       "title": "مصنع الألبان",
@@ -636,10 +687,10 @@
           "questionText": "من أين يُؤخذ الحليب في مصنع الألبان؟",
           "correctAnswer": "من الأبقار",
           "options": [
+            "من الأشجار",
             "من الأبقار",
             "من الدجاج",
-            "من الأسماك",
-            "من الأشجار"
+            "من الأسماك"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -649,10 +700,10 @@
           "questionText": "أيّ مما يلي ليس من منتجات الألبان؟",
           "correctAnswer": "البطاطا",
           "options": [
-            "الجبن",
-            "اللبن",
             "الزبدة",
-            "البطاطا"
+            "اللبن",
+            "البطاطا",
+            "الجبن"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -662,10 +713,10 @@
           "questionText": "لماذا يفيدنا شرب الحليب؟",
           "correctAnswer": "لأنه يقوّي العظام والأسنان",
           "options": [
-            "لأنه حلو فقط",
-            "لأنه يقوّي العظام والأسنان",
             "لأنه يجعلنا ننام",
-            "لا يفيدنا"
+            "لا يفيدنا",
+            "لأنه يقوّي العظام والأسنان",
+            "لأنه حلو فقط"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -745,9 +796,30 @@
           "options": null,
           "difficultyLevel": 2,
           "subSkill": "pronunciation"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "أيُّ صورةٍ تُظهر منتجاً مصنوعاً من الحليب؟",
+          "correctAnswer": "جبنة",
+          "options": [
+            "عسل",
+            "خبز",
+            "جبنة",
+            "تفاحة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/honey.png",
+            "assets/openmoji/bread.png",
+            "assets/openmoji/cheese.png",
+            "assets/openmoji/apple.png"
+          ]
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/milk.png"
+      ]
     },
     {
       "title": "جحا وحميره العشرة",
@@ -762,8 +834,8 @@
           "options": [
             "خمسة",
             "سبعة",
-            "تسعة",
-            "عشرة"
+            "عشرة",
+            "تسعة"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -773,10 +845,10 @@
           "questionText": "لماذا ظنّ جحا أنه فقد حماراً؟",
           "correctAnswer": "لأنه نسي أن يعدّ الحمار الذي يركبه",
           "options": [
-            "لأن أحدها هرب",
-            "لأنه نسي أن يعدّ الحمار الذي يركبه",
             "لأنه عدّ بسرعة",
-            "لأن الحمير صغيرة"
+            "لأنه نسي أن يعدّ الحمار الذي يركبه",
+            "لأن الحمير صغيرة",
+            "لأن أحدها هرب"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -788,8 +860,8 @@
           "options": [
             "شراء الحمير عمل خاطئ",
             "ضرورة العدّ الصحيح والتفكير قبل القلق",
-            "الحمير صعبة العدّ دائماً",
-            "ركوب الحمير أفضل من المشي"
+            "ركوب الحمير أفضل من المشي",
+            "الحمير صعبة العدّ دائماً"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -884,10 +956,10 @@
           "questionText": "ماذا يعني اللون الأحمر في إشارة المرور؟",
           "correctAnswer": "قف",
           "options": [
-            "امش بسرعة",
+            "لا شيء",
             "قف",
             "اقفز",
-            "لا شيء"
+            "امش بسرعة"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -899,8 +971,8 @@
           "options": [
             "قف",
             "نَم",
-            "امش بحذر",
-            "ارجع"
+            "ارجع",
+            "امش بحذر"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -910,10 +982,10 @@
           "questionText": "أين نعبر الشارع بأمان؟",
           "correctAnswer": "من ممرّ المشاة",
           "options": [
+            "من فوق الجدار",
             "من أي مكان",
             "من ممرّ المشاة",
-            "من الزاوية المظلمة",
-            "من فوق الجدار"
+            "من الزاوية المظلمة"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -1009,9 +1081,9 @@
           "correctAnswer": "لأن الخروف ضلّ عن قطيعه",
           "options": [
             "لأنهما صديقان",
-            "لأن الخروف ضلّ عن قطيعه",
             "لأنه دعاه إلى الطعام",
-            "لأنه فقد ولده"
+            "لأنه فقد ولده",
+            "لأن الخروف ضلّ عن قطيعه"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1021,10 +1093,10 @@
           "questionText": "بماذا تذرّع الذئب ليأكل الخروف؟",
           "correctAnswer": "ادّعى أن الخروف أساء إليه",
           "options": [
-            "قال إنه جائع جداً",
-            "ادّعى أن الخروف أساء إليه",
             "قال إنه ضائع",
-            "قال إنه يريد اللعب"
+            "قال إنه جائع جداً",
+            "قال إنه يريد اللعب",
+            "ادّعى أن الخروف أساء إليه"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -1034,9 +1106,9 @@
           "questionText": "كيف نجا الخروف؟",
           "correctAnswer": "نادى راعيه فجاء وأنقذه",
           "options": [
-            "هرب وحده",
-            "نادى راعيه فجاء وأنقذه",
             "ضرب الذئب",
+            "نادى راعيه فجاء وأنقذه",
+            "هرب وحده",
             "بكى ولم يفعل شيئاً"
           ],
           "difficultyLevel": 2,
@@ -1117,9 +1189,30 @@
           "options": null,
           "difficultyLevel": 2,
           "subSkill": "pronunciation"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة الحيوان الأليف في القصة",
+          "correctAnswer": "خروف",
+          "options": [
+            "ضفدع",
+            "أسد",
+            "خروف",
+            "قرد"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/frog.png",
+            "assets/openmoji/lion.png",
+            "assets/openmoji/sheep.png",
+            "assets/openmoji/monkey.png"
+          ]
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/sheep.png"
+      ]
     },
     {
       "title": "طبيبة القرية",
@@ -1132,10 +1225,10 @@
           "questionText": "ماذا أصبحت الفتاة بعد الاجتهاد؟",
           "correctAnswer": "طبيبة",
           "options": [
-            "مدرّسة",
-            "طبيبة",
             "تاجرة",
-            "خبّازة"
+            "خبّازة",
+            "مدرّسة",
+            "طبيبة"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1145,10 +1238,10 @@
           "questionText": "ماذا فعلت الفتاة بعد تخرّجها؟",
           "correctAnswer": "عادت إلى قريتها وعالجت أهلها",
           "options": [
-            "سافرت إلى مدينة بعيدة",
-            "عادت إلى قريتها وعالجت أهلها",
+            "نسيت قريتها",
             "تركت الطب",
-            "نسيت قريتها"
+            "سافرت إلى مدينة بعيدة",
+            "عادت إلى قريتها وعالجت أهلها"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -1158,10 +1251,10 @@
           "questionText": "ما القيمة الأساسية في القصة؟",
           "correctAnswer": "العلم وخدمة الوطن",
           "options": [
-            "الكسل والاتّكال",
-            "العلم وخدمة الوطن",
             "السفر والمال",
-            "النسيان"
+            "الكسل والاتّكال",
+            "النسيان",
+            "العلم وخدمة الوطن"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -1257,8 +1350,8 @@
           "correctAnswer": "لأن الفأر استرحمه",
           "options": [
             "لأنه شبعان",
-            "لأن الفأر استرحمه",
             "لأنه نائم",
+            "لأن الفأر استرحمه",
             "لأنه كسول"
           ],
           "difficultyLevel": 1,
@@ -1269,10 +1362,10 @@
           "questionText": "كيف أنقذ الفأر الأسد؟",
           "correctAnswer": "قضم الشبكة بأسنانه حتى تحرّر",
           "options": [
-            "استدعى الصيّاد",
-            "قضم الشبكة بأسنانه حتى تحرّر",
             "هرب وتركه",
-            "صرخ في الغابة"
+            "قضم الشبكة بأسنانه حتى تحرّر",
+            "صرخ في الغابة",
+            "استدعى الصيّاد"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -1282,10 +1375,10 @@
           "questionText": "ما الدرس الأهم من القصة؟",
           "correctAnswer": "الجميل لا يُنسى وقد يساعد الصغير الكبير",
           "options": [
-            "الأسد قويّ دائماً",
-            "الجميل لا يُنسى وقد يساعد الصغير الكبير",
             "الفئران أكلة الأسود",
-            "الصيّاد بطل القصة"
+            "الأسد قويّ دائماً",
+            "الصيّاد بطل القصة",
+            "الجميل لا يُنسى وقد يساعد الصغير الكبير"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -1365,9 +1458,19 @@
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "عَفا الأَسَدُ عَنِ الفَأْرِ الصَّغيرِ فَأَنْقَذَهُ يَوْماً",
+          "correctAnswer": "عَفا الأَسَدُ عَنِ الفَأْرِ الصَّغيرِ فَأَنْقَذَهُ يَوْماً",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/lion.png"
+      ]
     },
     {
       "title": "الصياد",
@@ -1380,10 +1483,10 @@
           "questionText": "أين ذهب الصياد؟",
           "correctAnswer": "إلى البحر",
           "options": [
-            "إلى الجبل",
-            "إلى البحر",
+            "إلى المدرسة",
             "إلى الصحراء",
-            "إلى المدرسة"
+            "إلى البحر",
+            "إلى الجبل"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1394,9 +1497,9 @@
           "correctAnswer": "سمكة كبيرة",
           "options": [
             "حوتاً صغيراً",
-            "سمكة كبيرة",
             "حذاءً قديماً",
-            "كنزاً مدفوناً"
+            "كنزاً مدفوناً",
+            "سمكة كبيرة"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1406,10 +1509,10 @@
           "questionText": "ما الصفة التي مكّنت الصياد من النجاح؟",
           "correctAnswer": "الصبر والاجتهاد",
           "options": [
-            "الكسل",
-            "الصبر والاجتهاد",
+            "اللعب",
             "الطمع",
-            "اللعب"
+            "الكسل",
+            "الصبر والاجتهاد"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -1504,10 +1607,10 @@
           "questionText": "ماذا راقبت الفتيات في الحديقة؟",
           "correctAnswer": "النحل والفراشات والورود",
           "options": [
-            "السيارات",
-            "النحل والفراشات والورود",
             "النجوم",
-            "الصخور تحت البحر"
+            "الصخور تحت البحر",
+            "السيارات",
+            "النحل والفراشات والورود"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1518,9 +1621,9 @@
           "correctAnswer": "كتبنه ليستفيد منه غيرهنّ",
           "options": [
             "أخفينه",
-            "كتبنه ليستفيد منه غيرهنّ",
+            "ضحكن منه",
             "نسينه فوراً",
-            "ضحكن منه"
+            "كتبنه ليستفيد منه غيرهنّ"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -1531,8 +1634,8 @@
           "correctAnswer": "البحث والملاحظة",
           "options": [
             "الكسل والإهمال",
-            "البحث والملاحظة",
             "النوم والراحة فقط",
+            "البحث والملاحظة",
             "اللعب طوال اليوم"
           ],
           "difficultyLevel": 2,
@@ -1629,9 +1732,9 @@
           "correctAnswer": "ادّعى أن الحيوانات صارت أصدقاء",
           "options": [
             "قال إنه جائع",
+            "قال إنه ضائع",
             "ادّعى أن الحيوانات صارت أصدقاء",
-            "قال إنه مريض",
-            "قال إنه ضائع"
+            "قال إنه مريض"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -1643,8 +1746,8 @@
           "options": [
             "هرب فوراً",
             "قال إن الكلاب قادمة",
-            "صدّقه",
-            "بكى"
+            "بكى",
+            "صدّقه"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -1654,10 +1757,10 @@
           "questionText": "ما الصفة التي يمتدحها الدرس؟",
           "correctAnswer": "الذكاء والحذر",
           "options": [
+            "الكسل",
             "السذاجة",
-            "الذكاء والحذر",
             "الصراخ",
-            "الكسل"
+            "الذكاء والحذر"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1754,8 +1857,8 @@
           "options": [
             "رمي القمامة في الطريق",
             "غسل اليدين قبل الطعام",
-            "البقاء دون استحمام",
-            "ترك الأوراق متناثرة"
+            "ترك الأوراق متناثرة",
+            "البقاء دون استحمام"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1765,9 +1868,9 @@
           "questionText": "كيف تكون النظافة وقاية من المرض؟",
           "correctAnswer": "بقتل الجراثيم ومنع انتشارها",
           "options": [
-            "بزيادة الجراثيم",
-            "بقتل الجراثيم ومنع انتشارها",
             "بإضعاف الجسم",
+            "بقتل الجراثيم ومنع انتشارها",
+            "بزيادة الجراثيم",
             "بزيادة الكسل"
           ],
           "difficultyLevel": 2,
@@ -1861,6 +1964,26 @@
           "options": null,
           "difficultyLevel": 2,
           "subSkill": "pronunciation"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الأدوات: للنظافة أم للدراسة؟",
+          "correctAnswer": "للنظافة=صابون,للنظافة=منشفة,للدراسة=قلم رصاص,للدراسة=مسطرة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "للنظافة",
+              "للدراسة"
+            ],
+            "tokens": [
+              "صابون",
+              "قلم رصاص",
+              "منشفة",
+              "مسطرة"
+            ]
+          }
         }
       ],
       "imageUrls": []

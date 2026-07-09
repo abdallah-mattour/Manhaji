@@ -1,0 +1,18 @@
+Picture-question artwork in this folder is from OpenMoji — the open-source
+emoji and icon project.
+
+Source:  https://openmoji.org
+License: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+         https://creativecommons.org/licenses/by-sa/4.0/
+
+All emoji designs are copyright OpenMoji contributors. They are used here,
+unmodified, to illustrate picture-based quiz questions and lesson teaching
+cards in the Manhaji app.
+
+Library expanded 2026-07-03 to ~160 images (numbers, shapes, animals, fruits
+and vegetables, food, family, school objects, body parts, clothes, weather
+and nature, transport, home objects, and Islamic iconography) as part of the
+clean-image system that replaced scanned textbook photos. Original 16 images
+are 72x72; the expansion set is 618x618 for crisp rendering on teaching cards.
+
+(Include this attribution in the project credits / graduation report.)

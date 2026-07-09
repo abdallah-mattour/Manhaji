@@ -14,6 +14,10 @@ class PronunciationWidget extends StatelessWidget {
   final Future<void> Function(String audioPath) onRecordingComplete;
   final VoidCallback? onPlayTarget;
 
+  /// Full English experience (2026-07-03): English-subject lessons show the
+  /// chrome (instruction, processing, transcript label) in English.
+  final bool english;
+
   const PronunciationWidget({
     super.key,
     required this.question,
@@ -22,6 +26,7 @@ class PronunciationWidget extends StatelessWidget {
     required this.isProcessing,
     required this.onRecordingComplete,
     this.onPlayTarget,
+    this.english = false,
   });
 
   @override
@@ -34,9 +39,11 @@ class PronunciationWidget extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         if (!isAnswered) ...[
-          const Text(
-            'اضغط وكرر بصوت واضح',
-            style: TextStyle(
+          Text(
+            english
+                ? 'Tap and repeat in a clear voice'
+                : 'اضغط وكرر بصوت واضح',
+            style: const TextStyle(
               fontFamily: 'Cairo',
               fontSize: 15,
               color: AppTheme.textGray,
@@ -45,15 +52,16 @@ class PronunciationWidget extends StatelessWidget {
           VoiceRecorderWidget(
             enabled: !isProcessing,
             onRecordingComplete: onRecordingComplete,
+            english: english,
           ),
         ],
         if (isAnswered && lastScore == null) ...[
           const SizedBox(height: 20),
-          const _ProcessingIndicator(),
+          _ProcessingIndicator(english: english),
         ],
         if (lastScore != null) ...[
           const SizedBox(height: 20),
-          _ScoreCard(score: lastScore!),
+          _ScoreCard(score: lastScore!, english: english),
         ],
       ],
     );
@@ -61,7 +69,9 @@ class PronunciationWidget extends StatelessWidget {
 }
 
 class _ProcessingIndicator extends StatelessWidget {
-  const _ProcessingIndicator();
+  final bool english;
+
+  const _ProcessingIndicator({this.english = false});
 
   @override
   Widget build(BuildContext context) {
@@ -71,10 +81,10 @@ class _ProcessingIndicator extends StatelessWidget {
         color: AppTheme.primaryPurple.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(16),
       ),
-      child: const Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
+          const SizedBox(
             width: 22,
             height: 22,
             child: CircularProgressIndicator(
@@ -82,10 +92,10 @@ class _ProcessingIndicator extends StatelessWidget {
               color: AppTheme.primaryPurple,
             ),
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           Text(
-            'جاري تقييم النطق...',
-            style: TextStyle(
+            english ? 'Checking your pronunciation...' : 'جاري تقييم النطق...',
+            style: const TextStyle(
               fontFamily: 'Cairo',
               fontSize: 14,
               color: AppTheme.primaryPurple,
@@ -153,8 +163,9 @@ class _TargetCard extends StatelessWidget {
 
 class _ScoreCard extends StatelessWidget {
   final PronunciationScore score;
+  final bool english;
 
-  const _ScoreCard({required this.score});
+  const _ScoreCard({required this.score, this.english = false});
 
   Color _color() {
     if (score.score >= 90) return AppTheme.primaryGreen;
@@ -210,7 +221,7 @@ class _ScoreCard extends StatelessWidget {
               color: c,
             ),
           ),
-          if (score.transcribedText.isNotEmpty) ...[
+          if (score.displayTranscribed.isNotEmpty) ...[
             const SizedBox(height: 12),
             Container(
               width: double.infinity,
@@ -222,9 +233,9 @@ class _ScoreCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'ما سمعناه:',
-                    style: TextStyle(
+                  Text(
+                    english ? 'What we heard:' : 'ما سمعناه:',
+                    style: const TextStyle(
                       fontFamily: 'Cairo',
                       fontSize: 12,
                       color: AppTheme.textGray,
@@ -232,7 +243,7 @@ class _ScoreCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    score.transcribedText,
+                    score.displayTranscribed,
                     style: const TextStyle(
                       fontFamily: 'Cairo',
                       fontSize: 16,
@@ -264,6 +275,7 @@ class _ScoreCard extends StatelessWidget {
             _CoachingCard(
               guidance: score.guidance!,
               phonemeErrors: score.phonemeErrors,
+              english: english,
             ),
           ],
         ],
@@ -275,8 +287,13 @@ class _ScoreCard extends StatelessWidget {
 class _CoachingCard extends StatelessWidget {
   final String guidance;
   final List<String> phonemeErrors;
+  final bool english;
 
-  const _CoachingCard({required this.guidance, required this.phonemeErrors});
+  const _CoachingCard({
+    required this.guidance,
+    required this.phonemeErrors,
+    this.english = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -293,12 +310,12 @@ class _CoachingCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: const [
-              Text('🎯', style: TextStyle(fontSize: 20)),
-              SizedBox(width: 6),
+            children: [
+              const Text('🎯', style: TextStyle(fontSize: 20)),
+              const SizedBox(width: 6),
               Text(
-                'تلميح المعلم',
-                style: TextStyle(
+                english ? "Teacher's tip" : 'تلميح المعلم',
+                style: const TextStyle(
                   fontFamily: 'Cairo',
                   fontSize: 13,
                   fontWeight: FontWeight.bold,

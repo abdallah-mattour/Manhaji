@@ -10,6 +10,9 @@ class ShortAnswerWidget extends StatelessWidget {
   final ValueChanged<String> onChanged;
   final Future<void> Function(String audioPath)? onVoiceComplete;
 
+  /// Full English experience (2026-07-03).
+  final bool english;
+
   const ShortAnswerWidget({
     super.key,
     required this.controller,
@@ -17,6 +20,7 @@ class ShortAnswerWidget extends StatelessWidget {
     this.voiceEnabled = true,
     required this.onChanged,
     this.onVoiceComplete,
+    this.english = false,
   });
 
   @override
@@ -30,7 +34,8 @@ class ShortAnswerWidget extends StatelessWidget {
           style: const TextStyle(
               fontFamily: 'Cairo', fontSize: 18, fontWeight: FontWeight.w600),
           decoration: InputDecoration(
-            hintText: 'اكتب إجابتك هنا...',
+            hintText:
+                english ? 'Type your answer here...' : 'اكتب إجابتك هنا...',
             hintStyle: const TextStyle(
                 fontFamily: 'Cairo', color: AppTheme.textLight),
             filled: true,
@@ -50,6 +55,7 @@ class ShortAnswerWidget extends StatelessWidget {
           VoiceRecorderWidget(
             enabled: !isAnswered,
             onRecordingComplete: onVoiceComplete!,
+            english: english,
           ),
       ],
     );

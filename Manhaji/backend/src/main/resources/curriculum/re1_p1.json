@@ -5,7 +5,7 @@
   "semester": 1,
   "lessons": [
     {
-      "title": "الله ربي",
+      "title": "من خالقنا؟",
       "orderIndex": 1,
       "content": "الله تعالى هو ربنا الذي خلقنا وخلق كل شيء. نحبه ونشكره على نعمه.",
       "objectives": "التعرف على أن الله هو الخالق والرب",
@@ -15,10 +15,10 @@
           "questionText": "من خلقنا؟",
           "correctAnswer": "الله تعالى",
           "options": [
-            "الله تعالى",
-            "الإنسان",
+            "لا أحد",
             "الطبيعة",
-            "لا أحد"
+            "الله تعالى",
+            "الإنسان"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -45,9 +45,9 @@
           "correctAnswer": "الله",
           "options": [
             "الإنسان",
+            "النبات",
             "الحيوان",
-            "الله",
-            "النبات"
+            "الله"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -94,10 +94,10 @@
           "questionText": "أي مما يلي ليس من نعم الله؟",
           "correctAnswer": "الكذب",
           "options": [
+            "العقل",
             "السمع",
-            "البصر",
             "الكذب",
-            "العقل"
+            "البصر"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -114,114 +114,120 @@
       "imageUrls": []
     },
     {
-      "title": "أركان الإسلام",
-      "orderIndex": 2,
-      "content": "أركان الإسلام خمسة: الشهادتان، الصلاة، الزكاة، صوم رمضان، حج البيت.",
-      "objectives": "حفظ أركان الإسلام الخمسة",
+      "title": "أقرأ القرآن الكريم",
+      "content": "القرآن الكريم كلام الله تعالى، نقرؤه بأدب: نستعيذ بالله من الشيطان الرجيم، ثم نقرأ البسملة، وننصت عند سماعه.",
+      "objectives": "التعرف إلى القرآن الكريم وآداب قراءته الأساسية",
+      "imageUrls": [
+        "assets/openmoji/book.png"
+      ],
       "questions": [
         {
           "type": "MCQ",
-          "questionText": "كم عدد أركان الإسلام؟",
-          "correctAnswer": "خمسة",
+          "questionText": "القرآن الكريم هو كلام ...",
+          "correctAnswer": "الله تعالى",
           "options": [
-            "ثلاثة",
-            "أربعة",
-            "خمسة",
-            "ستة"
+            "الناس",
+            "الحكماء",
+            "الشعراء",
+            "الله تعالى"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
         },
         {
+          "type": "MCQ",
+          "questionText": "ماذا نقول قبل البدء بقراءة القرآن الكريم؟",
+          "correctAnswer": "أعوذ بالله من الشيطان الرجيم",
+          "options": [
+            "سبحان الله",
+            "أعوذ بالله من الشيطان الرجيم",
+            "الحمد لله",
+            "الله أكبر"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
           "type": "TRUE_FALSE",
-          "questionText": "الصلاة ركن من أركان الإسلام",
+          "questionText": "ننصت باحترام عند سماع القرآن الكريم.",
           "correctAnswer": "صح",
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "comprehension"
         },
         {
-          "type": "SHORT_ANSWER",
-          "questionText": "اذكر الركن الأول من أركان الإسلام",
-          "correctAnswer": "الشهادتان",
+          "type": "TRUE_FALSE",
+          "questionText": "نقرأ القرآن الكريم ونحن نلعب ونصرخ.",
+          "correctAnswer": "خطأ",
           "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "أي مما يلي ركن من أركان الإسلام؟",
-          "correctAnswer": "الزكاة",
-          "options": [
-            "القراءة",
-            "الزكاة",
-            "اللعب",
-            "النوم"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "ما الركن الذي نصومه في رمضان؟",
-          "correctAnswer": "الصوم",
-          "options": [
-            "الصلاة",
-            "الزكاة",
-            "الصوم",
-            "الحج"
-          ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
         },
         {
           "type": "FILL_BLANK",
-          "questionText": "أكمل: الحج إلى بيت الله ___",
-          "correctAnswer": "الحرام",
+          "questionText": "أكمل الاستعاذة: أعوذ بالله من الشيطان ___.",
+          "correctAnswer": "الرجيم",
           "options": null,
-          "difficultyLevel": 2,
+          "difficultyLevel": 1,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما اسم كتاب المسلمين؟",
+          "correctAnswer": "القرآن الكريم",
+          "options": null,
+          "difficultyLevel": 1,
           "subSkill": "production"
         },
         {
-          "type": "TRUE_FALSE",
-          "questionText": "الزكاة ركن من أركان الإسلام",
-          "correctAnswer": "صح",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "PRONUNCIATION",
-          "questionText": "قل الشهادتين: أشهد أن لا إله إلا الله، وأشهد أن محمداً رسول الله",
-          "correctAnswer": "أشهد أن لا إله إلا الله وأشهد أن محمداً رسول الله",
-          "options": null,
-          "difficultyLevel": 2,
-          "subSkill": "recitation"
-        },
-        {
           "type": "ORDERING",
-          "questionText": "رتّب أركان الإسلام: الصلاة، الشهادتان، الحج، الزكاة، الصوم",
-          "correctAnswer": "الشهادتان، الصلاة، الزكاة، الصوم، الحج",
+          "questionText": "رتّب خطوات قراءة القرآن: أقرأ الآيات، الاستعاذة، البسملة",
+          "correctAnswer": "الاستعاذة، البسملة، أقرأ الآيات",
           "options": [
-            "الصلاة",
-            "الشهادتان",
-            "الحج",
-            "الزكاة",
-            "الصوم"
+            "أقرأ الآيات",
+            "الاستعاذة",
+            "البسملة"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
         },
         {
-          "type": "SHORT_ANSWER",
-          "questionText": "ما ركن الإسلام الخاص بالأموال؟",
-          "correctAnswer": "الزكاة",
+          "type": "PRONUNCIATION",
+          "questionText": "أَعوذُ بِاللهِ مِنَ الشَّيْطانِ الرَّجيمِ",
+          "correctAnswer": "أَعوذُ بِاللهِ مِنَ الشَّيْطانِ الرَّجيمِ",
           "options": null,
           "difficultyLevel": 2,
-          "subSkill": "comprehension"
+          "subSkill": "recitation"
+        },
+        {
+          "type": "READING",
+          "questionText": "القُرْآنُ الكَريمُ كَلامُ اللهِ تَعالى",
+          "correctAnswer": "القُرْآنُ الكَريمُ كَلامُ اللهِ تَعالى",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر الصورة التي تناسب مكان تعلم القرآن الكريم",
+          "correctAnswer": "المسجد",
+          "options": [
+            "السوق",
+            "المسجد",
+            "الحديقة",
+            "الملعب"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension",
+          "optionImages": [
+            "assets/openmoji/house.png",
+            "assets/openmoji/mosque.png",
+            "assets/openmoji/tree.png",
+            "assets/openmoji/soccer_ball.png"
+          ]
         }
       ],
-      "imageUrls": []
+      "orderIndex": 2
     },
     {
       "title": "سورة الفاتحة",
@@ -234,10 +240,10 @@
           "questionText": "ما أول سورة في القرآن الكريم؟",
           "correctAnswer": "الفاتحة",
           "options": [
+            "البقرة",
             "الناس",
             "الفاتحة",
-            "الإخلاص",
-            "البقرة"
+            "الإخلاص"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -272,9 +278,9 @@
           "correctAnswer": "الله",
           "options": [
             "الإنسان",
-            "الله",
             "الملك",
-            "الشمس"
+            "الشمس",
+            "الله"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -329,20 +335,145 @@
           "questionText": "كم عدد آيات سورة الفاتحة؟",
           "correctAnswer": "سبع",
           "options": [
-            "خمس",
             "ست",
-            "سبع",
-            "عشر"
+            "عشر",
+            "خمس",
+            "سبع"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
+        },
+        {
+          "type": "READING",
+          "questionText": "بِسْمِ اللهِ الرَّحْمنِ الرَّحيمِ",
+          "correctAnswer": "بِسْمِ اللهِ الرَّحْمنِ الرَّحيمِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
         }
       ],
       "imageUrls": []
     },
     {
-      "title": "سورة الإخلاص",
+      "title": "أحب خالقي",
       "orderIndex": 4,
+      "content": "الله أنعم علينا بنعم كثيرة: السمع، البصر، الطعام، الماء، الأهل. نشكر الله على نعمه.",
+      "objectives": "التعرف على نعم الله وشكره عليها",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي من التالي نعمة من الله؟",
+          "correctAnswer": "كلها نعم",
+          "options": [
+            "الماء",
+            "السمع",
+            "البصر",
+            "كلها نعم"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يجب أن نشكر الله على نعمه",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كيف نشكر الله على نعمه؟",
+          "correctAnswer": "نقول الحمد لله",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أي مما يلي نعمة من نعم الله؟",
+          "correctAnswer": "الصحة",
+          "options": [
+            "الكسل",
+            "المرض",
+            "الصحة",
+            "الكذب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: نقول ___ لله بعد كل نعمة",
+          "correctAnswer": "الحمد",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "نعم الله علينا لا تعد ولا تحصى",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "قل: الحمد لله على نعمه",
+          "correctAnswer": "الحمد لله على نعمه",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب نعم الحواس: السمع، البصر، الشم، الذوق",
+          "correctAnswer": "البصر، السمع، الشم، الذوق",
+          "options": [
+            "السمع",
+            "البصر",
+            "الشم",
+            "الذوق"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر نعمة من نعم الله في جسمك",
+          "correctAnswer": "البصر",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة النعمة التي نشربها",
+          "correctAnswer": "الماء",
+          "options": [
+            "الكرسي",
+            "القلم",
+            "المفتاح",
+            "الماء"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension",
+          "optionImages": [
+            "assets/openmoji/chair.png",
+            "assets/openmoji/pencil.png",
+            "assets/openmoji/key.png",
+            "assets/openmoji/water.png"
+          ]
+        }
+      ],
+      "imageUrls": [
+        "assets/openmoji/tree.png"
+      ]
+    },
+    {
+      "title": "سورة الإخلاص",
+      "orderIndex": 5,
       "content": "قل هو الله أحد، الله الصمد، لم يلد ولم يولد، ولم يكن له كفواً أحد.",
       "objectives": "حفظ سورة الإخلاص وفهم معناها",
       "questions": [
@@ -351,10 +482,10 @@
           "questionText": "قل هو الله ...؟",
           "correctAnswer": "أحد",
           "options": [
-            "أحد",
+            "عظيم",
             "واحد",
-            "كبير",
-            "عظيم"
+            "أحد",
+            "كبير"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -435,8 +566,8 @@
           "options": [
             "ثلاث",
             "أربع",
-            "خمس",
-            "ست"
+            "ست",
+            "خمس"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -447,9 +578,9 @@
           "correctAnswer": "أنه واحد لا شريك له",
           "options": [
             "أنه يأكل ويشرب",
+            "أن له شبيهاً",
             "أنه واحد لا شريك له",
-            "أن له والداً",
-            "أن له شبيهاً"
+            "أن له والداً"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -458,103 +589,7 @@
       "imageUrls": []
     },
     {
-      "title": "نعم الله تعالى",
-      "orderIndex": 5,
-      "content": "الله أنعم علينا بنعم كثيرة: السمع، البصر، الطعام، الماء، الأهل. نشكر الله على نعمه.",
-      "objectives": "التعرف على نعم الله وشكره عليها",
-      "questions": [
-        {
-          "type": "MCQ",
-          "questionText": "أي من التالي نعمة من الله؟",
-          "correctAnswer": "كلها نعم",
-          "options": [
-            "السمع",
-            "البصر",
-            "الماء",
-            "كلها نعم"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "يجب أن نشكر الله على نعمه",
-          "correctAnswer": "صح",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "كيف نشكر الله على نعمه؟",
-          "correctAnswer": "نقول الحمد لله",
-          "options": null,
-          "difficultyLevel": 3,
-          "subSkill": "application"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "أي مما يلي نعمة من نعم الله؟",
-          "correctAnswer": "الصحة",
-          "options": [
-            "المرض",
-            "الكذب",
-            "الصحة",
-            "الكسل"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "FILL_BLANK",
-          "questionText": "أكمل: نقول ___ لله بعد كل نعمة",
-          "correctAnswer": "الحمد",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "نعم الله علينا لا تعد ولا تحصى",
-          "correctAnswer": "صح",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "PRONUNCIATION",
-          "questionText": "قل: الحمد لله على نعمه",
-          "correctAnswer": "الحمد لله على نعمه",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "recitation"
-        },
-        {
-          "type": "ORDERING",
-          "questionText": "رتّب نعم الحواس: السمع، البصر، الشم، الذوق",
-          "correctAnswer": "البصر، السمع، الشم، الذوق",
-          "options": [
-            "السمع",
-            "البصر",
-            "الشم",
-            "الذوق"
-          ],
-          "difficultyLevel": 2,
-          "subSkill": "application"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "اذكر نعمة من نعم الله في جسمك",
-          "correctAnswer": "البصر",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        }
-      ],
-      "imageUrls": []
-    },
-    {
-      "title": "رسولنا محمد ﷺ",
+      "title": "الرسول ﷺ ونسبه",
       "orderIndex": 6,
       "content": "محمد ﷺ هو رسول الله وخاتم الأنبياء. ولد في مكة المكرمة. نحبه ونتبع سنته.",
       "objectives": "التعرف على نبينا محمد ﷺ",
@@ -564,8 +599,8 @@
           "questionText": "أين ولد النبي محمد ﷺ؟",
           "correctAnswer": "مكة المكرمة",
           "options": [
-            "مكة المكرمة",
             "المدينة المنورة",
+            "مكة المكرمة",
             "القدس",
             "بيت لحم"
           ],
@@ -594,9 +629,9 @@
           "correctAnswer": "مكة",
           "options": [
             "المدينة",
-            "مكة",
+            "بغداد",
             "القدس",
-            "بغداد"
+            "مكة"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -644,9 +679,9 @@
           "correctAnswer": "آمنة",
           "options": [
             "خديجة",
+            "فاطمة",
             "آمنة",
-            "عائشة",
-            "فاطمة"
+            "عائشة"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -663,8 +698,945 @@
       "imageUrls": []
     },
     {
+      "title": "مولد الرسول ﷺ",
+      "content": "وُلد رسولنا محمد ﷺ في مكة المكرمة عام الفيل، توفي والده عبد الله قبل ولادته، وسُمّي محمداً.",
+      "objectives": "التعرف إلى مولد الرسول ﷺ ومكانه وزمانه",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أين وُلد رسولنا محمد ﷺ؟",
+          "correctAnswer": "مكة المكرمة",
+          "options": [
+            "المدينة المنورة",
+            "القدس",
+            "الطائف",
+            "مكة المكرمة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في أي عام وُلد الرسول ﷺ؟",
+          "correctAnswer": "عام الفيل",
+          "options": [
+            "عام الفتح",
+            "عام الحزن",
+            "عام الفيل",
+            "عام الهجرة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من والد الرسول ﷺ؟",
+          "correctAnswer": "عبد الله",
+          "options": [
+            "أبو طالب",
+            "حمزة",
+            "عبد المطلب",
+            "عبد الله"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "توفي والد الرسول ﷺ قبل ولادته.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "وُلد الرسول ﷺ في المدينة المنورة.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: وُلد الرسول ﷺ في عام ___.",
+          "correctAnswer": "الفيل",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما اسم أم الرسول ﷺ؟",
+          "correctAnswer": "آمنة",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: وفاة والده، ولادته ﷺ في مكة، تسميته محمداً",
+          "correctAnswer": "وفاة والده، ولادته ﷺ في مكة، تسميته محمداً",
+          "options": [
+            "ولادته ﷺ في مكة",
+            "وفاة والده",
+            "تسميته محمداً"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "مُحَمَّدٌ رَسولُ اللهِ",
+          "correctAnswer": "مُحَمَّدٌ رَسولُ اللهِ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "READING",
+          "questionText": "وُلِدَ رَسولُنا مُحَمَّدٌ في مَكَّةَ المُكَرَّمَةِ",
+          "correctAnswer": "وُلِدَ رَسولُنا مُحَمَّدٌ في مَكَّةَ المُكَرَّمَةِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        }
+      ],
+      "orderIndex": 7
+    },
+    {
+      "title": "سورة الفيل",
+      "content": "سورة الفيل خمس آيات، تحكي قصة أبرهة وجيشه الذي جاء بالفيلة لهدم الكعبة، فأرسل الله عليهم طيراً أبابيل فحمى بيته الحرام.",
+      "objectives": "حفظ سورة الفيل وفهم قصتها",
+      "imageUrls": [
+        "assets/openmoji/kaaba.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كم عدد آيات سورة الفيل؟",
+          "correctAnswer": "خمس",
+          "options": [
+            "ثلاث",
+            "سبع",
+            "أربع",
+            "خمس"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا أراد أصحاب الفيل أن يفعلوا؟",
+          "correctAnswer": "هدم الكعبة",
+          "options": [
+            "زيارة مكة",
+            "هدم الكعبة",
+            "بناء مسجد",
+            "التجارة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بماذا حمى الله الكعبة من أصحاب الفيل؟",
+          "correctAnswer": "طير أبابيل",
+          "options": [
+            "ريح",
+            "جيش كبير",
+            "طير أبابيل",
+            "نار"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "حمى الله تعالى بيته الحرام من أصحاب الفيل.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل الآية: أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِأَصْحابِ ___.",
+          "correctAnswer": "الفيل",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "في أي مدينة توجد الكعبة المشرفة؟",
+          "correctAnswer": "مكة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب آيات سورة الفيل: وَأَرْسَلَ عَلَيْهِمْ طَيْراً أَبابيلَ، أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِأَصْحابِ الْفيلِ، أَلَمْ يَجْعَلْ كَيْدَهُمْ في تَضْليلٍ",
+          "correctAnswer": "أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِأَصْحابِ الْفيلِ، أَلَمْ يَجْعَلْ كَيْدَهُمْ في تَضْليلٍ، وَأَرْسَلَ عَلَيْهِمْ طَيْراً أَبابيلَ",
+          "options": [
+            "وَأَرْسَلَ عَلَيْهِمْ طَيْراً أَبابيلَ",
+            "أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِأَصْحابِ الْفيلِ",
+            "أَلَمْ يَجْعَلْ كَيْدَهُمْ في تَضْليلٍ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِأَصْحابِ الْفيلِ",
+          "correctAnswer": "أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِأَصْحابِ الْفيلِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "READING",
+          "questionText": "أَلَمْ يَجْعَلْ كَيْدَهُمْ في تَضْليلٍ",
+          "correctAnswer": "أَلَمْ يَجْعَلْ كَيْدَهُمْ في تَضْليلٍ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة البيت الحرام الذي حماه الله في القصة",
+          "correctAnswer": "الكعبة المشرفة",
+          "options": [
+            "مدرسة",
+            "الكعبة المشرفة",
+            "مسجد",
+            "بيت"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/school.png",
+            "assets/openmoji/kaaba.png",
+            "assets/openmoji/mosque.png",
+            "assets/openmoji/house.png"
+          ]
+        }
+      ],
+      "orderIndex": 8
+    },
+    {
+      "title": "أسرتي",
+      "orderIndex": 9,
+      "content": "بر الوالدين واجب في الإسلام. نطيعهما ونحترمهما ونساعدهما ونتكلم معهما بأدب.",
+      "objectives": "التعرف على أهمية بر الوالدين",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بر الوالدين يعني:",
+          "correctAnswer": "طاعتهما واحترامهما",
+          "options": [
+            "عدم السماع لهما",
+            "تجاهلهما",
+            "رفع الصوت عليهما",
+            "طاعتهما واحترامهما"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "بر الوالدين واجب في الإسلام",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كيف تبر والديك؟",
+          "correctAnswer": "أطيعهما وأحترمهما",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كيف نتعامل مع الوالدين؟",
+          "correctAnswer": "بالاحترام والطاعة في المعروف",
+          "options": [
+            "بالعصيان",
+            "بالاحترام والطاعة في المعروف",
+            "بالصراخ",
+            "بتجاهلهما"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "application"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ___ الوالدين من أعظم الأعمال",
+          "correctAnswer": "بر",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "نقول للوالدين: أُف",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "قل: ربِّ ارحمهما كما ربياني صغيراً",
+          "correctAnswer": "ربِّ ارحمهما كما ربياني صغيراً",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب من الأبسط إلى الأعمق في البر: مساعدتهما، الدعاء لهما، طاعتهما، رعايتهما عند الكبر",
+          "correctAnswer": "طاعتهما، مساعدتهما، الدعاء لهما، رعايتهما عند الكبر",
+          "options": [
+            "مساعدتهما",
+            "الدعاء لهما",
+            "طاعتهما",
+            "رعايتهما عند الكبر"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "نادتك أمك وأنت تلعب، ماذا تفعل؟",
+          "correctAnswer": "أتوقف عن اللعب وأذهب إليها",
+          "options": [
+            "أكمل اللعب",
+            "أتظاهر بعدم السماع",
+            "أطلب منها الانتظار طويلاً",
+            "أتوقف عن اللعب وأذهب إليها"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر طريقة لبر الأم",
+          "correctAnswer": "أساعدها",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "READING",
+          "questionText": "أُطيعُ أُمّي وَأَبي وَأَدْعو لَهُما",
+          "correctAnswer": "أُطيعُ أُمّي وَأَبي وَأَدْعو لَهُما",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "مدرستي",
+      "content": "مدرستي مكان أتعلم فيه، أحافظ على نظافتها، وأحترم معلمي وزملائي، وأردد: وَقُل رَّبِّ زِدْني عِلْماً.",
+      "objectives": "بيان فضل المدرسة والعلم وآداب المتعلم",
+      "imageUrls": [
+        "assets/openmoji/school.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا نفعل في المدرسة؟",
+          "correctAnswer": "نتعلم",
+          "options": [
+            "نتسوق",
+            "نطبخ",
+            "ننام",
+            "نتعلم"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "قال تعالى: وَقُل رَّبِّ زِدْني ...",
+          "correctAnswer": "عِلْماً",
+          "options": [
+            "طعاماً",
+            "عِلْماً",
+            "مالاً",
+            "لعباً"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "أحافظ على نظافة مدرستي.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "أكتب على جدران المدرسة.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: أحترم ___ الذي يعلمني في المدرسة.",
+          "correctAnswer": "معلمي",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر أدباً واحداً من آداب المتعلم في صفه.",
+          "correctAnswer": "الإنصات",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب ما أفعله صباحاً: أدخل صفي بهدوء، أستيقظ باكراً، أحيّي معلمي",
+          "correctAnswer": "أستيقظ باكراً، أدخل صفي بهدوء، أحيّي معلمي",
+          "options": [
+            "أدخل صفي بهدوء",
+            "أستيقظ باكراً",
+            "أحيّي معلمي"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف السلوك في المدرسة: حسن أم غير مقبول؟",
+          "correctAnswer": "حسن=أنصت للمعلم,حسن=أرتب مقعدي,غير مقبول=أرمي الأوراق أرضاً,غير مقبول=أقاطع زملائي",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "حسن",
+              "غير مقبول"
+            ],
+            "tokens": [
+              "أنصت للمعلم",
+              "أرمي الأوراق أرضاً",
+              "أرتب مقعدي",
+              "أقاطع زملائي"
+            ]
+          }
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "وَقُل رَّبِّ زِدْني عِلْماً",
+          "correctAnswer": "وَقُل رَّبِّ زِدْني عِلْماً",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "READING",
+          "questionText": "أُحِبُّ مَدْرَسَتي وَأُحافِظُ عَلى نَظافَتِها",
+          "correctAnswer": "أُحِبُّ مَدْرَسَتي وَأُحافِظُ عَلى نَظافَتِها",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        }
+      ],
+      "orderIndex": 10
+    },
+    {
+      "title": "أحب الرياضة",
+      "content": "ديننا يحثنا على القوة والنشاط: المؤمن القوي خير وأحب إلى الله من المؤمن الضعيف. أمارس الرياضة المفيدة وأبتعد عما يضرني.",
+      "objectives": "بيان اهتمام الإسلام بالرياضة والجسم السليم",
+      "imageUrls": [
+        "assets/openmoji/soccer_ball.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "المؤمن القوي ... إلى الله من المؤمن الضعيف.",
+          "correctAnswer": "خير وأحب",
+          "options": [
+            "مساوٍ",
+            "أبعد",
+            "خير وأحب",
+            "أقل"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "لماذا نمارس الرياضة؟",
+          "correctAnswer": "لنحافظ على صحة أجسامنا",
+          "options": [
+            "لنضيع الوقت",
+            "لنحافظ على صحة أجسامنا",
+            "لنتأخر عن المدرسة",
+            "لنؤذي غيرنا"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الرياضة تقوي الجسم.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "أمارس الرياضة وأهمل صلاتي ودراستي.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل الحديث: المؤمن ___ خير وأحب إلى الله من المؤمن الضعيف.",
+          "correctAnswer": "القوي",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر رياضة مفيدة تحبها.",
+          "correctAnswer": "السباحة",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب ما أفعله قبل اللعب: أرتدي ملابس الرياضة، أسمّي الله، أبدأ اللعب",
+          "correctAnswer": "أرتدي ملابس الرياضة، أسمّي الله، أبدأ اللعب",
+          "options": [
+            "أسمّي الله",
+            "أرتدي ملابس الرياضة",
+            "أبدأ اللعب"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة أداة رياضية",
+          "correctAnswer": "كرة القدم",
+          "options": [
+            "كتاب",
+            "كرة القدم",
+            "هاتف",
+            "مفتاح"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/book.png",
+            "assets/openmoji/soccer_ball.png",
+            "assets/openmoji/phone.png",
+            "assets/openmoji/key.png"
+          ]
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف: عادة مفيدة للجسم أم ضارة؟",
+          "correctAnswer": "مفيدة=ممارسة الرياضة,مفيدة=النوم المبكر,ضارة=السهر الطويل,ضارة=كثرة الحلوى",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "مفيدة",
+              "ضارة"
+            ],
+            "tokens": [
+              "ممارسة الرياضة",
+              "السهر الطويل",
+              "النوم المبكر",
+              "كثرة الحلوى"
+            ]
+          }
+        },
+        {
+          "type": "READING",
+          "questionText": "أُمارِسُ الرِّياضَةَ لِيَقْوى جِسْمي",
+          "correctAnswer": "أُمارِسُ الرِّياضَةَ لِيَقْوى جِسْمي",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        }
+      ],
+      "orderIndex": 11
+    },
+    {
+      "title": "أحب لغيري ما أحب لنفسي",
+      "content": "قال رسول الله ﷺ: لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه. أحب الخير لزملائي كما أحبه لنفسي.",
+      "objectives": "تمثل قيمة حب الخير للآخرين",
+      "imageUrls": [
+        "assets/openmoji/heart.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "قال ﷺ: لا يؤمن أحدكم حتى يحب لأخيه ما يحب ...",
+          "correctAnswer": "لنفسه",
+          "options": [
+            "من مال",
+            "لغيره فقط",
+            "من طعام",
+            "لنفسه"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "وجدتَ لعبة جميلة مع صديقك، ماذا تفعل؟",
+          "correctAnswer": "أفرح له",
+          "options": [
+            "أكسرها",
+            "آخذها منه",
+            "أحسده",
+            "أفرح له"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "أحب لصديقي النجاح كما أحبه لنفسي.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "من حب الخير أن أتمنى ضياع أشياء زملائي.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: أحب ل___ ما أحب لنفسي.",
+          "correctAnswer": "غيري",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر شيئاً تحبه لنفسك وتحبه لصديقك.",
+          "correctAnswer": "النجاح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الجملة: ما أحبُّ، لغيري، أحبُّ، لنفسي",
+          "correctAnswer": "أحبُّ، لغيري، ما أحبُّ، لنفسي",
+          "options": [
+            "ما أحبُّ",
+            "لغيري",
+            "أحبُّ",
+            "لنفسي"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف السلوك: يدل على حب الخير أم على الأنانية؟",
+          "correctAnswer": "حب الخير=أشارك زميلي طعامي,حب الخير=أعير صديقي قلمي,الأنانية=آكل وحدي دائماً,الأنانية=أخفي الألعاب عن إخوتي",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "حب الخير",
+              "الأنانية"
+            ],
+            "tokens": [
+              "أشارك زميلي طعامي",
+              "آكل وحدي دائماً",
+              "أعير صديقي قلمي",
+              "أخفي الألعاب عن إخوتي"
+            ]
+          }
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "أُحِبُّ الخَيْرَ لِلنّاسِ",
+          "correctAnswer": "أُحِبُّ الخَيْرَ لِلنّاسِ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "READING",
+          "questionText": "أُحِبُّ لِصَديقي ما أُحِبُّهُ لِنَفْسي",
+          "correctAnswer": "أُحِبُّ لِصَديقي ما أُحِبُّهُ لِنَفْسي",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        }
+      ],
+      "orderIndex": 12
+    },
+    {
+      "title": "ما أجمل الكون!",
+      "orderIndex": 13,
+      "content": "الله خلق السماوات والأرض والجبال والبحار والحيوانات والنبات. كل شيء بديع وجميل.",
+      "objectives": "التأمل في خلق الله تعالى",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "من خلق السماء والأرض؟",
+          "correctAnswer": "الله تعالى",
+          "options": [
+            "الطبيعة",
+            "الإنسان",
+            "لا أحد",
+            "الله تعالى"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الله خلق كل شيء جميل",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر شيئاً خلقه الله",
+          "correctAnswer": "السماء",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أي مما يلي خلقه الله؟",
+          "correctAnswer": "كل ما سبق",
+          "options": [
+            "البحار",
+            "الجبال",
+            "كل ما سبق",
+            "السماء"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: خلق الله السماوات و___",
+          "correctAnswer": "الأرض",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كل المخلوقات الجميلة دليل على عظمة الله",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "قل: سبحان الله الخالق العظيم",
+          "correctAnswer": "سبحان الله الخالق العظيم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب من الصغير إلى الكبير: نملة، فيل، شجرة، جبل",
+          "correctAnswer": "نملة، شجرة، فيل، جبل",
+          "options": [
+            "نملة",
+            "فيل",
+            "شجرة",
+            "جبل"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "إذا تأملت في الكون فماذا تتذكر؟",
+          "correctAnswer": "عظمة الله",
+          "options": [
+            "ألعابي",
+            "أصدقائي",
+            "عظمة الله",
+            "نفسي فقط"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر مخلوقاً في السماء",
+          "correctAnswer": "النجم",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        }
+      ],
+      "imageUrls": []
+    },
+    {
+      "title": "سورة الناس",
+      "orderIndex": 14,
+      "content": "قل أعوذ برب الناس، ملك الناس، إله الناس، من شر الوسواس الخناس.",
+      "objectives": "حفظ سورة الناس وفهم معناها",
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بمن نستعيذ في سورة الناس؟",
+          "correctAnswer": "برب الناس",
+          "options": [
+            "بالكتب",
+            "بالناس",
+            "بالملائكة",
+            "برب الناس"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "سورة الناس آخر سورة في القرآن",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أكمل الآية الأولى من سورة الناس: قل أعوذ برب ...",
+          "correctAnswer": "الناس",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "نستعيذ بالله من شر الوسواس الخناس في سورة ___",
+          "correctAnswer": "الناس",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "اقرأ: قل أعوذ برب الناس",
+          "correctAnswer": "قل أعوذ برب الناس",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "اقرأ: ملك الناس",
+          "correctAnswer": "ملك الناس",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "اقرأ: إله الناس",
+          "correctAnswer": "إله الناس",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أوائل آيات سورة الناس: ملك الناس، قل أعوذ برب الناس، إله الناس",
+          "correctAnswer": "قل أعوذ برب الناس، ملك الناس، إله الناس",
+          "options": [
+            "ملك الناس",
+            "قل أعوذ برب الناس",
+            "إله الناس"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ممَّ نستعيذ في سورة الناس؟",
+          "correctAnswer": "الوسواس الخناس",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كم عدد آيات سورة الناس؟",
+          "correctAnswer": "ست",
+          "options": [
+            "أربع",
+            "خمس",
+            "ست",
+            "سبع"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "سورة الناس من المعوّذتين",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "READING",
+          "questionText": "قُلْ أَعوذُ بِرَبِّ النّاسِ",
+          "correctAnswer": "قُلْ أَعوذُ بِرَبِّ النّاسِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        }
+      ],
+      "imageUrls": []
+    },
+    {
       "title": "صفات الرسول ﷺ",
-      "orderIndex": 7,
+      "orderIndex": 15,
       "content": "كان النبي ﷺ صادقاً أميناً رحيماً. كان يحب الأطفال ويعطف على الفقراء.",
       "objectives": "التعرف على صفات الرسول ﷺ",
       "questions": [
@@ -673,10 +1645,10 @@
           "questionText": "ماذا كان يُلقّب النبي ﷺ قبل النبوة؟",
           "correctAnswer": "الصادق الأمين",
           "options": [
-            "الصادق الأمين",
             "الشجاع",
+            "القوي",
             "الحكيم",
-            "القوي"
+            "الصادق الأمين"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -702,10 +1674,10 @@
           "questionText": "اشتُهر النبي ﷺ قبل النبوة بصفة:",
           "correctAnswer": "الصدق والأمانة",
           "options": [
-            "الكذب",
-            "الصدق والأمانة",
+            "الغضب",
             "الكسل",
-            "الغضب"
+            "الكذب",
+            "الصدق والأمانة"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -773,7 +1745,7 @@
     },
     {
       "title": "أحب رسولي ﷺ",
-      "orderIndex": 8,
+      "orderIndex": 16,
       "content": "نحب رسولنا محمد ﷺ ونتبع سنته. نصلي عليه ونقتدي بأخلاقه الحسنة.",
       "objectives": "التعبير عن حب الرسول ﷺ",
       "questions": [
@@ -782,10 +1754,10 @@
           "questionText": "كيف نعبر عن حبنا للنبي ﷺ؟",
           "correctAnswer": "نصلي عليه ونتبع سنته",
           "options": [
-            "نصلي عليه ونتبع سنته",
             "لا نفعل شيئاً",
-            "نحتفل فقط",
-            "ننسى سنته"
+            "نصلي عليه ونتبع سنته",
+            "ننسى سنته",
+            "نحتفل فقط"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -860,10 +1832,10 @@
           "questionText": "أيهما يُظهر حب النبي ﷺ أكثر؟",
           "correctAnswer": "تطبيق أخلاقه في حياتنا",
           "options": [
-            "كتابة اسمه فقط",
             "ذكره مرة واحدة",
-            "تطبيق أخلاقه في حياتنا",
-            "تعليقه على الجدار"
+            "كتابة اسمه فقط",
+            "تعليقه على الجدار",
+            "تطبيق أخلاقه في حياتنا"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -881,7 +1853,7 @@
     },
     {
       "title": "الصدق",
-      "orderIndex": 9,
+      "orderIndex": 17,
       "content": "الصدق خلق جميل يحبه الله. الصادق يقول الحقيقة دائماً. رسولنا كان صادقاً.",
       "objectives": "التعرف على أهمية الصدق",
       "questions": [
@@ -890,10 +1862,10 @@
           "questionText": "الصدق يعني:",
           "correctAnswer": "قول الحقيقة",
           "options": [
-            "قول الحقيقة",
             "الكذب",
             "السكوت",
-            "الصراخ"
+            "الصراخ",
+            "قول الحقيقة"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -920,8 +1892,8 @@
           "correctAnswer": "الله والناس",
           "options": [
             "لا أحد",
-            "الله فقط",
             "الناس فقط",
+            "الله فقط",
             "الله والناس"
           ],
           "difficultyLevel": 1,
@@ -968,8 +1940,8 @@
           "questionText": "كسر زيد كأساً فقالت له أمه: من كسره؟ ماذا يفعل الصادق؟",
           "correctAnswer": "يقول: أنا كسرته يا أمي",
           "options": [
-            "يصمت ولا يجيب",
             "يقول: لا أعرف",
+            "يصمت ولا يجيب",
             "يلوم أخاه",
             "يقول: أنا كسرته يا أمي"
           ],
@@ -981,7 +1953,7 @@
     },
     {
       "title": "الأمانة",
-      "orderIndex": 10,
+      "orderIndex": 18,
       "content": "الأمانة أن نحفظ ما يعطينا الآخرون ونعيده لهم. الأمين محبوب عند الله والناس.",
       "objectives": "التعرف على أهمية الأمانة",
       "questions": [
@@ -990,10 +1962,10 @@
           "questionText": "الأمانة تعني:",
           "correctAnswer": "حفظ حقوق الآخرين",
           "options": [
-            "حفظ حقوق الآخرين",
+            "الغش",
             "أخذ ما ليس لنا",
-            "الكذب",
-            "الغش"
+            "حفظ حقوق الآخرين",
+            "الكذب"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1057,8 +2029,8 @@
           "options": [
             "أخذ المال لنفسي",
             "تركها",
-            "إخبار صاحبها فقط",
-            "البحث عن صاحبها وإعادتها"
+            "البحث عن صاحبها وإعادتها",
+            "إخبار صاحبها فقط"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -1075,444 +2047,8 @@
       "imageUrls": []
     },
     {
-      "title": "احترام الكبير",
-      "orderIndex": 11,
-      "content": "نحترم الكبار ونساعدهم. نتكلم معهم بأدب ونستمع لنصائحهم.",
-      "objectives": "التعرف على أهمية احترام الكبار",
-      "questions": [
-        {
-          "type": "MCQ",
-          "questionText": "كيف نتعامل مع كبار السن؟",
-          "correctAnswer": "باحترام ومساعدة",
-          "options": [
-            "باحترام ومساعدة",
-            "بعدم اهتمام",
-            "بصوت عالٍ",
-            "نتجاهلهم"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "يجب أن نحترم المعلم والوالدين",
-          "correctAnswer": "صح",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "اذكر طريقة لاحترام الكبير",
-          "correctAnswer": "نستمع لنصائحهم",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "كيف نتحدث مع الكبير؟",
-          "correctAnswer": "بصوت لطيف وأدب",
-          "options": [
-            "بصوت عالٍ",
-            "بكلمات سيئة",
-            "بصوت لطيف وأدب",
-            "لا نتحدث"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "application"
-        },
-        {
-          "type": "FILL_BLANK",
-          "questionText": "أكمل: من احترام الكبير عدم رفع ___ في حضرته",
-          "correctAnswer": "الصوت",
-          "options": null,
-          "difficultyLevel": 2,
-          "subSkill": "production"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "نقف للكبير ونساعده على الجلوس",
-          "correctAnswer": "صح",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "application"
-        },
-        {
-          "type": "PRONUNCIATION",
-          "questionText": "قل: السلام عليكم ورحمة الله وبركاته",
-          "correctAnswer": "السلام عليكم ورحمة الله وبركاته",
-          "options": null,
-          "difficultyLevel": 2,
-          "subSkill": "recitation"
-        },
-        {
-          "type": "ORDERING",
-          "questionText": "رتّب آداب لقاء الكبير: السلام، الجلوس بأدب، الوقوف، التحية باليد",
-          "correctAnswer": "الوقوف، السلام، التحية باليد، الجلوس بأدب",
-          "options": [
-            "السلام",
-            "الجلوس بأدب",
-            "الوقوف",
-            "التحية باليد"
-          ],
-          "difficultyLevel": 2,
-          "subSkill": "application"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "في الباص لا يوجد مقعد فارغ. دخل رجل كبير في السن. ماذا تفعل؟",
-          "correctAnswer": "أقوم وأعطيه مقعدي",
-          "options": [
-            "أتظاهر بالنوم",
-            "أتجاهله",
-            "أقوم وأعطيه مقعدي",
-            "أنادي شخصاً آخر"
-          ],
-          "difficultyLevel": 3,
-          "subSkill": "application"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "اذكر طريقة لاحترام والديك",
-          "correctAnswer": "أطيعهما",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        }
-      ],
-      "imageUrls": []
-    },
-    {
-      "title": "الوضوء",
-      "orderIndex": 12,
-      "content": "الوضوء طهارة للصلاة. خطواته: النية، غسل اليدين، المضمضة، الاستنشاق، غسل الوجه، غسل اليدين للمرفقين، مسح الرأس، غسل القدمين.",
-      "objectives": "التعرف على خطوات الوضوء",
-      "questions": [
-        {
-          "type": "MCQ",
-          "questionText": "ماذا نفعل قبل الصلاة؟",
-          "correctAnswer": "الوضوء",
-          "options": [
-            "الوضوء",
-            "النوم",
-            "الأكل",
-            "اللعب"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "غسل الوجه من خطوات الوضوء",
-          "correctAnswer": "صح",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "بماذا نبدأ الوضوء؟",
-          "correctAnswer": "النية",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "FILL_BLANK",
-          "questionText": "أكمل: نغسل الوجه ___ مرات",
-          "correctAnswer": "ثلاث",
-          "options": null,
-          "difficultyLevel": 2,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "نمسح الرأس مرة واحدة في الوضوء",
-          "correctAnswer": "صح",
-          "options": null,
-          "difficultyLevel": 2,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "PRONUNCIATION",
-          "questionText": "قل: بسم الله",
-          "correctAnswer": "بسم الله",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "recitation"
-        },
-        {
-          "type": "ORDERING",
-          "questionText": "رتّب خطوات الوضوء: غسل الوجه، غسل اليدين إلى المرفقين، التسمية، غسل الكفين، مسح الرأس، غسل الرجلين",
-          "correctAnswer": "التسمية، غسل الكفين، غسل الوجه، غسل اليدين إلى المرفقين، مسح الرأس، غسل الرجلين",
-          "options": [
-            "غسل الوجه",
-            "غسل اليدين إلى المرفقين",
-            "التسمية",
-            "غسل الكفين",
-            "مسح الرأس",
-            "غسل الرجلين"
-          ],
-          "difficultyLevel": 3,
-          "subSkill": "application"
-        },
-        {
-          "type": "ORDERING",
-          "questionText": "رتّب أعضاء الوضوء من الأعلى إلى الأسفل: الوجه، الرأس، الرجلين، اليدين",
-          "correctAnswer": "الرأس، الوجه، اليدين، الرجلين",
-          "options": [
-            "الوجه",
-            "الرأس",
-            "الرجلين",
-            "اليدين"
-          ],
-          "difficultyLevel": 2,
-          "subSkill": "application"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "كم مرة نغسل اليدين في الوضوء؟",
-          "correctAnswer": "ثلاث",
-          "options": [
-            "مرة",
-            "مرتان",
-            "ثلاث",
-            "أربع"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        }
-      ],
-      "imageUrls": []
-    },
-    {
-      "title": "الصلاة",
-      "orderIndex": 13,
-      "content": "الصلاة عبادة مهمة. نصلي ٥ مرات في اليوم: الفجر، الظهر، العصر، المغرب، العشاء.",
-      "objectives": "التعرف على أوقات الصلوات الخمس",
-      "questions": [
-        {
-          "type": "MCQ",
-          "questionText": "كم صلاة نصلي في اليوم؟",
-          "correctAnswer": "٥",
-          "options": [
-            "٣",
-            "٤",
-            "٥",
-            "٦"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "صلاة الفجر هي أول صلاة في اليوم",
-          "correctAnswer": "صح",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "اذكر اسم صلاة واحدة",
-          "correctAnswer": "الفجر",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "أي صلاة بعد الظهر؟",
-          "correctAnswer": "العصر",
-          "options": [
-            "الفجر",
-            "العصر",
-            "المغرب",
-            "العشاء"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "ما الصلاة الأولى في اليوم؟",
-          "correctAnswer": "الفجر",
-          "options": [
-            "الظهر",
-            "العصر",
-            "الفجر",
-            "العشاء"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "memorization"
-        },
-        {
-          "type": "FILL_BLANK",
-          "questionText": "أكمل: عدد الصلوات اليومية ___",
-          "correctAnswer": "خمس",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "memorization"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "صلاة المغرب بعد صلاة العصر",
-          "correctAnswer": "صح",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "PRONUNCIATION",
-          "questionText": "قل: الله أكبر",
-          "correctAnswer": "الله أكبر",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "recitation"
-        },
-        {
-          "type": "ORDERING",
-          "questionText": "رتّب الصلوات الخمس بترتيبها اليومي: العصر، الفجر، العشاء، المغرب، الظهر",
-          "correctAnswer": "الفجر، الظهر، العصر، المغرب، العشاء",
-          "options": [
-            "العصر",
-            "الفجر",
-            "العشاء",
-            "المغرب",
-            "الظهر"
-          ],
-          "difficultyLevel": 3,
-          "subSkill": "application"
-        },
-        {
-          "type": "ORDERING",
-          "questionText": "رتّب أركان الركعة الأساسية: السجود، الركوع، القراءة، التكبير",
-          "correctAnswer": "التكبير، القراءة، الركوع، السجود",
-          "options": [
-            "السجود",
-            "الركوع",
-            "القراءة",
-            "التكبير"
-          ],
-          "difficultyLevel": 3,
-          "subSkill": "application"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "كم ركعة في صلاة الفجر؟",
-          "correctAnswer": "ركعتان",
-          "options": [
-            "ركعة",
-            "ركعتان",
-            "ثلاث",
-            "أربع"
-          ],
-          "difficultyLevel": 2,
-          "subSkill": "memorization"
-        }
-      ],
-      "imageUrls": []
-    },
-    {
-      "title": "آداب المسجد",
-      "orderIndex": 14,
-      "content": "المسجد بيت الله. ندخله بالقدم اليمنى ونقول دعاء الدخول. نحافظ على نظافته وهدوئه.",
-      "objectives": "التعرف على آداب المسجد",
-      "questions": [
-        {
-          "type": "MCQ",
-          "questionText": "بأي قدم ندخل المسجد؟",
-          "correctAnswer": "اليمنى",
-          "options": [
-            "اليمنى",
-            "اليسرى",
-            "أي قدم",
-            "بالحذاء"
-          ],
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "يجب المحافظة على نظافة المسجد",
-          "correctAnswer": "صح",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "ما هو المسجد؟",
-          "correctAnswer": "بيت الله",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "FILL_BLANK",
-          "questionText": "أكمل: نحافظ على ___ المسجد",
-          "correctAnswer": "نظافة",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        },
-        {
-          "type": "TRUE_FALSE",
-          "questionText": "نتحدث بصوت عالٍ في المسجد",
-          "correctAnswer": "خطأ",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "comprehension"
-        },
-        {
-          "type": "PRONUNCIATION",
-          "questionText": "قل عند دخول المسجد: اللهم افتح لي أبواب رحمتك",
-          "correctAnswer": "اللهم افتح لي أبواب رحمتك",
-          "options": null,
-          "difficultyLevel": 2,
-          "subSkill": "recitation"
-        },
-        {
-          "type": "ORDERING",
-          "questionText": "رتّب آداب الدخول: قول الدعاء، الدخول بالقدم اليمنى، خلع الحذاء، الجلوس بأدب",
-          "correctAnswer": "خلع الحذاء، الدخول بالقدم اليمنى، قول الدعاء، الجلوس بأدب",
-          "options": [
-            "قول الدعاء",
-            "الدخول بالقدم اليمنى",
-            "خلع الحذاء",
-            "الجلوس بأدب"
-          ],
-          "difficultyLevel": 3,
-          "subSkill": "application"
-        },
-        {
-          "type": "MCQ",
-          "questionText": "ماذا نفعل إذا رأينا قمامة في المسجد؟",
-          "correctAnswer": "نرفعها ونضعها في سلة المهملات",
-          "options": [
-            "نتركها",
-            "نمشي عليها",
-            "نرفعها ونضعها في سلة المهملات",
-            "نشتكي للمسؤول فقط"
-          ],
-          "difficultyLevel": 2,
-          "subSkill": "application"
-        },
-        {
-          "type": "SHORT_ANSWER",
-          "questionText": "ما اسم البيت الذي نصلي فيه جماعة؟",
-          "correctAnswer": "المسجد",
-          "options": null,
-          "difficultyLevel": 1,
-          "subSkill": "production"
-        }
-      ],
-      "imageUrls": []
-    },
-    {
       "title": "مراجعة عامة",
-      "orderIndex": 15,
+      "orderIndex": 19,
       "content": "مراجعة شاملة: أركان الإسلام، سورة الفاتحة والإخلاص، صفات الرسول، الأخلاق، الوضوء والصلاة.",
       "objectives": "مراجعة شاملة لمحتوى الفصل",
       "questions": [
@@ -1580,9 +2116,9 @@
           "correctAnswer": "الوضوء",
           "options": [
             "الأكل",
-            "النوم",
             "الوضوء",
-            "اللعب"
+            "اللعب",
+            "النوم"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1600,10 +2136,10 @@
           "questionText": "أي مما يلي ليس ركناً من أركان الإسلام؟",
           "correctAnswer": "النوم المبكر",
           "options": [
-            "الصلاة",
             "الزكاة",
             "النوم المبكر",
-            "الحج"
+            "الحج",
+            "الصلاة"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -1615,10 +2151,18 @@
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "production"
+        },
+        {
+          "type": "READING",
+          "questionText": "أَنا مُسْلِمٌ أَقولُ الصِّدْقَ دائِماً",
+          "correctAnswer": "أَنا مُسْلِمٌ أَقولُ الصِّدْقَ دائِماً",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "reading"
         }
       ],
       "imageUrls": []
     }
   ],
-  "totalLessons": 15
+  "totalLessons": 19
 }

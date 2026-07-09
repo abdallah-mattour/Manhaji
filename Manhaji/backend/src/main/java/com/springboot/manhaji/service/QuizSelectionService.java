@@ -297,11 +297,12 @@ public class QuizSelectionService {
         QuestionType t = q.getType();
         if (t == null) return "unknown";
         return switch (t) {
-            case MCQ, TRUE_FALSE -> "recognition";
+            case MCQ, TRUE_FALSE, IMAGE_MCQ, LISTEN_CHOOSE -> "recognition";
             case SHORT_ANSWER, FILL_BLANK -> "production";
-            case ORDERING -> "application";
+            case ORDERING, IMAGE_MATCH, DRAG_DROP -> "application";
             case PRONUNCIATION -> "pronunciation";
             case TRACING -> "handwriting";
+            case READING -> "reading";
         };
     }
 }

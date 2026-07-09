@@ -15,10 +15,10 @@
           "questionText": "أي كلمة تبدأ بحرف الراء؟",
           "correctAnswer": "رمان",
           "options": [
+            "نجمة",
             "رمان",
-            "سمكة",
             "قمر",
-            "نجمة"
+            "سمكة"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -28,10 +28,10 @@
           "questionText": "أي كلمة لا يأتي فيها حرف الراء؟",
           "correctAnswer": "ليمون",
           "options": [
-            "رسم",
             "قمر",
-            "ليمون",
-            "رمل"
+            "رسم",
+            "رمل",
+            "ليمون"
           ],
           "difficultyLevel": 2,
           "subSkill": "recognition"
@@ -135,10 +135,10 @@
           "questionText": "أي كلمة تبدأ بحرف الدال؟",
           "correctAnswer": "دجاجة",
           "options": [
-            "دجاجة",
-            "بيت",
+            "قلم",
             "سماء",
-            "قلم"
+            "دجاجة",
+            "بيت"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -226,6 +226,25 @@
           "options": null,
           "difficultyLevel": 2,
           "subSkill": "handwriting"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "أيّ صورة تبدأ بحرف الدال؟",
+          "correctAnswer": "دجاجة",
+          "options": [
+            "خروف",
+            "بقرة",
+            "حصان",
+            "دجاجة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/sheep.png",
+            "assets/openmoji/cow.png",
+            "assets/openmoji/horse.png",
+            "assets/openmoji/chicken.png"
+          ]
         }
       ],
       "imageUrls": []
@@ -241,8 +260,8 @@
           "questionText": "كم نقطة تحت حرف الباء؟",
           "correctAnswer": "نقطة واحدة",
           "options": [
-            "نقطة واحدة",
             "نقطتان",
+            "نقطة واحدة",
             "ثلاث نقاط",
             "بدون نقاط"
           ],
@@ -270,10 +289,10 @@
           "questionText": "أي كلمة تبدأ بحرف الباء؟",
           "correctAnswer": "باب",
           "options": [
+            "نمر",
             "باب",
-            "تاج",
             "سمك",
-            "نمر"
+            "تاج"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -337,6 +356,25 @@
           "options": null,
           "difficultyLevel": 2,
           "subSkill": "handwriting"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة الكلمة التي تبدأ بحرف الباء",
+          "correctAnswer": "بيت",
+          "options": [
+            "شجرة",
+            "سمكة",
+            "قمر",
+            "بيت"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/tree.png",
+            "assets/openmoji/fish.png",
+            "assets/openmoji/moon.png",
+            "assets/openmoji/house.png"
+          ]
         }
       ],
       "imageUrls": []
@@ -353,12 +391,20 @@
           "correctAnswer": "الباء",
           "options": [
             "الراء",
-            "الدال",
+            "الميم",
             "الباء",
-            "الميم"
+            "الدال"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
+        },
+        {
+          "type": "READING",
+          "questionText": "أَنَا أُحِبُّ بَابَا وَمَامَا",
+          "correctAnswer": "أَنَا أُحِبُّ بَابَا وَمَامَا",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
         },
         {
           "type": "TRUE_FALSE",
@@ -428,6 +474,25 @@
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "أين صورة الحيوان الذي يبدأ اسمه بحرف الدال؟",
+          "correctAnswer": "دب",
+          "options": [
+            "قطة",
+            "سمكة",
+            "أسد",
+            "دب"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/cat.png",
+            "assets/openmoji/fish.png",
+            "assets/openmoji/lion.png",
+            "assets/openmoji/bear.png"
+          ]
         }
       ],
       "imageUrls": []
@@ -443,9 +508,9 @@
           "questionText": "أي كلمة تبدأ بحرف الميم؟",
           "correctAnswer": "موز",
           "options": [
-            "موز",
             "نور",
             "سمك",
+            "موز",
             "بيت"
           ],
           "difficultyLevel": 1,
@@ -550,9 +615,9 @@
           "correctAnswer": "نقطة واحدة",
           "options": [
             "بدون نقاط",
-            "نقطة واحدة",
+            "ثلاث نقاط",
             "نقطتان",
-            "ثلاث نقاط"
+            "نقطة واحدة"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -647,10 +712,10 @@
           "questionText": "أي كلمة تبدأ بحرف السين؟",
           "correctAnswer": "سمكة",
           "options": [
-            "سمكة",
             "زهرة",
-            "قمر",
-            "كتاب"
+            "كتاب",
+            "سمكة",
+            "قمر"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -746,10 +811,10 @@
           "questionText": "أي حرف فوقه نقطة واحدة؟",
           "correctAnswer": "النون",
           "options": [
-            "الميم",
+            "الراء",
             "النون",
             "السين",
-            "الراء"
+            "الميم"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -822,6 +887,26 @@
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الكلمات حسب حرفها الأول",
+          "correctAnswer": "بحرف الميم=موز,بحرف الميم=مسجد,بحرف السين=سمكة,بحرف السين=سحابة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "بحرف الميم",
+              "بحرف السين"
+            ],
+            "tokens": [
+              "موز",
+              "سمكة",
+              "مسجد",
+              "سحابة"
+            ]
+          }
         }
       ],
       "imageUrls": []
@@ -837,10 +922,10 @@
           "questionText": "أي كلمة تبدأ بحرف الزاي؟",
           "correctAnswer": "زهرة",
           "options": [
-            "زهرة",
             "رمان",
             "سمك",
-            "دار"
+            "دار",
+            "زهرة"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -935,8 +1020,8 @@
           "questionText": "أي كلمة تبدأ بحرف الحاء؟",
           "correctAnswer": "حصان",
           "options": [
-            "حصان",
             "خروف",
+            "حصان",
             "جمل",
             "بقرة"
           ],
@@ -1034,10 +1119,10 @@
           "questionText": "أي كلمة تبدأ بحرف اللام؟",
           "correctAnswer": "ليمون",
           "options": [
-            "ليمون",
-            "نجمة",
             "موز",
-            "كتاب"
+            "كتاب",
+            "ليمون",
+            "نجمة"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1132,13 +1217,21 @@
           "questionText": "أي حرف ليس له نقاط من هذه الحروف؟",
           "correctAnswer": "اللام",
           "options": [
-            "الزاي",
+            "الحاء واللام",
             "الحاء",
-            "اللام",
-            "الحاء واللام"
+            "الزاي",
+            "اللام"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
+        },
+        {
+          "type": "READING",
+          "questionText": "ذَهَبَ سَامِي إِلَى الْمَدْرَسَةِ",
+          "correctAnswer": "ذَهَبَ سَامِي إِلَى الْمَدْرَسَةِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
         },
         {
           "type": "TRUE_FALSE",
@@ -1208,6 +1301,47 @@
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MATCH",
+          "questionText": "صِل الكلمة بالصورة المناسبة",
+          "correctAnswer": "1=a,2=b,3=c",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recognition",
+          "pairs": {
+            "left": [
+              {
+                "id": "1",
+                "text": "حِصان"
+              },
+              {
+                "id": "2",
+                "text": "زَهْرَة"
+              },
+              {
+                "id": "3",
+                "text": "حَليب"
+              }
+            ],
+            "right": [
+              {
+                "id": "a",
+                "text": "",
+                "image": "assets/openmoji/horse.png"
+              },
+              {
+                "id": "c",
+                "text": "",
+                "image": "assets/openmoji/milk.png"
+              },
+              {
+                "id": "b",
+                "text": "",
+                "image": "assets/openmoji/rose.png"
+              }
+            ]
+          }
         }
       ],
       "imageUrls": []
@@ -1224,9 +1358,9 @@
           "correctAnswer": "نقطتان",
           "options": [
             "بدون نقاط",
-            "نقطة واحدة",
             "نقطتان",
-            "ثلاث نقاط"
+            "ثلاث نقاط",
+            "نقطة واحدة"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1321,9 +1455,9 @@
           "questionText": "أي كلمة تبدأ بحرف الجيم؟",
           "correctAnswer": "جمل",
           "options": [
-            "جمل",
             "حصان",
             "خروف",
+            "جمل",
             "دجاجة"
           ],
           "difficultyLevel": 1,
@@ -1419,10 +1553,10 @@
           "questionText": "أي كلمة تبدأ بحرف الفاء؟",
           "correctAnswer": "فراشة",
           "options": [
-            "فراشة",
-            "قمر",
+            "نحلة",
             "كتاب",
-            "نحلة"
+            "قمر",
+            "فراشة"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1518,9 +1652,9 @@
           "correctAnswer": "التاء",
           "options": [
             "الجيم",
-            "الفاء",
+            "الباء",
             "التاء",
-            "الباء"
+            "الفاء"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1592,6 +1726,25 @@
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "أين صورة الجَمَل؟",
+          "correctAnswer": "جَمَل",
+          "options": [
+            "فَراشة",
+            "جَمَل",
+            "فيل",
+            "قِطّة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/butterfly.png",
+            "assets/openmoji/camel.png",
+            "assets/openmoji/elephant.png",
+            "assets/openmoji/cat.png"
+          ]
         }
       ],
       "imageUrls": []
@@ -1607,10 +1760,10 @@
           "questionText": "أي كلمة تبدأ بحرف العين؟",
           "correctAnswer": "عصفور",
           "options": [
-            "عصفور",
             "غزال",
+            "قطة",
             "فيل",
-            "قطة"
+            "عصفور"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1706,9 +1859,9 @@
           "correctAnswer": "ثلاث نقاط",
           "options": [
             "بدون نقاط",
-            "نقطة واحدة",
             "نقطتان",
-            "ثلاث نقاط"
+            "ثلاث نقاط",
+            "نقطة واحدة"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1803,10 +1956,10 @@
           "questionText": "أي كلمة تبدأ بحرف الصاد؟",
           "correctAnswer": "صقر",
           "options": [
-            "صقر",
+            "ظرف",
             "ضفدع",
             "طائر",
-            "ظرف"
+            "صقر"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1901,10 +2054,10 @@
           "questionText": "أي حرف فوقه ثلاث نقاط؟",
           "correctAnswer": "الشين",
           "options": [
-            "العين",
-            "الشين",
             "الصاد",
-            "السين"
+            "العين",
+            "السين",
+            "الشين"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1976,6 +2129,26 @@
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "ضَعْ كلَّ كلمةٍ مع حرفها الأوّل",
+          "correctAnswer": "حرف العين=عصفور,حرف العين=عنب,حرف الشين=شجرة,حرف الشين=شمعة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "حرف العين",
+              "حرف الشين"
+            ],
+            "tokens": [
+              "عصفور",
+              "شجرة",
+              "عنب",
+              "شمعة"
+            ]
+          }
         }
       ],
       "imageUrls": []
@@ -1991,10 +2164,10 @@
           "questionText": "كم نقطة فوق حرف القاف؟",
           "correctAnswer": "نقطتان",
           "options": [
+            "ثلاث نقاط",
             "بدون نقاط",
             "نقطة واحدة",
-            "نقطتان",
-            "ثلاث نقاط"
+            "نقطتان"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -2089,9 +2262,9 @@
           "questionText": "كم نقطة فوق حرف الثاء؟",
           "correctAnswer": "ثلاث نقاط",
           "options": [
-            "بدون نقاط",
-            "نقطة واحدة",
             "نقطتان",
+            "نقطة واحدة",
+            "بدون نقاط",
             "ثلاث نقاط"
           ],
           "difficultyLevel": 1,
@@ -2187,10 +2360,10 @@
           "questionText": "أي كلمة تبدأ بحرف الخاء؟",
           "correctAnswer": "خروف",
           "options": [
-            "خروف",
             "حصان",
+            "دجاجة",
             "جمل",
-            "دجاجة"
+            "خروف"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -2285,10 +2458,10 @@
           "questionText": "كم حرفاً تعلمنا في الفصل الأول؟",
           "correctAnswer": "١٨ حرفاً",
           "options": [
-            "١٠ حروف",
             "١٥ حرفاً",
-            "١٨ حرفاً",
-            "٢٨ حرفاً"
+            "١٠ حروف",
+            "٢٨ حرفاً",
+            "١٨ حرفاً"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -2360,6 +2533,14 @@
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "READING",
+          "questionText": "أَنَا أُحِبُّ وَطَني فِلَسْطين",
+          "correctAnswer": "أَنَا أُحِبُّ وَطَني فِلَسْطين",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "reading"
         }
       ],
       "imageUrls": []

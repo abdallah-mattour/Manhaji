@@ -11,6 +11,9 @@ class FillBlankWidget extends StatelessWidget {
   final bool isCorrect;
   final ValueChanged<String> onChanged;
 
+  /// Full English experience (2026-07-03).
+  final bool english;
+
   const FillBlankWidget({
     super.key,
     required this.questionText,
@@ -19,6 +22,7 @@ class FillBlankWidget extends StatelessWidget {
     required this.isAnswered,
     required this.isCorrect,
     required this.onChanged,
+    this.english = false,
   });
 
   @override
@@ -95,7 +99,9 @@ class FillBlankWidget extends StatelessWidget {
           style: const TextStyle(
               fontFamily: 'Cairo', fontSize: 18, fontWeight: FontWeight.w600),
           decoration: InputDecoration(
-            hintText: 'اكتب الكلمة الناقصة...',
+            hintText: english
+                ? 'Type the missing word...'
+                : 'اكتب الكلمة الناقصة...',
             hintStyle: const TextStyle(
                 fontFamily: 'Cairo', color: AppTheme.textLight),
             filled: true,

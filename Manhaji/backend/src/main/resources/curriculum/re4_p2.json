@@ -1,0 +1,1709 @@
+{
+  "subject": "التربية الإسلامية",
+  "subjectCode": "re",
+  "gradeLevel": 4,
+  "semester": 2,
+  "totalLessons": 15,
+  "lessons": [
+    {
+      "title": "الكتب السماوية",
+      "content": "أنزل الله كتباً على رسله لهداية الناس: التوراة والإنجيل والزبور والقرآن، والقرآن آخرها وأكملها وأحفظها من التحريف.",
+      "objectives": "معرفة الكتب السماوية والإيمان بها.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الكتب أُنزل على نبيّنا محمد ﷺ؟",
+          "correctAnswer": "القرآن الكريم",
+          "options": [
+            "القرآن الكريم",
+            "التوراة",
+            "الإنجيل",
+            "الزبور"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ما الكتاب الذي تكفّل الله بحفظه من التحريف؟",
+          "correctAnswer": "القرآن الكريم",
+          "options": [
+            "القرآن الكريم",
+            "التوراة",
+            "الإنجيل",
+            "الزبور"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الحكمة من إنزال الكتب:",
+          "correctAnswer": "هداية الناس",
+          "options": [
+            "هداية الناس",
+            "التسلية",
+            "جمع المال",
+            "التاريخ فقط"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الإيمان بالكتب السماوية جميعها واجب.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: أُنزل الزبور على نبيّ الله ___.",
+          "correctAnswer": "داود",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما آخر الكتب السماوية نزولاً؟",
+          "correctAnswer": "القرآن",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب حسب النزول: القرآن، التوراة، الإنجيل",
+          "correctAnswer": "التوراة، الإنجيل، القرآن",
+          "options": [
+            "القرآن",
+            "التوراة",
+            "الإنجيل"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ميزة القرآن عن باقي الكتب أنّه:",
+          "correctAnswer": "محفوظ لم يُحرّف",
+          "options": [
+            "محفوظ لم يُحرّف",
+            "قصير",
+            "بلغة واحدة قديمة",
+            "غير مقروء"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "القرآن نزل على قلب النبيّ ﷺ بواسطة جبريل.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كيف نحافظ على القرآن؟",
+          "correctAnswer": "بحفظه وتلاوته والعمل به",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 1
+    },
+    {
+      "title": "سورة عبس",
+      "content": "سورة عبس مكّيّة، تعلّمنا العدل بين الناس وعدم التفريق بينهم، وتذكّر بنعم الله على الإنسان.",
+      "objectives": "فهم المعنى الإجمالي لسورة عبس والعِبرة منها.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "من الدروس المستفادة من سورة عبس:",
+          "correctAnswer": "العدل بين الناس وعدم التفريق",
+          "options": [
+            "العدل بين الناس وعدم التفريق",
+            "حبّ المال",
+            "التكبّر",
+            "الإسراف"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "سورة عبس سورة:",
+          "correctAnswer": "مكّيّة",
+          "options": [
+            "مكّيّة",
+            "مدنيّة",
+            "من الطوال",
+            "من السبع الطوال"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ممّ تذكّر السورة الإنسان؟",
+          "correctAnswer": "بنعم الله عليه",
+          "options": [
+            "بنعم الله عليه",
+            "بالتجارة",
+            "بالسفر",
+            "بالطعام فقط"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "علّمتنا السورة أن نهتمّ بطالب الخير ولو كان فقيراً.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: من نعم الله على الإنسان نعمة ___.",
+          "correctAnswer": "الطعام",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "بمَ نعامل طالب العلم والخير؟",
+          "correctAnswer": "بالإقبال والاحترام",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: الناس، بين، العدل",
+          "correctAnswer": "العدل، بين، الناس",
+          "options": [
+            "الناس",
+            "بين",
+            "العدل"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "عَبَسَ وَتَوَلَّى",
+          "correctAnswer": "عَبَسَ وَتَوَلَّى",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من آداب التعامل التي تعلّمناها:",
+          "correctAnswer": "عدم التكبّر على الضعيف",
+          "options": [
+            "عدم التكبّر على الضعيف",
+            "احتقار الفقير",
+            "تقديم الغنيّ دائماً",
+            "الإعراض عن السائل"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر نعمة من نعم الله ذكرتها السورة.",
+          "correctAnswer": "الماء",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 2
+    },
+    {
+      "title": "فضائل القرآن الكريم",
+      "content": "لتلاوة القرآن أجر عظيم، وهو شفاء للقلوب وهدى، ويشفع لصاحبه يوم القيامة.",
+      "objectives": "معرفة فضل قراءة القرآن والعمل به.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كم حسنة بكلّ حرف من القرآن؟",
+          "correctAnswer": "عشر حسنات",
+          "options": [
+            "عشر حسنات",
+            "حسنة واحدة",
+            "حسنتان",
+            "خمس حسنات"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "القرآن يوم القيامة:",
+          "correctAnswer": "يشفع لصاحبه",
+          "options": [
+            "يشفع لصاحبه",
+            "يُنسى",
+            "لا فائدة منه",
+            "يشهد ضدّ قارئه"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ما الذي ينبغي على قارئ القرآن أن يلتزم به عند التلاوة؟",
+          "correctAnswer": "الطهارة والخشوع",
+          "options": [
+            "الطهارة والخشوع",
+            "العجلة",
+            "اللهو",
+            "رفع الصوت باللعب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "قراءة القرآن شفاء وهدى للقلوب.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: خيركم من تعلّم القرآن و___.",
+          "correctAnswer": "علّمه",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما جزاء من يقرأ القرآن ويعمل به؟",
+          "correctAnswer": "الأجر العظيم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: وعلّمه، من، تعلّم القرآن، خيركم",
+          "correctAnswer": "خيركم، من، تعلّم القرآن، وعلّمه",
+          "options": [
+            "وعلّمه",
+            "من",
+            "تعلّم القرآن",
+            "خيركم"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كيف نعظّم القرآن؟",
+          "correctAnswer": "بتلاوته والعمل به وتوقيره",
+          "options": [
+            "بتلاوته والعمل به وتوقيره",
+            "بإهماله",
+            "بوضعه على الأرض",
+            "بعدم قراءته"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الأفضل أن نقرأ القرآن ونتدبّر معانيه.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "متى نكثر من قراءة القرآن خاصّة؟",
+          "correctAnswer": "في رمضان",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 3
+    },
+    {
+      "title": "صلاة الجماعة",
+      "content": "صلاة الجماعة أفضل من صلاة المنفرد بسبع وعشرين درجة، وفيها تآلف وتعاون بين المسلمين.",
+      "objectives": "معرفة فضل صلاة الجماعة وأحكامها.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كم تفضل صلاة الجماعة صلاة المنفرد؟",
+          "correctAnswer": "بسبع وعشرين درجة",
+          "options": [
+            "بسبع وعشرين درجة",
+            "بدرجة",
+            "بعشر درجات",
+            "لا فرق"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من يؤمّ الناس في الصلاة يُسمّى:",
+          "correctAnswer": "الإمام",
+          "options": [
+            "الإمام",
+            "المؤذّن",
+            "المأموم",
+            "الخطيب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من فوائد صلاة الجماعة:",
+          "correctAnswer": "التآلف والتعاون بين المسلمين",
+          "options": [
+            "التآلف والتعاون بين المسلمين",
+            "التفرقة",
+            "الكسل",
+            "العزلة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "المأموم يتابع الإمام في الصلاة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: من يتابع الإمام في الصلاة يُسمّى ___.",
+          "correctAnswer": "المأموم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أين تُقام صلاة الجماعة غالباً؟",
+          "correctAnswer": "في المسجد",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: المأموم، يتابع، الإمام",
+          "correctAnswer": "المأموم، يتابع، الإمام",
+          "options": [
+            "يتابع",
+            "المأموم",
+            "الإمام"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الأولى بالإمامة:",
+          "correctAnswer": "أقرؤهم لكتاب الله",
+          "options": [
+            "أقرؤهم لكتاب الله",
+            "أغناهم",
+            "أطولهم",
+            "أكبرهم مالاً"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "صلاة الجماعة تقوّي الروابط بين المسلمين.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "من ينادي للصلاة؟",
+          "correctAnswer": "المؤذّن",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 4
+    },
+    {
+      "title": "الصلوات المسنونة",
+      "content": "الصلوات المسنونة نوافل يُثاب فاعلها، كالسنن الرواتب وصلاة الضحى وقيام الليل والوتر.",
+      "objectives": "معرفة بعض الصلوات المسنونة وفضلها.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "صلاة الوتر تكون:",
+          "correctAnswer": "بعد صلاة العشاء",
+          "options": [
+            "بعد صلاة العشاء",
+            "قبل الفجر بأذان",
+            "بعد الظهر",
+            "قبل المغرب"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "صلاة الضحى تُصلّى في وقت:",
+          "correctAnswer": "الضحى بعد شروق الشمس",
+          "options": [
+            "الضحى بعد شروق الشمس",
+            "منتصف الليل",
+            "الغروب",
+            "الظهر"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "السنن الرواتب هي نوافل:",
+          "correctAnswer": "قبل الفرائض أو بعدها",
+          "options": [
+            "قبل الفرائض أو بعدها",
+            "بدل الفرائض",
+            "في العيد فقط",
+            "مرّة في السنة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الصلوات المسنونة نوافل يُثاب فاعلها.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: آخر صلاة الليل تُختم بصلاة ___.",
+          "correctAnswer": "الوتر",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر صلاة مسنونة.",
+          "correctAnswer": "صلاة الضحى",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أوقاتها في اليوم: الوتر، الضحى، راتبة الفجر",
+          "correctAnswer": "راتبة الفجر، الضحى، الوتر",
+          "options": [
+            "الوتر",
+            "الضحى",
+            "راتبة الفجر"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "فائدة المحافظة على النوافل:",
+          "correctAnswer": "زيادة الأجر والقرب من الله",
+          "options": [
+            "زيادة الأجر والقرب من الله",
+            "لا فائدة",
+            "التعب فقط",
+            "إضاعة الوقت"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "قيام الليل من الصلوات المسنونة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا نكسب بالنوافل؟",
+          "correctAnswer": "محبّة الله",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 5
+    },
+    {
+      "title": "مبطلات الصلاة",
+      "content": "مبطلات الصلاة أمور تُفسد الصلاة إذا وقعت فيها، كالكلام العمد والأكل والشرب والحركة الكثيرة وانتقاض الوضوء.",
+      "objectives": "معرفة مبطلات الصلاة لاجتنابها.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أيّ ممّا يلي يُبطل الصلاة؟",
+          "correctAnswer": "الأكل والشرب عمداً",
+          "options": [
+            "الأكل والشرب عمداً",
+            "الخشوع",
+            "قراءة الفاتحة",
+            "الطمأنينة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الكلام العمد في الصلاة:",
+          "correctAnswer": "يُبطلها",
+          "options": [
+            "يُبطلها",
+            "يزيد أجرها",
+            "سنّة",
+            "لا أثر له"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "إذا انتقض وضوء المصلّي فإنّ صلاته:",
+          "correctAnswer": "تبطل ويعيد الوضوء",
+          "options": [
+            "تبطل ويعيد الوضوء",
+            "تصحّ",
+            "تُقبل ناقصة",
+            "لا تتأثّر"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الحركة الكثيرة المتوالية تُبطل الصلاة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: من مبطلات الصلاة انتقاض ___.",
+          "correctAnswer": "الوضوء",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر مبطلاً من مبطلات الصلاة.",
+          "correctAnswer": "الأكل عمداً",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: الوضوء، أعاد، انتقض، ف",
+          "correctAnswer": "انتقض، الوضوء، ف، أعاد",
+          "options": [
+            "الوضوء",
+            "أعاد",
+            "انتقض",
+            "ف"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كيف نحافظ على صحّة صلاتنا؟",
+          "correctAnswer": "باجتناب المبطلات والخشوع",
+          "options": [
+            "باجتناب المبطلات والخشوع",
+            "بالعجلة",
+            "بالحركة الكثيرة",
+            "بالكلام"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الخشوع يزيد من كمال الصلاة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا نفعل إذا بطلت صلاتنا؟",
+          "correctAnswer": "نعيدها",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 6
+    },
+    {
+      "title": "التيمّم",
+      "content": "التيمّم طهارة بالتراب الطاهر عند فقد الماء أو تعذّر استعماله، وهو من يُسر الإسلام.",
+      "objectives": "معرفة حكم التيمّم وكيفيّته.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بماذا يكون التيمّم؟",
+          "correctAnswer": "بالتراب الطاهر",
+          "options": [
+            "بالتراب الطاهر",
+            "بالماء",
+            "بالعطر",
+            "بالورق"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "متى نلجأ إلى التيمّم؟",
+          "correctAnswer": "عند فقد الماء أو تعذّر استعماله",
+          "options": [
+            "عند فقد الماء أو تعذّر استعماله",
+            "دائماً",
+            "عند وجود الماء",
+            "في العيد فقط"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "التيمّم يدلّ على أنّ الإسلام دين:",
+          "correctAnswer": "يُسر لا عُسر",
+          "options": [
+            "يُسر لا عُسر",
+            "صعب",
+            "معقّد",
+            "بلا رخص"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "التيمّم يقوم مقام الوضوء عند فقد الماء.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: نتيمّم بضرب اليدين على ___ الطاهر.",
+          "correctAnswer": "التراب",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الذي نمسحه في التيمّم؟",
+          "correctAnswer": "الوجه واليدين",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب خطوات التيمّم: نمسح اليدين، ننوي، نضرب التراب، نمسح الوجه",
+          "correctAnswer": "ننوي، نضرب التراب، نمسح الوجه، نمسح اليدين",
+          "options": [
+            "نمسح اليدين",
+            "ننوي",
+            "نضرب التراب",
+            "نمسح الوجه"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من رخص الإسلام عند العجز:",
+          "correctAnswer": "التيمّم",
+          "options": [
+            "التيمّم",
+            "ترك الصلاة",
+            "تأخيرها بلا سبب",
+            "الجمع دائماً"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "إذا وُجد الماء وقدر عليه بطل التيمّم للطهارة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "بمَ نبدأ التيمّم كأيّ عبادة؟",
+          "correctAnswer": "بالنيّة",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 7
+    },
+    {
+      "title": "حبّ الرسول ﷺ",
+      "content": "حبّ النبيّ ﷺ من الإيمان، ويكون باتّباع سنّته والصلاة عليه والاقتداء بأخلاقه.",
+      "objectives": "غرس محبّة النبيّ ﷺ واتّباع سنّته.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كيف نُظهر حبّنا للنبيّ ﷺ؟",
+          "correctAnswer": "باتّباع سنّته والصلاة عليه",
+          "options": [
+            "باتّباع سنّته والصلاة عليه",
+            "بمخالفته",
+            "بنسيانه",
+            "بترك سنّته"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "حبّ النبيّ ﷺ من:",
+          "correctAnswer": "الإيمان",
+          "options": [
+            "الإيمان",
+            "العادات فقط",
+            "الكماليّات",
+            "أمور الدنيا"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا نقول عند ذكر النبيّ ﷺ؟",
+          "correctAnswer": "صلّى الله عليه وسلّم",
+          "options": [
+            "صلّى الله عليه وسلّم",
+            "لا شيء",
+            "رحمه الله",
+            "غفر الله له"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "اتّباع سنّة النبيّ ﷺ دليل على محبّته.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: نصلّي على النبيّ فنقول: اللهمّ صلِّ على ___.",
+          "correctAnswer": "محمد",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر خُلقاً نقتدي فيه بالنبيّ ﷺ.",
+          "correctAnswer": "الصدق",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: سنّته، نحبّ النبيّ، فنتّبع",
+          "correctAnswer": "نحبّ النبيّ، فنتّبع، سنّته",
+          "options": [
+            "سنّته",
+            "نحبّ النبيّ",
+            "فنتّبع"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من ثمرات حبّ النبيّ ﷺ:",
+          "correctAnswer": "الاقتداء بأخلاقه الكريمة",
+          "options": [
+            "الاقتداء بأخلاقه الكريمة",
+            "الكسل",
+            "الغضب",
+            "القسوة"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "النبيّ ﷺ خير قدوة للناس.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا نفعل عند سماع اسم النبيّ ﷺ؟",
+          "correctAnswer": "نصلّي عليه",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 8
+    },
+    {
+      "title": "أبو بكر الصدّيق رضي الله عنه",
+      "content": "أبو بكر أوّل الخلفاء الراشدين، وأوّل من آمن من الرجال، لُقّب بالصدّيق لتصديقه النبيّ ﷺ، ورافقه في الهجرة.",
+      "objectives": "التعرّف إلى الخليفة أبي بكر وصفاته.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "من أوّل الخلفاء الراشدين؟",
+          "correctAnswer": "أبو بكر الصدّيق",
+          "options": [
+            "أبو بكر الصدّيق",
+            "عمر بن الخطّاب",
+            "عثمان بن عفّان",
+            "عليّ بن أبي طالب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "لماذا لُقّب أبو بكر بالصدّيق؟",
+          "correctAnswer": "لتصديقه النبيّ ﷺ",
+          "options": [
+            "لتصديقه النبيّ ﷺ",
+            "لغناه",
+            "لقوّته",
+            "لشعره"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من رافق النبيّ ﷺ في الهجرة إلى المدينة؟",
+          "correctAnswer": "أبو بكر",
+          "options": [
+            "أبو بكر",
+            "عمر",
+            "خالد",
+            "بلال"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "أبو بكر أوّل من آمن من الرجال.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: لقب أبي بكر هو ___.",
+          "correctAnswer": "الصدّيق",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما صفة أبي بكر التي نقتدي بها؟",
+          "correctAnswer": "الصدق",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: في الهجرة، النبيّ، رافق أبو بكر",
+          "correctAnswer": "رافق أبو بكر، النبيّ، في الهجرة",
+          "options": [
+            "في الهجرة",
+            "النبيّ",
+            "رافق أبو بكر"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أبو بكر تولّى الخلافة بعد:",
+          "correctAnswer": "وفاة النبيّ ﷺ",
+          "options": [
+            "وفاة النبيّ ﷺ",
+            "فتح مكّة",
+            "غزوة بدر",
+            "الإسراء"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "أنفق أبو بكر ماله في سبيل الله.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "من أعتق بلالاً من الصحابة؟",
+          "correctAnswer": "أبو بكر",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 9
+    },
+    {
+      "title": "عمر بن الخطّاب رضي الله عنه",
+      "content": "عمر ثاني الخلفاء الراشدين، لُقّب بالفاروق لتفريقه بين الحقّ والباطل، اشتهر بعدله وقوّته في الحقّ.",
+      "objectives": "التعرّف إلى الخليفة عمر وعدله.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "من ثاني الخلفاء الراشدين؟",
+          "correctAnswer": "عمر بن الخطّاب",
+          "options": [
+            "عمر بن الخطّاب",
+            "أبو بكر",
+            "عثمان",
+            "عليّ"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بماذا لُقّب عمر بن الخطّاب؟",
+          "correctAnswer": "الفاروق",
+          "options": [
+            "الفاروق",
+            "الصدّيق",
+            "ذو النورين",
+            "الأمين"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "اشتهر عمر رضي الله عنه بـ:",
+          "correctAnswer": "العدل بين الناس",
+          "options": [
+            "العدل بين الناس",
+            "جمع المال",
+            "الشعر",
+            "التجارة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "لُقّب عمر بالفاروق لتفريقه بين الحقّ والباطل.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: لقب عمر بن الخطّاب هو ___.",
+          "correctAnswer": "الفاروق",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما أبرز صفة اشتهر بها عمر؟",
+          "correctAnswer": "العدل",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: الخطّاب، عمر، بن",
+          "correctAnswer": "عمر، بن، الخطّاب",
+          "options": [
+            "الخطّاب",
+            "عمر",
+            "بن"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "تولّى عمر الخلافة بعد:",
+          "correctAnswer": "أبي بكر الصدّيق",
+          "options": [
+            "أبي بكر الصدّيق",
+            "عثمان",
+            "عليّ",
+            "النبيّ مباشرة"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كان عمر يهتمّ بأحوال الرعيّة ويتفقّدهم.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا نتعلّم من عمر رضي الله عنه؟",
+          "correctAnswer": "العدل",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 10
+    },
+    {
+      "title": "عثمان بن عفّان رضي الله عنه",
+      "content": "عثمان ثالث الخلفاء الراشدين، لُقّب بذي النورين، اشتهر بالحياء والكرم، وجمع القرآن في مصحف واحد.",
+      "objectives": "التعرّف إلى الخليفة عثمان وأعماله.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "من ثالث الخلفاء الراشدين؟",
+          "correctAnswer": "عثمان بن عفّان",
+          "options": [
+            "عثمان بن عفّان",
+            "عمر",
+            "عليّ",
+            "أبو بكر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بماذا لُقّب عثمان بن عفّان؟",
+          "correctAnswer": "ذو النورين",
+          "options": [
+            "ذو النورين",
+            "الفاروق",
+            "الصدّيق",
+            "سيف الله"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من أعمال عثمان العظيمة:",
+          "correctAnswer": "جمع القرآن في مصحف واحد",
+          "options": [
+            "جمع القرآن في مصحف واحد",
+            "بناء الأهرامات",
+            "حفر الأنهار",
+            "صكّ النقود فقط"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "اشتهر عثمان بالحياء والكرم.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: لقب عثمان بن عفّان هو ذو ___.",
+          "correctAnswer": "النورين",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما العمل العظيم الذي قام به عثمان للقرآن؟",
+          "correctAnswer": "جمعه في مصحف",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: عفّان، عثمان، بن",
+          "correctAnswer": "عثمان، بن، عفّان",
+          "options": [
+            "عفّان",
+            "عثمان",
+            "بن"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من صفات عثمان التي نقتدي بها:",
+          "correctAnswer": "الحياء والكرم",
+          "options": [
+            "الحياء والكرم",
+            "البخل",
+            "الغلظة",
+            "الكسل"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "أنفق عثمان ماله في تجهيز جيش المسلمين.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "بمَ نقتدي من عثمان رضي الله عنه؟",
+          "correctAnswer": "الحياء",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 11
+    },
+    {
+      "title": "عليّ بن أبي طالب رضي الله عنه",
+      "content": "عليّ رابع الخلفاء الراشدين، ابن عمّ النبيّ ﷺ وزوج ابنته فاطمة، من أوائل من أسلم، اشتهر بالعلم والشجاعة.",
+      "objectives": "التعرّف إلى الخليفة عليّ وصفاته.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "من رابع الخلفاء الراشدين؟",
+          "correctAnswer": "عليّ بن أبي طالب",
+          "options": [
+            "عليّ بن أبي طالب",
+            "عثمان",
+            "عمر",
+            "أبو بكر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ما صلة عليّ بالنبيّ ﷺ؟",
+          "correctAnswer": "ابن عمّه وزوج ابنته",
+          "options": [
+            "ابن عمّه وزوج ابنته",
+            "خاله",
+            "جدّه",
+            "لا صلة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "اشتهر عليّ رضي الله عنه بـ:",
+          "correctAnswer": "العلم والشجاعة",
+          "options": [
+            "العلم والشجاعة",
+            "الجبن",
+            "الغنى فقط",
+            "الشعر فقط"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "عليّ من أوائل من أسلم من الصبيان.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: عليّ بن أبي ___.",
+          "correctAnswer": "طالب",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "من زوجة عليّ بنت النبيّ ﷺ؟",
+          "correctAnswer": "فاطمة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: طالب، عليّ، أبي، بن",
+          "correctAnswer": "عليّ، بن، أبي، طالب",
+          "options": [
+            "طالب",
+            "عليّ",
+            "أبي",
+            "بن"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من صفات عليّ التي نقتدي بها:",
+          "correctAnswer": "طلب العلم والشجاعة في الحقّ",
+          "options": [
+            "طلب العلم والشجاعة في الحقّ",
+            "الكسل",
+            "الجبن",
+            "الطمع"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الخلفاء الراشدون أربعة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كم عدد الخلفاء الراشدين؟",
+          "correctAnswer": "أربعة",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 12
+    },
+    {
+      "title": "سورة الغاشية",
+      "content": "سورة الغاشية مكّيّة، تذكّر بيوم القيامة وجزاء الناس، وتدعو للتفكّر في خلق الله.",
+      "objectives": "فهم المعنى الإجمالي لسورة الغاشية.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بمَ تذكّرنا سورة الغاشية؟",
+          "correctAnswer": "بيوم القيامة وجزاء الناس",
+          "options": [
+            "بيوم القيامة وجزاء الناس",
+            "بالتجارة",
+            "بالطعام",
+            "بالسفر"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "إلى مَ تدعو السورة في خلق الله؟",
+          "correctAnswer": "إلى التفكّر والتأمّل",
+          "options": [
+            "إلى التفكّر والتأمّل",
+            "إلى الإهمال",
+            "إلى النوم",
+            "إلى اللهو"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من مظاهر قدرة الله المذكورة:",
+          "correctAnswer": "خلق الإبل والسماء والجبال",
+          "options": [
+            "خلق الإبل والسماء والجبال",
+            "بناء المصانع",
+            "صناعة السيّارات",
+            "حفر الأنفاق"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "سورة الغاشية مكّيّة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: أفلا ينظرون إلى الإبل كيف ___.",
+          "correctAnswer": "خُلقت",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "بمَ نتفكّر لنعرف عظمة الله؟",
+          "correctAnswer": "بمخلوقاته",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: الإبل، ينظرون، إلى، أفلا",
+          "correctAnswer": "أفلا، ينظرون، إلى، الإبل",
+          "options": [
+            "الإبل",
+            "ينظرون",
+            "إلى",
+            "أفلا"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "هَلْ أَتَاكَ حَدِيثُ الْغَاشِيَةِ",
+          "correctAnswer": "هَلْ أَتَاكَ حَدِيثُ الْغَاشِيَةِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "التفكّر في خلق الله يزيد:",
+          "correctAnswer": "الإيمان",
+          "options": [
+            "الإيمان",
+            "الغفلة",
+            "الكسل",
+            "القسوة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر مخلوقاً دعتنا السورة للتفكّر فيه.",
+          "correctAnswer": "الإبل",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 13
+    },
+    {
+      "title": "أحفظ لساني (حديث شريف)",
+      "content": "من حسن إسلام المرء ترك ما لا يعنيه، ونحفظ ألسنتنا عن الكذب والغيبة والسبّ، ونقول خيراً أو نصمت.",
+      "objectives": "غرس أدب حفظ اللسان.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا نقول أو نفعل بحسب الحديث؟",
+          "correctAnswer": "نقول خيراً أو نصمت",
+          "options": [
+            "نقول خيراً أو نصمت",
+            "نتكلّم بلا فائدة",
+            "نسبّ الناس",
+            "نكذب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من آفات اللسان:",
+          "correctAnswer": "الغيبة والكذب",
+          "options": [
+            "الغيبة والكذب",
+            "الصدق",
+            "الذكر",
+            "الدعاء"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من حسن إسلام المرء:",
+          "correctAnswer": "تركه ما لا يعنيه",
+          "options": [
+            "تركه ما لا يعنيه",
+            "كثرة الكلام",
+            "السخرية",
+            "النميمة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "حفظ اللسان من صفات المؤمن.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: من كان يؤمن بالله واليوم الآخر فليقل خيراً أو ___.",
+          "correctAnswer": "ليصمت",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "بمَ نحفظ ألسنتنا؟",
+          "correctAnswer": "عن الكذب والغيبة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: أو ليصمت، فليقل خيراً، من كان يؤمن",
+          "correctAnswer": "من كان يؤمن، فليقل خيراً، أو ليصمت",
+          "options": [
+            "أو ليصمت",
+            "فليقل خيراً",
+            "من كان يؤمن"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الغيبة هي:",
+          "correctAnswer": "ذكر أخيك بما يكره في غيابه",
+          "options": [
+            "ذكر أخيك بما يكره في غيابه",
+            "مدحه",
+            "الدعاء له",
+            "مساعدته"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الكلمة الطيّبة صدقة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا نقول بدل الكلام السيّئ؟",
+          "correctAnswer": "كلاماً طيّباً",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 14
+    },
+    {
+      "title": "العفو والتسامح",
+      "content": "العفو والتسامح خُلقان عظيمان يحبّهما الله، فنعفو عمّن أساء إلينا ونصفح، كما كان النبيّ ﷺ يعفو.",
+      "objectives": "غرس خُلق العفو والتسامح.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كيف نعامل من أساء إلينا اقتداءً بالنبيّ ﷺ؟",
+          "correctAnswer": "نعفو ونصفح",
+          "options": [
+            "نعفو ونصفح",
+            "ننتقم",
+            "نسبّه",
+            "نضربه"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "العفو والتسامح خُلقان:",
+          "correctAnswer": "يحبّهما الله",
+          "options": [
+            "يحبّهما الله",
+            "مكروهان",
+            "لا قيمة لهما",
+            "من الضعف"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "عندما دخل النبيّ ﷺ مكّة فاتحاً قال لأهلها:",
+          "correctAnswer": "اذهبوا فأنتم الطلقاء",
+          "options": [
+            "اذهبوا فأنتم الطلقاء",
+            "انتقمت منكم",
+            "لا عفو",
+            "اخرجوا"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العفو عند المقدرة من صفات الكرام.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: وليعفوا و___ ألا تحبّون أن يغفر الله لكم.",
+          "correctAnswer": "ليصفحوا",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا نكسب حين نعفو عن الناس؟",
+          "correctAnswer": "محبّة الله ومغفرته",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: ونصفح، عمّن أساء، نعفو",
+          "correctAnswer": "نعفو، عمّن أساء، ونصفح",
+          "options": [
+            "ونصفح",
+            "عمّن أساء",
+            "نعفو"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "التسامح يؤدّي إلى:",
+          "correctAnswer": "المحبّة وصفاء القلوب",
+          "options": [
+            "المحبّة وصفاء القلوب",
+            "العداوة",
+            "الفرقة",
+            "الحقد"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الانتقام خير من العفو دائماً.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "من أعظم الناس عفواً وقدوةً لنا؟",
+          "correctAnswer": "النبيّ محمد ﷺ",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 15
+    }
+  ]
+}

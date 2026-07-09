@@ -1,0 +1,1303 @@
+{
+  "subject": "English",
+  "subjectCode": "en",
+  "gradeLevel": 3,
+  "semester": 2,
+  "totalLessons": 9,
+  "lessons": [
+    {
+      "title": "What's the time? (Unit 10)",
+      "content": "We talk about the days of the week and say the time and when things happen: breakfast, lunch, dinner; the numbers one to twelve; It's six o'clock.",
+      "objectives": "Days of the week and telling the time",
+      "imageUrls": [
+        "assets/openmoji/clock.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What day comes after Sunday?",
+          "correctAnswer": "Monday",
+          "options": [
+            "Friday",
+            "Saturday",
+            "Sunday",
+            "Monday"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Someone asks 'What's the time?'. Choose the answer.",
+          "correctAnswer": "It's six o'clock",
+          "options": [
+            "I'm nine",
+            "It's six o'clock",
+            "It's Monday",
+            "It's sunny"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Which meal do we eat in the morning?",
+          "correctAnswer": "breakfast",
+          "options": [
+            "dinner",
+            "supper",
+            "breakfast",
+            "lunch"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "There are seven days in a week.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "We eat dinner in the early morning.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: When do you go to school? ___ seven o'clock. (At / In)",
+          "correctAnswer": "At",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What number comes after eleven?",
+          "correctAnswer": "twelve",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put the days in order: Tuesday, Sunday, Monday",
+          "correctAnswer": "Sunday, Monday, Tuesday",
+          "options": [
+            "Tuesday",
+            "Sunday",
+            "Monday"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: Wednesday",
+          "correctAnswer": "Wednesday",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "The day before Friday is:",
+          "correctAnswer": "Thursday",
+          "options": [
+            "Sunday",
+            "Monday",
+            "Thursday",
+            "Saturday"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "School starts at eight o'clock. It is now seven o'clock. Is it time for school?",
+          "correctAnswer": "No, not yet",
+          "options": [
+            "It's dinner time",
+            "No, not yet",
+            "Yes, now",
+            "It's Monday"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows a clock?",
+          "correctAnswer": "clock",
+          "options": [
+            "book",
+            "apple",
+            "car",
+            "clock"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/book.png",
+            "assets/openmoji/apple.png",
+            "assets/openmoji/car.png",
+            "assets/openmoji/clock.png"
+          ]
+        }
+      ],
+      "orderIndex": 1
+    },
+    {
+      "title": "At the playground (Unit 11)",
+      "content": "We talk about the playground and make suggestions: swings, roundabout, slide, sandpit, seesaw, climbing frame; up, down, round, over, under.",
+      "objectives": "Talking about the playground and making suggestions",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "On which thing do you go up and down at the playground?",
+          "correctAnswer": "the seesaw",
+          "options": [
+            "the market",
+            "the school",
+            "the seesaw",
+            "the book"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "You want to suggest playing on the swings. What do you say?",
+          "correctAnswer": "Let's go on the swings",
+          "options": [
+            "Goodbye",
+            "How old are you?",
+            "It's rainy",
+            "Let's go on the swings"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Where do you play with sand?",
+          "correctAnswer": "the sandpit",
+          "options": [
+            "the slide",
+            "the sandpit",
+            "the swings",
+            "the roundabout"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "You can climb up a climbing frame.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "A slide goes up, not down.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: Let's go ___ the sandpit. (in / of)",
+          "correctAnswer": "in",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What is the opposite of 'up'?",
+          "correctAnswer": "down",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put in order to make a suggestion: on, let's, go, the slide",
+          "correctAnswer": "let's, go, on, the slide",
+          "options": [
+            "on",
+            "let's",
+            "go",
+            "the slide"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: roundabout",
+          "correctAnswer": "roundabout",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "The cat is on the chair. Then it goes below the chair. Where is the cat now?",
+          "correctAnswer": "under the chair",
+          "options": [
+            "round the chair",
+            "under the chair",
+            "over the chair",
+            "on the chair"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Which one goes round and round?",
+          "correctAnswer": "the roundabout",
+          "options": [
+            "the sandpit",
+            "the seesaw",
+            "the slide",
+            "the roundabout"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows a ball to play with?",
+          "correctAnswer": "ball",
+          "options": [
+            "book",
+            "clock",
+            "shoe",
+            "ball"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/book.png",
+            "assets/openmoji/clock.png",
+            "assets/openmoji/shoe.png",
+            "assets/openmoji/soccer_ball.png"
+          ]
+        }
+      ],
+      "orderIndex": 2
+    },
+    {
+      "title": "Open Day (Unit 12)",
+      "content": "We talk about our school Open Day and say what we do: dance dabka, draw pictures, play music, paint, act in a play, show our work.",
+      "objectives": "Talking about school Open Day activities",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "Which is a traditional Palestinian dance?",
+          "correctAnswer": "dabka",
+          "options": [
+            "homework",
+            "football",
+            "breakfast",
+            "dabka"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Someone asks 'What do you do at the Open Day?'. Choose an answer.",
+          "correctAnswer": "We dance",
+          "options": [
+            "Goodbye",
+            "I'm nine",
+            "It's sunny",
+            "We dance"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "What do you use to paint a picture?",
+          "correctAnswer": "paint",
+          "options": [
+            "a clock",
+            "a car",
+            "a tooth",
+            "paint"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "On Open Day we show our work to visitors.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "Playing music is not an Open Day activity.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: We ___ pictures at the Open Day. (draw / draws)",
+          "correctAnswer": "draw",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What do we call a story we act on a stage?",
+          "correctAnswer": "a play",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put in order to make a sentence: music, we, play",
+          "correctAnswer": "we, play, music",
+          "options": [
+            "music",
+            "we",
+            "play"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: act in a play",
+          "correctAnswer": "act in a play",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "You are good at drawing. Which activity is best for you?",
+          "correctAnswer": "draw pictures",
+          "options": [
+            "play music",
+            "draw pictures",
+            "dance dabka",
+            "act in a play"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Which activity uses your voice and body to tell a story on stage?",
+          "correctAnswer": "act in a play",
+          "options": [
+            "draw pictures",
+            "show our work",
+            "paint",
+            "act in a play"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows a drum for playing music?",
+          "correctAnswer": "drum",
+          "options": [
+            "apple",
+            "drum",
+            "book",
+            "car"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/apple.png",
+            "assets/openmoji/drum.png",
+            "assets/openmoji/book.png",
+            "assets/openmoji/car.png"
+          ]
+        }
+      ],
+      "orderIndex": 3
+    },
+    {
+      "title": "I'm wearing a scarf (Unit 13)",
+      "content": "We talk about clothes and describe what we are wearing: scarf, jacket, trousers, trainers, tracksuit, slippers; purple, pink; I'm wearing trousers.",
+      "objectives": "Talking about clothes and what you are wearing",
+      "imageUrls": [
+        "assets/openmoji/scarf.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What do you wear on your legs?",
+          "correctAnswer": "trousers",
+          "options": [
+            "gloves",
+            "trousers",
+            "a hat",
+            "a scarf"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "What do you wear around your neck when it's cold?",
+          "correctAnswer": "a scarf",
+          "options": [
+            "trainers",
+            "trousers",
+            "slippers",
+            "a scarf"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Which shoes do you wear for sport?",
+          "correctAnswer": "trainers",
+          "options": [
+            "a scarf",
+            "slippers",
+            "trainers",
+            "a jacket"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "Pink and purple are colours.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "We wear slippers to play football.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: She ___ wearing a jacket. (is / are)",
+          "correctAnswer": "is",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What do you wear on your feet inside the house?",
+          "correctAnswer": "slippers",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put in order to make a sentence: a scarf, wearing, I'm",
+          "correctAnswer": "I'm, wearing, a scarf",
+          "options": [
+            "a scarf",
+            "wearing",
+            "I'm"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: tracksuit",
+          "correctAnswer": "tracksuit",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "He is going to a party. What is he wearing? He's wearing a:",
+          "correctAnswer": "jacket",
+          "options": [
+            "roundabout",
+            "playground",
+            "jacket",
+            "sandpit"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "It is cold and windy outside. What is best to wear?",
+          "correctAnswer": "a jacket and a scarf",
+          "options": [
+            "trainers only",
+            "only a shirt",
+            "a jacket and a scarf",
+            "slippers and a tracksuit"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows a scarf?",
+          "correctAnswer": "scarf",
+          "options": [
+            "socks",
+            "shoe",
+            "gloves",
+            "scarf"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/socks.png",
+            "assets/openmoji/shoe.png",
+            "assets/openmoji/gloves.png",
+            "assets/openmoji/scarf.png"
+          ]
+        }
+      ],
+      "orderIndex": 4
+    },
+    {
+      "title": "Revision 3 (Units 10–13)",
+      "content": "We revise the time and the days, the playground, Open Day activities and clothes.",
+      "objectives": "Revising the language of Units 10–13",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "Choose the day of the week.",
+          "correctAnswer": "Thursday",
+          "options": [
+            "swings",
+            "dabka",
+            "trousers",
+            "Thursday"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Choose the clothes word.",
+          "correctAnswer": "jacket",
+          "options": [
+            "Monday",
+            "jacket",
+            "slide",
+            "lunch"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Choose the playground word.",
+          "correctAnswer": "swings",
+          "options": [
+            "breakfast",
+            "pink",
+            "scarf",
+            "swings"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "We dance dabka on Open Day.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "There are five days in a week.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: What's the ___? It's five o'clock. (time / day)",
+          "correctAnswer": "time",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Name one thing you can find at the playground.",
+          "correctAnswer": "slide",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put in order to make a suggestion: the swings, go, let's, on",
+          "correctAnswer": "let's, go, on, the swings",
+          "options": [
+            "the swings",
+            "go",
+            "let's",
+            "on"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: What's the time?",
+          "correctAnswer": "What's the time?",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "It is Open Day and it is cold. You will dance and it is windy outside. What do you wear?",
+          "correctAnswer": "a tracksuit and trainers",
+          "options": [
+            "slippers",
+            "a swimming suit",
+            "only a scarf",
+            "a tracksuit and trainers"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows a shoe?",
+          "correctAnswer": "shoe",
+          "options": [
+            "apple",
+            "shoe",
+            "clock",
+            "book"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/apple.png",
+            "assets/openmoji/shoe.png",
+            "assets/openmoji/clock.png",
+            "assets/openmoji/book.png"
+          ]
+        }
+      ],
+      "orderIndex": 5
+    },
+    {
+      "title": "They're jumping! (Unit 15)",
+      "content": "We talk about what we do in our free time and describe what we are doing now: run, jump, fly a kite, play the drums, listen to music, play computer games.",
+      "objectives": "Talking about free time; the present continuous",
+      "imageUrls": [
+        "assets/openmoji/kite.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What do you do with a kite?",
+          "correctAnswer": "fly it",
+          "options": [
+            "eat it",
+            "fly it",
+            "read it",
+            "drink it"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Someone asks 'What are they doing?'. Choose the answer.",
+          "correctAnswer": "They're running",
+          "options": [
+            "I'm nine",
+            "They're running",
+            "Good night",
+            "It's Monday"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Which action means to move fast on your feet?",
+          "correctAnswer": "run",
+          "options": [
+            "read",
+            "run",
+            "listen",
+            "sleep"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "We can listen to music in our free time.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'They're jumping' talks about the past.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: He ___ playing the drums. (is / are)",
+          "correctAnswer": "is",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What do you need wind for, to make it fly high?",
+          "correctAnswer": "a kite",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put in order to make a sentence: is, jumping, she",
+          "correctAnswer": "she, is, jumping",
+          "options": [
+            "is",
+            "jumping",
+            "she"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: listen to music",
+          "correctAnswer": "listen to music",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "The children are on the grass moving up in the air again and again. What are they doing?",
+          "correctAnswer": "jumping",
+          "options": [
+            "sleeping",
+            "reading",
+            "jumping",
+            "eating"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "What are you doing now? Use the present continuous.",
+          "correctAnswer": "I'm reading",
+          "options": [
+            "I read every day",
+            "I read yesterday",
+            "I'm reading",
+            "I will read"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows a kite?",
+          "correctAnswer": "kite",
+          "options": [
+            "book",
+            "kite",
+            "clock",
+            "shoe"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/book.png",
+            "assets/openmoji/kite.png",
+            "assets/openmoji/clock.png",
+            "assets/openmoji/shoe.png"
+          ]
+        }
+      ],
+      "orderIndex": 6
+    },
+    {
+      "title": "I'm Palestinian (Unit 16)",
+      "content": "We talk about where we are from and say what languages we speak: Palestine, Britain, Jordan, Egypt, the United States, Australia; Palestinian, British; Arabic, English.",
+      "objectives": "Talking about countries, nationalities and languages",
+      "imageUrls": [
+        "assets/openmoji/globe.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "Someone from Palestine is:",
+          "correctAnswer": "Palestinian",
+          "options": [
+            "Egyptian",
+            "Palestinian",
+            "British",
+            "Australian"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "What is the capital city of Britain?",
+          "correctAnswer": "London",
+          "options": [
+            "Jerusalem",
+            "Amman",
+            "London",
+            "Cairo"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Which language do we speak in Palestine?",
+          "correctAnswer": "Arabic",
+          "options": [
+            "French",
+            "Arabic",
+            "Spanish",
+            "German"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "Egypt is a country.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "A person from Britain is called Egyptian.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I'm from Palestine. I'm ___. (Palestinian / Palestine)",
+          "correctAnswer": "Palestinian",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What is the capital city of Palestine?",
+          "correctAnswer": "Jerusalem",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put in order to make a sentence: Palestinian, I'm, proud",
+          "correctAnswer": "I'm, proud, Palestinian",
+          "options": [
+            "Palestinian",
+            "I'm",
+            "proud"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: I'm Palestinian",
+          "correctAnswer": "I'm Palestinian",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "A person from Britain speaks English and is called:",
+          "correctAnswer": "British",
+          "options": [
+            "Jordanian",
+            "British",
+            "Australian",
+            "Palestinian"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Your friend is from Amman. Which country is your friend from?",
+          "correctAnswer": "Jordan",
+          "options": [
+            "Egypt",
+            "Jordan",
+            "Britain",
+            "Australia"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows the world (a globe)?",
+          "correctAnswer": "globe",
+          "options": [
+            "clock",
+            "globe",
+            "book",
+            "car"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/clock.png",
+            "assets/openmoji/globe.png",
+            "assets/openmoji/book.png",
+            "assets/openmoji/car.png"
+          ]
+        }
+      ],
+      "orderIndex": 7
+    },
+    {
+      "title": "My favourite … (Unit 17)",
+      "content": "We describe sports and express likes and dislikes: basketball, volleyball, table tennis; My favourite sport is …; It's fun / boring / easy / difficult / great.",
+      "objectives": "Describing sports and expressing likes and dislikes",
+      "imageUrls": [
+        "assets/openmoji/basketball.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "Which sport do you play with a small ball and a small bat on a table?",
+          "correctAnswer": "table tennis",
+          "options": [
+            "football",
+            "volleyball",
+            "table tennis",
+            "basketball"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Someone asks 'What's your favourite sport?'. Choose an answer.",
+          "correctAnswer": "My favourite sport is football",
+          "options": [
+            "I'm nine",
+            "My favourite sport is football",
+            "It's rainy",
+            "It's Monday"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Which word means the opposite of 'easy'?",
+          "correctAnswer": "difficult",
+          "options": [
+            "fun",
+            "great",
+            "difficult",
+            "nice"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "Basketball is a sport.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Boring' means something is very interesting.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: Do you like basketball? Yes, I ___ it. (like / likes)",
+          "correctAnswer": "like",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Name one sport you play with a ball and a net over it.",
+          "correctAnswer": "volleyball",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put in order to make a sentence: sport, my, is, favourite, football",
+          "correctAnswer": "my, favourite, sport, is, football",
+          "options": [
+            "sport",
+            "my",
+            "is",
+            "favourite",
+            "football"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: My favourite sport",
+          "correctAnswer": "My favourite sport",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "You think a game is very good and you enjoy it a lot. You say it's:",
+          "correctAnswer": "great",
+          "options": [
+            "boring",
+            "difficult",
+            "bad",
+            "great"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "You like football but you don't like table tennis. What is your favourite sport?",
+          "correctAnswer": "football",
+          "options": [
+            "both",
+            "none",
+            "table tennis",
+            "football"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows a basketball?",
+          "correctAnswer": "basketball",
+          "options": [
+            "book",
+            "clock",
+            "basketball",
+            "apple"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/book.png",
+            "assets/openmoji/clock.png",
+            "assets/openmoji/basketball.png",
+            "assets/openmoji/apple.png"
+          ]
+        }
+      ],
+      "orderIndex": 8
+    },
+    {
+      "title": "Revision 4 (Units 15–17)",
+      "content": "We revise free-time actions, countries and nationalities, and sports with likes and dislikes.",
+      "objectives": "Revising the language of Units 15–17",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "Choose the free-time action.",
+          "correctAnswer": "fly a kite",
+          "options": [
+            "volleyball",
+            "Jordan",
+            "London",
+            "fly a kite"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Choose the country.",
+          "correctAnswer": "Egypt",
+          "options": [
+            "basketball",
+            "running",
+            "great",
+            "Egypt"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Choose the sport.",
+          "correctAnswer": "volleyball",
+          "options": [
+            "British",
+            "jumping",
+            "Australia",
+            "volleyball"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "We speak Arabic in Palestine.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'They're running' means they ran last year.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: They ___ listening to music. (are / is)",
+          "correctAnswer": "are",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What is your favourite sport?",
+          "correctAnswer": "My favourite sport is ...",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put in order to make a question: doing, are, what, they",
+          "correctAnswer": "what, are, they, doing",
+          "options": [
+            "doing",
+            "are",
+            "what",
+            "they"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: What are they doing?",
+          "correctAnswer": "What are they doing?",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Rami is from Palestine and loves basketball; he finds it great. Which is true?",
+          "correctAnswer": "Rami is Palestinian and likes basketball",
+          "options": [
+            "Rami is British",
+            "Rami is from Egypt",
+            "Rami hates sport",
+            "Rami is Palestinian and likes basketball"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows a ball?",
+          "correctAnswer": "ball",
+          "options": [
+            "book",
+            "clock",
+            "car",
+            "ball"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/book.png",
+            "assets/openmoji/clock.png",
+            "assets/openmoji/car.png",
+            "assets/openmoji/soccer_ball.png"
+          ]
+        }
+      ],
+      "orderIndex": 9
+    }
+  ]
+}

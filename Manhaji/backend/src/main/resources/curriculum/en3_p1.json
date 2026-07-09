@@ -1,0 +1,1291 @@
+{
+  "subject": "English",
+  "subjectCode": "en",
+  "gradeLevel": 3,
+  "semester": 1,
+  "totalLessons": 9,
+  "lessons": [
+    {
+      "title": "All about me (Unit 1)",
+      "content": "We greet people and give information about ourselves: our name, our age and where we are from.",
+      "objectives": "Greeting people and giving personal information",
+      "imageUrls": [
+        "assets/openmoji/boy.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "How do you greet someone in the morning?",
+          "correctAnswer": "Good morning",
+          "options": [
+            "Goodbye",
+            "Good morning",
+            "Good night",
+            "Thank you"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Someone asks 'How are you?'. What do you say?",
+          "correctAnswer": "Fine, thanks",
+          "options": [
+            "My name is Sara",
+            "Goodbye",
+            "I am nine",
+            "Fine, thanks"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "How do you ask about someone's age?",
+          "correctAnswer": "How old are you?",
+          "options": [
+            "What's your name?",
+            "How old are you?",
+            "Where are you from?",
+            "How are you?"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Good afternoon' is a greeting.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "We say 'Goodbye' when we meet someone for the first time.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: My name ___ Walid. (is / are)",
+          "correctAnswer": "is",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Answer: What is your name?",
+          "correctAnswer": "My name is ...",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put in order to make a question: are, how, you",
+          "correctAnswer": "how, are, you",
+          "options": [
+            "are",
+            "how",
+            "you"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: Good morning",
+          "correctAnswer": "Good morning",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: How are you?",
+          "correctAnswer": "How are you?",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Walid is from Bethlehem. Where is Walid from?",
+          "correctAnswer": "Bethlehem",
+          "options": [
+            "Gaza",
+            "Bethlehem",
+            "Nablus",
+            "Haifa"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "You want to know where a new friend lives. What do you ask?",
+          "correctAnswer": "Where are you from?",
+          "options": [
+            "What is this?",
+            "How are you?",
+            "Where are you from?",
+            "How old are you?"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 1
+    },
+    {
+      "title": "He's a doctor (Unit 2)",
+      "content": "We talk about jobs and say what members of our family do: doctor, nurse, police officer, teacher, dentist, farmer, driver.",
+      "objectives": "Talking about jobs and family members",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "A person who helps sick people at the hospital is a:",
+          "correctAnswer": "doctor",
+          "options": [
+            "teacher",
+            "farmer",
+            "doctor",
+            "driver"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "A person who teaches children at school is a:",
+          "correctAnswer": "teacher",
+          "options": [
+            "nurse",
+            "farmer",
+            "dentist",
+            "teacher"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "A person who takes care of your teeth is a:",
+          "correctAnswer": "dentist",
+          "options": [
+            "farmer",
+            "dentist",
+            "driver",
+            "doctor"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "A farmer works on the land and grows food.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "A driver teaches maths at school.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: What's his job? He's ___ nurse. (a / an)",
+          "correctAnswer": "a",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What do we call the brother of your father?",
+          "correctAnswer": "uncle",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put in order to make a question: his, what's, job",
+          "correctAnswer": "what's, his, job",
+          "options": [
+            "his",
+            "what's",
+            "job"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: police officer",
+          "correctAnswer": "police officer",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Who's she? She's my grandmother. Who are we talking about?",
+          "correctAnswer": "father's mother",
+          "options": [
+            "my friend",
+            "father's mother",
+            "my teacher",
+            "father's brother"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "The sister of your mother is your:",
+          "correctAnswer": "aunt",
+          "options": [
+            "cousin",
+            "uncle",
+            "aunt",
+            "grandmother"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows a family?",
+          "correctAnswer": "family",
+          "options": [
+            "book",
+            "car",
+            "family",
+            "apple"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/book.png",
+            "assets/openmoji/car.png",
+            "assets/openmoji/family.png",
+            "assets/openmoji/apple.png"
+          ]
+        }
+      ],
+      "orderIndex": 2
+    },
+    {
+      "title": "At the market (Unit 3)",
+      "content": "We buy food at the market and say what we like and don't like: apples, figs, onions, melon, oranges, carrots, tomatoes, bananas, grapes, potatoes.",
+      "objectives": "Buying food and saying what food you like",
+      "imageUrls": [
+        "assets/openmoji/apple.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "Which of these is a fruit?",
+          "correctAnswer": "banana",
+          "options": [
+            "carrot",
+            "onion",
+            "banana",
+            "potato"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Which of these is a vegetable?",
+          "correctAnswer": "carrot",
+          "options": [
+            "grapes",
+            "apple",
+            "banana",
+            "carrot"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "At the market you want to buy something. What do you say?",
+          "correctAnswer": "I'd like figs, please",
+          "options": [
+            "How old are you?",
+            "I am fine",
+            "I'd like figs, please",
+            "Goodbye"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "Oranges are a kind of fruit.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "We pay money when we buy food at the market.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I ___ carrots. (don't like / likes)",
+          "correctAnswer": "don't like",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "The seller gives you the food and says 'Here you are.' What do you say?",
+          "correctAnswer": "Thank you",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put in order to make a sentence: like, grapes, I",
+          "correctAnswer": "I, like, grapes",
+          "options": [
+            "like",
+            "grapes",
+            "I"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: tomatoes",
+          "correctAnswer": "tomatoes",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "The apples cost 10 dinars. How much do they cost?",
+          "correctAnswer": "10 dinars",
+          "options": [
+            "5 dinars",
+            "20 dinars",
+            "1 dinar",
+            "10 dinars"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows grapes?",
+          "correctAnswer": "grapes",
+          "options": [
+            "potato",
+            "carrot",
+            "lemon",
+            "grapes"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/potato.png",
+            "assets/openmoji/carrot.png",
+            "assets/openmoji/lemon.png",
+            "assets/openmoji/grapes.png"
+          ]
+        },
+        {
+          "type": "MCQ",
+          "questionText": "You like bananas but you don't like onions. What do you buy?",
+          "correctAnswer": "bananas",
+          "options": [
+            "nothing",
+            "both",
+            "bananas",
+            "onions"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 3
+    },
+    {
+      "title": "At the zoo (Unit 4)",
+      "content": "We talk about animals and describe them with colours and other words: tiger, fox, giraffe, elephant, snake, monkey; grey, brown, orange; the numbers six to ten.",
+      "objectives": "Talking about animals; colours and numbers 6–10",
+      "imageUrls": [
+        "assets/openmoji/elephant.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "Which animal is very big and grey and has a long trunk?",
+          "correctAnswer": "elephant",
+          "options": [
+            "monkey",
+            "elephant",
+            "snake",
+            "fox"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Which animal has no legs?",
+          "correctAnswer": "snake",
+          "options": [
+            "tiger",
+            "monkey",
+            "snake",
+            "giraffe"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Which animal has a very long neck?",
+          "correctAnswer": "giraffe",
+          "options": [
+            "snake",
+            "monkey",
+            "giraffe",
+            "fox"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "A monkey can climb trees.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "An elephant is a small animal.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete the numbers: six, seven, eight, ___",
+          "correctAnswer": "nine",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What colour is a banana?",
+          "correctAnswer": "yellow",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put the numbers in order: ten, six, eight",
+          "correctAnswer": "six, eight, ten",
+          "options": [
+            "ten",
+            "six",
+            "eight"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: giraffe",
+          "correctAnswer": "giraffe",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "The number that comes after nine is:",
+          "correctAnswer": "ten",
+          "options": [
+            "six",
+            "seven",
+            "ten",
+            "eight"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows a monkey?",
+          "correctAnswer": "monkey",
+          "options": [
+            "bear",
+            "elephant",
+            "lion",
+            "monkey"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/bear.png",
+            "assets/openmoji/elephant.png",
+            "assets/openmoji/lion.png",
+            "assets/openmoji/monkey.png"
+          ]
+        },
+        {
+          "type": "MCQ",
+          "questionText": "A tiger is orange with black lines. What colour is a tiger?",
+          "correctAnswer": "orange",
+          "options": [
+            "grey",
+            "blue",
+            "green",
+            "orange"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 4
+    },
+    {
+      "title": "Revision 1 (Units 1–4)",
+      "content": "We revise greetings and personal information, jobs and family, food, and animals with colours and numbers.",
+      "objectives": "Revising the language of Units 1–4",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "Choose the greeting.",
+          "correctAnswer": "Good afternoon",
+          "options": [
+            "carrot",
+            "nine",
+            "elephant",
+            "Good afternoon"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Choose the job.",
+          "correctAnswer": "nurse",
+          "options": [
+            "brown",
+            "snake",
+            "nurse",
+            "banana"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Choose the food.",
+          "correctAnswer": "melon",
+          "options": [
+            "teacher",
+            "giraffe",
+            "grey",
+            "melon"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "A doctor helps sick people.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "The number after seven is nine.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: How ___ are you? I'm nine. (old / many)",
+          "correctAnswer": "old",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Name one animal you can see at the zoo.",
+          "correctAnswer": "monkey",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put in order: from, you, are, where",
+          "correctAnswer": "where, are, you, from",
+          "options": [
+            "from",
+            "you",
+            "are",
+            "where"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: Good morning, children",
+          "correctAnswer": "Good morning, children",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Sami likes apples. Rana doesn't like apples. Who likes apples?",
+          "correctAnswer": "Sami",
+          "options": [
+            "Rana",
+            "nobody",
+            "Sami",
+            "both"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows an apple?",
+          "correctAnswer": "apple",
+          "options": [
+            "book",
+            "car",
+            "elephant",
+            "apple"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/book.png",
+            "assets/openmoji/car.png",
+            "assets/openmoji/elephant.png",
+            "assets/openmoji/apple.png"
+          ]
+        }
+      ],
+      "orderIndex": 5
+    },
+    {
+      "title": "I don't feel well (Unit 6)",
+      "content": "We say what is wrong with us and give and understand advice: stomach, head, back, foot/feet, tooth/teeth; Go to the doctor. Go to bed. Take this medicine.",
+      "objectives": "Saying what is wrong and giving advice",
+      "imageUrls": [
+        "assets/openmoji/tooth.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "You have a problem with your tooth. Where do you go?",
+          "correctAnswer": "the dentist",
+          "options": [
+            "the zoo",
+            "the market",
+            "the dentist",
+            "the beach"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Someone asks 'What's the matter?'. What can you say?",
+          "correctAnswer": "My head hurts",
+          "options": [
+            "Good morning",
+            "It's sunny",
+            "I'm nine",
+            "My head hurts"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "The plural of 'foot' is:",
+          "correctAnswer": "feet",
+          "options": [
+            "feets",
+            "foot",
+            "feet",
+            "foots"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "When you don't feel well, you can go to the doctor.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "'Have a rest' is a kind of advice.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: My teeth ___. (hurt / hurts)",
+          "correctAnswer": "hurt",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Which part of your body do you think with?",
+          "correctAnswer": "head",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put in order to give advice: to, go, bed",
+          "correctAnswer": "go, to, bed",
+          "options": [
+            "to",
+            "go",
+            "bed"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: stomach",
+          "correctAnswer": "stomach",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "The plural of 'tooth' is:",
+          "correctAnswer": "teeth",
+          "options": [
+            "tooths",
+            "toothes",
+            "teeth",
+            "tooth"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows a foot?",
+          "correctAnswer": "foot",
+          "options": [
+            "hand",
+            "eye",
+            "nose",
+            "foot"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/hand.png",
+            "assets/openmoji/eye.png",
+            "assets/openmoji/nose.png",
+            "assets/openmoji/foot.png"
+          ]
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Your friend's stomach hurts. What advice do you give?",
+          "correctAnswer": "Go to the doctor",
+          "options": [
+            "Play football",
+            "Eat more sweets",
+            "Go to the doctor",
+            "Run fast"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 6
+    },
+    {
+      "title": "My day (Unit 7)",
+      "content": "We talk about our daily routine and say when we do things: I get up, I go to school, I do homework, I go to bed; in the morning, in the afternoon, in the evening, at night.",
+      "objectives": "Talking about your daily routine and times of day",
+      "imageUrls": [
+        "assets/openmoji/sun.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "What do you do first in the morning?",
+          "correctAnswer": "I get up",
+          "options": [
+            "I do homework",
+            "I go to bed",
+            "I watch cartoons",
+            "I get up"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "When do you sleep?",
+          "correctAnswer": "at night",
+          "options": [
+            "in the morning",
+            "at school",
+            "in the afternoon",
+            "at night"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Where do you go to learn?",
+          "correctAnswer": "to school",
+          "options": [
+            "to the zoo",
+            "to bed",
+            "to the market",
+            "to school"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "We do homework after school.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "We get up at night and go to bed in the morning.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: I ___ up in the morning. (get / go)",
+          "correctAnswer": "get",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "What do you call the time after the morning and before the evening?",
+          "correctAnswer": "afternoon",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put the day in order: go to school, get up, go to bed",
+          "correctAnswer": "get up, go to school, go to bed",
+          "options": [
+            "go to school",
+            "get up",
+            "go to bed"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: in the evening",
+          "correctAnswer": "in the evening",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Someone asks 'When do you get up?'. Choose a good answer.",
+          "correctAnswer": "In the morning",
+          "options": [
+            "A doctor",
+            "At school",
+            "An elephant",
+            "In the morning"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "You finish school, then you play, then you do homework. What do you do last?",
+          "correctAnswer": "do homework",
+          "options": [
+            "get up",
+            "play",
+            "go to school",
+            "do homework"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows the sun?",
+          "correctAnswer": "sun",
+          "options": [
+            "moon",
+            "rain",
+            "cloud",
+            "sun"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/moon.png",
+            "assets/openmoji/rain.png",
+            "assets/openmoji/cloud.png",
+            "assets/openmoji/sun.png"
+          ]
+        }
+      ],
+      "orderIndex": 7
+    },
+    {
+      "title": "It's sunny (Unit 8)",
+      "content": "We talk about the weather and say where people are: rainy, windy, sunny, cloudy, hot, cold; swimming pool, beach, park, zoo, playground, river.",
+      "objectives": "Talking about the weather and places",
+      "imageUrls": [
+        "assets/openmoji/rainbow.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "The sun is shining. What's the weather like?",
+          "correctAnswer": "It's sunny",
+          "options": [
+            "It's snowy",
+            "It's sunny",
+            "It's rainy",
+            "It's cloudy"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "It is raining. What's the weather like?",
+          "correctAnswer": "It's rainy",
+          "options": [
+            "It's windy",
+            "It's hot",
+            "It's sunny",
+            "It's rainy"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Where do you go to swim?",
+          "correctAnswer": "the swimming pool",
+          "options": [
+            "the zoo",
+            "the swimming pool",
+            "the market",
+            "the school"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "In summer the weather is often hot.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "When it's cold we usually wear light summer clothes.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: What's the ___? It's windy. (weather / time)",
+          "correctAnswer": "weather",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Where can you play games outside with other children?",
+          "correctAnswer": "playground",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put in order to make a sentence: at, the, we're, beach",
+          "correctAnswer": "we're, at, the, beach",
+          "options": [
+            "at",
+            "the",
+            "we're",
+            "beach"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: It's cloudy",
+          "correctAnswer": "It's cloudy",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "There is a lot of wind today. What's the weather like?",
+          "correctAnswer": "It's windy",
+          "options": [
+            "It's rainy",
+            "It's windy",
+            "It's hot",
+            "It's sunny"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows rain?",
+          "correctAnswer": "rain",
+          "options": [
+            "snowflake",
+            "star",
+            "sun",
+            "rain"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/snowflake.png",
+            "assets/openmoji/star.png",
+            "assets/openmoji/sun.png",
+            "assets/openmoji/rain.png"
+          ]
+        },
+        {
+          "type": "MCQ",
+          "questionText": "It's hot and sunny. Which place is best to cool down?",
+          "correctAnswer": "the swimming pool",
+          "options": [
+            "the market",
+            "the playground",
+            "the swimming pool",
+            "the school"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 8
+    },
+    {
+      "title": "Revision 2 (Units 1–8)",
+      "content": "We revise the language of the first semester: greetings, jobs, food, animals, the body and advice, daily routine and the weather.",
+      "objectives": "Revising the language of Units 1–8",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "Choose the weather word.",
+          "correctAnswer": "cloudy",
+          "options": [
+            "banana",
+            "dentist",
+            "monkey",
+            "cloudy"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Choose the part of the body.",
+          "correctAnswer": "back",
+          "options": [
+            "farmer",
+            "river",
+            "grey",
+            "back"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "Choose the place.",
+          "correctAnswer": "beach",
+          "options": [
+            "seven",
+            "beach",
+            "tomato",
+            "nurse"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "We go to bed at night.",
+          "correctAnswer": "True",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "A giraffe is a kind of food.",
+          "correctAnswer": "False",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "Complete: It ___ sunny today. (is / are)",
+          "correctAnswer": "is",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "Name one job.",
+          "correctAnswer": "teacher",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "Put in order: the, matter, what's",
+          "correctAnswer": "what's, the, matter",
+          "options": [
+            "the",
+            "matter",
+            "what's"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "Say: What's the weather like?",
+          "correctAnswer": "What's the weather like?",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "It's cold and your head hurts. What do you do?",
+          "correctAnswer": "Go to bed and have a rest",
+          "options": [
+            "Run outside",
+            "Go to bed and have a rest",
+            "Go swimming",
+            "Play in the rain"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows a hand?",
+          "correctAnswer": "hand",
+          "options": [
+            "foot",
+            "hand",
+            "ear",
+            "eye"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/foot.png",
+            "assets/openmoji/hand.png",
+            "assets/openmoji/ear.png",
+            "assets/openmoji/eye.png"
+          ]
+        }
+      ],
+      "orderIndex": 9
+    }
+  ]
+}

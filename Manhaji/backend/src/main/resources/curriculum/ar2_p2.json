@@ -31,8 +31,8 @@
           "options": [
             "دمشق",
             "حيفا",
-            "عمّان",
-            "بيروت"
+            "بيروت",
+            "عمّان"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -42,10 +42,10 @@
           "questionText": "ما الذي عبّر عنه ياسر وعبير في مقالتهما؟",
           "correctAnswer": "حق العودة والعيش في الوطن",
           "options": [
-            "السفر إلى الخارج",
-            "حق العودة والعيش في الوطن",
             "نسيان الوطن",
-            "كراهية الوطن"
+            "السفر إلى الخارج",
+            "كراهية الوطن",
+            "حق العودة والعيش في الوطن"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -140,10 +140,10 @@
           "questionText": "بمَ تغلّب الحطّاب على النمر؟",
           "correctAnswer": "بالعقل والحكمة",
           "options": [
+            "بالهرب",
             "بالقوة الجسدية",
-            "بالعقل والحكمة",
             "بالصراخ",
-            "بالهرب"
+            "بالعقل والحكمة"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -153,9 +153,9 @@
           "questionText": "أين أوقع الحطّاب النمر؟",
           "correctAnswer": "في حفرة",
           "options": [
-            "في الماء",
-            "في حفرة",
             "في النار",
+            "في حفرة",
+            "في الماء",
             "في القفص"
           ],
           "difficultyLevel": 1,
@@ -167,9 +167,9 @@
           "correctAnswer": "العقل أقوى من القوة الجسدية",
           "options": [
             "القوة دائماً أهم",
-            "العقل أقوى من القوة الجسدية",
             "النمر صديق الإنسان",
-            "الحطّاب لا يفيد"
+            "الحطّاب لا يفيد",
+            "العقل أقوى من القوة الجسدية"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -249,6 +249,44 @@
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "pronunciation"
+        },
+        {
+          "type": "IMAGE_MATCH",
+          "questionText": "صِل الكلمة بضدّها",
+          "correctAnswer": "1=a,2=b,3=c",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "left": [
+              {
+                "id": "1",
+                "text": "قَوِيّ"
+              },
+              {
+                "id": "2",
+                "text": "كَبير"
+              },
+              {
+                "id": "3",
+                "text": "سَريع"
+              }
+            ],
+            "right": [
+              {
+                "id": "b",
+                "text": "صَغير"
+              },
+              {
+                "id": "a",
+                "text": "ضَعيف"
+              },
+              {
+                "id": "c",
+                "text": "بَطيء"
+              }
+            ]
+          }
         }
       ],
       "imageUrls": []
@@ -278,9 +316,9 @@
           "correctAnswer": "القيم والأخلاق",
           "options": [
             "السيارات فقط",
-            "القيم والأخلاق",
+            "الصواريخ",
             "الألعاب",
-            "الصواريخ"
+            "القيم والأخلاق"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -292,8 +330,8 @@
           "options": [
             "النوم الكثير",
             "كل عمل صالح",
-            "اللعب فقط",
-            "الإهمال"
+            "الإهمال",
+            "اللعب فقط"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -388,10 +426,10 @@
           "questionText": "أين بنت العصفورة عشّها؟",
           "correctAnswer": "في شجرة",
           "options": [
-            "تحت الأرض",
-            "في شجرة",
             "في الماء",
-            "في كهف"
+            "تحت الأرض",
+            "في كهف",
+            "في شجرة"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -401,10 +439,10 @@
           "questionText": "من الذي حاول إيذاء صغار العصفورة؟",
           "correctAnswer": "أفعى",
           "options": [
-            "نمر",
-            "أفعى",
+            "ثعلب",
             "ذئب",
-            "ثعلب"
+            "أفعى",
+            "نمر"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -415,8 +453,8 @@
           "correctAnswer": "صاحت طلباً للنجدة فجاء الفلّاحون",
           "options": [
             "هربت وحدها",
-            "صاحت طلباً للنجدة فجاء الفلّاحون",
             "قاتلت الأفعى",
+            "صاحت طلباً للنجدة فجاء الفلّاحون",
             "بكت فقط"
           ],
           "difficultyLevel": 2,
@@ -497,9 +535,30 @@
           "options": null,
           "difficultyLevel": 2,
           "subSkill": "pronunciation"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة الطائر الذي بنى العُشّ",
+          "correctAnswer": "عصفور",
+          "options": [
+            "بقرة",
+            "حصان",
+            "ماعز",
+            "عصفور"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/cow.png",
+            "assets/openmoji/horse.png",
+            "assets/openmoji/goat.png",
+            "assets/openmoji/bird.png"
+          ]
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/bird.png"
+      ]
     },
     {
       "title": "في مدينة الخليل",
@@ -512,10 +571,10 @@
           "questionText": "ما اسم المسجد الشهير في الخليل؟",
           "correctAnswer": "الحرم الإبراهيمي",
           "options": [
-            "المسجد الأقصى",
-            "الحرم الإبراهيمي",
             "مسجد قبة الصخرة",
-            "مسجد عمر"
+            "المسجد الأقصى",
+            "مسجد عمر",
+            "الحرم الإبراهيمي"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -525,10 +584,10 @@
           "questionText": "بأي منتج تشتهر مدينة الخليل؟",
           "correctAnswer": "العنب والزجاج",
           "options": [
-            "الأسماك",
+            "النفط",
             "العنب والزجاج",
             "الذهب",
-            "النفط"
+            "الأسماك"
           ],
           "difficultyLevel": 2,
           "subSkill": "recognition"
@@ -538,9 +597,9 @@
           "questionText": "ما اسم النبي الذي يحمل المسجد اسمه؟",
           "correctAnswer": "إبراهيم عليه السلام",
           "options": [
-            "موسى",
             "عيسى",
             "إبراهيم عليه السلام",
+            "موسى",
             "نوح"
           ],
           "difficultyLevel": 2,
@@ -621,6 +680,14 @@
           "options": null,
           "difficultyLevel": 2,
           "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "زُرْتُ مَدينَةَ الخَليلِ مَعَ عائِلَتي يَوْمَ الجُمُعَةِ",
+          "correctAnswer": "زُرْتُ مَدينَةَ الخَليلِ مَعَ عائِلَتي يَوْمَ الجُمُعَةِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
         }
       ],
       "imageUrls": []
@@ -636,10 +703,10 @@
           "questionText": "ماذا أفعل أولاً عند استيقاظي؟",
           "correctAnswer": "أغسل وجهي",
           "options": [
-            "أنام مجدداً",
-            "أغسل وجهي",
             "أبكي",
-            "أركض إلى الشارع"
+            "أنام مجدداً",
+            "أركض إلى الشارع",
+            "أغسل وجهي"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -649,9 +716,9 @@
           "questionText": "ماذا أحضر قبل الذهاب إلى المدرسة؟",
           "correctAnswer": "حقيبتي وكتبي",
           "options": [
-            "لعبتي",
-            "حقيبتي وكتبي",
             "تلفازي",
+            "حقيبتي وكتبي",
+            "لعبتي",
             "وسادتي"
           ],
           "difficultyLevel": 1,
@@ -662,10 +729,10 @@
           "questionText": "أيّ سلوك يجعل الصباح ناجحاً؟",
           "correctAnswer": "تنظيم الوقت والاستعداد المبكر",
           "options": [
+            "إهمال الفطور",
             "النوم متأخّراً",
             "تنظيم الوقت والاستعداد المبكر",
-            "تأخير المهام",
-            "إهمال الفطور"
+            "تأخير المهام"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -745,6 +812,14 @@
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "أَسْتَيْقِظُ صَباحاً وَأَغْسِلُ وَجْهي ثُمَّ أَتَناوَلُ فُطوري",
+          "correctAnswer": "أَسْتَيْقِظُ صَباحاً وَأَغْسِلُ وَجْهي ثُمَّ أَتَناوَلُ فُطوري",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "reading"
         }
       ],
       "imageUrls": []
@@ -760,9 +835,9 @@
           "questionText": "ماذا فقد الفلّاح في القصة؟",
           "correctAnswer": "بقرته",
           "options": [
-            "أرضه",
-            "بقرته",
             "بيته",
+            "بقرته",
+            "أرضه",
             "ملابسه"
           ],
           "difficultyLevel": 1,
@@ -773,10 +848,10 @@
           "questionText": "كيف عوّض الفلّاح خسارته؟",
           "correctAnswer": "بحيلته وذكائه",
           "options": [
-            "بالبكاء",
-            "بحيلته وذكائه",
             "بسرقة بقرة أخرى",
-            "بالاستسلام"
+            "بحيلته وذكائه",
+            "بالاستسلام",
+            "بالبكاء"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -786,10 +861,10 @@
           "questionText": "ما الدرس المستفاد من القصة؟",
           "correctAnswer": "الذكاء يعوّض الخسارة",
           "options": [
-            "الكسل خير",
-            "الذكاء يعوّض الخسارة",
+            "البكاء يحلّ المشاكل",
             "الانتقام أفضل حلّ",
-            "البكاء يحلّ المشاكل"
+            "الذكاء يعوّض الخسارة",
+            "الكسل خير"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -884,10 +959,10 @@
           "questionText": "في أيّ يوم نحتفل بيوم الطفل الفلسطيني؟",
           "correctAnswer": "في الخامس من نيسان",
           "options": [
-            "في الأول من رمضان",
-            "في الخامس من نيسان",
             "في عيد الفطر",
-            "في رأس السنة"
+            "في رأس السنة",
+            "في الخامس من نيسان",
+            "في الأول من رمضان"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -897,10 +972,10 @@
           "questionText": "أيّ مما يلي من حقوق الطفل؟",
           "correctAnswer": "حقّ التعليم",
           "options": [
+            "حقّ الإهمال",
             "حقّ التدخين",
-            "حقّ التعليم",
             "حقّ السهر",
-            "حقّ الإهمال"
+            "حقّ التعليم"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -910,10 +985,10 @@
           "questionText": "ما واجب الطفل تجاه نفسه ووطنه؟",
           "correctAnswer": "الاجتهاد في الدراسة وحب الوطن",
           "options": [
-            "إضاعة وقته",
-            "الاجتهاد في الدراسة وحب الوطن",
             "ترك المدرسة",
-            "كراهية الوطن"
+            "كراهية الوطن",
+            "الاجتهاد في الدراسة وحب الوطن",
+            "إضاعة وقته"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -1008,10 +1083,10 @@
           "questionText": "من بطل القصة؟",
           "correctAnswer": "عمر بن الخطاب رضي الله عنه",
           "options": [
-            "خالد بن الوليد",
-            "عمر بن الخطاب رضي الله عنه",
             "أبو بكر الصديق",
-            "علي بن أبي طالب"
+            "خالد بن الوليد",
+            "علي بن أبي طالب",
+            "عمر بن الخطاب رضي الله عنه"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1023,8 +1098,8 @@
           "options": [
             "ينام في القصر",
             "يتفقّد أحوال رعيّته",
-            "يصطاد",
-            "يكتب الشعر فقط"
+            "يكتب الشعر فقط",
+            "يصطاد"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -1034,10 +1109,10 @@
           "questionText": "ما الصفة العظيمة التي علّمنا إيّاها هذا الموقف؟",
           "correctAnswer": "العدل والمسؤولية تجاه الناس",
           "options": [
-            "الكسل",
-            "العدل والمسؤولية تجاه الناس",
             "الإهمال",
-            "البخل"
+            "الكسل",
+            "البخل",
+            "العدل والمسؤولية تجاه الناس"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -1133,9 +1208,9 @@
           "correctAnswer": "بالعلم والاجتهاد",
           "options": [
             "بالكسل والنوم",
-            "بالعلم والاجتهاد",
+            "بترك المدرسة",
             "بالأمنيات فقط",
-            "بترك المدرسة"
+            "بالعلم والاجتهاد"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1145,10 +1220,10 @@
           "questionText": "أيّ حلم يخدم الوطن؟",
           "correctAnswer": "أن أكون عالماً أو طبيباً",
           "options": [
-            "أن لا أعمل شيئاً",
-            "أن أكون عالماً أو طبيباً",
+            "أن أهرب من البلاد",
             "أن أنام طوال اليوم",
-            "أن أهرب من البلاد"
+            "أن لا أعمل شيئاً",
+            "أن أكون عالماً أو طبيباً"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -1158,10 +1233,10 @@
           "questionText": "ما الذي يجعل الحلم واقعاً؟",
           "correctAnswer": "العمل عليه يومياً",
           "options": [
-            "نسيانه",
-            "العمل عليه يومياً",
             "السخرية منه",
-            "التخلي عنه"
+            "التخلي عنه",
+            "نسيانه",
+            "العمل عليه يومياً"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -1256,10 +1331,10 @@
           "questionText": "ماذا يعمل الأب في هذا الدرس؟",
           "correctAnswer": "يعمل لكسب الرزق",
           "options": [
-            "ينام طوال اليوم",
-            "يعمل لكسب الرزق",
             "يسافر باستمرار",
-            "لا يفعل شيئاً"
+            "ينام طوال اليوم",
+            "لا يفعل شيئاً",
+            "يعمل لكسب الرزق"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1270,9 +1345,9 @@
           "correctAnswer": "بالطاعة والاحترام والاجتهاد",
           "options": [
             "بالعقوق",
-            "بالطاعة والاحترام والاجتهاد",
             "بالتجاهل",
-            "بالصراخ"
+            "بالصراخ",
+            "بالطاعة والاحترام والاجتهاد"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -1282,10 +1357,10 @@
           "questionText": "ما واجبي تجاه أبي؟",
           "correctAnswer": "احترامه وبرّه",
           "options": [
-            "إيذاؤه",
-            "احترامه وبرّه",
             "تجاهله",
-            "السخرية منه"
+            "إيذاؤه",
+            "السخرية منه",
+            "احترامه وبرّه"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1365,6 +1440,14 @@
           "options": null,
           "difficultyLevel": 2,
           "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "أَبي يَعْمَلُ بِجِدٍّ مِنْ أَجْلِنا فَأَنا أُحِبُّهُ كَثيراً",
+          "correctAnswer": "أَبي يَعْمَلُ بِجِدٍّ مِنْ أَجْلِنا فَأَنا أُحِبُّهُ كَثيراً",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
         }
       ],
       "imageUrls": []
@@ -1380,10 +1463,10 @@
           "questionText": "بمَ كان يتميّز الببّغاء سلباً؟",
           "correctAnswer": "بكثرة الثرثرة",
           "options": [
+            "بالنوم",
             "بالصمت",
-            "بكثرة الثرثرة",
             "بالغناء الجميل",
-            "بالنوم"
+            "بكثرة الثرثرة"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1395,8 +1478,8 @@
           "options": [
             "استمر بالثرثرة",
             "تكلّم قليلاً واسمع كثيراً",
-            "لا تتكلم أبداً",
-            "ارفع صوتك أكثر"
+            "ارفع صوتك أكثر",
+            "لا تتكلم أبداً"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -1504,10 +1587,10 @@
           "questionText": "ماذا وجد سعيد في الحقل؟",
           "correctAnswer": "صقراً مجروحاً",
           "options": [
-            "ذئباً جائعاً",
-            "صقراً مجروحاً",
             "كنزاً",
-            "بيتاً قديماً"
+            "ذئباً جائعاً",
+            "بيتاً قديماً",
+            "صقراً مجروحاً"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1517,10 +1600,10 @@
           "questionText": "ماذا فعل سعيد بالصقر بعد شفائه؟",
           "correctAnswer": "أطلقه ليطير حرّاً",
           "options": [
-            "وضعه في قفص",
+            "أكله",
             "أطلقه ليطير حرّاً",
             "باعه",
-            "أكله"
+            "وضعه في قفص"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -1530,10 +1613,10 @@
           "questionText": "ما القيمة التي تعلّمها سعيد؟",
           "correctAnswer": "الرفق بالحيوان وحبّه",
           "options": [
-            "إيذاء الحيوان",
-            "الرفق بالحيوان وحبّه",
             "ترك الحيوان يعاني",
-            "الخوف من الطيور"
+            "الخوف من الطيور",
+            "إيذاء الحيوان",
+            "الرفق بالحيوان وحبّه"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -1628,9 +1711,9 @@
           "questionText": "أيّ مما يلي نشتري من البقّالة؟",
           "correctAnswer": "الحليب والجبن",
           "options": [
-            "الأثاث",
-            "الحليب والجبن",
             "الكتب",
+            "الحليب والجبن",
+            "الأثاث",
             "السيارات"
           ],
           "difficultyLevel": 1,
@@ -1641,10 +1724,10 @@
           "questionText": "ماذا نفعل بعد استلام البضاعة؟",
           "correctAnswer": "ندفع الثمن ونشكر البقّال",
           "options": [
-            "نهرب",
-            "ندفع الثمن ونشكر البقّال",
             "نأكلها في المتجر",
-            "نتجاهل البقّال"
+            "نتجاهل البقّال",
+            "نهرب",
+            "ندفع الثمن ونشكر البقّال"
           ],
           "difficultyLevel": 1,
           "subSkill": "application"
@@ -1654,10 +1737,10 @@
           "questionText": "ما الأدب الذي تعلّمناه من الزيارة للبقّالة؟",
           "correctAnswer": "الشكر والاحترام للعاملين",
           "options": [
-            "الصراخ",
-            "الشكر والاحترام للعاملين",
             "السرقة",
-            "الإهانة"
+            "الصراخ",
+            "الإهانة",
+            "الشكر والاحترام للعاملين"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -1737,9 +1820,31 @@
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "pronunciation"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف المشتريات: فواكه أم مشروبات؟",
+          "correctAnswer": "فواكه=بطيخ,فواكه=خوخ,مشروبات=حليب,مشروبات=شاي",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "فواكه",
+              "مشروبات"
+            ],
+            "tokens": [
+              "بطيخ",
+              "حليب",
+              "خوخ",
+              "شاي"
+            ]
+          }
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/watermelon.png"
+      ]
     },
     {
       "title": "من نوادر أشعب",
@@ -1753,9 +1858,9 @@
           "correctAnswer": "الطمع والظرف",
           "options": [
             "الكرم",
+            "الصدق",
             "الطمع والظرف",
-            "الزهد",
-            "الصدق"
+            "الزهد"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1766,9 +1871,9 @@
           "correctAnswer": "يتبع الأطفال إلى بيوتهم ليأكل",
           "options": [
             "يشتري بماله",
-            "يتبع الأطفال إلى بيوتهم ليأكل",
             "يصطاد",
-            "يزرع طعامه"
+            "يزرع طعامه",
+            "يتبع الأطفال إلى بيوتهم ليأكل"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -1778,10 +1883,10 @@
           "questionText": "ما الدرس المستفاد من نوادر أشعب؟",
           "correctAnswer": "ذمّ الطمع والحرص على المال",
           "options": [
-            "محبة الطمع",
-            "ذمّ الطمع والحرص على المال",
             "إحياء الطمع",
-            "تمجيد الجشع"
+            "محبة الطمع",
+            "تمجيد الجشع",
+            "ذمّ الطمع والحرص على المال"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"

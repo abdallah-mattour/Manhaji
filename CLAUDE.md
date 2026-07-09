@@ -41,7 +41,7 @@ Manhaji Claude/               <-- git root; open Claude Code here
 ## Tech stack
 
 - **Backend**: Spring Boot 4.0.5, Java 17 toolchain, MySQL 8, JPA/Hibernate (`ddl-auto=update`), JWT auth, WebFlux client (for Gemini), Lombok, JUnit 5 + Mockito
-- **Frontend**: Flutter 3.10.4, Provider, Dio (HTTP + multipart), just_audio, record, flutter_tts, confetti, flutter_animate, fl_chart, cached_network_image
+- **Frontend**: Flutter 3.10.4, Provider, Dio (HTTP + multipart), just_audio, record, confetti, flutter_animate, fl_chart, cached_network_image. (flutter_tts REMOVED 2026-07-03 — TTS is backend-API only by product decision; the `AudioFocus` singleton in `lib/services/audio_focus.dart` enforces one voice at a time app-wide.)
 - **AI services**: Google Gemini 2.5 Flash (generation + transcription — replaced OpenAI Whisper; the class is still named `WhisperService`), Google Cloud TTS
 - **Auth**: JWT bearer tokens, role-based (STUDENT / PARENT / TEACHER / ADMIN)
 - **Language/locale**: Arabic (RTL) is primary. All UI text uses the **Cairo** font family.
@@ -141,17 +141,17 @@ Standard controller → service → repository with DTOs at boundary. Entity cla
 ### Flutter (`flutter test`)
 - 41 tests covering providers (auth, admin, teacher, parent, learning, report, progress) and one widget smoke test. Mostly mock-based (mockito) around API service layer.
 
-### Expected analyze baseline (6 info hints, ignore)
+### Expected analyze baseline (5 info hints, ignore)
 ```
-use_build_context_synchronously   lib/screens/admin/admin_dashboard_screen.dart:22
-use_build_context_synchronously   lib/screens/parent/parent_dashboard_screen.dart:23
-use_build_context_synchronously   lib/screens/progress/ai_reports_screen.dart:24
+use_build_context_synchronously   lib/screens/admin/admin_dashboard_screen.dart:24
+use_build_context_synchronously   lib/screens/parent/parent_dashboard_screen.dart:24
+use_build_context_synchronously   lib/screens/progress/ai_reports_screen.dart:27
 use_build_context_synchronously   lib/screens/teacher/class_students_screen.dart:21
-use_build_context_synchronously   lib/screens/teacher/teacher_dashboard_screen.dart:23
-unnecessary_underscores           lib/widgets/teaching_card_widget.dart:48
+use_build_context_synchronously   lib/screens/teacher/teacher_dashboard_screen.dart:25
 ```
+(The old `unnecessary_underscores` hint in teaching_card_widget was fixed 2026-07-03.)
 
-If analyze shows more than 6, your change introduced a new issue — fix before declaring done.
+If analyze shows more than 5, your change introduced a new issue — fix before declaring done.
 
 ## Recent work completed (as of 2026-04-20)
 
@@ -186,10 +186,23 @@ A multi-session pass that took Grade 1 from "60/100, demo-ready" to "spec-compli
 - **Test results**: backend `./gradlew test` BUILD SUCCESSFUL (75 tests); flutter `flutter test` 41/41 passed; `flutter analyze` 6 baseline issues unchanged. Audit warnings stderr block: empty.
 - **Backfill scripts** (idempotent, safe to re-run): `Manhaji/scripts/curriculum/_backfill_math.py`, `_backfill_english.py`, `_backfill_religion.py`, `_backfill_arabic_reviews.py`, `_dedupe_arabic_full.py`, `_dedupe_final.py`, `_add_english_alphabet.py`. The dict structures inside are the canonical content source — edit them, re-run, and the JSON files are regenerated.
 
+## Recent work completed (2026-07-08) — Grade 4, Settings/Privacy, leaderboard, fixes
+
+All in the working tree, **not committed** (user commits manually). Backend `./gradlew test` green, `flutter analyze` 5 baseline, `flutter test` 59/59. Full detail is in `HANDOFF.md` → "2026-07-08 session".
+
+- **Grade 4 curriculum (Phase 5)**: ✅ 8 build scripts `scripts/curriculum/_build_grade4_{ar,en,ma,re}_p{1,2}.py` → 8 JSON files, **119 lessons / 1,185 questions**, all original questions (book titles/structure from `PDFBooks/4Grade/` فهرس only). Passes `QuestionAuditTest` incl. cross-grade R10. **Curriculum is now grades 1–4 (32 JSON files).** `DataSeeder` auto-loads by `gradeLevel` — no Java change for a new grade.
+- **`_common.py` `orderIndex` auto-assign**: `write_curriculum` now injects `orderIndex` (1-based) when a lesson omits it. `lessons.order_index` is `NOT NULL` — omitting it fails the import (caught live during Grade-4 rollout). Every grade must have it; now automatic.
+- **Grade 4 rollout (Phase 6)**: ✅ additive boot (no reseed). Verified live: "Curriculum sync complete: 119 new lessons, 1185 new questions", 119 quizzes created, 0 errors. Grade 4 is in the dev DB. Device smoke test is the user's remaining step.
+- **Demo-student seeder**: `DataSeeder.seedDemoStudents()` (gated by `MANHAJI_DEMO_SEED=true`) → 10 students × grades 1–4. Logins `demo.g{grade}.s{n}@manhaji.edu` / `demo1234`. Already seeded this session.
+- **Settings & Privacy overhaul**: change-password endpoint `PUT /api/auth/password` (**400** on wrong current, not 401 — Dio auto-refreshes on 401); new profile/about/privacy-policy/terms/change-password screens under `lib/screens/settings/`; register parental-consent checkbox; extracted `settings_tile.dart` + `avatar_picker_card.dart`; removed dead الإشعارات row; logout confirm dialog; OpenMoji CC BY-SA 4.0 attribution. Placeholder contact email `privacy@manhaji.app` (swap before showcase).
+- **Login error fix**: wrong password no longer shows "تحتاج لتسجيل الدخول من جديد". `api_service.dart` skips the 401 refresh-dance on credential endpoints and surfaces the server's Arabic message; `messages.properties` credential/disabled messages are now Arabic.
+- **Leaderboard redesign** (`leaderboard_screen.dart`): podium (top 3) **+ full list of all students with scores**; was blank with <3 students. Plus `ProgressService.buildRecentActivity` null-guards lesson-less quizzes (was 500-ing تقدمي/مكافآتي).
+
 ## Deferred / open items
 
+- **Grade 5+ (if pursued)** — same pipeline: add `_build_grade5_*.py`, run, `./gradlew test`. Grades 1–4 shipped. Books at `PDFBooks/{1,2,3,4}Grade/` (grade 4 = 8 student PDFs + teacher guides).
 - **Image + audio assets** — JSON schema supports `imageUrl` and `audioUrl` but no files are bundled yet. Layout per spec §8.1: `backend/src/main/resources/static/assets/questions/<subject>/<topic>/...`. Once assets ship, promote R12, R13, R15-R18 from `audit.warning()` to `audit.strict()` in `QuestionAuditTest.java` and update spec §10.
-- **Grade 2-4 extraction** — Grade 1 baseline is now locked and audit-enforced. Use the spec's per-subject templates (§4.1–§4.10) as the authoring contract. Each new lesson must pass the strict audit on first add.
+- **Grades 2, 3, 4 curriculum** — ✅ DONE (grade 4 added 2026-07-08). Grade 1 baseline is audit-enforced; grades 2–4 follow the same pipeline and pass `QuestionAuditTest`. Use the spec's per-subject templates (§4.1–§4.10) as the authoring contract for any further content.
 - **Reseed required for orderIndex change**: the alphabet-lesson insertion shifted en1_p1's existing units from orderIndex 1-9 to 5-13. On an existing dev DB this means running once with `manhaji.curriculum.reseed: true` (in `application.yaml`), then flipping back to `false`. Fresh DBs just work.
 - **Demo rehearsal on physical device** — not yet done. See `HANDOFF.md` for the full runbook.
 - **GEMINI_API_KEY on demo laptop** — MUST export before demo, or pronunciation falls back to "خدمة النطق غير متاحة الآن" (still doesn't crash, but no scoring).

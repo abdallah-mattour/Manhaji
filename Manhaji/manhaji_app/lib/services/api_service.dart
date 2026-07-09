@@ -36,39 +36,49 @@ class ApiService {
       ),
     );
 
-    _dio.interceptors.add(
-      InterceptorsWrapper(
-        onRequest: (options, handler) async {
-          final token = await _storage.getToken();
-          if (token != null) {
-            options.headers['Authorization'] = 'Bearer $token';
-          }
-          return handler.next(options);
-        },
-        onError: (error, handler) async {
-          if (error.response?.statusCode == 401) {
-            _log.w('401 on ${error.requestOptions.path} — attempting refresh');
-            final refreshed = await _tryRefreshToken();
-            if (refreshed) {
-              _log.i('refresh ok — retrying ${error.requestOptions.path}');
-              try {
-                final retryResponse = await _retry(error.requestOptions);
-                return handler.resolve(retryResponse);
-              } catch (retryErr) {
-                _log.e('retry after refresh failed', retryErr);
-              }
-            } else {
-              // Token refresh failed — clear stale auth data
-              _log.w(
-                'refresh failed — clearing stored auth, user must re-login',
-              );
-              await _storage.clearAll();
+    _dio.interceptors.add(InterceptorsWrapper(
+      onRequest: (options, handler) async {
+        final token = await _storage.getToken();
+        if (token != null) {
+          options.headers['Authorization'] = 'Bearer $token';
+        }
+        return handler.next(options);
+      },
+      onError: (error, handler) async {
+        // A 401 on the credential endpoints (login / phone login / register /
+        // refresh) is a *business* response — wrong password or a dead refresh
+        // token — NOT an expired access token. Refreshing/clearing there is
+        // pointless and, worse, makes a bad-password login surface the
+        // "session expired" copy. Let those flow straight through so the real
+        // server message (e.g. "wrong email or password") reaches the UI.
+        const noRefreshPaths = [
+          ApiConfig.login,
+          ApiConfig.loginPhone,
+          ApiConfig.register,
+          ApiConfig.refreshToken,
+        ];
+        final isCredentialCall =
+            noRefreshPaths.contains(error.requestOptions.path);
+        if (error.response?.statusCode == 401 && !isCredentialCall) {
+          _log.w('401 on ${error.requestOptions.path} — attempting refresh');
+          final refreshed = await _tryRefreshToken();
+          if (refreshed) {
+            _log.i('refresh ok — retrying ${error.requestOptions.path}');
+            try {
+              final retryResponse = await _retry(error.requestOptions);
+              return handler.resolve(retryResponse);
+            } catch (retryErr) {
+              _log.e('retry after refresh failed', retryErr);
             }
+          } else {
+            // Token refresh failed — clear stale auth data
+            _log.w('refresh failed — clearing stored auth, user must re-login');
+            await _storage.clearAll();
           }
-          return handler.next(error);
-        },
-      ),
-    );
+        }
+        return handler.next(error);
+      },
+    ));
   }
 
   /// Translate any raw [DioException] into a user-facing [ApiException].
@@ -93,19 +103,22 @@ class ApiService {
         msg = 'تعذّر الاتصال بالخادم. تحقّق من الإنترنت.';
         break;
       case DioExceptionType.badResponse:
+        // Server-supplied Arabic message wins whenever present — it's the most
+        // specific ("wrong email or password", "current password is wrong", …).
+        final data = err.response?.data;
+        final serverMsg = (data is Map && data['message'] is String)
+            ? (data['message'] as String).trim()
+            : null;
         if (status != null && status >= 500) {
           msg = 'حدث خطأ في الخادم. نحاول إصلاحه.';
+        } else if (serverMsg != null && serverMsg.isNotEmpty) {
+          msg = serverMsg;
         } else if (status == 401) {
           msg = 'تحتاج لتسجيل الدخول من جديد.';
         } else if (status == 403) {
           msg = 'ليس لديك صلاحية للوصول إلى هذا المورد.';
         } else {
-          // Try to pull server message; fall back to generic.
-          final data = err.response?.data;
-          final serverMsg = (data is Map && data['message'] is String)
-              ? data['message'] as String
-              : null;
-          msg = serverMsg ?? 'طلب غير صالح.';
+          msg = 'طلب غير صالح.';
         }
         break;
       case DioExceptionType.cancel:

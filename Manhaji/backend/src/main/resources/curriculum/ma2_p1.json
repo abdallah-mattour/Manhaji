@@ -17,9 +17,9 @@
           "correctAnswer": "٤٧",
           "options": [
             "٢٩",
-            "٤٧",
+            "لا أعرف",
             "متساويان",
-            "لا أعرف"
+            "٤٧"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -29,10 +29,10 @@
           "questionText": "أيّ إشارة نضع بين العددين: ٣٥ ___ ٣٥؟",
           "correctAnswer": "=",
           "options": [
+            "+",
             ">",
             "<",
-            "=",
-            "+"
+            "="
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -42,10 +42,10 @@
           "questionText": "أيّ علامة تناسب: ٨٢ ___ ٦٧؟",
           "correctAnswer": ">",
           "options": [
-            ">",
+            "−",
             "<",
-            "=",
-            "−"
+            ">",
+            "="
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -124,9 +124,9 @@
           "questionText": "في حقيبة سامي ٧٥ كرة وفي حقيبة عمر ٥٧ كرة. عند من الأكثر؟",
           "correctAnswer": "سامي عنده الأكثر",
           "options": [
-            "عمر عنده الأكثر",
-            "سامي عنده الأكثر",
             "متساويان",
+            "سامي عنده الأكثر",
+            "عمر عنده الأكثر",
             "لا أعرف"
           ],
           "difficultyLevel": 3,
@@ -146,10 +146,10 @@
           "questionText": "ما العدد الذي يأتي بعد ٤٩ مباشرة؟",
           "correctAnswer": "٥٠",
           "options": [
-            "٤٨",
             "٤٩",
-            "٥٠",
-            "٥١"
+            "٥١",
+            "٤٨",
+            "٥٠"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -160,9 +160,9 @@
           "correctAnswer": "٦٩",
           "options": [
             "٦٨",
-            "٦٩",
             "٧٠",
-            "٧١"
+            "٧١",
+            "٦٩"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -172,8 +172,8 @@
           "questionText": "ما العدد الذي يأتي بعد ٧٩ مباشرة؟",
           "correctAnswer": "٨٠",
           "options": [
-            "٧٨",
             "٧٩",
+            "٧٨",
             "٨٠",
             "٨١"
           ],
@@ -255,9 +255,9 @@
           "correctAnswer": "الصف الذي فيه ٣٣ طالباً",
           "options": [
             "الصف الذي فيه ٢٣",
-            "الصف الذي فيه ٣٢",
+            "متساوية",
             "الصف الذي فيه ٣٣ طالباً",
-            "متساوية"
+            "الصف الذي فيه ٣٢"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -277,8 +277,8 @@
           "correctAnswer": "٥",
           "options": [
             "٧",
-            "٥",
             "٥٧",
+            "٥",
             "١٢"
           ],
           "difficultyLevel": 1,
@@ -289,10 +289,10 @@
           "questionText": "ما عدد الآحاد في العدد ٩٠؟",
           "correctAnswer": "٠",
           "options": [
-            "٩",
-            "٠",
             "٩٠",
-            "١"
+            "٠",
+            "١",
+            "٩"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -302,10 +302,10 @@
           "questionText": "كم آحاد في العدد ٣٦؟",
           "correctAnswer": "٦",
           "options": [
-            "٣",
-            "٦",
             "٣٦",
-            "٠"
+            "٣",
+            "٠",
+            "٦"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -383,9 +383,9 @@
           "questionText": "أيّ عدد آحاده ضعف عشراته؟",
           "correctAnswer": "٢٤",
           "options": [
-            "٢٤",
             "٤٢",
             "٦٣",
+            "٢٤",
             "٨٤"
           ],
           "difficultyLevel": 3,
@@ -405,10 +405,10 @@
           "questionText": "أيّ من الأعداد التالية زوجي؟",
           "correctAnswer": "٣٦",
           "options": [
-            "٣٦",
-            "٣٧",
+            "٤١",
             "٣٩",
-            "٤١"
+            "٣٧",
+            "٣٦"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -418,10 +418,10 @@
           "questionText": "أيّ من الأعداد التالية فردي؟",
           "correctAnswer": "٤٧",
           "options": [
-            "٤٢",
-            "٤٤",
             "٤٦",
-            "٤٧"
+            "٤٢",
+            "٤٧",
+            "٤٤"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -431,10 +431,10 @@
           "questionText": "ما نوع العدد ٧٠؟",
           "correctAnswer": "زوجي",
           "options": [
-            "زوجي",
-            "فردي",
+            "لا أعرف",
             "كلاهما",
-            "لا أعرف"
+            "فردي",
+            "زوجي"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -513,16 +513,38 @@
           "questionText": "إذا قسمت ١٢ تفاحة على شخصين بالتساوي، فالعدد ١٢ هو:",
           "correctAnswer": "عدد زوجي قابل للقسمة على ٢",
           "options": [
-            "عدد فردي",
-            "عدد زوجي قابل للقسمة على ٢",
             "ليس عدداً",
-            "أكبر من ١٠٠"
+            "عدد فردي",
+            "أكبر من ١٠٠",
+            "عدد زوجي قابل للقسمة على ٢"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الأعداد الآتية: زوجية أم فردية؟",
+          "correctAnswer": "زوجية=١٢,زوجية=٢٤,فردية=٧,فردية=١٥",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "زوجية",
+              "فردية"
+            ],
+            "tokens": [
+              "١٢",
+              "٧",
+              "٢٤",
+              "١٥"
+            ]
+          }
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/two.png"
+      ]
     },
     {
       "title": "مراجعة الوحدة الأولى (الأعداد ضمن ٩٩)",
@@ -535,10 +557,10 @@
           "questionText": "ما عدد العشرات في ٦٣؟",
           "correctAnswer": "٦",
           "options": [
-            "٣",
+            "٠",
             "٦",
-            "٦٣",
-            "٠"
+            "٣",
+            "٦٣"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -548,10 +570,10 @@
           "questionText": "أيّ عدد زوجي؟",
           "correctAnswer": "٢٨",
           "options": [
-            "٢٧",
-            "٢٨",
             "٢٩",
-            "٣١"
+            "٢٧",
+            "٣١",
+            "٢٨"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -563,8 +585,8 @@
           "options": [
             "٤٣",
             "٤٥",
-            "٤٦",
-            "٥٤"
+            "٥٤",
+            "٤٦"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -637,6 +659,47 @@
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "handwriting"
+        },
+        {
+          "type": "IMAGE_MATCH",
+          "questionText": "صِل اسم العدد بالصورة المناسبة",
+          "correctAnswer": "1=a,2=b,3=c",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recognition",
+          "pairs": {
+            "left": [
+              {
+                "id": "1",
+                "text": "تسعة"
+              },
+              {
+                "id": "2",
+                "text": "ستة"
+              },
+              {
+                "id": "3",
+                "text": "عشرة"
+              }
+            ],
+            "right": [
+              {
+                "id": "c",
+                "text": "",
+                "image": "assets/openmoji/ten.png"
+              },
+              {
+                "id": "a",
+                "text": "",
+                "image": "assets/openmoji/nine.png"
+              },
+              {
+                "id": "b",
+                "text": "",
+                "image": "assets/openmoji/six.png"
+              }
+            ]
+          }
         }
       ],
       "imageUrls": []
@@ -652,10 +715,10 @@
           "questionText": "ما ناتج ١٢ + ٣٥؟",
           "correctAnswer": "٤٧",
           "options": [
-            "٤٦",
-            "٤٧",
             "٤٨",
-            "٤٩"
+            "٤٩",
+            "٤٦",
+            "٤٧"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -666,9 +729,9 @@
           "correctAnswer": "٤٠",
           "options": [
             "٣٠",
-            "٤٠",
             "٥٠",
-            "٢٢"
+            "٢٢",
+            "٤٠"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -678,10 +741,10 @@
           "questionText": "ما ناتج ٣١ + ٤٧؟",
           "correctAnswer": "٧٨",
           "options": [
-            "٧٧",
-            "٧٨",
             "٧٩",
-            "٨٠"
+            "٧٧",
+            "٨٠",
+            "٧٨"
           ],
           "difficultyLevel": 2,
           "subSkill": "computation"
@@ -692,9 +755,9 @@
           "correctAnswer": "٩٠",
           "options": [
             "٨٠",
-            "٩٠",
             "٩٥",
-            "١٠٠"
+            "١٠٠",
+            "٩٠"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -744,10 +807,10 @@
           "questionText": "رتّب نتائج الجمع تصاعدياً: ١٠+١٠، ٥+٢٠، ٤٠+٢، ٣٠+٣٠",
           "correctAnswer": "١٠+١٠، ٥+٢٠، ٤٠+٢، ٣٠+٣٠",
           "options": [
-            "١٠+١٠",
             "٥+٢٠",
             "٤٠+٢",
-            "٣٠+٣٠"
+            "٣٠+٣٠",
+            "١٠+١٠"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -757,10 +820,10 @@
           "questionText": "في حقيبة سامر ٢٤ كرة، وأعطاه أخوه ١٥ كرة أخرى. كم كرة معه الآن؟",
           "correctAnswer": "٣٩",
           "options": [
-            "٣٧",
-            "٣٩",
+            "٢٩",
             "٤٠",
-            "٢٩"
+            "٣٧",
+            "٣٩"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -787,10 +850,10 @@
           "questionText": "ما ناتج ٥٧ − ٢٤؟",
           "correctAnswer": "٣٣",
           "options": [
-            "٣٢",
-            "٣٣",
             "٣٤",
-            "٣٥"
+            "٣٢",
+            "٣٥",
+            "٣٣"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -800,10 +863,10 @@
           "questionText": "ما ناتج ٩٠ − ٤٠؟",
           "correctAnswer": "٥٠",
           "options": [
+            "٧٠",
             "٤٠",
-            "٥٠",
             "٦٠",
-            "٧٠"
+            "٥٠"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -813,10 +876,10 @@
           "questionText": "ما ناتج ٦٨ − ٢٥؟",
           "correctAnswer": "٤٣",
           "options": [
+            "٤٥",
             "٤٢",
-            "٤٣",
             "٤٤",
-            "٤٥"
+            "٤٣"
           ],
           "difficultyLevel": 2,
           "subSkill": "computation"
@@ -887,10 +950,10 @@
           "questionText": "كان مع سامر ٤٥ ليرة، اشترى دفتراً بـ ٢٠ ليرة. كم بقي معه؟",
           "correctAnswer": "٢٥",
           "options": [
-            "٢٠",
+            "٤٠",
             "٢٥",
             "٣٠",
-            "٤٠"
+            "٢٠"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -917,10 +980,10 @@
           "questionText": "ما ناتج ٣٣ + ٤٤؟",
           "correctAnswer": "٧٧",
           "options": [
-            "٧٦",
+            "٧٩",
             "٧٧",
             "٧٨",
-            "٧٩"
+            "٧٦"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -930,10 +993,10 @@
           "questionText": "ما ناتج ٨٠ − ٥٠؟",
           "correctAnswer": "٣٠",
           "options": [
-            "٢٠",
-            "٣٠",
             "٤٠",
-            "٥٠"
+            "٣٠",
+            "٥٠",
+            "٢٠"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -944,9 +1007,9 @@
           "correctAnswer": "٥٠",
           "options": [
             "٤٥",
-            "٥٠",
+            "٦٠",
             "٥٥",
-            "٦٠"
+            "٥٠"
           ],
           "difficultyLevel": 2,
           "subSkill": "computation"
@@ -1017,10 +1080,10 @@
           "questionText": "اشترى أحمد ٢٥ بطاقة، ثم اشترى ١٢ بطاقة أخرى، ثم أعطى أخاه ٧ بطاقات. كم بقي معه؟",
           "correctAnswer": "٣٠",
           "options": [
-            "٢٨",
             "٢٩",
-            "٣٠",
-            "٣١"
+            "٣١",
+            "٢٨",
+            "٣٠"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -1039,10 +1102,10 @@
           "questionText": "كم رقماً في العدد ١٣٥؟",
           "correctAnswer": "ثلاثة",
           "options": [
+            "واحد",
             "اثنان",
-            "ثلاثة",
             "أربعة",
-            "واحد"
+            "ثلاثة"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1052,10 +1115,10 @@
           "questionText": "ما العدد الذي يأتي بعد ١٠٩ مباشرة؟",
           "correctAnswer": "١١٠",
           "options": [
-            "١٠٨",
+            "١١١",
             "١٠٩",
-            "١١٠",
-            "١١١"
+            "١٠٨",
+            "١١٠"
           ],
           "difficultyLevel": 2,
           "subSkill": "recognition"
@@ -1066,9 +1129,9 @@
           "correctAnswer": "١٥٠",
           "options": [
             "١٤٠",
-            "١٥٠",
+            "٥٠",
             "١٦٠",
-            "٥٠"
+            "١٥٠"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1147,10 +1210,10 @@
           "questionText": "في مكتبة ١٢٠ كتاباً، أضيف إليها ٤٠ كتاباً. كم كتاباً فيها الآن؟",
           "correctAnswer": "١٦٠",
           "options": [
+            "١٨٠",
             "١٥٠",
             "١٦٠",
-            "١٧٠",
-            "١٨٠"
+            "١٧٠"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -1170,9 +1233,9 @@
           "correctAnswer": "ثلاثة",
           "options": [
             "اثنان",
-            "ثلاثة",
             "أربعة",
-            "خمسة"
+            "خمسة",
+            "ثلاثة"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1182,10 +1245,10 @@
           "questionText": "ما العدد الذي يأتي بعد ٢٩٩ مباشرة؟",
           "correctAnswer": "٣٠٠",
           "options": [
-            "٢٩٨",
+            "٣٠١",
             "٢٩٩",
             "٣٠٠",
-            "٣٠١"
+            "٢٩٨"
           ],
           "difficultyLevel": 2,
           "subSkill": "recognition"
@@ -1197,8 +1260,8 @@
           "options": [
             "٤٠٠",
             "٤٩٨",
-            "٤٩٩",
-            "٥٠١"
+            "٥٠١",
+            "٤٩٩"
           ],
           "difficultyLevel": 2,
           "subSkill": "recognition"
@@ -1278,9 +1341,9 @@
           "correctAnswer": "٧٠٠",
           "options": [
             "٦٠٠",
+            "٩٠٠",
             "٧٠٠",
-            "٨٠٠",
-            "٩٠٠"
+            "٨٠٠"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -1299,10 +1362,10 @@
           "questionText": "في العدد ٤٢٧، الرقم ٤ في خانة:",
           "correctAnswer": "المئات",
           "options": [
+            "الألوف",
             "الآحاد",
             "العشرات",
-            "المئات",
-            "الألوف"
+            "المئات"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1312,10 +1375,10 @@
           "questionText": "ما عدد العشرات في العدد ٣٦٥؟",
           "correctAnswer": "٦",
           "options": [
-            "٣",
-            "٦",
             "٥",
-            "٣٦"
+            "٣",
+            "٣٦",
+            "٦"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1325,10 +1388,10 @@
           "questionText": "ما عدد الآحاد في العدد ٤٠٢؟",
           "correctAnswer": "٢",
           "options": [
+            "٤٢",
             "٤",
             "٠",
-            "٢",
-            "٤٢"
+            "٢"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1406,10 +1469,10 @@
           "questionText": "أيّ عدد مئاته ضعف آحاده؟",
           "correctAnswer": "٢٠١",
           "options": [
-            "٢٠١",
-            "١٠٢",
             "٣٠٢",
-            "٤٠٢"
+            "٢٠١",
+            "٤٠٢",
+            "١٠٢"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -1428,10 +1491,10 @@
           "questionText": "أيّ عدد أكبر: ٤٧٥ أم ٥٤٧؟",
           "correctAnswer": "٥٤٧",
           "options": [
-            "٤٧٥",
+            "لا أعرف",
             "٥٤٧",
             "متساويان",
-            "لا أعرف"
+            "٤٧٥"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1442,9 +1505,9 @@
           "correctAnswer": "=",
           "options": [
             ">",
+            "+",
             "<",
-            "=",
-            "+"
+            "="
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1455,9 +1518,9 @@
           "correctAnswer": "٧١٠",
           "options": [
             "٧٠٠",
+            "متساوية",
             "٧١٠",
-            "٦٩٩",
-            "متساوية"
+            "٦٩٩"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -1537,9 +1600,9 @@
           "correctAnswer": "المكتبة التي فيها ٥٤٠",
           "options": [
             "المكتبة التي فيها ٤٥٠",
-            "المكتبة التي فيها ٥٤٠",
             "متساويتان",
-            "لا أعرف"
+            "لا أعرف",
+            "المكتبة التي فيها ٥٤٠"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -1558,10 +1621,10 @@
           "questionText": "ما العدد الذي يأتي بعد ٤٩٩ مباشرة؟",
           "correctAnswer": "٥٠٠",
           "options": [
-            "٤٩٨",
-            "٤٩٩",
+            "٥٠١",
             "٥٠٠",
-            "٥٠١"
+            "٤٩٩",
+            "٤٩٨"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1571,9 +1634,9 @@
           "questionText": "ما العدد الذي يأتي قبل ١٠٠ مباشرة؟",
           "correctAnswer": "٩٩",
           "options": [
-            "٩٨",
-            "٩٩",
             "١٠١",
+            "٩٩",
+            "٩٨",
             "١٠٠"
           ],
           "difficultyLevel": 1,
@@ -1584,10 +1647,10 @@
           "questionText": "ما العدد الذي يأتي بعد ٧٩٩ مباشرة؟",
           "correctAnswer": "٨٠٠",
           "options": [
-            "٧٩٨",
-            "٨٠٠",
             "٧٠٠",
-            "٨٠١"
+            "٧٩٨",
+            "٨٠١",
+            "٨٠٠"
           ],
           "difficultyLevel": 2,
           "subSkill": "recognition"
@@ -1666,10 +1729,10 @@
           "questionText": "إذا أردت ترتيب أحجام ٣ عبوات حليب ٢٥٠ مل و ٥٠٠ مل و ١٠٠٠ مل تصاعدياً:",
           "correctAnswer": "٢٥٠، ٥٠٠، ١٠٠٠",
           "options": [
-            "١٠٠٠، ٥٠٠، ٢٥٠",
-            "٢٥٠، ٥٠٠، ١٠٠٠",
+            "متساوية",
             "٥٠٠، ٢٥٠، ١٠٠٠",
-            "متساوية"
+            "١٠٠٠، ٥٠٠، ٢٥٠",
+            "٢٥٠، ٥٠٠، ١٠٠٠"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -1688,10 +1751,10 @@
           "questionText": "حدّد العدد الزوجي من الأعداد ذات ثلاث منازل التالية:",
           "correctAnswer": "٤٢٠",
           "options": [
-            "٤٢٠",
-            "٤٢١",
             "٤٢٣",
-            "٤٢٧"
+            "٤٢٧",
+            "٤٢١",
+            "٤٢٠"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1701,10 +1764,10 @@
           "questionText": "حدّد العدد الفردي من الأعداد ذات ثلاث منازل التالية:",
           "correctAnswer": "١٠١",
           "options": [
-            "١٠٠",
+            "١٠٤",
             "١٠١",
             "١٠٢",
-            "١٠٤"
+            "١٠٠"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1714,9 +1777,9 @@
           "questionText": "ما نوع العدد ٦٠٠؟",
           "correctAnswer": "زوجي",
           "options": [
-            "زوجي",
-            "فردي",
             "كلاهما",
+            "فردي",
+            "زوجي",
             "لا أعرف"
           ],
           "difficultyLevel": 1,
@@ -1796,10 +1859,10 @@
           "questionText": "أنت توزّع ٣٦٠ قلماً على فصلين بالتساوي. كم قلماً لكل فصل؟",
           "correctAnswer": "١٨٠",
           "options": [
-            "١٧٠",
+            "٢٠٠",
             "١٨٠",
-            "١٩٠",
-            "٢٠٠"
+            "١٧٠",
+            "١٩٠"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -1818,10 +1881,10 @@
           "questionText": "ما عدد المئات في العدد ٧٢٦؟",
           "correctAnswer": "٧",
           "options": [
-            "٢",
-            "٦",
+            "٢٦",
             "٧",
-            "٢٦"
+            "٢",
+            "٦"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1831,10 +1894,10 @@
           "questionText": "أيّ عدد زوجي بين الأعداد التالية؟",
           "correctAnswer": "٤٣٢",
           "options": [
-            "٤٣٢",
-            "٤٣١",
             "٤٣٣",
-            "٤٣٥"
+            "٤٣١",
+            "٤٣٥",
+            "٤٣٢"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1844,9 +1907,9 @@
           "questionText": "أيّ علامة تناسب: ٦٠٠ ___ ٥٩٩؟",
           "correctAnswer": ">",
           "options": [
-            ">",
-            "<",
             "=",
+            "<",
+            ">",
             "−"
           ],
           "difficultyLevel": 2,
@@ -1935,10 +1998,10 @@
           "questionText": "كم طرفاً للقطعة المستقيمة؟",
           "correctAnswer": "اثنان",
           "options": [
-            "واحد",
-            "اثنان",
             "ثلاثة",
-            "بلا أطراف"
+            "واحد",
+            "بلا أطراف",
+            "اثنان"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1948,10 +2011,10 @@
           "questionText": "أيّ مما يلي خط مستقيم؟",
           "correctAnswer": "حافة المسطرة",
           "options": [
-            "حافة المسطرة",
-            "ثعبان متلوٍّ",
+            "غصن شجرة",
             "نهر متعرّج",
-            "غصن شجرة"
+            "ثعبان متلوٍّ",
+            "حافة المسطرة"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1961,10 +2024,10 @@
           "questionText": "أيّ مما يلي خط منحني؟",
           "correctAnswer": "قوس قزح",
           "options": [
-            "جانب الكتاب",
+            "حواف المربع",
             "قوس قزح",
             "حافة الطاولة",
-            "حواف المربع"
+            "جانب الكتاب"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -2043,10 +2106,10 @@
           "questionText": "كم ضلعاً للمربع؟",
           "correctAnswer": "أربعة",
           "options": [
-            "ثلاثة",
-            "أربعة",
+            "ستة",
             "خمسة",
-            "ستة"
+            "أربعة",
+            "ثلاثة"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -2056,9 +2119,9 @@
           "questionText": "كم زاوية للمربع؟",
           "correctAnswer": "أربع",
           "options": [
-            "ثلاث",
-            "أربع",
             "خمس",
+            "أربع",
+            "ثلاث",
             "ست"
           ],
           "difficultyLevel": 1,
@@ -2069,10 +2132,10 @@
           "questionText": "أيّ شيء حولنا شكله مربع؟",
           "correctAnswer": "صورة في إطار مربع",
           "options": [
-            "كرة قدم",
-            "صورة في إطار مربع",
+            "مثلث الموسيقى",
             "ساعة دائرية",
-            "مثلث الموسيقى"
+            "كرة قدم",
+            "صورة في إطار مربع"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -2138,7 +2201,9 @@
           "subSkill": "handwriting"
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/square_blue.png"
+      ]
     },
     {
       "title": "المستطيل",
@@ -2151,10 +2216,10 @@
           "questionText": "كم ضلعاً للمستطيل؟",
           "correctAnswer": "أربعة",
           "options": [
-            "ثلاثة",
-            "أربعة",
             "خمسة",
-            "ستة"
+            "ستة",
+            "أربعة",
+            "ثلاثة"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -2164,10 +2229,10 @@
           "questionText": "أيّ شيء يكون شكله مستطيلاً؟",
           "correctAnswer": "باب الفصل",
           "options": [
+            "إطار النظارة الدائرية",
             "كرة الأرض",
-            "باب الفصل",
             "العملة المعدنية",
-            "إطار النظارة الدائرية"
+            "باب الفصل"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -2177,10 +2242,10 @@
           "questionText": "ما الفرق بين المربع والمستطيل؟",
           "correctAnswer": "كل أضلاع المربع متساوية، أما المستطيل فضلعان طويلان وضلعان قصيران",
           "options": [
-            "لا فرق بينهما",
+            "المستطيل دائرة",
             "كل أضلاع المربع متساوية، أما المستطيل فضلعان طويلان وضلعان قصيران",
             "المربع له ٣ أضلاع فقط",
-            "المستطيل دائرة"
+            "لا فرق بينهما"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -2259,10 +2324,10 @@
           "questionText": "ما عدد أضلاع المثلث؟",
           "correctAnswer": "ثلاثة",
           "options": [
+            "خمسة",
             "اثنان",
-            "ثلاثة",
             "أربعة",
-            "خمسة"
+            "ثلاثة"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -2272,10 +2337,10 @@
           "questionText": "كم زاوية للمثلث؟",
           "correctAnswer": "ثلاث",
           "options": [
-            "اثنتان",
-            "ثلاث",
+            "ست",
             "أربع",
-            "ست"
+            "اثنتان",
+            "ثلاث"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -2285,10 +2350,10 @@
           "questionText": "أيّ مما يلي مثلث الشكل؟",
           "correctAnswer": "سقف منزل تقليدي",
           "options": [
-            "كرة",
+            "حلقة",
             "سقف منزل تقليدي",
-            "صندوق",
-            "حلقة"
+            "كرة",
+            "صندوق"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -2352,9 +2417,30 @@
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "handwriting"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "أيُّ صورةٍ تُطابق شكل المثلث؟",
+          "correctAnswer": "المثلث",
+          "options": [
+            "الدائرة",
+            "المعين",
+            "المربع",
+            "المثلث"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/circle_blue.png",
+            "assets/openmoji/diamond.png",
+            "assets/openmoji/square_green.png",
+            "assets/openmoji/triangle.png"
+          ]
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/triangle.png"
+      ]
     },
     {
       "title": "الدائرة",
@@ -2367,10 +2453,10 @@
           "questionText": "كم ضلعاً للدائرة؟",
           "correctAnswer": "صفر",
           "options": [
-            "صفر",
-            "واحد",
             "ثلاثة",
-            "أربعة"
+            "أربعة",
+            "صفر",
+            "واحد"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -2381,9 +2467,9 @@
           "correctAnswer": "ساعة الحائط المستديرة",
           "options": [
             "باب الفصل",
-            "ساعة الحائط المستديرة",
+            "اللوحة",
             "صندوق الكتب",
-            "اللوحة"
+            "ساعة الحائط المستديرة"
           ],
           "difficultyLevel": 1,
           "subSkill": "application"
@@ -2394,9 +2480,9 @@
           "correctAnswer": "المركز",
           "options": [
             "الضلع",
-            "الزاوية",
             "المركز",
-            "الرأس"
+            "الرأس",
+            "الزاوية"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -2447,8 +2533,8 @@
           "correctAnswer": "الدائرة، المثلث، المربع",
           "options": [
             "الدائرة",
-            "المثلث",
-            "المربع"
+            "المربع",
+            "المثلث"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -2460,9 +2546,30 @@
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "handwriting"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر الصورة التي تُشبه شكل وجه الساعة",
+          "correctAnswer": "دائرة",
+          "options": [
+            "معين",
+            "مربع",
+            "مثلث",
+            "دائرة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/diamond.png",
+            "assets/openmoji/square_blue.png",
+            "assets/openmoji/triangle.png",
+            "assets/openmoji/circle_red.png"
+          ]
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/circle_red.png"
+      ]
     },
     {
       "title": "مراجعة الوحدة الرابعة (الهندسة والقياس ١)",
@@ -2475,10 +2582,10 @@
           "questionText": "أيّ شكل له أربعة أضلاع متساوية وزوايا قائمة؟",
           "correctAnswer": "المربع",
           "options": [
-            "المثلث",
+            "المستطيل",
             "المربع",
-            "الدائرة",
-            "المستطيل"
+            "المثلث",
+            "الدائرة"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -2488,9 +2595,9 @@
           "questionText": "أيّ شكل لا يحوي زوايا؟",
           "correctAnswer": "الدائرة",
           "options": [
-            "المثلث",
             "المربع",
             "الدائرة",
+            "المثلث",
             "المستطيل"
           ],
           "difficultyLevel": 1,
@@ -2501,10 +2608,10 @@
           "questionText": "ما عدد رؤوس المثلث؟",
           "correctAnswer": "ثلاثة",
           "options": [
-            "اثنان",
-            "ثلاثة",
+            "خمسة",
             "أربعة",
-            "خمسة"
+            "ثلاثة",
+            "اثنان"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -2568,6 +2675,26 @@
           "options": null,
           "difficultyLevel": 1,
           "subSkill": "handwriting"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الأشكال: له أضلاع أم ليس له أضلاع؟",
+          "correctAnswer": "له أضلاع=المربع,له أضلاع=المثلث,ليس له أضلاع=الدائرة,ليس له أضلاع=الشكل البيضاوي",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "له أضلاع",
+              "ليس له أضلاع"
+            ],
+            "tokens": [
+              "المربع",
+              "الدائرة",
+              "المثلث",
+              "الشكل البيضاوي"
+            ]
+          }
         }
       ],
       "imageUrls": []
@@ -2585,8 +2712,8 @@
           "options": [
             "لعبة",
             "معلومات نجمعها",
-            "اسم بلد",
-            "نوع طعام"
+            "نوع طعام",
+            "اسم بلد"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -2596,10 +2723,10 @@
           "questionText": "إذا أردت معرفة عدد الطلاب في صفك، ماذا تجمع؟",
           "correctAnswer": "بيانات عن عدد الطلاب",
           "options": [
+            "بيانات عن السيارات",
             "بيانات عن الطعام",
             "بيانات عن عدد الطلاب",
-            "بيانات عن الجو",
-            "بيانات عن السيارات"
+            "بيانات عن الجو"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -2610,9 +2737,9 @@
           "correctAnswer": "في جدول أو صورة",
           "options": [
             "نخفيها",
-            "في جدول أو صورة",
             "بدون شيء",
-            "في أذني"
+            "في أذني",
+            "في جدول أو صورة"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -2691,10 +2818,10 @@
           "questionText": "ماذا نسمّي تمثيل البيانات بصور صغيرة؟",
           "correctAnswer": "التمثيل بالصور",
           "options": [
-            "خريطة",
-            "التمثيل بالصور",
             "كتابة قصة",
-            "رسم متحرّك"
+            "خريطة",
+            "رسم متحرّك",
+            "التمثيل بالصور"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -2704,10 +2831,10 @@
           "questionText": "إذا كل صورة تمثّل ٢ تفاحة، وعرضت ٣ صور، فكم تفاحة هناك؟",
           "correctAnswer": "٦",
           "options": [
-            "٣",
-            "٥",
+            "٩",
             "٦",
-            "٩"
+            "٣",
+            "٥"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -2718,9 +2845,9 @@
           "correctAnswer": "لتسهيل فهم البيانات",
           "options": [
             "لإخفاء البيانات",
-            "لتسهيل فهم البيانات",
+            "بدون سبب",
             "للزينة فقط",
-            "بدون سبب"
+            "لتسهيل فهم البيانات"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -2799,10 +2926,10 @@
           "questionText": "ما الذي نجمعه لنفهم الواقع؟",
           "correctAnswer": "البيانات",
           "options": [
-            "الأطعمة",
-            "البيانات",
+            "الكتب",
             "الألوان",
-            "الكتب"
+            "الأطعمة",
+            "البيانات"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -2813,9 +2940,9 @@
           "correctAnswer": "بالصور والأعمدة",
           "options": [
             "بإخفائها",
-            "بالصور والأعمدة",
             "بدون شيء",
-            "بصوت عالٍ فقط"
+            "بصوت عالٍ فقط",
+            "بالصور والأعمدة"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -2825,10 +2952,10 @@
           "questionText": "إذا أردت معرفة لون فاكهة يحبّها الأطفال، ماذا تفعل أولاً؟",
           "correctAnswer": "أسألهم وأسجّل البيانات",
           "options": [
-            "أخمّن",
-            "أسألهم وأسجّل البيانات",
             "أنام",
-            "أهرب"
+            "أهرب",
+            "أخمّن",
+            "أسألهم وأسجّل البيانات"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"

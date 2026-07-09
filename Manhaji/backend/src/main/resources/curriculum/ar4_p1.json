@@ -1,0 +1,1706 @@
+{
+  "subject": "اللغة العربية",
+  "subjectCode": "ar",
+  "gradeLevel": 4,
+  "semester": 1,
+  "totalLessons": 15,
+  "lessons": [
+    {
+      "title": "الفضل لمعلمتي",
+      "content": "درس يبيّن فضل المعلّم على تلاميذه، وواجب احترامه وشكره على ما يقدّمه من علم. المحور اللغويّ: الأسماء الموصولة.",
+      "objectives": "تقدير فضل المعلّم، والتعرّف إلى الأسماء الموصولة.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما الجميل الذي يقدّمه المعلّم لتلاميذه؟",
+          "correctAnswer": "العلم والتربية",
+          "options": [
+            "العلم والتربية",
+            "المال",
+            "الطعام",
+            "اللعب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ ممّا يلي اسم موصول؟",
+          "correctAnswer": "الذي",
+          "options": [
+            "الذي",
+            "ذهب",
+            "كتاب",
+            "جميل"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أكمل بالاسم الموصول: جاءت المعلّمة ___ علّمتنا.",
+          "correctAnswer": "التي",
+          "options": [
+            "التي",
+            "الذي",
+            "الذين",
+            "اللاتي"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الاسم الموصول لجمع الذكور هو:",
+          "correctAnswer": "الذين",
+          "options": [
+            "الذين",
+            "التي",
+            "الذي",
+            "اللتان"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "احترام المعلّم من الأخلاق الحسنة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: أحترم معلّمي ___ يعلّمني.",
+          "correctAnswer": "الذي",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كيف نردّ الجميل لمعلّمنا؟",
+          "correctAnswer": "بالاحترام والاجتهاد",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب لتكوين جملة: العلمَ، علّمني، الذي، المعلّمُ",
+          "correctAnswer": "المعلّمُ، الذي، علّمني، العلمَ",
+          "options": [
+            "العلمَ",
+            "علّمني",
+            "الذي",
+            "المعلّمُ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "مُعَلِّمَتي أَحَبُّ النّاسِ إِلى قَلْبي",
+          "correctAnswer": "مُعَلِّمَتي أَحَبُّ النّاسِ إِلى قَلْبي",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "اكتب كلمة: معلّم",
+          "correctAnswer": "معلّم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "handwriting"
+        }
+      ],
+      "orderIndex": 1
+    },
+    {
+      "title": "السمكة والحرّيّة",
+      "content": "قصّة تدعو إلى الرفق بالحيوان وحبّ الحرّيّة. المحور اللغويّ: الفعل الماضي.",
+      "objectives": "قيمة الرفق بالحيوان، والتعرّف إلى الفعل الماضي.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "إلامَ يدعو الدرس في معاملة الحيوان؟",
+          "correctAnswer": "الرفق به",
+          "options": [
+            "الرفق به",
+            "إيذائه",
+            "إهماله",
+            "حبسه"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الكلمات فعل ماضٍ؟",
+          "correctAnswer": "سبحَ",
+          "options": [
+            "سبحَ",
+            "يسبحُ",
+            "اسبحْ",
+            "سباحة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الفعل الماضي يدلّ على حدثٍ:",
+          "correctAnswer": "وقع وانتهى",
+          "options": [
+            "وقع وانتهى",
+            "يقع الآن",
+            "سيقع",
+            "لم يقع"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "حوّل إلى الماضي: (تسبح السمكة) →",
+          "correctAnswer": "سبحت السمكة",
+          "options": [
+            "سبحت السمكة",
+            "تسبح السمكة",
+            "اسبح",
+            "ستسبح"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الحرّيّة نعمة يحبّها كلّ كائن حيّ.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل بفعل ماضٍ: ___ الطفلُ السمكةَ في الماء.",
+          "correctAnswer": "أطلقَ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "لماذا أعاد الطفل السمكة إلى الماء؟",
+          "correctAnswer": "رحمةً بها وحبّاً لحرّيّتها",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: السمكةَ، الطفلُ، أطلقَ",
+          "correctAnswer": "أطلقَ، الطفلُ، السمكةَ",
+          "options": [
+            "السمكةَ",
+            "الطفلُ",
+            "أطلقَ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "أَحْسِنْ إِلى الحَيَوانِ يُحِبَّكَ النّاسُ",
+          "correctAnswer": "أَحْسِنْ إِلى الحَيَوانِ يُحِبَّكَ النّاسُ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "أَطْلَقَ الطِّفْلُ السَّمَكَةَ في الماءِ فَسَبَحَتْ فَرِحَةً.",
+          "correctAnswer": "أَطْلَقَ الطِّفْلُ السَّمَكَةَ في الماءِ فَسَبَحَتْ فَرِحَةً.",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        }
+      ],
+      "orderIndex": 2
+    },
+    {
+      "title": "يا رمز العطاء والصمود",
+      "content": "نصّ عن شجرة الزيتون رمز فلسطين والعطاء والصمود. المحور اللغويّ: اسم الفاعل.",
+      "objectives": "الاعتزاز بالزيتون رمزاً وطنيّاً، والتعرّف إلى اسم الفاعل.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما الشجرة التي ترمز للعطاء والصمود في فلسطين؟",
+          "correctAnswer": "الزيتون",
+          "options": [
+            "الزيتون",
+            "الصفصاف",
+            "النخيل",
+            "الصنوبر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الكلمات اسم فاعل؟",
+          "correctAnswer": "زارِع",
+          "options": [
+            "زارِع",
+            "زَرَعَ",
+            "زِراعة",
+            "مَزروع"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "اسم الفاعل من الفعل (كتبَ) هو:",
+          "correctAnswer": "كاتِب",
+          "options": [
+            "كاتِب",
+            "مكتوب",
+            "كتابة",
+            "يكتب"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "اسم الفاعل يدلّ على:",
+          "correctAnswer": "من قام بالفعل",
+          "options": [
+            "من قام بالفعل",
+            "من وقع عليه الفعل",
+            "زمن الفعل",
+            "مكان الفعل"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الزيتون شجرة مباركة يعتزّ بها الفلسطينيّون.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل باسم فاعل: الفلّاح ___ للأرض. (من عَمِل)",
+          "correctAnswer": "عامِل",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "بمَ نصف شجرة الزيتون؟",
+          "correctAnswer": "بالصمود والعطاء",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: الزيتونَ، حاصِدٌ، الفلّاحُ",
+          "correctAnswer": "الفلّاحُ، حاصِدٌ، الزيتونَ",
+          "options": [
+            "الزيتونَ",
+            "حاصِدٌ",
+            "الفلّاحُ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "الزَّيْتونُ رَمْزُ الصُّمودِ وَالعَطاءِ",
+          "correctAnswer": "الزَّيْتونُ رَمْزُ الصُّمودِ وَالعَطاءِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "اكتب كلمة: زيتون",
+          "correctAnswer": "زيتون",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "handwriting"
+        }
+      ],
+      "orderIndex": 3
+    },
+    {
+      "title": "زهرة الحنون",
+      "content": "نصّ عن زهرة الحنون الحمراء التي تزيّن سهول فلسطين. المحور اللغويّ: الجملة الاسمية.",
+      "objectives": "حبّ الطبيعة الفلسطينيّة، والتعرّف إلى الجملة الاسمية.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما لون زهرة الحنون؟",
+          "correctAnswer": "الأحمر",
+          "options": [
+            "الأحمر",
+            "الأزرق",
+            "الأصفر",
+            "الأبيض"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بمَ تبدأ الجملة الاسمية؟",
+          "correctAnswer": "باسم",
+          "options": [
+            "باسم",
+            "بفعل",
+            "بحرف",
+            "بعدد"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الجمل اسمية؟",
+          "correctAnswer": "الزهرةُ جميلةٌ",
+          "options": [
+            "الزهرةُ جميلةٌ",
+            "تفتّحت الزهرةُ",
+            "اقطفِ الزهرةَ",
+            "ينمو النبتُ"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ركنا الجملة الاسمية هما:",
+          "correctAnswer": "المبتدأ والخبر",
+          "options": [
+            "المبتدأ والخبر",
+            "الفعل والفاعل",
+            "الحرف والاسم",
+            "العدد والمعدود"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الزهور تزيّن سهول فلسطين في الربيع.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل جملة اسمية: ___ متفتّحةٌ في السهل.",
+          "correctAnswer": "الزهرةُ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "متى تتفتّح زهرة الحنون؟",
+          "correctAnswer": "في الربيع",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب جملة اسمية: حمراءُ، زهرةُ، الحنونِ",
+          "correctAnswer": "زهرةُ، الحنونِ، حمراءُ",
+          "options": [
+            "حمراءُ",
+            "زهرةُ",
+            "الحنونِ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "زَهْرَةُ الحَنّونِ حَمْراءُ جَميلَةٌ",
+          "correctAnswer": "زَهْرَةُ الحَنّونِ حَمْراءُ جَميلَةٌ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "في الرَّبيعِ تَتَفَتَّحُ زَهْرَةُ الحَنّونِ الحَمْراءُ في السُّهولِ.",
+          "correctAnswer": "في الرَّبيعِ تَتَفَتَّحُ زَهْرَةُ الحَنّونِ الحَمْراءُ في السُّهولِ.",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        }
+      ],
+      "orderIndex": 4
+    },
+    {
+      "title": "جولة في أسواق القدس",
+      "content": "نصّ يصف أسواق القدس القديمة وحرفها وبضائعها. المحور اللغويّ: الجملة الفعلية.",
+      "objectives": "الاعتزاز بالقدس، والتعرّف إلى الجملة الفعلية.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أيّ مدينة فلسطينيّة تشتهر بأسواقها القديمة في الدرس؟",
+          "correctAnswer": "القدس",
+          "options": [
+            "القدس",
+            "غزّة",
+            "أريحا",
+            "طولكرم"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بمَ تبدأ الجملة الفعلية؟",
+          "correctAnswer": "بفعل",
+          "options": [
+            "بفعل",
+            "باسم",
+            "بحرف جرّ",
+            "بعدد"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الجمل فعلية؟",
+          "correctAnswer": "زارَ الأطفالُ السوقَ",
+          "options": [
+            "زارَ الأطفالُ السوقَ",
+            "السوقُ مزدحمٌ",
+            "القدسُ عريقةٌ",
+            "البضاعةُ كثيرةٌ"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أركان الجملة الفعلية:",
+          "correctAnswer": "الفعل والفاعل وقد يكون مفعول",
+          "options": [
+            "الفعل والفاعل وقد يكون مفعول",
+            "المبتدأ والخبر",
+            "الحرف والاسم",
+            "العدد والمعدود"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "القدس مدينة عريقة لها أسواق تاريخية.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل جملة فعلية: ___ التاجرُ بضاعتَه في السوق.",
+          "correctAnswer": "عرضَ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا نشتري من الأسواق القديمة؟",
+          "correctAnswer": "الحرف اليدويّة والبضائع",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب جملة فعلية: السوقَ، زارَ، الأطفالُ",
+          "correctAnswer": "زارَ، الأطفالُ، السوقَ",
+          "options": [
+            "السوقَ",
+            "زارَ",
+            "الأطفالُ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "أَسْواقُ القُدْسِ عَريقَةٌ مَليئَةٌ بِالحَياةِ",
+          "correctAnswer": "أَسْواقُ القُدْسِ عَريقَةٌ مَليئَةٌ بِالحَياةِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "اكتب كلمة: القدس",
+          "correctAnswer": "القدس",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "handwriting"
+        }
+      ],
+      "orderIndex": 5
+    },
+    {
+      "title": "دمية حسنة",
+      "content": "قصّة عن فتاة صنعت دمية بيديها، تعلّمنا العمل اليدويّ والقناعة. المحور اللغويّ: الفعل المضارع.",
+      "objectives": "قيمة العمل اليدويّ، والتعرّف إلى الفعل المضارع.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بمَ صنعت الفتاة دميتها؟",
+          "correctAnswer": "بيديها",
+          "options": [
+            "بيديها",
+            "اشترتها جاهزة",
+            "استعارتها",
+            "وجدتها"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الكلمات فعل مضارع؟",
+          "correctAnswer": "تصنعُ",
+          "options": [
+            "تصنعُ",
+            "صنعَتْ",
+            "اصنعي",
+            "صناعة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الفعل المضارع يدلّ على حدثٍ:",
+          "correctAnswer": "يقع الآن أو في المستقبل",
+          "options": [
+            "يقع الآن أو في المستقبل",
+            "وقع وانتهى",
+            "لن يقع",
+            "أمر"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "حوّل إلى المضارع: (لعبَ الطفلُ) →",
+          "correctAnswer": "يلعبُ الطفلُ",
+          "options": [
+            "يلعبُ الطفلُ",
+            "لعبَ الطفلُ",
+            "العبْ",
+            "لعب"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العمل اليدويّ يعلّمنا الصبر والإتقان.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل بفعل مضارع: ___ الفتاةُ الدميةَ بحبّ.",
+          "correctAnswer": "تصنعُ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا نتعلّم من صنع الأشياء بأيدينا؟",
+          "correctAnswer": "الصبر والإتقان",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: دميةً، تصنعُ، الفتاةُ",
+          "correctAnswer": "تصنعُ، الفتاةُ، دميةً",
+          "options": [
+            "دميةً",
+            "تصنعُ",
+            "الفتاةُ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "أَصْنَعُ لُعَبي بِيَدَيَّ فَأَفْرَحُ بِها",
+          "correctAnswer": "أَصْنَعُ لُعَبي بِيَدَيَّ فَأَفْرَحُ بِها",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "تَصْنَعُ الفَتاةُ دُمْيَةً جَميلَةً بِيَدَيْها وَتَفْرَحُ بِعَمَلِها.",
+          "correctAnswer": "تَصْنَعُ الفَتاةُ دُمْيَةً جَميلَةً بِيَدَيْها وَتَفْرَحُ بِعَمَلِها.",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        }
+      ],
+      "orderIndex": 6
+    },
+    {
+      "title": "إرادتي سرّ نجاحي",
+      "content": "نصّ يحثّ على الإرادة القويّة والاجتهاد سبيلاً للنجاح. المحور اللغويّ: فعل الأمر.",
+      "objectives": "تعزيز الإرادة، والتعرّف إلى فعل الأمر.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما سرّ النجاح كما في الدرس؟",
+          "correctAnswer": "الإرادة والاجتهاد",
+          "options": [
+            "الإرادة والاجتهاد",
+            "الكسل",
+            "الحظّ فقط",
+            "المال"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الكلمات فعل أمر؟",
+          "correctAnswer": "اجتهدْ",
+          "options": [
+            "اجتهدْ",
+            "اجتهدَ",
+            "يجتهدُ",
+            "اجتهاد"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "فعل الأمر يدلّ على:",
+          "correctAnswer": "طلب فعل الشيء",
+          "options": [
+            "طلب فعل الشيء",
+            "حدثٍ ماضٍ",
+            "حدثٍ حاضر",
+            "اسمٍ"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "فعل الأمر من (يكتبُ) هو:",
+          "correctAnswer": "اكتبْ",
+          "options": [
+            "اكتبْ",
+            "كتبَ",
+            "يكتبُ",
+            "كاتب"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الإرادة القويّة تعين على تحقيق الأهداف.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل بفعل أمر: ___ في دراستك تنجحْ.",
+          "correctAnswer": "اجتهدْ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الذي يوصلنا إلى النجاح؟",
+          "correctAnswer": "الإرادة والعمل",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: هدفَك، حدّدْ، ثمّ اعملْ",
+          "correctAnswer": "حدّدْ، هدفَك، ثمّ اعملْ",
+          "options": [
+            "هدفَك",
+            "حدّدْ",
+            "ثمّ اعملْ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "إِرادَتي القَوِيَّةُ سِرُّ نَجاحي",
+          "correctAnswer": "إِرادَتي القَوِيَّةُ سِرُّ نَجاحي",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "اكتب كلمة: نجاح",
+          "correctAnswer": "نجاح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "handwriting"
+        }
+      ],
+      "orderIndex": 7
+    },
+    {
+      "title": "الإطفائيّ الشّجاع",
+      "content": "نصّ عن مهنة الإطفائيّ وشجاعته في إنقاذ الناس. المحور اللغويّ: اسم المفعول.",
+      "objectives": "تقدير المهن النافعة، والتعرّف إلى اسم المفعول.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا يعمل الإطفائيّ؟",
+          "correctAnswer": "يطفئ الحرائق وينقذ الناس",
+          "options": [
+            "يطفئ الحرائق وينقذ الناس",
+            "يبيع الخبز",
+            "يعلّم الطلاب",
+            "يزرع الأرض"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الكلمات اسم مفعول؟",
+          "correctAnswer": "مَنقول",
+          "options": [
+            "مَنقول",
+            "ناقِل",
+            "نقلَ",
+            "نقل"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "اسم المفعول من (كتبَ) هو:",
+          "correctAnswer": "مكتوب",
+          "options": [
+            "مكتوب",
+            "كاتب",
+            "يكتب",
+            "كتابة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "اسم المفعول يدلّ على:",
+          "correctAnswer": "من وقع عليه الفعل",
+          "options": [
+            "من وقع عليه الفعل",
+            "من قام بالفعل",
+            "زمن الفعل",
+            "مكان الفعل"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الشجاعة صفة يحتاجها الإطفائيّ.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل باسم مفعول: البابُ ___. (من فَتَحَ)",
+          "correctAnswer": "مفتوح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "بمَ نصف الإطفائيّ؟",
+          "correctAnswer": "بالشجاعة والتضحية",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: الناسَ، أنقذَ، الإطفائيُّ",
+          "correctAnswer": "أنقذَ، الإطفائيُّ، الناسَ",
+          "options": [
+            "الناسَ",
+            "أنقذَ",
+            "الإطفائيُّ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "الإِطْفائِيُّ الشُّجاعُ يُنْقِذُ النّاسَ",
+          "correctAnswer": "الإِطْفائِيُّ الشُّجاعُ يُنْقِذُ النّاسَ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "يُسْرِعُ الإِطْفائِيُّ الشُّجاعُ لِيُطْفِئَ النّارَ وَيُنْقِذَ النّاسَ.",
+          "correctAnswer": "يُسْرِعُ الإِطْفائِيُّ الشُّجاعُ لِيُطْفِئَ النّارَ وَيُنْقِذَ النّاسَ.",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        }
+      ],
+      "orderIndex": 8
+    },
+    {
+      "title": "قطرة ماء تروي قصّتها",
+      "content": "نصّ على لسان قطرة ماء يبيّن دورة الماء وأهمّيّة ترشيده. المحور اللغويّ: التاء المربوطة والتاء المبسوطة.",
+      "objectives": "ترشيد الماء، والتمييز بين التاءين.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "إلامَ يدعو الدرس في استعمال الماء؟",
+          "correctAnswer": "ترشيده وعدم إهداره",
+          "options": [
+            "ترشيده وعدم إهداره",
+            "إهداره",
+            "تلويثه",
+            "إهماله"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الكلمات تنتهي بتاء مربوطة؟",
+          "correctAnswer": "قطرة",
+          "options": [
+            "قطرة",
+            "بيت",
+            "نبات",
+            "قرأت"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "التاء المبسوطة تظهر في كلمة:",
+          "correctAnswer": "بنتْ",
+          "options": [
+            "بنتْ",
+            "شجرة",
+            "مدرسة",
+            "زهرة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "متى نكتب التاء مربوطة؟",
+          "correctAnswer": "في نهاية الاسم المؤنّث غالباً",
+          "options": [
+            "في نهاية الاسم المؤنّث غالباً",
+            "في وسط الكلمة",
+            "في الأفعال دائماً",
+            "في الحروف"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الماء نعمة يجب المحافظة عليها.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل بالتاء المناسبة: شرب___ الماء أمس (تاء الفاعل).",
+          "correctAnswer": "تُ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر مرحلة من مراحل دورة الماء.",
+          "correctAnswer": "التبخّر",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب مراحل دورة الماء: المطر، التبخّر، تكوّن الغيوم",
+          "correctAnswer": "التبخّر، تكوّن الغيوم، المطر",
+          "options": [
+            "المطر",
+            "التبخّر",
+            "تكوّن الغيوم"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "قَطْرَةُ الماءِ نِعْمَةٌ فَلا نُهْدِرْها",
+          "correctAnswer": "قَطْرَةُ الماءِ نِعْمَةٌ فَلا نُهْدِرْها",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "اكتب كلمة: قطرة",
+          "correctAnswer": "قطرة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "handwriting"
+        }
+      ],
+      "orderIndex": 9
+    },
+    {
+      "title": "الجُنْدُب والنّملة",
+      "content": "حكاية على لسان الحيوان تعلّمنا الجدّ والعمل والادّخار للمستقبل. المحور اللغويّ: علامات الترقيم.",
+      "objectives": "قيمة العمل والادّخار، والتعرّف إلى علامات الترقيم.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا فعلت النملة في الصيف؟",
+          "correctAnswer": "جمعت الطعام للشتاء",
+          "options": [
+            "جمعت الطعام للشتاء",
+            "نامت",
+            "لعبت طوال الوقت",
+            "سافرت"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ العلامات تُوضع في نهاية الجملة الخبرية؟",
+          "correctAnswer": "النقطة",
+          "options": [
+            "النقطة",
+            "علامة الاستفهام",
+            "علامة التعجّب",
+            "الفاصلة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "علامة الاستفهام (؟) توضع بعد:",
+          "correctAnswer": "السؤال",
+          "options": [
+            "السؤال",
+            "التعجّب",
+            "النداء",
+            "الخبر"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ علامة تناسب: ما أجملَ الربيعَ ___",
+          "correctAnswer": "علامة التعجّب",
+          "options": [
+            "علامة التعجّب",
+            "النقطة",
+            "الفاصلة",
+            "علامة الاستفهام"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الادّخار والاستعداد للمستقبل من الحكمة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: تعمل النملةُ بجدٍّ ___ (ضع النقطة).",
+          "correctAnswer": ".",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا نتعلّم من النملة؟",
+          "correctAnswer": "الجدّ والعمل والادّخار",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: للشتاء، النملةُ، جمعتِ، الطعامَ",
+          "correctAnswer": "جمعتِ، النملةُ، الطعامَ، للشتاء",
+          "options": [
+            "للشتاء",
+            "النملةُ",
+            "جمعتِ",
+            "الطعامَ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "تَعْمَلُ النَّمْلَةُ بِجِدٍّ وَتَدَّخِرُ لِلشِّتاءِ",
+          "correctAnswer": "تَعْمَلُ النَّمْلَةُ بِجِدٍّ وَتَدَّخِرُ لِلشِّتاءِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "جَمَعَتِ النَّمْلَةُ طَعامَها في الصَّيْفِ اسْتِعْداداً لِلشِّتاءِ.",
+          "correctAnswer": "جَمَعَتِ النَّمْلَةُ طَعامَها في الصَّيْفِ اسْتِعْداداً لِلشِّتاءِ.",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        }
+      ],
+      "orderIndex": 10
+    },
+    {
+      "title": "رسائل بلا ساعٍ",
+      "content": "نصّ عن وسائل الاتّصال قديماً وحديثاً، ومنها الحمام الزاجل. المحور اللغويّ: همزة الوصل وهمزة القطع.",
+      "objectives": "التعرّف إلى وسائل الاتّصال، والتمييز بين الهمزتين.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أيّ ممّا يلي وسيلة اتّصال قديمة؟",
+          "correctAnswer": "الحمام الزاجل",
+          "options": [
+            "الحمام الزاجل",
+            "الهاتف الذكيّ",
+            "البريد الإلكترونيّ",
+            "الإنترنت"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "همزة القطع تظهر في كلمة:",
+          "correctAnswer": "أَحمد",
+          "options": [
+            "أَحمد",
+            "ابن",
+            "اسم",
+            "اثنان"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "همزة الوصل تظهر في كلمة:",
+          "correctAnswer": "اِستمع",
+          "options": [
+            "اِستمع",
+            "أكل",
+            "إبراهيم",
+            "أُختي"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "همزة القطع تُنطق:",
+          "correctAnswer": "في بدء الكلام ووصله",
+          "options": [
+            "في بدء الكلام ووصله",
+            "لا تُنطق عند الوصل",
+            "في الأفعال فقط",
+            "في الحروف فقط"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "تطوّرت وسائل الاتّصال عبر الزمن.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل بهمزة مناسبة: ___رسلَ سعيدٌ رسالةً. (همزة قطع)",
+          "correctAnswer": "أ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر وسيلة اتّصال حديثة.",
+          "correctAnswer": "الهاتف",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: رسالةً، أرسلَ، الجدُّ",
+          "correctAnswer": "أرسلَ، الجدُّ، رسالةً",
+          "options": [
+            "رسالةً",
+            "أرسلَ",
+            "الجدُّ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "تَطَوَّرَتْ وَسائِلُ الاتِّصالِ عَبْرَ الزَّمَنِ",
+          "correctAnswer": "تَطَوَّرَتْ وَسائِلُ الاتِّصالِ عَبْرَ الزَّمَنِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "اكتب كلمة: رسالة",
+          "correctAnswer": "رسالة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "handwriting"
+        }
+      ],
+      "orderIndex": 11
+    },
+    {
+      "title": "وطني أغلى",
+      "content": "نشيد وطنيّ يعبّر عن حبّ الوطن والانتماء إليه. المحور اللغويّ: أقسام الكلمة (اسم، فعل، حرف).",
+      "objectives": "تعزيز حبّ الوطن، والتعرّف إلى أقسام الكلمة.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما أغلى ما نملك كما في النشيد؟",
+          "correctAnswer": "الوطن",
+          "options": [
+            "الوطن",
+            "المال",
+            "اللعب",
+            "السفر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أقسام الكلمة في العربية ثلاثة:",
+          "correctAnswer": "اسم وفعل وحرف",
+          "options": [
+            "اسم وفعل وحرف",
+            "اسم وعدد وحرف",
+            "فعل وحرف وظرف",
+            "اسم وصفة وحال"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كلمة (فلسطين) نوعها:",
+          "correctAnswer": "اسم",
+          "options": [
+            "اسم",
+            "فعل",
+            "حرف",
+            "عدد"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كلمة (في) نوعها:",
+          "correctAnswer": "حرف",
+          "options": [
+            "حرف",
+            "اسم",
+            "فعل",
+            "صفة"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "حبّ الوطن من الإيمان.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: كلمة (يحبُّ) نوعها ___.",
+          "correctAnswer": "فعل",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كيف نحافظ على وطننا؟",
+          "correctAnswer": "بالعمل والاجتهاد والمحافظة عليه",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: وطني، أحبُّ، أنا",
+          "correctAnswer": "أنا، أحبُّ، وطني",
+          "options": [
+            "وطني",
+            "أحبُّ",
+            "أنا"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "وَطَني أَغْلى ما أَمْلِكُ في الحَياةِ",
+          "correctAnswer": "وَطَني أَغْلى ما أَمْلِكُ في الحَياةِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "اكتب كلمة: وطني",
+          "correctAnswer": "وطني",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "handwriting"
+        }
+      ],
+      "orderIndex": 12
+    },
+    {
+      "title": "أحلام اليقظة",
+      "content": "نصّ يفرّق بين الحلم بالطموح والعمل لتحقيقه، وبين أحلام اليقظة دون سعي. المحور اللغويّ: تحويل الجملة الاسمية إلى فعلية.",
+      "objectives": "ربط الحلم بالعمل، وتحويل الجمل.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بِمَ يتحوّل الطموحُ إلى واقعٍ ملموس؟",
+          "correctAnswer": "بالتخطيط والعمل",
+          "options": [
+            "بالتخطيط والعمل",
+            "بالتمنّي فقط",
+            "بالنوم",
+            "بالانتظار"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "حوّل الاسمية إلى فعلية: (الطالبُ يجتهدُ) →",
+          "correctAnswer": "يجتهدُ الطالبُ",
+          "options": [
+            "يجتهدُ الطالبُ",
+            "الطالبُ مجتهدٌ",
+            "اجتهدْ",
+            "الاجتهاد"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الجملة الفعلية تبدأ بـ:",
+          "correctAnswer": "فعل",
+          "options": [
+            "فعل",
+            "اسم",
+            "حرف جرّ",
+            "ظرف"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ ممّا يلي جملة فعلية؟",
+          "correctAnswer": "حقّقَ سامي حلمَه",
+          "options": [
+            "حقّقَ سامي حلمَه",
+            "سامي طموحٌ",
+            "الحلمُ جميلٌ",
+            "الطموحُ عالٍ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الطموح مع العمل يصنع النجاح.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "حوّل: (المهندسُ يبني) → ___ المهندسُ.",
+          "correctAnswer": "يبني",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الفرق بين الحلم والعمل؟",
+          "correctAnswer": "الحلم أمنية والعمل سعي لتحقيقها",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: حلمَه، حقّقَ، الطالبُ",
+          "correctAnswer": "حقّقَ، الطالبُ، حلمَه",
+          "options": [
+            "حلمَه",
+            "حقّقَ",
+            "الطالبُ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "أُحَقِّقُ حُلْمي بِالتَّخْطيطِ وَالعَمَلِ",
+          "correctAnswer": "أُحَقِّقُ حُلْمي بِالتَّخْطيطِ وَالعَمَلِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "اكتب كلمة: حلم",
+          "correctAnswer": "حلم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "handwriting"
+        }
+      ],
+      "orderIndex": 13
+    },
+    {
+      "title": "النّفعُ طبعي",
+      "content": "نصّ على لسان النحلة يبيّن نفعها للناس بالعسل والتلقيح. المحور اللغويّ: المفرد والجمع.",
+      "objectives": "تقدير المخلوقات النافعة، والتمييز بين المفرد والجمع.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بمَ تنفع النحلة الناس؟",
+          "correctAnswer": "بالعسل وتلقيح الأزهار",
+          "options": [
+            "بالعسل وتلقيح الأزهار",
+            "بالإزعاج",
+            "لا نفع لها",
+            "بالضرر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "جمع كلمة (نحلة) هو:",
+          "correctAnswer": "نحلات",
+          "options": [
+            "نحلات",
+            "نحل واحدة",
+            "نحلتين فقط",
+            "نحلي"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "مفرد كلمة (أزهار) هو:",
+          "correctAnswer": "زهرة",
+          "options": [
+            "زهرة",
+            "زهور",
+            "أزاهير",
+            "زهرات"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "المثنّى من كلمة (زهرة) هو:",
+          "correctAnswer": "زهرتان",
+          "options": [
+            "زهرتان",
+            "زهرات",
+            "زهور",
+            "زهرة"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "النحلة مخلوق نافع ومجتهد.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: مفرد (طلاب) هو ___.",
+          "correctAnswer": "طالب",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "لماذا نحبّ النحلة؟",
+          "correctAnswer": "لنفعها واجتهادها",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: العسلَ، تصنعُ، النحلةُ",
+          "correctAnswer": "تصنعُ، النحلةُ، العسلَ",
+          "options": [
+            "العسلَ",
+            "تصنعُ",
+            "النحلةُ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "النَّحْلَةُ مَخْلوقٌ نافِعٌ مُجْتَهِدٌ",
+          "correctAnswer": "النَّحْلَةُ مَخْلوقٌ نافِعٌ مُجْتَهِدٌ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "اكتب كلمة: نحلة",
+          "correctAnswer": "نحلة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "handwriting"
+        }
+      ],
+      "orderIndex": 14
+    },
+    {
+      "title": "ما أجمل السماء!",
+      "content": "نصّ يدعو للتأمّل في جمال السماء ونجومها وقمرها. المحور اللغويّ: الترادف والتضادّ.",
+      "objectives": "التأمّل في الكون، والتعرّف إلى الترادف والتضادّ.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "إلامَ يدعونا الدرس؟",
+          "correctAnswer": "التأمّل في جمال السماء",
+          "options": [
+            "التأمّل في جمال السماء",
+            "إهمال الطبيعة",
+            "الخوف",
+            "النوم"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "مرادف كلمة (جميل) هو:",
+          "correctAnswer": "حسن",
+          "options": [
+            "حسن",
+            "قبيح",
+            "كبير",
+            "بعيد"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ضدّ كلمة (النهار) هو:",
+          "correctAnswer": "الليل",
+          "options": [
+            "الليل",
+            "الصباح",
+            "الظهر",
+            "الفجر"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "المترادفان كلمتان:",
+          "correctAnswer": "متقاربتان في المعنى",
+          "options": [
+            "متقاربتان في المعنى",
+            "متضادّتان",
+            "متساويتان في الحروف",
+            "لا علاقة بينهما"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "التأمّل في الكون يزيد الإيمان بالله.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ضدّ كلمة (مظلم) هو ___.",
+          "correctAnswer": "مضيء",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر شيئاً جميلاً في السماء.",
+          "correctAnswer": "النجوم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: السماءَ، ما، أجملَ",
+          "correctAnswer": "ما، أجملَ، السماءَ",
+          "options": [
+            "السماءَ",
+            "ما",
+            "أجملَ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "ما أَجْمَلَ السَّماءَ بِنُجومِها وَقَمَرِها",
+          "correctAnswer": "ما أَجْمَلَ السَّماءَ بِنُجومِها وَقَمَرِها",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "أَنْظُرُ إِلى السَّماءِ لَيْلاً فَأَرى النُّجومَ تَتَلَأْلَأُ وَالقَمَرَ يُضيءُ.",
+          "correctAnswer": "أَنْظُرُ إِلى السَّماءِ لَيْلاً فَأَرى النُّجومَ تَتَلَأْلَأُ وَالقَمَرَ يُضيءُ.",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        }
+      ],
+      "orderIndex": 15
+    }
+  ]
+}

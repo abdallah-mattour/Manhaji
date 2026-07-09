@@ -15,10 +15,10 @@
           "questionText": "أي كلمة تبدأ بحرف الذال؟",
           "correctAnswer": "ذئب",
           "options": [
-            "ذئب",
+            "ظرف",
             "دب",
             "زهرة",
-            "ظرف"
+            "ذئب"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -113,10 +113,10 @@
           "questionText": "أي كلمة تبدأ بحرف الغين؟",
           "correctAnswer": "غزال",
           "options": [
-            "غزال",
             "عصفور",
             "فيل",
-            "قطة"
+            "قطة",
+            "غزال"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -212,10 +212,10 @@
           "questionText": "أي كلمة تبدأ بحرف الطاء؟",
           "correctAnswer": "طائر",
           "options": [
-            "طائر",
             "ظرف",
-            "صقر",
-            "ضفدع"
+            "ضفدع",
+            "طائر",
+            "صقر"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -310,10 +310,10 @@
           "questionText": "أي كلمة تبدأ بحرف الكاف؟",
           "correctAnswer": "كتاب",
           "options": [
+            "نجمة",
             "كتاب",
             "قلم",
-            "لعبة",
-            "نجمة"
+            "لعبة"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -394,6 +394,25 @@
           "options": null,
           "difficultyLevel": 2,
           "subSkill": "handwriting"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "أين صورة الكلب؟",
+          "correctAnswer": "كلب",
+          "options": [
+            "أسد",
+            "كلب",
+            "قطة",
+            "دب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/lion.png",
+            "assets/openmoji/dog.png",
+            "assets/openmoji/cat.png",
+            "assets/openmoji/bear.png"
+          ]
         }
       ],
       "imageUrls": []
@@ -409,10 +428,10 @@
           "questionText": "أي كلمة تبدأ بحرف الضاد؟",
           "correctAnswer": "ضفدع",
           "options": [
-            "ضفدع",
-            "صقر",
+            "ظرف",
             "طائر",
-            "ظرف"
+            "ضفدع",
+            "صقر"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -509,9 +528,9 @@
           "correctAnswer": "الضاد",
           "options": [
             "الصاد",
-            "الضاد",
             "الطاء",
-            "الظاء"
+            "الظاء",
+            "الضاد"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -583,6 +602,26 @@
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الكلمات: حيوانات أم طعام؟",
+          "correctAnswer": "حيوانات=أرنب,حيوانات=سلحفاة,طعام=خبز,طعام=جبنة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "حيوانات",
+              "طعام"
+            ],
+            "tokens": [
+              "أرنب",
+              "خبز",
+              "سلحفاة",
+              "جبنة"
+            ]
+          }
         }
       ],
       "imageUrls": []
@@ -598,10 +637,10 @@
           "questionText": "أي كلمة تبدأ بحرف الهاء؟",
           "correctAnswer": "هلال",
           "options": [
-            "هلال",
-            "ولد",
             "يد",
-            "أسد"
+            "أسد",
+            "ولد",
+            "هلال"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -682,6 +721,25 @@
           "options": null,
           "difficultyLevel": 2,
           "subSkill": "handwriting"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "أيّ صورة تبدأ بحرف الهاء؟",
+          "correctAnswer": "هدية",
+          "options": [
+            "قلم",
+            "هدية",
+            "كرة",
+            "كتاب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/pencil.png",
+            "assets/openmoji/gift.png",
+            "assets/openmoji/soccer_ball.png",
+            "assets/openmoji/book.png"
+          ]
         }
       ],
       "imageUrls": []
@@ -697,10 +755,10 @@
           "questionText": "أي كلمة تبدأ بحرف الواو؟",
           "correctAnswer": "وردة",
           "options": [
-            "وردة",
+            "أسد",
             "هلال",
             "يد",
-            "أسد"
+            "وردة"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -795,10 +853,10 @@
           "questionText": "أي كلمة تبدأ بالهمزة؟",
           "correctAnswer": "أسد",
           "options": [
-            "أسد",
+            "ثلج",
             "بيت",
             "تاج",
-            "ثلج"
+            "أسد"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -893,10 +951,10 @@
           "questionText": "أي كلمة تبدأ بحرف الظاء؟",
           "correctAnswer": "ظرف",
           "options": [
-            "ظرف",
+            "صقر",
             "طائر",
             "ضفدع",
-            "صقر"
+            "ظرف"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -991,10 +1049,10 @@
           "questionText": "كم نقطة تحت حرف الياء؟",
           "correctAnswer": "نقطتان",
           "options": [
-            "بدون نقاط",
+            "ثلاث نقاط",
             "نقطة واحدة",
             "نقطتان",
-            "ثلاث نقاط"
+            "بدون نقاط"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1165,6 +1223,47 @@
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MATCH",
+          "questionText": "صِلْ كلَّ كلمةٍ بصورتها",
+          "correctAnswer": "1=a,2=b,3=c",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recognition",
+          "pairs": {
+            "left": [
+              {
+                "id": "1",
+                "text": "وَرْدَة"
+              },
+              {
+                "id": "2",
+                "text": "يَد"
+              },
+              {
+                "id": "3",
+                "text": "هاتِف"
+              }
+            ],
+            "right": [
+              {
+                "id": "a",
+                "text": "",
+                "image": "assets/openmoji/rose.png"
+              },
+              {
+                "id": "c",
+                "text": "",
+                "image": "assets/openmoji/phone.png"
+              },
+              {
+                "id": "b",
+                "text": "",
+                "image": "assets/openmoji/hand.png"
+              }
+            ]
+          }
         }
       ],
       "imageUrls": []
@@ -1188,10 +1287,10 @@
           "questionText": "من يجب أن نساعد؟",
           "correctAnswer": "الكبير",
           "options": [
-            "الكبير",
-            "لا أحد",
+            "الأطفال فقط",
             "الحيوانات فقط",
-            "الأطفال فقط"
+            "لا أحد",
+            "الكبير"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1249,16 +1348,26 @@
           "questionText": "رأيت رجلاً كبيراً يحمل أكياساً ثقيلة. ما أفضل تصرف؟",
           "correctAnswer": "أساعده وأحمل عنه شيئاً",
           "options": [
-            "أتجاهله وأمضي",
-            "أساعده وأحمل عنه شيئاً",
+            "أناديه ولا أساعده",
             "أضحك عليه",
-            "أناديه ولا أساعده"
+            "أتجاهله وأمضي",
+            "أساعده وأحمل عنه شيئاً"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "READING",
+          "questionText": "أُساعِدُ جَدّي وَجَدَّتي كُلَّ يَوْم",
+          "correctAnswer": "أُساعِدُ جَدّي وَجَدَّتي كُلَّ يَوْم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/grandfather.png"
+      ]
     },
     {
       "title": "وطني أجمل",
@@ -1279,10 +1388,10 @@
           "questionText": "ماذا نحب؟",
           "correctAnswer": "وطننا",
           "options": [
-            "وطننا",
+            "الحلوى",
             "اللعب فقط",
             "النوم",
-            "الحلوى"
+            "وطننا"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1346,6 +1455,14 @@
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "READING",
+          "questionText": "فِلَسْطينُ وَطَني الجَميلُ الغالي",
+          "correctAnswer": "فِلَسْطينُ وَطَني الجَميلُ الغالي",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
         }
       ],
       "imageUrls": []
@@ -1369,10 +1486,10 @@
           "questionText": "لماذا الماء مهم؟",
           "correctAnswer": "لأننا نحتاجه للحياة",
           "options": [
-            "لأننا نحتاجه للحياة",
-            "لأنه أزرق",
             "لأنه بارد",
-            "لا نحتاجه"
+            "لا نحتاجه",
+            "لأنه أزرق",
+            "لأننا نحتاجه للحياة"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1431,16 +1548,342 @@
           "correctAnswer": "أُغلقه فوراً",
           "options": [
             "أتركه مفتوحاً",
-            "أُغلقه فوراً",
             "أنادي أمي فقط",
+            "أُغلقه فوراً",
             "أنتظر حتى المساء"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "READING",
+          "questionText": "الماءُ سِرُّ الحَياةِ فَلا نُسْرِفُ فيه",
+          "correctAnswer": "الماءُ سِرُّ الحَياةِ فَلا نُسْرِفُ فيه",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "reading"
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/water.png"
+      ]
+    },
+    {
+      "title": "الفراشة والنحلة",
+      "orderIndex": 16,
+      "content": "طارَتِ الفَراشاتُ في الحُقولِ، سَمِعَتْ فَراشَةٌ صَغيرَةٌ طَنيناً، فَرَأَتِ النَّحْلَةَ تَنْتَقِلُ مِنْ زَهْرَةٍ إِلى زَهْرَةٍ تَجْمَعُ الرَّحيقَ لِتَصْنَعَ العَسَلَ اللَّذيذَ.",
+      "objectives": "قراءة نص الفراشة والنحلة وفهمه، والتمييز بين الأحرف ص/س/ث",
+      "imageUrls": [
+        "assets/openmoji/butterfly.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أَيْنَ طارَتِ الفَراشاتُ؟",
+          "correctAnswer": "في الحُقولِ",
+          "options": [
+            "في المَطْبَخِ",
+            "في المَدْرَسَةِ",
+            "في البَحْرِ",
+            "في الحُقولِ"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "لِماذا تَنْتَقِلُ النَّحْلَةُ مِنْ زَهْرَةٍ إِلى زَهْرَةٍ؟",
+          "correctAnswer": "لِتَجْمَعَ الرَّحيقَ",
+          "options": [
+            "لِتَلْعَبَ مَعَ الفَراشَةِ",
+            "لِتَشْرَبَ الماءَ",
+            "لِتَنامَ",
+            "لِتَجْمَعَ الرَّحيقَ"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا تَصْنَعُ النَّحْلَةُ مِنَ الرَّحيقِ؟",
+          "correctAnswer": "العَسَلَ",
+          "options": [
+            "الجُبْنَ",
+            "الخُبْزَ",
+            "العَسَلَ",
+            "الحَليبَ"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "سَمِعَتِ الفَراشَةُ الصَّغيرَةُ طَنيناً في الحَقْلِ.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "طَعْمُ العَسَلِ مالِحٌ.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل من النص: تَجْمَعُ النَّحْلَةُ الرَّحيقَ لِتَصْنَعَ ___.",
+          "correctAnswer": "العسل",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الحَشَرَةُ الَّتي تَصْنَعُ العَسَلَ؟",
+          "correctAnswer": "النحلة",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أحداث القصة: سَمِعَتْ طَنيناً، طارَتِ الفَراشاتُ، رَأَتِ النَّحْلَةَ",
+          "correctAnswer": "طارَتِ الفَراشاتُ، سَمِعَتْ طَنيناً، رَأَتِ النَّحْلَةَ",
+          "options": [
+            "سَمِعَتْ طَنيناً",
+            "طارَتِ الفَراشاتُ",
+            "رَأَتِ النَّحْلَةَ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة الحَشَرَةِ الَّتي تجمع الرحيق في القصة",
+          "correctAnswer": "النحلة",
+          "options": [
+            "الفراشة",
+            "النحلة",
+            "العصفور",
+            "الضفدع"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/butterfly.png",
+            "assets/openmoji/bee.png",
+            "assets/openmoji/bird.png",
+            "assets/openmoji/frog.png"
+          ]
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الكلمات حسب حرفها الأول: بحرف الصاد أم بحرف السين؟",
+          "correctAnswer": "بحرف الصاد=صَغيرَة,بحرف الصاد=صَرَخَت,بحرف السين=سَمِعَت,بحرف السين=سَرير",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "بحرف الصاد",
+              "بحرف السين"
+            ],
+            "tokens": [
+              "صَغيرَة",
+              "سَمِعَت",
+              "صَرَخَت",
+              "سَرير"
+            ]
+          }
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "الرَّحيق",
+          "correctAnswer": "الرَّحيق",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "طارَتِ الفَراشاتُ في الحُقولِ",
+          "correctAnswer": "طارَتِ الفَراشاتُ في الحُقولِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        }
+      ]
+    },
+    {
+      "title": "القرد الطمّاع",
+      "orderIndex": 17,
+      "content": "بَحَثَ قِرْدٌ جائِعٌ عَنْ طَعامٍ فَوَجَدَ خَوْخَةً، ثُمَّ وَجَدَ مَوْزَةً فَتَرَكَ الخَوْخَةَ وَأَخَذَ المَوْزَةَ، ثُمَّ شاهَدَ أَرْنَباً فَجَرى وَراءَهُ وَلَمْ يُمْسِكْ بِهِ، فَعادَ إِلى مَنْزِلِهِ جائِعاً.",
+      "objectives": "قراءة نص القرد الطمّاع وفهم عاقبة الطمع، والتمييز بين الأحرف ط/ض/ظ",
+      "imageUrls": [
+        "assets/openmoji/monkey.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا وَجَدَ القِرْدُ أَوَّلاً؟",
+          "correctAnswer": "خَوْخَةً",
+          "options": [
+            "تُفّاحَةً",
+            "خَوْخَةً",
+            "مَوْزَةً",
+            "بُرْتُقالَةً"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "لِماذا تَرَكَ القِرْدُ الخَوْخَةَ؟",
+          "correctAnswer": "لِأَنَّهُ وَجَدَ مَوْزَةً",
+          "options": [
+            "لِأَنَّها كَبيرَةٌ",
+            "لِأَنَّهُ شَبْعانُ",
+            "لِأَنَّها بَعيدَةٌ",
+            "لِأَنَّهُ وَجَدَ مَوْزَةً"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بِمَ عادَ القِرْدُ إِلى مَنْزِلِهِ في نِهايَةِ القِصَّةِ؟",
+          "correctAnswer": "بِلا شَيْءٍ",
+          "options": [
+            "بِالخَوْخَةِ",
+            "بِالأَرْنَبِ",
+            "بِالمَوْزَةِ",
+            "بِلا شَيْءٍ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "شاهَدَ القِرْدُ أَرْنَباً فَجَرى وَراءَهُ.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "أَمْسَكَ القِرْدُ بِالأَرْنَبِ.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل من النص: بَحَثَ قِرْدٌ ___ عَنْ طَعامٍ.",
+          "correctAnswer": "جائع",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الصِّفَةُ الَّتي جَعَلَتِ القِرْدَ يَعودُ جائِعاً؟",
+          "correctAnswer": "الطمع",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب ما وجده القرد في القصة: أَرْنَب، خَوْخَة، مَوْزَة",
+          "correctAnswer": "خَوْخَة، مَوْزَة، أَرْنَب",
+          "options": [
+            "أَرْنَب",
+            "خَوْخَة",
+            "مَوْزَة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة الحيوان الذي جرى وراءه القرد",
+          "correctAnswer": "الأرنب",
+          "options": [
+            "القرد",
+            "السلحفاة",
+            "الدب",
+            "الأرنب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/monkey.png",
+            "assets/openmoji/turtle.png",
+            "assets/openmoji/bear.png",
+            "assets/openmoji/rabbit.png"
+          ]
+        },
+        {
+          "type": "IMAGE_MATCH",
+          "questionText": "صِل كل كلمة من القصة بصورتها",
+          "correctAnswer": "1=a,2=b,3=c",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recognition",
+          "pairs": {
+            "left": [
+              {
+                "id": "1",
+                "text": "مَوْزَة"
+              },
+              {
+                "id": "2",
+                "text": "خَوْخَة"
+              },
+              {
+                "id": "3",
+                "text": "قِرْد"
+              }
+            ],
+            "right": [
+              {
+                "id": "c",
+                "image": "assets/openmoji/monkey.png"
+              },
+              {
+                "id": "a",
+                "image": "assets/openmoji/banana.png"
+              },
+              {
+                "id": "b",
+                "image": "assets/openmoji/peach.png"
+              }
+            ]
+          }
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "الطَّمّاع",
+          "correctAnswer": "الطَّمّاع",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "بَحَثَ قِرْدٌ جائِعٌ عَنْ طَعامٍ فَوَجَدَ خَوْخَةً",
+          "correctAnswer": "بَحَثَ قِرْدٌ جائِعٌ عَنْ طَعامٍ فَوَجَدَ خَوْخَةً",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "reading"
+        }
+      ]
     }
   ],
-  "totalLessons": 15
+  "totalLessons": 17
 }

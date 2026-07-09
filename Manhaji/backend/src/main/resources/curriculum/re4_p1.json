@@ -1,0 +1,1595 @@
+{
+  "subject": "التربية الإسلامية",
+  "subjectCode": "re",
+  "gradeLevel": 4,
+  "semester": 1,
+  "totalLessons": 14,
+  "lessons": [
+    {
+      "title": "آية الكرسي",
+      "content": "آية الكرسي من أعظم آيات القرآن، تدلّ على وحدانية الله وقيّوميّته وعلمه الواسع، ويُستحبّ قراءتها.",
+      "objectives": "التعرّف إلى فضل آية الكرسي ومعناها الإجمالي.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "على أيّ شيء تدلّ آية الكرسي؟",
+          "correctAnswer": "وحدانية الله وعظمته",
+          "options": [
+            "وحدانية الله وعظمته",
+            "أحكام البيع",
+            "قصص الأنبياء",
+            "آداب الطعام"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "متى يُستحبّ قراءة آية الكرسي؟",
+          "correctAnswer": "بعد كلّ صلاة وعند النوم",
+          "options": [
+            "بعد كلّ صلاة وعند النوم",
+            "عند الأكل فقط",
+            "في السفر فقط",
+            "مرّة في السنة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "تدلّ كلمة (الحيّ القيّوم) على أنّ الله:",
+          "correctAnswer": "حيّ لا يموت وقائم على كلّ شيء",
+          "options": [
+            "حيّ لا يموت وقائم على كلّ شيء",
+            "يشبه خلقه",
+            "يغفل أحياناً",
+            "محدود العلم"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "آية الكرسي تذكّرنا بعظمة الله وسعة علمه.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: آية الكرسي من سورة ___.",
+          "correctAnswer": "البقرة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر وقتاً يُستحبّ فيه قراءة آية الكرسي.",
+          "correctAnswer": "عند النوم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب لتكوين معنى: الحيّ، هو، لا إله إلا",
+          "correctAnswer": "لا إله إلا، هو، الحيّ",
+          "options": [
+            "الحيّ",
+            "هو",
+            "لا إله إلا"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "اللَّهُ لا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ",
+          "correctAnswer": "اللَّهُ لا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أعظم آية في القرآن هي:",
+          "correctAnswer": "آية الكرسي",
+          "options": [
+            "آية الكرسي",
+            "آية الدَّين",
+            "آية الوضوء",
+            "آية الصيام"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الفائدة من حفظ آية الكرسي؟",
+          "correctAnswer": "حفظ الله ورعايته",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 1
+    },
+    {
+      "title": "الله الواحد",
+      "content": "الله واحد لا شريك له، خالق كلّ شيء ومدبّره، وهو المستحقّ للعبادة وحده (توحيد الألوهيّة والربوبيّة).",
+      "objectives": "ترسيخ الإيمان بوحدانية الله.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كم إلهاً يستحقّ العبادة؟",
+          "correctAnswer": "إله واحد",
+          "options": [
+            "إله واحد",
+            "إلهان",
+            "آلهة كثيرة",
+            "لا أحد"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من خلق السماوات والأرض؟",
+          "correctAnswer": "الله وحده",
+          "options": [
+            "الله وحده",
+            "الملائكة",
+            "الأنبياء",
+            "الناس"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "توحيد الله بأفعاله من خلق ورزق يُسمّى توحيد:",
+          "correctAnswer": "الربوبيّة",
+          "options": [
+            "الربوبيّة",
+            "الشراء",
+            "اللباس",
+            "السفر"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "لله شريك في الملك.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: لا إله إلا ___.",
+          "correctAnswer": "الله",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "من المستحقّ للعبادة وحده؟",
+          "correctAnswer": "الله",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: له، لا، شريك، الله",
+          "correctAnswer": "الله، لا، شريك، له",
+          "options": [
+            "له",
+            "لا",
+            "شريك",
+            "الله"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "قُلْ هُوَ اللَّهُ أَحَدٌ",
+          "correctAnswer": "قُلْ هُوَ اللَّهُ أَحَدٌ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من علامات وحدانية الله في الكون:",
+          "correctAnswer": "انتظام الليل والنهار",
+          "options": [
+            "انتظام الليل والنهار",
+            "كثرة الآلهة",
+            "الفوضى",
+            "تعدّد الخالقين"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر نعمة من نعم الله علينا.",
+          "correctAnswer": "نعمة الماء",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 2
+    },
+    {
+      "title": "وظائف الملائكة",
+      "content": "الملائكة خلق من نور، لا يعصون الله، لكلٍّ منهم وظيفة: جبريل للوحي، ميكائيل للمطر والرزق، إسرافيل للنفخ في الصور.",
+      "objectives": "معرفة بعض الملائكة ووظائفهم.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أيّ ملك موكّل بنزول الوحي على الأنبياء؟",
+          "correctAnswer": "جبريل عليه السلام",
+          "options": [
+            "جبريل عليه السلام",
+            "مالك",
+            "رضوان",
+            "منكر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ممّ خُلقت الملائكة؟",
+          "correctAnswer": "من نور",
+          "options": [
+            "من نور",
+            "من طين",
+            "من نار",
+            "من ماء"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الملك الموكّل بالنفخ في الصور:",
+          "correctAnswer": "إسرافيل عليه السلام",
+          "options": [
+            "إسرافيل عليه السلام",
+            "جبريل عليه السلام",
+            "ميكائيل عليه السلام",
+            "عزرائيل"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الملائكة يعصون الله أحياناً.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: الملك الموكّل بالمطر والرزق هو ___.",
+          "correctAnswer": "ميكائيل",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما وظيفة جبريل عليه السلام؟",
+          "correctAnswer": "نزول الوحي",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: بالوحي، جبريل، موكّل",
+          "correctAnswer": "جبريل، موكّل، بالوحي",
+          "options": [
+            "بالوحي",
+            "جبريل",
+            "موكّل"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الإيمان بالملائكة ركن من أركان:",
+          "correctAnswer": "الإيمان",
+          "options": [
+            "الإيمان",
+            "الإسلام",
+            "الصلاة",
+            "الصيام"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الملائكة يكتبون أعمال العباد.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر ملكاً من الملائكة.",
+          "correctAnswer": "جبريل",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 3
+    },
+    {
+      "title": "مهامّ الرسل",
+      "content": "أرسل الله الرسل لتبليغ رسالته ودعوة الناس إلى عبادته وحده، وتعليمهم الخير، وهم قدوة في الأخلاق.",
+      "objectives": "معرفة مهامّ الرسل ودورهم.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما الغاية التي من أجلها بعث الله الرسل إلى أقوامهم؟",
+          "correctAnswer": "لدعوة الناس إلى عبادة الله وحده",
+          "options": [
+            "لدعوة الناس إلى عبادة الله وحده",
+            "لجمع المال",
+            "للتجارة",
+            "لبناء القصور"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من أوّل الرسل؟",
+          "correctAnswer": "نوح عليه السلام",
+          "options": [
+            "نوح عليه السلام",
+            "آدم عليه السلام",
+            "محمد ﷺ",
+            "موسى عليه السلام"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "خاتم الأنبياء والمرسلين هو:",
+          "correctAnswer": "محمد ﷺ",
+          "options": [
+            "محمد ﷺ",
+            "عيسى عليه السلام",
+            "إبراهيم عليه السلام",
+            "داود عليه السلام"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الرسل قدوة لنا في أخلاقهم.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: الرسل بشر يوحى ___.",
+          "correctAnswer": "إليهم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما مهمّة الرسل الأساسية؟",
+          "correctAnswer": "تبليغ رسالة الله",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: الناس، الرسل، دعوا، لعبادة الله",
+          "correctAnswer": "الرسل، دعوا، الناس، لعبادة الله",
+          "options": [
+            "الناس",
+            "الرسل",
+            "دعوا",
+            "لعبادة الله"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من صفات الرسل:",
+          "correctAnswer": "الصدق والأمانة",
+          "options": [
+            "الصدق والأمانة",
+            "الكذب",
+            "الخيانة",
+            "الكسل"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الإيمان بالرسل جميعاً واجب.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر صفة من صفات الرسل.",
+          "correctAnswer": "الأمانة",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 4
+    },
+    {
+      "title": "سورة الأعلى",
+      "content": "سورة الأعلى مكّيّة، تأمر بتسبيح الله وتذكّر بأنّ الآخرة خير وأبقى.",
+      "objectives": "حفظ آيات من سورة الأعلى وفهم معناها الإجمالي.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بماذا تبدأ سورة الأعلى؟",
+          "correctAnswer": "بالأمر بتسبيح الله",
+          "options": [
+            "بالأمر بتسبيح الله",
+            "بذكر الصيام",
+            "بقصّة نبيّ",
+            "بأحكام البيع"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "سورة الأعلى سورة:",
+          "correctAnswer": "مكّيّة",
+          "options": [
+            "مكّيّة",
+            "مدنيّة",
+            "من الطوال",
+            "من المفصّل المدني"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "تذكّرنا السورة أنّ الآخرة:",
+          "correctAnswer": "خير وأبقى",
+          "options": [
+            "خير وأبقى",
+            "قصيرة",
+            "بعيدة لا تأتي",
+            "غير مهمّة"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "التسبيح تنزيه الله عن كلّ نقص.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: سبّح اسم ربّك ___.",
+          "correctAnswer": "الأعلى",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما معنى التسبيح؟",
+          "correctAnswer": "تنزيه الله",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: الأعلى، اسم، سبّح، ربّك",
+          "correctAnswer": "سبّح، اسم، ربّك، الأعلى",
+          "options": [
+            "الأعلى",
+            "اسم",
+            "سبّح",
+            "ربّك"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "سَبِّحِ اسْمَ رَبِّكَ الْأَعْلَى",
+          "correctAnswer": "سَبِّحِ اسْمَ رَبِّكَ الْأَعْلَى",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من آداب تلاوة القرآن:",
+          "correctAnswer": "الطهارة والإنصات",
+          "options": [
+            "الطهارة والإنصات",
+            "العجلة",
+            "الضحك",
+            "رفع الصوت باللهو"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كم مرّة نسبّح الله بعد الصلاة استحباباً؟",
+          "correctAnswer": "ثلاثاً وثلاثين",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 5
+    },
+    {
+      "title": "فرائض الصلاة",
+      "content": "فرائض الصلاة أركان لا تصحّ الصلاة بدونها، كالنيّة وتكبيرة الإحرام والقيام والركوع والسجود.",
+      "objectives": "معرفة فرائض الصلاة.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بماذا نبدأ الصلاة؟",
+          "correctAnswer": "بتكبيرة الإحرام",
+          "options": [
+            "بتكبيرة الإحرام",
+            "بالسلام",
+            "بالسجود",
+            "بالركوع"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "فرائض الصلاة هي:",
+          "correctAnswer": "أركان لا تصحّ الصلاة بدونها",
+          "options": [
+            "أركان لا تصحّ الصلاة بدونها",
+            "أمور مستحبّة",
+            "زينة",
+            "لا تلزم"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من فرائض الصلاة:",
+          "correctAnswer": "الركوع والسجود",
+          "options": [
+            "الركوع والسجود",
+            "رفع اليدين فقط",
+            "النظر للسقف",
+            "الكلام"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "النيّة شرط لصحّة الصلاة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: نبدأ الصلاة بتكبيرة ___.",
+          "correctAnswer": "الإحرام",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر ركناً من أركان الصلاة.",
+          "correctAnswer": "السجود",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أفعال الركعة: السجود، القيام، الركوع",
+          "correctAnswer": "القيام، الركوع، السجود",
+          "options": [
+            "السجود",
+            "القيام",
+            "الركوع"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "نختم الصلاة بـ:",
+          "correctAnswer": "التسليم",
+          "options": [
+            "التسليم",
+            "التكبير",
+            "الركوع",
+            "الوضوء"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الصلاة عماد الدين.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كم عدد الصلوات المفروضة في اليوم؟",
+          "correctAnswer": "خمس",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 6
+    },
+    {
+      "title": "سنن الصلاة",
+      "content": "سنن الصلاة أقوال وأفعال يُثاب فاعلها ولا تبطل الصلاة بتركها، كدعاء الاستفتاح ورفع اليدين.",
+      "objectives": "التمييز بين فرائض الصلاة وسننها.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "سنن الصلاة:",
+          "correctAnswer": "يُثاب فاعلها ولا تبطل الصلاة بتركها",
+          "options": [
+            "يُثاب فاعلها ولا تبطل الصلاة بتركها",
+            "تبطل الصلاة بتركها",
+            "محرّمة",
+            "لا ثواب فيها"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من سنن الصلاة:",
+          "correctAnswer": "دعاء الاستفتاح",
+          "options": [
+            "دعاء الاستفتاح",
+            "تكبيرة الإحرام",
+            "السجود",
+            "القيام"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "رفع اليدين عند التكبير من:",
+          "correctAnswer": "السنن",
+          "options": [
+            "السنن",
+            "الفرائض",
+            "المبطلات",
+            "المحرّمات"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "من ترك سنّة في الصلاة بطلت صلاته.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: نقرأ دعاء ___ بعد تكبيرة الإحرام.",
+          "correctAnswer": "الاستفتاح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر سنّة من سنن الصلاة.",
+          "correctAnswer": "رفع اليدين",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: الاستفتاح، الإحرام، تكبيرة، دعاء",
+          "correctAnswer": "تكبيرة، الإحرام، دعاء، الاستفتاح",
+          "options": [
+            "الاستفتاح",
+            "الإحرام",
+            "تكبيرة",
+            "دعاء"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الفرق بين الفرض والسنّة أنّ الفرض:",
+          "correctAnswer": "لا تصحّ الصلاة بدونه",
+          "options": [
+            "لا تصحّ الصلاة بدونه",
+            "لا ثواب فيه",
+            "مستحبّ فقط",
+            "يجوز تركه دائماً"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "المحافظة على السنن تزيد الأجر.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "لماذا نحافظ على سنن الصلاة؟",
+          "correctAnswer": "لزيادة الأجر",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 7
+    },
+    {
+      "title": "الثبات على الحقّ (بلال بن رباح)",
+      "content": "صبر بلال بن رباح على العذاب في مكّة وثبت على قول (أحدٌ أحد)، فكان مثالاً في الثبات على الإيمان.",
+      "objectives": "الاقتداء بثبات بلال على الحقّ.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا كان يقول بلال تحت العذاب؟",
+          "correctAnswer": "أحدٌ أحد",
+          "options": [
+            "أحدٌ أحد",
+            "اتركوني",
+            "أنا كافر",
+            "لا أدري"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من الذي اشترى بلالاً وأعتقه؟",
+          "correctAnswer": "أبو بكر الصدّيق",
+          "options": [
+            "أبو بكر الصدّيق",
+            "عمر بن الخطّاب",
+            "أميّة بن خلف",
+            "عثمان"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أصبح بلال بعد ذلك:",
+          "correctAnswer": "مؤذّن رسول الله ﷺ",
+          "options": [
+            "مؤذّن رسول الله ﷺ",
+            "تاجراً",
+            "طبيباً",
+            "قائداً للجيش"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "ثبت بلال على إيمانه رغم العذاب.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: كان بلال يقول تحت العذاب: ___ أحد.",
+          "correctAnswer": "أحدٌ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الصفة التي تعلّمناها من بلال؟",
+          "correctAnswer": "الثبات على الحقّ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأحداث: أعتقه أبو بكر، عُذّب بلال، صار مؤذّناً",
+          "correctAnswer": "عُذّب بلال، أعتقه أبو بكر، صار مؤذّناً",
+          "options": [
+            "أعتقه أبو بكر",
+            "عُذّب بلال",
+            "صار مؤذّناً"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الثبات على الحقّ يحتاج إلى:",
+          "correctAnswer": "الصبر والإيمان",
+          "options": [
+            "الصبر والإيمان",
+            "المال",
+            "الجاه",
+            "القوّة فقط"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "بلال أوّل مؤذّن في الإسلام.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "بماذا نصبر عند الشدائد؟",
+          "correctAnswer": "بالإيمان بالله",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 8
+    },
+    {
+      "title": "الثبات على الحقّ (آل ياسر)",
+      "content": "صبر عمّار بن ياسر وأبواه ياسر وسميّة على تعذيب المشركين، وكانت سميّة أوّل شهيدة في الإسلام.",
+      "objectives": "الاقتداء بصبر آل ياسر على الإيمان.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "من أوّل شهيدة في الإسلام؟",
+          "correctAnswer": "سميّة رضي الله عنها",
+          "options": [
+            "سميّة رضي الله عنها",
+            "خديجة",
+            "عائشة",
+            "فاطمة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا فعل المشركون بآل ياسر؟",
+          "correctAnswer": "عذّبوهم لإيمانهم",
+          "options": [
+            "عذّبوهم لإيمانهم",
+            "أكرموهم",
+            "تركوهم",
+            "أعطوهم مالاً"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بماذا بشّر النبيّ ﷺ آل ياسر؟",
+          "correctAnswer": "بالجنّة",
+          "options": [
+            "بالجنّة",
+            "بالمال",
+            "بالملك",
+            "بالسفر"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "صبر آل ياسر على الإيمان رغم العذاب.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: قال النبيّ ﷺ: صبراً آل ياسر فإنّ موعدكم ___.",
+          "correctAnswer": "الجنّة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "من ابن ياسر الصحابيّ؟",
+          "correctAnswer": "عمّار",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: الجنّة، صبروا، فنالوا",
+          "correctAnswer": "صبروا، فنالوا، الجنّة",
+          "options": [
+            "الجنّة",
+            "صبروا",
+            "فنالوا"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا نتعلّم من آل ياسر؟",
+          "correctAnswer": "الصبر والتضحية في سبيل الله",
+          "options": [
+            "الصبر والتضحية في سبيل الله",
+            "حبّ المال",
+            "الجبن",
+            "الكسل"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الشهادة في سبيل الله منزلة عظيمة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما جزاء الصابرين عند الله؟",
+          "correctAnswer": "الجنّة",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 9
+    },
+    {
+      "title": "الهجرة إلى الحبشة",
+      "content": "هاجر بعض المسلمين إلى الحبشة فراراً بدينهم، فأكرمهم النجاشيّ الملك العادل ولم يسلّمهم لقريش.",
+      "objectives": "معرفة قصّة الهجرة إلى الحبشة وعِبرها.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "إلى أين هاجر المسلمون فراراً بدينهم أوّلاً؟",
+          "correctAnswer": "الحبشة",
+          "options": [
+            "الحبشة",
+            "المدينة",
+            "الطائف",
+            "اليمن"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من ملك الحبشة الذي أكرم المسلمين؟",
+          "correctAnswer": "النجاشيّ",
+          "options": [
+            "النجاشيّ",
+            "كسرى",
+            "قيصر",
+            "هرقل"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "لماذا هاجر المسلمون إلى الحبشة؟",
+          "correctAnswer": "فراراً بدينهم من أذى قريش",
+          "options": [
+            "فراراً بدينهم من أذى قريش",
+            "للتجارة",
+            "للسياحة",
+            "لطلب المال"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كان النجاشيّ ملكاً عادلاً.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: أكرم ___ المسلمين ولم يسلّمهم لقريش.",
+          "correctAnswer": "النجاشيّ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا نتعلّم من الهجرة إلى الحبشة؟",
+          "correctAnswer": "الصبر والتمسّك بالدين",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأحداث: أكرمهم النجاشيّ، آذت قريش المسلمين، هاجروا للحبشة",
+          "correctAnswer": "آذت قريش المسلمين، هاجروا للحبشة، أكرمهم النجاشيّ",
+          "options": [
+            "أكرمهم النجاشيّ",
+            "آذت قريش المسلمين",
+            "هاجروا للحبشة"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من صفات النجاشيّ التي جعلته يكرم المسلمين:",
+          "correctAnswer": "العدل وحبّ الحقّ",
+          "options": [
+            "العدل وحبّ الحقّ",
+            "الظلم",
+            "الطمع",
+            "الجبن"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الهجرة تكون أحياناً حفاظاً على الدين.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "من طلب من النجاشيّ تسليم المسلمين؟",
+          "correctAnswer": "قريش",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 10
+    },
+    {
+      "title": "المقاطعة والحصار",
+      "content": "قاطعت قريش بني هاشم في شِعب أبي طالب سنوات، فصبر المسلمون على الجوع والشدّة حتى نُقضت الصحيفة.",
+      "objectives": "معرفة صبر المسلمين في الحصار.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أين حُوصر بنو هاشم؟",
+          "correctAnswer": "في شِعب أبي طالب",
+          "options": [
+            "في شِعب أبي طالب",
+            "في المدينة",
+            "في الطائف",
+            "في الحبشة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كم سنة استمرّ الحصار تقريباً؟",
+          "correctAnswer": "ثلاث سنوات",
+          "options": [
+            "ثلاث سنوات",
+            "سنة",
+            "عشر سنوات",
+            "شهر"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بماذا صبر المسلمون في الحصار؟",
+          "correctAnswer": "على الجوع والشدّة",
+          "options": [
+            "على الجوع والشدّة",
+            "على السفر",
+            "على الغنى",
+            "لم يصبروا"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كتبت قريش صحيفة المقاطعة وعلّقتها في الكعبة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: حُوصر المسلمون في شِعب أبي ___.",
+          "correctAnswer": "طالب",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا نتعلّم من صبر المسلمين في الحصار؟",
+          "correctAnswer": "الصبر والثبات",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: نُقضت الصحيفة، كتبت قريش المقاطعة، صبر المسلمون",
+          "correctAnswer": "كتبت قريش المقاطعة، صبر المسلمون، نُقضت الصحيفة",
+          "options": [
+            "نُقضت الصحيفة",
+            "كتبت قريش المقاطعة",
+            "صبر المسلمون"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "انتهى الحصار عندما:",
+          "correctAnswer": "نُقضت صحيفة المقاطعة",
+          "options": [
+            "نُقضت صحيفة المقاطعة",
+            "أسلمت قريش",
+            "هاجر النبيّ",
+            "مات أبو جهل"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الصبر على الشدائد من صفات المؤمن.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "من صبر مع النبيّ ﷺ في الحصار؟",
+          "correctAnswer": "بنو هاشم",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 11
+    },
+    {
+      "title": "خروج الرسول ﷺ إلى الطائف",
+      "content": "خرج النبيّ ﷺ إلى الطائف يدعو أهلها فآذوه، فدعا لهم بالهداية ولم يدعُ عليهم، رحمةً بهم.",
+      "objectives": "الاقتداء برحمة النبيّ ﷺ وصبره.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "إلى أين خرج النبيّ ﷺ يدعو أهلها بعد وفاة أبي طالب؟",
+          "correctAnswer": "الطائف",
+          "options": [
+            "الطائف",
+            "الحبشة",
+            "المدينة",
+            "خيبر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كيف عامل أهل الطائف النبيّ ﷺ؟",
+          "correctAnswer": "آذوه ولم يستجيبوا",
+          "options": [
+            "آذوه ولم يستجيبوا",
+            "أكرموه",
+            "أسلموا جميعاً",
+            "تركوه"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بماذا دعا النبيّ ﷺ لأهل الطائف؟",
+          "correctAnswer": "بالهداية",
+          "options": [
+            "بالهداية",
+            "بالهلاك",
+            "بالفقر",
+            "بالمرض"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "دعا النبيّ ﷺ على أهل الطائف بالعذاب.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: كان النبيّ ﷺ رحيماً حتى بمن ___.",
+          "correctAnswer": "آذاه",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الصفة التي ظهرت في موقف الطائف؟",
+          "correctAnswer": "الرحمة والصبر",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: دعا لهم بالهداية، خرج للطائف، آذاه أهلها",
+          "correctAnswer": "خرج للطائف، آذاه أهلها، دعا لهم بالهداية",
+          "options": [
+            "دعا لهم بالهداية",
+            "خرج للطائف",
+            "آذاه أهلها"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا نتعلّم من موقف النبيّ ﷺ في الطائف؟",
+          "correctAnswer": "العفو والرحمة",
+          "options": [
+            "العفو والرحمة",
+            "الانتقام",
+            "اليأس",
+            "الغضب"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "النبيّ ﷺ رحمة للعالمين.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كيف نعامل من يسيء إلينا اقتداءً بالنبيّ ﷺ؟",
+          "correctAnswer": "بالعفو",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 12
+    },
+    {
+      "title": "سورة الطارق",
+      "content": "سورة الطارق مكّيّة، تقسم بالسماء والنجم، وتذكّر بقدرة الله على خلق الإنسان وبعثه.",
+      "objectives": "حفظ آيات من سورة الطارق وفهم معناها الإجمالي.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بماذا تبدأ سورة الطارق؟",
+          "correctAnswer": "بالقسم بالسماء والطارق",
+          "options": [
+            "بالقسم بالسماء والطارق",
+            "بذكر الصلاة",
+            "بقصّة نبيّ",
+            "بأحكام"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ما (الطارق) في السورة؟",
+          "correctAnswer": "النجم الثاقب",
+          "options": [
+            "النجم الثاقب",
+            "المطر",
+            "الريح",
+            "البحر"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "تذكّر السورة بقدرة الله على:",
+          "correctAnswer": "خلق الإنسان وبعثه",
+          "options": [
+            "خلق الإنسان وبعثه",
+            "التجارة",
+            "الطعام",
+            "السفر"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "سورة الطارق مكّيّة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: والسماء و___.",
+          "correctAnswer": "الطارق",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ممّ خُلق الإنسان كما تذكّر السورة؟",
+          "correctAnswer": "من ماء",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: الطارق، والسماء، وما أدراك",
+          "correctAnswer": "والسماء، الطارق، وما أدراك",
+          "options": [
+            "الطارق",
+            "والسماء",
+            "وما أدراك"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "وَالسَّمَاءِ وَالطَّارِقِ",
+          "correctAnswer": "وَالسَّمَاءِ وَالطَّارِقِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الحكمة من القسم في القرآن:",
+          "correctAnswer": "لفت الانتباه وتأكيد المعنى",
+          "options": [
+            "لفت الانتباه وتأكيد المعنى",
+            "الزينة",
+            "الإطالة",
+            "لا حكمة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما موضوع سورة الطارق الرئيس؟",
+          "correctAnswer": "قدرة الله والبعث",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 13
+    },
+    {
+      "title": "الناس سواسية",
+      "content": "الناس سواسية أمام الله، لا فضل لعربيّ على أعجميّ إلا بالتقوى، والإسلام دين العدل والمساواة.",
+      "objectives": "ترسيخ قيمة المساواة بين الناس.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بماذا يتفاضل الناس عند الله؟",
+          "correctAnswer": "بالتقوى والعمل الصالح",
+          "options": [
+            "بالتقوى والعمل الصالح",
+            "باللون",
+            "بالمال",
+            "بالنسب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الناس عند الله:",
+          "correctAnswer": "سواسية كأسنان المشط",
+          "options": [
+            "سواسية كأسنان المشط",
+            "متفاوتون بالمال",
+            "متفاوتون باللون",
+            "لا يتساوون"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الإسلام دين:",
+          "correctAnswer": "العدل والمساواة",
+          "options": [
+            "العدل والمساواة",
+            "الظلم",
+            "التفرقة",
+            "العنصريّة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "لا فضل لأحد على أحد إلا بالتقوى.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: إنّ أكرمكم عند الله ___.",
+          "correctAnswer": "أتقاكم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "بمَ نعامل الناس جميعاً؟",
+          "correctAnswer": "بالعدل والاحترام",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: أتقاكم، عند الله، أكرمكم",
+          "correctAnswer": "أكرمكم، عند الله، أتقاكم",
+          "options": [
+            "أتقاكم",
+            "عند الله",
+            "أكرمكم"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من مظاهر المساواة في الإسلام:",
+          "correctAnswer": "وقوف الناس صفّاً واحداً في الصلاة",
+          "options": [
+            "وقوف الناس صفّاً واحداً في الصلاة",
+            "تفضيل الغنيّ",
+            "تقديم القويّ",
+            "إبعاد الفقير"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "التفرقة بين الناس بسبب اللون مرفوضة في الإسلام.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الميزان الحقيقيّ للتفاضل بين الناس؟",
+          "correctAnswer": "التقوى",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 14
+    }
+  ]
+}

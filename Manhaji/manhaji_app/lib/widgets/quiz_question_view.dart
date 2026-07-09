@@ -42,7 +42,12 @@ class QuizQuestionView extends StatefulWidget {
     required this.onRequestHint,
     this.onSpeak,
     this.maxHintLevel = 3,
+    this.english = false,
   });
+
+  /// Full English experience (2026-07-03): chrome (type pill, hint button,
+  /// retry banner, media labels) in English inside English-subject lessons.
+  final bool english;
 
   final Question question;
   final bool isRetry;
@@ -124,16 +129,20 @@ class _QuizQuestionViewState extends State<QuizQuestionView>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _TypePill(type: widget.question.type, color: typeColor),
+            _TypePill(
+                type: widget.question.type,
+                color: typeColor,
+                english: widget.english),
             const AppGap.v4(),
             QuestionMediaHeader(
               imageUrl: widget.question.imageUrl,
               audioUrl: widget.question.audioUrl,
+              english: widget.english,
             ),
             _Prompt(text: widget.question.questionText, onSpeak: widget.onSpeak),
-            if (widget.isRetry) ...const [
-              AppGap.v3(),
-              _RetryBanner(),
+            if (widget.isRetry) ...[
+              const AppGap.v3(),
+              _RetryBanner(english: widget.english),
             ],
             if (!widget.isAnswered && !widget.isRetry) ...[
               const AppGap.v4(),
@@ -142,6 +151,7 @@ class _QuizQuestionViewState extends State<QuizQuestionView>
                 maxHintLevel: widget.maxHintLevel,
                 isLoading: widget.isLoadingHint,
                 onRequest: widget.onRequestHint,
+                english: widget.english,
               ),
             ],
             if (widget.currentHint != null) ...[
@@ -166,12 +176,14 @@ class _QuizQuestionViewState extends State<QuizQuestionView>
 class _TypePill extends StatelessWidget {
   final String type;
   final Color color;
-  const _TypePill({required this.type, required this.color});
+  final bool english;
+  const _TypePill(
+      {required this.type, required this.color, this.english = false});
 
   @override
   Widget build(BuildContext context) {
     final emoji = AppTheme.emojiForQuestionType(type);
-    final label = AppTheme.labelForQuestionType(type);
+    final label = AppTheme.labelForQuestionType(type, english: english);
     return Align(
       alignment: Directionality.of(context) == TextDirection.rtl
           ? Alignment.centerRight
@@ -289,7 +301,8 @@ class _SpeakerChip extends StatelessWidget {
 // Retry banner — friendly, encouraging
 // ============================================================
 class _RetryBanner extends StatelessWidget {
-  const _RetryBanner();
+  final bool english;
+  const _RetryBanner({this.english = false});
 
   @override
   Widget build(BuildContext context) {
@@ -303,13 +316,13 @@ class _RetryBanner extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppTheme.radiusL),
       ),
       child: Row(
-        children: const [
-          Text('💪', style: TextStyle(fontSize: 22)),
-          AppGap.h3(),
+        children: [
+          const Text('💪', style: TextStyle(fontSize: 22)),
+          const AppGap.h3(),
           Expanded(
             child: Text(
-              'لا بأس! حاول مرة أخرى',
-              style: TextStyle(
+              english ? "It's okay! Try again" : 'لا بأس! حاول مرة أخرى',
+              style: const TextStyle(
                 fontFamily: 'Cairo',
                 fontSize: 15,
                 fontWeight: FontWeight.w700,
@@ -331,12 +344,14 @@ class _HintButton extends StatelessWidget {
   final int maxHintLevel;
   final bool isLoading;
   final VoidCallback onRequest;
+  final bool english;
 
   const _HintButton({
     required this.hintLevel,
     required this.maxHintLevel,
     required this.isLoading,
     required this.onRequest,
+    this.english = false,
   });
 
   @override
@@ -378,7 +393,9 @@ class _HintButton extends StatelessWidget {
                 const Text('💡', style: TextStyle(fontSize: 18)),
               const AppGap.h2(),
               Text(
-                exhausted ? 'لا مزيد من التلميحات' : 'احصل على مساعدة',
+                exhausted
+                    ? (english ? 'No more hints' : 'لا مزيد من التلميحات')
+                    : (english ? 'Get a hint' : 'احصل على مساعدة'),
                 style: TextStyle(
                   fontFamily: 'Cairo',
                   fontSize: 14,

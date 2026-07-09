@@ -16,10 +16,10 @@
           "questionText": "ما ناتج ١٢٣ + ٢٥٤؟",
           "correctAnswer": "٣٧٧",
           "options": [
+            "٣٨٧",
             "٣٧٦",
-            "٣٧٧",
             "٣٧٨",
-            "٣٨٧"
+            "٣٧٧"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -30,8 +30,8 @@
           "correctAnswer": "٥٠٠",
           "options": [
             "٤٠٠",
-            "٥٠٠",
             "٦٠٠",
+            "٥٠٠",
             "٧٠٠"
           ],
           "difficultyLevel": 1,
@@ -43,9 +43,9 @@
           "correctAnswer": "٥٥٧",
           "options": [
             "٥٥٦",
-            "٥٥٧",
+            "٥٦٧",
             "٥٥٨",
-            "٥٦٧"
+            "٥٥٧"
           ],
           "difficultyLevel": 2,
           "subSkill": "computation"
@@ -117,9 +117,9 @@
           "correctAnswer": "٥٦٠",
           "options": [
             "٥٥٠",
-            "٥٦٠",
+            "٤٦٠",
             "٥٧٠",
-            "٤٦٠"
+            "٥٦٠"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -139,9 +139,9 @@
           "correctAnswer": "٤٢",
           "options": [
             "٤٠",
+            "٤٣",
             "٤١",
-            "٤٢",
-            "٤٣"
+            "٤٢"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -151,10 +151,10 @@
           "questionText": "ما ناتج ٤٨ + ٢٥؟",
           "correctAnswer": "٧٣",
           "options": [
-            "٧٢",
-            "٧٣",
+            "٧٥",
             "٧٤",
-            "٧٥"
+            "٧٢",
+            "٧٣"
           ],
           "difficultyLevel": 2,
           "subSkill": "computation"
@@ -164,10 +164,10 @@
           "questionText": "ما ناتج ١٧٥ + ١٢٧؟",
           "correctAnswer": "٣٠٢",
           "options": [
-            "٣٠١",
+            "٢٩٢",
             "٣٠٢",
             "٣١٢",
-            "٢٩٢"
+            "٣٠١"
           ],
           "difficultyLevel": 2,
           "subSkill": "computation"
@@ -225,10 +225,10 @@
           "questionText": "رتّب النتائج تصاعدياً: ١٩+١٢، ٢٥+٢٥، ٣٤+٢٦، ٤٧+٤٣",
           "correctAnswer": "١٩+١٢، ٢٥+٢٥، ٣٤+٢٦، ٤٧+٤٣",
           "options": [
-            "١٩+١٢",
-            "٢٥+٢٥",
+            "٤٧+٤٣",
             "٣٤+٢٦",
-            "٤٧+٤٣"
+            "١٩+١٢",
+            "٢٥+٢٥"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -238,10 +238,10 @@
           "questionText": "في مزرعة ٣٧ خروفاً و ٤٦ ماعزاً. كم رأساً مجموع الحيوانات؟",
           "correctAnswer": "٨٣",
           "options": [
-            "٨٠",
             "٨٢",
             "٨٣",
-            "٨٤"
+            "٨٤",
+            "٨٠"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -260,10 +260,10 @@
           "questionText": "ما ناتج ٥٧٥ − ٢٣٢؟",
           "correctAnswer": "٣٤٣",
           "options": [
-            "٣٤٢",
-            "٣٤٣",
+            "٣٥٣",
             "٣٤٤",
-            "٣٥٣"
+            "٣٤٣",
+            "٣٤٢"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -273,9 +273,9 @@
           "questionText": "ما ناتج ٩٠٠ − ٤٠٠؟",
           "correctAnswer": "٥٠٠",
           "options": [
+            "٦٠٠",
             "٤٠٠",
             "٥٠٠",
-            "٦٠٠",
             "٧٠٠"
           ],
           "difficultyLevel": 1,
@@ -287,9 +287,9 @@
           "correctAnswer": "٣٦١",
           "options": [
             "٣٥١",
-            "٣٦١",
+            "٣٦٠",
             "٣٧١",
-            "٣٦٠"
+            "٣٦١"
           ],
           "difficultyLevel": 2,
           "subSkill": "computation"
@@ -360,10 +360,10 @@
           "questionText": "في مكتبة ٧٥٠ كتاباً، أُهدي منها ٢٢٠ كتاباً. كم كتاباً تبقّى؟",
           "correctAnswer": "٥٣٠",
           "options": [
-            "٥٢٠",
-            "٥٣٠",
             "٥٤٠",
-            "٥٥٠"
+            "٥٥٠",
+            "٥٣٠",
+            "٥٢٠"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -382,10 +382,10 @@
           "questionText": "ما ناتج ٥٢ − ٢٧؟",
           "correctAnswer": "٢٥",
           "options": [
-            "٢٤",
+            "٣٥",
             "٢٥",
-            "٢٦",
-            "٣٥"
+            "٢٤",
+            "٢٦"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -395,9 +395,9 @@
           "questionText": "ما ناتج ٨٠ − ٤٥؟",
           "correctAnswer": "٣٥",
           "options": [
+            "٣٦",
             "٣٤",
             "٣٥",
-            "٣٦",
             "٤٥"
           ],
           "difficultyLevel": 2,
@@ -409,9 +409,9 @@
           "correctAnswer": "١٥٥",
           "options": [
             "١٤٥",
-            "١٥٥",
+            "١٥٠",
             "١٦٥",
-            "١٥٠"
+            "١٥٥"
           ],
           "difficultyLevel": 2,
           "subSkill": "computation"
@@ -470,9 +470,9 @@
           "correctAnswer": "٧٠−٢٥، ٩٠−٤٥، ٨٠−٣٥، ٦٠−١٥",
           "options": [
             "٧٠−٢٥",
-            "٩٠−٤٥",
+            "٦٠−١٥",
             "٨٠−٣٥",
-            "٦٠−١٥"
+            "٩٠−٤٥"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -482,10 +482,10 @@
           "questionText": "كان مع أحمد ٨٠ ليرة، أنفق ٣٥ ليرة. كم بقي معه؟",
           "correctAnswer": "٤٥",
           "options": [
-            "٤٤",
-            "٤٥",
+            "٥٥",
             "٤٦",
-            "٥٥"
+            "٤٤",
+            "٤٥"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -504,10 +504,10 @@
           "questionText": "خاصية التبديل تعني:",
           "correctAnswer": "تبديل ترتيب العددين لا يغيّر الناتج",
           "options": [
-            "تغيير الناتج عند تبديل العددين",
-            "تبديل ترتيب العددين لا يغيّر الناتج",
             "الجمع بدل الطرح",
-            "تغيير الإشارة"
+            "تغيير الإشارة",
+            "تبديل ترتيب العددين لا يغيّر الناتج",
+            "تغيير الناتج عند تبديل العددين"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -517,10 +517,10 @@
           "questionText": "أيّ معادلة توضّح خاصية التبديل؟",
           "correctAnswer": "٥+٣ = ٣+٥",
           "options": [
-            "٥+٣ = ٣+٥",
-            "٥+٣ = ٨",
             "٥−٣ = ٢",
-            "٥×٣ = ١٥"
+            "٥×٣ = ١٥",
+            "٥+٣ = ٣+٥",
+            "٥+٣ = ٨"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -530,10 +530,10 @@
           "questionText": "إذا ١٥+٢٠=٣٥، فما ناتج ٢٠+١٥؟",
           "correctAnswer": "٣٥",
           "options": [
-            "٢٠",
             "٣٠",
-            "٣٥",
-            "٤٠"
+            "٤٠",
+            "٢٠",
+            "٣٥"
           ],
           "difficultyLevel": 1,
           "subSkill": "application"
@@ -604,9 +604,9 @@
           "correctAnswer": "٢٥ + ٧٥ ثم نضيف ١٧",
           "options": [
             "١٧ + ٧٥ ثم نضيف ٢٥",
-            "٢٥ + ٧٥ ثم نضيف ١٧",
             "٢٥ + ١٧ ثم نضيف ٧٥",
-            "الترتيب لا يهم لكنه أسهل بهذا الشكل"
+            "الترتيب لا يهم لكنه أسهل بهذا الشكل",
+            "٢٥ + ٧٥ ثم نضيف ١٧"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -626,9 +626,9 @@
           "correctAnswer": "٤٦٨",
           "options": [
             "٤٦٧",
-            "٤٦٨",
+            "٥٦٨",
             "٤٦٩",
-            "٥٦٨"
+            "٤٦٨"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -639,9 +639,9 @@
           "correctAnswer": "٣٢٥",
           "options": [
             "٣١٥",
+            "٣٢٠",
             "٣٢٥",
-            "٣٣٥",
-            "٣٢٠"
+            "٣٣٥"
           ],
           "difficultyLevel": 2,
           "subSkill": "computation"
@@ -652,9 +652,9 @@
           "correctAnswer": "٧+٥ = ٥+٧",
           "options": [
             "٧−٥ = ٥−٧",
-            "٧+٥ = ٥+٧",
+            "٧×٥ = ٥+٧",
             "٧+٥ = ٥−٧",
-            "٧×٥ = ٥+٧"
+            "٧+٥ = ٥+٧"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -734,10 +734,10 @@
           "questionText": "ما العدد التالي في المتتالية: ٢، ٤، ٦، ___؟",
           "correctAnswer": "٨",
           "options": [
+            "١٠",
             "٧",
             "٨",
-            "٩",
-            "١٠"
+            "٩"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -748,9 +748,9 @@
           "correctAnswer": "٢٠",
           "options": [
             "١٧",
-            "٢٠",
             "٢٥",
-            "١٥"
+            "١٥",
+            "٢٠"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -760,10 +760,10 @@
           "questionText": "ما العدد التالي في المتتالية: ١٠، ٢٠، ٣٠، ___؟",
           "correctAnswer": "٤٠",
           "options": [
-            "٣٥",
-            "٤٠",
+            "٥٠",
             "٤٥",
-            "٥٠"
+            "٣٥",
+            "٤٠"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -833,10 +833,10 @@
           "questionText": "إذا قفزنا بـ ٤ من ٠، فما العدد الخامس؟",
           "correctAnswer": "٢٠",
           "options": [
-            "١٦",
+            "١٢",
             "٢٠",
-            "٢٤",
-            "١٢"
+            "١٦",
+            "٢٤"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -855,10 +855,10 @@
           "questionText": "ما معنى ٢ × ٣؟",
           "correctAnswer": "٣ + ٣ = ٦",
           "options": [
-            "٢ + ٣ = ٥",
-            "٣ + ٣ = ٦",
+            "٢ − ٣ = −١",
             "٢ + ٢ = ٤",
-            "٢ − ٣ = −١"
+            "٣ + ٣ = ٦",
+            "٢ + ٣ = ٥"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -883,8 +883,8 @@
           "options": [
             "١٢",
             "١٤",
-            "١٥",
-            "١٨"
+            "١٨",
+            "١٥"
           ],
           "difficultyLevel": 2,
           "subSkill": "computation"
@@ -955,13 +955,33 @@
           "questionText": "اشترت أم ٣ علب وفي كل علبة ٥ حلويات. كم حلوى معها؟",
           "correctAnswer": "١٥",
           "options": [
-            "١٢",
-            "١٥",
             "١٨",
-            "٢٠"
+            "١٢",
+            "٢٠",
+            "١٥"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف نواتج الضرب: تساوي ١٠ أم تساوي ٢٠؟",
+          "correctAnswer": "تساوي ١٠=٢×٥,تساوي ١٠=١٠×١,تساوي ٢٠=٤×٥,تساوي ٢٠=٢×١٠",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "تساوي ١٠",
+              "تساوي ٢٠"
+            ],
+            "tokens": [
+              "٢×٥",
+              "٤×٥",
+              "١٠×١",
+              "٢×١٠"
+            ]
+          }
         }
       ],
       "imageUrls": []
@@ -979,8 +999,8 @@
           "options": [
             "١٢",
             "١٣",
-            "١٤",
-            "١٦"
+            "١٦",
+            "١٤"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -1003,10 +1023,10 @@
           "questionText": "ما ناتج ٢ × ٠؟",
           "correctAnswer": "٠",
           "options": [
-            "٠",
-            "١",
+            "٢٠",
             "٢",
-            "٢٠"
+            "٠",
+            "١"
           ],
           "difficultyLevel": 2,
           "subSkill": "computation"
@@ -1077,10 +1097,10 @@
           "questionText": "إذا كان لكل طفل ٢ يد، فكم يداً لـ ٦ أطفال؟",
           "correctAnswer": "١٢",
           "options": [
-            "١٠",
-            "١٢",
             "١٤",
-            "١٦"
+            "١٠",
+            "١٦",
+            "١٢"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -1099,10 +1119,10 @@
           "questionText": "ما ناتج ٣ × ٥؟",
           "correctAnswer": "١٥",
           "options": [
-            "١٢",
-            "١٥",
             "١٨",
-            "٢١"
+            "١٢",
+            "٢١",
+            "١٥"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -1113,9 +1133,9 @@
           "correctAnswer": "٢٤",
           "options": [
             "٢١",
+            "٢٧",
             "٢٣",
-            "٢٤",
-            "٢٧"
+            "٢٤"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -1127,8 +1147,8 @@
           "options": [
             "٢٧",
             "٢٨",
-            "٢٩",
-            "٣٠"
+            "٣٠",
+            "٢٩"
           ],
           "difficultyLevel": 2,
           "subSkill": "computation"
@@ -1200,9 +1220,9 @@
           "correctAnswer": "٢١",
           "options": [
             "١٨",
-            "٢١",
+            "٢٧",
             "٢٤",
-            "٢٧"
+            "٢١"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -1221,10 +1241,10 @@
           "questionText": "ما ناتج ٤ × ٦؟",
           "correctAnswer": "٢٤",
           "options": [
-            "٢٠",
+            "٢٨",
             "٢٢",
-            "٢٤",
-            "٢٨"
+            "٢٠",
+            "٢٤"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -1234,10 +1254,10 @@
           "questionText": "ما ناتج ٤ × ٨؟",
           "correctAnswer": "٣٢",
           "options": [
-            "٢٨",
             "٣٠",
             "٣٢",
-            "٣٦"
+            "٣٦",
+            "٢٨"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -1247,10 +1267,10 @@
           "questionText": "ما ناتج ٤ × ٩؟",
           "correctAnswer": "٣٦",
           "options": [
-            "٣٢",
             "٣٤",
-            "٣٦",
-            "٤٠"
+            "٣٢",
+            "٤٠",
+            "٣٦"
           ],
           "difficultyLevel": 2,
           "subSkill": "computation"
@@ -1321,9 +1341,9 @@
           "questionText": "أربعة أرجل لكل كرسي. كم رجلاً لـ ٦ كراسي؟",
           "correctAnswer": "٢٤",
           "options": [
-            "١٦",
             "٢٠",
             "٢٤",
+            "١٦",
             "٢٨"
           ],
           "difficultyLevel": 3,
@@ -1343,10 +1363,10 @@
           "questionText": "ما ناتج ٥ × ٧؟",
           "correctAnswer": "٣٥",
           "options": [
+            "٤٥",
             "٣٠",
-            "٣٥",
             "٤٠",
-            "٤٥"
+            "٣٥"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -1356,8 +1376,8 @@
           "questionText": "ما ناتج ٥ × ٩؟",
           "correctAnswer": "٤٥",
           "options": [
-            "٤٠",
             "٤٢",
+            "٤٠",
             "٤٥",
             "٥٠"
           ],
@@ -1369,10 +1389,10 @@
           "questionText": "ما ناتج ٥ × ٦؟",
           "correctAnswer": "٣٠",
           "options": [
-            "٢٥",
+            "٤٠",
             "٣٠",
             "٣٥",
-            "٤٠"
+            "٢٥"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -1443,10 +1463,10 @@
           "questionText": "في كيس ٥ تفاحات. كم تفاحة في ٧ أكياس؟",
           "correctAnswer": "٣٥",
           "options": [
-            "٣٠",
-            "٣٥",
+            "٤٥",
             "٤٠",
-            "٤٥"
+            "٣٥",
+            "٣٠"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -1465,10 +1485,10 @@
           "questionText": "ما ناتج ١٠ × ٧؟",
           "correctAnswer": "٧٠",
           "options": [
-            "٦٠",
-            "٧٠",
             "٨٠",
-            "٩٠"
+            "٩٠",
+            "٧٠",
+            "٦٠"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -1478,9 +1498,9 @@
           "questionText": "ما ناتج ١٠ × ٩؟",
           "correctAnswer": "٩٠",
           "options": [
+            "١٠٠",
             "٨٠",
             "٩٠",
-            "١٠٠",
             "٧٠"
           ],
           "difficultyLevel": 1,
@@ -1492,8 +1512,8 @@
           "correctAnswer": "١٠٠",
           "options": [
             "٩٠",
-            "١٠٠",
             "١١٠",
+            "١٠٠",
             "١٠٠٠"
           ],
           "difficultyLevel": 1,
@@ -1566,9 +1586,9 @@
           "correctAnswer": "٧٠",
           "options": [
             "٦٠",
-            "٧٠",
+            "٩٠",
             "٨٠",
-            "٩٠"
+            "٧٠"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -1587,10 +1607,10 @@
           "questionText": "ما ناتج ٣ × ٦؟",
           "correctAnswer": "١٨",
           "options": [
-            "١٥",
-            "١٨",
             "٢١",
-            "٢٤"
+            "١٥",
+            "٢٤",
+            "١٨"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -1600,10 +1620,10 @@
           "questionText": "ما ناتج ٤ × ٤؟",
           "correctAnswer": "١٦",
           "options": [
-            "١٢",
             "١٤",
-            "١٦",
-            "٢٠"
+            "١٢",
+            "٢٠",
+            "١٦"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -1613,10 +1633,10 @@
           "questionText": "ما ناتج ٥ × ١٠؟",
           "correctAnswer": "٥٠",
           "options": [
+            "٦٠",
             "٤٠",
-            "٤٥",
             "٥٠",
-            "٦٠"
+            "٤٥"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -1687,13 +1707,51 @@
           "questionText": "في الصف ٥ صفوف من المقاعد، وكل صف ٤ مقاعد. كم مقعداً في الصف كله؟",
           "correctAnswer": "٢٠",
           "options": [
-            "١٦",
             "١٨",
             "٢٠",
-            "٢٤"
+            "٢٤",
+            "١٦"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MATCH",
+          "questionText": "صِل حقيقة الضرب بناتجها",
+          "correctAnswer": "1=a,2=b,3=c",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation",
+          "pairs": {
+            "left": [
+              {
+                "id": "1",
+                "text": "٣×٣"
+              },
+              {
+                "id": "2",
+                "text": "٢×٤"
+              },
+              {
+                "id": "3",
+                "text": "٥×٢"
+              }
+            ],
+            "right": [
+              {
+                "id": "c",
+                "text": "١٠"
+              },
+              {
+                "id": "a",
+                "text": "٩"
+              },
+              {
+                "id": "b",
+                "text": "٨"
+              }
+            ]
+          }
         }
       ],
       "imageUrls": []
@@ -1722,10 +1780,10 @@
           "questionText": "ما ناتج ١٢ ÷ ٣؟",
           "correctAnswer": "٤",
           "options": [
-            "٣",
-            "٤",
             "٥",
-            "٦"
+            "٦",
+            "٣",
+            "٤"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -1737,8 +1795,8 @@
           "options": [
             "٤",
             "٥",
-            "٦",
-            "١٠"
+            "١٠",
+            "٦"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -1809,10 +1867,10 @@
           "questionText": "وزّعت أم ١٨ حلوى على ٦ أطفال بالتساوي. كم حلوى لكل طفل؟",
           "correctAnswer": "٣",
           "options": [
-            "٢",
-            "٣",
+            "٦",
             "٤",
-            "٦"
+            "٢",
+            "٣"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -1832,9 +1890,9 @@
           "correctAnswer": "٤",
           "options": [
             "٣",
-            "٤",
             "٥",
-            "٦"
+            "٦",
+            "٤"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -1844,10 +1902,10 @@
           "questionText": "ما ناتج ١٨ ÷ ٢؟",
           "correctAnswer": "٩",
           "options": [
-            "٧",
+            "١٠",
             "٨",
-            "٩",
-            "١٠"
+            "٧",
+            "٩"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -1857,10 +1915,10 @@
           "questionText": "ما ناتج ٣٠ ÷ ٣؟",
           "correctAnswer": "١٠",
           "options": [
+            "١١",
             "٨",
             "٩",
-            "١٠",
-            "١١"
+            "١٠"
           ],
           "difficultyLevel": 2,
           "subSkill": "computation"
@@ -1931,9 +1989,9 @@
           "questionText": "اشترت أم ٢٥ كوباً ووزّعتها على ٥ أرفف بالتساوي. كم كوباً لكل رف؟",
           "correctAnswer": "٥",
           "options": [
+            "٦",
             "٤",
             "٥",
-            "٦",
             "٧"
           ],
           "difficultyLevel": 3,
@@ -1953,10 +2011,10 @@
           "questionText": "ما ناتج ٤٥ ÷ ٥؟",
           "correctAnswer": "٩",
           "options": [
-            "٧",
-            "٨",
+            "١٠",
             "٩",
-            "١٠"
+            "٧",
+            "٨"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -1967,8 +2025,8 @@
           "correctAnswer": "١٢",
           "options": [
             "١٠",
-            "١١",
             "١٢",
+            "١١",
             "١٤"
           ],
           "difficultyLevel": 2,
@@ -1980,8 +2038,8 @@
           "correctAnswer": "٦",
           "options": [
             "٥",
-            "٦",
             "٧",
+            "٦",
             "٨"
           ],
           "difficultyLevel": 2,
@@ -2053,9 +2111,9 @@
           "questionText": "٥٠ ليرة وزّعت بالتساوي على ٥ أطفال. كم نصيب كل طفل؟",
           "correctAnswer": "١٠",
           "options": [
-            "٥",
-            "١٠",
             "٢٠",
+            "١٠",
+            "٥",
             "٢٥"
           ],
           "difficultyLevel": 3,
@@ -2075,9 +2133,9 @@
           "questionText": "ما ناتج ١٦ ÷ ٤؟",
           "correctAnswer": "٤",
           "options": [
-            "٢",
             "٣",
             "٤",
+            "٢",
             "٥"
           ],
           "difficultyLevel": 1,
@@ -2090,8 +2148,8 @@
           "options": [
             "٦",
             "٧",
-            "٨",
-            "٩"
+            "٩",
+            "٨"
           ],
           "difficultyLevel": 1,
           "subSkill": "computation"
@@ -2102,9 +2160,9 @@
           "correctAnswer": "١٠",
           "options": [
             "٨",
+            "١٢",
             "٩",
-            "١٠",
-            "١٢"
+            "١٠"
           ],
           "difficultyLevel": 2,
           "subSkill": "computation"
@@ -2162,10 +2220,10 @@
           "questionText": "رتّب نتائج القسمة تصاعدياً: ١٠÷٥، ١٢÷٤، ١٠÷٢، ٢٠÷٤",
           "correctAnswer": "١٠÷٥، ١٢÷٤، ١٠÷٢، ٢٠÷٤",
           "options": [
-            "١٠÷٥",
-            "١٢÷٤",
+            "٢٠÷٤",
             "١٠÷٢",
-            "٢٠÷٤"
+            "١٠÷٥",
+            "١٢÷٤"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -2175,10 +2233,10 @@
           "questionText": "في ساحة ٢١ شجرة موزّعة على ٧ صفوف بالتساوي. كم شجرة في كل صف؟",
           "correctAnswer": "٣",
           "options": [
-            "٢",
-            "٣",
             "٤",
-            "٥"
+            "٣",
+            "٥",
+            "٢"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -2197,10 +2255,10 @@
           "questionText": "ما اسم الكسر ½؟",
           "correctAnswer": "نصف",
           "options": [
-            "ربع",
-            "نصف",
+            "خمس",
             "ثلث",
-            "خمس"
+            "ربع",
+            "نصف"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -2223,10 +2281,10 @@
           "questionText": "ما اسم الكسر ⅓؟",
           "correctAnswer": "ثلث",
           "options": [
+            "ثُمن",
             "نصف",
-            "ربع",
             "ثلث",
-            "ثُمن"
+            "ربع"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -2296,10 +2354,10 @@
           "questionText": "إذا قسّمت بيتزا إلى ٤ أجزاء متساوية، كم نسمّي الجزء الواحد؟",
           "correctAnswer": "ربع",
           "options": [
+            "كل البيتزا",
             "نصف",
-            "ربع",
             "ثلث",
-            "كل البيتزا"
+            "ربع"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -2320,8 +2378,8 @@
           "options": [
             "ربع",
             "خُمس",
-            "ثُمن",
-            "نصف"
+            "نصف",
+            "ثُمن"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -2332,9 +2390,9 @@
           "correctAnswer": "ثُمن",
           "options": [
             "ثلث",
-            "ثُمن",
+            "ربع",
             "خُمس",
-            "ربع"
+            "ثُمن"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -2344,10 +2402,10 @@
           "questionText": "أيّ الكسرين أكبر: ½ أم ⅛؟",
           "correctAnswer": "½",
           "options": [
-            "½",
+            "لا أعرف",
             "⅛",
             "متساويان",
-            "لا أعرف"
+            "½"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -2418,10 +2476,10 @@
           "questionText": "أم قسّمت كعكة إلى ٨ قطع. كم قطعة لكل من ٤ أطفال إذا قسمتها بالتساوي؟",
           "correctAnswer": "قطعتان",
           "options": [
-            "قطعة واحدة",
-            "قطعتان",
+            "أربع قطع",
             "ثلاث قطع",
-            "أربع قطع"
+            "قطعة واحدة",
+            "قطعتان"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -2441,9 +2499,9 @@
           "correctAnswer": "أربعة",
           "options": [
             "اثنان",
+            "خمسة",
             "ثلاثة",
-            "أربعة",
-            "خمسة"
+            "أربعة"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -2455,8 +2513,8 @@
           "options": [
             "¼",
             "⅓",
-            "متساويان",
-            "لا أعرف"
+            "لا أعرف",
+            "متساويان"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -2467,9 +2525,9 @@
           "correctAnswer": "⅕",
           "options": [
             "½",
+            "⅕",
             "⅓",
-            "¼",
-            "⅕"
+            "¼"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -2540,9 +2598,9 @@
           "correctAnswer": "نصف الكعكة",
           "options": [
             "ربع",
-            "ثلث",
             "نصف الكعكة",
-            "ثُمن"
+            "ثُمن",
+            "ثلث"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -2561,10 +2619,10 @@
           "questionText": "بأيّ وحدة نقيس طول قلم رصاص؟",
           "correctAnswer": "سنتيمتر",
           "options": [
+            "غرام",
             "سنتيمتر",
-            "متر",
             "كيلومتر",
-            "غرام"
+            "متر"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -2574,10 +2632,10 @@
           "questionText": "بأيّ وحدة نقيس المسافة بين مدينتين؟",
           "correctAnswer": "كيلومتر",
           "options": [
+            "ملليلتر",
             "سنتيمتر",
-            "متر",
             "كيلومتر",
-            "ملليلتر"
+            "متر"
           ],
           "difficultyLevel": 1,
           "subSkill": "application"
@@ -2587,10 +2645,10 @@
           "questionText": "كم سنتيمتراً في المتر الواحد؟",
           "correctAnswer": "١٠٠",
           "options": [
-            "١٠",
             "٥٠",
             "١٠٠",
-            "١٠٠٠"
+            "١٠٠٠",
+            "١٠"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -2660,16 +2718,37 @@
           "questionText": "طول الباب حوالي ٢ متر. هذا يساوي:",
           "correctAnswer": "٢٠٠ سم",
           "options": [
-            "٢٠ سم",
-            "٢٠٠ سم",
             "٢٠٠٠ سم",
-            "٢ سم"
+            "٢٠٠ سم",
+            "٢ سم",
+            "٢٠ سم"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "أي أداة نستخدمها لقياس الطول؟",
+          "correctAnswer": "المسطرة",
+          "options": [
+            "المقص",
+            "المفتاح",
+            "القلم",
+            "المسطرة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/scissors.png",
+            "assets/openmoji/key.png",
+            "assets/openmoji/pencil.png",
+            "assets/openmoji/ruler.png"
+          ]
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/ruler.png"
+      ]
     },
     {
       "title": "قراءة الساعة",
@@ -2684,8 +2763,8 @@
           "options": [
             "واحد",
             "اثنان",
-            "ثلاثة",
-            "أربعة"
+            "أربعة",
+            "ثلاثة"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -2695,10 +2774,10 @@
           "questionText": "كم دقيقة في الساعة؟",
           "correctAnswer": "٦٠",
           "options": [
-            "٢٤",
-            "٣٠",
             "٤٥",
-            "٦٠"
+            "٦٠",
+            "٢٤",
+            "٣٠"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -2708,10 +2787,10 @@
           "questionText": "أيّ عقرب يدلّ على الساعات؟",
           "correctAnswer": "العقرب القصير",
           "options": [
+            "لا فرق",
             "العقرب الطويل",
-            "العقرب القصير",
             "كلاهما",
-            "لا فرق"
+            "العقرب القصير"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -2781,16 +2860,18 @@
           "questionText": "إذا بدأ الدرس الساعة ٨ تماماً واستمرّ ساعتين، فمتى ينتهي؟",
           "correctAnswer": "الساعة ١٠",
           "options": [
-            "الساعة ٩",
-            "الساعة ١٠",
             "الساعة ١١",
-            "الساعة ١٢"
+            "الساعة ١٢",
+            "الساعة ٩",
+            "الساعة ١٠"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/clock.png"
+      ]
     },
     {
       "title": "المجسّمات",
@@ -2803,9 +2884,9 @@
           "questionText": "كم وجهاً للمكعب؟",
           "correctAnswer": "٦",
           "options": [
-            "٤",
             "٥",
             "٦",
+            "٤",
             "٨"
           ],
           "difficultyLevel": 1,
@@ -2816,10 +2897,10 @@
           "questionText": "أيّ مما يلي مجسّم كروي؟",
           "correctAnswer": "كرة قدم",
           "options": [
-            "كتاب",
+            "علبة سردين",
             "كرة قدم",
-            "صندوق",
-            "علبة سردين"
+            "كتاب",
+            "صندوق"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -2829,10 +2910,10 @@
           "questionText": "علبة العصير الأسطوانية مجسّم اسمه:",
           "correctAnswer": "أسطوانة",
           "options": [
-            "مكعب",
             "كرة",
-            "أسطوانة",
-            "هرم"
+            "مكعب",
+            "هرم",
+            "أسطوانة"
           ],
           "difficultyLevel": 2,
           "subSkill": "recognition"
@@ -2903,9 +2984,9 @@
           "correctAnswer": "أسطوانة",
           "options": [
             "مكعب",
+            "هرم",
             "كرة",
-            "أسطوانة",
-            "هرم"
+            "أسطوانة"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -2924,10 +3005,10 @@
           "questionText": "بأيّ وحدة نقيس طول كتاب؟",
           "correctAnswer": "سنتيمتر",
           "options": [
-            "سنتيمتر",
-            "متر",
+            "ساعة",
             "كيلومتر",
-            "ساعة"
+            "متر",
+            "سنتيمتر"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -2938,9 +3019,9 @@
           "correctAnswer": "المكعب",
           "options": [
             "الكرة",
+            "الهرم",
             "المكعب",
-            "الأسطوانة",
-            "الهرم"
+            "الأسطوانة"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -2950,10 +3031,10 @@
           "questionText": "كم دقيقة في نصف الساعة؟",
           "correctAnswer": "٣٠",
           "options": [
-            "١٥",
             "٢٠",
+            "٤٥",
             "٣٠",
-            "٤٥"
+            "١٥"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -3032,10 +3113,10 @@
           "questionText": "ما الخطوة الأولى لجمع البيانات؟",
           "correctAnswer": "تحديد السؤال",
           "options": [
-            "تمثيل النتائج",
+            "النسيان",
             "تحديد السؤال",
-            "البكاء",
-            "النسيان"
+            "تمثيل النتائج",
+            "البكاء"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -3045,9 +3126,9 @@
           "questionText": "إذا أردت معرفة عدد إخوة كل طالب، ماذا تفعل؟",
           "correctAnswer": "أسأل الطلاب وأسجّل إجاباتهم",
           "options": [
-            "أنام",
-            "أسأل الطلاب وأسجّل إجاباتهم",
             "أكتب أرقاماً عشوائية",
+            "أسأل الطلاب وأسجّل إجاباتهم",
+            "أنام",
             "أهرب"
           ],
           "difficultyLevel": 2,
@@ -3059,9 +3140,9 @@
           "correctAnswer": "جدول منظّم",
           "options": [
             "ورقة فارغة",
-            "جدول منظّم",
+            "تحت الطاولة",
             "صور بدون كلمات",
-            "تحت الطاولة"
+            "جدول منظّم"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -3132,12 +3213,32 @@
           "correctAnswer": "ما المادة الأكثر تفضيلاً عندك؟",
           "options": [
             "ما اسمك؟",
-            "ما المادة الأكثر تفضيلاً عندك؟",
             "كم عمرك؟",
-            "أين تسكن؟"
+            "أين تسكن؟",
+            "ما المادة الأكثر تفضيلاً عندك؟"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف العناصر لجمع البيانات: وسائل نقل أم حيوانات؟",
+          "correctAnswer": "وسائل نقل=حافلة,وسائل نقل=قطار,حيوانات=جَمَل,حيوانات=سلحفاة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "وسائل نقل",
+              "حيوانات"
+            ],
+            "tokens": [
+              "حافلة",
+              "جَمَل",
+              "قطار",
+              "سلحفاة"
+            ]
+          }
         }
       ],
       "imageUrls": []
@@ -3153,10 +3254,10 @@
           "questionText": "إذا كانت أعمدة الرسم البياني متفاوتة، ماذا يعني ذلك؟",
           "correctAnswer": "أعداد البيانات مختلفة",
           "options": [
-            "أعداد البيانات مختلفة",
             "كلها متساوية",
+            "لا معنى",
             "خطأ في الرسم دائماً",
-            "لا معنى"
+            "أعداد البيانات مختلفة"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -3167,9 +3268,9 @@
           "correctAnswer": "التمثيل بالأعمدة",
           "options": [
             "التمثيل بالصور",
-            "التمثيل بالأعمدة",
             "الخريطة",
-            "النصّ"
+            "النصّ",
+            "التمثيل بالأعمدة"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -3179,10 +3280,10 @@
           "questionText": "لماذا نستخدم التمثيلات البيانية؟",
           "correctAnswer": "لقراءة البيانات بسرعة وسهولة",
           "options": [
-            "لإخفاء البيانات",
-            "لقراءة البيانات بسرعة وسهولة",
             "لتعقيد القراءة",
-            "بدون سبب"
+            "بدون سبب",
+            "لإخفاء البيانات",
+            "لقراءة البيانات بسرعة وسهولة"
           ],
           "difficultyLevel": 2,
           "subSkill": "comprehension"
@@ -3253,9 +3354,9 @@
           "correctAnswer": "الأزرق",
           "options": [
             "الأحمر",
-            "الأزرق",
+            "متساوية",
             "الأخضر",
-            "متساوية"
+            "الأزرق"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -3274,10 +3375,10 @@
           "questionText": "ما هدفنا من تمثيل البيانات بياناً؟",
           "correctAnswer": "تسهيل الفهم والمقارنة",
           "options": [
-            "إخفاء البيانات",
-            "تسهيل الفهم والمقارنة",
             "إرباك القارئ",
-            "بدون هدف"
+            "إخفاء البيانات",
+            "بدون هدف",
+            "تسهيل الفهم والمقارنة"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -3288,9 +3389,9 @@
           "correctAnswer": "التمثيل بالصور",
           "options": [
             "التمثيل بالأعمدة",
-            "التمثيل بالصور",
             "الجدول الرقمي",
-            "بدون تمثيل"
+            "بدون تمثيل",
+            "التمثيل بالصور"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -3301,9 +3402,9 @@
           "correctAnswer": "أسأل الطلاب وأسجّل البيانات",
           "options": [
             "أرسم رسماً بياناً مباشرة",
-            "أسأل الطلاب وأسجّل البيانات",
             "أتجاهل السؤال",
-            "أنام"
+            "أنام",
+            "أسأل الطلاب وأسجّل البيانات"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"

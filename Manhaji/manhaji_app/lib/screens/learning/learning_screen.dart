@@ -19,11 +19,16 @@ import '../../widgets/vibrant_background.dart';
 import '../../widgets/teaching_card_widget.dart';
 import '../../widgets/duolingo_button.dart';
 import '../../widgets/question_widgets/mcq_widget.dart';
+import '../../widgets/question_widgets/image_mcq_widget.dart';
+import '../../widgets/question_widgets/listen_choose_widget.dart';
+import '../../widgets/question_widgets/image_match_widget.dart';
+import '../../widgets/question_widgets/drag_drop_widget.dart';
 import '../../widgets/question_widgets/true_false_widget.dart';
 import '../../widgets/question_widgets/short_answer_widget.dart';
 import '../../widgets/question_widgets/fill_blank_widget.dart';
 import '../../widgets/question_widgets/ordering_widget.dart';
 import '../../widgets/question_widgets/pronunciation_widget.dart';
+import '../../widgets/question_widgets/reading_widget.dart';
 import '../../widgets/question_widgets/tracing_widget.dart';
 import 'learning_completion_screen.dart';
 
@@ -47,6 +52,12 @@ class LearningScreen extends StatefulWidget {
   /// Starts through assignmentId authorization and uses question-only steps.
   final StudentAssignedQuizDetail? assignedQuiz;
 
+  /// Full English experience (2026-07-03): true when this lesson belongs to
+  /// the English subject — all in-lesson UI chrome (instructions, buttons,
+  /// feedback, hints, onboarding, TTS phrases) renders in English instead of
+  /// Arabic. Set by the caller (subject screens know their subject name).
+  final bool englishMode;
+
   const LearningScreen({
     super.key,
     required this.lessonId,
@@ -54,6 +65,7 @@ class LearningScreen extends StatefulWidget {
     this.practiceMode = false,
     this.personalizedQuiz,
     this.assignedQuiz,
+    this.englishMode = false,
   });
 
   @override
@@ -66,6 +78,9 @@ class _LearningScreenState extends State<LearningScreen>
 
   String? _selectedAnswer;
   final _textController = TextEditingController();
+
+  /// Shorthand for the bilingual in-lesson UI (see [LearningScreen.englishMode]).
+  bool get _english => widget.englishMode;
   late AnimationController _shakeController;
   late Animation<double> _shakeAnimation;
   late ConfettiController _confettiController;
@@ -167,11 +182,11 @@ class _LearningScreenState extends State<LearningScreen>
     if (type == 'PRONUNCIATION' && !storage.seenPronunciationTip) {
       await storage.markPronunciationTipSeen();
       if (!mounted) return;
-      await OnboardingOverlay.showPronunciation(context);
+      await OnboardingOverlay.showPronunciation(context, english: _english);
     } else if (type == 'TRACING' && !storage.seenTracingTip) {
       await storage.markTracingTipSeen();
       if (!mounted) return;
-      await OnboardingOverlay.showTracing(context);
+      await OnboardingOverlay.showTracing(context, english: _english);
     }
   }
 
@@ -367,7 +382,14 @@ class _LearningScreenState extends State<LearningScreen>
 
   Widget _buildContent(LearningProvider provider) {
     final step = provider.currentStep;
-    if (step == null) return const SizedBox();
+    if (step == null) {
+      // Past the last question with nothing to show — finish the lesson so
+      // the celebration screen appears instead of a blank page.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) provider.finishIfStranded();
+      });
+      return _buildLoading(message: _english ? 'Great job!' : 'أحسنت!');
+    }
 
     final teaching = step.teachingData;
     final question = step.question;
@@ -413,13 +435,29 @@ class _LearningScreenState extends State<LearningScreen>
   }
 
   Widget _buildQuestionCard(LearningProvider provider, Question question) {
-    // Pronunciation/tracing render their own target card with a dedicated
-    // speaker, so we only surface the prompt-level speaker for the
+    // Pronunciation/tracing/reading render their own target card with a
+    // dedicated speaker, so we only surface the prompt-level speaker for the
     // read-to-solve question types.
-    final needsSpeaker =
-        question.type != 'PRONUNCIATION' && question.type != 'TRACING';
+    final needsSpeaker = question.type != 'PRONUNCIATION' &&
+        question.type != 'TRACING' &&
+        question.type != 'READING';
+    // Tier 4: the READING widget renders the passage itself (word-by-word
+    // coloring), so the prompt card shows a short instruction instead of
+    // duplicating the passage.
+    final displayQuestion = question.isReading
+        ? Question(
+            id: question.id,
+            type: question.type,
+            questionText: _english
+                ? 'Read the sentence out loud 📖'
+                : 'اقرأ الجملة التالية بصوتٍ واضح 📖',
+            difficultyLevel: question.difficultyLevel,
+            subSkill: question.subSkill,
+          )
+        : question;
     return QuizQuestionView(
-      question: question,
+      question: displayQuestion,
+      english: _english,
       isRetry: provider.phase == LearningPhase.stepRetry,
       showFeedbackBorder: _shouldShowFeedback(provider),
       borderColor: _getQuestionBorderColor(provider),
@@ -465,6 +503,24 @@ class _LearningScreenState extends State<LearningScreen>
         onRecordingComplete: (audioPath) =>
             _handlePronunciationAnswer(provider, audioPath),
         onPlayTarget: () => _ttsService?.speakText(question.questionText),
+        english: _english,
+      );
+    }
+
+    if (question.isReading) {
+      // Tier 4: read-aloud passage. Reuses the entire pronunciation
+      // submission pipeline; the response additionally carries per-word
+      // results which the widget uses to color the passage.
+      return ReadingWidget(
+        question: question,
+        lastScore: tracker?.lastPronunciationScore,
+        isAnswered: isAnswered,
+        isProcessing: provider.phase == LearningPhase.stepFeedback &&
+            tracker?.lastPronunciationScore == null,
+        onRecordingComplete: (audioPath) =>
+            _handlePronunciationAnswer(provider, audioPath),
+        onPlayTarget: () => _ttsService?.speakText(question.questionText),
+        english: _english,
       );
     }
 
@@ -490,6 +546,7 @@ class _LearningScreenState extends State<LearningScreen>
         isAnswered: isAnswered,
         lastResult: lastResult,
         onComplete: (result) => _handleTracingResult(provider, result),
+        english: _english,
       );
     }
 
@@ -501,6 +558,49 @@ class _LearningScreenState extends State<LearningScreen>
         isCorrect: isCorrect,
         correctAnswer: correctAnswer,
         onSelect: (v) => setState(() => _selectedAnswer = v),
+      );
+    } else if (question.isImageMcq) {
+      // Same selection flow as MCQ — options are pictures.
+      return ImageMcqWidget(
+        question: question,
+        selectedAnswer: _selectedAnswer,
+        isAnswered: isAnswered,
+        isCorrect: isCorrect,
+        correctAnswer: correctAnswer,
+        onSelect: (v) => setState(() => _selectedAnswer = v),
+      );
+    } else if (question.isListenChoose) {
+      // Auto-plays the question audio; same selection flow as MCQ.
+      return ListenChooseWidget(
+        question: question,
+        selectedAnswer: _selectedAnswer,
+        isAnswered: isAnswered,
+        isCorrect: isCorrect,
+        correctAnswer: correctAnswer,
+        onSelect: (v) => setState(() => _selectedAnswer = v),
+        onReplay: () => _ttsService?.speakQuestion(
+            question.id, question.questionText),
+        english: _english,
+      );
+    } else if (question.isImageMatch) {
+      // Tap-to-pair; submits the "left=right,…" mapping into _selectedAnswer.
+      return ImageMatchWidget(
+        key: ValueKey('match-${question.id}-${provider.isInRetryRound}'),
+        question: question,
+        isAnswered: isAnswered,
+        onChanged: (v) => setState(() => _selectedAnswer = v),
+        english: _english,
+      );
+    } else if (question.isDragDrop) {
+      // Tier 2: sort tokens into groups. onChanged delivers the full
+      // "target=token,…" mapping only when every token is placed (null while
+      // incomplete), so the check button stays disabled mid-sort.
+      return DragDropWidget(
+        key: ValueKey('dragdrop-${question.id}-${provider.isInRetryRound}'),
+        question: question,
+        isAnswered: isAnswered,
+        onChanged: (v) => setState(() => _selectedAnswer = v),
+        english: _english,
       );
     } else if (question.isTrueFalse) {
       return TrueFalseWidget(
@@ -519,6 +619,7 @@ class _LearningScreenState extends State<LearningScreen>
         isAnswered: isAnswered,
         isCorrect: isCorrect,
         onChanged: (v) => setState(() => _selectedAnswer = v),
+        english: _english,
       );
     } else if (question.isOrdering) {
       return OrderingWidget(
@@ -527,13 +628,19 @@ class _LearningScreenState extends State<LearningScreen>
         isAnswered: isAnswered,
         isCorrect: isCorrect,
         onOrderChanged: (v) => setState(() => _selectedAnswer = v),
+        english: _english,
       );
     } else {
+      // SHORT_ANSWER — and deliberately also the fallback for any type this
+      // app version doesn't know (Question.normalizeType maps known aliases
+      // first). A free-text box means the child can always answer and move
+      // on; an "unsupported" panel would dead-end the quiz.
       return ShortAnswerWidget(
         controller: _textController,
         isAnswered: isAnswered,
         onChanged: (v) => setState(() => _selectedAnswer = v),
         onVoiceComplete: (audioPath) => _handleVoiceAnswer(provider, audioPath),
+        english: _english,
       );
     }
   }
@@ -700,7 +807,9 @@ class _LearningScreenState extends State<LearningScreen>
                 ),
                 const SizedBox(width: 16),
                 Text(
-                  result.isCorrect ? 'أحسنت! ممتاز!' : 'الإجابة الصحيحة:',
+                  result.isCorrect
+                      ? (_english ? 'Well done! Excellent!' : 'أحسنت! ممتاز!')
+                      : (_english ? 'The correct answer:' : 'الإجابة الصحيحة:'),
                   style: TextStyle(
                     fontFamily: 'Cairo',
                     fontSize: 22,
@@ -735,7 +844,7 @@ class _LearningScreenState extends State<LearningScreen>
   Widget _buildActionButton(LearningProvider provider, LearningPhase phase) {
     if (phase == LearningPhase.stepRetry) {
       return DuolingoButton(
-        text: AppStrings.actionTryAgain,
+        text: _english ? 'Try again 💪' : AppStrings.actionTryAgain,
         color: AppTheme.primaryOrange,
         onPressed: () {
           setState(() {
@@ -760,7 +869,7 @@ class _LearningScreenState extends State<LearningScreen>
       }
 
       return DuolingoButton(
-        text: AppStrings.actionNext,
+        text: _english ? 'Next →' : AppStrings.actionNext,
         color: result.isCorrect ? AppTheme.primaryGreen : AppTheme.primaryRed,
         onPressed: () => _goNext(provider),
       );
@@ -772,7 +881,7 @@ class _LearningScreenState extends State<LearningScreen>
     // answer options painted in their "selected blue" state instead of
     // flashing red against a not-yet-arrived verdict.
     return DuolingoButton(
-      text: AppStrings.actionConfirm,
+      text: _english ? 'Check answer' : AppStrings.actionConfirm,
       color: AppTheme.primaryGreen,
       onPressed: (_selectedAnswer != null && !provider.isSubmitting)
           ? () => _submitAnswer(provider)
@@ -808,12 +917,12 @@ class _LearningScreenState extends State<LearningScreen>
     if (isCorrect) {
       HapticFeedback.mediumImpact();
       _confettiController.play();
-      if (autoAudio) _ttsService?.speakText('أحسنت!');
+      if (autoAudio) _ttsService?.speakText(_english ? 'Well done!' : 'أحسنت!');
     } else {
       HapticFeedback.heavyImpact();
       _shakeController.forward(from: 0);
       if (isRetrying && autoAudio) {
-        _ttsService?.speakText('حاول مرة أخرى');
+        _ttsService?.speakText(_english ? 'Try again' : 'حاول مرة أخرى');
       }
     }
   }
@@ -847,7 +956,9 @@ class _LearningScreenState extends State<LearningScreen>
       debugPrint('[hint] error: $e');
       setState(() {
         _hintLevel++;
-        _currentHint = 'فكّر جيداً في السؤال 🤔';
+        _currentHint = _english
+            ? 'Think carefully about the question 🤔'
+            : 'فكّر جيداً في السؤال 🤔';
       });
     } finally {
       setState(() => _isLoadingHint = false);

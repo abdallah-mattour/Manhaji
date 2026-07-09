@@ -145,7 +145,8 @@ public class WhisperService {
                     ),
                     "generationConfig", Map.of(
                             "temperature", 0.2,
-                            "maxOutputTokens", 512
+                            "maxOutputTokens", 1024,
+                            "responseMimeType", "application/json"
                     )
             );
 
@@ -205,11 +206,41 @@ public class WhisperService {
                 return new PhonemeAnalysis(transcribed, errors, guidance);
             }
         } catch (Exception ignored) {
-            // Fall through to transcribed-only
+            // Fall through to salvage / transcribed-only
+        }
+
+        // Salvage: response was truncated or otherwise malformed JSON. Pull the
+        // "transcribed" (and optionally "guidance") values out with a regex so
+        // the child still sees clean text instead of raw JSON.
+        if (trimmed.contains("\"transcribed\"")) {
+            String transcribed = extractJsonStringField(trimmed, "transcribed");
+            if (transcribed != null && !transcribed.isBlank()) {
+                String guidance = extractJsonStringField(trimmed, "guidance");
+                return new PhonemeAnalysis(transcribed, List.of(),
+                        (guidance == null || guidance.isBlank()) ? null : guidance);
+            }
+            // Looks like JSON but nothing usable — never show raw JSON to a child.
+            return PhonemeAnalysis.empty();
+        }
+        if (trimmed.startsWith("{") || trimmed.startsWith("[")) {
+            return PhonemeAnalysis.empty();
         }
 
         // Fallback: Gemini returned plain text instead of JSON.
         return PhonemeAnalysis.transcribedOnly(trimmed);
+    }
+
+    /** Regex-extract a top-level string field from (possibly truncated) JSON text. */
+    private static String extractJsonStringField(String raw, String field) {
+        var m = java.util.regex.Pattern
+                .compile("\"" + field + "\"\\s*:\\s*\"((?:[^\"\\\\]|\\\\.)*)\"")
+                .matcher(raw);
+        if (!m.find()) return null;
+        return m.group(1)
+                .replace("\\\"", "\"")
+                .replace("\\n", " ")
+                .replace("\\\\", "\\")
+                .trim();
     }
 
     private String extractTextFromGeminiResponse(String json) {

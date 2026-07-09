@@ -379,7 +379,7 @@ class AuthServiceTest {
 
             assertThatThrownBy(() -> authService.loginWithEmail(request))
                     .isInstanceOf(AuthenticationFailedException.class)
-                    .hasMessageContaining("disabled");
+                    .hasMessageContaining("تعطيل");
             // Critical: no tokens minted, no save called.
             verify(jwtService, never()).generateAccessToken(any());
             verify(userRepository, never()).save(any());
@@ -499,7 +499,7 @@ class AuthServiceTest {
 
             assertThatThrownBy(() -> authService.refreshToken("valid_refresh"))
                     .isInstanceOf(AuthenticationFailedException.class)
-                    .hasMessageContaining("disabled");
+                    .hasMessageContaining("تعطيل");
             verify(jwtService, never()).generateAccessToken(any());
         }
     }

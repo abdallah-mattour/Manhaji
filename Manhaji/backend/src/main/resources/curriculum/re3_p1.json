@@ -1,0 +1,1783 @@
+{
+  "subject": "التربية الإسلامية",
+  "subjectCode": "re",
+  "gradeLevel": 3,
+  "semester": 1,
+  "totalLessons": 15,
+  "lessons": [
+    {
+      "title": "الشهادتان",
+      "content": "الشهادتان هما: أشهد أن لا إله إلا الله، وأشهد أن محمداً رسول الله، وهما مفتاح الدخول في الإسلام.",
+      "objectives": "معرفة الشهادتين ومعناهما وأهميتهما",
+      "imageUrls": [
+        "assets/openmoji/star_crescent.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كم عدد الشهادتين؟",
+          "correctAnswer": "شهادتان",
+          "options": [
+            "ثلاث شهادات",
+            "شهادتان",
+            "شهادة واحدة",
+            "أربع"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الشهادة الأولى هي: أشهد أن لا إله إلا ...",
+          "correctAnswer": "الله",
+          "options": [
+            "الملائكة",
+            "الرسول",
+            "الله",
+            "الأنبياء"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الشهادة الثانية: أشهد أن محمداً ...",
+          "correctAnswer": "رسول الله",
+          "options": [
+            "نبي بني إسرائيل",
+            "صحابي",
+            "ملك",
+            "رسول الله"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الشهادتان مفتاح الدخول في الإسلام.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "من نطق بالشهادتين يخرج من الإسلام.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: أشهد أن لا إله إلا الله وأشهد أن محمداً ___ الله.",
+          "correctAnswer": "رسول",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "بماذا يدخل الإنسان في دين الإسلام؟",
+          "correctAnswer": "بالشهادتين",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب كلمات الشهادة الأولى: إلا الله، أشهد أن، لا إله",
+          "correctAnswer": "أشهد أن، لا إله، إلا الله",
+          "options": [
+            "إلا الله",
+            "أشهد أن",
+            "لا إله"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "أَشْهَدُ أَنْ لا إِلهَ إِلّا اللهُ",
+          "correctAnswer": "أَشْهَدُ أَنْ لا إِلهَ إِلّا اللهُ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "READING",
+          "questionText": "أَشْهَدُ أَنَّ مُحَمَّداً رَسولُ اللهِ",
+          "correctAnswer": "أَشْهَدُ أَنَّ مُحَمَّداً رَسولُ اللهِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        }
+      ],
+      "orderIndex": 1
+    },
+    {
+      "title": "الإيمان بالكتب والرسل",
+      "content": "أرسل الله الرسل لهداية الناس، وأنزل عليهم الكتب: التوراة على موسى، والإنجيل على عيسى، والزبور على داود، والقرآن على محمد عليهم الصلاة والسلام.",
+      "objectives": "التعرف إلى الإيمان بالكتب السماوية والرسل",
+      "imageUrls": [
+        "assets/openmoji/book.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "على من أُنزلت التوراة؟",
+          "correctAnswer": "موسى عليه السلام",
+          "options": [
+            "عيسى عليه السلام",
+            "داود عليه السلام",
+            "موسى عليه السلام",
+            "محمد ﷺ"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "على من أُنزل القرآن الكريم؟",
+          "correctAnswer": "محمد ﷺ",
+          "options": [
+            "داود عليه السلام",
+            "عيسى عليه السلام",
+            "محمد ﷺ",
+            "موسى عليه السلام"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "لماذا أرسل الله الرسل؟",
+          "correctAnswer": "لهداية الناس ودعوتهم لعبادته",
+          "options": [
+            "للتجارة",
+            "لهداية الناس ودعوتهم لعبادته",
+            "لجمع المال",
+            "لبناء القصور"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الإنجيل أُنزل على عيسى عليه السلام.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "القرآن الكريم أُنزل على موسى عليه السلام.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: أُنزل الزبور على ___ عليه السلام.",
+          "correctAnswer": "داود",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما آخر الكتب السماوية؟",
+          "correctAnswer": "القرآن الكريم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: نؤمن بالكتب، نؤمن بالله، نؤمن بالرسل",
+          "correctAnswer": "نؤمن بالله، نؤمن بالكتب، نؤمن بالرسل",
+          "options": [
+            "نؤمن بالكتب",
+            "نؤمن بالله",
+            "نؤمن بالرسل"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MATCH",
+          "questionText": "صِل كل كتاب سماوي بنبيّه",
+          "correctAnswer": "1=a,2=b,3=c",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "left": [
+              {
+                "id": "1",
+                "text": "التوراة"
+              },
+              {
+                "id": "2",
+                "text": "الإنجيل"
+              },
+              {
+                "id": "3",
+                "text": "القرآن"
+              }
+            ],
+            "right": [
+              {
+                "id": "b",
+                "text": "عيسى"
+              },
+              {
+                "id": "c",
+                "text": "محمد ﷺ"
+              },
+              {
+                "id": "a",
+                "text": "موسى"
+              }
+            ]
+          }
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "آمَنْتُ بِاللهِ وَكُتُبِهِ وَرُسُلِهِ",
+          "correctAnswer": "آمَنْتُ بِاللهِ وَكُتُبِهِ وَرُسُلِهِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        }
+      ],
+      "orderIndex": 2
+    },
+    {
+      "title": "أركان الإيمان",
+      "content": "أركان الإيمان ستة: الإيمان بالله، وملائكته، وكتبه، ورسله، واليوم الآخر، وبالقدر خيره وشره. سُئل النبي ﷺ عن الإيمان فذكرها.",
+      "objectives": "معرفة أركان الإيمان الستة",
+      "imageUrls": [
+        "assets/openmoji/heart.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كم عدد أركان الإيمان؟",
+          "correctAnswer": "ستة",
+          "options": [
+            "أربعة",
+            "سبعة",
+            "ستة",
+            "خمسة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أول أركان الإيمان هو الإيمان بـ:",
+          "correctAnswer": "الله",
+          "options": [
+            "الكتب",
+            "الملائكة",
+            "اليوم الآخر",
+            "الله"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من أركان الإيمان: الإيمان باليوم ...",
+          "correctAnswer": "الآخر",
+          "options": [
+            "السعيد",
+            "الأول",
+            "الآخر",
+            "الطويل"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الإيمان بالملائكة من أركان الإيمان.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الإيمان بالقدر ليس من أركان الإيمان.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: نؤمن بالقدر ___ه وشرّه.",
+          "correctAnswer": "خير",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "بمن نؤمن من الرسل والأنبياء؟",
+          "correctAnswer": "بجميعهم",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أركان الإيمان الأولى: بكتبه، بالله، بملائكته",
+          "correctAnswer": "بالله، بملائكته، بكتبه",
+          "options": [
+            "بكتبه",
+            "بالله",
+            "بملائكته"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "آمَنْتُ بِاللهِ وَمَلائِكَتِهِ",
+          "correctAnswer": "آمَنْتُ بِاللهِ وَمَلائِكَتِهِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف: من أركان الإيمان أم من أركان الإسلام؟",
+          "correctAnswer": "أركان الإيمان=الإيمان بالملائكة,أركان الإيمان=الإيمان باليوم الآخر,أركان الإسلام=الصلاة,أركان الإسلام=الزكاة",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "أركان الإيمان",
+              "أركان الإسلام"
+            ],
+            "tokens": [
+              "الإيمان بالملائكة",
+              "الصلاة",
+              "الإيمان باليوم الآخر",
+              "الزكاة"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 3
+    },
+    {
+      "title": "سورة الضحى",
+      "content": "سورة الضحى مكية، فيها بشارة الله لنبيه ﷺ بعنايته ورعايته: ما ودّعك ربك وما قلى، وأمره بالإحسان لليتيم والسائل.",
+      "objectives": "حفظ سورة الضحى وفهم عناية الله برسوله ﷺ",
+      "imageUrls": [
+        "assets/openmoji/sun.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بماذا بشّر الله نبيه ﷺ في سورة الضحى؟",
+          "correctAnswer": "بعنايته ورعايته",
+          "options": [
+            "بالمال",
+            "بالملك",
+            "بالتجارة",
+            "بعنايته ورعايته"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بماذا أمر الله في سورة الضحى تجاه اليتيم؟",
+          "correctAnswer": "بعدم قهره",
+          "options": [
+            "بإهماله",
+            "بطرده",
+            "بتركه",
+            "بعدم قهره"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بمَ أقسم الله في أول السورة؟",
+          "correctAnswer": "بالضحى",
+          "options": [
+            "بالعصر",
+            "بالليل",
+            "بالضحى",
+            "بالتين"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "قال تعالى: ما ودّعك ربك وما قلى.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "أمر الله في السورة بقهر اليتيم.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل الآية: وَالضُّحى وَاللَّيْلِ إِذا ___.",
+          "correctAnswer": "سجى",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كيف نعامل السائل بحسب السورة؟",
+          "correctAnswer": "لا ننهره",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أوائل آيات السورة: مَا وَدَّعَكَ رَبُّكَ، وَالضُّحى، وَاللَّيْلِ إِذا سَجى",
+          "correctAnswer": "وَالضُّحى، وَاللَّيْلِ إِذا سَجى، مَا وَدَّعَكَ رَبُّكَ",
+          "options": [
+            "مَا وَدَّعَكَ رَبُّكَ",
+            "وَالضُّحى",
+            "وَاللَّيْلِ إِذا سَجى"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "وَالضُّحى وَاللَّيْلِ إِذا سَجى",
+          "correctAnswer": "وَالضُّحى وَاللَّيْلِ إِذا سَجى",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "READING",
+          "questionText": "فَأَمَّا اليَتيمَ فَلا تَقْهَرْ",
+          "correctAnswer": "فَأَمَّا اليَتيمَ فَلا تَقْهَرْ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        }
+      ],
+      "orderIndex": 4
+    },
+    {
+      "title": "الدعوة السرية",
+      "content": "بدأ النبي ﷺ دعوته سرّاً؛ ليحمي المؤمنين من أذى قريش، فدعا أهله وأصحابه المقرّبين إلى عبادة الله وحده، وكان بيت الأرقم مكاناً لاجتماعهم.",
+      "objectives": "التعرف إلى مرحلة الدعوة السرية وأسبابها",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كيف بدأ النبي ﷺ دعوته؟",
+          "correctAnswer": "سرّاً",
+          "options": [
+            "بالحرب",
+            "بالمال",
+            "جهراً",
+            "سرّاً"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "لماذا بدأ النبي ﷺ الدعوة سرّاً؟",
+          "correctAnswer": "ليحمي المؤمنين من أذى قريش",
+          "options": [
+            "لأنه لا يريد الناس",
+            "ليحمي المؤمنين من أذى قريش",
+            "بلا سبب",
+            "لأنه خائف من الله"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من دعا النبي ﷺ في بداية دعوته؟",
+          "correctAnswer": "أهله وأصحابه المقرّبين",
+          "options": [
+            "ملوك الأرض",
+            "التجار فقط",
+            "الأطفال فقط",
+            "أهله وأصحابه المقرّبين"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كانت الدعوة السرية لحماية المسلمين الأوائل.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "دعا النبي ﷺ الناس جهراً في بداية الدعوة.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: دعا النبي ﷺ إلى عبادة الله ___.",
+          "correctAnswer": "وحده",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "إلى ماذا كان النبي ﷺ يدعو الناس؟",
+          "correctAnswer": "عبادة الله وحده",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب مراحل الدعوة: الدعوة الجهرية، نزول الوحي، الدعوة السرية",
+          "correctAnswer": "نزول الوحي، الدعوة السرية، الدعوة الجهرية",
+          "options": [
+            "الدعوة الجهرية",
+            "نزول الوحي",
+            "الدعوة السرية"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "الدَّعْوَةُ السِّرِّيَّةُ",
+          "correctAnswer": "الدَّعْوَةُ السِّرِّيَّةُ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "READING",
+          "questionText": "بَدَأَ النَّبِيُّ ﷺ دَعْوَتَهُ سِرّاً لِيَحْمِيَ المُؤْمِنينَ",
+          "correctAnswer": "بَدَأَ النَّبِيُّ ﷺ دَعْوَتَهُ سِرّاً لِيَحْمِيَ المُؤْمِنينَ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        }
+      ],
+      "orderIndex": 5
+    },
+    {
+      "title": "أوائل المؤمنين",
+      "content": "أول من آمن بالنبي ﷺ: من النساء خديجة رضي الله عنها، ومن الرجال أبو بكر الصديق، ومن الصبيان علي بن أبي طالب رضي الله عنهم.",
+      "objectives": "معرفة أوائل من آمن بالنبي ﷺ",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أول من آمن بالنبي ﷺ من النساء:",
+          "correctAnswer": "خديجة رضي الله عنها",
+          "options": [
+            "عائشة رضي الله عنها",
+            "فاطمة رضي الله عنها",
+            "حفصة رضي الله عنها",
+            "خديجة رضي الله عنها"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أول من آمن بالنبي ﷺ من الرجال:",
+          "correctAnswer": "أبو بكر الصديق",
+          "options": [
+            "عثمان بن عفان",
+            "أبو بكر الصديق",
+            "حمزة",
+            "عمر بن الخطاب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أول من آمن بالنبي ﷺ من الصبيان:",
+          "correctAnswer": "علي بن أبي طالب",
+          "options": [
+            "أسامة بن زيد",
+            "الحسين",
+            "الحسن",
+            "علي بن أبي طالب"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "خديجة رضي الله عنها زوجة النبي ﷺ وأول من آمن به.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "أبو بكر الصديق آخر من أسلم من الرجال.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: أول من آمن من الرجال أبو بكر ___.",
+          "correctAnswer": "الصديق",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "من أول امرأة آمنت بالنبي ﷺ؟",
+          "correctAnswer": "خديجة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب حسب الفئة: علي (الصبيان)، خديجة (النساء)، أبو بكر (الرجال) كما وردوا في الدرس",
+          "correctAnswer": "خديجة (النساء)، أبو بكر (الرجال)، علي (الصبيان)",
+          "options": [
+            "علي (الصبيان)",
+            "خديجة (النساء)",
+            "أبو بكر (الرجال)"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MATCH",
+          "questionText": "صِل كل صحابي بصفته في السبق للإيمان",
+          "correctAnswer": "1=a,2=b,3=c",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "left": [
+              {
+                "id": "1",
+                "text": "خديجة"
+              },
+              {
+                "id": "2",
+                "text": "أبو بكر"
+              },
+              {
+                "id": "3",
+                "text": "علي"
+              }
+            ],
+            "right": [
+              {
+                "id": "c",
+                "text": "أول الصبيان"
+              },
+              {
+                "id": "a",
+                "text": "أول النساء"
+              },
+              {
+                "id": "b",
+                "text": "أول الرجال"
+              }
+            ]
+          }
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "خَديجَةُ رَضِيَ اللهُ عَنْها",
+          "correctAnswer": "خَديجَةُ رَضِيَ اللهُ عَنْها",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "recitation"
+        }
+      ],
+      "orderIndex": 6
+    },
+    {
+      "title": "الأذان",
+      "content": "الأذان إعلام بدخول وقت الصلاة، ألفاظه: الله أكبر، أشهد أن لا إله إلا الله، أشهد أن محمداً رسول الله، حيّ على الصلاة، حيّ على الفلاح. وإذا سمعناه نردّد مثله.",
+      "objectives": "معرفة ألفاظ الأذان وآداب سماعه",
+      "imageUrls": [
+        "assets/openmoji/mosque.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما فائدة الأذان؟",
+          "correctAnswer": "الإعلام بدخول وقت الصلاة",
+          "options": [
+            "الإعلام بالطعام",
+            "الإعلام بدخول وقت الصلاة",
+            "الإعلام بالعطلة",
+            "الإعلام بالمطر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بماذا يبدأ الأذان؟",
+          "correctAnswer": "الله أكبر",
+          "options": [
+            "بسم الله",
+            "سبحان الله",
+            "الحمد لله",
+            "الله أكبر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا نفعل عند سماع الأذان؟",
+          "correctAnswer": "نردّد مثل ما يقول المؤذن",
+          "options": [
+            "ننام",
+            "نرفع صوت التلفاز",
+            "نلعب",
+            "نردّد مثل ما يقول المؤذن"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "من ألفاظ الأذان: حيّ على الصلاة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الأذان يُقال بعد انتهاء الصلاة.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: حيّ على الصلاة، حيّ على ___.",
+          "correctAnswer": "الفلاح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "من الذي يرفع الأذان في المسجد؟",
+          "correctAnswer": "المؤذن",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب ألفاظ الأذان: أشهد أن محمداً رسول الله، الله أكبر، أشهد أن لا إله إلا الله",
+          "correctAnswer": "الله أكبر، أشهد أن لا إله إلا الله، أشهد أن محمداً رسول الله",
+          "options": [
+            "أشهد أن محمداً رسول الله",
+            "الله أكبر",
+            "أشهد أن لا إله إلا الله"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "حَيَّ عَلى الصَّلاةِ حَيَّ عَلى الفَلاحِ",
+          "correctAnswer": "حَيَّ عَلى الصَّلاةِ حَيَّ عَلى الفَلاحِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة المكان الذي يُرفع فيه الأذان",
+          "correctAnswer": "المسجد",
+          "options": [
+            "البيت",
+            "السوق",
+            "المدرسة",
+            "المسجد"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/house.png",
+            "assets/openmoji/key.png",
+            "assets/openmoji/school.png",
+            "assets/openmoji/mosque.png"
+          ]
+        }
+      ],
+      "orderIndex": 7
+    },
+    {
+      "title": "فضل الصلاة",
+      "content": "الصلاة عماد الدين وصلة بين العبد وربه، فُرضت خمس مرات في اليوم والليلة، وهي تنهى عن الفحشاء والمنكر، ومثلها كنهر يغتسل فيه المسلم كل يوم خمس مرات فيزيل ذنوبه.",
+      "objectives": "بيان فضل الصلاة ومكانتها في الإسلام",
+      "imageUrls": [
+        "assets/openmoji/folded_hands.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "كم مرة فُرضت الصلاة في اليوم والليلة؟",
+          "correctAnswer": "خمس مرات",
+          "options": [
+            "سبع مرات",
+            "ثلاث مرات",
+            "مرة واحدة",
+            "خمس مرات"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الصلاة عماد ...",
+          "correctAnswer": "الدين",
+          "options": [
+            "المسجد",
+            "البيت",
+            "المال",
+            "الدين"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "بمَ شبّه النبي ﷺ الصلوات الخمس؟",
+          "correctAnswer": "بنهر يغتسل فيه المسلم",
+          "options": [
+            "بشجرة كبيرة",
+            "ببحر واسع",
+            "بجبل عالٍ",
+            "بنهر يغتسل فيه المسلم"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الصلاة صلة بين العبد وربه.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الصلاة تأمر بالفحشاء والمنكر.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: الصلاة تنهى عن الفحشاء و___.",
+          "correctAnswer": "المنكر",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا تزيل الصلوات الخمس عن المسلم كما يزيل النهر الأوساخ؟",
+          "correctAnswer": "الذنوب",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الصلوات حسب وقتها في اليوم: العصر، الفجر، الظهر",
+          "correctAnswer": "الفجر، الظهر، العصر",
+          "options": [
+            "العصر",
+            "الفجر",
+            "الظهر"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "الصَّلاةُ عِمادُ الدّينِ",
+          "correctAnswer": "الصَّلاةُ عِمادُ الدّينِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "READING",
+          "questionText": "أُحافِظُ عَلى صَلَواتي الخَمْسِ كُلَّ يَوْمٍ",
+          "correctAnswer": "أُحافِظُ عَلى صَلَواتي الخَمْسِ كُلَّ يَوْمٍ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        }
+      ],
+      "orderIndex": 8
+    },
+    {
+      "title": "الله السميع",
+      "content": "الله السميع يسمع كل الأصوات، سواء في السرّ أم في العلن، فما من صوت خفيّ إلا سمعه الله، فنحذر أن نقول سوءاً؛ لأن الله يسمعنا.",
+      "objectives": "التعرف إلى اسم الله السميع وأثره في السلوك",
+      "imageUrls": [
+        "assets/openmoji/ear.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا يعني اسم الله السميع؟",
+          "correctAnswer": "يسمع كل الأصوات",
+          "options": [
+            "يرى كل شيء",
+            "يعلم الغيب",
+            "يرزق العباد",
+            "يسمع كل الأصوات"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الله يسمع الصوت في:",
+          "correctAnswer": "السرّ والعلن",
+          "options": [
+            "العلن فقط",
+            "النهار فقط",
+            "السرّ والعلن",
+            "السرّ فقط"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "لأن الله يسمعنا فإننا:",
+          "correctAnswer": "نحذر أن نقول سوءاً",
+          "options": [
+            "نتكلم بالسوء",
+            "لا نبالي",
+            "نرفع أصواتنا",
+            "نحذر أن نقول سوءاً"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الله يسمع الأصوات الخفيّة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الله لا يسمع إلا الصوت العالي.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: الله السميع يسمع كل ___.",
+          "correctAnswer": "الأصوات",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا نتذكّر عندما نريد أن نتكلم بكلام سيّئ؟",
+          "correctAnswer": "أن الله يسمعنا",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: نتكلم بالطيّب، نتذكّر أن الله سميع، نبتعد عن الكلام السيّئ",
+          "correctAnswer": "نتذكّر أن الله سميع، نبتعد عن الكلام السيّئ، نتكلم بالطيّب",
+          "options": [
+            "نتكلم بالطيّب",
+            "نتذكّر أن الله سميع",
+            "نبتعد عن الكلام السيّئ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "اللهُ السَّميعُ",
+          "correctAnswer": "اللهُ السَّميعُ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الكلام: طيّب يحبّه الله أم سيّئ يبتعد عنه المسلم؟",
+          "correctAnswer": "طيّب=الصدق,طيّب=ذكر الله,سيّئ=الكذب,سيّئ=الشتم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "طيّب",
+              "سيّئ"
+            ],
+            "tokens": [
+              "الصدق",
+              "الكذب",
+              "ذكر الله",
+              "الشتم"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 9
+    },
+    {
+      "title": "الله الحافظ",
+      "content": "الله الحافظ يحفظ عباده ومخلوقاته، ومن مظاهر حفظه: تيسير ما تحتاجه المخلوقات وصغارها، وحفظ الإنسان في نومه ويقظته، وحفظ القرآن الكريم من التبديل.",
+      "objectives": "التعرف إلى اسم الله الحافظ ومظاهر حفظه",
+      "imageUrls": [
+        "assets/openmoji/star_crescent.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا يعني اسم الله الحافظ؟",
+          "correctAnswer": "يحفظ عباده ومخلوقاته",
+          "options": [
+            "يخلق الجبال",
+            "يرزق الطعام فقط",
+            "يسمع الأصوات",
+            "يحفظ عباده ومخلوقاته"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من مظاهر حفظ الله:",
+          "correctAnswer": "حفظ القرآن الكريم من التبديل",
+          "options": [
+            "نسيان الناس",
+            "ضياع الكتب",
+            "لا شيء",
+            "حفظ القرآن الكريم من التبديل"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الله يحفظ الإنسان في:",
+          "correctAnswer": "نومه ويقظته",
+          "options": [
+            "سفره فقط",
+            "يقظته فقط",
+            "نومه فقط",
+            "نومه ويقظته"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "حفظ الله يشمل كل المخلوقات.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "القرآن الكريم يمكن أن يتغيّر ويُبدّل.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: من مظاهر حفظ الله حفظ ___ الكريم.",
+          "correctAnswer": "القرآن",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "من الذي يحفظنا في نومنا؟",
+          "correctAnswer": "الله",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: نشكر الله على حفظه، نتذكّر أن الله الحافظ، نطمئنّ لحفظه",
+          "correctAnswer": "نتذكّر أن الله الحافظ، نطمئنّ لحفظه، نشكر الله على حفظه",
+          "options": [
+            "نشكر الله على حفظه",
+            "نتذكّر أن الله الحافظ",
+            "نطمئنّ لحفظه"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "اللهُ الحافِظُ",
+          "correctAnswer": "اللهُ الحافِظُ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "READING",
+          "questionText": "اللهُ يَحْفَظُني في نَوْمي وَيَقَظَتي",
+          "correctAnswer": "اللهُ يَحْفَظُني في نَوْمي وَيَقَظَتي",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        }
+      ],
+      "orderIndex": 10
+    },
+    {
+      "title": "سورة الزلزلة",
+      "content": "سورة الزلزلة تصف يوم القيامة حين تُزلزل الأرض وتُخرج أثقالها، ويُحاسب الناس على أعمالهم: فمن يعمل مثقال ذرّة خيراً يره، ومن يعمل مثقال ذرّة شرّاً يره.",
+      "objectives": "حفظ سورة الزلزلة وفهم الجزاء على الأعمال",
+      "imageUrls": [
+        "assets/openmoji/mountain.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا تصف سورة الزلزلة؟",
+          "correctAnswer": "أهوال يوم القيامة",
+          "options": [
+            "قصة نبي",
+            "أهوال يوم القيامة",
+            "خلق السماء",
+            "نعم الجنة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من يعمل مثقال ذرّة خيراً ...",
+          "correctAnswer": "يره",
+          "options": [
+            "ينساه",
+            "يره",
+            "يتركه",
+            "يخسره"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا تُخرج الأرض يوم القيامة؟",
+          "correctAnswer": "أثقالها",
+          "options": [
+            "أشجارها",
+            "معادنها",
+            "ماءها",
+            "أثقالها"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يُحاسب الإنسان على عمله ولو كان صغيراً كمثقال ذرّة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الأعمال السيّئة لا حساب عليها.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل الآية: إِذا زُلْزِلَتِ الأَرْضُ ___ها.",
+          "correctAnswer": "زِلْزالَ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا يرى من يعمل شرّاً مثقال ذرّة؟",
+          "correctAnswer": "يره",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أوائل آيات السورة: وَأَخْرَجَتِ الأَرْضُ أَثْقالَها، إِذا زُلْزِلَتِ الأَرْضُ زِلْزالَها، وَقالَ الإِنْسانُ ما لَها",
+          "correctAnswer": "إِذا زُلْزِلَتِ الأَرْضُ زِلْزالَها، وَأَخْرَجَتِ الأَرْضُ أَثْقالَها، وَقالَ الإِنْسانُ ما لَها",
+          "options": [
+            "وَأَخْرَجَتِ الأَرْضُ أَثْقالَها",
+            "إِذا زُلْزِلَتِ الأَرْضُ زِلْزالَها",
+            "وَقالَ الإِنْسانُ ما لَها"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "إِذا زُلْزِلَتِ الأَرْضُ زِلْزالَها",
+          "correctAnswer": "إِذا زُلْزِلَتِ الأَرْضُ زِلْزالَها",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "READING",
+          "questionText": "فَمَنْ يَعْمَلْ مِثْقالَ ذَرَّةٍ خَيْراً يَرَهُ",
+          "correctAnswer": "فَمَنْ يَعْمَلْ مِثْقالَ ذَرَّةٍ خَيْراً يَرَهُ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        }
+      ],
+      "orderIndex": 11
+    },
+    {
+      "title": "الكلمة الطيبة",
+      "content": "الكلمة الطيبة صدقة، شبّهها الله بالشجرة الطيبة أصلها ثابت وفرعها في السماء تؤتي أكلها كل حين. فمن الكلمة الطيبة: التسبيح، والسلام، والشكر، والكلام الحسن.",
+      "objectives": "بيان فضل الكلمة الطيبة وأثرها",
+      "imageUrls": [
+        "assets/openmoji/tree.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بماذا شبّه الله الكلمة الطيبة؟",
+          "correctAnswer": "بالشجرة الطيبة",
+          "options": [
+            "بالبحر",
+            "بالجبل",
+            "بالشجرة الطيبة",
+            "بالنهر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الكلمة الطيبة تُعدّ:",
+          "correctAnswer": "صدقة",
+          "options": [
+            "خسارة",
+            "ذنباً",
+            "لغواً",
+            "صدقة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أي مما يأتي من الكلمة الطيبة؟",
+          "correctAnswer": "السلام على الناس",
+          "options": [
+            "السخرية",
+            "الشتم",
+            "السلام على الناس",
+            "الكذب"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الكلمة الطيبة صدقة يؤجر عليها المسلم.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الكلمة الطيبة أصلها ثابت وفرعها في السماء.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: الكلمة الطيبة ___.",
+          "correctAnswer": "صدقة",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر كلمة طيبة نقولها عند اللقاء.",
+          "correctAnswer": "السلام عليكم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: تنشر المحبة، أقول الكلمة الطيبة، يفرح من أمامي",
+          "correctAnswer": "أقول الكلمة الطيبة، يفرح من أمامي، تنشر المحبة",
+          "options": [
+            "تنشر المحبة",
+            "أقول الكلمة الطيبة",
+            "يفرح من أمامي"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "الكَلِمَةُ الطَّيِّبَةُ صَدَقَةٌ",
+          "correctAnswer": "الكَلِمَةُ الطَّيِّبَةُ صَدَقَةٌ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الكلام: كلمة طيبة أم كلمة سيّئة؟",
+          "correctAnswer": "كلمة طيبة=الحمد لله,كلمة طيبة=شكراً لك,كلمة سيّئة=السخرية,كلمة سيّئة=الشتيمة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "كلمة طيبة",
+              "كلمة سيّئة"
+            ],
+            "tokens": [
+              "الحمد لله",
+              "السخرية",
+              "شكراً لك",
+              "الشتيمة"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 12
+    },
+    {
+      "title": "سورة البلد",
+      "content": "سورة البلد مكية، أقسم الله فيها بالبلد الحرام مكة، وبيّن أنه خلق الإنسان في كبد (تعب ومشقّة)، وأرشده إلى طريق الخير بفكّ الرقاب وإطعام المسكين.",
+      "objectives": "تلاوة سورة البلد وفهم معناها الإجمالي",
+      "imageUrls": [
+        "assets/openmoji/kaaba.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بأي بلد أقسم الله في سورة البلد؟",
+          "correctAnswer": "مكة المكرمة",
+          "options": [
+            "الطائف",
+            "القدس",
+            "مكة المكرمة",
+            "المدينة المنورة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "خلق الله الإنسان في:",
+          "correctAnswer": "كبد",
+          "options": [
+            "نوم",
+            "راحة",
+            "لهو",
+            "كبد"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من طرق الخير في السورة:",
+          "correctAnswer": "إطعام المسكين",
+          "options": [
+            "جمع المال",
+            "التفاخر",
+            "بناء القصور",
+            "إطعام المسكين"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "البلد الحرام الذي أقسم الله به هو مكة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "خلق الله الإنسان في راحة دائمة بلا تعب.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل الآية: لَقَدْ خَلَقْنا الإِنْسانَ في ___.",
+          "correctAnswer": "كبد",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أي مدينة هي البلد الحرام؟",
+          "correctAnswer": "مكة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أوائل آيات السورة: وَأَنْتَ حِلٌّ بِهذا البَلَدِ، لا أُقْسِمُ بِهذا البَلَدِ، وَوالِدٍ وَما وَلَدَ",
+          "correctAnswer": "لا أُقْسِمُ بِهذا البَلَدِ، وَأَنْتَ حِلٌّ بِهذا البَلَدِ، وَوالِدٍ وَما وَلَدَ",
+          "options": [
+            "وَأَنْتَ حِلٌّ بِهذا البَلَدِ",
+            "لا أُقْسِمُ بِهذا البَلَدِ",
+            "وَوالِدٍ وَما وَلَدَ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "لا أُقْسِمُ بِهذا البَلَدِ",
+          "correctAnswer": "لا أُقْسِمُ بِهذا البَلَدِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "READING",
+          "questionText": "لَقَدْ خَلَقْنا الإِنْسانَ في كَبَدٍ",
+          "correctAnswer": "لَقَدْ خَلَقْنا الإِنْسانَ في كَبَدٍ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        }
+      ],
+      "orderIndex": 13
+    },
+    {
+      "title": "سورة الشمس",
+      "content": "سورة الشمس مكية، أقسم الله فيها بالشمس وضحاها والقمر إذا تلاها، وبيّن أن من زكّى نفسه بالطاعة أفلح، ومن دسّاها بالمعصية خاب.",
+      "objectives": "تلاوة سورة الشمس وفهم معناها الإجمالي",
+      "imageUrls": [
+        "assets/openmoji/sun.png"
+      ],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بمَ أقسم الله في أول سورة الشمس؟",
+          "correctAnswer": "بالشمس وضحاها",
+          "options": [
+            "بالتين",
+            "بالشمس وضحاها",
+            "بالعصر",
+            "بالليل"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من زكّى نفسه بالطاعة:",
+          "correctAnswer": "أفلح",
+          "options": [
+            "خاب",
+            "خسر",
+            "ندم",
+            "أفلح"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ماذا يتبع الشمسَ في السورة؟",
+          "correctAnswer": "القمر",
+          "options": [
+            "النجوم",
+            "السحاب",
+            "القمر",
+            "الرياح"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "من طهّر نفسه بالأعمال الصالحة فاز ونجح.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "من فعل المعاصي زكّى نفسه.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل الآية: وَالشَّمْسِ وَ___ها.",
+          "correctAnswer": "ضُحا",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما جزاء من زكّى نفسه بالطاعة؟",
+          "correctAnswer": "الفلاح",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أوائل آيات السورة: وَالنَّهارِ إِذا جَلّاها، وَالشَّمْسِ وَضُحاها، وَالقَمَرِ إِذا تَلاها",
+          "correctAnswer": "وَالشَّمْسِ وَضُحاها، وَالقَمَرِ إِذا تَلاها، وَالنَّهارِ إِذا جَلّاها",
+          "options": [
+            "وَالنَّهارِ إِذا جَلّاها",
+            "وَالشَّمْسِ وَضُحاها",
+            "وَالقَمَرِ إِذا تَلاها"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "وَالشَّمْسِ وَضُحاها",
+          "correctAnswer": "وَالشَّمْسِ وَضُحاها",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة ما أقسم الله به في أول السورة",
+          "correctAnswer": "الشمس",
+          "options": [
+            "النجمة",
+            "الغيمة",
+            "الشمس",
+            "القمر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/star.png",
+            "assets/openmoji/cloud.png",
+            "assets/openmoji/sun.png",
+            "assets/openmoji/moon.png"
+          ]
+        }
+      ],
+      "orderIndex": 14
+    },
+    {
+      "title": "سورة الهمزة",
+      "content": "سورة الهمزة مكية، تحذّر من الهمز واللمز (عيب الناس والسخرية منهم)، ومن جمع المال وحبسه دون إنفاق، وتبيّن عذاب من فعل ذلك في النار.",
+      "objectives": "تلاوة سورة الهمزة وفهم النهي عن السخرية وجمع المال",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ممّ تحذّر سورة الهمزة؟",
+          "correctAnswer": "من الهمز واللمز والسخرية بالناس",
+          "options": [
+            "من الصدقة",
+            "من الصلاة",
+            "من الهمز واللمز والسخرية بالناس",
+            "من قراءة القرآن"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ما معنى الهمزة اللمزة؟",
+          "correctAnswer": "الذي يعيب الناس ويسخر منهم",
+          "options": [
+            "الذي يتصدّق",
+            "الذي يعيب الناس ويسخر منهم",
+            "الذي يقرأ القرآن",
+            "الذي يصلّي"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "من صفات المذموم في السورة أنه:",
+          "correctAnswer": "جمع مالاً ولم يُنفقه",
+          "options": [
+            "بنى المساجد",
+            "أطعم الفقراء",
+            "علّم الناس",
+            "جمع مالاً ولم يُنفقه"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "السخرية من الناس خُلق سيّئ نهى عنه الله.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الهمز واللمز من الأخلاق الحسنة.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل الآية: وَيْلٌ لِكُلِّ هُمَزَةٍ ___.",
+          "correctAnswer": "لُمَزَةٍ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما جزاء من يسخر من الناس ويعيبهم؟",
+          "correctAnswer": "النار",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب أوائل آيات السورة: الَّذي جَمَعَ مالاً وَعَدَّدَهُ، وَيْلٌ لِكُلِّ هُمَزَةٍ لُمَزَةٍ، كَلّا لَيُنْبَذَنَّ في الحُطَمَةِ",
+          "correctAnswer": "وَيْلٌ لِكُلِّ هُمَزَةٍ لُمَزَةٍ، الَّذي جَمَعَ مالاً وَعَدَّدَهُ، كَلّا لَيُنْبَذَنَّ في الحُطَمَةِ",
+          "options": [
+            "الَّذي جَمَعَ مالاً وَعَدَّدَهُ",
+            "وَيْلٌ لِكُلِّ هُمَزَةٍ لُمَزَةٍ",
+            "كَلّا لَيُنْبَذَنَّ في الحُطَمَةِ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "memorization"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "وَيْلٌ لِكُلِّ هُمَزَةٍ لُمَزَةٍ",
+          "correctAnswer": "وَيْلٌ لِكُلِّ هُمَزَةٍ لُمَزَةٍ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recitation"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف السلوك: نهى عنه الإسلام أم أمر به؟",
+          "correctAnswer": "نهى عنه الإسلام=السخرية بالناس,نهى عنه الإسلام=عيب الآخرين,أمر به=إطعام الفقير,أمر به=الكلمة الطيبة",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "نهى عنه الإسلام",
+              "أمر به"
+            ],
+            "tokens": [
+              "السخرية بالناس",
+              "إطعام الفقير",
+              "عيب الآخرين",
+              "الكلمة الطيبة"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 15
+    }
+  ]
+}

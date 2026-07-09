@@ -1,0 +1,2250 @@
+{
+  "subject": "الرياضيات",
+  "subjectCode": "ma",
+  "gradeLevel": 4,
+  "semester": 2,
+  "totalLessons": 19,
+  "lessons": [
+    {
+      "title": "مضاعفات العدد",
+      "content": "مضاعفات العدد هي نواتج ضربه في الأعداد ١، ٢، ٣، ... مثل مضاعفات ٣: ٣، ٦، ٩، ١٢، ...",
+      "objectives": "إيجاد مضاعفات عدد معطى.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الأعداد من مضاعفات ٤؟",
+          "correctAnswer": "١٢",
+          "options": [
+            "١٢",
+            "١٠",
+            "١٤",
+            "٩"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "المضاعف الثالث للعدد ٥ هو:",
+          "correctAnswer": "١٥",
+          "options": [
+            "١٥",
+            "١٠",
+            "٢٠",
+            "٥"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الأعداد ليس من مضاعفات ٣؟",
+          "correctAnswer": "١٠",
+          "options": [
+            "١٠",
+            "٩",
+            "١٢",
+            "١٥"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أصغر مضاعف مشترك للعددين ٢ و٣ هو:",
+          "correctAnswer": "٦",
+          "options": [
+            "٦",
+            "٥",
+            "٤",
+            "١٢"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٠ من مضاعفات كلّ عدد.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: مضاعفات ٦ هي ٦، ١٢، ___، ٢٤.",
+          "correctAnswer": "١٨",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب أوّل ثلاثة مضاعفات للعدد ٧.",
+          "correctAnswer": "٧، ١٤، ٢١",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب مضاعفات ٤ تصاعدياً: ١٦، ٤، ٨",
+          "correctAnswer": "٤، ٨، ١٦",
+          "options": [
+            "١٦",
+            "٤",
+            "٨"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "المضاعف الخامس للعدد ٢ هو:",
+          "correctAnswer": "١٠",
+          "options": [
+            "١٠",
+            "٨",
+            "١٢",
+            "٥"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما المضاعف السابع للعدد ٣؟",
+          "correctAnswer": "٢١",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 1
+    },
+    {
+      "title": "قابلية القسمة على ٢",
+      "content": "يقبل العدد القسمة على ٢ إذا كان زوجياً، أي ينتهي بأحد الأرقام ٠، ٢، ٤، ٦، ٨.",
+      "objectives": "تطبيق قاعدة قابلية القسمة على ٢.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الأعداد يقبل القسمة على ٢؟",
+          "correctAnswer": "٣٤",
+          "options": [
+            "٣٤",
+            "٣٥",
+            "٤١",
+            "٢٧"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "العدد الزوجي ينتهي بأحد الأرقام:",
+          "correctAnswer": "٠، ٢، ٤، ٦، ٨",
+          "options": [
+            "٠، ٢، ٤، ٦، ٨",
+            "١، ٣، ٥",
+            "٥ فقط",
+            "٩ فقط"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الأعداد فردي؟",
+          "correctAnswer": "٥٧",
+          "options": [
+            "٥٧",
+            "٥٦",
+            "٥٨",
+            "٦٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الأعداد لا يقبل القسمة على ٢؟",
+          "correctAnswer": "٤٩",
+          "options": [
+            "٤٩",
+            "٤٨",
+            "٥٠",
+            "٢٢"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ١٠٠ يقبل القسمة على ٢.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: العدد ٨٦ عدد ___ (زوجي/فردي).",
+          "correctAnswer": "زوجي",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "هل يقبل ٢٣٤ القسمة على ٢؟",
+          "correctAnswer": "نعم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأعداد الزوجية تصاعدياً: ٨، ٢، ٦",
+          "correctAnswer": "٢، ٦، ٨",
+          "options": [
+            "٨",
+            "٢",
+            "٦"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كم عدداً زوجياً بين ١ و١٠؟",
+          "correctAnswer": "٤",
+          "options": [
+            "٤",
+            "٥",
+            "٣",
+            "٦"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب أكبر عدد زوجي أقلّ من ٢٠.",
+          "correctAnswer": "١٨",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 2
+    },
+    {
+      "title": "قابلية القسمة على ٣",
+      "content": "يقبل العدد القسمة على ٣ إذا كان مجموع أرقامه يقبل القسمة على ٣.",
+      "objectives": "تطبيق قاعدة قابلية القسمة على ٣.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الأعداد يقبل القسمة على ٣؟",
+          "correctAnswer": "٢٧",
+          "options": [
+            "٢٧",
+            "٢٥",
+            "٢٨",
+            "٢٩"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "لمعرفة قابلية القسمة على ٣ نجمع:",
+          "correctAnswer": "أرقام العدد",
+          "options": [
+            "أرقام العدد",
+            "المضاعفات",
+            "الآحاد فقط",
+            "المئات فقط"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "مجموع أرقام ٤٥ هو ٩، فهل يقبل القسمة على ٣؟",
+          "correctAnswer": "نعم",
+          "options": [
+            "نعم",
+            "لا",
+            "أحياناً",
+            "لا يُعرف"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الأعداد لا يقبل القسمة على ٣؟",
+          "correctAnswer": "٢٠",
+          "options": [
+            "٢٠",
+            "٢١",
+            "٢٤",
+            "١٨"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ١٢٣ يقبل القسمة على ٣ (١+٢+٣=٦).",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: مجموع أرقام العدد ٥١ هو ___.",
+          "correctAnswer": "٦",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "هل يقبل ٩٠ القسمة على ٣؟",
+          "correctAnswer": "نعم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب مضاعفات ٣ تصاعدياً: ٩، ٣، ٦",
+          "correctAnswer": "٣، ٦، ٩",
+          "options": [
+            "٩",
+            "٣",
+            "٦"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الأعداد يقبل القسمة على ٣ و٢ معاً؟",
+          "correctAnswer": "١٢",
+          "options": [
+            "١٢",
+            "١٥",
+            "١٠",
+            "١٤"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب عدداً من منزلتين يقبل القسمة على ٣.",
+          "correctAnswer": "٣٦",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 3
+    },
+    {
+      "title": "قابلية القسمة على ٥",
+      "content": "يقبل العدد القسمة على ٥ إذا انتهى بالرقم ٠ أو ٥.",
+      "objectives": "تطبيق قاعدة قابلية القسمة على ٥.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الأعداد يقبل القسمة على ٥؟",
+          "correctAnswer": "٤٥",
+          "options": [
+            "٤٥",
+            "٤٢",
+            "٤٧",
+            "٤٩"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "العدد الذي يقبل القسمة على ٥ ينتهي بـ:",
+          "correctAnswer": "٠ أو ٥",
+          "options": [
+            "٠ أو ٥",
+            "٢ أو ٤",
+            "١ أو ٣",
+            "٦ أو ٨"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الأعداد لا يقبل القسمة على ٥؟",
+          "correctAnswer": "٣٢",
+          "options": [
+            "٣٢",
+            "٣٠",
+            "٣٥",
+            "٤٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الأعداد يقبل القسمة على ٥ و١٠ معاً؟",
+          "correctAnswer": "٦٠",
+          "options": [
+            "٦٠",
+            "٦٥",
+            "٥٥",
+            "٢٥"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ١٠٠ يقبل القسمة على ٥.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: العدد ٧٥ ___ القسمة على ٥ (يقبل/لا يقبل).",
+          "correctAnswer": "يقبل",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "هل يقبل ٩٠ القسمة على ٥؟",
+          "correctAnswer": "نعم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب مضاعفات ٥ تصاعدياً: ١٥، ٥، ١٠",
+          "correctAnswer": "٥، ١٠، ١٥",
+          "options": [
+            "١٥",
+            "٥",
+            "١٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كم مضاعفاً للعدد ٥ بين ١ و٢٠؟",
+          "correctAnswer": "٤",
+          "options": [
+            "٤",
+            "٣",
+            "٥",
+            "٦"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب أكبر عدد من منزلتين يقبل القسمة على ٥.",
+          "correctAnswer": "٩٥",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 4
+    },
+    {
+      "title": "قابلية القسمة على ٦",
+      "content": "يقبل العدد القسمة على ٦ إذا قبل القسمة على ٢ و٣ معاً.",
+      "objectives": "تطبيق قاعدة قابلية القسمة على ٦.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الأعداد يقبل القسمة على ٦؟",
+          "correctAnswer": "١٨",
+          "options": [
+            "١٨",
+            "١٥",
+            "١٦",
+            "٢٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "يقبل العدد القسمة على ٦ إذا قبل القسمة على:",
+          "correctAnswer": "٢ و٣ معاً",
+          "options": [
+            "٢ و٣ معاً",
+            "٥ فقط",
+            "٤ و٥",
+            "١٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الأعداد لا يقبل القسمة على ٦؟",
+          "correctAnswer": "٢٢",
+          "options": [
+            "٢٢",
+            "٢٤",
+            "٣٦",
+            "١٢"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "العدد ٣٠ يقبل القسمة على ٦ لأنّه يقبل القسمة على:",
+          "correctAnswer": "٢ و٣",
+          "options": [
+            "٢ و٣",
+            "٥ و٧",
+            "٤ و٩",
+            "٧ فقط"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كلّ عدد يقبل القسمة على ٦ هو زوجي.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: أوّل ثلاثة مضاعفات لـ ٦ هي ٦، ١٢، ___.",
+          "correctAnswer": "١٨",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "هل يقبل ٤٨ القسمة على ٦؟",
+          "correctAnswer": "نعم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب مضاعفات ٦ تصاعدياً: ١٨، ٦، ١٢",
+          "correctAnswer": "٦، ١٢، ١٨",
+          "options": [
+            "١٨",
+            "٦",
+            "١٢"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيٌّ من التالي من مضاعفات ٦؟",
+          "correctAnswer": "٤٢",
+          "options": [
+            "٤٢",
+            "٤٠",
+            "٤٤",
+            "٣٨"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب عدداً يقبل القسمة على ٦.",
+          "correctAnswer": "٢٤",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 5
+    },
+    {
+      "title": "ضرب عدد من منزلتين في عدد من منزلتين",
+      "content": "نضرب في الآحاد ثم في العشرات ونجمع النواتج الجزئية.",
+      "objectives": "ضرب عددين من منزلتين.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "١٢ × ١٣ = ؟",
+          "correctAnswer": "١٥٦",
+          "options": [
+            "١٥٦",
+            "١٤٦",
+            "١٦٦",
+            "١٥٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٢٠ × ٣٠ = ؟",
+          "correctAnswer": "٦٠٠",
+          "options": [
+            "٦٠٠",
+            "٥٠٠",
+            "٦٥٠",
+            "٦٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "١٥ × ١٤ = ؟",
+          "correctAnswer": "٢١٠",
+          "options": [
+            "٢١٠",
+            "٢٠٠",
+            "٢٢٠",
+            "١٩٥"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٢٥ × ٤ = ؟",
+          "correctAnswer": "١٠٠",
+          "options": [
+            "١٠٠",
+            "٩٠",
+            "١١٠",
+            "٨٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "١٠ × ١٠ = ١٠٠.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ١١ × ١١ = ___.",
+          "correctAnswer": "١٢١",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ١٦ × ١٢.",
+          "correctAnswer": "١٩٢",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب النواتج تصاعدياً: ١٠×١٠، ١٢×١٠، ١١×١٠",
+          "correctAnswer": "١٠٠، ١١٠، ١٢٠",
+          "options": [
+            "١٠٠",
+            "١٢٠",
+            "١١٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في قاعة ٢٤ صفّاً و١٥ مقعداً في كلّ صفّ، كم مقعداً؟",
+          "correctAnswer": "٣٦٠",
+          "options": [
+            "٣٦٠",
+            "٣٥٠",
+            "٣٧٠",
+            "٣٤٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ١٨ × ١٥.",
+          "correctAnswer": "٢٧٠",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 6
+    },
+    {
+      "title": "ضرب عدد من ثلاث منازل في عدد من منزلتين",
+      "content": "نضرب العدد ذا الثلاث منازل في آحاد العدد الآخر ثم في عشراته ونجمع.",
+      "objectives": "ضرب عدد من ثلاث منازل في عدد من منزلتين.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "١٢٣ × ١٠ = ؟",
+          "correctAnswer": "١٢٣٠",
+          "options": [
+            "١٢٣٠",
+            "١٢٣",
+            "١٢٣٠٠",
+            "١٢٤٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٢٠٠ × ١٢ = ؟",
+          "correctAnswer": "٢٤٠٠",
+          "options": [
+            "٢٤٠٠",
+            "٢٢٠٠",
+            "٢٦٠٠",
+            "٢٤٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "١٥٠ × ٢٠ = ؟",
+          "correctAnswer": "٣٠٠٠",
+          "options": [
+            "٣٠٠٠",
+            "٢٠٠٠",
+            "٣٥٠٠",
+            "٣٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "١١١ × ١١ = ؟",
+          "correctAnswer": "١٢٢١",
+          "options": [
+            "١٢٢١",
+            "١١١١",
+            "١٢١١",
+            "١٣٢١"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "ضرب عدد في ١٠ يضيف صفراً إلى يمينه.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٣٠٠ × ٢٠ = ___.",
+          "correctAnswer": "٦٠٠٠",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ١٢٥ × ١٢.",
+          "correctAnswer": "١٥٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب النواتج تصاعدياً: ١٠٠×١٠، ١٠٠×٢٠، ١٠٠×١٥",
+          "correctAnswer": "١٠٠٠، ١٥٠٠، ٢٠٠٠",
+          "options": [
+            "١٠٠٠",
+            "٢٠٠٠",
+            "١٥٠٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "مصنع ينتج ٢٥٠ علبة يومياً، كم ينتج في ٣٠ يوماً؟",
+          "correctAnswer": "٧٥٠٠",
+          "options": [
+            "٧٥٠٠",
+            "٧٠٠٠",
+            "٨٠٠٠",
+            "٧٥٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ٢٣٤ × ١١.",
+          "correctAnswer": "٢٥٧٤",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 7
+    },
+    {
+      "title": "قسمة عدد من منزلتين على عدد من منزلتين",
+      "content": "نقسم مقدّرين ناتج القسمة ونتحقّق بالضرب، وقد يبقى باقٍ.",
+      "objectives": "قسمة عدد من منزلتين على عدد من منزلتين.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "٦٠ ÷ ١٢ = ؟",
+          "correctAnswer": "٥",
+          "options": [
+            "٥",
+            "٦",
+            "٤",
+            "٧"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٩٠ ÷ ١٥ = ؟",
+          "correctAnswer": "٦",
+          "options": [
+            "٦",
+            "٥",
+            "٧",
+            "٤"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٤٨ ÷ ١٦ = ؟",
+          "correctAnswer": "٣",
+          "options": [
+            "٣",
+            "٢",
+            "٤",
+            "٥"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٧٥ ÷ ٢٥ = ؟",
+          "correctAnswer": "٣",
+          "options": [
+            "٣",
+            "٢",
+            "٤",
+            "٥"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٥٠ ÷ ١٠ = ٥.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٨٠ ÷ ٢٠ = ___.",
+          "correctAnswer": "٤",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ٩٦ ÷ ١٢.",
+          "correctAnswer": "٨",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب النواتج تصاعدياً: ٦٠÷١٢، ٦٠÷١٥، ٦٠÷١٠",
+          "correctAnswer": "٤، ٥، ٦",
+          "options": [
+            "٥",
+            "٤",
+            "٦"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "وُزّع ٩٠ كتاباً على ١٥ رفّاً بالتساوي، نصيب الرفّ:",
+          "correctAnswer": "٦",
+          "options": [
+            "٦",
+            "٥",
+            "٧",
+            "٤"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ٨٤ ÷ ١٤.",
+          "correctAnswer": "٦",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 8
+    },
+    {
+      "title": "قسمة عدد من ثلاث منازل على عدد من منزلتين",
+      "content": "نقسم أعداداً أكبر على عدد من منزلتين، ونتحقّق من الناتج بالضرب.",
+      "objectives": "قسمة عدد من ثلاث منازل على عدد من منزلتين.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "١٤٤ ÷ ١٢ = ؟",
+          "correctAnswer": "١٢",
+          "options": [
+            "١٢",
+            "١١",
+            "١٣",
+            "١٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٢٠٠ ÷ ٢٠ = ؟",
+          "correctAnswer": "١٠",
+          "options": [
+            "١٠",
+            "٩",
+            "١١",
+            "٢٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٢٢٥ ÷ ١٥ = ؟",
+          "correctAnswer": "١٥",
+          "options": [
+            "١٥",
+            "١٤",
+            "١٦",
+            "١٣"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٣٠٠ ÷ ٢٥ = ؟",
+          "correctAnswer": "١٢",
+          "options": [
+            "١٢",
+            "١١",
+            "١٣",
+            "١٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "١٠٠ ÷ ٢٥ = ٤.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ١٨٠ ÷ ١٢ = ___.",
+          "correctAnswer": "١٥",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ٢٥٠ ÷ ١٠.",
+          "correctAnswer": "٢٥",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب النواتج تصاعدياً: ١٠٠÷١٠، ١٢٠÷١٠، ١١٠÷١٠",
+          "correctAnswer": "١٠، ١١، ١٢",
+          "options": [
+            "١٠",
+            "١٢",
+            "١١"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "وُزّع ٣٦٠ حبة على ٢٤ صندوقاً بالتساوي، نصيب الصندوق:",
+          "correctAnswer": "١٥",
+          "options": [
+            "١٥",
+            "١٤",
+            "١٦",
+            "١٢"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ٤٢٠ ÷ ٢١.",
+          "correctAnswer": "٢٠",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 9
+    },
+    {
+      "title": "الكسور العشرية",
+      "content": "الكسر العشري كسر مقامه ١٠ أو ١٠٠ يُكتب بالفاصلة العشرية، مثل ٠٫٥ = خمسة أعشار.",
+      "objectives": "قراءة الكسور العشرية وكتابتها.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "٠٫٥ يساوي الكسر:",
+          "correctAnswer": "٥/١٠",
+          "options": [
+            "٥/١٠",
+            "٥/١٠٠",
+            "١/٥",
+            "٥"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كيف نكتب (ثلاثة أعشار) بالكسر العشري؟",
+          "correctAnswer": "٠٫٣",
+          "options": [
+            "٠٫٣",
+            "٣",
+            "٣٠",
+            "٠٫٠٣"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٠٫٧ تُقرأ:",
+          "correctAnswer": "سبعة أعشار",
+          "options": [
+            "سبعة أعشار",
+            "سبعون",
+            "سبعة",
+            "سبعة أجزاء من مئة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الكسر العشري ٠٫٢٥ يساوي:",
+          "correctAnswer": "٢٥/١٠٠",
+          "options": [
+            "٢٥/١٠٠",
+            "٢٥/١٠",
+            "٢/٥",
+            "٢٥"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٠٫٥ = نصف.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٩/١٠ = ٠٫___.",
+          "correctAnswer": "٩",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب (ستة أعشار) كسراً عشرياً.",
+          "correctAnswer": "٠٫٦",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب تصاعدياً: ٠٫٥، ٠٫١، ٠٫٣",
+          "correctAnswer": "٠٫١، ٠٫٣، ٠٫٥",
+          "options": [
+            "٠٫٥",
+            "٠٫١",
+            "٠٫٣"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الأعداد العشرية أكبر؟",
+          "correctAnswer": "٠٫٩",
+          "options": [
+            "٠٫٩",
+            "٠٫٥",
+            "٠٫٢",
+            "٠٫٧"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب الكسر ٤/١٠ عدداً عشرياً.",
+          "correctAnswer": "٠٫٤",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        }
+      ],
+      "orderIndex": 10
+    },
+    {
+      "title": "جمع الكسور العشرية",
+      "content": "نجمع الأعداد العشرية بمحاذاة الفواصل العشرية ثم الجمع كالأعداد الطبيعية.",
+      "objectives": "جمع الأعداد العشرية.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "٠٫٣ + ٠٫٤ = ؟",
+          "correctAnswer": "٠٫٧",
+          "options": [
+            "٠٫٧",
+            "٠٫١",
+            "٧",
+            "٠٫٧٧"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٠٫٥ + ٠٫٥ = ؟",
+          "correctAnswer": "١",
+          "options": [
+            "١",
+            "٠٫١٠",
+            "٠٫٥",
+            "١٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "١٫٢ + ٢٫٣ = ؟",
+          "correctAnswer": "٣٫٥",
+          "options": [
+            "٣٫٥",
+            "٣٫٤",
+            "٤٫٥",
+            "٣٫٦"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "عند جمع الأعداد العشرية نحاذي:",
+          "correctAnswer": "الفواصل العشرية",
+          "options": [
+            "الفواصل العشرية",
+            "الأرقام الأولى",
+            "المقامات",
+            "لا شيء"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٠٫٦ + ٠٫٤ = ١٫٠.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٠٫٢ + ٠٫٧ = ___.",
+          "correctAnswer": "٠٫٩",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ٢٫٥ + ١٫٥.",
+          "correctAnswer": "٤",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب النواتج تصاعدياً: ٠٫١+٠٫١، ٠٫٣+٠٫٣، ٠٫٢+٠٫٢",
+          "correctAnswer": "٠٫٢، ٠٫٤، ٠٫٦",
+          "options": [
+            "٠٫٢",
+            "٠٫٦",
+            "٠٫٤"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "اشترى سامي بـ ٢٫٥ شيقل وبـ ١٫٥ شيقل، كم دفع؟",
+          "correctAnswer": "٤ شيقل",
+          "options": [
+            "٤ شيقل",
+            "٣ شيقل",
+            "٥ شيقل",
+            "٣٫٥ شيقل"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ٣٫٤ + ٢٫٦.",
+          "correctAnswer": "٦",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 11
+    },
+    {
+      "title": "طرح الكسور العشرية",
+      "content": "نطرح الأعداد العشرية بمحاذاة الفواصل العشرية ثم الطرح كالأعداد الطبيعية.",
+      "objectives": "طرح الأعداد العشرية.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "٠٫٨ − ٠٫٣ = ؟",
+          "correctAnswer": "٠٫٥",
+          "options": [
+            "٠٫٥",
+            "٠٫٦",
+            "٠٫٤",
+            "٠٫٥٥"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "١٫٠ − ٠٫٤ = ؟",
+          "correctAnswer": "٠٫٦",
+          "options": [
+            "٠٫٦",
+            "٠٫٤",
+            "٠٫٥",
+            "١٫٤"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٣٫٥ − ١٫٢ = ؟",
+          "correctAnswer": "٢٫٣",
+          "options": [
+            "٢٫٣",
+            "٢٫٢",
+            "٢٫٤",
+            "٤٫٧"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٢٫٧ − ٢٫٧ = ؟",
+          "correctAnswer": "٠",
+          "options": [
+            "٠",
+            "١",
+            "٢٫٧",
+            "٥٫٤"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "١٫٥ − ٠٫٥ = ١٫٠.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٠٫٩ − ٠٫٦ = ___.",
+          "correctAnswer": "٠٫٣",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ٤٫٥ − ٢٫٥.",
+          "correctAnswer": "٢",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب النواتج تصاعدياً: ٠٫٥−٠٫١، ٠٫٩−٠٫١، ٠٫٧−٠٫١",
+          "correctAnswer": "٠٫٤، ٠٫٦، ٠٫٨",
+          "options": [
+            "٠٫٤",
+            "٠٫٨",
+            "٠٫٦"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "مع ليلى ٥٫٠ شيقل أنفقت ٢٫٥، كم بقي؟",
+          "correctAnswer": "٢٫٥ شيقل",
+          "options": [
+            "٢٫٥ شيقل",
+            "٣٫٥ شيقل",
+            "٢ شيقل",
+            "٧٫٥ شيقل"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب: ٦٫٣ − ٤٫١.",
+          "correctAnswer": "٢٫٢",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 12
+    },
+    {
+      "title": "مقارنة الأعداد العشرية وترتيبها",
+      "content": "نقارن الأعداد العشرية بالمنازل من اليسار، ونرتّبها تصاعدياً أو تنازلياً.",
+      "objectives": "مقارنة الأعداد العشرية وترتيبها.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أيّ العددين أكبر: ٠٫٦ أم ٠٫٤؟",
+          "correctAnswer": "٠٫٦",
+          "options": [
+            "٠٫٦",
+            "٠٫٤",
+            "متساويان",
+            "لا يقارنان"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الأعداد العشرية أصغر؟",
+          "correctAnswer": "٠٫٢",
+          "options": [
+            "٠٫٢",
+            "٠٫٥",
+            "٠٫٨",
+            "٠٫٩"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٠٫٥ ___ ٠٫٥٠ (اختر الإشارة).",
+          "correctAnswer": "=",
+          "options": [
+            "=",
+            "<",
+            ">",
+            "+"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الأعداد أكبر: ١٫٢ أم ١٫٠٢؟",
+          "correctAnswer": "١٫٢",
+          "options": [
+            "١٫٢",
+            "١٫٠٢",
+            "متساويان",
+            "لا يقارنان"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٠٫٧ أكبر من ٠٫٣.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل بالإشارة: ٠٫٩ ___ ٠٫٤ (أكبر من).",
+          "correctAnswer": ">",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أيّهما أكبر: ٢٫٥ أم ٢٫٠٥؟",
+          "correctAnswer": "٢٫٥",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب تصاعدياً: ٠٫٨، ٠٫٣، ٠٫٦",
+          "correctAnswer": "٠٫٣، ٠٫٦، ٠٫٨",
+          "options": [
+            "٠٫٨",
+            "٠٫٣",
+            "٠٫٦"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب تنازلياً: ١٫٥، ٠٫٥، ١٫٠",
+          "correctAnswer": "١٫٥، ١٫٠، ٠٫٥",
+          "options": [
+            "١٫٥",
+            "٠٫٥",
+            "١٫٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أصغر عدد بين ٠٫١ و٠٫٩ و٠٫٥ هو؟",
+          "correctAnswer": "٠٫١",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 13
+    },
+    {
+      "title": "محيط المربّع",
+      "content": "محيط المربّع = طول الضلع × ٤، لأنّ أضلاعه الأربعة متساوية.",
+      "objectives": "حساب محيط المربّع.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "محيط مربّع طول ضلعه ٥ سم:",
+          "correctAnswer": "٢٠ سم",
+          "options": [
+            "٢٠ سم",
+            "١٠ سم",
+            "٢٥ سم",
+            "١٥ سم"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "قانون محيط المربّع:",
+          "correctAnswer": "الضلع × ٤",
+          "options": [
+            "الضلع × ٤",
+            "الضلع × ٢",
+            "الضلع × الضلع",
+            "الضلع + ٤"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "محيط مربّع ضلعه ٧ سم:",
+          "correctAnswer": "٢٨ سم",
+          "options": [
+            "٢٨ سم",
+            "٢٤ سم",
+            "١٤ سم",
+            "٤٩ سم"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "إذا كان محيط مربّع ١٦ سم، فطول ضلعه:",
+          "correctAnswer": "٤ سم",
+          "options": [
+            "٤ سم",
+            "٨ سم",
+            "٦ سم",
+            "٢ سم"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "أضلاع المربّع الأربعة متساوية.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: محيط مربّع ضلعه ٣ سم = ___ سم.",
+          "correctAnswer": "١٢",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب محيط مربّع ضلعه ٩ سم.",
+          "correctAnswer": "٣٦ سم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب المحيطات تصاعدياً لأضلاع: ٢، ٥، ٣ (× ٤)",
+          "correctAnswer": "٨، ١٢، ٢٠",
+          "options": [
+            "٨",
+            "٢٠",
+            "١٢"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "حديقة مربّعة ضلعها ١٠ م، كم متراً من السياج تحيطها؟",
+          "correctAnswer": "٤٠ م",
+          "options": [
+            "٤٠ م",
+            "٢٠ م",
+            "١٠٠ م",
+            "٣٠ م"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "محيط مربّع ٢٤ سم، ما طول ضلعه؟",
+          "correctAnswer": "٦ سم",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 14
+    },
+    {
+      "title": "محيط المستطيل",
+      "content": "محيط المستطيل = (الطول + العرض) × ٢.",
+      "objectives": "حساب محيط المستطيل.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "محيط مستطيل طوله ٦ سم وعرضه ٤ سم:",
+          "correctAnswer": "٢٠ سم",
+          "options": [
+            "٢٠ سم",
+            "١٠ سم",
+            "٢٤ سم",
+            "١٤ سم"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "قانون محيط المستطيل:",
+          "correctAnswer": "(الطول + العرض) × ٢",
+          "options": [
+            "(الطول + العرض) × ٢",
+            "الطول × العرض",
+            "الطول × ٤",
+            "الطول + العرض"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "محيط مستطيل طوله ٨ سم وعرضه ٢ سم:",
+          "correctAnswer": "٢٠ سم",
+          "options": [
+            "٢٠ سم",
+            "١٦ سم",
+            "١٠ سم",
+            "٢٤ سم"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "مستطيل محيطه ١٨ سم وطوله ٦ سم، عرضه:",
+          "correctAnswer": "٣ سم",
+          "options": [
+            "٣ سم",
+            "٤ سم",
+            "٦ سم",
+            "٩ سم"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "في المستطيل كلّ ضلعين متقابلين متساويان.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: محيط مستطيل طوله ٥ وعرضه ٣ = ___ سم.",
+          "correctAnswer": "١٦",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "احسب محيط مستطيل طوله ١٠ سم وعرضه ٥ سم.",
+          "correctAnswer": "٣٠ سم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب المحيطات تصاعدياً: (٢+٢)×٢، (٣+٢)×٢، (٤+١)×٢",
+          "correctAnswer": "٨، ١٠، ١٠",
+          "options": [
+            "٨",
+            "١٠",
+            "١٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ملعب طوله ٢٠ م وعرضه ١٠ م، محيطه:",
+          "correctAnswer": "٦٠ م",
+          "options": [
+            "٦٠ م",
+            "٣٠ م",
+            "٢٠٠ م",
+            "٤٠ م"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "مستطيل محيطه ٢٤ سم وعرضه ٤ سم، ما طوله؟",
+          "correctAnswer": "٨ سم",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 15
+    },
+    {
+      "title": "التحويل بين وحدات القياس",
+      "content": "١ متر = ١٠٠ سم، ١ كيلومتر = ١٠٠٠ متر، ١ كيلوغرام = ١٠٠٠ غرام، ١ لتر = ١٠٠٠ مليلتر.",
+      "objectives": "التحويل بين وحدات الطول والكتلة والسعة.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "٢ متر = كم سنتيمتراً؟",
+          "correctAnswer": "٢٠٠ سم",
+          "options": [
+            "٢٠٠ سم",
+            "٢٠ سم",
+            "٢٠٠٠ سم",
+            "٢ سم"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "١ كيلومتر = كم متراً؟",
+          "correctAnswer": "١٠٠٠ م",
+          "options": [
+            "١٠٠٠ م",
+            "١٠٠ م",
+            "١٠ م",
+            "١٠٠٠٠ م"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٣ كيلوغرام = كم غراماً؟",
+          "correctAnswer": "٣٠٠٠ غم",
+          "options": [
+            "٣٠٠٠ غم",
+            "٣٠٠ غم",
+            "٣٠ غم",
+            "٣٠٠٠٠ غم"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٥٠٠ مليلتر = كم من اللتر؟",
+          "correctAnswer": "نصف لتر",
+          "options": [
+            "نصف لتر",
+            "لتر واحد",
+            "٥ لترات",
+            "ربع لتر"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "١ لتر = ١٠٠٠ مليلتر.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٤ متر = ___ سم.",
+          "correctAnswer": "٤٠٠",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "حوّل ٢٠٠٠ غرام إلى كيلوغرام.",
+          "correctAnswer": "٢ كغم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأطوال تصاعدياً: ١ م، ٥٠ سم، ٢٠٠ سم",
+          "correctAnswer": "٥٠ سم، ١ م، ٢٠٠ سم",
+          "options": [
+            "١ م",
+            "٥٠ سم",
+            "٢٠٠ سم"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "٢ كيلومتر و٥٠٠ متر = كم متراً؟",
+          "correctAnswer": "٢٥٠٠ م",
+          "options": [
+            "٢٥٠٠ م",
+            "٢٠٥٠ م",
+            "٢٥٠ م",
+            "٢٠٠٥ م"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "حوّل ٣ لترات إلى مليلتر.",
+          "correctAnswer": "٣٠٠٠ مل",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 16
+    },
+    {
+      "title": "الحجم",
+      "content": "حجم المجسّم مقدار الحيّز الذي يشغله، ونقيسه بعدّ المكعّبات الصغيرة المكوّنة له.",
+      "objectives": "التعرّف إلى مفهوم الحجم وحسابه بالعدّ.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "الحجم هو:",
+          "correctAnswer": "مقدار الحيّز الذي يشغله المجسّم",
+          "options": [
+            "مقدار الحيّز الذي يشغله المجسّم",
+            "طول الضلع",
+            "عدد الأوجه فقط",
+            "المحيط"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "مجسّم مكوّن من ٨ مكعّبات صغيرة، حجمه:",
+          "correctAnswer": "٨ وحدات",
+          "options": [
+            "٨ وحدات",
+            "٦ وحدات",
+            "١٠ وحدات",
+            "٤ وحدات"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "صفّ من ٤ مكعّبات في طبقتين، عدد المكعّبات:",
+          "correctAnswer": "٨",
+          "options": [
+            "٨",
+            "٦",
+            "٤",
+            "١٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ وحدة تُستخدم لقياس الحجم؟",
+          "correctAnswer": "الوحدة المكعّبة",
+          "options": [
+            "الوحدة المكعّبة",
+            "السنتيمتر المربّع",
+            "المتر",
+            "الغرام"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كلّما زاد عدد المكعّبات زاد الحجم.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: مجسّم من طبقتين كلّ طبقة ٦ مكعّبات حجمه ___ وحدة.",
+          "correctAnswer": "١٢",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "مجسّم من ٣ طبقات كلّ طبقة ٤ مكعّبات، كم حجمه؟",
+          "correctAnswer": "١٢ وحدة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأحجام تصاعدياً: ٦ مكعّبات، ٣ مكعّبات، ٩ مكعّبات",
+          "correctAnswer": "٣، ٦، ٩",
+          "options": [
+            "٦",
+            "٣",
+            "٩"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "مكعّب طول حرفه وحدتان، كم مكعّباً صغيراً يتكوّن منه؟",
+          "correctAnswer": "٨",
+          "options": [
+            "٨",
+            "٦",
+            "٤",
+            "١٢"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "مجسّم حجمه ١٠ وحدات، أُضيفت ٥ مكعّبات، كم صار حجمه؟",
+          "correctAnswer": "١٥ وحدة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        }
+      ],
+      "orderIndex": 17
+    },
+    {
+      "title": "الحدث الأكيد والممكن والمستحيل",
+      "content": "الحدث الأكيد يقع دائماً، والمستحيل لا يقع أبداً، والممكن قد يقع وقد لا يقع.",
+      "objectives": "تصنيف الأحداث إلى أكيدة وممكنة ومستحيلة.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "طلوع الشمس صباحاً حدث:",
+          "correctAnswer": "أكيد",
+          "options": [
+            "أكيد",
+            "مستحيل",
+            "ممكن",
+            "نادر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أن يعيش السمك خارج الماء دائماً حدث:",
+          "correctAnswer": "مستحيل",
+          "options": [
+            "مستحيل",
+            "أكيد",
+            "ممكن",
+            "مؤكّد"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "نزول المطر غداً حدث:",
+          "correctAnswer": "ممكن",
+          "options": [
+            "ممكن",
+            "أكيد",
+            "مستحيل",
+            "لا يُصنّف"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "عند رمي حجر النرد، ظهور الرقم ٧ حدث:",
+          "correctAnswer": "مستحيل",
+          "options": [
+            "مستحيل",
+            "أكيد",
+            "ممكن",
+            "شائع"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "ظهور رقم بين ١ و٦ عند رمي النرد حدث أكيد.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: الحدث الذي لا يقع أبداً يُسمّى الحدث ___.",
+          "correctAnswer": "المستحيل",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "صنّف: (سحب كرة حمراء من كيس فيه كرات حمراء فقط).",
+          "correctAnswer": "أكيد",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب حسب فرصة الوقوع تصاعدياً: أكيد، مستحيل، ممكن",
+          "correctAnswer": "مستحيل، ممكن، أكيد",
+          "options": [
+            "أكيد",
+            "مستحيل",
+            "ممكن"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "سحب كرة زرقاء من كيس فيه كرات حمراء فقط حدث:",
+          "correctAnswer": "مستحيل",
+          "options": [
+            "مستحيل",
+            "أكيد",
+            "ممكن",
+            "متكرّر"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أعطِ مثالاً على حدث ممكن.",
+          "correctAnswer": "أن يفوز فريقي",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 18
+    },
+    {
+      "title": "التجارب والنتائج",
+      "content": "في التجربة العشوائية نتائج متعدّدة، ونقارن فرص وقوعها لمعرفة الأكثر احتمالاً.",
+      "objectives": "تحديد نتائج التجارب ومقارنة فرصها.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "عند رمي قطعة نقود، عدد النتائج الممكنة:",
+          "correctAnswer": "٢",
+          "options": [
+            "٢",
+            "١",
+            "٣",
+            "٦"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "عند رمي حجر النرد، عدد النتائج الممكنة:",
+          "correctAnswer": "٦",
+          "options": [
+            "٦",
+            "٢",
+            "٣",
+            "١٢"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كيس فيه ٣ كرات حمراء وكرة زرقاء، الأكثر احتمالاً سحب كرة:",
+          "correctAnswer": "حمراء",
+          "options": [
+            "حمراء",
+            "زرقاء",
+            "متساويان",
+            "لا يُعرف"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "عند رمي النرد، فرصة ظهور رقم زوجي مقارنة بالفردي:",
+          "correctAnswer": "متساوية",
+          "options": [
+            "متساوية",
+            "أكبر",
+            "أصغر",
+            "مستحيلة"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "في قطعة النقود فرصة الصورة تساوي فرصة الكتابة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: أكثر الألوان في الكيس هو الأكثر ___ للسحب.",
+          "correctAnswer": "احتمالاً",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كيس فيه ٥ كرات صفراء وكرتان خضراوان، أيّ لون أكثر احتمالاً؟",
+          "correctAnswer": "الأصفر",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب حسب الاحتمال تصاعدياً في كيس ٤ حمر وكرة زرقاء: زرقاء، حمراء، صفراء(٠)",
+          "correctAnswer": "صفراء(٠)، زرقاء، حمراء",
+          "options": [
+            "زرقاء",
+            "حمراء",
+            "صفراء(٠)"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كيس فيه كرات حمراء فقط، فرصة سحب كرة حمراء:",
+          "correctAnswer": "أكيدة",
+          "options": [
+            "أكيدة",
+            "مستحيلة",
+            "متساوية",
+            "قليلة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "عند رمي النرد، كم فرصة لظهور الرقم ٣ من أصل النتائج؟",
+          "correctAnswer": "واحدة من ستّ",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 19
+    }
+  ]
+}

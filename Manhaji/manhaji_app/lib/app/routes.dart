@@ -16,7 +16,10 @@ import '../screens/auth/register_screen.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/progress/progress_screen.dart';
 import '../screens/rewards/rewards_screen.dart';
+import '../screens/settings/about_screen.dart';
+import '../screens/settings/privacy_policy_screen.dart';
 import '../screens/settings/settings_screen.dart';
+import '../screens/settings/terms_screen.dart';
 import '../screens/teacher/class_students_screen.dart';
 import '../screens/teacher/student_detail_screen.dart';
 import '../screens/teacher/teacher_dashboard_screen.dart';
@@ -45,6 +48,11 @@ class AppRoutes {
   static const String progress = '/progress';
   static const String settings = '/settings';
   static const String rewards = '/rewards';
+
+  // Legal / consent (public — reachable pre-auth from the register screen)
+  static const String privacyPolicy = '/privacy-policy';
+  static const String terms = '/terms';
+  static const String about = '/about';
 
   // Teacher
   static const String teacherDashboard = '/teacher';
@@ -109,6 +117,10 @@ class AppRoutes {
     login: (_) => const LoginScreen(),
     register: (_) => const RegisterScreen(),
     platformMismatch: (_) => const PlatformMismatchScreen(),
+    // Legal / consent — public so the register screen can open them pre-auth.
+    privacyPolicy: (_) => const PrivacyPolicyScreen(),
+    terms: (_) => const TermsScreen(),
+    about: (_) => const AboutScreen(),
 
     // ── Student routes ────────────────────────────────────────────────
     home: (_) =>

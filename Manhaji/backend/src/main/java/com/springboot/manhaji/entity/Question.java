@@ -82,6 +82,27 @@ public class Question {
     private String audioUrl;
 
     /**
+     * Tier 1 (2026-06): JSON array of image paths, parallel to {@code options},
+     * for IMAGE_MCQ / LISTEN_CHOOSE — each option can show a picture. Null for
+     * non-image types. Image-ready: the client falls back to option text when a
+     * given entry is null/missing, so a question works even before images ship.
+     * Example: {@code ["/assets/openmoji/apple.png", "/assets/openmoji/banana.png"]}
+     */
+    @Column(columnDefinition = "JSON")
+    private String optionImages;
+
+    /**
+     * Tier 1 (2026-06): JSON for IMAGE_MATCH — the two columns to pair plus the
+     * correct mapping, e.g.
+     * {@code {"left":[{"id":"a","text":"تفاحة","image":"…apple.png"}],
+     *          "right":[{"id":"1","text":"apple"}],
+     *          "answer":{"a":"1"}}}.
+     * Null for non-match types.
+     */
+    @Column(columnDefinition = "JSON")
+    private String pairsJson;
+
+    /**
      * Fingerprint of the spoken text the cached TTS clip at {@code audioUrl}
      * was generated from (see {@code TtsService.speechFingerprint}). Lets the
      * audio cache self-invalidate: when {@code questionText} is edited, the

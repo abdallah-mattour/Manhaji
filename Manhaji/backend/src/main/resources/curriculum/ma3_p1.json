@@ -1,0 +1,2697 @@
+{
+  "subject": "الرياضيات",
+  "subjectCode": "ma",
+  "gradeLevel": 3,
+  "semester": 1,
+  "totalLessons": 22,
+  "lessons": [
+    {
+      "title": "الأعداد ضمن ٩٩٩٩",
+      "content": "نقرأ الأعداد المكوّنة من أربع منازل ونكتبها بالأرقام والكلمات، ونمثّلها على المعداد: آحاد، عشرات، مئات، آلاف.",
+      "objectives": "قراءة الأعداد ضمن ٩٩٩٩ وكتابتها وتمثيلها",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "العدد «ثلاثة آلاف وخمسمئة واثنان» يُكتب بالأرقام:",
+          "correctAnswer": "٣٥٠٢",
+          "options": [
+            "٣٥٢٠",
+            "٣٠٥٢",
+            "٥٣٠٢",
+            "٣٥٠٢"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "العدد ٧٠٤٠ يُقرأ:",
+          "correctAnswer": "سبعة آلاف وأربعون",
+          "options": [
+            "سبعون ألفاً وأربعون",
+            "سبعة آلاف وأربعون",
+            "سبعة آلاف وأربعة",
+            "سبعمئة وأربعون"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أكبر عدد مكوّن من أربع منازل هو:",
+          "correctAnswer": "٩٩٩٩",
+          "options": [
+            "١٠٠٠",
+            "٩٩٩",
+            "٩٠٠٠",
+            "٩٩٩٩"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ١٠٠٠ هو أصغر عدد مكوّن من أربع منازل.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ٤٥٠٦ مكوّن من ثلاث منازل.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: العدد الذي يأتي مباشرة بعد ٣٩٩٩ هو ___.",
+          "correctAnswer": "٤٠٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب بالأرقام: ألفان ومئتان وخمسة وعشرون.",
+          "correctAnswer": "٢٢٢٥",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب منازل العدد من الأصغر إلى الأكبر: المئات، الآحاد، الآلاف، العشرات",
+          "correctAnswer": "الآحاد، العشرات، المئات، الآلاف",
+          "options": [
+            "المئات",
+            "الآحاد",
+            "الآلاف",
+            "العشرات"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "زار كنيسةَ القيامة في يوم واحد ألفان وثلاثمئة زائر. العدد بالأرقام هو:",
+          "correctAnswer": "٢٣٠٠",
+          "options": [
+            "٢٠٣٠",
+            "٢٠٠٣",
+            "٣٢٠٠",
+            "٢٣٠٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الأعداد: من ثلاث منازل أم من أربع منازل؟",
+          "correctAnswer": "ثلاث منازل=٨٥٢,ثلاث منازل=٩٩٩,أربع منازل=١٢٠٥,أربع منازل=٧٠٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "ثلاث منازل",
+              "أربع منازل"
+            ],
+            "tokens": [
+              "٨٥٢",
+              "١٢٠٥",
+              "٩٩٩",
+              "٧٠٠٠"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 1
+    },
+    {
+      "title": "القيمة المنزلية ضمن ٩٩٩٩",
+      "content": "لكل رقم في العدد قيمة منزلية حسب موقعه: في العدد ٥٢٧٤ قيمة الرقم ٥ هي ٥٠٠٠ لأنه في منزلة الآلاف.",
+      "objectives": "تحديد القيمة المنزلية لأي رقم في عدد ضمن ٩٩٩٩",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "القيمة المنزلية للرقم ٦ في العدد ٦٢٥٨ هي:",
+          "correctAnswer": "٦٠٠٠",
+          "options": [
+            "٦٠٠",
+            "٦٠٠٠",
+            "٦٠",
+            "٦"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "القيمة المنزلية للرقم ٣ في العدد ٥٣٧١ هي:",
+          "correctAnswer": "٣٠٠",
+          "options": [
+            "٣٠٠٠",
+            "٣٠٠",
+            "٣٠",
+            "٣"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في أي منزلة يقع الرقم ٨ في العدد ٤٩٨٢؟",
+          "correctAnswer": "العشرات",
+          "options": [
+            "المئات",
+            "الآلاف",
+            "العشرات",
+            "الآحاد"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "في العدد ٧٥٤٣ يقع الرقم ٧ في منزلة الآلاف.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "القيمة المنزلية للرقم ٢ في العدد ٩٢٦٤ هي ٢٠.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: في العدد ٨١٥٦ القيمة المنزلية للرقم ١ هي ___.",
+          "correctAnswer": "١٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الرقم الذي يقع في منزلة المئات في العدد ٣٦٩٤؟",
+          "correctAnswer": "٦",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب القيم المنزلية لأرقام العدد ٢٤٦٨ من الأصغر إلى الأكبر: ٤٠٠، ٨، ٢٠٠٠، ٦٠",
+          "correctAnswer": "٨، ٦٠، ٤٠٠، ٢٠٠٠",
+          "options": [
+            "٤٠٠",
+            "٨",
+            "٢٠٠٠",
+            "٦٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "عدد كوّنته من الأرقام ٥ و٠ و٩ و٢ بحيث يكون الرقم ٩ في منزلة الآلاف. أي عدد يصلح؟",
+          "correctAnswer": "٩٥٢٠",
+          "options": [
+            "٥٩٢٠",
+            "٢٠٥٩",
+            "٩٥٢٠",
+            "٥٩٠٢"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف حسب منزلة الرقم ٤: في أي عدد يقع ٤ في الآلاف وفي أيها في الآحاد؟",
+          "correctAnswer": "منزلة الآلاف=٤٢١٧,منزلة الآلاف=٤٩٠٥,منزلة الآحاد=٨٢٣٤,منزلة الآحاد=١٥٧٤",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "منزلة الآلاف",
+              "منزلة الآحاد"
+            ],
+            "tokens": [
+              "٤٢١٧",
+              "٨٢٣٤",
+              "٤٩٠٥",
+              "١٥٧٤"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 2
+    },
+    {
+      "title": "المقارنة والترتيب ضمن ٩٩٩٩",
+      "content": "نقارن بين عددين بالنظر إلى المنازل من اليسار: نبدأ بالآلاف ثم المئات ثم العشرات ثم الآحاد، ونستعمل > و < و =.",
+      "objectives": "المقارنة بين الأعداد ضمن ٩٩٩٩ وترتيبها تصاعدياً وتنازلياً",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي إشارة تناسب: ٤٥٢٠ ___ ٤٢٥٠؟",
+          "correctAnswer": ">",
+          "options": [
+            "=",
+            "<",
+            ">",
+            "+"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أي الأعداد الآتية أكبر من ٦٩٩٩؟",
+          "correctAnswer": "٧٠٠٠",
+          "options": [
+            "٦٩٩٨",
+            "٥٩٩٩",
+            "٦٩٠٠",
+            "٧٠٠٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أصغر عدد فيما يأتي هو:",
+          "correctAnswer": "٢٠٩٩",
+          "options": [
+            "٢١٠٠",
+            "٢٩٠٠",
+            "٢٩٠٩",
+            "٢٠٩٩"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ٨٧٦٥ أصغر من العدد ٨٦٧٥.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "إذا تساوت منازل الآلاف نقارن بمنزلة المئات.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل بعدد مناسب: ٣٤٠٠ < ___ < ٣٤٠٢.",
+          "correctAnswer": "٣٤٠١",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أيهما أكبر: ٥٦٧٨ أم ٥٦٨٧؟",
+          "correctAnswer": "٥٦٨٧",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأعداد تصاعدياً: ٧١٠٠، ١٧٠٠، ٧٠١١، ١٠٧٧",
+          "correctAnswer": "١٠٧٧، ١٧٠٠، ٧٠١١، ٧١٠٠",
+          "options": [
+            "٧١٠٠",
+            "١٧٠٠",
+            "٧٠١١",
+            "١٠٧٧"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأعداد تنازلياً: ٤٠٥٠، ٤٥٠٠، ٤٠٠٥، ٤٥٥٠",
+          "correctAnswer": "٤٥٥٠، ٤٥٠٠، ٤٠٥٠، ٤٠٠٥",
+          "options": [
+            "٤٠٥٠",
+            "٤٥٠٠",
+            "٤٠٠٥",
+            "٤٥٥٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "باعت مكتبةٌ ١٢٥٠ قصة في الشهر الأول و١٥٢٠ قصة في الشهر الثاني. في أي شهر باعت أكثر؟",
+          "correctAnswer": "الشهر الثاني",
+          "options": [
+            "الشهر الأول",
+            "الشهر الثاني",
+            "متساويان",
+            "لا يمكن المقارنة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 3
+    },
+    {
+      "title": "التقريب إلى أقرب عشرة ومئة",
+      "content": "نقرّب العدد إلى أقرب عشرة بالنظر إلى رقم الآحاد، وإلى أقرب مئة بالنظر إلى رقم العشرات: إذا كان ٥ فأكثر نقرّب للأعلى.",
+      "objectives": "تقريب الأعداد إلى أقرب عشرة وأقرب مئة",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "العدد ٤٧ مقرّباً إلى أقرب عشرة هو:",
+          "correctAnswer": "٥٠",
+          "options": [
+            "٦٠",
+            "٥٠",
+            "٤٠",
+            "٤٥"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "العدد ٨٣ مقرّباً إلى أقرب عشرة هو:",
+          "correctAnswer": "٨٠",
+          "options": [
+            "٩٠",
+            "٨٠",
+            "٧٠",
+            "٨٥"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "العدد ٦٥٠ مقرّباً إلى أقرب مئة هو:",
+          "correctAnswer": "٧٠٠",
+          "options": [
+            "٦٠٠",
+            "٥٠٠",
+            "٦٥٠",
+            "٧٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ٢٤ مقرّباً إلى أقرب عشرة يساوي ٢٠.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ٣٤٩ مقرّباً إلى أقرب مئة يساوي ٤٠٠.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: العدد ٧٦ مقرّباً إلى أقرب عشرة هو ___.",
+          "correctAnswer": "٨٠",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "قرّب العدد ٥٢٥ إلى أقرب مئة.",
+          "correctAnswer": "٥٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "إذا كان رقم الآحاد ٥ فإننا عند التقريب إلى أقرب عشرة:",
+          "correctAnswer": "نقرّب إلى العشرة الأعلى",
+          "options": [
+            "لا نغيّر شيئاً",
+            "نقرّب إلى العشرة الأدنى",
+            "نحذف العدد",
+            "نقرّب إلى العشرة الأعلى"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "حضر مباراةً ٨٧٦ متفرجاً. عددهم مقرّباً إلى أقرب مئة هو:",
+          "correctAnswer": "٩٠٠",
+          "options": [
+            "٨٠٠",
+            "٨٧٠",
+            "٩٠٠",
+            "١٠٠٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الأعداد حسب تقريبها إلى أقرب عشرة: ٣٠ أم ٤٠؟",
+          "correctAnswer": "يقرب إلى ٣٠=٣٢,يقرب إلى ٣٠=٢٨,يقرب إلى ٤٠=٣٧,يقرب إلى ٤٠=٤٣",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "يقرب إلى ٣٠",
+              "يقرب إلى ٤٠"
+            ],
+            "tokens": [
+              "٣٢",
+              "٣٧",
+              "٢٨",
+              "٤٣"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 4
+    },
+    {
+      "title": "مراجعة الوحدة الأولى (الأعداد ضمن ٩٩٩٩)",
+      "content": "نراجع قراءة الأعداد ضمن ٩٩٩٩ وكتابتها، والقيمة المنزلية، والمقارنة والترتيب، والتقريب.",
+      "objectives": "توظيف مهارات الوحدة الأولى مجتمعة",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "العدد «تسعة آلاف وتسعة» يُكتب:",
+          "correctAnswer": "٩٠٠٩",
+          "options": [
+            "٩٩٠٩",
+            "٩٠٩٠",
+            "٩٩٠٠",
+            "٩٠٠٩"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "القيمة المنزلية للرقم ٧ في العدد ٢٧٤٥ هي:",
+          "correctAnswer": "٧٠٠",
+          "options": [
+            "٧",
+            "٧٠",
+            "٧٠٠",
+            "٧٠٠٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "العدد ٥٥٥ مقرّباً إلى أقرب مئة هو:",
+          "correctAnswer": "٦٠٠",
+          "options": [
+            "٥٠٠",
+            "٦٠٠",
+            "٥٦٠",
+            "٥٥٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ١٢٣٤ أكبر من العدد ١٢٤٣.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد الذي قبل ٦٠٠٠ مباشرة هو ٥٩٩٩.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل النمط: ٢٠٠٠، ٣٠٠٠، ٤٠٠٠، ___.",
+          "correctAnswer": "٥٠٠٠",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب أصغر عدد يمكن تكوينه من الأرقام ٣، ٧، ١، ٥ دون تكرار.",
+          "correctAnswer": "١٣٥٧",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب تصاعدياً: ٩٠٩٠، ٩٠٠٩، ٩٩٠٠، ٩٠٩٩",
+          "correctAnswer": "٩٠٠٩، ٩٠٩٠، ٩٠٩٩، ٩٩٠٠",
+          "options": [
+            "٩٠٩٠",
+            "٩٠٠٩",
+            "٩٩٠٠",
+            "٩٠٩٩"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "سافر عبر معبرٍ حدودي ٣٠٤٨ مسافراً يوم الأحد. رقم العشرات في هذا العدد هو:",
+          "correctAnswer": "٤",
+          "options": [
+            "٨",
+            "٣",
+            "٤",
+            "٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر الصورة التي تناسب «آلاف النحل في الخلية»",
+          "correctAnswer": "النحلة",
+          "options": [
+            "الكتاب",
+            "النحلة",
+            "الشجرة",
+            "الساعة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/book.png",
+            "assets/openmoji/bee.png",
+            "assets/openmoji/tree.png",
+            "assets/openmoji/clock.png"
+          ]
+        }
+      ],
+      "orderIndex": 5
+    },
+    {
+      "title": "جمع عددين ضمن ٩٩٩٩ دون حمل",
+      "content": "نجمع الآحاد مع الآحاد، والعشرات مع العشرات، والمئات مع المئات، والآلاف مع الآلاف، دون حمل بين المنازل.",
+      "objectives": "إيجاد ناتج جمع عددين ضمن ٩٩٩٩ دون حمل",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٢٣٤١ + ١٤٢٥ =",
+          "correctAnswer": "٣٧٦٦",
+          "options": [
+            "٣٦٧٦",
+            "٣٧٥٦",
+            "٣٨٦٦",
+            "٣٧٦٦"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٥٠٢٠ + ٣٠٠٧ =",
+          "correctAnswer": "٨٠٢٧",
+          "options": [
+            "٥٣٢٧",
+            "٨٢٠٧",
+            "٨٠٧٢",
+            "٨٠٢٧"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٤١٠٠ + ٢٣٠٠ =",
+          "correctAnswer": "٦٤٠٠",
+          "options": [
+            "٦٣٠٠",
+            "٤٤٠٠",
+            "٦٥٠٠",
+            "٦٤٠٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٣٢١٠ + ٤٥٦٧ = ٧٧٧٧",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "عند الجمع العمودي نبدأ بجمع منزلة الآلاف أولاً.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ١٥٠٠ + ___ = ٤٥٠٠.",
+          "correctAnswer": "٣٠٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أجد ناتج الجمع: ٦٢٤٢ + ٣١٥٦.",
+          "correctAnswer": "٩٣٩٨",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب خطوات الجمع العمودي: أجمع العشرات، أجمع الآحاد، أجمع الآلاف، أجمع المئات",
+          "correctAnswer": "أجمع الآحاد، أجمع العشرات، أجمع المئات، أجمع الآلاف",
+          "options": [
+            "أجمع العشرات",
+            "أجمع الآحاد",
+            "أجمع الآلاف",
+            "أجمع المئات"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "طبع مصنعٌ ٢٥٠٠ علم لفلسطين في الأسبوع الأول و٣٢٠٠ علم في الأسبوع الثاني. كم علماً طبع في الأسبوعين؟",
+          "correctAnswer": "٥٧٠٠",
+          "options": [
+            "٦٧٠٠",
+            "٥٧٠٠",
+            "٥٦٠٠",
+            "٥٢٠٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ناتج جمع أي عدد مع الصفر يساوي:",
+          "correctAnswer": "العدد نفسه",
+          "options": [
+            "ضعف العدد",
+            "واحداً",
+            "صفراً",
+            "العدد نفسه"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 6
+    },
+    {
+      "title": "جمع عددين ضمن ٩٩٩٩ مع الحمل",
+      "content": "إذا زاد مجموع منزلة عن ٩ نحمل ١ إلى المنزلة التالية: ٨ + ٥ = ١٣ نكتب ٣ ونحمل ١ إلى العشرات.",
+      "objectives": "إيجاد ناتج جمع عددين ضمن ٩٩٩٩ مع الحمل",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ١٢٤٨ + ٢٣٥٤ =",
+          "correctAnswer": "٣٦٠٢",
+          "options": [
+            "٣٥٩٢",
+            "٣٦٠٢",
+            "٣٥٠٢",
+            "٣٦١٢"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٢٧٦٥ + ١٤٥٨ =",
+          "correctAnswer": "٤٢٢٣",
+          "options": [
+            "٣٢٢٣",
+            "٤١٢٣",
+            "٤٢٢٣",
+            "٤٢١٣"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "عند جمع ٦ + ٧ في منزلة الآحاد نكتب ٣ ونحمل:",
+          "correctAnswer": "١ إلى العشرات",
+          "options": [
+            "٣ إلى العشرات",
+            "١ إلى المئات",
+            "لا نحمل شيئاً",
+            "١ إلى العشرات"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "١٩٩٩ + ١ = ٢٠٠٠",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "في الجمع مع الحمل يمكن أن يكون الناتج أقل من العددين.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٣٤٥٦ + ١٥٤٤ = ___.",
+          "correctAnswer": "٥٠٠٠",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أجد ناتج الجمع: ٤٦٧٨ + ٢٥٦٧.",
+          "correctAnswer": "٧٢٤٥",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أقلعت طائرتان فلسطينيتان تحمل الأولى ١٨٥ راكباً والثانية ٢٣٧ راكباً. كم راكباً في الطائرتين معاً؟",
+          "correctAnswer": "٤٢٢",
+          "options": [
+            "٤٣٢",
+            "٣٢٢",
+            "٤١٢",
+            "٤٢٢"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٥٩٩ + ٤٠١ =",
+          "correctAnswer": "١٠٠٠",
+          "options": [
+            "٩٩٩",
+            "١١٠٠",
+            "١٠٠٠",
+            "٩٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف عمليات الجمع: تحتاج حملاً أم لا تحتاج؟",
+          "correctAnswer": "تحتاج حملاً=٢٥٧ + ١٤٥,تحتاج حملاً=٣٦٨ + ٢٤٤,لا تحتاج حملاً=٣٢١ + ٤٥٦,لا تحتاج حملاً=٥١٠٠ + ٢٣٠٠",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "تحتاج حملاً",
+              "لا تحتاج حملاً"
+            ],
+            "tokens": [
+              "٢٥٧ + ١٤٥",
+              "٣٢١ + ٤٥٦",
+              "٣٦٨ + ٢٤٤",
+              "٥١٠٠ + ٢٣٠٠"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 7
+    },
+    {
+      "title": "طرح عددين ضمن ٩٩٩٩ دون استلاف",
+      "content": "نطرح الآحاد من الآحاد والعشرات من العشرات وهكذا، عندما يكون كل رقم في المطروح منه أكبر من أو يساوي ما يقابله.",
+      "objectives": "إيجاد ناتج طرح عددين ضمن ٩٩٩٩ دون استلاف",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٥٦٧٨ − ٢٣٤٥ =",
+          "correctAnswer": "٣٣٣٣",
+          "options": [
+            "٣٤٣٣",
+            "٣٣٤٣",
+            "٣٣٣٣",
+            "٢٣٣٣"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٨٩٦٥ − ٤٦٢١ =",
+          "correctAnswer": "٤٣٤٤",
+          "options": [
+            "٤٣٥٤",
+            "٥٣٤٤",
+            "٤٢٤٤",
+            "٤٣٤٤"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٧٥٠٠ − ٢٥٠٠ =",
+          "correctAnswer": "٥٠٠٠",
+          "options": [
+            "٥٥٠٠",
+            "٤٥٠٠",
+            "٤٠٠٠",
+            "٥٠٠٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٦٤٨٢ − ٣٢٦١ = ٣٢٢١",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "نتحقق من صحة الطرح بإعادة الجمع.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٩٨٧٦ − ___ = ٩٠٠٠.",
+          "correctAnswer": "٨٧٦",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أجد ناتج الطرح: ٤٧٥٩ − ١٣٢٤.",
+          "correctAnswer": "٣٤٣٥",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب نواتج الطرح تصاعدياً: ٥٠٠−٢٠٠، ٩٠٠−٢٠٠، ٧٠٠−٢٠٠",
+          "correctAnswer": "٥٠٠−٢٠٠، ٧٠٠−٢٠٠، ٩٠٠−٢٠٠",
+          "options": [
+            "٥٠٠−٢٠٠",
+            "٩٠٠−٢٠٠",
+            "٧٠٠−٢٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في مدرسة ١٨٧٥ طالباً، غاب منهم ٢٥ طالباً بسبب المطر. كم طالباً حضر؟",
+          "correctAnswer": "١٨٥٠",
+          "options": [
+            "١٩٠٠",
+            "١٨٦٠",
+            "١٨٥٠",
+            "١٨٤٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ناتج طرح العدد من نفسه يساوي:",
+          "correctAnswer": "صفراً",
+          "options": [
+            "ضعف العدد",
+            "العدد نفسه",
+            "واحداً",
+            "صفراً"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 8
+    },
+    {
+      "title": "طرح عددين ضمن ٩٩٩٩ مع الاستلاف",
+      "content": "إذا كان رقم في المطروح منه أصغر مما يقابله نستلف ١ من المنزلة التالية فيصبح عشرة نضيفها إلى المنزلة الحالية.",
+      "objectives": "إيجاد ناتج طرح عددين ضمن ٩٩٩٩ مع الاستلاف",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٥٢٣٤ − ١٤٥٦ =",
+          "correctAnswer": "٣٧٧٨",
+          "options": [
+            "٤٧٧٨",
+            "٣٧٧٨",
+            "٣٦٧٨",
+            "٣٧٨٨"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٤٠٠٠ − ١٢٥٠ =",
+          "correctAnswer": "٢٧٥٠",
+          "options": [
+            "٢٨٥٠",
+            "٣٧٥٠",
+            "٢٦٥٠",
+            "٢٧٥٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "لطرح ٨ من ٣ في منزلة الآحاد يجب أن:",
+          "correctAnswer": "نستلف ١ من العشرات",
+          "options": [
+            "نتجاهل المنزلة",
+            "نستلف ١ من العشرات",
+            "نكتب ٥ مباشرة",
+            "نستلف ١ من المئات"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٣٠٠٠ − ١ = ٢٩٩٩",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "عند الاستلاف من العشرات تنقص العشرات بمقدار ٢.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٦٢٠٠ − ٢٧٠٠ = ___.",
+          "correctAnswer": "٣٥٠٠",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أجد ناتج الطرح: ٧١٤٣ − ٢٨٥٦.",
+          "correctAnswer": "٤٢٨٧",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "زار متنزهاً سياحياً في تموز ٣٥٠٠ زائر، وفي آب ٢٧٥٠ زائراً. كم زاد عدد زوار تموز عن آب؟",
+          "correctAnswer": "٧٥٠",
+          "options": [
+            "٦٥٠",
+            "٧٠٠",
+            "٧٥٠",
+            "٨٥٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ١٠٠٠ − ٤٥٦ =",
+          "correctAnswer": "٥٤٤",
+          "options": [
+            "٦٤٤",
+            "٥٤٤",
+            "٥٥٤",
+            "٤٤٤"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف عمليات الطرح: تحتاج استلافاً أم لا؟",
+          "correctAnswer": "تحتاج استلافاً=٥٢٣ − ٢٤٧,تحتاج استلافاً=٧٠٠ − ٣٥٦,لا تحتاج استلافاً=٨٧٦ − ٣٢١,لا تحتاج استلافاً=٩٥٠ − ٤٢٠",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "تحتاج استلافاً",
+              "لا تحتاج استلافاً"
+            ],
+            "tokens": [
+              "٥٢٣ − ٢٤٧",
+              "٨٧٦ − ٣٢١",
+              "٧٠٠ − ٣٥٦",
+              "٩٥٠ − ٤٢٠"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 9
+    },
+    {
+      "title": "مراجعة الوحدة الثانية (الجمع والطرح ضمن ٩٩٩٩)",
+      "content": "نراجع الجمع مع الحمل ودونه، والطرح مع الاستلاف ودونه، ونحل مسائل حياتية.",
+      "objectives": "توظيف الجمع والطرح ضمن ٩٩٩٩ في حل المسائل",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٣٤٥٠ + ٢٥٥٠ =",
+          "correctAnswer": "٦٠٠٠",
+          "options": [
+            "٦١٠٠",
+            "٦٠٠٠",
+            "٥٩٠٠",
+            "٥٠٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أجد ناتج: ٨٠٠٠ − ٣٤٥٠ =",
+          "correctAnswer": "٤٥٥٠",
+          "options": [
+            "٤٥٠٠",
+            "٥٥٥٠",
+            "٤٥٥٠",
+            "٤٦٥٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "عملية الطرح هي العملية العكسية لعملية الجمع.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٢٥٠٠ + ٢٥٠٠ = ٤٠٠٠",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ___ − ١٥٠٠ = ٢٥٠٠.",
+          "correctAnswer": "٤٠٠٠",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "عدد إذا أضفت إليه ٣٢٠ صار ١٠٠٠. ما العدد؟",
+          "correctAnswer": "٦٨٠",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب خطوات حل المسألة: أكتب العملية، أقرأ المسألة، أتحقق من الناتج، أحسب الناتج",
+          "correctAnswer": "أقرأ المسألة، أكتب العملية، أحسب الناتج، أتحقق من الناتج",
+          "options": [
+            "أكتب العملية",
+            "أقرأ المسألة",
+            "أتحقق من الناتج",
+            "أحسب الناتج"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "يسكن في قرية ٤٢٥٠ نسمة وفي قرية مجاورة ٣٨٥٠ نسمة. كم عدد سكان القريتين معاً؟",
+          "correctAnswer": "٨١٠٠",
+          "options": [
+            "٨٠٠٠",
+            "٨٢٠٠",
+            "٨١٠٠",
+            "٧١٠٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "معي ٥٠٠٠ شيقل، اشتريت حقيبة بـ ١٢٥ شيقلاً. كم بقي معي؟",
+          "correctAnswer": "٤٨٧٥ شيقلاً",
+          "options": [
+            "٤٩٧٥ شيقلاً",
+            "٣٨٧٥ شيقلاً",
+            "٤٨٧٥ شيقلاً",
+            "٤٧٧٥ شيقلاً"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "للتحقق من ٧٢٠ − ٣٢٠ = ٤٠٠ نجمع ٤٠٠ + ٣٢٠.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 10
+    },
+    {
+      "title": "الأعداد ضمن ٩٩٩٩٩",
+      "content": "نتعرف منزلة عشرات الآلاف: العدد ٥٣٦٥٠ مكوّن من خمس منازل، نقرؤه: ثلاثة وخمسون ألفاً وستمئة وخمسون.",
+      "objectives": "قراءة الأعداد ضمن ٩٩٩٩٩ وكتابتها",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "العدد «خمسة وعشرون ألفاً وثلاثمئة» يُكتب:",
+          "correctAnswer": "٢٥٣٠٠",
+          "options": [
+            "٢٥٠٠٣",
+            "٢٥٠٣٠",
+            "٥٢٣٠٠",
+            "٢٥٣٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "المنزلة الخامسة في العدد ٤٧٢٥٩ هي:",
+          "correctAnswer": "عشرات الآلاف",
+          "options": [
+            "المئات",
+            "الآلاف",
+            "مئات الآلاف",
+            "عشرات الآلاف"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أكبر عدد مكوّن من خمس منازل هو:",
+          "correctAnswer": "٩٩٩٩٩",
+          "options": [
+            "٩٩٩٩",
+            "٩٠٠٠٠",
+            "١٠٠٠٠",
+            "٩٩٩٩٩"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ١٠٠٠٠ هو أصغر عدد مكوّن من خمس منازل.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ٣٦٥٤٢ يُقرأ: ثلاثة آلاف وستمئة.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: العدد الذي بعد ٤٩٩٩٩ مباشرة هو ___.",
+          "correctAnswer": "٥٠٠٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب بالأرقام: أحد عشر ألفاً ومئتان.",
+          "correctAnswer": "١١٢٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب المنازل من الأكبر إلى الأصغر: الآلاف، عشرات الآلاف، المئات، العشرات",
+          "correctAnswer": "عشرات الآلاف، الآلاف، المئات، العشرات",
+          "options": [
+            "الآلاف",
+            "عشرات الآلاف",
+            "المئات",
+            "العشرات"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "تقدّم لامتحان التوجيهي في فلسطين نحو ٧٥٤٣٠ طالباً. رقم عشرات الآلاف في هذا العدد هو:",
+          "correctAnswer": "٧",
+          "options": [
+            "٥",
+            "٣",
+            "٧",
+            "٤"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الأعداد: من أربع منازل أم من خمس منازل؟",
+          "correctAnswer": "أربع منازل=٩٨٧٦,أربع منازل=١٠٠١,خمس منازل=١٠٠١٠,خمس منازل=٥٤٣٢١",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "أربع منازل",
+              "خمس منازل"
+            ],
+            "tokens": [
+              "٩٨٧٦",
+              "١٠٠١٠",
+              "١٠٠١",
+              "٥٤٣٢١"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 11
+    },
+    {
+      "title": "القيمة المنزلية والصورة الموسعة ضمن ٩٩٩٩٩",
+      "content": "نكتب العدد بالصورة الموسعة: ٦٣٢٥٠ = ٦٠٠٠٠ + ٣٠٠٠ + ٢٠٠ + ٥٠.",
+      "objectives": "تحليل العدد ضمن ٩٩٩٩٩ إلى صورته الموسعة",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "الصورة الموسعة للعدد ٤٥٢٧٣ هي:",
+          "correctAnswer": "٤٠٠٠٠ + ٥٠٠٠ + ٢٠٠ + ٧٠ + ٣",
+          "options": [
+            "٤٠٠٠٠ + ٥٠٠ + ٢٠٠ + ٧٠ + ٣",
+            "٤٠٠٠ + ٥٠٠ + ٢٠ + ٧ + ٣",
+            "٤٥٠٠٠ + ٢٧٠ + ٣٠",
+            "٤٠٠٠٠ + ٥٠٠٠ + ٢٠٠ + ٧٠ + ٣"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "القيمة المنزلية للرقم ٨ في العدد ٨٢٤٦١ هي:",
+          "correctAnswer": "٨٠٠٠٠",
+          "options": [
+            "٨٠٠٠",
+            "٨",
+            "٨٠٠",
+            "٨٠٠٠٠"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "العدد الذي صورته الموسعة ٣٠٠٠٠ + ٦٠٠ + ٥ هو:",
+          "correctAnswer": "٣٠٦٠٥",
+          "options": [
+            "٣٠٦٥٠",
+            "٣٦٥",
+            "٣٦٠٥٠",
+            "٣٠٦٠٥"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "في العدد ٥٧٣٢٠ القيمة المنزلية للرقم ٧ هي ٧٠٠٠.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الصورة الموسعة للعدد ٢٠٠٠٥ هي ٢٠٠٠ + ٥.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ٩١٤٦٢ = ٩٠٠٠٠ + ١٠٠٠ + ___ + ٦٠ + ٢.",
+          "correctAnswer": "٤٠٠",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما القيمة المنزلية للرقم ٢ في العدد ٦٢٥٨٠؟",
+          "correctAnswer": "٢٠٠٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب حدود الصورة الموسعة للعدد ٧٥٣٨٠ من الأكبر إلى الأصغر: ٣٠٠، ٧٠٠٠٠، ٨٠، ٥٠٠٠",
+          "correctAnswer": "٧٠٠٠٠، ٥٠٠٠، ٣٠٠، ٨٠",
+          "options": [
+            "٣٠٠",
+            "٧٠٠٠٠",
+            "٨٠",
+            "٥٠٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "عددٌ رقمُ عشرات آلافه ٦ ورقمُ آحاده ٤ وباقي أرقامه أصفار. العدد هو:",
+          "correctAnswer": "٦٠٠٠٤",
+          "options": [
+            "٦٤٠٠٠",
+            "٤٠٠٠٦",
+            "٦٠٠٤٠",
+            "٦٠٠٠٤"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يمكن كتابة أي عدد من خمس منازل بصورة موسعة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 12
+    },
+    {
+      "title": "مقارنة الأعداد وترتيبها ضمن ٩٩٩٩٩",
+      "content": "نقارن الأعداد الكبيرة بالبدء من أعلى منزلة: عدد المنازل الأكثر يعني عدداً أكبر، وعند التساوي نقارن منزلة منزلة.",
+      "objectives": "مقارنة الأعداد ضمن ٩٩٩٩٩ وترتيبها",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أي إشارة تناسب: ٥٤٣٢١ ___ ٤٥٣٢١؟",
+          "correctAnswer": ">",
+          "options": [
+            "=",
+            "<",
+            ">",
+            "−"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أكبر الأعداد الآتية هو:",
+          "correctAnswer": "٧٨٠٥٠",
+          "options": [
+            "٧٧٩٩٩",
+            "٧٨٠٠٠",
+            "٧٨٠٠٥",
+            "٧٨٠٥٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "العدد المكوّن من خمس منازل دائماً ___ العدد المكوّن من أربع منازل.",
+          "correctAnswer": "أكبر من",
+          "options": [
+            "أصغر من",
+            "نصف",
+            "يساوي",
+            "أكبر من"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٣٦٠٠٠ < ٣٥٩٩٩",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "عند تساوي منزلة عشرات الآلاف نقارن بمنزلة الآلاف.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل بعدد مناسب: ٢٠٠٠٠ > ___ > ١٩٩٩٨.",
+          "correctAnswer": "١٩٩٩٩",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "أيهما أصغر: ٤١٢٥٠ أم ٤١٢٠٥؟",
+          "correctAnswer": "٤١٢٠٥",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب تصاعدياً: ٦٠٠٦٠، ٦٦٠٠٠، ٦٠٦٠٠، ٦٠٠٠٦",
+          "correctAnswer": "٦٠٠٠٦، ٦٠٠٦٠، ٦٠٦٠٠، ٦٦٠٠٠",
+          "options": [
+            "٦٠٠٦٠",
+            "٦٦٠٠٠",
+            "٦٠٦٠٠",
+            "٦٠٠٠٦"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "التحق بالفرع العلمي ٢٨٤٥٠ طالباً وبالفرع الأدبي ٣١٢٠٠ طالب. أي الفرعين طلابه أكثر؟",
+          "correctAnswer": "الأدبي",
+          "options": [
+            "العلمي",
+            "لا يمكن المعرفة",
+            "الأدبي",
+            "متساويان"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب تنازلياً: ١٢٣٤٥، ٥٤٣٢١، ٣٢١٥٤، ٤٥٢١٣",
+          "correctAnswer": "٥٤٣٢١، ٤٥٢١٣، ٣٢١٥٤، ١٢٣٤٥",
+          "options": [
+            "١٢٣٤٥",
+            "٥٤٣٢١",
+            "٣٢١٥٤",
+            "٤٥٢١٣"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 13
+    },
+    {
+      "title": "مراجعة الوحدة الثالثة (الأعداد ضمن ٩٩٩٩٩)",
+      "content": "نراجع قراءة الأعداد ضمن ٩٩٩٩٩ والقيمة المنزلية والصورة الموسعة والمقارنة والترتيب.",
+      "objectives": "توظيف مهارات الوحدة الثالثة مجتمعة",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "العدد «تسعون ألفاً وتسعون» يُكتب:",
+          "correctAnswer": "٩٠٠٩٠",
+          "options": [
+            "٩٠٠٠٩",
+            "٩٩٠٠٠",
+            "٩٠٠٩٠",
+            "٩٠٩٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "القيمة المنزلية للرقم ٥ في العدد ١٥٧٦٣ هي:",
+          "correctAnswer": "٥٠٠٠",
+          "options": [
+            "٥٠",
+            "٥٠٠٠٠",
+            "٥٠٠",
+            "٥٠٠٠"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "العدد الذي صورته الموسعة ٨٠٠٠٠ + ٤٠٠ + ٢٠ هو:",
+          "correctAnswer": "٨٠٤٢٠",
+          "options": [
+            "٨٠٠٤٢",
+            "٨٤٠٢٠",
+            "٨٤٢٠٠",
+            "٨٠٤٢٠"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العدد ٥٥٥٥٥ مكوّن من خمس منازل متساوية الأرقام.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "٤٤٠٤٤ أكبر من ٤٤٤٠٠.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل النمط: ١٠٠٠٠، ٢٠٠٠٠، ٣٠٠٠٠، ___.",
+          "correctAnswer": "٤٠٠٠٠",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اكتب أكبر عدد يمكن تكوينه من الأرقام ٢، ٨، ٠، ٦، ٤ دون تكرار.",
+          "correctAnswer": "٨٦٤٢٠",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب تصاعدياً: ٩٩٩٩، ١٠٠٠١، ١٠٠٠٠، ٩٩٩",
+          "correctAnswer": "٩٩٩، ٩٩٩٩، ١٠٠٠٠، ١٠٠٠١",
+          "options": [
+            "٩٩٩٩",
+            "١٠٠٠١",
+            "١٠٠٠٠",
+            "٩٩٩"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "مدينة يسكنها ٥٣٦٥٠ نسمة. الرقم الواقع في منزلة المئات هو:",
+          "correctAnswer": "٦",
+          "options": [
+            "٠",
+            "٣",
+            "٥",
+            "٦"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العددان ٧٠٧٠٠ و٧٠٠٧٠ متساويان.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 14
+    },
+    {
+      "title": "الشعاع والقطعة المستقيمة والمستقيم",
+      "content": "القطعة المستقيمة لها نقطتا بداية ونهاية، والشعاع له نقطة بداية ويمتد بلا نهاية، والمستقيم يمتد من الجهتين بلا نهاية.",
+      "objectives": "التمييز بين القطعة المستقيمة والشعاع والمستقيم",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "الشكل الذي له نقطة بداية ويمتد في اتجاه واحد بلا نهاية هو:",
+          "correctAnswer": "الشعاع",
+          "options": [
+            "القطعة المستقيمة",
+            "الشعاع",
+            "الزاوية",
+            "المستقيم"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الشكل الذي له نقطتا بداية ونهاية هو:",
+          "correctAnswer": "القطعة المستقيمة",
+          "options": [
+            "الشعاع",
+            "الدائرة",
+            "القطعة المستقيمة",
+            "المستقيم"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "المستقيم يمتد:",
+          "correctAnswer": "من الجهتين بلا نهاية",
+          "options": [
+            "من جهة واحدة",
+            "على شكل منحنٍ",
+            "بين نقطتين فقط",
+            "من الجهتين بلا نهاية"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يمكن قياس طول القطعة المستقيمة بالمسطرة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يمكن قياس طول المستقيم لأنه محدود.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: حافة المسطرة مثال على ___ المستقيمة.",
+          "correctAnswer": "القطعة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر مثالاً من غرفة الصف على قطعة مستقيمة.",
+          "correctAnswer": "حافة اللوح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب خطوات رسم قطعة مستقيمة: أرسم الخط بينهما، أحدد النقطة الأولى، أحدد النقطة الثانية",
+          "correctAnswer": "أحدد النقطة الأولى، أحدد النقطة الثانية، أرسم الخط بينهما",
+          "options": [
+            "أرسم الخط بينهما",
+            "أحدد النقطة الأولى",
+            "أحدد النقطة الثانية"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "شعاع الشمس الممتد من الشمس نحو الأرض يشبه في الهندسة:",
+          "correctAnswer": "الشعاع",
+          "options": [
+            "الدائرة",
+            "القطعة المستقيمة",
+            "الشعاع",
+            "المربع"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف: له نهاية أم يمتد بلا نهاية؟",
+          "correctAnswer": "له نهاية=القطعة المستقيمة,له نهاية=حافة الكتاب,يمتد بلا نهاية=المستقيم,يمتد بلا نهاية=الشعاع",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "له نهاية",
+              "يمتد بلا نهاية"
+            ],
+            "tokens": [
+              "القطعة المستقيمة",
+              "المستقيم",
+              "حافة الكتاب",
+              "الشعاع"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 15
+    },
+    {
+      "title": "الزاوية وأنواعها",
+      "content": "الزاوية تتكون من شعاعين لهما نقطة بداية واحدة تسمى رأس الزاوية. أنواعها: قائمة، حادة (أصغر من القائمة)، منفرجة (أكبر).",
+      "objectives": "التعرف إلى الزاوية وتمييز أنواعها",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "الزاوية التي تشبه ركن الكتاب هي الزاوية:",
+          "correctAnswer": "القائمة",
+          "options": [
+            "المنفرجة",
+            "المستقيمة",
+            "الحادة",
+            "القائمة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الزاوية الأصغر من الزاوية القائمة تسمى:",
+          "correctAnswer": "حادة",
+          "options": [
+            "منفرجة",
+            "قائمة",
+            "حادة",
+            "كاملة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الزاوية الأكبر من الزاوية القائمة تسمى:",
+          "correctAnswer": "منفرجة",
+          "options": [
+            "قائمة",
+            "صغيرة",
+            "منفرجة",
+            "حادة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "تتكون الزاوية من شعاعين يشتركان في نقطة البداية.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الزاوية المنفرجة أصغر من الزاوية الحادة.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: نقطة التقاء شعاعي الزاوية تسمى ___ الزاوية.",
+          "correctAnswer": "رأس",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما نوع الزاوية بين عقربي الساعة عند الساعة الثالثة تماماً؟",
+          "correctAnswer": "قائمة",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الزوايا من الأصغر إلى الأكبر: القائمة، المنفرجة، الحادة",
+          "correctAnswer": "الحادة، القائمة، المنفرجة",
+          "options": [
+            "القائمة",
+            "المنفرجة",
+            "الحادة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "عند فتح باب الصف قليلاً جداً تتكوّن بين الباب والجدار زاوية:",
+          "correctAnswer": "حادة",
+          "options": [
+            "لا تتكون زاوية",
+            "منفرجة",
+            "قائمة",
+            "حادة"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الزوايا حسب نوعها مقارنة بالقائمة:",
+          "correctAnswer": "أصغر من القائمة=زاوية حادة,أصغر من القائمة=رأس المثلث الرفيع,أكبر من القائمة=زاوية منفرجة,أكبر من القائمة=المروحة المفتوحة كثيراً",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "أصغر من القائمة",
+              "أكبر من القائمة"
+            ],
+            "tokens": [
+              "زاوية حادة",
+              "زاوية منفرجة",
+              "رأس المثلث الرفيع",
+              "المروحة المفتوحة كثيراً"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 16
+    },
+    {
+      "title": "المستطيل والمربع",
+      "content": "المستطيل: كل ضلعين متقابلين متساويان وزواياه الأربع قائمة. المربع: أضلاعه الأربعة متساوية وزواياه الأربع قائمة.",
+      "objectives": "التعرف إلى خصائص المستطيل والمربع ورسمهما",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "الشكل الذي أضلاعه الأربعة متساوية وزواياه قائمة هو:",
+          "correctAnswer": "المربع",
+          "options": [
+            "الدائرة",
+            "المثلث",
+            "المستطيل",
+            "المربع"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في المستطيل، كل ضلعين متقابلين:",
+          "correctAnswer": "متساويان",
+          "options": [
+            "منحنيان",
+            "متعامدان",
+            "مختلفان دائماً",
+            "متساويان"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "عدد الزوايا القائمة في المستطيل هو:",
+          "correctAnswer": "٤",
+          "options": [
+            "٢",
+            "٣",
+            "٦",
+            "٤"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كل مربع له أربعة أضلاع متساوية.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "زوايا المستطيل منها الحاد ومنها المنفرج.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: إذا كان طول ضلع المربع ٥ سم فإن جميع أضلاعه تساوي ___ سم.",
+          "correctAnswer": "٥",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "مستطيل طوله ٤ وحدات وعرضه وحدتان. كم زاوية قائمة فيه؟",
+          "correctAnswer": "٤",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب خطوات رسم مستطيل: أصل الأضلاع، أحدد الطول والعرض، أتأكد من الزوايا القائمة",
+          "correctAnswer": "أحدد الطول والعرض، أصل الأضلاع، أتأكد من الزوايا القائمة",
+          "options": [
+            "أصل الأضلاع",
+            "أحدد الطول والعرض",
+            "أتأكد من الزوايا القائمة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أي مما يأتي شكله مستطيل في العادة؟",
+          "correctAnswer": "باب الصف",
+          "options": [
+            "قرص الشمس",
+            "علبة البيتزا الدائرية",
+            "كرة القدم",
+            "باب الصف"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الفرق الأساسي بين المربع والمستطيل هو:",
+          "correctAnswer": "تساوي الأضلاع الأربعة في المربع",
+          "options": [
+            "نوع الزوايا",
+            "عدد الأضلاع",
+            "عدد الزوايا",
+            "تساوي الأضلاع الأربعة في المربع"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 17
+    },
+    {
+      "title": "المثلث",
+      "content": "المثلث شكل مغلق له ثلاثة أضلاع وثلاث زوايا، وقد تكون زواياه حادة أو فيه زاوية قائمة أو منفرجة.",
+      "objectives": "التعرف إلى المثلث وتمييز زواياه",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "عدد أضلاع المثلث يساوي:",
+          "correctAnswer": "٣",
+          "options": [
+            "٤",
+            "٣",
+            "٥",
+            "٢"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "عدد زوايا المثلث يساوي:",
+          "correctAnswer": "٣",
+          "options": [
+            "٦",
+            "٣",
+            "١",
+            "٤"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "المثلث الذي فيه زاوية قائمة يسمى مثلثاً:",
+          "correctAnswer": "قائم الزاوية",
+          "options": [
+            "منفرج الزاوية",
+            "متساوي الأضلاع",
+            "حاد الزوايا",
+            "قائم الزاوية"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "المثلث شكل مغلق من ثلاث قطع مستقيمة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يمكن أن يحتوي المثلث على زاويتين قائمتين.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: مجموع عدد أضلاع مثلثين يساوي ___ أضلاع.",
+          "correctAnswer": "٦",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "إذا كانت جميع زوايا المثلث أصغر من القائمة فما نوعه؟",
+          "correctAnswer": "حاد الزوايا",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأشكال حسب عدد أضلاعها من الأقل إلى الأكثر: المربع، المثلث، الشكل الخماسي",
+          "correctAnswer": "المثلث، المربع، الشكل الخماسي",
+          "options": [
+            "المربع",
+            "المثلث",
+            "الشكل الخماسي"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر الشكل الذي يشبه المثلث",
+          "correctAnswer": "المثلث",
+          "options": [
+            "الساعة",
+            "المثلث",
+            "الكتاب",
+            "الكرة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/clock.png",
+            "assets/openmoji/triangle.png",
+            "assets/openmoji/book.png",
+            "assets/openmoji/soccer_ball.png"
+          ]
+        },
+        {
+          "type": "MCQ",
+          "questionText": "قصّت سعاد ورقة مربعة على طول قطرها فحصلت على:",
+          "correctAnswer": "مثلثين",
+          "options": [
+            "مربعين",
+            "دائرتين",
+            "مستطيلين",
+            "مثلثين"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 18
+    },
+    {
+      "title": "مراجعة الوحدة الرابعة (الهندسة والقياس ١)",
+      "content": "نراجع القطعة المستقيمة والشعاع والمستقيم، والزوايا وأنواعها، وخصائص المستطيل والمربع والمثلث.",
+      "objectives": "توظيف مفاهيم الهندسة في تمييز الأشكال وخصائصها",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "شكل له ثلاثة أضلاع وثلاث زوايا:",
+          "correctAnswer": "المثلث",
+          "options": [
+            "المربع",
+            "المثلث",
+            "المستطيل",
+            "الشعاع"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ركن اللوح في الصف يشكّل زاوية:",
+          "correctAnswer": "قائمة",
+          "options": [
+            "منحنية",
+            "حادة",
+            "قائمة",
+            "منفرجة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "عدد أضلاع المربع والمستطيل معاً يساوي:",
+          "correctAnswer": "٨",
+          "options": [
+            "٤",
+            "٨",
+            "٦",
+            "٧"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الشعاع له نقطة بداية وليس له نهاية.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "كل مستطيل هو مربع.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: الزاوية الأكبر من القائمة تسمى زاوية ___.",
+          "correctAnswer": "منفرجة",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كم قطعة مستقيمة تحتاج لرسم مربع؟",
+          "correctAnswer": "٤",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأشكال حسب عدد زواياها تصاعدياً: المستطيل، المثلث، الشكل السداسي",
+          "correctAnswer": "المثلث، المستطيل، الشكل السداسي",
+          "options": [
+            "المستطيل",
+            "المثلث",
+            "الشكل السداسي"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف الخصائص: للمربع أم للمثلث؟",
+          "correctAnswer": "المربع=أربعة أضلاع متساوية,المربع=أربع زوايا قائمة,المثلث=ثلاثة أضلاع,المثلث=ثلاث زوايا",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "المربع",
+              "المثلث"
+            ],
+            "tokens": [
+              "أربعة أضلاع متساوية",
+              "ثلاثة أضلاع",
+              "أربع زوايا قائمة",
+              "ثلاث زوايا"
+            ]
+          }
+        },
+        {
+          "type": "MCQ",
+          "questionText": "رسم باسل شكلاً له ضلعان متقابلان طول كل منهما ٦ سم وضلعان متقابلان طول كل منهما ٣ سم وزواياه قائمة. الشكل هو:",
+          "correctAnswer": "مستطيل",
+          "options": [
+            "مثلث",
+            "مربع",
+            "مستطيل",
+            "دائرة"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        }
+      ],
+      "orderIndex": 19
+    },
+    {
+      "title": "جمع البيانات وتنظيمها",
+      "content": "نجمع البيانات بالعدّ والسؤال، وننظمها في جداول تكرارية لتسهل قراءتها: مثل عدد ثمار كل نوع من الفواكه.",
+      "objectives": "جمع البيانات وتنظيمها في جداول",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "أفضل طريقة لتنظيم البيانات التي جمعناها هي:",
+          "correctAnswer": "الجدول",
+          "options": [
+            "الرسم الحر",
+            "التخمين",
+            "الجدول",
+            "الحفظ غيباً"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "سألنا طلبة الصف عن فاكهتهم المفضلة: تفاح ٧، موز ٥، عنب ٣. كم طالباً سألنا؟",
+          "correctAnswer": "١٥",
+          "options": [
+            "١٠",
+            "١٢",
+            "٧",
+            "١٥"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في السؤال السابق، الفاكهة الأكثر تفضيلاً هي:",
+          "correctAnswer": "التفاح",
+          "options": [
+            "البرتقال",
+            "التفاح",
+            "العنب",
+            "الموز"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الجدول يساعدنا على قراءة البيانات بسهولة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "نجمع البيانات دائماً بالتخمين دون سؤال أحد.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: إذا شرب ٩ طلاب الحليب و٦ طلاب العصير فمجموع من سألناهم ___ طالباً.",
+          "correctAnswer": "١٥",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر وسيلة واحدة لجمع البيانات من زملائك.",
+          "correctAnswer": "السؤال",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب خطوات العمل بالبيانات: أنظم الجدول، أجمع البيانات، أقرأ النتائج",
+          "correctAnswer": "أجمع البيانات، أنظم الجدول، أقرأ النتائج",
+          "options": [
+            "أنظم الجدول",
+            "أجمع البيانات",
+            "أقرأ النتائج"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "سجّل مزارع إنتاجه من الفراولة: السبت ٤ سلال، الأحد ٣ سلال، الاثنين ٤ سلال. في أي يومين تساوى الإنتاج؟",
+          "correctAnswer": "السبت والاثنين",
+          "options": [
+            "السبت والأحد",
+            "الأحد والاثنين",
+            "لم يتساوَ",
+            "السبت والاثنين"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة الفاكهة التي نسجل عددها في جدول البيانات",
+          "correctAnswer": "التفاح",
+          "options": [
+            "الكرسي",
+            "القلم",
+            "الحذاء",
+            "التفاح"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/chair.png",
+            "assets/openmoji/pencil.png",
+            "assets/openmoji/shoe.png",
+            "assets/openmoji/apple.png"
+          ]
+        }
+      ],
+      "orderIndex": 20
+    },
+    {
+      "title": "تمثيل البيانات بالأعمدة",
+      "content": "نمثّل البيانات بأعمدة رأسية: طول كل عمود يدل على العدد، فنقارن بين الأعمدة بسهولة.",
+      "objectives": "تمثيل البيانات بالأعمدة وقراءة التمثيل",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "في التمثيل بالأعمدة، العمود الأطول يدل على:",
+          "correctAnswer": "العدد الأكبر",
+          "options": [
+            "العدد الأصغر",
+            "لا شيء",
+            "اللون الأجمل",
+            "العدد الأكبر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "استعار الطلبة من مكتبة المدرسة: قصصاً ٨، كتباً علمية ٥، كتباً دينية ٧. أي نوع تمثّله أطول الأعمدة؟",
+          "correctAnswer": "القصص",
+          "options": [
+            "الكتب الدينية",
+            "المجلات",
+            "الكتب العلمية",
+            "القصص"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "إذا مثّل عمودٌ العددَ ٦ وعمودٌ آخر العددَ ٩ فالفرق بينهما:",
+          "correctAnswer": "٣",
+          "options": [
+            "٦",
+            "١٥",
+            "٩",
+            "٣"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الأعمدة المتساوية في الطول تمثّل أعداداً متساوية.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "لا يمكن معرفة الأكبر من التمثيل بالأعمدة.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: في تمثيل الطقس، إذا كان عمود الأيام الماطرة ١٠ وعمود المشمسة ١٥ فمجموع الأيام ___.",
+          "correctAnswer": "٢٥",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا يمثّل طول العمود في التمثيل بالأعمدة؟",
+          "correctAnswer": "العدد",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب خطوات التمثيل بالأعمدة: أرسم الأعمدة، أجهز الجدول، أكتب الأسماء تحت المحور",
+          "correctAnswer": "أجهز الجدول، أكتب الأسماء تحت المحور، أرسم الأعمدة",
+          "options": [
+            "أرسم الأعمدة",
+            "أجهز الجدول",
+            "أكتب الأسماء تحت المحور"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "مثّل الصف وسائل وصولهم للمدرسة: مشياً ١٢، حافلة ٩، سيارة ٤. كم يزيد عدد من يمشون عن ركاب السيارة؟",
+          "correctAnswer": "٨",
+          "options": [
+            "٥",
+            "٣",
+            "٨",
+            "١٦"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "صنّف حسب طول العمود إذا مثّلنا: ١٢ عصفوراً و٣ قطط",
+          "correctAnswer": "عمود طويل=العصافير,عمود طويل=العدد ١٢,عمود قصير=القطط,عمود قصير=العدد ٣",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "عمود طويل",
+              "عمود قصير"
+            ],
+            "tokens": [
+              "العصافير",
+              "القطط",
+              "العدد ١٢",
+              "العدد ٣"
+            ]
+          }
+        }
+      ],
+      "orderIndex": 21
+    },
+    {
+      "title": "مراجعة الوحدة الخامسة (البيانات)",
+      "content": "نراجع جمع البيانات وتنظيمها في جداول وتمثيلها بالأعمدة وقراءة التمثيلات.",
+      "objectives": "توظيف مهارات البيانات مجتمعة",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "نستعمل الجدول التكراري من أجل:",
+          "correctAnswer": "تنظيم البيانات",
+          "options": [
+            "قياس الأطوال",
+            "حل مسائل الضرب",
+            "رسم الصور",
+            "تنظيم البيانات"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "شرب الحليبَ في الأسبوع: أحمد ٦ أكواب، سعاد ٩ أكواب، ليث ٤ أكواب. من شرب أكثر؟",
+          "correctAnswer": "سعاد",
+          "options": [
+            "ليث",
+            "تساووا",
+            "أحمد",
+            "سعاد"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في السؤال السابق، مجموع ما شربه الثلاثة يساوي:",
+          "correctAnswer": "١٩ كوباً",
+          "options": [
+            "٢٠ كوباً",
+            "١٩ كوباً",
+            "١٥ كوباً",
+            "١٨ كوباً"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "يمكن تمثيل بيانات الجدول نفسه بالأعمدة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العمود الأقصر يمثل العدد الأكبر.",
+          "correctAnswer": "خطأ",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: سجّلنا في فصل الشتاء ١١ يوماً ماطراً و٩ أيام غائمة، فمجموعها ___ يوماً.",
+          "correctAnswer": "٢٠",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "computation"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "إذا كان عمود القصص أطول من عمود المجلات فأيهما استُعير أكثر؟",
+          "correctAnswer": "القصص",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب الأعمدة من الأقصر إلى الأطول إذا مثّلت: ٧ عصافير، ٢ أرانب، ١٢ نملة",
+          "correctAnswer": "الأرانب، العصافير، النمل",
+          "options": [
+            "العصافير",
+            "الأرانب",
+            "النمل"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "جدولٌ فيه: برتقال ١٤، ليمون ٨، لوز ١٢. الترتيب التنازلي حسب العدد هو:",
+          "correctAnswer": "برتقال، لوز، ليمون",
+          "options": [
+            "لوز، برتقال، ليمون",
+            "برتقال، ليمون، لوز",
+            "برتقال، لوز، ليمون",
+            "ليمون، لوز، برتقال"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "اختر صورة ما نعدّه عند جمع بيانات عن حيوانات المزرعة",
+          "correctAnswer": "الدجاجة",
+          "options": [
+            "السيارة",
+            "الكرة",
+            "الدجاجة",
+            "البيت"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/car.png",
+            "assets/openmoji/soccer_ball.png",
+            "assets/openmoji/chicken.png",
+            "assets/openmoji/house.png"
+          ]
+        }
+      ],
+      "orderIndex": 22
+    }
+  ]
+}

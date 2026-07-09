@@ -224,27 +224,49 @@ class AppTheme {
         return '🎤';
       case 'TRACING':
         return '🖌️';
+      case 'IMAGE_MCQ':
+        return '🖼️';
+      case 'LISTEN_CHOOSE':
+        return '👂';
+      case 'IMAGE_MATCH':
+        return '🔗';
+      case 'DRAG_DROP':
+        return '🧲';
+      case 'READING':
+        return '📖';
       default:
         return '📚';
     }
   }
 
-  static String labelForQuestionType(String type) {
+  /// Type-pill label. [english] renders the English variant inside
+  /// English-subject lessons (full English experience, 2026-07-03).
+  static String labelForQuestionType(String type, {bool english = false}) {
     switch (type) {
       case 'MCQ':
-        return 'اختر الإجابة';
+        return english ? 'Pick the answer' : 'اختر الإجابة';
       case 'TRUE_FALSE':
-        return 'صح أو خطأ';
+        return english ? 'True or false' : 'صح أو خطأ';
       case 'SHORT_ANSWER':
-        return 'إجابة قصيرة';
+        return english ? 'Short answer' : 'إجابة قصيرة';
       case 'FILL_BLANK':
-        return 'أكمل الفراغ';
+        return english ? 'Fill the blank' : 'أكمل الفراغ';
       case 'ORDERING':
-        return 'رتّب العناصر';
+        return english ? 'Put in order' : 'رتّب العناصر';
       case 'PRONUNCIATION':
-        return 'انطق الكلمة';
+        return english ? 'Say the word' : 'انطق الكلمة';
       case 'TRACING':
-        return 'ارسم الحرف';
+        return english ? 'Trace the letter' : 'ارسم الحرف';
+      case 'IMAGE_MCQ':
+        return english ? 'Pick the picture' : 'اختر الصورة';
+      case 'LISTEN_CHOOSE':
+        return english ? 'Listen and choose' : 'استمع واختر';
+      case 'IMAGE_MATCH':
+        return english ? 'Match the pairs' : 'صِل الأزواج';
+      case 'DRAG_DROP':
+        return english ? 'Sort the words' : 'صنّف الكلمات';
+      case 'READING':
+        return english ? 'Read aloud' : 'اقرأ بصوت واضح';
       default:
         return '';
     }

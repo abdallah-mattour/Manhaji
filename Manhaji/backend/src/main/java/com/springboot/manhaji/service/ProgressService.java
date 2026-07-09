@@ -187,16 +187,22 @@ public class ProgressService {
                         .timestamp(p.getLastAccessedAt())
                         .build()));
 
-        // Add quiz completions
+        // Add quiz completions. Standalone quizzes (adaptive/practice sets) have
+        // no lesson — guard the chain or the whole summary 500s (bug 2026-07-05:
+        // the تقدمي and مكافآتي screens showed a server error for any student
+        // with a graded lesson-less attempt).
         gradedAttempts.stream()
                 .limit(5)
-                .forEach(a -> activities.add(RecentActivityResponse.builder()
-                        .type("QUIZ_COMPLETED")
-                        .title(a.getQuiz().getTitle())
-                        .subjectName(resolveQuizSubjectName(a.getQuiz()))
-                        .score(a.getScore())
-                        .timestamp(a.getSubmittedAt())
-                        .build()));
+                .forEach(a -> {
+                    Quiz quiz = a.getQuiz();
+                    activities.add(RecentActivityResponse.builder()
+                            .type("QUIZ_COMPLETED")
+                            .title(quiz != null ? quiz.getTitle() : "اختبار")
+                            .subjectName(resolveQuizSubjectName(quiz))
+                            .score(a.getScore())
+                            .timestamp(a.getSubmittedAt())
+                            .build());
+                });
 
         // Sort by timestamp descending, limit to 10
         activities.sort(Comparator.comparing(RecentActivityResponse::getTimestamp,

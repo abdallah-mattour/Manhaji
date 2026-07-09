@@ -1,0 +1,1632 @@
+{
+  "subject": "اللغة العربية",
+  "subjectCode": "ar",
+  "gradeLevel": 4,
+  "semester": 2,
+  "totalLessons": 15,
+  "lessons": [
+    {
+      "title": "في قريتنا عُرس",
+      "content": "نصّ يصف فرحة العُرس في القرية وعادات الأهل في المشاركة. المحور اللغويّ: النقطتان الرأسيتان.",
+      "objectives": "قيمة المشاركة الاجتماعية، واستعمال النقطتين الرأسيتين.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بمَ يشترك أهل القرية في العُرس؟",
+          "correctAnswer": "بالفرح والمساعدة",
+          "options": [
+            "بالفرح والمساعدة",
+            "بالخصام",
+            "بالغياب",
+            "بالحزن"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أين نضع النقطتين الرأسيتين (:)؟",
+          "correctAnswer": "قبل التعداد أو القول",
+          "options": [
+            "قبل التعداد أو القول",
+            "في نهاية السؤال",
+            "بعد التعجّب",
+            "بين الحروف"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الجمل تحتاج نقطتين رأسيتين؟",
+          "correctAnswer": "قال الأب: احترموا الضيوف",
+          "options": [
+            "قال الأب: احترموا الضيوف",
+            "ما أجملَ العرسَ",
+            "هل جاء الضيوف",
+            "ذهبَ سعيدٌ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "مشاركة الناس أفراحهم تقوّي المحبّة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: قال المعلّم ___ اجتهدوا. (ضع العلامة)",
+          "correctAnswer": ":",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كيف نشارك جيراننا أفراحهم؟",
+          "correctAnswer": "بالحضور والتهنئة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: بالفرحِ، القريةِ، أهلُ، شاركوا",
+          "correctAnswer": "شاركوا، أهلُ، القريةِ، بالفرحِ",
+          "options": [
+            "بالفرحِ",
+            "القريةِ",
+            "أهلُ",
+            "شاركوا"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "في قَرْيَتِنا فَرَحٌ يَجْمَعُ القُلوبَ",
+          "correctAnswer": "في قَرْيَتِنا فَرَحٌ يَجْمَعُ القُلوبَ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "في القَرْيَةِ عُرْسٌ، فَاجْتَمَعَ الأَهْلُ يُساعِدونَ وَيَفْرَحونَ مَعاً.",
+          "correctAnswer": "في القَرْيَةِ عُرْسٌ، فَاجْتَمَعَ الأَهْلُ يُساعِدونَ وَيَفْرَحونَ مَعاً.",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "العادات الطيّبة تربط أبناء القرية.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 1
+    },
+    {
+      "title": "هذه الشمس",
+      "content": "نصّ عن الشمس ودورها في الحياة والضوء والدفء. المحور اللغويّ: المبتدأ والخبر.",
+      "objectives": "أهمّيّة الشمس، والتعرّف إلى المبتدأ والخبر.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما فائدة الشمس للكائنات؟",
+          "correctAnswer": "الضوء والدفء ونموّ النبات",
+          "options": [
+            "الضوء والدفء ونموّ النبات",
+            "الظلام",
+            "البرد",
+            "لا فائدة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في جملة (الشمسُ ساطعةٌ) كلمة (الشمسُ):",
+          "correctAnswer": "مبتدأ",
+          "options": [
+            "مبتدأ",
+            "خبر",
+            "فعل",
+            "حرف"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الخبر في جملة (النهارُ مضيءٌ) هو:",
+          "correctAnswer": "مضيءٌ",
+          "options": [
+            "مضيءٌ",
+            "النهارُ",
+            "في",
+            "الـ"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "المبتدأ والخبر يكونان في الجملة:",
+          "correctAnswer": "الاسمية",
+          "options": [
+            "الاسمية",
+            "الفعلية",
+            "الأمرية",
+            "الاستفهامية"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الشمس مصدر للطاقة والضوء.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل الخبر: الشمسُ ___.",
+          "correctAnswer": "ساطعةٌ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "متى تشرق الشمس؟",
+          "correctAnswer": "في الصباح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب جملة اسمية: مشرقةٌ، الشمسُ، اليومَ",
+          "correctAnswer": "الشمسُ، مشرقةٌ، اليومَ",
+          "options": [
+            "مشرقةٌ",
+            "الشمسُ",
+            "اليومَ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "الشَّمْسُ تَمْنَحُنا الضِّياءَ وَالدِّفْءَ",
+          "correctAnswer": "الشَّمْسُ تَمْنَحُنا الضِّياءَ وَالدِّفْءَ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "اكتب كلمة: شمس",
+          "correctAnswer": "شمس",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "handwriting"
+        }
+      ],
+      "orderIndex": 2
+    },
+    {
+      "title": "كن كالطّيور",
+      "content": "نصّ يحثّ على الطموح والتعاون كالطيور في رحلاتها. المحور اللغويّ: فعل الأمر وإسناده.",
+      "objectives": "تعزيز الطموح والتعاون، وإسناد فعل الأمر.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بمَ تتميّز الطيور في رحلاتها؟",
+          "correctAnswer": "بالتعاون والنظام",
+          "options": [
+            "بالتعاون والنظام",
+            "الفوضى",
+            "الكسل",
+            "الانعزال"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "فعل الأمر من (يطيرُ) هو:",
+          "correctAnswer": "طِرْ",
+          "options": [
+            "طِرْ",
+            "طارَ",
+            "يطيرُ",
+            "طيران"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "(اجتهدوا) فعل أمر مسند إلى:",
+          "correctAnswer": "واو الجماعة",
+          "options": [
+            "واو الجماعة",
+            "ألف الاثنين",
+            "ياء المخاطبة",
+            "نون النسوة"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "التعاون يعين على بلوغ الأهداف.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل بفعل أمر: ___ إلى هدفك بثقة. (من انطلقَ)",
+          "correctAnswer": "انطلقْ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا نتعلّم من الطيور؟",
+          "correctAnswer": "التعاون والطموح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: بتعاونٍ، الطيورُ، تُهاجرُ",
+          "correctAnswer": "تُهاجرُ، الطيورُ، بتعاونٍ",
+          "options": [
+            "بتعاونٍ",
+            "الطيورُ",
+            "تُهاجرُ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "كُنْ كَالطُّيورِ طَموحاً مُتَعاوِناً",
+          "correctAnswer": "كُنْ كَالطُّيورِ طَموحاً مُتَعاوِناً",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "اكتب كلمة: طيور",
+          "correctAnswer": "طيور",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "handwriting"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الطموح دون عمل لا يكفي لبلوغ الهدف.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 3
+    },
+    {
+      "title": "الدفء الحقيقيّ",
+      "content": "نصّ عن دفء الأسرة والحبّ والتكافل بين أفرادها. المحور اللغويّ: الأسماء الموصولة (اللذان، اللواتي).",
+      "objectives": "قيمة الأسرة، والتعرّف إلى الأسماء الموصولة.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما مصدر الدفء الحقيقيّ في الدرس؟",
+          "correctAnswer": "حبّ الأسرة وتكافلها",
+          "options": [
+            "حبّ الأسرة وتكافلها",
+            "المال",
+            "الملابس فقط",
+            "المدفأة فقط"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الاسم الموصول للمثنّى المذكّر:",
+          "correctAnswer": "اللذان",
+          "options": [
+            "اللذان",
+            "اللتان",
+            "الذين",
+            "التي"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أكمل: هؤلاء الأخوات ___ يساعدن أمّهنّ.",
+          "correctAnswer": "اللواتي",
+          "options": [
+            "اللواتي",
+            "الذين",
+            "اللذان",
+            "الذي"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "يربط الاسم الموصول بين جملتين ويحتاج إلى:",
+          "correctAnswer": "صلة الموصول",
+          "options": [
+            "صلة الموصول",
+            "خبر",
+            "حرف نداء",
+            "علامة تعجّب"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "التكافل بين أفراد الأسرة يقوّي روابطها.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: أحبُّ أخي ___ يساعدني.",
+          "correctAnswer": "الذي",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كيف نشعر بالدفء داخل الأسرة؟",
+          "correctAnswer": "بالحبّ والتعاون",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: أسرتَه، يحبُّ، الطفلُ",
+          "correctAnswer": "يحبُّ، الطفلُ، أسرتَه",
+          "options": [
+            "أسرتَه",
+            "يحبُّ",
+            "الطفلُ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "الدِّفْءُ الحَقيقِيُّ في حُبِّ العائِلَةِ",
+          "correctAnswer": "الدِّفْءُ الحَقيقِيُّ في حُبِّ العائِلَةِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "الدِّفْءُ الحَقيقِيُّ هُوَ الحُبُّ الَّذي يَجْمَعُ أَفْرادَ الأُسْرَةِ.",
+          "correctAnswer": "الدِّفْءُ الحَقيقِيُّ هُوَ الحُبُّ الَّذي يَجْمَعُ أَفْرادَ الأُسْرَةِ.",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        }
+      ],
+      "orderIndex": 4
+    },
+    {
+      "title": "عشنا بأملنا",
+      "content": "نصّ يبعث الأمل والتفاؤل والصمود في مواجهة الصعاب. المحور اللغويّ: الترادف.",
+      "objectives": "غرس الأمل، والتعرّف إلى الترادف.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما القيمة التي يبعثها الدرس؟",
+          "correctAnswer": "الأمل والتفاؤل",
+          "options": [
+            "الأمل والتفاؤل",
+            "اليأس",
+            "الحزن",
+            "الخوف"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "مرادف كلمة (الأمل) هو:",
+          "correctAnswer": "الرجاء",
+          "options": [
+            "الرجاء",
+            "اليأس",
+            "الخوف",
+            "الحزن"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "مرادف كلمة (الفرح) هو:",
+          "correctAnswer": "السرور",
+          "options": [
+            "السرور",
+            "الحزن",
+            "الغضب",
+            "الملل"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الكلمتان المترادفتان تتّفقان في:",
+          "correctAnswer": "المعنى",
+          "options": [
+            "المعنى",
+            "التضادّ",
+            "عدد الحروف",
+            "الحركة فقط"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الأمل يعين على تجاوز الصعاب.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل بمرادف: (شجاع) ومرادفها ___.",
+          "correctAnswer": "مقدام",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "كيف نواجه الصعاب؟",
+          "correctAnswer": "بالأمل والعمل",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: بالأملِ، نعيشُ، متفائلينَ",
+          "correctAnswer": "نعيشُ، متفائلينَ، بالأملِ",
+          "options": [
+            "بالأملِ",
+            "نعيشُ",
+            "متفائلينَ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "بِالأَمَلِ نَعيشُ وَنَبْني غَدَنا",
+          "correctAnswer": "بِالأَمَلِ نَعيشُ وَنَبْني غَدَنا",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "اكتب كلمة: أمل",
+          "correctAnswer": "أمل",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "handwriting"
+        }
+      ],
+      "orderIndex": 5
+    },
+    {
+      "title": "جزاء الإحسان",
+      "content": "قصّة تبيّن أنّ الإحسان يُجزى بالإحسان، وأنّ فعل الخير يعود بالخير. المحور اللغويّ: التضادّ.",
+      "objectives": "قيمة الإحسان، والتعرّف إلى التضادّ.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "بمَ يُجزى الإحسان؟",
+          "correctAnswer": "بالإحسان",
+          "options": [
+            "بالإحسان",
+            "بالإساءة",
+            "بالنسيان",
+            "بالعقاب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ضدّ كلمة (الإحسان) هو:",
+          "correctAnswer": "الإساءة",
+          "options": [
+            "الإساءة",
+            "الكرم",
+            "العطاء",
+            "الرحمة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "ضدّ كلمة (الخير) هو:",
+          "correctAnswer": "الشرّ",
+          "options": [
+            "الشرّ",
+            "النفع",
+            "العون",
+            "البرّ"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الكلمتان المتضادّتان تختلفان في:",
+          "correctAnswer": "المعنى تماماً",
+          "options": [
+            "المعنى تماماً",
+            "الحروف فقط",
+            "الحركة فقط",
+            "الطول"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "فعل الخير يعود على صاحبه بالخير.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل بالضدّ: ضدّ (البخل) هو ___.",
+          "correctAnswer": "الكرم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ماذا نتعلّم من قصّة جزاء الإحسان؟",
+          "correctAnswer": "أن نحسن للناس",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: بالإحسانِ، يُجزى، الإحسانُ",
+          "correctAnswer": "الإحسانُ، يُجزى، بالإحسانِ",
+          "options": [
+            "بالإحسانِ",
+            "يُجزى",
+            "الإحسانُ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "مَنْ أَحْسَنَ إِلى النّاسِ أَحْسَنوا إِلَيْهِ",
+          "correctAnswer": "مَنْ أَحْسَنَ إِلى النّاسِ أَحْسَنوا إِلَيْهِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الإساءة ضدّ الإحسان.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        }
+      ],
+      "orderIndex": 6
+    },
+    {
+      "title": "حُلُمٌ جميل",
+      "content": "نصّ عن حلم جميل يحفّز على التفاؤل والسعي. المحور اللغويّ: الفعل المضارع وعلامة رفعه.",
+      "objectives": "التفاؤل، والتعرّف إلى إعراب المضارع.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما أثر الحلم الجميل في الإنسان؟",
+          "correctAnswer": "يبعث التفاؤل والسعي",
+          "options": [
+            "يبعث التفاؤل والسعي",
+            "يبعث الكسل",
+            "يبعث الخوف",
+            "لا أثر له"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الفعل المضارع المرفوع علامة رفعه:",
+          "correctAnswer": "الضمّة",
+          "options": [
+            "الضمّة",
+            "الفتحة",
+            "السكون",
+            "الكسرة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الأفعال مضارع؟",
+          "correctAnswer": "يحلمُ",
+          "options": [
+            "يحلمُ",
+            "حلمَ",
+            "احلمْ",
+            "حلم"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في (يجتهدُ الطالبُ) الفعل المضارع هو:",
+          "correctAnswer": "يجتهدُ",
+          "options": [
+            "يجتهدُ",
+            "الطالبُ",
+            "الـ",
+            "ـهد"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الحلم مع العمل طريق للنجاح.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل بمضارع: ___ الطفلُ بمستقبلٍ جميل.",
+          "correctAnswer": "يحلمُ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما الذي يحوّل الحلم إلى حقيقة؟",
+          "correctAnswer": "العمل والسعي",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: بغدٍ، يحلمُ، جميلٍ، الطفلُ",
+          "correctAnswer": "يحلمُ، الطفلُ، بغدٍ، جميلٍ",
+          "options": [
+            "بغدٍ",
+            "يحلمُ",
+            "جميلٍ",
+            "الطفلُ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "أَحْلُمُ بِغَدٍ مُشْرِقٍ وَأَسْعى إِلَيْهِ",
+          "correctAnswer": "أَحْلُمُ بِغَدٍ مُشْرِقٍ وَأَسْعى إِلَيْهِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "اكتب كلمة: غد",
+          "correctAnswer": "غد",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "handwriting"
+        }
+      ],
+      "orderIndex": 7
+    },
+    {
+      "title": "من حِكَم الآباء",
+      "content": "نصّ يجمع حِكماً وأمثالاً من تجارب الآباء تعلّم الحكمة. المحور اللغويّ: علامة الاستفهام.",
+      "objectives": "الاستفادة من حِكم الآباء، واستعمال علامة الاستفهام.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما قيمة حِكَم الآباء؟",
+          "correctAnswer": "تعلّمنا من تجاربهم",
+          "options": [
+            "تعلّمنا من تجاربهم",
+            "لا فائدة منها",
+            "للتسلية فقط",
+            "للحفظ فقط"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أين نضع علامة الاستفهام؟",
+          "correctAnswer": "بعد السؤال",
+          "options": [
+            "بعد السؤال",
+            "بعد الخبر",
+            "بعد التعجّب",
+            "بين الحروف"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الجمل تحتاج علامة استفهام؟",
+          "correctAnswer": "متى تعود إلى البيت",
+          "options": [
+            "متى تعود إلى البيت",
+            "ذهبَ عليٌّ",
+            "ما أجملَ الحكمةَ",
+            "البيتُ واسعٌ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الاستماع لنصائح الكبار يفيدنا.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: هل قرأتَ الحكمةَ ___ (ضع العلامة)",
+          "correctAnswer": "؟",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "لماذا نأخذ بنصائح آبائنا؟",
+          "correctAnswer": "لأنّها من خبرتهم",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: الآباءِ، من، نتعلّمُ، حِكَمَ",
+          "correctAnswer": "نتعلّمُ، من، حِكَمَ، الآباءِ",
+          "options": [
+            "الآباءِ",
+            "من",
+            "نتعلّمُ",
+            "حِكَمَ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "في حِكَمِ الآباءِ خِبْرَةٌ نَنْتَفِعُ بِها",
+          "correctAnswer": "في حِكَمِ الآباءِ خِبْرَةٌ نَنْتَفِعُ بِها",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "قالَ الأَبُ لِابْنِهِ: مَنْ جَدَّ وَجَدَ، وَمَنْ زَرَعَ حَصَدَ.",
+          "correctAnswer": "قالَ الأَبُ لِابْنِهِ: مَنْ جَدَّ وَجَدَ، وَمَنْ زَرَعَ حَصَدَ.",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        }
+      ],
+      "orderIndex": 8
+    },
+    {
+      "title": "الكوفيّة",
+      "content": "نصّ عن الكوفيّة رمزاً وطنيّاً فلسطينيّاً وتراثاً أصيلاً. المحور اللغويّ: التاء المربوطة والهاء.",
+      "objectives": "الاعتزاز بالتراث، والتمييز بين التاء المربوطة والهاء.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما الذي ترمز إليه الكوفيّة؟",
+          "correctAnswer": "الهُويّة الوطنيّة الفلسطينيّة",
+          "options": [
+            "الهُويّة الوطنيّة الفلسطينيّة",
+            "الرياضة",
+            "الطعام",
+            "السفر"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كلمة (كوفيّة) تنتهي بـ:",
+          "correctAnswer": "تاء مربوطة",
+          "options": [
+            "تاء مربوطة",
+            "هاء",
+            "تاء مبسوطة",
+            "ألف"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الفرق بين التاء المربوطة والهاء يظهر عند:",
+          "correctAnswer": "التنوين والوقف",
+          "options": [
+            "التنوين والوقف",
+            "بداية الكلمة",
+            "الجمع فقط",
+            "الأفعال"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الكوفيّة جزء من التراث الفلسطينيّ.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل بالحرف المناسب: مدرس___ نظيفة. (تاء مربوطة)",
+          "correctAnswer": "ة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "بمَ نعتزّ في تراثنا؟",
+          "correctAnswer": "بالكوفيّة والزيّ التراثيّ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: فلسطينيٌّ، الكوفيّةُ، رمزٌ",
+          "correctAnswer": "الكوفيّةُ، رمزٌ، فلسطينيٌّ",
+          "options": [
+            "فلسطينيٌّ",
+            "الكوفيّةُ",
+            "رمزٌ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "الكوفِيَّةُ رَمْزٌ لِهُوِيَّتِنا وَتُراثِنا",
+          "correctAnswer": "الكوفِيَّةُ رَمْزٌ لِهُوِيَّتِنا وَتُراثِنا",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "اكتب كلمة: كوفيّة",
+          "correctAnswer": "كوفيّة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "handwriting"
+        }
+      ],
+      "orderIndex": 9
+    },
+    {
+      "title": "السيّارة الأولى",
+      "content": "نصّ عن اختراع السيّارة وتطوّر وسائل النقل. المحور اللغويّ: أقسام الكلمة وتمييزها.",
+      "objectives": "التعرّف إلى تطوّر النقل، وتمييز أقسام الكلمة.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما موضوع الدرس؟",
+          "correctAnswer": "اختراع السيّارة وتطوّر النقل",
+          "options": [
+            "اختراع السيّارة وتطوّر النقل",
+            "الزراعة",
+            "الطبخ",
+            "الرياضة"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كلمة (سيّارة) نوعها:",
+          "correctAnswer": "اسم",
+          "options": [
+            "اسم",
+            "فعل",
+            "حرف",
+            "ظرف"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كلمة (سارَ) نوعها:",
+          "correctAnswer": "فعل",
+          "options": [
+            "فعل",
+            "اسم",
+            "حرف",
+            "صفة"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "كلمة (على) نوعها:",
+          "correctAnswer": "حرف",
+          "options": [
+            "حرف",
+            "اسم",
+            "فعل",
+            "عدد"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "تطوّرت وسائل النقل عبر الزمن.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: كلمة (ركبَ) نوعها ___.",
+          "correctAnswer": "فعل",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر وسيلة نقل حديثة.",
+          "correctAnswer": "القطار",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: النقلِ، تطوّرت، وسائلُ",
+          "correctAnswer": "تطوّرت، وسائلُ، النقلِ",
+          "options": [
+            "النقلِ",
+            "تطوّرت",
+            "وسائلُ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "تَطَوَّرَتِ السَّيّاراتُ وَسَهَّلَتِ التَّنَقُّلَ",
+          "correctAnswer": "تَطَوَّرَتِ السَّيّاراتُ وَسَهَّلَتِ التَّنَقُّلَ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "اكتب كلمة: سيّارة",
+          "correctAnswer": "سيّارة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "handwriting"
+        }
+      ],
+      "orderIndex": 10
+    },
+    {
+      "title": "الوقاية والسلامة",
+      "content": "نصّ يعلّم قواعد السلامة والوقاية في البيت والطريق. المحور اللغويّ: أسلوب الأمر.",
+      "objectives": "تعزيز السلامة، واستعمال أسلوب الأمر.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "لماذا نتّبع قواعد السلامة؟",
+          "correctAnswer": "لحماية أنفسنا من الخطر",
+          "options": [
+            "لحماية أنفسنا من الخطر",
+            "للتسلية",
+            "لإضاعة الوقت",
+            "لا سبب"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الجمل أسلوب أمر؟",
+          "correctAnswer": "انتبهْ عند عبور الطريق",
+          "options": [
+            "انتبهْ عند عبور الطريق",
+            "الطريقُ مزدحمٌ",
+            "هل عبرتَ",
+            "ما أخطرَ الطريقَ"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "فعل الأمر من (يحترسُ) هو:",
+          "correctAnswer": "احترسْ",
+          "options": [
+            "احترسْ",
+            "احترسَ",
+            "يحترسُ",
+            "احتراس"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "production"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الحذر يقينا الحوادث.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل بأمر: ___ إشارة المرور. (من احترمَ)",
+          "correctAnswer": "احترمْ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر قاعدة من قواعد السلامة.",
+          "correctAnswer": "العبور من المكان المخصّص",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: الطريقَ، بحذرٍ، اعبرِ",
+          "correctAnswer": "اعبرِ، الطريقَ، بحذرٍ",
+          "options": [
+            "الطريقَ",
+            "بحذرٍ",
+            "اعبرِ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "الوِقايَةُ خَيْرٌ مِنَ العِلاجِ",
+          "correctAnswer": "الوِقايَةُ خَيْرٌ مِنَ العِلاجِ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "اكتب كلمة: سلامة",
+          "correctAnswer": "سلامة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "handwriting"
+        }
+      ],
+      "orderIndex": 11
+    },
+    {
+      "title": "لا تتسرّع",
+      "content": "نصّ يعلّم التأنّي وعدم التسرّع في الأمور. المحور اللغويّ: أسلوب النهي.",
+      "objectives": "قيمة التأنّي، والتعرّف إلى أسلوب النهي.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "إلامَ يدعو الدرس؟",
+          "correctAnswer": "التأنّي وعدم التسرّع",
+          "options": [
+            "التأنّي وعدم التسرّع",
+            "العجلة",
+            "الإهمال",
+            "الكسل"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أداة النهي في (لا تتسرّعْ):",
+          "correctAnswer": "لا الناهية",
+          "options": [
+            "لا الناهية",
+            "لا النافية",
+            "همزة الاستفهام",
+            "واو العطف"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الجمل أسلوب نهي؟",
+          "correctAnswer": "لا تؤجّلْ عملَ اليومِ",
+          "options": [
+            "لا تؤجّلْ عملَ اليومِ",
+            "أنجزْ عملَك",
+            "العملُ مفيدٌ",
+            "هل أنجزتَ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "التأنّي يعين على إتقان العمل.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل بأسلوب نهي: ___ تتعجّلْ في قرارك.",
+          "correctAnswer": "لا",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "ما فائدة التأنّي؟",
+          "correctAnswer": "تجنّب الأخطاء",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: في الأمورِ، تتسرّعْ، لا",
+          "correctAnswer": "لا، تتسرّعْ، في الأمورِ",
+          "options": [
+            "في الأمورِ",
+            "تتسرّعْ",
+            "لا"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "في التَّأَنّي السَّلامَةُ وَفي العَجَلَةِ النَّدامَةُ",
+          "correctAnswer": "في التَّأَنّي السَّلامَةُ وَفي العَجَلَةِ النَّدامَةُ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "لا تَتَسَرَّعْ في قَرارِكَ، بَلْ فَكِّرْ ثُمَّ اعْمَلْ بِرَوِيَّةٍ.",
+          "correctAnswer": "لا تَتَسَرَّعْ في قَرارِكَ، بَلْ فَكِّرْ ثُمَّ اعْمَلْ بِرَوِيَّةٍ.",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        }
+      ],
+      "orderIndex": 12
+    },
+    {
+      "title": "موسيقا الطبيعة",
+      "content": "نصّ يصف أصوات الطبيعة الجميلة كخرير الماء وزقزقة العصافير. المحور اللغويّ: الفاعل.",
+      "objectives": "تذوّق جمال الطبيعة، والتعرّف إلى الفاعل.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما (موسيقا الطبيعة) في الدرس؟",
+          "correctAnswer": "أصواتها الجميلة",
+          "options": [
+            "أصواتها الجميلة",
+            "الآلات الموسيقيّة",
+            "ضجيج المدينة",
+            "صوت السيّارات"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "في جملة (غرّدَ العصفورُ) الفاعل هو:",
+          "correctAnswer": "العصفورُ",
+          "options": [
+            "العصفورُ",
+            "غرّدَ",
+            "الـ",
+            "ـفور"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الفاعل يأتي بعد:",
+          "correctAnswer": "الفعل",
+          "options": [
+            "الفعل",
+            "المبتدأ",
+            "حرف الجرّ",
+            "المفعول"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "الفاعل دائماً:",
+          "correctAnswer": "مرفوع",
+          "options": [
+            "مرفوع",
+            "منصوب",
+            "مجرور",
+            "مجزوم"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "أصوات الطبيعة تبعث الراحة في النفس.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل الفاعل: جرى ___ في الوادي.",
+          "correctAnswer": "الماءُ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر صوتاً جميلاً من الطبيعة.",
+          "correctAnswer": "خرير الماء",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: العصفورُ، على الغصنِ، غرّدَ",
+          "correctAnswer": "غرّدَ، العصفورُ، على الغصنِ",
+          "options": [
+            "العصفورُ",
+            "على الغصنِ",
+            "غرّدَ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "تُغَرِّدُ العَصافيرُ فَتَمْلَأُ القَلْبَ بَهْجَةً",
+          "correctAnswer": "تُغَرِّدُ العَصافيرُ فَتَمْلَأُ القَلْبَ بَهْجَةً",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "اكتب كلمة: طبيعة",
+          "correctAnswer": "طبيعة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "handwriting"
+        }
+      ],
+      "orderIndex": 13
+    },
+    {
+      "title": "كن صادقاً",
+      "content": "نصّ يحثّ على الصدق ويبيّن أثره في حياة الإنسان. المحور اللغويّ: اسم الفاعل وعمله.",
+      "objectives": "غرس الصدق، والتعرّف إلى اسم الفاعل.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ما ثمرة الصدق؟",
+          "correctAnswer": "ثقة الناس ومحبّتهم",
+          "options": [
+            "ثقة الناس ومحبّتهم",
+            "كره الناس",
+            "الخسارة",
+            "الخوف"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "اسم الفاعل من (صدقَ) هو:",
+          "correctAnswer": "صادق",
+          "options": [
+            "صادق",
+            "مصدوق",
+            "صدق",
+            "يصدق"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيٌّ من التالي اسم فاعل صيغ من فعل ثلاثيّ؟",
+          "correctAnswer": "قائل",
+          "options": [
+            "قائل",
+            "مقول",
+            "قالَ",
+            "قول"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "اسم الفاعل (صادق) يشير إلى الشخص الذي:",
+          "correctAnswer": "من قام بالفعل",
+          "options": [
+            "من قام بالفعل",
+            "من وقع عليه الفعل",
+            "زمن الفعل",
+            "مكانه"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "الصادق محبوب بين الناس.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل باسم فاعل: الولدُ ___ في كلامه. (من صَدَقَ)",
+          "correctAnswer": "صادق",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "لماذا نكون صادقين؟",
+          "correctAnswer": "لأنّ الصدق ينجّي ويرفع",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: صادقاً، كنْ، دائماً",
+          "correctAnswer": "كنْ، صادقاً، دائماً",
+          "options": [
+            "صادقاً",
+            "كنْ",
+            "دائماً"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "الصِّدْقُ يُنْجي وَيَرْفَعُ صاحِبَهُ",
+          "correctAnswer": "الصِّدْقُ يُنْجي وَيَرْفَعُ صاحِبَهُ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "TRACING",
+          "questionText": "اكتب كلمة: صدق",
+          "correctAnswer": "صدق",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "handwriting"
+        }
+      ],
+      "orderIndex": 14
+    },
+    {
+      "title": "الجار قبل الدار",
+      "content": "نصّ يبيّن حقوق الجار وأهمّيّة حسن الجوار في الإسلام والمجتمع. المحور اللغويّ: علامة التعجّب.",
+      "objectives": "غرس حسن الجوار، واستعمال علامة التعجّب.",
+      "imageUrls": [],
+      "questions": [
+        {
+          "type": "MCQ",
+          "questionText": "ماذا يعني المثل (الجار قبل الدار)؟",
+          "correctAnswer": "اختيار الجار الصالح مهمّ",
+          "options": [
+            "اختيار الجار الصالح مهمّ",
+            "الدار أهمّ من كلّ شيء",
+            "لا قيمة للجار",
+            "البعد عن الجيران"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أين نضع علامة التعجّب (!)؟",
+          "correctAnswer": "بعد جملة التعجّب",
+          "options": [
+            "بعد جملة التعجّب",
+            "بعد السؤال",
+            "بعد الخبر",
+            "بين الكلمتين"
+          ],
+          "difficultyLevel": 2,
+          "subSkill": "recognition"
+        },
+        {
+          "type": "MCQ",
+          "questionText": "أيّ الجمل تحتاج علامة تعجّب؟",
+          "correctAnswer": "ما أكرمَ الجارَ",
+          "options": [
+            "ما أكرمَ الجارَ",
+            "هل زرتَ جارك",
+            "الجارُ قريبٌ",
+            "زارَ الجارُ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "TRUE_FALSE",
+          "questionText": "حسن الجوار من الأخلاق الحميدة.",
+          "correctAnswer": "صح",
+          "options": null,
+          "difficultyLevel": 1,
+          "subSkill": "comprehension"
+        },
+        {
+          "type": "FILL_BLANK",
+          "questionText": "أكمل: ما أجملَ حسنَ الجوارِ ___ (ضع العلامة)",
+          "correctAnswer": "!",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "SHORT_ANSWER",
+          "questionText": "اذكر حقّاً من حقوق الجار.",
+          "correctAnswer": "مساعدته عند الحاجة",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "production"
+        },
+        {
+          "type": "ORDERING",
+          "questionText": "رتّب: جارَه، يحترمُ، المسلمُ",
+          "correctAnswer": "المسلمُ، يحترمُ، جارَه",
+          "options": [
+            "جارَه",
+            "يحترمُ",
+            "المسلمُ"
+          ],
+          "difficultyLevel": 3,
+          "subSkill": "application"
+        },
+        {
+          "type": "PRONUNCIATION",
+          "questionText": "أَحْسِنْ إِلى جارِكَ يُحِبَّكَ وَيُعِنْكَ",
+          "correctAnswer": "أَحْسِنْ إِلى جارِكَ يُحِبَّكَ وَيُعِنْكَ",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "pronunciation"
+        },
+        {
+          "type": "READING",
+          "questionText": "الجارُ قَبْلَ الدّارِ، فَأَحْسِنْ إِلى جارِكَ وَشارِكْهُ أَفْراحَهُ.",
+          "correctAnswer": "الجارُ قَبْلَ الدّارِ، فَأَحْسِنْ إِلى جارِكَ وَشارِكْهُ أَفْراحَهُ.",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
+        }
+      ],
+      "orderIndex": 15
+    }
+  ]
+}

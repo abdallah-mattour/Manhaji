@@ -16,10 +16,10 @@
           "questionText": "What sport do we do in a pool or in the sea?",
           "correctAnswer": "swimming",
           "options": [
+            "singing",
             "dancing",
             "swimming",
-            "reading",
-            "singing"
+            "reading"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -29,10 +29,10 @@
           "questionText": "How do you ask Tala about her favourite hobby?",
           "correctAnswer": "What do you like?",
           "options": [
-            "What does she like?",
+            "How old are you?",
             "What do you like?",
-            "What is your name?",
-            "How old are you?"
+            "What does she like?",
+            "What is your name?"
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -43,9 +43,9 @@
           "correctAnswer": "reading",
           "options": [
             "read",
-            "reading",
             "to read books",
-            "books reading"
+            "books reading",
+            "reading"
           ],
           "difficultyLevel": 2,
           "subSkill": "production"
@@ -141,16 +141,37 @@
           "questionText": "Your friend asks 'What does your sister like?' and she loves dance. What is the BEST answer?",
           "correctAnswer": "She likes dancing.",
           "options": [
+            "We dancing.",
             "I like dancing.",
-            "She likes dancing.",
             "He likes dancing.",
-            "We dancing."
+            "She likes dancing."
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "LISTEN_CHOOSE",
+          "questionText": "Basketball",
+          "correctAnswer": "Basketball",
+          "options": [
+            "Drum",
+            "Kite",
+            "Football",
+            "Basketball"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/drum.png",
+            "assets/openmoji/kite.png",
+            "assets/openmoji/soccer_ball.png",
+            "assets/openmoji/basketball.png"
+          ]
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/soccer_ball.png"
+      ]
     },
     {
       "title": "Transport (Unit 11)",
@@ -163,10 +184,10 @@
           "questionText": "Which vehicle flies in the sky?",
           "correctAnswer": "plane",
           "options": [
-            "train",
-            "plane",
             "ship",
-            "bus"
+            "train",
+            "bus",
+            "plane"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -176,10 +197,10 @@
           "questionText": "Which one moves on water?",
           "correctAnswer": "ship",
           "options": [
-            "car",
             "plane",
-            "ship",
-            "bike"
+            "bike",
+            "car",
+            "ship"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -189,10 +210,10 @@
           "questionText": "Pick the correct form: ___ cars are slow.",
           "correctAnswer": "These",
           "options": [
+            "Is",
             "This",
-            "These",
             "It",
-            "Is"
+            "These"
           ],
           "difficultyLevel": 2,
           "subSkill": "production"
@@ -289,15 +310,56 @@
           "correctAnswer": "car or bus",
           "options": [
             "plane",
-            "ship",
             "car or bus",
-            "train across the sea"
+            "train across the sea",
+            "ship"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows a train?",
+          "correctAnswer": "Train",
+          "options": [
+            "Ship",
+            "Train",
+            "Bus",
+            "Car"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/ship.png",
+            "assets/openmoji/train.png",
+            "assets/openmoji/bus.png",
+            "assets/openmoji/car.png"
+          ]
+        },
+        {
+          "type": "DRAG_DROP",
+          "questionText": "Sort the transport: land or water?",
+          "correctAnswer": "Land=Bus,Land=Bicycle,Water=Ship,Water=Sailboat",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "application",
+          "pairs": {
+            "targets": [
+              "Land",
+              "Water"
+            ],
+            "tokens": [
+              "Bus",
+              "Ship",
+              "Bicycle",
+              "Sailboat"
+            ]
+          }
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/bus.png"
+      ]
     },
     {
       "title": "Let's find out! (Unit 12)",
@@ -311,9 +373,9 @@
           "correctAnswer": "eraser",
           "options": [
             "ruler",
-            "eraser",
+            "pen",
             "crayon",
-            "pen"
+            "eraser"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -323,10 +385,10 @@
           "questionText": "Which item do you use with a computer to click?",
           "correctAnswer": "mouse",
           "options": [
-            "mouse",
             "ruler",
             "flag",
-            "eraser"
+            "eraser",
+            "mouse"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -336,10 +398,10 @@
           "questionText": "How do you ask a friend what they see in a picture?",
           "correctAnswer": "What can you see?",
           "options": [
+            "Are you a student?",
             "What can you see?",
             "What is your name?",
-            "Where is the flag?",
-            "Are you a student?"
+            "Where is the flag?"
           ],
           "difficultyLevel": 1,
           "subSkill": "application"
@@ -436,9 +498,9 @@
           "correctAnswer": "in the pencil case next to the ruler",
           "options": [
             "on the roof of the school",
-            "in the pencil case next to the ruler",
             "inside the keyboard",
-            "in the playground"
+            "in the playground",
+            "in the pencil case next to the ruler"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -457,10 +519,10 @@
           "questionText": "What do we wear on our feet inside boots?",
           "correctAnswer": "socks",
           "options": [
-            "socks",
-            "hat",
+            "sweater",
             "shirt",
-            "sweater"
+            "hat",
+            "socks"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -470,10 +532,10 @@
           "questionText": "What do we wear on our head?",
           "correctAnswer": "hat",
           "options": [
-            "hat",
-            "boots",
             "socks",
-            "pyjamas"
+            "pyjamas",
+            "hat",
+            "boots"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -483,9 +545,9 @@
           "questionText": "You want to buy a new shirt. What do you say to the shopkeeper?",
           "correctAnswer": "I'd like a new shirt, please.",
           "options": [
-            "I'd like a new shirt, please.",
-            "Give me!",
             "I don't want anything.",
+            "Give me!",
+            "I'd like a new shirt, please.",
             "Where is the shirt?"
           ],
           "difficultyLevel": 2,
@@ -584,12 +646,53 @@
           "correctAnswer": "a warm sweater and boots",
           "options": [
             "pyjamas only",
+            "nothing extra",
             "a warm sweater and boots",
-            "a hat and socks for the beach",
-            "nothing extra"
+            "a hat and socks for the beach"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MATCH",
+          "questionText": "Match each food word to its picture",
+          "correctAnswer": "1=a,2=b,3=c",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "recognition",
+          "pairs": {
+            "left": [
+              {
+                "id": "1",
+                "text": "Watermelon"
+              },
+              {
+                "id": "2",
+                "text": "Corn"
+              },
+              {
+                "id": "3",
+                "text": "Honey"
+              }
+            ],
+            "right": [
+              {
+                "id": "b",
+                "text": "",
+                "image": "assets/openmoji/corn.png"
+              },
+              {
+                "id": "a",
+                "text": "",
+                "image": "assets/openmoji/watermelon.png"
+              },
+              {
+                "id": "c",
+                "text": "",
+                "image": "assets/openmoji/honey.png"
+              }
+            ]
+          }
         }
       ],
       "imageUrls": []
@@ -605,10 +708,10 @@
           "questionText": "Which one is NOT a hobby?",
           "correctAnswer": "boots",
           "options": [
-            "dancing",
             "singing",
             "swimming",
-            "boots"
+            "boots",
+            "dancing"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -618,10 +721,10 @@
           "questionText": "Which one is a means of transport?",
           "correctAnswer": "van",
           "options": [
-            "van",
             "flag",
             "eraser",
-            "sweater"
+            "sweater",
+            "van"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -631,10 +734,10 @@
           "questionText": "Choose the correct sentence: 'She likes ___.'",
           "correctAnswer": "reading",
           "options": [
-            "read",
-            "reading",
             "to read books always",
-            "reads"
+            "reads",
+            "read",
+            "reading"
           ],
           "difficultyLevel": 2,
           "subSkill": "production"
@@ -720,10 +823,10 @@
           "questionText": "You are at a shop and want to buy two items: a sweater and socks. What do you say?",
           "correctAnswer": "I'd like a sweater and socks, please.",
           "options": [
+            "I don't like.",
             "Give me!",
             "I'd like a sweater and socks, please.",
-            "Where is the rice?",
-            "I don't like."
+            "Where is the rice?"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -742,10 +845,10 @@
           "questionText": "What do we call our father's father?",
           "correctAnswer": "grandfather",
           "options": [
-            "father",
-            "grandfather",
+            "brother",
             "uncle",
-            "brother"
+            "grandfather",
+            "father"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -756,9 +859,9 @@
           "correctAnswer": "cousin",
           "options": [
             "brother",
-            "cousin",
             "uncle",
-            "friend"
+            "friend",
+            "cousin"
           ],
           "difficultyLevel": 2,
           "subSkill": "recognition"
@@ -768,10 +871,10 @@
           "questionText": "Tala has black hair. Her friend Sara has yellow hair. We say Sara has ___ hair.",
           "correctAnswer": "blonde",
           "options": [
-            "blonde",
-            "brown",
             "black",
-            "green"
+            "brown",
+            "green",
+            "blonde"
           ],
           "difficultyLevel": 2,
           "subSkill": "production"
@@ -867,9 +970,9 @@
           "correctAnswer": "Sami is taller than Adam.",
           "options": [
             "Adam is taller than Sami.",
-            "Sami is taller than Adam.",
+            "Adam is the oldest.",
             "They are the same height.",
-            "Adam is the oldest."
+            "Sami is taller than Adam."
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
@@ -888,10 +991,10 @@
           "questionText": "What is the name of our country?",
           "correctAnswer": "Palestine",
           "options": [
-            "Palestine",
-            "Jordan",
             "Egypt",
-            "Lebanon"
+            "Lebanon",
+            "Palestine",
+            "Jordan"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -902,9 +1005,9 @@
           "correctAnswer": "Jerusalem",
           "options": [
             "Hebron",
+            "Haifa",
             "Jerusalem",
-            "Gaza",
-            "Haifa"
+            "Gaza"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -914,10 +1017,10 @@
           "questionText": "How do you tell someone you live in Nablus?",
           "correctAnswer": "I'm from Nablus.",
           "options": [
+            "Nablus is fast.",
             "I'm from Nablus.",
-            "He's from Nablus.",
             "Nablus is here.",
-            "Nablus is fast."
+            "He's from Nablus."
           ],
           "difficultyLevel": 2,
           "subSkill": "application"
@@ -1012,13 +1115,21 @@
           "questionText": "Your friend in another country asks: 'Where are you from?'. You live in Gaza. Best answer?",
           "correctAnswer": "I'm from Gaza, in Palestine.",
           "options": [
-            "I'm Gaza.",
+            "I like Gaza.",
             "I'm from Gaza, in Palestine.",
-            "Gaza is from me.",
-            "I like Gaza."
+            "I'm Gaza.",
+            "Gaza is from me."
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "READING",
+          "questionText": "Palestine is my beautiful country",
+          "correctAnswer": "Palestine is my beautiful country",
+          "options": null,
+          "difficultyLevel": 2,
+          "subSkill": "reading"
         }
       ],
       "imageUrls": []
@@ -1034,10 +1145,10 @@
           "questionText": "What do we put on a birthday cake to blow out?",
           "correctAnswer": "candles",
           "options": [
-            "balloons",
-            "candles",
             "presents",
-            "boots"
+            "candles",
+            "boots",
+            "balloons"
           ],
           "difficultyLevel": 1,
           "subSkill": "recognition"
@@ -1047,10 +1158,10 @@
           "questionText": "What do you say to a friend on his birthday?",
           "correctAnswer": "Happy birthday!",
           "options": [
-            "Happy birthday!",
-            "Goodbye!",
             "Be quiet!",
-            "Where are you?"
+            "Goodbye!",
+            "Where are you?",
+            "Happy birthday!"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1061,9 +1172,9 @@
           "correctAnswer": "happy",
           "options": [
             "sad",
-            "happy",
             "tired",
-            "hungry"
+            "hungry",
+            "happy"
           ],
           "difficultyLevel": 1,
           "subSkill": "comprehension"
@@ -1157,16 +1268,37 @@
           "questionText": "Your friend is sad because he lost his toy. What is the BEST thing to say?",
           "correctAnswer": "I'm sorry. Let me help you find it.",
           "options": [
-            "Happy birthday!",
-            "I'm sorry. Let me help you find it.",
             "Be quiet!",
-            "Don't tell me."
+            "I'm sorry. Let me help you find it.",
+            "Don't tell me.",
+            "Happy birthday!"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "IMAGE_MCQ",
+          "questionText": "Which picture shows a gift?",
+          "correctAnswer": "Gift",
+          "options": [
+            "Kite",
+            "Drum",
+            "Gift",
+            "Balloon"
+          ],
+          "difficultyLevel": 1,
+          "subSkill": "recognition",
+          "optionImages": [
+            "assets/openmoji/kite.png",
+            "assets/openmoji/drum.png",
+            "assets/openmoji/gift.png",
+            "assets/openmoji/balloon.png"
+          ]
         }
       ],
-      "imageUrls": []
+      "imageUrls": [
+        "assets/openmoji/gift.png"
+      ]
     },
     {
       "title": "Revision Units 10-17 (Unit 18)",
@@ -1179,8 +1311,8 @@
           "questionText": "Which one is a family member?",
           "correctAnswer": "uncle",
           "options": [
-            "uncle",
             "ruler",
+            "uncle",
             "balloon",
             "river"
           ],
@@ -1192,10 +1324,10 @@
           "questionText": "Which is the capital of Palestine?",
           "correctAnswer": "Jerusalem",
           "options": [
-            "Gaza",
-            "Jerusalem",
             "Hebron",
-            "Nablus"
+            "Nablus",
+            "Gaza",
+            "Jerusalem"
           ],
           "difficultyLevel": 2,
           "subSkill": "recognition"
@@ -1205,10 +1337,10 @@
           "questionText": "Choose the correct sentence: '___ from Bethlehem.'",
           "correctAnswer": "I'm",
           "options": [
-            "I'm",
             "I are",
+            "I like",
             "I has",
-            "I like"
+            "I'm"
           ],
           "difficultyLevel": 2,
           "subSkill": "production"
@@ -1295,13 +1427,21 @@
           "questionText": "Today is your brother's birthday. He is six years old. Which is a kind sentence to say?",
           "correctAnswer": "Happy birthday! How do you feel?",
           "options": [
-            "Goodbye!",
+            "I don't know.",
             "Happy birthday! How do you feel?",
-            "Be quiet!",
-            "I don't know."
+            "Goodbye!",
+            "Be quiet!"
           ],
           "difficultyLevel": 3,
           "subSkill": "application"
+        },
+        {
+          "type": "READING",
+          "questionText": "I go to the shop with my mother",
+          "correctAnswer": "I go to the shop with my mother",
+          "options": null,
+          "difficultyLevel": 3,
+          "subSkill": "reading"
         }
       ],
       "imageUrls": []

@@ -220,6 +220,10 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
   }
 
   void _openLesson(LessonSummary lesson, {required bool practice}) {
+    // Full English experience (2026-07-03): English-subject lessons flip the
+    // whole in-lesson UI to English. This screen knows the subject name.
+    final isEnglish = widget.subjectName.contains('English') ||
+        widget.subjectName.contains('نجليزية');
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -227,6 +231,7 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
           lessonId: lesson.id,
           lessonTitle: lesson.title,
           practiceMode: practice,
+          englishMode: isEnglish,
         ),
       ),
     );

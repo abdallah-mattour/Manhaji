@@ -38,6 +38,20 @@ class ProgressProvider extends ChangeNotifier {
     }
   }
 
+  /// Tier 3: save the avatar choice. Returns true on success. Callers refresh
+  /// the dashboard themselves (LessonProvider owns it) so the home header
+  /// picks up the new avatar.
+  Future<bool> updateAvatar(String avatarId) async {
+    try {
+      await _progressService.updateAvatar(avatarId);
+      return true;
+    } catch (e) {
+      _errorMessage = extractError(e);
+      notifyListeners();
+      return false;
+    }
+  }
+
   Future<void> loadLeaderboard({int? gradeLevel}) async {
     _loadingLeaderboard = true;
     _errorMessage = null;

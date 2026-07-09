@@ -36,6 +36,14 @@ class AudioApiService {
     return response['data'] ?? {};
   }
 
+  /// TTS for arbitrary UI text (teaching cards, feedback phrases, reading
+  /// passages). Backend caches by text fingerprint, so a repeated phrase
+  /// synthesizes once ever. Returns audio URL or status message.
+  Future<Map<String, dynamic>> speakText(String text) async {
+    final response = await _api.post('/audio/speak', data: {'text': text});
+    return response['data'] ?? {};
+  }
+
   /// Check if TTS is available on the backend.
   Future<bool> isTtsAvailable() async {
     try {

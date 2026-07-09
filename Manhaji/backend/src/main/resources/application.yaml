@@ -2,6 +2,14 @@ spring:
   application:
     name: Manhaji
 
+  # Default to the 'local' profile so an untracked application-local.properties
+  # (holding app.jwt.secret — see application-local.example.properties) loads
+  # automatically for `bootRun` and IDE runs. This is only a DEFAULT: any
+  # explicit spring.profiles.active (e.g. in prod) overrides it. Nothing secret
+  # is committed — application-local.properties is gitignored.
+  profiles:
+    default: local
+
   # MySQL Database
   # Override MANHAJI_DB_PASSWORD in the environment for non-dev machines.
   # The dev default matches the developer's local MySQL root password so

@@ -14,6 +14,7 @@ import com.springboot.manhaji.entity.Student;
 import com.springboot.manhaji.entity.Subject;
 import com.springboot.manhaji.entity.Teacher;
 import com.springboot.manhaji.entity.TeacherAssignment;
+import com.springboot.manhaji.entity.StudentResponse;
 import com.springboot.manhaji.entity.User;
 import com.springboot.manhaji.entity.enums.AttemptStatus;
 import com.springboot.manhaji.entity.enums.CompletionStatus;
@@ -72,6 +73,7 @@ public class DataSeeder implements CommandLineRunner {
     private final ProgressRepository progressRepository;
     private final PasswordEncoder passwordEncoder;
     private final JdbcTemplate jdbcTemplate;
+    private final QuizConfigProperties quizConfig;
 
     /**
      * When {@code true}, the seeder wipes all curriculum data (subjects, lessons,
@@ -188,45 +190,20 @@ public class DataSeeder implements CommandLineRunner {
             log.info("Created demo admin account: admin@manhaji.edu (password not logged)");
         }
 
-        // Demo students — populate a realistic leaderboard/class for the showcase.
-        seedDemoStudents();
-
-        // Parent account — link to all existing students that have no parent
-        if (userRepository.findByEmail("parent@manhaji.edu").isEmpty()) {
-            com.springboot.manhaji.entity.Parent parent = new com.springboot.manhaji.entity.Parent();
-            parent.setFullName("ولي أمر محمد");
-            parent.setEmail("parent@manhaji.edu");
-            parent.setPasswordHash(passwordEncoder.encode(parentPw));
-            parent.setRole(Role.PARENT);
-            parent.setIsActive(true);
-            parent = parentRepository.save(parent);
-
-            // Link unassigned students to this demo parent
-            var students = studentRepository.findAll();
-            int linked = 0;
-            for (var student : students) {
-                if (student.getParent() == null) {
-                    student.setParent(parent);
-                    studentRepository.save(student);
-                    linked++;
-                }
-            }
-            log.info("Created demo parent account: parent@manhaji.edu (password not logged; linked {} children)", linked);
-        }
-
+        // Coherent demo roster (students, families, progress, derived points) is
+        // built together in seedSubjectScopedDemoData so every number is backed by
+        // real completed work — no "points but zero lessons" filler students.
         seedSubjectScopedDemoData(teacherPw, parentPw, studentPw);
     }
 
     private void seedSubjectScopedDemoData(String teacherPw, String parentPw, String studentPw) {
         Map<String, Subject> subjects = ensureGradeOneDemoSubjects();
         School school = ensureDemoSchool();
-        Parent parent = ensureDemoParent(parentPw);
 
         Map<String, Teacher> teachers = ensureSubjectTeachers(subjects, school, teacherPw);
         ensureTeacherAssignments(teachers, subjects, school);
 
-        List<Student> students = ensureDemoStudents(school, parent, studentPw);
-        seedDemoProgressAndAttempts(students, subjects);
+        seedCoherentRoster(school, parentPw, studentPw);
     }
 
     private Map<String, Subject> ensureGradeOneDemoSubjects() {
@@ -389,195 +366,184 @@ public class DataSeeder implements CommandLineRunner {
         teacherAssignmentRepository.save(assignment);
     }
 
-    private List<Student> ensureDemoStudents(School school, Parent parent, String studentPw) {
-        List<String> names = List.of(
-                "ليان أحمد",
-                "آدم محمد",
-                "جنى خالد",
-                "يوسف سمير",
-                "تالا محمود",
-                "عمر ناصر",
-                "سارة علي",
-                "كريم حسن",
-                "ريم ياسر",
-                "مريم فادي",
-                "زيد رامي",
-                "نور إبراهيم"
-        );
+    // ── Coherent demo roster (grades 1-4) ───────────────────────────────────
+    private static final List<String> DEMO_STUDENT_NAMES = List.of(
+            "ليان أحمد", "آدم محمد", "جنى خالد", "يوسف سمير", "تالا محمود",
+            "عمر ناصر", "سارة علي", "كريم حسن", "ريم ياسر", "مريم فادي",
+            "زيد رامي", "نور إبراهيم", "لينا وسام", "حمزة طارق", "سلمى عماد",
+            "معاذ أنس", "دانية غسان", "أنس وليد", "هبة مازن", "بلال صابر",
+            "لمى فراس", "قيس نبيل", "رند سامي", "تميم عادل", "جودي هاني",
+            "ملك رائد", "غيث أيمن", "شهد مؤيد", "بيان جهاد", "همام صهيب",
+            "رهف عمار", "مهند لؤي", "براء منير", "لجين ثائر", "سما نزار",
+            "خالد وسيم");
+    private static final List<String> DEMO_STUDENT_AVATARS = List.of(
+            "owl", "fox", "penguin", "koala", "panda", "butterfly", "unicorn",
+            "bee", "dolphin", "hamster", "cat", "rabbit");
 
-        List<Student> students = new ArrayList<>();
-        for (int i = 0; i < names.size(); i++) {
-            int number = i + 1;
-            String fullName = names.get(i);
-            String email = "student.demo%02d@manhaji.local".formatted(number);
-            Student student = userRepository.findByEmail(email)
-                    .map(User::getId)
-                    .flatMap(studentRepository::findById)
-                    .orElseGet(() -> {
-                        Student created = new Student();
-                        created.setFullName(fullName);
-                        created.setEmail(email);
-                        created.setPasswordHash(passwordEncoder.encode(studentPw));
-                        log.info("Created demo student account: {} (password not logged)", email);
-                        return created;
-                    });
-            student.setFullName(fullName);
-            student.setIsActive(true);
-            student.setGradeLevel(1);
-            student.setSchool(school);
-            student.setParent(parent);
-            student.setCurrentStreak((number % 5) + 1);
-            student.setTotalPoints(120 + (number * 35));
-            student.setLastLoginAt(LocalDateTime.now().minusDays(number % 6));
-            students.add(studentRepository.save(student));
-        }
-        return students;
-    }
-
-    private void seedDemoProgressAndAttempts(List<Student> students, Map<String, Subject> subjects) {
+    /**
+     * Build ONE internally-consistent demo roster across grades 1-4. Every
+     * student's {@code totalPoints} is DERIVED from the quizzes they actually
+     * completed ({@code correctAnswers × pointsPerCorrect}, mirroring
+     * QuizService), so the leaderboard, student dashboard and progress screens
+     * always agree — no "points but zero lessons" students. Children are grouped
+     * into small families (3 per parent); the first family reuses the canonical
+     * {@code parent@manhaji.edu} login. Idempotent per email.
+     */
+    private void seedCoherentRoster(School school, String parentPw, String studentPw) {
+        final int studentsPerGrade = 9;
         LocalDateTime now = LocalDateTime.now();
-        int subjectIndex = 0;
-        for (Subject subject : subjects.values()) {
-            List<Lesson> lessons = lessonRepository.findBySubjectIdOrderByOrderIndexAsc(subject.getId());
-            if (lessons.isEmpty()) {
-                subjectIndex++;
+        int nameIdx = 0;
+        int total = 0;
+
+        for (int grade = 1; grade <= 4; grade++) {
+            List<Subject> subjects = subjectRepository.findByGradeLevel(grade);
+            if (subjects.isEmpty()) {
+                log.warn("Demo roster: no subjects for grade {} — skipping", grade);
                 continue;
             }
 
-            int lessonLimit = Math.min(4, lessons.size());
-            for (int studentIndex = 0; studentIndex < students.size(); studentIndex++) {
-                Student student = students.get(studentIndex);
-                for (int lessonIndex = 0; lessonIndex < lessonLimit; lessonIndex++) {
-                    Lesson lesson = lessons.get(lessonIndex);
-                    double mastery = demoMastery(studentIndex, subjectIndex, lessonIndex);
-                    CompletionStatus status = demoCompletionStatus(mastery, lessonIndex);
-                    ensureDemoProgress(student, lesson, mastery, status, now, studentIndex, lessonIndex);
-                    ensureDemoAttempt(student, lesson, mastery, now, studentIndex, lessonIndex);
+            Parent family = null;
+            for (int n = 1; n <= studentsPerGrade; n++) {
+                if ((n - 1) % 3 == 0) {
+                    family = (grade == 1 && n == 1)
+                            ? ensureDemoParent(parentPw)
+                            : ensureFamilyParent(grade, ((n - 1) / 3) + 1, parentPw);
                 }
+
+                String email = String.format("demo.g%d.s%d@manhaji.edu", grade, n);
+                String fullName = DEMO_STUDENT_NAMES.get(nameIdx % DEMO_STUDENT_NAMES.size());
+                String avatar = DEMO_STUDENT_AVATARS.get(nameIdx % DEMO_STUDENT_AVATARS.size());
+                nameIdx++;
+
+                Student student = userRepository.findByEmail(email)
+                        .map(User::getId)
+                        .flatMap(studentRepository::findById)
+                        .orElseGet(Student::new);
+                student.setFullName(fullName);
+                student.setEmail(email);
+                student.setPasswordHash(passwordEncoder.encode(studentPw));
+                student.setRole(Role.STUDENT);
+                student.setIsActive(true);
+                student.setGradeLevel(grade);
+                student.setAvatarId(avatar);
+                student.setSchool(school);
+                student.setParent(family);
+                student = studentRepository.save(student);
+
+                // Ability tapers down the roster so the leaderboard has a natural
+                // spread: rank 1 completes more lessons at higher mastery.
+                double topMastery = 96.0 - (n - 1) * 5.0;
+                int lessonsPerSubject = n <= 3 ? 5 : (n <= 6 ? 4 : 3);
+                int earned = seedStudentWork(student, subjects, topMastery, lessonsPerSubject, now);
+
+                student.setTotalPoints(earned);
+                student.setCurrentStreak(Math.max(1, 8 - (n - 1)));
+                student.setLastLoginAt(now.minusDays((n - 1) % 5));
+                studentRepository.save(student);
+                total++;
             }
-            subjectIndex++;
         }
+        log.info("Seeded coherent demo roster: {} students across grades 1-4 "
+                + "(points derived from completed work)", total);
     }
 
-    private double demoMastery(int studentIndex, int subjectIndex, int lessonIndex) {
-        int band = studentIndex % 4;
-        double base = switch (band) {
-            case 0 -> 92.0;
-            case 1 -> 78.0;
-            case 2 -> 61.0;
-            default -> 44.0;
-        };
-        double adjusted = base - (lessonIndex * 4.0) + (subjectIndex * 2.0);
-        return Math.max(28.0, Math.min(98.0, adjusted));
-    }
-
-    private CompletionStatus demoCompletionStatus(double mastery, int lessonIndex) {
-        if (mastery >= 88.0 && lessonIndex <= 2) return CompletionStatus.MASTERED;
-        if (mastery >= 65.0) return CompletionStatus.COMPLETED;
-        if (mastery >= 45.0) return CompletionStatus.IN_PROGRESS;
-        return CompletionStatus.NOT_STARTED;
-    }
-
-    private void ensureDemoProgress(
-            Student student,
-            Lesson lesson,
-            double mastery,
-            CompletionStatus status,
-            LocalDateTime now,
-            int studentIndex,
-            int lessonIndex) {
-        Progress progress = progressRepository
-                .findByStudentIdAndLessonId(student.getId(), lesson.getId())
+    private Parent ensureFamilyParent(int grade, int familyNo, String parentPw) {
+        String email = String.format("parent.g%d.f%d@manhaji.local", grade, familyNo);
+        return userRepository.findByEmail(email)
+                .map(User::getId)
+                .flatMap(parentRepository::findById)
                 .orElseGet(() -> {
-                    Progress created = new Progress();
-                    created.setStudent(student);
-                    created.setLesson(lesson);
-                    return created;
+                    Parent parent = new Parent();
+                    parent.setFullName(String.format("ولي أمر (صف %d - أسرة %d)", grade, familyNo));
+                    parent.setEmail(email);
+                    parent.setPasswordHash(passwordEncoder.encode(parentPw));
+                    parent.setIsActive(true);
+                    log.info("Created demo family parent: {} (password not logged)", email);
+                    return parentRepository.save(parent);
                 });
-        progress.setMasteryLevel(mastery);
-        progress.setCompletionStatus(status);
-        progress.setLastAccessedAt(now.minusDays((studentIndex + lessonIndex) % 7));
-        progress.setLastSegmentIndex(Math.min(lessonIndex, 2));
-        if (status == CompletionStatus.COMPLETED || status == CompletionStatus.MASTERED) {
-            progress.setCompletedAt(now.minusDays((studentIndex + lessonIndex) % 10));
-        } else {
-            progress.setCompletedAt(null);
-        }
-        progressRepository.save(progress);
-    }
-
-    private void ensureDemoAttempt(
-            Student student,
-            Lesson lesson,
-            double mastery,
-            LocalDateTime now,
-            int studentIndex,
-            int lessonIndex) {
-        List<Quiz> quizzes = quizRepository.findByLessonId(lesson.getId());
-        if (quizzes.isEmpty()) return;
-
-        Quiz quiz = quizzes.get(0);
-        if (!attemptRepository.findByStudentIdAndQuizId(student.getId(), quiz.getId()).isEmpty()) {
-            return;
-        }
-
-        Attempt attempt = new Attempt();
-        attempt.setStudent(student);
-        attempt.setQuiz(quiz);
-        attempt.setStatus(AttemptStatus.GRADED);
-        attempt.setScore(Math.max(35.0, Math.min(100.0, mastery + 3.0)));
-        attempt.setSubmittedAt(now.minusDays((studentIndex + lessonIndex) % 8));
-        attemptRepository.save(attempt);
     }
 
     /**
-     * Seed a roster of demo students per grade so the leaderboard and class
-     * screens look populated during the showcase. Gated by the same
-     * {@code MANHAJI_DEMO_SEED} flag as {@link #seedDemoAccounts()} (the caller
-     * already checked it). Idempotent via a per-email existence check.
-     *
-     * <p>Points/avatars are hand-tuned so the podium reads well; these students
-     * have no quiz attempts (completedLessons = 0), which is fine for the board.
+     * Seed Progress + a graded Attempt + per-question StudentResponses for the
+     * first {@code lessonsPerSubject} lessons of each subject, and return the
+     * TOTAL points earned. Points and completion both derive from the same work
+     * so the dashboards stay consistent. Mastery decays a little across lessons
+     * so the last lesson or two read as "in progress".
      */
-    private void seedDemoStudents() {
-        // name, points, avatarId — descending so ranks read naturally.
-        Object[][] roster = {
-                {"محمد", 1250, "owl"},
-                {"سارة", 980, "fox"},
-                {"ليان", 870, "penguin"},
-                {"يوسف", 760, "koala"},
-                {"رهف", 640, "hamster"},
-                {"آدم", 590, "panda"},
-                {"جنى", 510, "butterfly"},
-                {"كرم", 430, "unicorn"},
-                {"نور", 360, "bee"},
-                {"تالا", 300, "dolphin"},
-        };
+    private int seedStudentWork(Student student, List<Subject> subjects,
+                                double topMastery, int lessonsPerSubject, LocalDateTime now) {
+        int totalPoints = 0;
+        int subjectIndex = 0;
+        for (Subject subject : subjects) {
+            List<Lesson> lessons = lessonRepository.findBySubjectIdOrderByOrderIndexAsc(subject.getId());
+            int limit = Math.min(lessonsPerSubject, lessons.size());
+            for (int i = 0; i < limit; i++) {
+                Lesson lesson = lessons.get(i);
+                double mastery = Math.max(35.0, Math.min(99.0,
+                        topMastery - (i * 6.0) - (subjectIndex * 2.0)));
+                CompletionStatus status =
+                        mastery >= quizConfig.getMasteryThreshold() ? CompletionStatus.MASTERED
+                        : mastery >= quizConfig.getCompletionThreshold() ? CompletionStatus.COMPLETED
+                        : CompletionStatus.IN_PROGRESS;
 
-        int created = 0;
-        for (int grade = 1; grade <= 4; grade++) {
-            for (int i = 0; i < roster.length; i++) {
-                String email = String.format("demo.g%d.s%d@manhaji.edu", grade, i + 1);
-                if (userRepository.findByEmail(email).isPresent()) continue;
+                Progress progress = progressRepository
+                        .findByStudentIdAndLessonId(student.getId(), lesson.getId())
+                        .orElseGet(() -> {
+                            Progress p = new Progress();
+                            p.setStudent(student);
+                            p.setLesson(lesson);
+                            return p;
+                        });
+                progress.setMasteryLevel(mastery);
+                progress.setCompletionStatus(status);
+                progress.setLastAccessedAt(now.minusDays((i + subjectIndex) % 7));
+                progress.setLastSegmentIndex(Math.min(i, 2));
+                progress.setCompletedAt(status == CompletionStatus.IN_PROGRESS ? null
+                        : now.minusDays((i + subjectIndex) % 10));
+                progressRepository.save(progress);
 
-                Object[] row = roster[i];
-                Student s = new Student();
-                s.setFullName((String) row[0]);
-                s.setEmail(email);
-                s.setPasswordHash(passwordEncoder.encode("demo1234"));
-                s.setRole(Role.STUDENT);
-                s.setIsActive(true);
-                s.setGradeLevel(grade);
-                s.setTotalPoints((Integer) row[1]);
-                s.setAvatarId((String) row[2]);
-                s.setCurrentStreak((i % 5) + 1);
-                studentRepository.save(s);
-                created++;
+                totalPoints += seedAttemptWithResponses(student, lesson, mastery, now, i, subjectIndex);
+            }
+            subjectIndex++;
+        }
+        return totalPoints;
+    }
+
+    /**
+     * One GRADED attempt for the lesson's quiz + one StudentResponse per question
+     * (correct/incorrect split by mastery so teacher mistake analytics has real
+     * data). Returns points earned ({@code correctAnswers × pointsPerCorrect}) —
+     * always returns the derived value so totalPoints is stable across re-boots,
+     * while the attempt/response rows are only created once per (student, quiz).
+     */
+    private int seedAttemptWithResponses(Student student, Lesson lesson, double mastery,
+                                         LocalDateTime now, int lessonIndex, int subjectIndex) {
+        List<Quiz> quizzes = quizRepository.findByLessonId(lesson.getId());
+        if (quizzes.isEmpty()) return 0;
+        Quiz quiz = quizzes.get(0);
+
+        List<Question> questions = questionRepository.findByLessonId(lesson.getId());
+        int questionCount = questions.size();
+        int correct = (int) Math.round(mastery / 100.0 * questionCount);
+
+        if (attemptRepository.findByStudentIdAndQuizId(student.getId(), quiz.getId()).isEmpty()) {
+            Attempt attempt = new Attempt();
+            attempt.setStudent(student);
+            attempt.setQuiz(quiz);
+            attempt.setStatus(AttemptStatus.GRADED);
+            attempt.setScore(mastery);
+            attempt.setSubmittedAt(now.minusDays((lessonIndex + subjectIndex) % 8));
+            Attempt savedAttempt = attemptRepository.save(attempt);
+
+            for (int q = 0; q < questionCount; q++) {
+                StudentResponse response = new StudentResponse();
+                response.setAttempt(savedAttempt);
+                response.setQuestion(questions.get(q));
+                response.setIsCorrect(q < correct);
+                studentResponseRepository.save(response);
             }
         }
-        if (created > 0) {
-            log.info("Created {} demo students across grades 1-4 (passwords not logged)", created);
-        }
+        return correct * quizConfig.getPointsPerCorrect();
     }
 
     /**

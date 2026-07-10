@@ -34,6 +34,7 @@ import com.springboot.manhaji.repository.SubjectRepository;
 import com.springboot.manhaji.repository.TeacherAssignmentRepository;
 import com.springboot.manhaji.repository.TeacherRepository;
 import com.springboot.manhaji.repository.UserRepository;
+import com.springboot.manhaji.service.SkillMasteryService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import java.io.InputStream;
@@ -74,6 +75,7 @@ public class DataSeeder implements CommandLineRunner {
     private final PasswordEncoder passwordEncoder;
     private final JdbcTemplate jdbcTemplate;
     private final QuizConfigProperties quizConfig;
+    private final SkillMasteryService skillMasteryService;
 
     /**
      * When {@code true}, the seeder wipes all curriculum data (subjects, lessons,
@@ -204,6 +206,7 @@ public class DataSeeder implements CommandLineRunner {
         ensureTeacherAssignments(teachers, subjects, school);
 
         seedCoherentRoster(school, parentPw, studentPw);
+        seedGradeChampions(school, parentPw, studentPw);
     }
 
     private Map<String, Subject> ensureGradeOneDemoSubjects() {
@@ -380,6 +383,10 @@ public class DataSeeder implements CommandLineRunner {
             "owl", "fox", "penguin", "koala", "panda", "butterfly", "unicorn",
             "bee", "dolphin", "hamster", "cat", "rabbit");
 
+    // Per-grade "champion" accounts that have finished ~80% of the whole grade.
+    private static final List<String> CHAMPION_NAMES = List.of(
+            "ريماس المتفوقة", "تيم الخطيب", "سيلين ناصر", "زين العابدين");
+
     /**
      * Build ONE internally-consistent demo roster across grades 1-4. Every
      * student's {@code totalPoints} is DERIVED from the quizzes they actually
@@ -440,11 +447,100 @@ public class DataSeeder implements CommandLineRunner {
                 student.setCurrentStreak(Math.max(1, 8 - (n - 1)));
                 student.setLastLoginAt(now.minusDays((n - 1) % 5));
                 studentRepository.save(student);
+                // Derive per-sub-skill BKT mastery from the work just seeded, so
+                // the "My Skills" radar and adaptive "Challenge Me" have real
+                // signal for demo accounts (their attempts bypass completeAttempt).
+                skillMasteryService.rebuildForStudent(student.getId());
                 total++;
             }
         }
         log.info("Seeded coherent demo roster: {} students across grades 1-4 "
                 + "(points derived from completed work)", total);
+    }
+
+    /**
+     * One "champion" student per grade (1-4) who has finished ~80% of EVERY
+     * lesson in the grade at high mastery — a near-complete-curriculum demo
+     * account. Points are derived from that work like everyone else, so the
+     * dashboards/leaderboard stay consistent. Idempotent per email.
+     */
+    private void seedGradeChampions(School school, String parentPw, String studentPw) {
+        LocalDateTime now = LocalDateTime.now();
+        Parent parent = ensureDemoParent(parentPw);
+
+        for (int grade = 1; grade <= 4; grade++) {
+            List<Subject> subjects = subjectRepository.findByGradeLevel(grade);
+            if (subjects.isEmpty()) {
+                continue;
+            }
+
+            String email = String.format("demo.g%d.top@manhaji.edu", grade);
+            Student student = userRepository.findByEmail(email)
+                    .map(User::getId)
+                    .flatMap(studentRepository::findById)
+                    .orElseGet(Student::new);
+            student.setFullName(CHAMPION_NAMES.get(grade - 1));
+            student.setEmail(email);
+            student.setPasswordHash(passwordEncoder.encode(studentPw));
+            student.setRole(Role.STUDENT);
+            student.setIsActive(true);
+            student.setGradeLevel(grade);
+            student.setAvatarId("unicorn");
+            student.setSchool(school);
+            student.setParent(parent);
+            student = studentRepository.save(student);
+
+            int earned = seedNearCompleteWork(student, subjects, 0.80, now);
+            student.setTotalPoints(earned);
+            student.setCurrentStreak(21);
+            student.setLastLoginAt(now);
+            studentRepository.save(student);
+            skillMasteryService.rebuildForStudent(student.getId());
+            log.info("Seeded grade {} champion: {} ({} pts, ~80% of lessons)",
+                    grade, email, earned);
+        }
+    }
+
+    /**
+     * Seed Progress + a graded Attempt + per-question StudentResponses for the
+     * first {@code fraction} of EVERY lesson in each subject (rounded up), all at
+     * high mastery so each reads as MASTERED. Returns total derived points.
+     */
+    private int seedNearCompleteWork(Student student, List<Subject> subjects,
+                                     double fraction, LocalDateTime now) {
+        int totalPoints = 0;
+        int subjectIndex = 0;
+        for (Subject subject : subjects) {
+            List<Lesson> lessons = lessonRepository.findBySubjectIdOrderByOrderIndexAsc(subject.getId());
+            int limit = (int) Math.ceil(lessons.size() * fraction);
+            for (int i = 0; i < limit; i++) {
+                Lesson lesson = lessons.get(i);
+                // Cycle 96→81, all comfortably above the mastery threshold (80).
+                double mastery = Math.max(82.0, Math.min(99.0, 96.0 - (i % 6) * 3.0));
+                CompletionStatus status =
+                        mastery >= quizConfig.getMasteryThreshold() ? CompletionStatus.MASTERED
+                        : CompletionStatus.COMPLETED;
+
+                Progress progress = progressRepository
+                        .findByStudentIdAndLessonId(student.getId(), lesson.getId())
+                        .orElseGet(() -> {
+                            Progress p = new Progress();
+                            p.setStudent(student);
+                            p.setLesson(lesson);
+                            return p;
+                        });
+                progress.setMasteryLevel(mastery);
+                progress.setCompletionStatus(status);
+                progress.setLastAccessedAt(now.minusDays((i + subjectIndex) % 7));
+                progress.setLastSegmentIndex(2);
+                progress.setCompletedAt(now.minusDays((i + subjectIndex) % 10));
+                progressRepository.save(progress);
+
+                totalPoints += seedAttemptWithResponses(student, lesson, mastery, now, i, subjectIndex);
+            }
+            subjectIndex++;
+        }
+        return totalPoints;
     }
 
     private Parent ensureFamilyParent(int grade, int familyNo, String parentPw) {

@@ -14,4 +14,11 @@ public interface SkillMasteryRepository extends JpaRepository<SkillMastery, Long
     /** The one row for a specific (student, subject, sub-skill) cell, if it exists. */
     Optional<SkillMastery> findByStudentIdAndSubjectIdAndSubSkill(
             Long studentId, Long subjectId, String subSkill);
+
+    /**
+     * Wipe all of a student's mastery cells. Used by
+     * {@code SkillMasteryService.rebuildForStudent} to re-derive BKT state from
+     * scratch (keeps the rebuild idempotent — no double-counted observations).
+     */
+    void deleteByStudentId(Long studentId);
 }

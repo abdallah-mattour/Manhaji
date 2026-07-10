@@ -157,9 +157,25 @@ public class GeminiService {
 
     // --- Internal methods ---
 
+    /**
+     * Public JSON call with a caller-supplied timeout — used by
+     * {@code AiQuestionGenerationService} for the interactive quiz-load path,
+     * which needs a SHORT budget (a few seconds) so a slow Gemini can't hang a
+     * child's quiz. Returns the raw model text (JSON, possibly fenced — run it
+     * through {@link #stripJsonFences} before parsing). Throws on
+     * network/parse/timeout failure; the caller wraps it and falls back.
+     */
+    public String generateJson(String prompt, int timeoutSeconds) {
+        // thinkingBudget 0 disables gemini-2.5-flash's chain-of-thought, which
+        // otherwise burns ~600 "thought" tokens and adds several seconds — too
+        // slow for the interactive quiz-load budget. Question generation doesn't
+        // need it; report/hint calls (which leave it null) keep thinking.
+        return callGemini(prompt, true, timeoutSeconds, 0);
+    }
+
     /** Plain-text Gemini call (default) — used for free-text outputs like hints. */
     private String callGemini(String prompt) {
-        return callGemini(prompt, false);
+        return callGemini(prompt, false, 20, null);
     }
 
     /**
@@ -170,6 +186,16 @@ public class GeminiService {
      *        and learning-path calls; leave false for plain-text hints.
      */
     private String callGemini(String prompt, boolean jsonMode) {
+        return callGemini(prompt, jsonMode, 20, null);
+    }
+
+    /**
+     * @param timeoutSeconds max wall-clock for the blocking Gemini call.
+     * @param thinkingBudget when non-null, sets {@code thinkingConfig.thinkingBudget}
+     *        (0 disables gemini-2.5-flash's chain-of-thought for speed). Null =
+     *        leave the model default (thinking on).
+     */
+    private String callGemini(String prompt, boolean jsonMode, int timeoutSeconds, Integer thinkingBudget) {
         String model = aiConfig.getGemini().getModel();
         String apiKey = aiConfig.getGemini().getApiKey();
         String url = String.format("%s/models/%s:generateContent?key=%s", GEMINI_BASE_URL, model, apiKey);
@@ -182,6 +208,9 @@ public class GeminiService {
         generationConfig.put("maxOutputTokens", 2048);
         if (jsonMode) {
             generationConfig.put("responseMimeType", "application/json");
+        }
+        if (thinkingBudget != null) {
+            generationConfig.put("thinkingConfig", Map.of("thinkingBudget", thinkingBudget));
         }
 
         Map<String, Object> requestBody = Map.of(
@@ -200,7 +229,7 @@ public class GeminiService {
                 .bodyValue(requestBody)
                 .retrieve()
                 .bodyToMono(String.class)
-                .block(java.time.Duration.ofSeconds(20));
+                .block(java.time.Duration.ofSeconds(timeoutSeconds));
 
         return extractTextFromGeminiResponse(responseJson);
     }

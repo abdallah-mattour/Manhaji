@@ -15,6 +15,7 @@ public class AiConfigProperties {
     private Whisper whisper = new Whisper();
     private GoogleTts googleTts = new GoogleTts();
     private EdgeTts edgeTts = new EdgeTts();
+    private GenerateQuestions generateQuestions = new GenerateQuestions();
     /**
      * Which TTS provider {@link com.springboot.manhaji.service.ai.TtsService}
      * uses. Values: {@code "edge"} (Microsoft Edge neural voices, free, no
@@ -42,6 +43,25 @@ public class AiConfigProperties {
         public boolean isConfigured() {
             return apiKey != null && !apiKey.isBlank() && !"not-set".equals(apiKey);
         }
+    }
+
+    /**
+     * Runtime AI question generation for the personalized "Challenge Me" quiz.
+     * When {@code enabled} and {@code GEMINI_API_KEY} is set, Gemini synthesises
+     * up to {@code count} extra MCQ/TRUE_FALSE questions targeting the child's
+     * weakest sub-skill; they're blended into the bank quiz, keeping the total
+     * quiz size. Off by default — flip on for the demo. {@code timeoutSeconds}
+     * bounds the live call so a slow Gemini never hangs a quiz load (falls back
+     * to a bank-only quiz).
+     */
+    @Getter
+    @Setter
+    public static class GenerateQuestions {
+        private boolean enabled = false;
+        private int count = 3;
+        // gemini-2.5-flash generation runs ~4-6s even with thinking disabled, so
+        // 10s gives it room while still bounding the fallback well under a hang.
+        private int timeoutSeconds = 10;
     }
 
     @Getter

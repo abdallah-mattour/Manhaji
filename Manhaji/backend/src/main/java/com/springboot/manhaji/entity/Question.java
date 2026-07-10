@@ -116,6 +116,17 @@ public class Question {
     @Column(length = 64)
     private String audioTextHash;
 
+    /**
+     * True for questions synthesised at runtime by Gemini
+     * ({@code AiQuestionGenerationService}) and blended into a student's
+     * "Challenge Me" quiz. Nullable/false for the authored curriculum bank.
+     * Server-side only — used to mark generated rows and to KEEP them out of
+     * the BKT bank pool ({@code QuizSelectionService.selectPersonalized}) so the
+     * bank stays purely curriculum. Not exposed to the client.
+     */
+    @Column(name = "ai_generated")
+    private Boolean aiGenerated;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lesson_id", nullable = false)
     private Lesson lesson;

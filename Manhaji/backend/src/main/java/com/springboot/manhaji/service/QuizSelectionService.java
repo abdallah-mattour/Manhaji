@@ -10,6 +10,7 @@ import com.springboot.manhaji.repository.SkillMasteryRepository;
 import com.springboot.manhaji.repository.StudentResponseRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -48,6 +49,28 @@ public class QuizSelectionService {
 
     /** Number of questions a Practice-Mode quiz returns by default. */
     public static final int DEFAULT_PRACTICE_SIZE = 10;
+
+    /**
+     * RNG for the weighted-random pick in {@link #selectPersonalized} — makes
+     * repeated "Challenge Me" taps vary instead of returning an identical quiz.
+     * Non-final and package-private-settable so tests can pin the seed.
+     */
+    private Random random = new Random();
+
+    /** Test hook: pin the RNG so personalized selection is deterministic. */
+    void setRandomForTest(Random random) {
+        this.random = random;
+    }
+
+    /** Weight-ranked candidate, shared by the personalized selection helpers. */
+    private record Scored(Question q, double weight) {}
+
+    /**
+     * The child's weakest sub-skill in a subject plus the difficulty to aim new
+     * practice at — the target for runtime AI question generation. {@code null}
+     * on cold start (no BKT observations yet).
+     */
+    public record WeakSkillTarget(String subSkill, int targetDifficulty) {}
 
     /**
      * Choose {@code count} questions from {@code lessonId} biased toward
@@ -160,7 +183,11 @@ public class QuizSelectionService {
      * @return ordered question list (weakest-skill question first), never null
      */
     public List<Question> selectPersonalized(Long studentId, Long subjectId, int count) {
-        List<Question> all = questionRepository.findAllBySubjectIdWithLesson(subjectId);
+        List<Question> all = new ArrayList<>(questionRepository.findAllBySubjectIdWithLesson(subjectId));
+        // Keep the BKT bank pool purely curriculum: AI-generated questions live
+        // in the DB (attached to lessons) but must not re-enter "bank" selection,
+        // so the bank/AI blend ratio stays honest.
+        all.removeIf(q -> Boolean.TRUE.equals(q.getAiGenerated()));
         if (all.isEmpty()) return List.of();
         int target = Math.max(1, Math.min(count, all.size()));
 
@@ -185,36 +212,149 @@ public class QuizSelectionService {
                 .orElse(bktConfig.getPInit());
         double targetDifficulty = 1.0 + 2.0 * avgMastery; // [1,3]
 
-        // Questions the student saw in their most recent responses for this
-        // subject get a novelty penalty so the quiz doesn't repeat them.
-        Set<Long> recentQids = recentlySeenQuestionIds(studentId, all);
+        // Novelty penalty: questions the student answered in their last
+        // ~2×target responses for this subject are "recently seen". Bounded and
+        // recency-ordered (one query) so novelty stays meaningful even for a
+        // student who has answered most of the subject at some point.
+        int recentWindow = Math.max(2 * target, 20);
+        Set<Long> recentQids = new HashSet<>(responseRepository.findRecentQuestionIdsBySubject(
+                studentId, subjectId, PageRequest.of(0, recentWindow)));
 
-        record Scored(Question q, double weight, double pMastery) {}
         List<Scored> scored = new ArrayList<>(all.size());
         for (Question q : all) {
             String skill = deriveSubSkill(q);
             double pMastery = masteryBySkill.getOrDefault(skill, bktConfig.getPInit());
 
-            int diff = q.getDifficultyLevel() == null ? 1 : q.getDifficultyLevel();
-            double difficultyFit = 1.0 - Math.min(1.0, Math.abs(diff - targetDifficulty) / 2.0);
+            double difficultyFit = 1.0 - Math.min(1.0, Math.abs(difficultyOf(q) - targetDifficulty) / 2.0);
             double novelty = recentQids.contains(q.getId()) ? 0.1 : 1.0;
 
             double weight =
                     0.60 * (1.0 - pMastery)   // weakest skills first
                   + 0.25 * difficultyFit
                   + 0.15 * novelty;
-            scored.add(new Scored(q, weight, pMastery));
+            scored.add(new Scored(q, weight));
         }
 
-        scored.sort((a, b) -> Double.compare(b.weight, a.weight));
+        scored.sort((a, b) -> Double.compare(b.weight(), a.weight()));
 
-        List<Question> out = new ArrayList<>(target);
-        for (int i = 0; i < target; i++) out.add(scored.get(i).q());
+        // #1 — weighted-random pick (not strict top-N), so two taps differ.
+        // #2 — re-sequence into an easy→hard→achievable arc for a kinder flow.
+        List<Question> chosen = weightedSample(scored, target);
+        List<Question> out = pedagogicalOrder(chosen);
         log.debug("Personalized selection student {} subject {}: avgMastery {} "
                         + "targetDiff {} chose {} of {} questions",
                 studentId, subjectId, String.format("%.2f", avgMastery),
                 String.format("%.2f", targetDifficulty), out.size(), all.size());
         return out;
+    }
+
+    /**
+     * Weighted-random pick of {@code target} questions from the weight-ranked
+     * candidates (#1). Instead of a deterministic top-N, we sample without
+     * replacement with probability proportional to weight — so repeated
+     * "Challenge Me" taps vary while still strongly favouring weak-skill /
+     * right-difficulty questions. Randomness is bounded to the strongest
+     * {@code ~2×target} candidates (the pool) so a lucky draw never surfaces a
+     * genuinely irrelevant, well-mastered question. A per-sub-skill cap keeps
+     * breadth; an uncapped top-up fills any shortfall from a tiny pool.
+     */
+    private List<Question> weightedSample(List<Scored> rankedByWeightDesc, int target) {
+        int poolSize = Math.min(rankedByWeightDesc.size(), Math.max(2 * target, target + 5));
+        List<Scored> remaining = new ArrayList<>(rankedByWeightDesc.subList(0, poolSize));
+
+        int distinctSkills = (int) remaining.stream()
+                .map(s -> deriveSubSkill(s.q())).distinct().count();
+        // e.g. target 10 with ≥4 skills → cap 3; with 2 skills → cap 5.
+        int cap = Math.max(2, (int) Math.ceil((double) target / Math.min(Math.max(distinctSkills, 1), 4)));
+
+        Map<String, Integer> perSkill = new HashMap<>();
+        List<Question> out = new ArrayList<>(target);
+        while (out.size() < target && !remaining.isEmpty()) {
+            double totalW = 0.0;
+            for (Scored s : remaining) {
+                if (perSkill.getOrDefault(deriveSubSkill(s.q()), 0) < cap) {
+                    totalW += s.weight() + 0.01; // epsilon so a zero-weight item can still appear
+                }
+            }
+            if (totalW <= 0.0) break; // everything left is cap-blocked
+            double dart = random.nextDouble() * totalW;
+            double acc = 0.0;
+            Scored picked = null;
+            for (Scored s : remaining) {
+                if (perSkill.getOrDefault(deriveSubSkill(s.q()), 0) >= cap) continue;
+                acc += s.weight() + 0.01;
+                if (acc >= dart) { picked = s; break; }
+            }
+            if (picked == null) break;
+            remaining.remove(picked);
+            out.add(picked.q());
+            perSkill.merge(deriveSubSkill(picked.q()), 1, Integer::sum);
+        }
+        // Top up (uncapped, in rank order) if the cap/pool left us short.
+        if (out.size() < target) {
+            Set<Long> chosen = new HashSet<>();
+            for (Question q : out) chosen.add(q.getId());
+            for (Scored s : rankedByWeightDesc) {
+                if (out.size() == target) break;
+                if (chosen.add(s.q().getId())) out.add(s.q());
+            }
+        }
+        return out;
+    }
+
+    /**
+     * Re-sequence a chosen set into a kid-friendly difficulty arc (#2): open on
+     * the easiest question (an early win), ramp up through the hardest in the
+     * middle, and finish on an achievable one rather than the peak. Selection
+     * stays adaptive — this only reorders what was already chosen. Public so
+     * {@code QuizService} can re-apply it after blending AI questions in.
+     */
+    public List<Question> pedagogicalOrder(List<Question> chosen) {
+        if (chosen.size() <= 2) return chosen; // too small for a meaningful arc
+        List<Question> sorted = new ArrayList<>(chosen);
+        sorted.sort(Comparator.comparingInt(QuizSelectionService::difficultyOf));
+        Question opener = sorted.get(0);              // easiest → warm-up win
+        Question closer = sorted.get(1);              // 2nd-easiest → gentle finish
+        List<Question> out = new ArrayList<>(chosen.size());
+        out.add(opener);
+        out.addAll(sorted.subList(2, sorted.size())); // ascending → ramps to the peak
+        out.add(closer);
+        return out;
+    }
+
+    private static int difficultyOf(Question q) {
+        return q.getDifficultyLevel() == null ? 1 : q.getDifficultyLevel();
+    }
+
+    /**
+     * The child's weakest sub-skill in a subject and the difficulty to aim new
+     * questions at — used by the runtime AI generator to target exactly where
+     * the student is struggling. "Weakest" = the persisted BKT cell with the
+     * lowest {@code pMastery}; the difficulty mirrors {@code selectPersonalized}'s
+     * {@code 1 + 2·avgMastery} (clamped to 1..3). Returns {@code null} on cold
+     * start (no observations) so the caller can skip generation and serve the
+     * curriculum bank instead.
+     */
+    public WeakSkillTarget analyzeWeakestSkill(Long studentId, Long subjectId) {
+        List<SkillMastery> rows =
+                skillMasteryRepository.findByStudentIdAndSubjectId(studentId, subjectId);
+        int totalObservations = 0;
+        double masterySum = 0.0;
+        SkillMastery weakest = null;
+        for (SkillMastery sm : rows) {
+            totalObservations += sm.getObservationCount();
+            masterySum += sm.getPMastery();
+            if (weakest == null || sm.getPMastery() < weakest.getPMastery()) {
+                weakest = sm;
+            }
+        }
+        if (totalObservations == 0 || weakest == null) {
+            return null; // cold start — no signal to target yet
+        }
+        double avgMastery = masterySum / rows.size();
+        int targetDifficulty = (int) Math.round(1.0 + 2.0 * avgMastery);
+        targetDifficulty = Math.max(1, Math.min(3, targetDifficulty));
+        return new WeakSkillTarget(weakest.getSubSkill(), targetDifficulty);
     }
 
     /**
@@ -255,30 +395,6 @@ public class QuizSelectionService {
             }
         }
         return out;
-    }
-
-    /**
-     * Question IDs the student answered in their most recent attempts across
-     * the subject — used to down-weight just-seen questions. We scan the
-     * subject's questions' responses; "recent" is approximated as the last
-     * {@code 2 * count}-ish responses, which is cheap and good enough for
-     * novelty (BKT itself doesn't need exact recency).
-     */
-    private Set<Long> recentlySeenQuestionIds(Long studentId, List<Question> subjectQuestions) {
-        // Gather distinct lesson IDs in the subject, then pull this student's
-        // responses per lesson (reusing the only available history query).
-        Set<Long> lessonIds = new HashSet<>();
-        for (Question q : subjectQuestions) {
-            if (q.getLesson() != null) lessonIds.add(q.getLesson().getId());
-        }
-        Set<Long> recent = new HashSet<>();
-        for (Long lessonId : lessonIds) {
-            for (StudentResponse r :
-                    responseRepository.findByStudentIdAndLessonId(studentId, lessonId)) {
-                if (r.getQuestion() != null) recent.add(r.getQuestion().getId());
-            }
-        }
-        return recent;
     }
 
     /**

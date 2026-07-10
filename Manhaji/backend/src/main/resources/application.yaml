@@ -60,6 +60,14 @@ app:
       api-key: unused  # Transcription now uses Gemini instead of OpenAI Whisper
     google-tts:
       api-key: ${GOOGLE_TTS_API_KEY:not-set}
+    # Runtime AI question generation for the "Challenge Me" quiz. Off by
+    # default — set MANHAJI_AI_GENERATE=true (and export GEMINI_API_KEY) to
+    # blend ~count Gemini MCQ/TRUE_FALSE questions per quiz. timeout-seconds
+    # bounds the live call so a slow Gemini falls back to a bank-only quiz.
+    generate-questions:
+      enabled: ${MANHAJI_AI_GENERATE:false}
+      count: ${MANHAJI_AI_GENERATE_COUNT:3}
+      timeout-seconds: ${MANHAJI_AI_GENERATE_TIMEOUT:10}
     # Active TTS provider — "edge" (free, no key, recommended) or "google".
     tts-provider: ${MANHAJI_TTS_PROVIDER:edge}
     edge-tts:

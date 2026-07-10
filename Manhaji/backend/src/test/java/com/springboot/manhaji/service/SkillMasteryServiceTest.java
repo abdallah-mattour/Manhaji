@@ -5,6 +5,7 @@ import com.springboot.manhaji.dto.response.SkillMasteryResponse;
 import com.springboot.manhaji.entity.*;
 import com.springboot.manhaji.entity.enums.QuestionType;
 import com.springboot.manhaji.repository.QuestionRepository;
+import com.springboot.manhaji.repository.StudentResponseRepository;
 import com.springboot.manhaji.repository.SkillMasteryRepository;
 import com.springboot.manhaji.repository.StudentRepository;
 import com.springboot.manhaji.repository.SubjectRepository;
@@ -39,6 +40,7 @@ class SkillMasteryServiceTest {
     @Mock private StudentRepository studentRepository;
     @Mock private SubjectRepository subjectRepository;
     @Mock private QuestionRepository questionRepository;
+    @Mock private StudentResponseRepository studentResponseRepository;
 
     private SkillMasteryService service;
     private BktConfigProperties bktConfig;
@@ -53,7 +55,7 @@ class SkillMasteryServiceTest {
         BktEngine engine = new BktEngine(bktConfig);
         service = new SkillMasteryService(
                 skillMasteryRepository, studentRepository, subjectRepository,
-                questionRepository, engine, bktConfig);
+                questionRepository, studentResponseRepository, engine, bktConfig);
 
         subject = new Subject();
         subject.setId(7L);

@@ -7,6 +7,7 @@ import com.springboot.manhaji.entity.*;
 import com.springboot.manhaji.repository.QuestionRepository;
 import com.springboot.manhaji.repository.SkillMasteryRepository;
 import com.springboot.manhaji.repository.StudentRepository;
+import com.springboot.manhaji.repository.StudentResponseRepository;
 import com.springboot.manhaji.repository.SubjectRepository;
 import com.springboot.manhaji.service.ai.BktEngine;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +39,7 @@ public class SkillMasteryService {
     private final StudentRepository studentRepository;
     private final SubjectRepository subjectRepository;
     private final QuestionRepository questionRepository;
+    private final StudentResponseRepository studentResponseRepository;
     private final BktEngine bktEngine;
     private final BktConfigProperties bktConfig;
 
@@ -87,6 +89,29 @@ public class SkillMasteryService {
 
         skillMasteryRepository.saveAll(cache.values());
         log.debug("BKT: updated {} skill cells for student {}", cache.size(), studentId);
+    }
+
+    /**
+     * Re-derive a student's ENTIRE BKT state from their persisted response
+     * history, in answer order. Idempotent: wipes the existing mastery cells
+     * first, so re-running produces the same result instead of double-counting.
+     *
+     * <p>Used by {@code DataSeeder} to give demo students real skill mastery
+     * (their attempts are written straight to the DB, bypassing
+     * {@code completeAttempt} — the normal BKT entry point). Also usable as a
+     * one-off "recompute mastery" utility.
+     *
+     * @return number of responses folded (0 if the student has no history)
+     */
+    @Transactional
+    public int rebuildForStudent(Long studentId) {
+        skillMasteryRepository.deleteByStudentId(studentId);
+        skillMasteryRepository.flush(); // clear rows before re-insert (unique constraint)
+
+        List<StudentResponse> ordered =
+                studentResponseRepository.findAllForBktByStudentId(studentId);
+        recordResponses(studentId, ordered);
+        return ordered.size();
     }
 
     private SkillMastery loadOrCreate(Student student, Subject subject, String subSkill) {

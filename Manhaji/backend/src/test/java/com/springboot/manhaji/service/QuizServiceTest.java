@@ -54,7 +54,11 @@ class QuizServiceTest {
     @Mock private PronunciationScoringService pronunciationScoringService;
     @Mock private com.springboot.manhaji.service.QuizSelectionService quizSelectionService;
     @Mock private com.springboot.manhaji.service.SkillMasteryService skillMasteryService;
+    @Mock private com.springboot.manhaji.service.ai.AiQuestionGenerationService aiGenerationService;
     @Spy  private ObjectMapper objectMapper = new ObjectMapper();
+
+    /** Real (not mock) so tests can flip the generate-questions flag on/off. */
+    private com.springboot.manhaji.config.AiConfigProperties aiConfig;
 
     private QuizService quizService;
 
@@ -68,13 +72,14 @@ class QuizServiceTest {
         // Tier 4: ReadingComparisonService is pure string logic with no
         // dependencies — pass a real instance instead of a mock so READING
         // submissions exercise the actual word matcher.
+        aiConfig = new com.springboot.manhaji.config.AiConfigProperties(); // generate-questions disabled by default
         quizService = new QuizService(
                 quizRepository, questionRepository, attemptRepository, responseRepository,
                 studentRepository, progressRepository, subjectRepository, objectMapper,
                 geminiService, whisperService, pronunciationScoringService,
                 new ReadingComparisonService(),
-                quizSelectionService, skillMasteryService,
-                TestMessages.create(), new QuizConfigProperties());
+                quizSelectionService, skillMasteryService, aiGenerationService,
+                TestMessages.create(), new QuizConfigProperties(), aiConfig);
 
         // Audit-4 fix C2 (2026-05-15): every submit-* path now verifies that
         // the question belongs to the attempt's quiz. Default the mock to
@@ -1100,6 +1105,120 @@ class QuizServiceTest {
             assertThat(response.getTranscribedText()).isEqualTo("لمان");
             assertThat(response.getPhonemeErrors()).containsExactly("ر");
             assertThat(response.getGuidance()).isEqualTo("ركّز على صوت الراء من الحلق");
+        }
+    }
+
+    @org.junit.jupiter.api.Nested
+    @org.junit.jupiter.api.DisplayName("generatePersonalizedQuiz — AI question blend")
+    class PersonalizedQuizAiBlend {
+
+        private Question tf(long id, boolean ai) {
+            Question q = new Question();
+            q.setId(id);
+            q.setType(QuestionType.TRUE_FALSE);
+            q.setQuestionText("سؤال " + id);
+            q.setCorrectAnswer("صح");
+            q.setDifficultyLevel(2);
+            q.setAiGenerated(ai);
+            return q;
+        }
+
+        private List<Question> bank(int n) {
+            List<Question> out = new ArrayList<>();
+            for (long i = 1; i <= n; i++) out.add(tf(i, false));
+            return out;
+        }
+
+        private void stubCommon(List<Question> bankQs) {
+            when(subjectRepository.findById(1L)).thenReturn(Optional.of(testSubject));
+            when(studentRepository.findById(1L)).thenReturn(Optional.of(testStudent));
+            when(quizSelectionService.selectPersonalized(1L, 1L,
+                    com.springboot.manhaji.service.QuizSelectionService.DEFAULT_PRACTICE_SIZE))
+                    .thenReturn(bankQs);
+            when(quizRepository.findByGeneratedForStudentIdAndSubjectIdAndQuizType(anyLong(), anyLong(), any()))
+                    .thenReturn(Optional.empty());
+            when(quizRepository.save(any(Quiz.class))).thenAnswer(inv -> inv.getArgument(0));
+        }
+
+        private List<Question> savedQuestions() {
+            ArgumentCaptor<Quiz> captor = ArgumentCaptor.forClass(Quiz.class);
+            verify(quizRepository).save(captor.capture());
+            return captor.getValue().getQuestions();
+        }
+
+        @Test
+        @org.junit.jupiter.api.DisplayName("valid AI questions are blended, total size preserved")
+        void blendsValidAiQuestions() {
+            aiConfig.getGenerateQuestions().setEnabled(true);
+            aiConfig.getGenerateQuestions().setCount(3);
+            List<Question> bank = bank(10);
+            stubCommon(bank);
+            when(geminiService.isAvailable()).thenReturn(true);
+            when(quizSelectionService.analyzeWeakestSkill(1L, 1L)).thenReturn(
+                    new com.springboot.manhaji.service.QuizSelectionService.WeakSkillTarget("recognition", 3));
+            Question ground = tf(1L, false);
+            ground.setSubSkill("recognition");
+            ground.setLesson(testLesson);
+            when(questionRepository.findAllBySubjectIdWithLesson(1L)).thenReturn(List.of(ground));
+            List<Question> ai = List.of(tf(101L, true), tf(102L, true), tf(103L, true));
+            when(aiGenerationService.generate(testLesson, "recognition", 3, 3, "ar")).thenReturn(ai);
+            when(quizSelectionService.pedagogicalOrder(any())).thenAnswer(inv -> inv.getArgument(0));
+
+            quizService.generatePersonalizedQuiz(1L, 1L);
+
+            List<Question> finalQs = savedQuestions();
+            assertThat(finalQs).hasSize(10);           // total preserved
+            assertThat(finalQs).containsAll(ai);       // 3 AI blended in
+            assertThat(finalQs).contains(bank.get(0)); // top-ranked bank kept
+            assertThat(finalQs).doesNotContain(bank.get(9)); // lowest-ranked bank dropped
+            verify(aiGenerationService).generate(testLesson, "recognition", 3, 3, "ar");
+        }
+
+        @Test
+        @org.junit.jupiter.api.DisplayName("empty/invalid AI result → bank-only, no error")
+        void fallsBackWhenAiReturnsNothing() {
+            aiConfig.getGenerateQuestions().setEnabled(true);
+            List<Question> bank = bank(10);
+            stubCommon(bank);
+            when(geminiService.isAvailable()).thenReturn(true);
+            when(quizSelectionService.analyzeWeakestSkill(1L, 1L)).thenReturn(
+                    new com.springboot.manhaji.service.QuizSelectionService.WeakSkillTarget("recognition", 3));
+            Question ground = tf(1L, false);
+            ground.setSubSkill("recognition");
+            ground.setLesson(testLesson);
+            when(questionRepository.findAllBySubjectIdWithLesson(1L)).thenReturn(List.of(ground));
+            when(aiGenerationService.generate(any(), any(), anyInt(), anyInt(), any()))
+                    .thenReturn(List.of()); // all items invalid / junk JSON
+
+            quizService.generatePersonalizedQuiz(1L, 1L);
+
+            assertThat(savedQuestions()).containsExactlyElementsOf(bank); // unchanged
+        }
+
+        @Test
+        @org.junit.jupiter.api.DisplayName("feature flag off → bank-only, generation never called")
+        void skipsWhenDisabled() {
+            // aiConfig default: generate-questions disabled.
+            stubCommon(bank(10));
+
+            quizService.generatePersonalizedQuiz(1L, 1L);
+
+            assertThat(savedQuestions()).hasSize(10);
+            verify(aiGenerationService, never()).generate(any(), any(), anyInt(), anyInt(), any());
+        }
+
+        @Test
+        @org.junit.jupiter.api.DisplayName("cold-start (no BKT signal) → bank-only, generation never called")
+        void skipsAtColdStart() {
+            aiConfig.getGenerateQuestions().setEnabled(true);
+            stubCommon(bank(10));
+            when(geminiService.isAvailable()).thenReturn(true);
+            when(quizSelectionService.analyzeWeakestSkill(1L, 1L)).thenReturn(null); // cold start
+
+            quizService.generatePersonalizedQuiz(1L, 1L);
+
+            assertThat(savedQuestions()).hasSize(10);
+            verify(aiGenerationService, never()).generate(any(), any(), anyInt(), anyInt(), any());
         }
     }
 }

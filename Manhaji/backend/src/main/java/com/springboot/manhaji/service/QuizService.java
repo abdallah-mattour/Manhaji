@@ -2,6 +2,7 @@ package com.springboot.manhaji.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.springboot.manhaji.config.AiConfigProperties;
 import com.springboot.manhaji.config.QuizConfigProperties;
 import com.springboot.manhaji.dto.request.SubmitAnswerRequest;
 import com.springboot.manhaji.dto.request.TracingSubmitRequest;
@@ -14,6 +15,7 @@ import com.springboot.manhaji.entity.enums.QuizType;
 import com.springboot.manhaji.exception.BadRequestException;
 import com.springboot.manhaji.exception.ResourceNotFoundException;
 import com.springboot.manhaji.repository.*;
+import com.springboot.manhaji.service.ai.AiQuestionGenerationService;
 import com.springboot.manhaji.service.ai.GeminiService;
 import com.springboot.manhaji.service.ai.PronunciationScoringService;
 import com.springboot.manhaji.service.ai.WhisperService;
@@ -47,8 +49,10 @@ public class QuizService {
     private final ReadingComparisonService readingComparisonService;
     private final QuizSelectionService quizSelectionService;
     private final SkillMasteryService skillMasteryService;
+    private final AiQuestionGenerationService aiGenerationService;
     private final Messages messages;
     private final QuizConfigProperties quizConfig;
+    private final AiConfigProperties aiConfig;
 
     // Get quiz for a lesson
     public QuizResponse getQuizByLesson(Long lessonId) {
@@ -126,6 +130,11 @@ public class QuizService {
             throw new ResourceNotFoundException("Subject questions", subjectId);
         }
 
+        // Optionally blend a few runtime-generated AI questions aimed at the
+        // weakest sub-skill. Total quiz size is preserved; any failure/timeout/
+        // cold-start silently keeps the curriculum-only quiz.
+        chosen = blendAiQuestions(chosen, subject, studentId);
+
         // Find-or-create the one personalized quiz row for this (student, subject).
         Quiz quiz = quizRepository
                 .findByGeneratedForStudentIdAndSubjectIdAndQuizType(
@@ -138,11 +147,79 @@ public class QuizService {
         quiz.setLesson(null);
         quiz.setSubject(subject);
         quiz.setGeneratedForStudentId(studentId);
-        // Repopulate the question set (replace, don't append).
+        // Repopulate the question set (replace, don't append). Order matters
+        // here — it's the adaptive/pedagogical arc from selectPersonalized, so
+        // render it as-is instead of the default textbook-id sort.
         quiz.setQuestions(new ArrayList<>(chosen));
         quiz = quizRepository.save(quiz);
 
-        return buildQuizResponse(quiz);
+        return buildQuizResponse(quiz, true);
+    }
+
+    /**
+     * Blend up to {@code count} runtime AI-generated questions (targeting the
+     * child's weakest sub-skill) into the bank selection, preserving the total
+     * quiz size (AI questions replace the lowest-ranked bank questions). At
+     * least one bank question is always kept. Re-applies the pedagogical arc so
+     * the AI (stretch-difficulty) items seat mid-quiz.
+     *
+     * <p><b>Fail-soft:</b> if the feature is off, Gemini is unavailable, the
+     * student is at cold-start (no BKT signal), or generation returns nothing,
+     * the original bank selection is returned unchanged — the child always gets
+     * a full, valid quiz with no error and no hang.
+     */
+    private List<Question> blendAiQuestions(List<Question> bankChosen, Subject subject, Long studentId) {
+        AiConfigProperties.GenerateQuestions cfg = aiConfig.getGenerateQuestions();
+        if (!cfg.isEnabled() || !geminiService.isAvailable()) {
+            return bankChosen;
+        }
+        int total = bankChosen.size();
+        int aiWanted = Math.min(cfg.getCount(), Math.max(0, total - 1)); // keep ≥1 bank question
+        if (aiWanted <= 0) {
+            return bankChosen;
+        }
+        try {
+            QuizSelectionService.WeakSkillTarget weak =
+                    quizSelectionService.analyzeWeakestSkill(studentId, subject.getId());
+            if (weak == null) {
+                return bankChosen; // cold start — pure bank
+            }
+            Lesson ground = groundingLesson(subject.getId(), weak.subSkill());
+            if (ground == null) {
+                return bankChosen;
+            }
+            String language = isEnglishSubject(subject) ? "en" : "ar";
+            List<Question> ai = aiGenerationService.generate(
+                    ground, weak.subSkill(), weak.targetDifficulty(), aiWanted, language);
+            if (ai.isEmpty()) {
+                return bankChosen;
+            }
+            int keepBank = total - ai.size();
+            List<Question> blended = new ArrayList<>(total);
+            blended.addAll(bankChosen.subList(0, Math.max(0, keepBank)));
+            blended.addAll(ai);
+            return quizSelectionService.pedagogicalOrder(blended);
+        } catch (Exception e) {
+            log.warn("AI blend failed for student {} subject {} (non-fatal, bank-only): {}",
+                    studentId, subject.getId(), e.getMessage());
+            return bankChosen;
+        }
+    }
+
+    /** A curriculum lesson in the subject that carries the given sub-skill (to ground generation). */
+    private Lesson groundingLesson(Long subjectId, String subSkill) {
+        for (Question q : questionRepository.findAllBySubjectIdWithLesson(subjectId)) {
+            if (Boolean.TRUE.equals(q.getAiGenerated())) continue;
+            if (q.getLesson() != null && subSkill.equals(QuizSelectionService.deriveSubSkill(q))) {
+                return q.getLesson();
+            }
+        }
+        return null;
+    }
+
+    private static boolean isEnglishSubject(Subject subject) {
+        String name = subject.getName() == null ? "" : subject.getName();
+        return name.toLowerCase().contains("english") || name.contains("الإنجليزية");
     }
 
     /**
@@ -795,33 +872,51 @@ public class QuizService {
             QuestionType.IMAGE_MATCH, QuestionType.DRAG_DROP, QuestionType.READING);
 
     private QuizResponse buildQuizResponse(Quiz quiz) {
-        // Base order: by ID (insertion/textbook order). The media types were
-        // backfilled later, so their ids are the highest — a plain id sort
-        // clumps ALL of them at the very end of the quiz where a student
-        // rarely arrives. Interleave instead (2026-07-04): one media question
-        // after every two classic ones. Deterministic, so the quiz order is
-        // stable across requests.
-        List<Question> sorted = quiz.getQuestions().stream()
-                .sorted((a, b) -> Long.compare(a.getId(), b.getId()))
-                .toList();
-        List<Question> classic = new ArrayList<>();
-        List<Question> media = new ArrayList<>();
-        for (Question question : sorted) {
-            (MEDIA_TYPES.contains(question.getType()) ? media : classic).add(question);
-        }
-        List<Question> mixed = new ArrayList<>(sorted.size());
-        int mediaIdx = 0;
-        for (int i = 0; i < classic.size(); i++) {
-            mixed.add(classic.get(i));
-            if (i % 2 == 1 && mediaIdx < media.size()) {
+        return buildQuizResponse(quiz, false);
+    }
+
+    /**
+     * @param preserveQuestionOrder when {@code true}, render questions in the
+     *        exact order they sit in {@code quiz.getQuestions()} — used by the
+     *        PERSONALIZED "Challenge Me" quiz, whose order is a deliberate
+     *        adaptive/pedagogical arc from {@code QuizSelectionService} that the
+     *        default id-sort would otherwise throw away. LESSON quizzes pass
+     *        {@code false} and keep the textbook-id ordering + media interleave.
+     */
+    private QuizResponse buildQuizResponse(Quiz quiz, boolean preserveQuestionOrder) {
+        List<Question> ordered;
+        if (preserveQuestionOrder) {
+            ordered = new ArrayList<>(quiz.getQuestions());
+        } else {
+            // Base order: by ID (insertion/textbook order). The media types were
+            // backfilled later, so their ids are the highest — a plain id sort
+            // clumps ALL of them at the very end of the quiz where a student
+            // rarely arrives. Interleave instead (2026-07-04): one media question
+            // after every two classic ones. Deterministic, so the quiz order is
+            // stable across requests.
+            List<Question> sorted = quiz.getQuestions().stream()
+                    .sorted((a, b) -> Long.compare(a.getId(), b.getId()))
+                    .toList();
+            List<Question> classic = new ArrayList<>();
+            List<Question> media = new ArrayList<>();
+            for (Question question : sorted) {
+                (MEDIA_TYPES.contains(question.getType()) ? media : classic).add(question);
+            }
+            List<Question> mixed = new ArrayList<>(sorted.size());
+            int mediaIdx = 0;
+            for (int i = 0; i < classic.size(); i++) {
+                mixed.add(classic.get(i));
+                if (i % 2 == 1 && mediaIdx < media.size()) {
+                    mixed.add(media.get(mediaIdx++));
+                }
+            }
+            while (mediaIdx < media.size()) {
                 mixed.add(media.get(mediaIdx++));
             }
-        }
-        while (mediaIdx < media.size()) {
-            mixed.add(media.get(mediaIdx++));
+            ordered = mixed;
         }
 
-        List<QuestionResponse> questionResponses = mixed.stream()
+        List<QuestionResponse> questionResponses = ordered.stream()
                 .map(this::buildQuestionResponse)
                 .toList();
 

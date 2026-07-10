@@ -33,6 +33,7 @@ dependencies {
 
     // JPA & MySQL
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
     runtimeOnly("com.mysql:mysql-connector-j")
 
     // Validation

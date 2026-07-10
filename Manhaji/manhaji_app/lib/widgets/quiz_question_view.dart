@@ -108,6 +108,11 @@ class _QuizQuestionViewState extends State<QuizQuestionView>
   @override
   Widget build(BuildContext context) {
     final typeColor = AppTheme.colorForQuestionType(widget.question.type);
+    // Avoid two "listen" controls: when the question carries its own authored
+    // audio clip, QuestionMediaHeader already renders a "Listen"/"استمع" button,
+    // so we suppress the TTS speaker chip on the prompt (it would be a second,
+    // redundant audio button — the double-button seen in English lessons).
+    final hasAudioClip = (widget.question.audioUrl ?? '').isNotEmpty;
 
     final card = AnimatedBuilder(
       animation: widget.shakeAnimation,
@@ -139,7 +144,10 @@ class _QuizQuestionViewState extends State<QuizQuestionView>
               audioUrl: widget.question.audioUrl,
               english: widget.english,
             ),
-            _Prompt(text: widget.question.questionText, onSpeak: widget.onSpeak),
+            _Prompt(
+              text: widget.question.questionText,
+              onSpeak: hasAudioClip ? null : widget.onSpeak,
+            ),
             if (widget.isRetry) ...[
               const AppGap.v3(),
               _RetryBanner(english: widget.english),

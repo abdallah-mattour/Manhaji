@@ -249,48 +249,75 @@ public class QuizSelectionService {
     }
 
     /**
-     * Weighted-random pick of {@code target} questions from the weight-ranked
-     * candidates (#1). Instead of a deterministic top-N, we sample without
-     * replacement with probability proportional to weight — so repeated
-     * "Challenge Me" taps vary while still strongly favouring weak-skill /
-     * right-difficulty questions. Randomness is bounded to the strongest
-     * {@code ~2×target} candidates (the pool) so a lucky draw never surfaces a
-     * genuinely irrelevant, well-mastered question. A per-sub-skill cap keeps
-     * breadth; an uncapped top-up fills any shortfall from a tiny pool.
+     * Pick {@code target} questions that both target the child's weak skills AND
+     * span several sub-skills, so an adaptive quiz is a varied MIX — never 10
+     * questions of one type.
+     *
+     * <p>Earlier this skimmed the global top-N by weight and capped per skill,
+     * but when ONE sub-skill was much weaker than the rest it monopolised the
+     * whole top-N (e.g. every ORDERING question outranked everything else), the
+     * "distinct skills in the pool" collapsed to 1, and the cap became a no-op —
+     * producing a monotone single-type quiz. The fix groups ALL candidates by
+     * sub-skill and picks across skills with a HARD per-skill cap, so breadth is
+     * structural rather than a side effect of the pool.
+     *
+     * <ul>
+     *   <li>Each pick chooses a sub-skill by weighted randomness (a skill's
+     *       weight = its best remaining question), so the weakest skill is
+     *       favoured but never monopolises — and repeated taps vary.</li>
+     *   <li>A skill is excluded once it hits {@code cap} (≈ target/4, so ~4
+     *       skills share a 10-question quiz), forcing the quiz across skills.</li>
+     *   <li>Within a skill, the question is a weighted-random draw from its top
+     *       few by weight (variety without surfacing its weakest-fit items).</li>
+     * </ul>
      */
     private List<Question> weightedSample(List<Scored> rankedByWeightDesc, int target) {
-        int poolSize = Math.min(rankedByWeightDesc.size(), Math.max(2 * target, target + 5));
-        List<Scored> remaining = new ArrayList<>(rankedByWeightDesc.subList(0, poolSize));
-
-        int distinctSkills = (int) remaining.stream()
-                .map(s -> deriveSubSkill(s.q())).distinct().count();
-        // e.g. target 10 with ≥4 skills → cap 3; with 2 skills → cap 5.
+        // Group ALL candidates by sub-skill (each group stays weight-desc).
+        LinkedHashMap<String, List<Scored>> bySkill = new LinkedHashMap<>();
+        for (Scored s : rankedByWeightDesc) {
+            bySkill.computeIfAbsent(deriveSubSkill(s.q()), k -> new ArrayList<>()).add(s);
+        }
+        int distinctSkills = bySkill.size();
+        // Cap one sub-skill (hence question type) to a share of the quiz. Aim to
+        // involve up to ~4 skills: target 10 → cap 3; only 2 skills → cap 5.
         int cap = Math.max(2, (int) Math.ceil((double) target / Math.min(Math.max(distinctSkills, 1), 4)));
 
-        Map<String, Integer> perSkill = new HashMap<>();
+        // Soft cap on any one question TYPE too, so subjects whose sub-skills
+        // are mostly authored as MCQ (English/Math) don't come back all-MCQ even
+        // though the sub-skills are diverse. Preference, not a hard limit: if a
+        // skill only offers a saturated type we still take it (never get stuck).
+        int typeCap = Math.max(3, (int) Math.ceil(target * 0.6));
+        Map<String, Integer> takenType = new HashMap<>();
+
+        Map<String, Integer> taken = new HashMap<>();
         List<Question> out = new ArrayList<>(target);
-        while (out.size() < target && !remaining.isEmpty()) {
+        while (out.size() < target) {
+            // Skills still eligible: have questions left and aren't cap-blocked.
+            List<String> eligible = new ArrayList<>();
             double totalW = 0.0;
-            for (Scored s : remaining) {
-                if (perSkill.getOrDefault(deriveSubSkill(s.q()), 0) < cap) {
-                    totalW += s.weight() + 0.01; // epsilon so a zero-weight item can still appear
-                }
+            for (Map.Entry<String, List<Scored>> e : bySkill.entrySet()) {
+                if (e.getValue().isEmpty()) continue;
+                if (taken.getOrDefault(e.getKey(), 0) >= cap) continue;
+                eligible.add(e.getKey());
+                totalW += e.getValue().get(0).weight() + 0.01;
             }
-            if (totalW <= 0.0) break; // everything left is cap-blocked
+            if (eligible.isEmpty()) break;
+
+            // Weighted-random skill (weakest-emphasis + variety), then a
+            // type-aware weighted-random question from that skill's top window.
             double dart = random.nextDouble() * totalW;
             double acc = 0.0;
-            Scored picked = null;
-            for (Scored s : remaining) {
-                if (perSkill.getOrDefault(deriveSubSkill(s.q()), 0) >= cap) continue;
-                acc += s.weight() + 0.01;
-                if (acc >= dart) { picked = s; break; }
+            String skill = eligible.get(eligible.size() - 1);
+            for (String s : eligible) {
+                acc += bySkill.get(s).get(0).weight() + 0.01;
+                if (acc >= dart) { skill = s; break; }
             }
-            if (picked == null) break;
-            remaining.remove(picked);
-            out.add(picked.q());
-            perSkill.merge(deriveSubSkill(picked.q()), 1, Integer::sum);
+            Scored pick = popWeightedRandom(bySkill.get(skill), takenType, typeCap);
+            out.add(pick.q());
+            taken.merge(skill, 1, Integer::sum);
+            takenType.merge(pick.q().getType().name(), 1, Integer::sum);
         }
-        // Top up (uncapped, in rank order) if the cap/pool left us short.
+        // Top up ignoring the cap if a small skill pool left us short.
         if (out.size() < target) {
             Set<Long> chosen = new HashSet<>();
             for (Question q : out) chosen.add(q.getId());
@@ -300,6 +327,36 @@ public class QuizSelectionService {
             }
         }
         return out;
+    }
+
+    /**
+     * Remove and return one question from a weight-ordered skill group, picked
+     * with weighted randomness among its top few — variety without surfacing the
+     * skill's weakest-fit questions. Prefers questions whose TYPE hasn't hit
+     * {@code typeCap}; falls back to the plain top window if the skill only
+     * offers already-saturated types (so selection never stalls).
+     */
+    private Scored popWeightedRandom(List<Scored> weightOrderedGroup,
+                                     Map<String, Integer> takenType, int typeCap) {
+        int window = Math.min(weightOrderedGroup.size(), 6);
+        List<Integer> idxs = new ArrayList<>();
+        for (int i = 0; i < window; i++) {
+            String t = weightOrderedGroup.get(i).q().getType().name();
+            if (takenType.getOrDefault(t, 0) < typeCap) idxs.add(i);
+        }
+        if (idxs.isEmpty()) {
+            for (int i = 0; i < Math.min(weightOrderedGroup.size(), 4); i++) idxs.add(i);
+        }
+        double total = 0.0;
+        for (int i : idxs) total += weightOrderedGroup.get(i).weight() + 0.01;
+        double dart = random.nextDouble() * total;
+        double acc = 0.0;
+        int chosen = idxs.get(idxs.size() - 1);
+        for (int i : idxs) {
+            acc += weightOrderedGroup.get(i).weight() + 0.01;
+            if (acc >= dart) { chosen = i; break; }
+        }
+        return weightOrderedGroup.remove(chosen);
     }
 
     /**

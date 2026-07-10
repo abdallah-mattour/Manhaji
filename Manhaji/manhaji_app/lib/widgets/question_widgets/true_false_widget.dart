@@ -110,7 +110,12 @@ class _TfButton extends StatelessWidget {
         contentColor = AppTheme.textLight;
       }
     } else if (isSelected) {
-      color = accentColor.withValues(alpha: 0.15);
+      // On tap (before grading) keep the card WHITE so the label stays fully
+      // legible — the thick accent border + accent-tinted icon/text signal the
+      // choice. Previously the whole button filled with the accent tint, which
+      // read as "the button turned red/green and hid the writing". The light
+      // green/red feedback fill only appears AFTER answering (branch above).
+      color = AppTheme.cardWhite;
       borderColor = accentColor;
       contentColor = accentColor;
     }

@@ -259,6 +259,7 @@ class _HomeScreenState extends State<HomeScreen> {
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       builder: (sheetCtx) => _ChallengeSubjectPicker(
         subjects: subjects,
         onPick: (subject) {
@@ -1218,6 +1219,11 @@ class _ChallengeSubjectPicker extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 28),
+      // Cap the sheet so a grade with many subjects (4+) scrolls its list
+      // instead of overflowing the bottom (the "BOTTOM OVERFLOWED" banner).
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height * 0.75,
+      ),
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
@@ -1248,49 +1254,56 @@ class _ChallengeSubjectPicker extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          ...subjects.map((s) {
-            final slot = _SubjectColorRouter.indexForName(s.name);
-            final color = AppTheme.subjectColors[slot];
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Material(
-                color: color.withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(AppTheme.radiusM),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(AppTheme.radiusM),
-                  onTap: () => onPick(s),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 18,
-                      vertical: 16,
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          _SubjectColorRouter.iconForName(s.name),
-                          color: color,
-                          size: 28,
-                        ),
-                        const SizedBox(width: 14),
-                        Expanded(
-                          child: Text(
-                            s.name,
-                            style: TextStyle(
-                              fontFamily: 'Cairo',
-                              fontSize: 17,
-                              fontWeight: FontWeight.w700,
-                              color: AppTheme.textDark,
-                            ),
+          Flexible(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: subjects.map((s) {
+                  final slot = _SubjectColorRouter.indexForName(s.name);
+                  final color = AppTheme.subjectColors[slot];
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Material(
+                      color: color.withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(AppTheme.radiusM),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(AppTheme.radiusM),
+                        onTap: () => onPick(s),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 18,
+                            vertical: 16,
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                _SubjectColorRouter.iconForName(s.name),
+                                color: color,
+                                size: 28,
+                              ),
+                              const SizedBox(width: 14),
+                              Expanded(
+                                child: Text(
+                                  s.name,
+                                  style: TextStyle(
+                                    fontFamily: 'Cairo',
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w700,
+                                    color: AppTheme.textDark,
+                                  ),
+                                ),
+                              ),
+                              Icon(Icons.bolt_rounded, color: color, size: 22),
+                            ],
                           ),
                         ),
-                        Icon(Icons.bolt_rounded, color: color, size: 22),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                }).toList(),
               ),
-            );
-          }),
+            ),
+          ),
         ],
       ),
     );

@@ -184,8 +184,9 @@ Everything below is in the working tree, **not committed**. Backend `./gradlew t
 - To add Grade 5 (or edit Grade 4): edit the Python dicts, run `python _build_grade4_XX.py`, then `./gradlew test` to run the audit. No DataSeeder/Java change needed.
 
 ### B. Grade 4 rollout (Phase 6) — done, additive (no reseed)
-- New grade = new subjects, so a **normal backend boot imports Grade 4 additively** (no `manhaji.curriculum.reseed` wipe). Verified live 2026-07-08 by booting a throwaway instance on `:8081` against the same MySQL: log said **"Curriculum sync complete: 119 new lessons, 1185 new questions"**, 119 quizzes auto-created, 4 ORDERING items fairness-healed, **0 errors**. Grade 4 is now in the dev DB.
-- **Device smoke test (still the user's step):** register a Grade-4 student (or use a seeded one, see below) and confirm the 4 subjects → lessons → quizzes render.
+- New grade = new subjects, so a **normal backend boot imports Grade 4 additively** (no `manhaji.curriculum.reseed` wipe). Grade 4 is in the dev DB.
+- **Live smoke test PASSED 2026-07-08** (booted `bootRun` on `:8080` with `MANHAJI_DEMO_SEED=true`, then curled the API): DataSeeder log = "Curriculum diagnostic: Grade 4 has 4 subject(s)" + "Curriculum sync: all lessons already present"; login as `demo.g4.s1@manhaji.edu` → `gradeLevel=4`; `/student/dashboard` and `/lessons/subjects?gradeLevel=4` both return the 4 Grade-4 subjects with correct counts (اللغة العربية 30, English 18, الرياضيات 42, التربية الإسلامية 29 = 119 lessons); `/lessons/subject/14` → 18 English lessons with the authored titles; `/quiz/lesson/758` → 10 questions of authored content. **Note:** `/lessons/subjects` REQUIRES a `?gradeLevel=N` query param (the app sends it via `getSubjectsByGrade`); calling it bare returns a 500 (`MissingServletRequestParameterException`) — that's expected, not a bug.
+- **Remaining:** on-device (emulator/physical) visual walkthrough of a Grade-4 lesson — the API layer is proven, only the Flutter render on a device is unverified.
 
 ### C. Demo-student seeder — added, and already seeded into dev DB
 - `DataSeeder.seedDemoStudents()` (gated by env `MANHAJI_DEMO_SEED=true`, same gate as the teacher/admin/parent demo accounts). Creates **10 students × grades 1–4 = 40**, with hand-tuned points + avatars, linked to the demo parent. Idempotent (per-email existence check).

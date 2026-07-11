@@ -32,8 +32,14 @@ public class ProgressMetrics {
     private final LessonRepository lessonRepository;
 
     public int countCompleted(List<Progress> records) {
+        // A MASTERED lesson (mastery ≥ threshold) is completed — and then some.
+        // Counting only COMPLETED made top students who ACED their lessons show
+        // "0 lessons completed" in reports/teacher/parent views while their
+        // mastery % read 89%. The rest of the app (ProgressService, LessonService)
+        // already treats both as done; this shared helper must too.
         return (int) records.stream()
-                .filter(p -> p.getCompletionStatus() == CompletionStatus.COMPLETED)
+                .filter(p -> p.getCompletionStatus() == CompletionStatus.COMPLETED
+                        || p.getCompletionStatus() == CompletionStatus.MASTERED)
                 .count();
     }
 

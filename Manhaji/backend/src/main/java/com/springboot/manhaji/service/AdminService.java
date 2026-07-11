@@ -91,7 +91,8 @@ public class AdminService {
                 .count();
 
         long completedLessons = progressRepository.findAll().stream()
-                .filter(p -> p.getCompletionStatus() == CompletionStatus.COMPLETED)
+                .filter(p -> p.getCompletionStatus() == CompletionStatus.COMPLETED
+                        || p.getCompletionStatus() == CompletionStatus.MASTERED)
                 .count();
 
         return AdminStatsResponse.builder()

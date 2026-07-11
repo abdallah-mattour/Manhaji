@@ -189,6 +189,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             }, childCount: dashboard.subjects.length),
                           ),
                         ),
+                      // "مكافآتي" — the student's rewards page (level, XP,
+                      // streak, achievement badges). Separate from the shop
+                      // below (which spends stars on cosmetics).
+                      SliverToBoxAdapter(
+                        child: _MyRewardsEntryCard(
+                          onTap: () =>
+                              Navigator.pushNamed(context, AppRoutes.rewards),
+                        ),
+                      ),
                       SliverToBoxAdapter(
                         child: _RewardsEntryCard(
                           points: dashboard.totalPoints,
@@ -518,6 +527,93 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Home-screen entry to the "مكافآتي" page (level, XP, streak, badges).
+/// Styled to match [_RewardsEntryCard] (the shop) but with its own accent so
+/// the two are visually distinct.
+class _MyRewardsEntryCard extends StatelessWidget {
+  const _MyRewardsEntryCard({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 10, 16, 4),
+      child: Material(
+        color: AppTheme.cardWhite,
+        borderRadius: BorderRadius.circular(AppTheme.radiusL),
+        child: InkWell(
+          key: const ValueKey('student-my-rewards-entry-card'),
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(AppTheme.radiusL),
+          child: Container(
+            padding: const EdgeInsets.all(AppTheme.space4),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(AppTheme.radiusL),
+              border: Border.all(
+                color: AppTheme.primaryOrange.withValues(alpha: 0.45),
+                width: 1.5,
+              ),
+              boxShadow: AppTheme.elevationLow,
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 46,
+                  height: 46,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: AppTheme.primaryOrange.withValues(alpha: 0.18),
+                    borderRadius: BorderRadius.circular(AppTheme.radiusM),
+                  ),
+                  child: const Icon(
+                    Icons.emoji_events_rounded,
+                    color: AppTheme.primaryOrange,
+                    size: 27,
+                  ),
+                ),
+                const SizedBox(width: AppTheme.space3),
+                const Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'مكافآتي',
+                        style: TextStyle(
+                          fontFamily: 'Cairo',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w900,
+                          color: AppTheme.textDark,
+                        ),
+                      ),
+                      SizedBox(height: AppTheme.space1),
+                      Text(
+                        'مستواك، أوسمتك، وإنجازاتك',
+                        style: TextStyle(
+                          fontFamily: 'Cairo',
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: AppTheme.textGray,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: AppTheme.space3),
+                const Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  size: 18,
+                  color: AppTheme.textGray,
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

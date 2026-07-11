@@ -75,9 +75,12 @@ public class ProgressService {
                 .filter(p -> p.getCompletionStatus() == CompletionStatus.IN_PROGRESS)
                 .count();
 
-        // Overall mastery
+        // Overall mastery. Null-guard masteryLevel (a legacy null would NPE the
+        // whole تقدمي summary) — matches ProgressMetrics.averageMastery.
         double overallMastery = allProgress.isEmpty() ? 0.0 :
-                allProgress.stream().mapToDouble(Progress::getMasteryLevel).average().orElse(0.0);
+                allProgress.stream()
+                        .mapToDouble(p -> p.getMasteryLevel() == null ? 0.0 : p.getMasteryLevel())
+                        .average().orElse(0.0);
 
         // Quiz stats
         List<Attempt> gradedAttempts = allAttempts.stream()
@@ -161,7 +164,9 @@ public class ProgressService {
                 .count();
 
         double mastery = subjectProgress.isEmpty() ? 0.0 :
-                subjectProgress.stream().mapToDouble(Progress::getMasteryLevel).average().orElse(0.0);
+                subjectProgress.stream()
+                        .mapToDouble(p -> p.getMasteryLevel() == null ? 0.0 : p.getMasteryLevel())
+                        .average().orElse(0.0);
 
         return SubjectProgressResponse.builder()
                 .subjectId(subject.getId())

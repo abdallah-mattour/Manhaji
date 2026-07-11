@@ -97,8 +97,13 @@ public class LearningPathService {
     }
 
     private String buildCompletedLessons(Student student) {
-        List<Progress> completed = progressRepository
-                .findByStudentIdAndCompletionStatus(student.getId(), CompletionStatus.COMPLETED);
+        // MASTERED counts as completed (see ProgressMetrics.countCompleted) —
+        // otherwise a top student who aced every lesson looks like she did
+        // nothing, and the learning-path AI recommends what she's already done.
+        List<Progress> completed = progressRepository.findByStudentId(student.getId()).stream()
+                .filter(p -> p.getCompletionStatus() == CompletionStatus.COMPLETED
+                        || p.getCompletionStatus() == CompletionStatus.MASTERED)
+                .toList();
         if (completed.isEmpty()) return "لا توجد دروس مكتملة بعد";
 
         return completed.stream()
@@ -142,7 +147,8 @@ public class LearningPathService {
                 .findByGradeLevelOrderByOrderIndexAsc(student.getGradeLevel());
 
         List<Long> completedIds = progressRecords.stream()
-                .filter(p -> p.getCompletionStatus() == CompletionStatus.COMPLETED && p.getLesson() != null)
+                .filter(p -> (p.getCompletionStatus() == CompletionStatus.COMPLETED
+                        || p.getCompletionStatus() == CompletionStatus.MASTERED) && p.getLesson() != null)
                 .map(p -> p.getLesson().getId())
                 .toList();
 

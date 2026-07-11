@@ -191,7 +191,16 @@ class _SubjectLessonsScreenState extends State<SubjectLessonsScreen>
           itemBuilder: (context, index) {
             final lesson = lessons[index];
             final globalIndex = globalOffset + index;
-            final isLocked = globalIndex > 0 && !allLessons[globalIndex - 1].isCompleted;
+            // Gate the NEXT unopened lesson on finishing the previous one, but
+            // never re-lock a lesson the student already opened. Without the
+            // second clause, the first lesson of a semester locks whenever the
+            // last lesson of the previous semester is unfinished — even if the
+            // student already completed this one (bug: S2 unit shown locked at
+            // 93%). A completed/in-progress lesson is always tappable.
+            final isLocked = globalIndex > 0 &&
+                !allLessons[globalIndex - 1].isCompleted &&
+                !lesson.isCompleted &&
+                !lesson.isInProgress;
 
             final double rawOffset = (index % 4 == 0 || index % 4 == 3)
                 ? 0

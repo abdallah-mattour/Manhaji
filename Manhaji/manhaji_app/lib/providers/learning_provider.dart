@@ -403,6 +403,50 @@ class LearningProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Apply the server-graded result of a VOICE short-answer.
+  ///
+  /// The `/voice-answer` endpoint already transcribes AND grades the audio
+  /// (it creates the StudentResponse), so — exactly like
+  /// [applyPronunciationResult] — we must NOT call [submitAnswer] again. Doing
+  /// so used to re-grade a *second* time against the returned feedback string
+  /// instead of the child's speech, which flipped correct↔wrong at random.
+  /// Here we just fold the returned verdict into the tracker with the same
+  /// star / retry rules as a typed answer.
+  void applyVoiceAnswerResult(SubmitAnswerResult result) {
+    final step = currentStep;
+    if (step?.question == null) return;
+    final question = step!.question!;
+    final tracker = _trackers[question.id];
+    if (tracker == null) return;
+
+    tracker.attemptCount++;
+    tracker.lastResult = result;
+
+    if (result.isCorrect) {
+      tracker.everCorrect = true;
+      if (tracker.inRetryRound) {
+        tracker.starsEarned = 1;
+      } else if (tracker.attemptCount == 1) {
+        tracker.starsEarned = 3;
+      } else {
+        tracker.starsEarned = 2;
+      }
+      _recalcStars();
+      _phase = LearningPhase.stepFeedback;
+    } else if (!tracker.inRetryRound && tracker.attemptCount == 1) {
+      _phase = LearningPhase.stepRetry;
+    } else {
+      if (tracker.inRetryRound) {
+        tracker.starsEarned = 1;
+        _recalcStars();
+      } else if (!tracker.everCorrect) {
+        _retryQueue.add(question.id);
+      }
+      _phase = LearningPhase.stepFeedback;
+    }
+    notifyListeners();
+  }
+
   // Apply tracing result (client-side scored).
   // Persists to backend so StudentResponse rows feed dashboards + AI reports.
   // API failure is non-fatal — we still transition locally to keep UX flowing.

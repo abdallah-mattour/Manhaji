@@ -30,9 +30,16 @@ class ApiConfig {
     return uri.host == 'localhost' && uri.hasPort && uri.port == 8080;
   }
 
+  /// Backend host for on-device (physical phone) testing over Wi-Fi — the dev
+  /// PC's LAN IP. Change this if your PC's Wi-Fi address changes (`ipconfig`).
+  /// For the Android EMULATOR instead, use `http://10.0.2.2:8080`. You can also
+  /// override everything at run time with
+  /// `flutter run --dart-define=API_BASE_URL=http://<ip>:8080/api`.
+  static const String _androidHost = 'http://192.168.1.104:8080';
+
   static String get _nativeServerUrl {
     return switch (defaultTargetPlatform) {
-      TargetPlatform.android => 'http://10.0.2.2:8080',
+      TargetPlatform.android => _androidHost,
       TargetPlatform.iOS ||
       TargetPlatform.macOS ||
       TargetPlatform.linux ||

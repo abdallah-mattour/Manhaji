@@ -378,7 +378,8 @@ public class QuizService {
     // Submit a pronunciation attempt: transcribe audio, score fuzzy match, persist response.
     @Transactional
     public PronunciationScoreResponse submitPronunciation(
-            Long attemptId, Long questionId, byte[] audioBytes, String language, Long studentId) {
+            Long attemptId, Long questionId, byte[] audioBytes, String audioFilename,
+            String language, Long studentId) {
         Attempt attempt = attemptRepository.findById(attemptId)
                 .orElseThrow(() -> new ResourceNotFoundException("Attempt", attemptId));
 
@@ -428,7 +429,8 @@ public class QuizService {
         // when Gemini returns plain text — `transcribed` is populated and the
         // phonemeErrors/guidance fields stay empty.
         com.springboot.manhaji.service.ai.PhonemeAnalysis analysis =
-                whisperService.transcribeWithPhonemes(audioBytes, expected, lang);
+                whisperService.transcribeWithPhonemes(audioBytes, expected, lang,
+                        WhisperService.audioMimeForFilename(audioFilename));
         String transcribed = analysis.transcribed();
 
         // Tier 4 (2026-07): READING passages score word-by-word (accuracy =

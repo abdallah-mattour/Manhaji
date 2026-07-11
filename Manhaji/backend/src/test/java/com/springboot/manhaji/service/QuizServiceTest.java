@@ -1036,14 +1036,14 @@ class QuizServiceTest {
             when(questionRepository.findById(77L)).thenReturn(Optional.of(pronQuestion));
             when(whisperService.isAvailable()).thenReturn(false);
 
-            var response = quizService.submitPronunciation(70L, 77L, new byte[]{1, 2, 3}, "ar", 1L);
+            var response = quizService.submitPronunciation(70L, 77L, new byte[]{1, 2, 3}, "rec.wav", "ar", 1L);
 
             assertThat(response).isNotNull();
             assertThat(response.getScore()).isZero();
             assertThat(response.isCorrect()).isFalse();
             assertThat(response.getFeedback()).contains("غير متاحة");
             // No transcription attempted, no DB write.
-            verify(whisperService, never()).transcribe(any(), any());
+            verify(whisperService, never()).transcribe(any(), any(), any());
             verify(responseRepository, never()).save(any());
         }
 
@@ -1061,7 +1061,7 @@ class QuizServiceTest {
             when(questionRepository.findById(78L)).thenReturn(Optional.of(englishQuestion));
             when(whisperService.isAvailable()).thenReturn(true);
             // Feature B (2026-04-29): QuizService now calls transcribeWithPhonemes.
-            when(whisperService.transcribeWithPhonemes(any(), eq("apple"), eq("en")))
+            when(whisperService.transcribeWithPhonemes(any(), eq("apple"), eq("en"), any()))
                     .thenReturn(new com.springboot.manhaji.service.ai.PhonemeAnalysis(
                             "apple", java.util.List.of(), null));
             when(pronunciationScoringService.score("apple", "apple", "en")).thenReturn(100);
@@ -1069,12 +1069,12 @@ class QuizServiceTest {
             when(pronunciationScoringService.feedback(100, "apple")).thenReturn("نطق رائع! أحسنت.");
             when(pronunciationScoringService.isCorrect(100)).thenReturn(true);
 
-            var response = quizService.submitPronunciation(70L, 78L, new byte[]{1, 2, 3}, "en", 1L);
+            var response = quizService.submitPronunciation(70L, 78L, new byte[]{1, 2, 3}, "rec.wav", "en", 1L);
 
             assertThat(response.getScore()).isEqualTo(100);
             assertThat(response.isCorrect()).isTrue();
             verify(pronunciationScoringService).score("apple", "apple", "en");
-            verify(whisperService).transcribeWithPhonemes(any(), eq("apple"), eq("en"));
+            verify(whisperService).transcribeWithPhonemes(any(), eq("apple"), eq("en"), any());
         }
 
         @Test
@@ -1090,7 +1090,7 @@ class QuizServiceTest {
             when(attemptRepository.findById(70L)).thenReturn(Optional.of(pronAttempt));
             when(questionRepository.findById(79L)).thenReturn(Optional.of(arabicQuestion));
             when(whisperService.isAvailable()).thenReturn(true);
-            when(whisperService.transcribeWithPhonemes(any(), eq("رمان"), eq("ar")))
+            when(whisperService.transcribeWithPhonemes(any(), eq("رمان"), eq("ar"), any()))
                     .thenReturn(new com.springboot.manhaji.service.ai.PhonemeAnalysis(
                             "لمان",
                             java.util.List.of("ر"),
@@ -1100,7 +1100,7 @@ class QuizServiceTest {
             when(pronunciationScoringService.feedback(45, "رمان")).thenReturn("ركز على الحروف.");
             when(pronunciationScoringService.isCorrect(45)).thenReturn(false);
 
-            var response = quizService.submitPronunciation(70L, 79L, new byte[]{1, 2, 3}, "ar", 1L);
+            var response = quizService.submitPronunciation(70L, 79L, new byte[]{1, 2, 3}, "rec.wav", "ar", 1L);
 
             assertThat(response.getTranscribedText()).isEqualTo("لمان");
             assertThat(response.getPhonemeErrors()).containsExactly("ر");

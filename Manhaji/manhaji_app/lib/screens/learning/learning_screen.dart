@@ -716,19 +716,19 @@ class _LearningScreenState extends State<LearningScreen>
 
     try {
       final audioService = context.read<AudioApiService>();
-      final result = await audioService.submitVoiceAnswer(
+      final data = await audioService.submitVoiceAnswer(
         attemptId: attemptId,
         questionId: question.id,
         audioFilePath: audioPath,
       );
-      final transcription = result['feedback']?.toString() ?? '';
-      if (transcription.isNotEmpty) {
-        _textController.text = transcription;
-        setState(() => _selectedAnswer = transcription);
-      }
-      await provider.submitAnswer(
-        transcription.isNotEmpty ? transcription : (_selectedAnswer ?? ''),
-      );
+      // `/voice-answer` already transcribed AND graded the audio server-side.
+      // Apply THAT verdict directly. We deliberately do NOT:
+      //   • write to `_textController` — the text box is the child's typing
+      //     area only; the mic's transcription must not appear there.
+      //   • call `provider.submitAnswer(...)` again — re-submitting re-graded
+      //     the feedback string (not the speech), which is what made a correct
+      //     answer score wrong and a random one sometimes score right.
+      provider.applyVoiceAnswerResult(SubmitAnswerResult.fromJson(data));
       _onAnswerSubmitted(provider);
     } catch (e) {
       debugPrint('[voice-answer] error: $e');

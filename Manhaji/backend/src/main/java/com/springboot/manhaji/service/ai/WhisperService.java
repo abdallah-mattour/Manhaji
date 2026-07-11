@@ -28,13 +28,35 @@ public class WhisperService {
     }
 
     /**
+     * Map an uploaded audio filename to a Gemini-supported audio MIME type.
+     *
+     * <p>Critical for transcription: Gemini decodes by content but the label
+     * must not point it at the wrong decoder. The recorder was producing M4A
+     * while this service hardcoded {@code audio/webm}, so Gemini could not
+     * decode the phone's audio and every pronunciation scored 0. The app now
+     * records WAV (a Gemini-supported format); this derives the correct label
+     * per platform (web=webm, iOS/Android=wav) from the upload's extension.
+     */
+    public static String audioMimeForFilename(String filename) {
+        String n = filename == null ? "" : filename.toLowerCase();
+        if (n.endsWith(".wav")) return "audio/wav";
+        if (n.endsWith(".mp3")) return "audio/mp3";
+        if (n.endsWith(".flac")) return "audio/flac";
+        if (n.endsWith(".ogg") || n.endsWith(".opus")) return "audio/ogg";
+        if (n.endsWith(".aac")) return "audio/aac";
+        if (n.endsWith(".m4a") || n.endsWith(".mp4")) return "audio/mp4";
+        if (n.endsWith(".webm")) return "audio/webm";
+        return "audio/wav"; // the app records WAV — safe default
+    }
+
+    /**
      * Transcribe audio bytes to text using Gemini (free alternative to Whisper).
      *
      * @param audioData the audio file bytes
      * @param language  language code ("ar" for Arabic, "en" for English)
      * @return transcribed text, or an error message if unavailable
      */
-    public String transcribe(byte[] audioData, String language) {
+    public String transcribe(byte[] audioData, String language, String mimeType) {
         if (!isAvailable()) {
             return "خدمة التعرف على الصوت غير متوفرة حالياً";
         }
@@ -52,7 +74,7 @@ public class WhisperService {
                             Map.of("parts", List.of(
                                     Map.of(
                                             "inlineData", Map.of(
-                                                    "mimeType", "audio/webm",
+                                                    "mimeType", mimeType,
                                                     "data", base64Audio
                                             )
                                     ),
@@ -101,7 +123,8 @@ public class WhisperService {
      * @param expectedText what the child is supposed to be saying (the target word/ayah)
      * @param language     "ar" or "en"
      */
-    public PhonemeAnalysis transcribeWithPhonemes(byte[] audioData, String expectedText, String language) {
+    public PhonemeAnalysis transcribeWithPhonemes(byte[] audioData, String expectedText,
+                                                  String language, String mimeType) {
         if (!isAvailable()) {
             return PhonemeAnalysis.empty();
         }
@@ -136,7 +159,7 @@ public class WhisperService {
                             Map.of("parts", List.of(
                                     Map.of(
                                             "inlineData", Map.of(
-                                                    "mimeType", "audio/webm",
+                                                    "mimeType", mimeType,
                                                     "data", base64Audio
                                             )
                                     ),

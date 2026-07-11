@@ -140,8 +140,11 @@ public class QuizController {
         requireAudioWithinLimit(audioFile);
 
         try {
-            // Transcribe audio via Whisper
-            String transcription = whisperService.transcribe(audioFile.getBytes(), language);
+            // Transcribe audio via Whisper (Gemini). Pass the real MIME derived
+            // from the upload's filename so Gemini uses the right decoder.
+            String transcription = whisperService.transcribe(audioFile.getBytes(), language,
+                    com.springboot.manhaji.service.ai.WhisperService.audioMimeForFilename(
+                            audioFile.getOriginalFilename()));
             // Audit-4 fix H4 (2026-05-15): do NOT log the transcription content.
             // Student utterances are PII; in a school deployment this could leak
             // child voice content into log aggregators. Just log a length proxy.
@@ -178,7 +181,8 @@ public class QuizController {
 
         try {
             PronunciationScoreResponse response = quizService.submitPronunciation(
-                    attemptId, questionId, audioFile.getBytes(), language, studentId);
+                    attemptId, questionId, audioFile.getBytes(), audioFile.getOriginalFilename(),
+                    language, studentId);
             return ResponseEntity.ok(ApiResponse.success(response));
         } catch (Exception e) {
             log.error("Pronunciation scoring failed for attempt {}: {}", attemptId, e.getMessage());

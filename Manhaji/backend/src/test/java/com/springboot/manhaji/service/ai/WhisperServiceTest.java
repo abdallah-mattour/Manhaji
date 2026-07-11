@@ -138,7 +138,7 @@ class WhisperServiceTest {
     void transcribeWithPhonemesFallback() {
         // Default AiConfigProperties has no API key set → isConfigured() == false.
         PhonemeAnalysis result = whisperService.transcribeWithPhonemes(
-                new byte[]{1, 2, 3}, "رمان", "ar");
+                new byte[]{1, 2, 3}, "رمان", "ar", "audio/wav");
 
         assertThat(result).isNotNull();
         assertThat(result.transcribed()).isEmpty();

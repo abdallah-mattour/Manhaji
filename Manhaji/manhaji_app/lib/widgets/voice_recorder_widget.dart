@@ -15,12 +15,13 @@ import '../utils/app_log.dart';
 /// 1. User taps the mic button → request `Permission.microphone` if not yet
 ///    granted (Android shows a system dialog; iOS the equivalent).
 /// 2. Allocate a real on-disk path under the OS temp dir
-///    (`<tempDir>/manhaji_rec_<ts>.m4a`). Previously this widget passed
+///    (`<tempDir>/manhaji_rec_<ts>.wav`). Previously this widget passed
 ///    `path: ''` to `_recorder.start()`, which is undefined behaviour in
 ///    `record` 5.x — the file landed in an unknown location and the
 ///    child saw nothing happen.
-/// 3. Start the AAC-LC encoder (M4A container) — Gemini's audio
-///    transcription accepts M4A natively, no transcode needed server-side.
+/// 3. Start the WAV/PCM encoder — Gemini lists WAV as a supported audio
+///    format. (An earlier M4A/MP4 container was NOT decodable by Gemini, so
+///    every pronunciation transcribed to nothing and scored 0.)
 /// 4. Pulse the button + tick the 15-second countdown. Auto-stop on
 ///    timeout so a kid leaving the mic on doesn't ship 30 MB of silence
 ///    to the backend.
@@ -85,12 +86,14 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
   }
 
   /// Allocate a writable path under the OS temp dir with a unique name.
-  /// AAC-LC packaged in an MP4/M4A container — both Android's native
-  /// recorder and Gemini's audio transcription understand this directly.
+  /// WAV (PCM) — Gemini lists WAV as a supported transcription format, and it
+  /// avoids the M4A/MP4 container Gemini could NOT decode (which made every
+  /// pronunciation score 0 on real Android devices). Clips are short (≤15s), so
+  /// the uncompressed size is negligible.
   Future<String> _newTempPath() async {
     final tempDir = await getTemporaryDirectory();
     final ts = DateTime.now().millisecondsSinceEpoch;
-    return '${tempDir.path}${Platform.pathSeparator}manhaji_rec_$ts.m4a';
+    return '${tempDir.path}${Platform.pathSeparator}manhaji_rec_$ts.wav';
   }
 
   Future<void> _showError(String message) async {
@@ -134,7 +137,8 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
       _currentPath = await _newTempPath();
       _log.i('start: writing to $_currentPath');
       await _recorder.start(
-        const RecordConfig(encoder: AudioEncoder.aacLc),
+        // WAV/PCM so Gemini can decode it (M4A container was unreadable → 0).
+        const RecordConfig(encoder: AudioEncoder.wav),
         path: _currentPath!,
       );
       if (!mounted) return;

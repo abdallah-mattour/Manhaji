@@ -136,6 +136,7 @@ class PerformanceStats {
   final int quizzesTaken;
   final bool hasActivity;
   final List<SubjectStat> subjects;
+  final List<FocusSkill> focusSkills;
 
   PerformanceStats({
     required this.completedLessons,
@@ -148,6 +149,7 @@ class PerformanceStats {
     required this.quizzesTaken,
     required this.hasActivity,
     required this.subjects,
+    required this.focusSkills,
   });
 
   factory PerformanceStats.fromJson(Map<dynamic, dynamic> json) {
@@ -166,8 +168,55 @@ class PerformanceStats {
           .whereType<Map>()
           .map((subject) => SubjectStat.fromJson(subject))
           .toList(growable: false),
+      focusSkills:
+          (data['focusSkills'] is List ? data['focusSkills'] as List : const [])
+              .whereType<Map>()
+              .map((s) => FocusSkill.fromJson(s))
+              .toList(growable: false),
     );
   }
+}
+
+/// A weak sub-skill from the Bayesian Knowledge Tracing model, surfaced as a
+/// "focus area" — unique to Smart Reports.
+class FocusSkill {
+  final String subSkill;
+  final String subjectName;
+  final double masteryPercent;
+  final int observationCount;
+
+  FocusSkill({
+    required this.subSkill,
+    required this.subjectName,
+    required this.masteryPercent,
+    required this.observationCount,
+  });
+
+  factory FocusSkill.fromJson(Map<dynamic, dynamic> json) {
+    final data = _asMap(json);
+    return FocusSkill(
+      subSkill: _asString(data['subSkill']),
+      subjectName: _asString(data['subjectName']),
+      masteryPercent: _asDouble(data['masteryPercent']),
+      observationCount: _asInt(data['observationCount']),
+    );
+  }
+
+  /// Arabic display label for the sub-skill. Mirrors SkillScore.arabicLabel.
+  String get arabicLabel => _arabicLabels[subSkill] ?? subSkill;
+
+  static const Map<String, String> _arabicLabels = {
+    'recognition': 'التعرّف',
+    'comprehension': 'الفهم',
+    'production': 'الإنتاج',
+    'application': 'التطبيق',
+    'computation': 'الحساب',
+    'pronunciation': 'النطق',
+    'recitation': 'التلاوة',
+    'memorization': 'الحفظ',
+    'handwriting': 'الكتابة',
+    'reading': 'القراءة',
+  };
 }
 
 class SubjectStat {

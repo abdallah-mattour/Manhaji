@@ -13,10 +13,14 @@ import com.springboot.manhaji.exception.ResourceNotFoundException;
 import com.springboot.manhaji.repository.AttemptRepository;
 import com.springboot.manhaji.repository.ProgressReportRepository;
 import com.springboot.manhaji.repository.ProgressRepository;
+import com.springboot.manhaji.repository.SkillMasteryRepository;
 import com.springboot.manhaji.repository.StudentRepository;
 import com.springboot.manhaji.repository.SubjectRepository;
+import com.springboot.manhaji.entity.SkillMastery;
+import com.springboot.manhaji.service.ai.BktEngine;
 import com.springboot.manhaji.service.ai.GeminiService;
 import com.springboot.manhaji.service.support.ProgressMetrics;
+import java.util.Comparator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -41,6 +45,11 @@ public class ProgressReportService {
     private final GeminiService geminiService;
     private final ObjectMapper objectMapper;
     private final ProgressMetrics metrics;
+    private final SkillMasteryRepository skillMasteryRepository;
+    private final BktEngine bktEngine;
+
+    /** How many weak sub-skills to surface as "focus areas". */
+    private static final int FOCUS_SKILL_LIMIT = 3;
 
     @Transactional
     public ProgressReportResponse generateReport(Long studentId) {
@@ -155,8 +164,34 @@ public class ProgressReportService {
                 .currentStreak(student.getCurrentStreak())
                 .quizzesTaken((int) graded)
                 .subjects(subjects)
+                .focusSkills(buildFocusSkills(student.getId()))
                 .hasActivity(hasActivity)
                 .build();
+    }
+
+    /**
+     * The student's weakest practised-but-unmastered sub-skills from the BKT
+     * model, weakest first — the "مهارات تحتاج تركيز" section that makes the
+     * Smart Reports screen distinct from the raw stats on تقدمي.
+     *
+     * <p>Only cells with real observations are considered (a never-practised
+     * skill sitting at the BKT prior isn't a "weakness"), and mastered skills
+     * are excluded so the list is genuinely actionable.
+     */
+    private List<com.springboot.manhaji.dto.response.PerformanceStatsResponse.FocusSkill>
+            buildFocusSkills(Long studentId) {
+        return skillMasteryRepository.findByStudentId(studentId).stream()
+                .filter(sm -> sm.getObservationCount() > 0)
+                .filter(sm -> !bktEngine.isMastered(sm.getPMastery()))
+                .sorted(Comparator.comparingDouble(SkillMastery::getPMastery))
+                .limit(FOCUS_SKILL_LIMIT)
+                .map(sm -> com.springboot.manhaji.dto.response.PerformanceStatsResponse.FocusSkill.builder()
+                        .subSkill(sm.getSubSkill())
+                        .subjectName(sm.getSubject() != null ? sm.getSubject().getName() : "")
+                        .masteryPercent(ProgressMetrics.round2(sm.getPMastery() * 100.0))
+                        .observationCount(sm.getObservationCount())
+                        .build())
+                .toList();
     }
 
     public List<ProgressReportResponse> getReports(Long studentId) {

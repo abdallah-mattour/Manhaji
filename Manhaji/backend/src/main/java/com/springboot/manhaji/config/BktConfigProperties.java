@@ -40,13 +40,29 @@ import java.util.Map;
 public class BktConfigProperties {
 
     /** P(L0) — prior probability the skill is already mastered. */
-    private double pInit = 0.30;
+    private double pInit = 0.25;
 
-    /** P(T) — probability of learning the skill between opportunities. */
-    private double pTransit = 0.15;
+    /**
+     * P(T) — probability of learning the skill between opportunities.
+     *
+     * <p>Recalibrated 2026-07-13 (0.15 → 0.03). The old value made mastery run
+     * away: a couple of correct answers saturated the belief to ~1.0 and later
+     * wrong answers (dampened by slip) couldn't pull it back, so skills a
+     * student was only ~50% accurate on still displayed 100% "mastered". A low
+     * transition lets wrong answers actually count. Verified by simulating all
+     * ~11k real responses: false-mastery cells (real accuracy ≤60% but shown
+     * ≥90%) dropped from 48 to 9, with correlation-to-accuracy held at ~0.88.
+     */
+    private double pTransit = 0.03;
 
-    /** P(S) — slip: a master answers wrong. */
-    private double pSlip = 0.10;
+    /**
+     * P(S) — slip: a master answers wrong.
+     *
+     * <p>Recalibrated 2026-07-13 (0.10 → 0.05). A high slip told the model to
+     * dismiss wrong answers as bad luck, which is the other half of the
+     * runaway-mastery problem above.
+     */
+    private double pSlip = 0.05;
 
     /**
      * Default guess probability when a question type isn't in
@@ -69,11 +85,20 @@ public class BktConfigProperties {
         Map<QuestionType, Double> m = new EnumMap<>(QuestionType.class);
         m.put(QuestionType.MCQ, 0.25);          // 4 options → ~1/4
         m.put(QuestionType.TRUE_FALSE, 0.50);   // 2 options → ~1/2
+        // IMAGE_MCQ / LISTEN_CHOOSE are also multiple-choice (~4 options): they
+        // were falling through to the 0.05 default, so a lucky tap looked like
+        // strong mastery evidence. Fixed 2026-07-13 — a big driver of the false
+        // "100% mastered" bars on the مهاراتي radar.
+        m.put(QuestionType.IMAGE_MCQ, 0.25);
+        m.put(QuestionType.LISTEN_CHOOSE, 0.25);
         m.put(QuestionType.FILL_BLANK, 0.10);   // constrained but cue-able
         m.put(QuestionType.SHORT_ANSWER, 0.05);
-        m.put(QuestionType.ORDERING, 0.05);
+        m.put(QuestionType.ORDERING, 0.10);     // some sequences are guessable
+        m.put(QuestionType.IMAGE_MATCH, 0.10);
+        m.put(QuestionType.DRAG_DROP, 0.10);
         m.put(QuestionType.PRONUNCIATION, 0.05);
         m.put(QuestionType.TRACING, 0.05);
+        m.put(QuestionType.READING, 0.05);
         return m;
     }
 

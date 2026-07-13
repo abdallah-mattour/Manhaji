@@ -205,64 +205,74 @@ class _ProgressReportsTab extends StatelessWidget {
   }
 }
 
-/// Live performance snapshot: headline metric cards + per-subject mastery bars.
+/// AI-driven "focus areas" header — the weakest sub-skills from the Bayesian
+/// Knowledge Tracing model. This is what makes Smart Reports distinct from
+/// تقدمي (which shows the raw lesson/quiz stats). The duplicate metric grid +
+/// per-subject bars that used to live here were removed on purpose: تقدمي
+/// already covers them.
 class _StatsHeader extends StatelessWidget {
   final PerformanceStats stats;
   const _StatsHeader({required this.stats});
 
   @override
   Widget build(BuildContext context) {
+    final focus = stats.focusSkills;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 8),
-        // Headline metric tiles (2 columns).
-        GridView.count(
-          crossAxisCount: 2,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-          childAspectRatio: 2.2,
-          children: [
-            _MetricTile(
-                icon: Icons.menu_book_rounded,
-                color: AppTheme.primaryTerracotta,
-                value: '${stats.completedLessons}/${stats.totalLessons}',
-                label: 'دروس مكتملة'),
-            _MetricTile(
-                icon: Icons.track_changes_rounded,
-                color: AppTheme.primaryBlue,
-                value: '${stats.averageMastery.round()}%',
-                label: 'متوسط الإتقان'),
-            _MetricTile(
-                icon: Icons.quiz_rounded,
-                color: AppTheme.primaryPurple,
-                value: '${stats.averageScore.round()}%',
-                label: 'متوسط الدرجات'),
-            _MetricTile(
-                icon: Icons.local_fire_department_rounded,
-                color: AppTheme.primaryOrange,
-                value: '${stats.currentStreak}',
-                label: 'أيام متتالية'),
-          ],
-        ),
-        const SizedBox(height: 16),
-        if (stats.subjects.any((s) => s.totalLessons > 0)) ...[
-          const Text('الإتقان حسب المادة',
+        if (focus.isNotEmpty) ...[
+          Row(
+            children: const [
+              Icon(Icons.center_focus_strong_rounded,
+                  color: AppTheme.primaryPurple, size: 20),
+              SizedBox(width: 6),
+              Expanded(
+                child: Text('مهارات تحتاج تركيز',
+                    style: TextStyle(
+                        fontFamily: 'Cairo',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w900,
+                        color: AppTheme.textDark)),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          const Text('حدّدها نموذج تتبّع المهارات من إجابات طفلك السابقة',
               style: TextStyle(
                   fontFamily: 'Cairo',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w900,
-                  color: AppTheme.textDark)),
-          const SizedBox(height: 8),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: AppTheme.textGray)),
+          const SizedBox(height: 10),
           DuolingoCard(
             padding: const EdgeInsets.all(14),
             borderColor: AppTheme.surfaceMuted,
             child: Column(
               children: [
-                for (final s in stats.subjects)
-                  _SubjectBar(stat: s),
+                for (final f in focus) _FocusSkillRow(skill: f),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+        ] else if (stats.hasActivity) ...[
+          // No practised-but-weak skills → celebrate instead of showing blank.
+          DuolingoCard(
+            padding: const EdgeInsets.all(14),
+            borderColor: AppTheme.primaryGreen,
+            child: Row(
+              children: const [
+                Icon(Icons.emoji_events_rounded,
+                    color: AppTheme.primaryGreen, size: 22),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text('رائع! لا توجد مهارات ضعيفة حالياً — استمر هكذا 🎉',
+                      style: TextStyle(
+                          fontFamily: 'Cairo',
+                          fontSize: 13,
+                          fontWeight: FontWeight.w800,
+                          color: AppTheme.textDark)),
+                ),
               ],
             ),
           ),
@@ -280,72 +290,17 @@ class _StatsHeader extends StatelessWidget {
   }
 }
 
-class _MetricTile extends StatelessWidget {
-  final IconData icon;
-  final Color color;
-  final String value;
-  final String label;
-  const _MetricTile(
-      {required this.icon,
-      required this.color,
-      required this.value,
-      required this.label});
+/// One weak sub-skill row: Arabic skill name · subject, with a mastery bar.
+class _FocusSkillRow extends StatelessWidget {
+  final FocusSkill skill;
+  const _FocusSkillRow({required this.skill});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.10),
-        borderRadius: BorderRadius.circular(AppTheme.radiusL),
-        border: Border.all(color: color.withValues(alpha: 0.30), width: 1.5),
-      ),
-      child: Row(
-        children: [
-          Icon(icon, color: color, size: 26),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(value,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        fontFamily: 'Cairo',
-                        fontSize: 18,
-                        fontWeight: FontWeight.w900,
-                        color: color)),
-                Text(label,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        fontFamily: 'Cairo',
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                        color: AppTheme.textGray)),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _SubjectBar extends StatelessWidget {
-  final SubjectStat stat;
-  const _SubjectBar({required this.stat});
-
-  @override
-  Widget build(BuildContext context) {
-    final mastery = (stat.averageMastery / 100).clamp(0.0, 1.0);
-    final barColor = stat.averageMastery >= 70
-        ? AppTheme.primaryGreen
-        : stat.averageMastery >= 40
-            ? AppTheme.primaryOrange
-            : AppTheme.primaryRed;
+    final pct = (skill.masteryPercent / 100).clamp(0.0, 1.0);
+    final barColor = skill.masteryPercent >= 60
+        ? AppTheme.primaryOrange
+        : AppTheme.primaryRed;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Column(
@@ -355,29 +310,42 @@ class _SubjectBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                child: Text(stat.subjectName,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        fontFamily: 'Cairo',
-                        fontSize: 13,
-                        fontWeight: FontWeight.w800,
-                        color: AppTheme.textDark)),
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                          text: skill.arabicLabel,
+                          style: const TextStyle(
+                              fontFamily: 'Cairo',
+                              fontSize: 14,
+                              fontWeight: FontWeight.w900,
+                              color: AppTheme.textDark)),
+                      TextSpan(
+                          text: '  ·  ${skill.subjectName}',
+                          style: const TextStyle(
+                              fontFamily: 'Cairo',
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: AppTheme.textGray)),
+                    ],
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-              Text(
-                  '${stat.averageMastery.round()}%  ·  ${stat.completedLessons}/${stat.totalLessons}',
-                  style: const TextStyle(
+              Text('${skill.masteryPercent.round()}%',
+                  style: TextStyle(
                       fontFamily: 'Cairo',
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                      color: AppTheme.textGray)),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w900,
+                      color: barColor)),
             ],
           ),
           const SizedBox(height: 5),
           ClipRRect(
             borderRadius: BorderRadius.circular(AppTheme.radiusPill),
             child: LinearProgressIndicator(
-              value: mastery,
+              value: pct,
               minHeight: 9,
               backgroundColor: AppTheme.surfaceMuted,
               valueColor: AlwaysStoppedAnimation(barColor),

@@ -27,8 +27,26 @@ public class PerformanceStatsResponse {
     private int quizzesTaken;
     private List<SubjectStat> subjects;
 
+    /**
+     * The student's weakest sub-skills from the Bayesian Knowledge Tracing model
+     * (practised but not yet mastered), weakest first. Drives the "focus areas"
+     * section — unique to the Smart Reports screen (تقدمي shows raw stats only).
+     */
+    private List<FocusSkill> focusSkills;
+
     /** True when the student has no recorded activity yet (drives the empty state). */
     private boolean hasActivity;
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class FocusSkill {
+        private String subSkill;       // raw tag, e.g. "pronunciation"
+        private String subjectName;    // which subject this weak skill is in
+        private double masteryPercent; // BKT P(mastered) × 100, 0–100
+        private int observationCount;  // how many answers informed the estimate
+    }
 
     @Data
     @Builder

@@ -11,6 +11,9 @@ public interface SkillMasteryRepository extends JpaRepository<SkillMastery, Long
     /** All persisted sub-skill mastery rows for a student in one subject. */
     List<SkillMastery> findByStudentIdAndSubjectId(Long studentId, Long subjectId);
 
+    /** Every persisted sub-skill mastery row for a student across all subjects. */
+    List<SkillMastery> findByStudentId(Long studentId);
+
     /** The one row for a specific (student, subject, sub-skill) cell, if it exists. */
     Optional<SkillMastery> findByStudentIdAndSubjectIdAndSubSkill(
             Long studentId, Long subjectId, String subSkill);

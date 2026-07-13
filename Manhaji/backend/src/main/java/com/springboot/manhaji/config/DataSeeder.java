@@ -134,6 +134,31 @@ public class DataSeeder implements CommandLineRunner {
 
         // Seed demo teacher and admin accounts
         seedDemoAccounts();
+
+        // One-time BKT recompute after the 2026-07-13 recalibration. Gated by
+        // MANHAJI_BKT_REBUILD=true so it only runs when you ask for it.
+        rebuildAllMasteryIfRequested();
+    }
+
+    /**
+     * Re-derive every student's BKT skill mastery from their persisted response
+     * history through the (recalibrated) engine. Gated by
+     * {@code MANHAJI_BKT_REBUILD=true} — run once after a BKT parameter change so
+     * existing seeded mastery stops showing the old inflated numbers, then unset
+     * the flag. {@link SkillMasteryService#rebuildForStudent} is idempotent, so a
+     * stray re-run is harmless.
+     */
+    private void rebuildAllMasteryIfRequested() {
+        if (!"true".equalsIgnoreCase(System.getenv("MANHAJI_BKT_REBUILD"))) {
+            return;
+        }
+        var students = studentRepository.findAll();
+        int folded = 0;
+        for (var s : students) {
+            folded += skillMasteryService.rebuildForStudent(s.getId());
+        }
+        log.warn("MANHAJI_BKT_REBUILD=true — recomputed BKT mastery for {} students ({} responses folded)",
+                students.size(), folded);
     }
 
     /**

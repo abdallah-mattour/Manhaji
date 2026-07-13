@@ -44,6 +44,7 @@ class MockReportService extends ReportService {
           quizzesTaken: 0,
           hasActivity: false,
           subjects: const [],
+          focusSkills: const [],
         );
   }
 
@@ -157,6 +158,7 @@ void main() {
           quizzesTaken: 1,
           hasActivity: true,
           subjects: const [],
+          focusSkills: const [],
         );
         await provider.loadReports();
 
@@ -182,6 +184,7 @@ void main() {
           quizzesTaken: 2,
           hasActivity: true,
           subjects: const [],
+          focusSkills: const [],
         );
 
         await provider.generateReport();

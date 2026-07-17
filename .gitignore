@@ -7,6 +7,10 @@
 
 # Claude Code local state
 .claude/
+# Local-only project instructions (the canonical copy lives in
+# docs/internal/CLAUDE.md; a root copy makes Claude Code auto-load it without
+# putting AI-session notes on the public repo landing page).
+/CLAUDE.md
 
 # OS
 .DS_Store

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'app/routes.dart';
+import 'config/api_config.dart';
 import 'preview/preview_config.dart';
 import 'app/theme.dart';
 import 'providers/admin_provider.dart';
@@ -32,6 +33,10 @@ void main() async {
 
   final localStorage = LocalStorageService();
   await localStorage.init();
+
+  // Apply any saved backend address (set in-app when the network/IP changes)
+  // BEFORE services are built, so the Dio client picks it up.
+  ApiConfig.runtimeOrigin = localStorage.getServerBaseUrl();
 
   final services = AppServices.create(localStorage);
 

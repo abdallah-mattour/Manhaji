@@ -6,6 +6,7 @@ import '../../providers/auth_provider.dart';
 import '../../widgets/vibrant_background.dart';
 import '../../widgets/duolingo_button.dart';
 import '../../widgets/mascot.dart';
+import '../../widgets/server_settings_dialog.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -68,6 +69,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    // Server-address gear: change the backend IP on-device when
+                    // the network changes, without rebuilding the app.
+                    Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: IconButton(
+                        icon: const Icon(Icons.dns_rounded,
+                            color: AppTheme.textGray),
+                        tooltip: 'عنوان الخادم',
+                        onPressed: () => showServerSettingsDialog(context),
+                      ),
+                    ),
                     // Hakeem owl in a soft olive disc
                     Center(
                       child: Container(

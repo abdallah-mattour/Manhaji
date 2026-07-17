@@ -25,6 +25,12 @@ class ApiService {
   late final Dio _dio;
   final LocalStorageService _storage;
 
+  /// Point the live client at a new backend base URL (from the in-app server
+  /// dialog) so a network/IP change takes effect immediately — no app restart.
+  void updateBaseUrl(String baseUrl) {
+    _dio.options.baseUrl = baseUrl;
+  }
+
   ApiService(this._storage) {
     _dio = Dio(
       BaseOptions(

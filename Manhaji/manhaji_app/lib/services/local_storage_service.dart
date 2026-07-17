@@ -146,4 +146,19 @@ class LocalStorageService {
 
   Future<void> setSilentModeEnabled(bool enabled) async =>
       _prefs?.setBool(_kStudentSilentMode, enabled);
+
+  // Backend origin override (set via the login-screen "server address" dialog)
+  // so the app can point at a new laptop IP without a rebuild. Full origin, e.g.
+  // `http://192.168.1.104:8080`. Loaded into ApiConfig.runtimeOrigin at startup.
+  static const _kServerBaseUrl = 'server_base_url';
+
+  String? getServerBaseUrl() => _prefs?.getString(_kServerBaseUrl);
+
+  Future<void> setServerBaseUrl(String? origin) async {
+    if (origin == null || origin.isEmpty) {
+      await _prefs?.remove(_kServerBaseUrl);
+    } else {
+      await _prefs?.setString(_kServerBaseUrl, origin);
+    }
+  }
 }

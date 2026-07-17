@@ -7,7 +7,18 @@ class ApiConfig {
   /// Flutter server and return 404, so we point dev web builds at Spring Boot.
   static const String _apiBaseUrl = String.fromEnvironment('API_BASE_URL');
 
+  /// Runtime origin set from the in-app "server address" dialog (persisted in
+  /// SharedPreferences, loaded at startup in `main`). A full origin with scheme
+  /// and port and NO trailing `/api`, e.g. `http://192.168.1.104:8080`.
+  ///
+  /// This is the "change the IP without rebuilding" mechanism: when the laptop's
+  /// address changes (home / campus / hotspot), set it once on the phone and it
+  /// takes precedence over the compiled default below. Null = use the default.
+  static String? runtimeOrigin;
+
   static String get baseUrl {
+    final o = runtimeOrigin;
+    if (o != null && o.isNotEmpty) return '$o/api';
     if (_apiBaseUrl.isNotEmpty) return _apiBaseUrl;
     if (kIsWeb) {
       return _isServedByBackend ? '/api' : 'http://localhost:8080/api';
@@ -16,6 +27,8 @@ class ApiConfig {
   }
 
   static String get serverUrl {
+    final o = runtimeOrigin;
+    if (o != null && o.isNotEmpty) return o;
     if (_apiBaseUrl.isNotEmpty) {
       return _apiBaseUrl.endsWith('/api')
           ? _apiBaseUrl.substring(0, _apiBaseUrl.length - 4)
@@ -25,16 +38,40 @@ class ApiConfig {
     return _nativeServerUrl;
   }
 
+  /// The origin currently in effect (`scheme://host:port`), for pre-filling the
+  /// server-address dialog. Falls back to the native default when nothing is set.
+  static String get currentOrigin {
+    final s = serverUrl;
+    return s.isEmpty ? _nativeServerUrl : s;
+  }
+
+  /// Normalize whatever the user types into a clean origin `http://host:port`.
+  /// Accepts `192.168.1.104`, `192.168.1.104:8080`, `http://192.168.1.104:8080`,
+  /// or a value with a trailing `/` or `/api`. Returns null for blank input
+  /// (which clears the override and falls back to the compiled default).
+  static String? normalizeOrigin(String input) {
+    var s = input.trim();
+    if (s.isEmpty) return null;
+    s = s.replaceAll(RegExp(r'/+$'), '');
+    if (s.endsWith('/api')) s = s.substring(0, s.length - 4);
+    if (!s.startsWith('http://') && !s.startsWith('https://')) {
+      s = 'http://$s';
+    }
+    final uri = Uri.tryParse(s);
+    if (uri == null || uri.host.isEmpty) return null;
+    // Default to port 8080 when the user gave only a host.
+    return uri.hasPort ? s : '${uri.scheme}://${uri.host}:8080';
+  }
+
   static bool get _isServedByBackend {
     final uri = Uri.base;
     return uri.host == 'localhost' && uri.hasPort && uri.port == 8080;
   }
 
-  /// Backend host for on-device (physical phone) testing over Wi-Fi — the dev
-  /// PC's LAN IP. Change this if your PC's Wi-Fi address changes (`ipconfig`).
-  /// For the Android EMULATOR instead, use `http://10.0.2.2:8080`. You can also
-  /// override everything at run time with
-  /// `flutter run --dart-define=API_BASE_URL=http://<ip>:8080/api`.
+  /// Compiled default backend host for on-device (physical phone) testing over
+  /// Wi-Fi — the dev PC's LAN IP. This is only the FALLBACK now: prefer setting
+  /// the address in-app (gear on the login screen) so you never edit source when
+  /// the network changes. For the Android EMULATOR use `http://10.0.2.2:8080`.
   static const String _androidHost = 'http://192.168.1.104:8080';
 
   static String get _nativeServerUrl {
